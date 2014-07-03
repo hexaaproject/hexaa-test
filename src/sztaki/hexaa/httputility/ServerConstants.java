@@ -15,7 +15,7 @@ public class ServerConstants {
 
     public static final int HEXAA_PORT = 80;
     public static final String HEXAA_HEADER = ("X-HEXAA-AUTH");
-    public static final String HEXAA_AUTH = ("cc1f1989e3bd11e5968848d7c0726ac88315483a00c3747d3f80b5aebdce5f93");
+    public static final String HEXAA_AUTH = ("02e4a9a2341a35029cb05e0d569896d0ba8e867c833eb90c5ab9e140895b6ae9");
     public static final String HEXAA_HOST = ("192.168.203.183");
     public static final String HEXAA_SCHEME = ("http");
 
@@ -48,7 +48,7 @@ public class ServerConstants {
         public static final String ORGANIZATIONS_ID_MANAGER = ("/app.php/api/organizations/{id}/managers");
         public static final String ORGANIZATIONS_ID_MANAGER_PID = ("/app.php/api/organizations/{id}/managers/{pid}");
         public static final String ORGANIZATIONS_ID_MEMBERS = ("/app.php/api/organizations/{id}/members");
-        public static final String ORGANIZATIONS_ID_MEMBERS_PID = ("/app.php/api/organizations/{id}/members");
+        public static final String ORGANIZATIONS_ID_MEMBERS_PID = ("/app.php/api/organizations/{id}/members/{pid}");
         public static final String ORGANIZATIONS_ID_ROLES = ("/app.php/api/organizations/{id}/roles");
         public static final String PRINCIPAL = ("/app.php/api/principal");
         public static final String PRINCIPAL_ATTRIBUTESPECS = ("/app.php/api/principal/attributespecs");

@@ -60,6 +60,7 @@ public abstract class HttpUtilityBasicCall {
 
     public void setSId(int sId) {
         this.sId = sId;
+        this.validSId = true;
     }
 
     public void setString(String json) {
@@ -205,8 +206,11 @@ public abstract class HttpUtilityBasicCall {
         // The method is ready to work with path's that require id-s 
         String nPath;
         nPath = this.path;
-        if (this.validId) {
+        if (nPath.contains("{id}")) {
             nPath = this.path.replace("{id}", Integer.toString(this.id));
+        }
+        if (nPath.contains("{pid}")) {
+            nPath = nPath.replace("{pid}", Integer.toString(this.sId));
         }
 
         // Getting the response from the server, this is
