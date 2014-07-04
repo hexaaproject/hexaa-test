@@ -2,6 +2,16 @@
 <project-private xmlns="http://www.netbeans.org/ns/project-private/1">
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
-        <group/>
+        <group>
+            <file>file:/home/ede91bt/Documents/NetBeansProjects/JavaCoreTest/src/sztaki/hexaa/httputility/apicalls/attributes/AttributevaluePrincipals_ID.java</file>
+            <file>file:/home/ede91bt/Documents/NetBeansProjects/JavaCoreTest/src/sztaki/hexaa/httputility/DatabaseManipulator.java</file>
+            <file>file:/home/ede91bt/Documents/NetBeansProjects/JavaCoreTest/src/sztaki/hexaa/httputility/JavaHttpCoreTest.java</file>
+            <file>file:/home/ede91bt/Documents/NetBeansProjects/JavaCoreTest/src/sztaki/hexaa/httputility/apicalls/organizations/Organizations_ID_Members_PID.java</file>
+            <file>file:/home/ede91bt/Documents/NetBeansProjects/JavaCoreTest/src/sztaki/hexaa/httputility/apicalls/attributes/AttributevalueOrganizations_ID.java</file>
+            <file>file:/home/ede91bt/Documents/NetBeansProjects/JavaCoreTest/src/sztaki/hexaa/httputility/apicalls/attributes/Attributespecs_ID.java</file>
+            <file>file:/home/ede91bt/Documents/NetBeansProjects/JavaCoreTest/src/sztaki/hexaa/httputility/HttpUtilityBasicCall.java</file>
+            <file>file:/home/ede91bt/Documents/NetBeansProjects/JavaCoreTest/test/sztaki/hexaa/httputility/apicalls/attributes/AttributespecsTest.java</file>
+            <file>file:/home/ede91bt/Documents/NetBeansProjects/JavaCoreTest/src/sztaki/hexaa/httputility/apicalls/attributes/Attributespecs.java</file>
+        </group>
     </open-files>
 </project-private>

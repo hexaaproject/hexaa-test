@@ -24,22 +24,24 @@ import sztaki.hexaa.httputility.apicalls.services.Services_Managers_PID;
 public class JavaHttpCoreTest {
 
     public static void main(String[] args) {
+        
+        new Authenticator();
 
-        DatabaseManipulator dm = new DatabaseManipulator();
-        dm.dropDatabase();
-
-        JavaHttpCoreTest HCT = new JavaHttpCoreTest();
-        
-        HttpUtilityBasicCall organizationsMembers = new Organizations_ID_Members_PID();
-        
-        organizationsMembers.setId(1);
-        organizationsMembers.setSId(1);
-        
-        System.out.println(organizationsMembers.call(REST.GET,1,1));
-        System.out.println(organizationsMembers.call(REST.POST,1,1));
-        System.out.println(organizationsMembers.call(REST.PUT,1,1));
-        System.out.println(organizationsMembers.call(REST.DELETE,1,1));
-        
+//        DatabaseManipulator dm = new DatabaseManipulator();
+//        dm.dropDatabase();
+//
+//        JavaHttpCoreTest HCT = new JavaHttpCoreTest();
+//        
+//        HttpUtilityBasicCall organizationsMembers = new Organizations_ID_Members_PID();
+//        
+//        organizationsMembers.setId(1);
+//        organizationsMembers.setSId(1);
+//        
+//        System.out.println(organizationsMembers.call(REST.GET,1,1));
+//        System.out.println(organizationsMembers.call(REST.POST,1,1));
+//        System.out.println(organizationsMembers.call(REST.PUT,1,1));
+//        System.out.println(organizationsMembers.call(REST.DELETE,1,1));
+//        
         
  //       HCT.printAllCall(organizationsMembers);
 

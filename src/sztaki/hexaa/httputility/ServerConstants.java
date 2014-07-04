@@ -15,7 +15,7 @@ public class ServerConstants {
 
     public static final int HEXAA_PORT = 80;
     public static final String HEXAA_HEADER = ("X-HEXAA-AUTH");
-    public static final String HEXAA_AUTH = ("02e4a9a2341a35029cb05e0d569896d0ba8e867c833eb90c5ab9e140895b6ae9");
+    public static String HEXAA_AUTH = ("02e4a9a2341a35029cb05e0d569896d0ba8e867c833eb90c5ab9e140895b6ae9");
     public static final String HEXAA_HOST = ("192.168.203.183");
     public static final String HEXAA_SCHEME = ("http");
 
@@ -66,6 +66,10 @@ public class ServerConstants {
         public static final String SERVICES_ENTITLEMENTS = ("/app.php/api/services/{id}/entitlements");
         public static final String SERVICES_MANAGERS = ("/app.php/api/services/{id}/managers");
         public static final String SERVICES_MANAGERS_PID = ("/app.php/api/services/{id}/managers/{pid}");
-
+        public static final String TOKEN = ("/app.php/api/token");
+    }
+    
+    public void setAuth (String string) {
+        HEXAA_AUTH = string;
     }
 }
