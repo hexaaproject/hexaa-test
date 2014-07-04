@@ -3,6 +3,7 @@ package sztaki.hexaa.httputility;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.io.UnsupportedEncodingException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import sztaki.hexaa.httputility.core.HttpCoreDelete;
@@ -212,6 +213,21 @@ public abstract class HttpUtilityBasicCall {
         if (nPath.contains("{pid}")) {
             nPath = nPath.replace("{pid}", Integer.toString(this.sId));
         }
+        if (nPath.contains("{sid}")) {
+            nPath = nPath.replace("{sid}", Integer.toString(this.sId));
+        }
+        if (nPath.contains("{asid}")) {
+            nPath = nPath.replace("{asid}", Integer.toString(this.sId));
+        }
+        if (nPath.contains("{eid}")) {
+            nPath = nPath.replace("{eid}", Integer.toString(this.sId));
+        }
+        if (nPath.contains("{epid}")) {
+            nPath = nPath.replace("{epid}", Integer.toString(this.sId));
+        }
+        if (nPath.contains("{fedid}")) {
+            nPath = nPath.replace("{fedid}", Integer.toString(this.sId));
+        }
 
         // Getting the response from the server, this is
         // wrapped in the javahttputility.core package
@@ -276,16 +292,47 @@ public abstract class HttpUtilityBasicCall {
         // The method is ready to work with path's that require id-s 
         String nPath;
         nPath = this.path;
-        if (this.validId) {
+        if (nPath.contains("{id}")) {
             nPath = this.path.replace("{id}", Integer.toString(this.id));
         }
+        if (nPath.contains("{pid}")) {
+            nPath = nPath.replace("{pid}", Integer.toString(this.sId));
+        }
+        if (nPath.contains("{sid}")) {
+            nPath = nPath.replace("{sid}", Integer.toString(this.sId));
+        }
+        if (nPath.contains("{asid}")) {
+            nPath = nPath.replace("{asid}", Integer.toString(this.sId));
+        }
+        if (nPath.contains("{eid}")) {
+            nPath = nPath.replace("{eid}", Integer.toString(this.sId));
+        }
+        if (nPath.contains("{epid}")) {
+            nPath = nPath.replace("{epid}", Integer.toString(this.sId));
+        }
+        if (nPath.contains("{fedid}")) {
+            nPath = nPath.replace("{fedid}", Integer.toString(this.sId));
+        }
+        
+        nPath = nPath.concat(".json");
+        
+//        json = json.substring(1, json.length()-1);
+//        
+//        System.out.println(json.charAt(0));
+//        System.out.println(json.charAt(json.length()-1));
+//        
+//        String temp1 = "{";
+//        json = temp1.concat(json);
+//        json = json.concat("}");
+//        
+        System.out.println(nPath);
+        System.out.println(json);
 
         // Getting the response from the server, this is
         // wrapped in the javahttputility.core package
         HttpCorePost entityids = new HttpCorePost(nPath);
-        if (json != null) {
             entityids.setJSon(this.json);
-        }
+        
         CloseableHttpResponse response = entityids.post();
 
         BufferedReader br = null;
@@ -332,6 +379,24 @@ public abstract class HttpUtilityBasicCall {
         nPath = this.path;
         if (this.validId) {
             nPath = this.path.replace("{id}", Integer.toString(this.id));
+        }
+        if (nPath.contains("{pid}")) {
+            nPath = nPath.replace("{pid}", Integer.toString(this.sId));
+        }
+        if (nPath.contains("{sid}")) {
+            nPath = nPath.replace("{sid}", Integer.toString(this.sId));
+        }
+        if (nPath.contains("{asid}")) {
+            nPath = nPath.replace("{asid}", Integer.toString(this.sId));
+        }
+        if (nPath.contains("{eid}")) {
+            nPath = nPath.replace("{eid}", Integer.toString(this.sId));
+        }
+        if (nPath.contains("{epid}")) {
+            nPath = nPath.replace("{epid}", Integer.toString(this.sId));
+        }
+        if (nPath.contains("{fedid}")) {
+            nPath = nPath.replace("{fedid}", Integer.toString(this.sId));
         }
 
         // Getting the response from the server, this is
@@ -384,6 +449,24 @@ public abstract class HttpUtilityBasicCall {
         nPath = this.path;
         if (this.validId) {
             nPath = this.path.replace("{id}", Integer.toString(this.id));
+        }
+        if (nPath.contains("{pid}")) {
+            nPath = nPath.replace("{pid}", Integer.toString(this.sId));
+        }
+        if (nPath.contains("{sid}")) {
+            nPath = nPath.replace("{sid}", Integer.toString(this.sId));
+        }
+        if (nPath.contains("{asid}")) {
+            nPath = nPath.replace("{asid}", Integer.toString(this.sId));
+        }
+        if (nPath.contains("{eid}")) {
+            nPath = nPath.replace("{eid}", Integer.toString(this.sId));
+        }
+        if (nPath.contains("{epid}")) {
+            nPath = nPath.replace("{epid}", Integer.toString(this.sId));
+        }
+        if (nPath.contains("{fedid}")) {
+            nPath = nPath.replace("{fedid}", Integer.toString(this.sId));
         }
 
         // Getting the response from the server, this is

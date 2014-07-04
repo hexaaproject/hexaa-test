@@ -24,6 +24,9 @@ import sztaki.hexaa.httputility.apicalls.services.Services_Managers_PID;
 public class JavaHttpCoreTest {
 
     public static void main(String[] args) {
+  
+        
+        
         
         new Authenticator();
 

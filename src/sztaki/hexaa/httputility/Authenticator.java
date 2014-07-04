@@ -5,16 +5,12 @@
  */
 package sztaki.hexaa.httputility;
 
-import java.io.UnsupportedEncodingException;
-import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
 import java.time.DateTimeException;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
-import java.util.Arrays;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
 import sztaki.hexaa.httputility.apicalls.Token;
 import sztaki.hexaa.httputility.apicalls.principals.Principal;
 
@@ -30,51 +26,47 @@ public class Authenticator {
         String response = getPrincipal.call(HttpUtilityBasicCall.REST.GET);
 
         System.out.println(response);
-
+        // If the response is Forbidden, we start the authentication
         if (response.contains("401") || response.contains("403")) {
             System.out.println("Forbidden");
 
-            byte[] digest = null;
             String out = null;
+            String sha256hex;
 
+            // Set a ZoneId so we can get zone specific time, in this case "UTC"
+            ZoneId id = ZoneId.of("UTC");
+            LocalDateTime date = LocalDateTime.now(id);
+            System.out.println(date.toString());
             try {
-                ZoneId id = ZoneId.of("UTC");
-                LocalDateTime date = LocalDateTime.now(id);
-                System.out.println(date.toString());
-                try {
-                    DateTimeFormatter format = DateTimeFormatter.ofPattern("y-M-d  h:m");
-                    out = date.format(format);
-                    System.out.println(out);
-                } catch (DateTimeException exc) {
-                    throw exc;
-                }
-                MessageDigest md = MessageDigest.getInstance("SHA-256");
-                String text = "7lrfjlpu5br2vpv1jcaogdz481b28xf7lz85wqmv";
-                text = text.concat(out);
-
-                //md.update(text.getBytes("UTF-8"));
-                md.update(text.getBytes("UTF-8"));
-                digest = md.digest();
-            } catch (NoSuchAlgorithmException | UnsupportedEncodingException ex) {
-                Logger.getLogger(Authenticator.class.getName()).log(Level.SEVERE, null, ex);
+                // Format the date to the required pattern
+                DateTimeFormatter format = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+                out = date.format(format);
+                System.out.println(out);
+            } catch (DateTimeException exc) {
+                throw exc;
             }
-            if (digest == null) {
+            String text = "7lrfjlpu5br2vpv1jcaogdz481b28xf7lz85wqmv";
+
+            text = text.concat(out);
+            System.out.println(text);
+
+            sha256hex = org.apache.commons.codec.digest.DigestUtils.sha256Hex(text);
+            if (sha256hex == null) {
                 System.exit(0);
             }
-
-            StringBuilder sb = new StringBuilder();
-            for (int i = 0; i < digest.length; i++) {
-                sb.append(Integer.toString((digest[i] & 0xff) + 0x100, 16).substring(1));
-            }
-            System.out.println(sb.toString());
+            System.out.println(sha256hex);
 
             HttpUtilityBasicCall postToken = new Token();
 
-            response = postToken.call(HttpUtilityBasicCall.REST.POST, sb.toString(), 0, 2);
+            JSONObject json = new JSONObject();
+            json.put("fedid", "ede91bt@gmail.com@partners.sztaki.hu");
+            json.put("apikey", sha256hex);
+
+            response = postToken.call(HttpUtilityBasicCall.REST.POST, json.toString());
 
             System.out.println(response);
 
-            if (response != null) {
+            if (response != null && !response.contains("Bad Request") && !response.contains("Method Not Found")) {
                 ServerConstants.HEXAA_AUTH = response;
             }
 
