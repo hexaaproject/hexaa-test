@@ -66,8 +66,8 @@ public class Authenticator {
 
             System.out.println(response);
 
-            if (response != null && !response.contains("Bad Request") && !response.contains("Method Not Found")) {
-                ServerConstants.HEXAA_AUTH = response;
+            if (response != null) {
+                ServerConstants.HEXAA_AUTH = response.substring(10, response.length()-2);
             }
 
             /*End of Forbidden*/

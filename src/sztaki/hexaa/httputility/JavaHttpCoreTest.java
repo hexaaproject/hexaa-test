@@ -29,6 +29,10 @@ public class JavaHttpCoreTest {
         
         
         new Authenticator();
+        
+        System.out.println(ServerConstants.HEXAA_AUTH);
+        new Authenticator();
+        
 
 //        DatabaseManipulator dm = new DatabaseManipulator();
 //        dm.dropDatabase();
