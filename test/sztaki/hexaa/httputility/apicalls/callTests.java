@@ -1,9 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-
 package sztaki.hexaa.httputility.apicalls;
 
 
@@ -16,17 +10,16 @@ import org.junit.runners.Suite;
 import sztaki.hexaa.httputility.Authenticator;
 import sztaki.hexaa.httputility.DatabaseManipulator;
 import sztaki.hexaa.httputility.apicalls.attributes.*;
+import sztaki.hexaa.httputility.apicalls.services.*;
 
-/**
- *
- * @author Bana Tibor
- */
 @RunWith(Suite.class)
 @Suite.SuiteClasses({
     InvitationTest.class,
-    Attributespecs_Empty_Test.class,
-    Attributespecs_Insert_Test.class,
-    Attributespecs_nonEmpty_Test.class,
+    AttributespecsEmptyTest.class,
+    AttributespecsInsertTest.class,
+    AttributespecsNonEmptyTest.class,
+    ServicesEmptyTest.class,
+    ServicesInsertTest.class
 
 
 })
@@ -34,7 +27,6 @@ public class callTests {
 
     @BeforeClass
     public static void setUpClass() throws Exception {
-        
         new DatabaseManipulator().dropDatabase();
         new Authenticator().authenticate();
     }

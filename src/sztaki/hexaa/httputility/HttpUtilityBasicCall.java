@@ -197,6 +197,17 @@ public abstract class HttpUtilityBasicCall {
         HttpCoreGet entityids = new HttpCoreGet(nPath);
         CloseableHttpResponse response = entityids.get();
 
+        try {
+            // If there is no content body we have to return an empty string
+            if (response == null
+                    || response.getEntity() == null
+                    || response.getEntity().getContent() == null) {
+                return "";
+            }
+        } catch (IOException | IllegalStateException ex) {
+            Logger.getLogger(HttpUtilityBasicCall.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
         // Initializing the required reader
         BufferedReader br = null;
 
@@ -274,6 +285,17 @@ public abstract class HttpUtilityBasicCall {
         entityids.setJSon(this.json);
 
         CloseableHttpResponse response = entityids.post();
+
+        try {
+            // If there is no content body we have to return an empty string
+            if (response == null
+                    || response.getEntity() == null
+                    || response.getEntity().getContent() == null) {
+                return "";
+            }
+        } catch (IOException | IllegalStateException ex) {
+            Logger.getLogger(HttpUtilityBasicCall.class.getName()).log(Level.SEVERE, null, ex);
+        }
 
         BufferedReader br = null;
 
@@ -357,9 +379,7 @@ public abstract class HttpUtilityBasicCall {
                     || response.getEntity().getContent() == null) {
                 return "";
             }
-        } catch (IOException ex) {
-            Logger.getLogger(HttpUtilityBasicCall.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (IllegalStateException ex) {
+        } catch (IOException | IllegalStateException ex) {
             Logger.getLogger(HttpUtilityBasicCall.class.getName()).log(Level.SEVERE, null, ex);
         }
 
@@ -435,6 +455,17 @@ public abstract class HttpUtilityBasicCall {
         // wrapped in the javahttputility.core package
         HttpCoreDelete entityids = new HttpCoreDelete(nPath);
         CloseableHttpResponse response = entityids.delete();
+
+        try {
+            // If there is no content body we have to return an empty string
+            if (response == null
+                    || response.getEntity() == null
+                    || response.getEntity().getContent() == null) {
+                return "";
+            }
+        } catch (IOException | IllegalStateException ex) {
+            Logger.getLogger(HttpUtilityBasicCall.class.getName()).log(Level.SEVERE, null, ex);
+        }
 
         BufferedReader br = null;
 

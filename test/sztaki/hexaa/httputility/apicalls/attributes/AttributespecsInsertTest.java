@@ -1,20 +1,12 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package sztaki.hexaa.httputility.apicalls.attributes;
 
 import org.json.simple.JSONObject;
-import org.junit.Test;
+import org.junit.AfterClass;
 import static org.junit.Assert.*;
+import org.junit.Test;
 import sztaki.hexaa.httputility.HttpUtilityBasicCall;
 
-/**
- *
- * @author Bana Tibor
- */
-public class Attributespecs_Insert_Test {
+public class AttributespecsInsertTest {
 
     @Test
     public void testInserting() {
@@ -25,7 +17,7 @@ public class Attributespecs_Insert_Test {
         json.put("syntax", "noSyntax1");
         json.put("is_multivalue", false);
 
-        assertEquals("[]", new Attributespecs().call(HttpUtilityBasicCall.REST.GET, json.toJSONString()));
+        assertEquals("", new Attributespecs().call(HttpUtilityBasicCall.REST.POST, json.toJSONString()));
 
         json = new JSONObject();
         json.put("oid", "2");
@@ -33,7 +25,15 @@ public class Attributespecs_Insert_Test {
         json.put("syntax", "noSyntax2");
         json.put("is_multivalue", false);
 
-        assertEquals("[]", new Attributespecs().call(HttpUtilityBasicCall.REST.GET, json.toJSONString()));
+        assertEquals("", new Attributespecs().call(HttpUtilityBasicCall.REST.POST, json.toJSONString()));
 
+    }
+    
+    @AfterClass
+    public static void tearDown() {
+        System.out.println(
+                new Attributespecs_ID().call(HttpUtilityBasicCall.REST.DELETE, 1, 0));
+        System.out.println(
+                new Attributespecs_ID().call(HttpUtilityBasicCall.REST.DELETE, 2, 0));
     }
 }
