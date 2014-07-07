@@ -90,12 +90,7 @@ public abstract class HttpUtilityBasicCall {
         GET, POST, PUT, DELETE
     }
 
-    /**
-     * Method for API calls that do not require any ids or JSON.
-     *
-     * @param restCall
-     * @return
-     */
+    /* *** Normal calls, returns the response json *** */
     public String call(REST restCall) {
         this.setString(null);
         this.setId(0);
@@ -192,8 +187,9 @@ public abstract class HttpUtilityBasicCall {
         if (nPath.contains("{fedid}")) {
             nPath = nPath.replace("{fedid}", Integer.toString(this.sId));
         }
-        
+
         nPath = nPath.concat(".json");
+        System.out.print("GET \t");
         System.out.println(nPath);
 
         // Getting the response from the server, this is
@@ -201,13 +197,9 @@ public abstract class HttpUtilityBasicCall {
         HttpCoreGet entityids = new HttpCoreGet(nPath);
         CloseableHttpResponse response = entityids.get();
 
-        // Initializing the parser and the required objects and reader
-            /*JSONParser parser;
-         parser = new JSONParser();*/
+        // Initializing the required reader
         BufferedReader br = null;
-        /*
-         JSONObject oData = null;
-         JSONArray aData = null;*/
+
         String responseDataString = new String();
         try {
             // Reading the JSON payload in bytes
@@ -271,15 +263,16 @@ public abstract class HttpUtilityBasicCall {
         if (nPath.contains("{fedid}")) {
             nPath = nPath.replace("{fedid}", Integer.toString(this.sId));
         }
-        
+
         nPath = nPath.concat(".json");
+        System.out.print("POST \t");
         System.out.println(nPath);
 
         // Getting the response from the server, this is
         // wrapped in the javahttputility.core package
         HttpCorePost entityids = new HttpCorePost(nPath);
-            entityids.setJSon(this.json);
-        
+        entityids.setJSon(this.json);
+
         CloseableHttpResponse response = entityids.post();
 
         BufferedReader br = null;
@@ -325,7 +318,7 @@ public abstract class HttpUtilityBasicCall {
         String nPath;
         nPath = this.path;
         if (this.validId) {
-            nPath = this.path.replace("{id}", Integer.toString(this.id));
+            nPath = nPath.replace("{id}", Integer.toString(this.id));
         }
         if (nPath.contains("{pid}")) {
             nPath = nPath.replace("{pid}", Integer.toString(this.sId));
@@ -345,16 +338,30 @@ public abstract class HttpUtilityBasicCall {
         if (nPath.contains("{fedid}")) {
             nPath = nPath.replace("{fedid}", Integer.toString(this.sId));
         }
-        
+
         nPath = nPath.concat(".json");
+        System.out.print("PUT \t");
         System.out.println(nPath);
 
         // Getting the response from the server, this is
         // wrapped in the javahttputility.core package
-        HttpCorePost entityids = new HttpCorePost(nPath);
-            entityids.setJSon(this.json);
-        
-        CloseableHttpResponse response = entityids.post();
+        HttpCorePut entityids = new HttpCorePut(nPath);
+        entityids.setJSon(this.json);
+
+        CloseableHttpResponse response = entityids.put();
+
+        try {
+            // If there is no content body we have to return an empty string
+            if (response == null
+                    || response.getEntity() == null
+                    || response.getEntity().getContent() == null) {
+                return "";
+            }
+        } catch (IOException ex) {
+            Logger.getLogger(HttpUtilityBasicCall.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (IllegalStateException ex) {
+            Logger.getLogger(HttpUtilityBasicCall.class.getName()).log(Level.SEVERE, null, ex);
+        }
 
         BufferedReader br = null;
 
@@ -419,8 +426,9 @@ public abstract class HttpUtilityBasicCall {
         if (nPath.contains("{fedid}")) {
             nPath = nPath.replace("{fedid}", Integer.toString(this.sId));
         }
-        
+
         nPath = nPath.concat(".json");
+        System.out.print("DELETE \t");
         System.out.println(nPath);
 
         // Getting the response from the server, this is

@@ -61,12 +61,11 @@ public class HttpCorePut {
     }
 
     public void setJSon(String json) {
-        BasicHttpEntity entity = new BasicHttpEntity();
-
         if (json == null) {
             json = new String();
         }
 
+        BasicHttpEntity entity = new BasicHttpEntity();
         entity.setContent(new ByteArrayInputStream(json.getBytes(StandardCharsets.UTF_8)));
         entity.setContentLength(json.length());
         httpAction.setEntity(entity);

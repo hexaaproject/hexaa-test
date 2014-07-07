@@ -15,7 +15,7 @@ public class ServerConstants {
 
     public static final int HEXAA_PORT = 80;
     public static final String HEXAA_HEADER = ("X-HEXAA-AUTH");
-    public static String HEXAA_AUTH = ("9021d0e3810ebb5af69de563a06a7732d397bd00e98e25113c64b1f260870e9b");
+    public static String HEXAA_AUTH = ("1c04c81498d1e534abe433998c48c60c9df628d7ce0ab60897546ac4599edd28");
     public static final String HEXAA_HOST = ("192.168.203.183");
     public static final String HEXAA_SCHEME = ("http");
 
