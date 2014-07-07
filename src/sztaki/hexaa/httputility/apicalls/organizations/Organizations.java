@@ -5,7 +5,6 @@
  */
 package sztaki.hexaa.httputility.apicalls.organizations;
 
-import sztaki.hexaa.httputility.apicalls.*;
 import sztaki.hexaa.httputility.HttpUtilityBasicCall;
 import sztaki.hexaa.httputility.ServerConstants;
 

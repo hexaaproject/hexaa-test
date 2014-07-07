@@ -27,18 +27,10 @@ public abstract class HttpUtilityBasicCall {
     // The requested ID and validation and requirement options
     private int id;
     private boolean validId;
-//    private boolean requireId_get;
-//    private boolean requireId_post;
-//    private boolean requireId_put;
-//    private boolean requireId_delete;
 
     // The possible special ID and validation and requirement options
     private int sId;
     private boolean validSId;
-//    private boolean requireSId_get;
-//    private boolean requireSId_post;
-//    private boolean requireSId_put;
-//    private boolean requireSId_delete;
 
     // The JSON payload in a string format
     private String json;
@@ -70,34 +62,6 @@ public abstract class HttpUtilityBasicCall {
         }
         this.json = json;
     }
-//
-//    public final void setIdRequirement(boolean get, boolean post, boolean put, boolean delete) {
-//        requireId_get = get;
-//        requireId_post = post;
-//        requireId_put = put;
-//        requireId_delete = delete;
-//    }
-//
-//    public final void setIdRequirement(boolean all) {
-//        requireId_get = all;
-//        requireId_post = all;
-//        requireId_put = all;
-//        requireId_delete = all;
-//    }
-//
-//    public final void setSIdRequirement(boolean get, boolean post, boolean put, boolean delete) {
-//        requireSId_get = get;
-//        requireSId_post = post;
-//        requireSId_put = put;
-//        requireSId_delete = delete;
-//    }
-//
-//    public final void setSIdRequirement(boolean all) {
-//        requireSId_get = all;
-//        requireSId_post = all;
-//        requireSId_put = all;
-//        requireSId_delete = all;
-//    }
 
     /* *** Constructor *** */
     public HttpUtilityBasicCall() {
@@ -199,7 +163,7 @@ public abstract class HttpUtilityBasicCall {
 
     /* *** Http handlers *** */
     /**
-     * Returns the JSON payload from the respective response's content
+     * Returns the JSON payload from the GET response's content
      *
      * @return String: JSON payload
      */
@@ -228,6 +192,9 @@ public abstract class HttpUtilityBasicCall {
         if (nPath.contains("{fedid}")) {
             nPath = nPath.replace("{fedid}", Integer.toString(this.sId));
         }
+        
+        nPath = nPath.concat(".json");
+        System.out.println(nPath);
 
         // Getting the response from the server, this is
         // wrapped in the javahttputility.core package
@@ -257,15 +224,6 @@ public abstract class HttpUtilityBasicCall {
                     responseDataString = responseDataString.concat(temp);
                     temp = br.readLine();
                 }
-
-                // Parsing the string into JSON data
-                /* else if (responseDataString.charAt(0) == '[') {
-                 aData = (JSONArray) parser.parse(responseDataString);
-                 System.out.println(aData.toString());
-                 } else if (responseDataString.charAt(0) == '{') {
-                 oData = (JSONObject) parser.parse(responseDataString);
-                 System.out.println(oData.toString());
-                 }*/
             }
 
         } catch (IllegalStateException | IOException ex) {
@@ -284,7 +242,7 @@ public abstract class HttpUtilityBasicCall {
     }
 
     /**
-     * Uses the supplied json for the request and returns the json
+     * Uses the supplied json for the POST request and returns the json
      *
      * @return
      */
@@ -315,18 +273,7 @@ public abstract class HttpUtilityBasicCall {
         }
         
         nPath = nPath.concat(".json");
-        
-//        json = json.substring(1, json.length()-1);
-//        
-//        System.out.println(json.charAt(0));
-//        System.out.println(json.charAt(json.length()-1));
-//        
-//        String temp1 = "{";
-//        json = temp1.concat(json);
-//        json = json.concat("}");
-//        
         System.out.println(nPath);
-        System.out.println(json);
 
         // Getting the response from the server, this is
         // wrapped in the javahttputility.core package
@@ -398,12 +345,16 @@ public abstract class HttpUtilityBasicCall {
         if (nPath.contains("{fedid}")) {
             nPath = nPath.replace("{fedid}", Integer.toString(this.sId));
         }
+        
+        nPath = nPath.concat(".json");
+        System.out.println(nPath);
 
         // Getting the response from the server, this is
         // wrapped in the javahttputility.core package
-        HttpCorePut entityids = new HttpCorePut(nPath);
-        entityids.setJSon(this.json);
-        CloseableHttpResponse response = entityids.put();
+        HttpCorePost entityids = new HttpCorePost(nPath);
+            entityids.setJSon(this.json);
+        
+        CloseableHttpResponse response = entityids.post();
 
         BufferedReader br = null;
 
@@ -468,6 +419,9 @@ public abstract class HttpUtilityBasicCall {
         if (nPath.contains("{fedid}")) {
             nPath = nPath.replace("{fedid}", Integer.toString(this.sId));
         }
+        
+        nPath = nPath.concat(".json");
+        System.out.println(nPath);
 
         // Getting the response from the server, this is
         // wrapped in the javahttputility.core package

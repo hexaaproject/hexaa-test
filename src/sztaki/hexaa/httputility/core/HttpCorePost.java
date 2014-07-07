@@ -9,13 +9,10 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import sztaki.hexaa.httputility.ServerConstants;
 import org.apache.http.Header;
-import org.apache.http.HeaderElement;
-import org.apache.http.ParseException;
 import org.apache.http.client.methods.CloseableHttpResponse;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.client.utils.URIBuilder;
 import org.apache.http.entity.BasicHttpEntity;
-import org.apache.http.entity.ContentType;
 import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClients;
 import org.apache.http.message.BasicHeader;
@@ -26,7 +23,7 @@ import org.apache.http.message.BasicHeader;
  */
 public class HttpCorePost {
 
-    private HttpPost httpPost = null;
+    private HttpPost httpAction = null;
 
     public HttpCorePost(String path) {
         URI uri = null;
@@ -41,10 +38,10 @@ public class HttpCorePost {
             Logger.getLogger(HttpCorePost.class.getName()).log(Level.SEVERE, null, ex);
         }
         if (uri != null) {
-            httpPost = new HttpPost(uri);
-            //Header hexaa_auth = new BasicHeader(ServerConstants.HEXAA_HEADER, ServerConstants.HEXAA_AUTH);
-            //httpPost.addHeader(hexaa_auth);
-            httpPost.setHeader("Content-type", "application/json");
+            httpAction = new HttpPost(uri);
+            Header hexaa_auth = new BasicHeader(ServerConstants.HEXAA_HEADER, ServerConstants.HEXAA_AUTH);
+            httpAction.addHeader(hexaa_auth);
+            httpAction.setHeader("Content-type", "application/json");
             
         }
     }
@@ -54,7 +51,7 @@ public class HttpCorePost {
         CloseableHttpClient httpClient = HttpClients.createDefault();
 
         try {
-            response = httpClient.execute(httpPost);
+            response = httpClient.execute(httpAction);
         } catch (IOException ex) {
             Logger.getLogger(HttpCorePost.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -70,6 +67,6 @@ public class HttpCorePost {
         BasicHttpEntity entity = new BasicHttpEntity();
         entity.setContent(new ByteArrayInputStream(json.getBytes(StandardCharsets.UTF_8)));
         entity.setContentLength(json.length());
-        httpPost.setEntity(entity);
+        httpAction.setEntity(entity);
     }
 }

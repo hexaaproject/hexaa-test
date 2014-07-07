@@ -9,8 +9,11 @@ import java.time.DateTimeException;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
-import org.json.simple.JSONArray;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import org.json.simple.JSONObject;
+import org.json.simple.parser.JSONParser;
+import org.json.simple.parser.ParseException;
 import sztaki.hexaa.httputility.apicalls.Token;
 import sztaki.hexaa.httputility.apicalls.principals.Principal;
 
@@ -20,58 +23,61 @@ import sztaki.hexaa.httputility.apicalls.principals.Principal;
  */
 public class Authenticator {
 
-    public Authenticator() {
+    public void authenticate() {
         // We check the current connection, if we don't get 
         HttpUtilityBasicCall getPrincipal = new Principal();
         String response = getPrincipal.call(HttpUtilityBasicCall.REST.GET);
 
-        System.out.println(response);
         // If the response is Forbidden, we start the authentication
         if (response.contains("401") || response.contains("403")) {
-            System.out.println("Forbidden");
-
-            String out = null;
-            String sha256hex;
-
-            // Set a ZoneId so we can get zone specific time, in this case "UTC"
-            ZoneId id = ZoneId.of("UTC");
-            LocalDateTime date = LocalDateTime.now(id);
-            System.out.println(date.toString());
             try {
-                // Format the date to the required pattern
-                DateTimeFormatter format = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
-                out = date.format(format);
-                System.out.println(out);
-            } catch (DateTimeException exc) {
-                throw exc;
+                System.out.println("Forbidden");
+
+                HttpUtilityBasicCall postToken = new Token();
+
+                JSONObject json = new JSONObject();
+                json.put("fedid", "ede91bt@gmail.com@partners.sztaki.hu");
+                json.put("apikey", this.getAPIKey());
+
+                response = postToken.call(HttpUtilityBasicCall.REST.POST, json.toString());
+
+                JSONObject jsonResponse;
+                jsonResponse = (JSONObject) new JSONParser().parse(response);
+
+                ServerConstants.HEXAA_AUTH = jsonResponse.get("token").toString();
+
+                /*End of Forbidden*/
+            } catch (ParseException ex) {
+                Logger.getLogger(Authenticator.class.getName()).log(Level.SEVERE, null, ex);
             }
-            String text = "7lrfjlpu5br2vpv1jcaogdz481b28xf7lz85wqmv";
-
-            text = text.concat(out);
-            System.out.println(text);
-
-            sha256hex = org.apache.commons.codec.digest.DigestUtils.sha256Hex(text);
-            if (sha256hex == null) {
-                System.exit(0);
-            }
-            System.out.println(sha256hex);
-
-            HttpUtilityBasicCall postToken = new Token();
-
-            JSONObject json = new JSONObject();
-            json.put("fedid", "ede91bt@gmail.com@partners.sztaki.hu");
-            json.put("apikey", sha256hex);
-
-            response = postToken.call(HttpUtilityBasicCall.REST.POST, json.toString());
-
-            System.out.println(response);
-
-            if (response != null) {
-                ServerConstants.HEXAA_AUTH = response.substring(10, response.length()-2);
-            }
-
-            /*End of Forbidden*/
         }
+
+    }
+
+    public String getAPIKey() {
+        String out = null;
+        String sha256hex;
+
+        // Set a ZoneId so we can get zone specific time, in this case "UTC"
+        ZoneId id = ZoneId.of("UTC");
+        LocalDateTime date = LocalDateTime.now(id);
+        try {
+            // Format the date to the required pattern
+            DateTimeFormatter format = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+            out = date.format(format);
+        } catch (DateTimeException exc) {
+            throw exc;
+        }
+        String text = "7lrfjlpu5br2vpv1jcaogdz481b28xf7lz85wqmv";
+
+        text = text.concat(out);
+
+        sha256hex = org.apache.commons.codec.digest.DigestUtils.sha256Hex(text);
+        if (sha256hex == null) {
+            System.exit(0);
+        }
+
+        return sha256hex;
 
     }
 }

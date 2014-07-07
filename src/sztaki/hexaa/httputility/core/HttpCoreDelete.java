@@ -9,6 +9,7 @@ import sztaki.hexaa.httputility.ServerConstants;
 import org.apache.http.Header;
 import org.apache.http.client.methods.CloseableHttpResponse;
 import org.apache.http.client.methods.HttpDelete;
+import org.apache.http.client.methods.HttpPost;
 import org.apache.http.client.utils.URIBuilder;
 import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClients;
@@ -20,7 +21,7 @@ import org.apache.http.message.BasicHeader;
  */
 public class HttpCoreDelete {
 
-    private HttpDelete httpDelete = null;
+    private HttpDelete httpAction = null;
 
     public HttpCoreDelete(String path) {
         URI uri = null;
@@ -35,9 +36,11 @@ public class HttpCoreDelete {
             Logger.getLogger(HttpCorePost.class.getName()).log(Level.SEVERE, null, ex);
         }
         if (uri != null) {
-            httpDelete = new HttpDelete(uri);
+            httpAction = new HttpDelete(uri);
             Header hexaa_auth = new BasicHeader(ServerConstants.HEXAA_HEADER, ServerConstants.HEXAA_AUTH);
-            httpDelete.addHeader(hexaa_auth);
+            httpAction.addHeader(hexaa_auth);
+            httpAction.setHeader("Content-type", "application/json");
+            
         }
     }
 
@@ -46,7 +49,7 @@ public class HttpCoreDelete {
         CloseableHttpClient httpClient = HttpClients.createDefault();
 
         try {
-            response = httpClient.execute(httpDelete);
+            response = httpClient.execute(httpAction);
         } catch (IOException ex) {
             Logger.getLogger(HttpCorePost.class.getName()).log(Level.SEVERE, null, ex);
         }

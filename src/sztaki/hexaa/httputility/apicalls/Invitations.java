@@ -3,6 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
+
 package sztaki.hexaa.httputility.apicalls;
 
 import sztaki.hexaa.httputility.HttpUtilityBasicCall;
@@ -10,14 +11,13 @@ import sztaki.hexaa.httputility.ServerConstants;
 
 /**
  *
- * Calls the {@value ServerConstants.ApiCalls.ENTITYIDS} URI
- *
  * @author Bana Tibor
  */
-public class Member_Organizations extends HttpUtilityBasicCall {
-
-    public Member_Organizations() {
+public class Invitations extends HttpUtilityBasicCall {
+    
+    public Invitations() {
         super();
-        this.setPath(ServerConstants.ApiCalls.MEMBER_ORGANIZATIONS);
+        this.setPath(ServerConstants.ApiCalls.INVITATIONS);
     }
+    
 }

@@ -1,5 +1,7 @@
 package sztaki.hexaa.httputility;
 
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import org.json.simple.JSONObject;
 import sztaki.hexaa.httputility.HttpUtilityBasicCall.REST;
 import sztaki.hexaa.httputility.apicalls.*;
@@ -24,15 +26,40 @@ import sztaki.hexaa.httputility.apicalls.services.Services_Managers_PID;
 public class JavaHttpCoreTest {
 
     public static void main(String[] args) {
-  
-        
-        
-        
-        new Authenticator();
-        
+
+        JavaHttpCoreTest HCT = new JavaHttpCoreTest();
+
+        new DatabaseManipulator().dropDatabase();
+        new Authenticator().authenticate();
+
         System.out.println(ServerConstants.HEXAA_AUTH);
-        new Authenticator();
+
+        JSONObject json = new JSONObject();
         
+        json.put("name", "org1");
+        
+        System.out.println(new Organizations().call(REST.POST, json.toJSONString()));
+        
+        System.out.println(new Organizations().call(REST.GET));
+        
+        
+        json.clear();
+        json.put("email", "ede91bt@gmail.com");
+        json.put("landing_url", "http://192.168.203.183/app_dev.php/doc/#post--api-invitations.{_format}");
+        json.put("message", "This is an invitation test");
+        json.put("organization", 1);
+
+        System.out.println(new Invitations().call(REST.POST, json.toJSONString()));
+//
+//        System.out.println("attributespecs");
+//
+//        JSONObject json = new JSONObject();
+//        json.put("oid", "testOid");
+//        json.put("friendly_name", "testName");
+//        json.put("syntax", "noSyntax");
+//        json.put("is_multivalue", false);
+//
+//        System.out.println(new Attributespecs().call(REST.GET, json.toJSONString()));
 
 //        DatabaseManipulator dm = new DatabaseManipulator();
 //        dm.dropDatabase();
@@ -49,9 +76,7 @@ public class JavaHttpCoreTest {
 //        System.out.println(organizationsMembers.call(REST.PUT,1,1));
 //        System.out.println(organizationsMembers.call(REST.DELETE,1,1));
 //        
-        
- //       HCT.printAllCall(organizationsMembers);
-
+        //       HCT.printAllCall(organizationsMembers);
 //        System.out.println("attributespecs");
 //
 //        HttpUtilityBasicCall attributeSpecs = new Attributespecs();
@@ -206,4 +231,11 @@ public class JavaHttpCoreTest {
         this.printAllCall(new Services_Managers_PID());
     }
 
+    public void thenLetsWaitHere(int soMuch) {
+        try {
+            this.wait(soMuch);
+        } catch (InterruptedException ex) {
+            Logger.getLogger(JavaHttpCoreTest.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
 }

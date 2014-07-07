@@ -19,9 +19,5 @@ public class Manager_Services extends HttpUtilityBasicCall {
     public Manager_Services() {
         super();
         this.setPath(ServerConstants.ApiCalls.MANAGER_SERVICES);
-//        this.getEnabled = true;
-//        this.postEnabled = false;
-//        this.putEnabled = false;
-//        this.deleteEnabled = false;
     }
 }

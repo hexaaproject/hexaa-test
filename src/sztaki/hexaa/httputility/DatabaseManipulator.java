@@ -60,7 +60,7 @@ public final class DatabaseManipulator {
             try {
                 InputStreamReader isr = new InputStreamReader(is);
                 BufferedReader br = new BufferedReader(isr);
-                String line = null;
+                String line;
                 while ((line = br.readLine()) != null) {
                     System.out.println(type + ">" + line);
                 }

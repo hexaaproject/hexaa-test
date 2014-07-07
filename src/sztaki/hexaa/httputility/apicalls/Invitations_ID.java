@@ -19,9 +19,5 @@ public class Invitations_ID extends HttpUtilityBasicCall {
     public Invitations_ID() {
         super();
         this.setPath(ServerConstants.ApiCalls.INVITATIONS_ID);
-//        this.getEnabled = true;
-//        this.postEnabled = false;
-//        this.putEnabled = false;
-//        this.deleteEnabled = false;
     }
 }

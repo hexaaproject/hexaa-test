@@ -9,6 +9,7 @@ import sztaki.hexaa.httputility.ServerConstants;
 import org.apache.http.Header;
 import org.apache.http.client.methods.CloseableHttpResponse;
 import org.apache.http.client.methods.HttpGet;
+import org.apache.http.client.methods.HttpPost;
 import org.apache.http.client.utils.URIBuilder;
 import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClients;
@@ -20,7 +21,7 @@ import org.apache.http.message.BasicHeader;
  */
 public class HttpCoreGet {
 
-    private HttpGet httpGet = null;
+    private HttpGet httpAction = null;
 
     public HttpCoreGet(String path) {
         URI uri = null;
@@ -35,9 +36,11 @@ public class HttpCoreGet {
             Logger.getLogger(HttpCorePost.class.getName()).log(Level.SEVERE, null, ex);
         }
         if (uri != null) {
-            httpGet = new HttpGet(uri);
+            httpAction = new HttpGet(uri);
             Header hexaa_auth = new BasicHeader(ServerConstants.HEXAA_HEADER, ServerConstants.HEXAA_AUTH);
-            httpGet.addHeader(hexaa_auth);
+            httpAction.addHeader(hexaa_auth);
+            httpAction.setHeader("Content-type", "application/json");
+            
         }
     }
 
@@ -46,7 +49,7 @@ public class HttpCoreGet {
         CloseableHttpClient httpClient = HttpClients.createDefault();
 
         try {
-            response = httpClient.execute(httpGet);
+            response = httpClient.execute(httpAction);
         } catch (IOException ex) {
             Logger.getLogger(HttpCorePost.class.getName()).log(Level.SEVERE, null, ex);
         }

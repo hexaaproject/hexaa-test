@@ -19,9 +19,5 @@ public class EntityIds extends HttpUtilityBasicCall {
     public EntityIds() {
         super();
         this.setPath(ServerConstants.ApiCalls.ENTITYIDS);
-//        this.getEnabled = true;
-//        this.postEnabled = false;
-//        this.putEnabled = false;
-//        this.deleteEnabled = false;
     }
 }

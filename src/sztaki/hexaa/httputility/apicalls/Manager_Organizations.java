@@ -19,9 +19,5 @@ public class Manager_Organizations extends HttpUtilityBasicCall {
     public Manager_Organizations() {
         super();
         this.setPath(ServerConstants.ApiCalls.MANAGER_ORGANIZATIONS);
-//        this.getEnabled = true;
-//        this.postEnabled = false;
-//        this.putEnabled = false;
-//        this.deleteEnabled = false;
     }
 }

@@ -10,6 +10,7 @@ import java.util.logging.Logger;
 import sztaki.hexaa.httputility.ServerConstants;
 import org.apache.http.Header;
 import org.apache.http.client.methods.CloseableHttpResponse;
+import org.apache.http.client.methods.HttpPost;
 import org.apache.http.client.methods.HttpPut;
 import org.apache.http.client.utils.URIBuilder;
 import org.apache.http.entity.BasicHttpEntity;
@@ -23,7 +24,7 @@ import org.apache.http.message.BasicHeader;
  */
 public class HttpCorePut {
 
-    private HttpPut httpPut = null;
+    private HttpPut httpAction = null;
 
     public HttpCorePut(String path) {
         URI uri = null;
@@ -38,9 +39,11 @@ public class HttpCorePut {
             Logger.getLogger(HttpCorePost.class.getName()).log(Level.SEVERE, null, ex);
         }
         if (uri != null) {
-            httpPut = new HttpPut(uri);
+            httpAction = new HttpPut(uri);
             Header hexaa_auth = new BasicHeader(ServerConstants.HEXAA_HEADER, ServerConstants.HEXAA_AUTH);
-            httpPut.addHeader(hexaa_auth);
+            httpAction.addHeader(hexaa_auth);
+            httpAction.setHeader("Content-type", "application/json");
+            
         }
     }
 
@@ -49,7 +52,7 @@ public class HttpCorePut {
         CloseableHttpClient httpClient = HttpClients.createDefault();
 
         try {
-            response = httpClient.execute(httpPut);
+            response = httpClient.execute(httpAction);
         } catch (IOException ex) {
             Logger.getLogger(HttpCorePost.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -66,6 +69,6 @@ public class HttpCorePut {
 
         entity.setContent(new ByteArrayInputStream(json.getBytes(StandardCharsets.UTF_8)));
         entity.setContentLength(json.length());
-        httpPut.setEntity(entity);
+        httpAction.setEntity(entity);
     }
 }
