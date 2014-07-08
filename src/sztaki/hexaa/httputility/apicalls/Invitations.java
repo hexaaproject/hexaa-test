@@ -7,7 +7,7 @@
 package sztaki.hexaa.httputility.apicalls;
 
 import sztaki.hexaa.httputility.BasicCall;
-import sztaki.hexaa.httputility.ServerConstants;
+import sztaki.hexaa.httputility.Const;
 
 /**
  *
@@ -17,7 +17,7 @@ public class Invitations extends BasicCall {
     
     public Invitations() {
         super();
-        this.setPath(ServerConstants.ApiCalls.INVITATIONS);
+        this.setPath(Const.Api.INVITATIONS);
     }
     
 }

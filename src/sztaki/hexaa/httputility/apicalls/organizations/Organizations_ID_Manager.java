@@ -7,7 +7,7 @@ package sztaki.hexaa.httputility.apicalls.organizations;
 
 import sztaki.hexaa.httputility.apicalls.*;
 import sztaki.hexaa.httputility.BasicCall;
-import sztaki.hexaa.httputility.ServerConstants;
+import sztaki.hexaa.httputility.Const;
 
 /**
  *
@@ -19,7 +19,7 @@ public class Organizations_ID_Manager extends BasicCall {
 
     public Organizations_ID_Manager() {
         super();
-        this.setPath(ServerConstants.ApiCalls.ORGANIZATIONS_ID_MANAGER);
+        this.setPath(Const.Api.ORGANIZATIONS_ID_MANAGER);
 //        this.getEnabled = true;
 //        this.postEnabled = false;
 //        this.putEnabled = false;

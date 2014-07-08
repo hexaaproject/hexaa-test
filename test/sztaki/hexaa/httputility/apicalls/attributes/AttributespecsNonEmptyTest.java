@@ -2,16 +2,17 @@ package sztaki.hexaa.httputility.apicalls.attributes;
 
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import org.json.simple.JSONArray;
-import org.json.simple.JSONObject;
-import org.json.simple.parser.JSONParser;
-import org.json.simple.parser.ParseException;
+import org.json.JSONArray;
+import org.json.JSONObject;
 import static org.junit.Assert.*;
 import org.junit.BeforeClass;
 import org.junit.Test;
+import org.skyscreamer.jsonassert.JSONAssert;
+import org.skyscreamer.jsonassert.JSONCompareMode;
+import org.skyscreamer.jsonassert.JSONParser;
 import sztaki.hexaa.httputility.Authenticator;
-import sztaki.hexaa.httputility.DatabaseManipulator;
 import sztaki.hexaa.httputility.BasicCall;
+import sztaki.hexaa.httputility.DatabaseManipulator;
 
 public class AttributespecsNonEmptyTest {
 
@@ -33,9 +34,9 @@ public class AttributespecsNonEmptyTest {
         json1.put("syntax", "noSyntax1");
         json1.put("is_multivalue", false);
 
-        System.out.println(json1.toJSONString());
+        System.out.println(json1.toString());
         System.out.println(new Attributespecs().call(BasicCall.REST.POST,
-                json1.toJSONString()));
+                json1.toString()));
         json1.put("id", 1);
 
         json2.put("oid", "differentName");
@@ -43,13 +44,13 @@ public class AttributespecsNonEmptyTest {
         json2.put("syntax", "noSyntax2");
         json2.put("is_multivalue", false);
 
-        System.out.println(json2.toJSONString());
+        System.out.println(json2.toString());
         System.out.println(new Attributespecs().call(BasicCall.REST.POST,
-                json2.toJSONString()));
+                json2.toString()));
         json2.put("id", 2);
 
-        array.add(json1);
-        array.add(json2);
+        array.put(json1);
+        array.put(json2);
     }
 
     /**
@@ -64,21 +65,17 @@ public class AttributespecsNonEmptyTest {
 
         JSONObject jsonResponse = null;
 
-        try {
-            jsonResponse = (JSONObject) ((JSONArray) new JSONParser().parse(response)).get(0);
-        } catch (ParseException ex) {
-            Logger.getLogger(AttributespecsNonEmptyTest.class.getName()).log(
-                    Level.SEVERE, null, ex);
-        }
-        if (jsonResponse != null && jsonResponse.get("is_multivalue") == null) {
+        jsonResponse = (JSONObject) ((JSONArray) JSONParser.parseJSON(response)).get(0);
+
+        if (jsonResponse != null && jsonResponse.isNull("is_multivalue")) {
             jsonResponse.put("is_multivalue", false);
         }
         if (jsonResponse == null) {
             jsonResponse = new JSONObject();
         }
 
-        assertEquals(((JSONObject) array.get(0)).toJSONString(),
-                jsonResponse.toJSONString());
+        assertEquals(((JSONObject) array.get(0)).toString(),
+                jsonResponse.toString());
     }
 
     /**
@@ -93,21 +90,17 @@ public class AttributespecsNonEmptyTest {
 
         JSONObject jsonResponse = null;
         // Parse it to JSON
-        try {
-            jsonResponse = (JSONObject) new JSONParser().parse(response);
-        } catch (ParseException ex) {
-            Logger.getLogger(AttributespecsNonEmptyTest.class.getName()).log(
-                    Level.SEVERE, null, ex);
-        }
-        if (jsonResponse != null && jsonResponse.get("is_multivalue") == null) {
+        jsonResponse = (JSONObject) JSONParser.parseJSON(response);
+
+        if (jsonResponse != null && jsonResponse.isNull("is_multivalue")) {
             jsonResponse.put("is_multivalue", false);
         }
         if (jsonResponse == null) {
             jsonResponse = new JSONObject();
         }
         // Assert it with the local object
-        assertEquals(((JSONObject) array.get(1)).toJSONString(),
-                jsonResponse.toJSONString());
+        assertEquals(((JSONObject) array.get(1)).toString(),
+                jsonResponse.toString());
     }
 
     /**
@@ -123,19 +116,14 @@ public class AttributespecsNonEmptyTest {
         JSONArray jsonResponse = null;
 
         // Parse the string, so the key:value pairs will be ordered properly
-        try {
-            jsonResponse = (JSONArray) new JSONParser().parse(response);
-        } catch (ParseException ex) {
-            Logger.getLogger(AttributespecsNonEmptyTest.class.getName()).log(
-                    Level.SEVERE, null, ex);
-        }
+        jsonResponse = (JSONArray) JSONParser.parseJSON(response);
 
         // If the array does not have the "is_multivalue" key we add it as false
-        if (jsonResponse != null && jsonResponse.size() > 0) {
-            for (Object json : jsonResponse) {
-                if (((JSONObject) json) != null) {
-                    if (((JSONObject) json).get("is_multivalue") == null) {
-                        ((JSONObject) json).put("is_multivalue", false);
+        if (jsonResponse != null && jsonResponse.length() > 0) {
+            for (int i = 0; i < jsonResponse.length(); i++) {
+                if (((JSONObject) jsonResponse.get(i)) != null) {
+                    if (((JSONObject) jsonResponse.get(i)).isNull("is_multivalue")) {
+                        ((JSONObject) jsonResponse.get(i)).put("is_multivalue", false);
                     }
                 }
             }
@@ -145,7 +133,7 @@ public class AttributespecsNonEmptyTest {
         }
         // Assert the two arrays as string
         assertEquals(
-                array.toJSONString(), jsonResponse.toJSONString());
+                array.toString(), jsonResponse.toString());
 
     }
 
@@ -161,10 +149,10 @@ public class AttributespecsNonEmptyTest {
         ((JSONObject) array.get(1)).put("friendly_name", "nameByPut");
         // Remove the id key for the call, and readd it after the call, so the 
         // other tests are not effected
-        System.out.println(((JSONObject) array.get(1)).toJSONString());
+        System.out.println(((JSONObject) array.get(1)).toString());
         int idTemp = (int) ((JSONObject) array.get(1)).remove("id");
         new Attributespecs_ID().call(BasicCall.REST.PUT,
-                ((JSONObject) array.get(1)).toJSONString(), 2, 0);
+                ((JSONObject) array.get(1)).toString(), 2, 0);
         ((JSONObject) array.get(1)).put("id", idTemp);
 
         /* *** Verifing the success *** */
@@ -173,21 +161,17 @@ public class AttributespecsNonEmptyTest {
 
         JSONObject jsonResponse = null;
 
-        try {
-            jsonResponse = (JSONObject) new JSONParser().parse(response);
-        } catch (ParseException ex) {
-            Logger.getLogger(AttributespecsNonEmptyTest.class.getName()).log(
-                    Level.SEVERE, null, ex);
-        }
-        if (jsonResponse != null && jsonResponse.get("is_multivalue") == null) {
+        jsonResponse = (JSONObject) JSONParser.parseJSON(response);
+
+        if (jsonResponse != null && jsonResponse.isNull("is_multivalue")) {
             jsonResponse.put("is_multivalue", false);
         }
         if (jsonResponse == null) {
             jsonResponse = new JSONObject();
         }
 
-        System.out.println(((JSONObject) array.get(1)).toJSONString());
-        System.out.println(jsonResponse.toJSONString());
+        System.out.println(((JSONObject) array.get(1)).toString());
+        System.out.println(jsonResponse.toString());
         assertEquals("oidByPut", jsonResponse.get("oid"));
     }
 
@@ -208,9 +192,9 @@ public class AttributespecsNonEmptyTest {
         json3.put("syntax", "noSyntax1");
         json3.put("is_multivalue", false);
 
-        System.out.println(json3.toJSONString());
+        System.out.println(json3.toString());
         System.out.println(new Attributespecs().call(BasicCall.REST.POST,
-                json3.toJSONString()));
+                json3.toString()));
         json3.put("id", 3);
 
         /* *** Verify the data on the server *** */
@@ -219,20 +203,16 @@ public class AttributespecsNonEmptyTest {
 
         JSONObject jsonOResponse = null;
 
-        try {
-            jsonOResponse = (JSONObject) new JSONParser().parse(response);
-        } catch (ParseException ex) {
-            Logger.getLogger(AttributespecsNonEmptyTest.class.getName()).log(
-                    Level.SEVERE, null, ex);
-        }
-        if (jsonOResponse != null && jsonOResponse.get("is_multivalue") == null) {
+        jsonOResponse = (JSONObject) JSONParser.parseJSON(response);
+
+        if (jsonOResponse != null && jsonOResponse.isNull("is_multivalue")) {
             jsonOResponse.put("is_multivalue", false);
         }
         if (jsonOResponse == null) {
             jsonOResponse = new JSONObject();
         }
-        assertEquals(json3.toJSONString(),
-                jsonOResponse.toJSONString());
+        assertEquals(json3.toString(),
+                jsonOResponse.toString());
 
         /* *** Calling DELETE *** */
         System.out.println(
@@ -243,18 +223,14 @@ public class AttributespecsNonEmptyTest {
 
         JSONArray jsonResponse = null;
 
-        try {
-            jsonResponse = (JSONArray) new JSONParser().parse(response);
-        } catch (ParseException ex) {
-            Logger.getLogger(AttributespecsNonEmptyTest.class.getName()).log(
-                    Level.SEVERE, null, ex);
-        }
+        jsonResponse = (JSONArray) JSONParser.parseJSON(response);
 
-        if (jsonResponse != null && jsonResponse.size() > 0) {
-            for (Object json : jsonResponse) {
-                if (((JSONObject) json) != null) {
-                    if (((JSONObject) json).get("is_multivalue") == null) {
-                        ((JSONObject) json).put("is_multivalue", false);
+        if (jsonResponse != null && jsonResponse.length() > 0) {
+            //for (Object json : jsonResponse) {
+            for (int i = 0; i < jsonResponse.length(); i++) {
+                if (((JSONObject) jsonResponse.get(i)) != null) {
+                    if (((JSONObject) jsonResponse.get(i)).isNull("is_multivalue")) {
+                        ((JSONObject) jsonResponse.get(i)).put("is_multivalue", false);
                     }
                 }
             }
@@ -264,7 +240,7 @@ public class AttributespecsNonEmptyTest {
         }
 
         assertEquals(
-                array.toJSONString(), jsonResponse.toJSONString());
+                array.toString(), jsonResponse.toString());
 
     }
 }

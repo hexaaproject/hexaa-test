@@ -6,7 +6,7 @@
 package sztaki.hexaa.httputility.apicalls.attributes;
 
 import sztaki.hexaa.httputility.BasicCall;
-import sztaki.hexaa.httputility.ServerConstants;
+import sztaki.hexaa.httputility.Const;
 
 /**
  *
@@ -16,6 +16,6 @@ public class AttributevaluePrincipals_ID_Consents extends BasicCall {
 
     public AttributevaluePrincipals_ID_Consents() {
         super();
-        this.setPath(ServerConstants.ApiCalls.ATTRIBUTEVALUEPRINCIPALS_ID_CONSENTS);
+        this.setPath(Const.Api.ATTRIBUTEVALUEPRINCIPALS_ID_CONSENTS);
     }
 }

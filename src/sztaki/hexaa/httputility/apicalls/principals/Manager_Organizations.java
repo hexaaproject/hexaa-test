@@ -6,7 +6,7 @@
 package sztaki.hexaa.httputility.apicalls.principals;
 
 import sztaki.hexaa.httputility.BasicCall;
-import sztaki.hexaa.httputility.ServerConstants;
+import sztaki.hexaa.httputility.Const;
 
 /**
  *
@@ -18,6 +18,6 @@ public class Manager_Organizations extends BasicCall {
 
     public Manager_Organizations() {
         super();
-        this.setPath(ServerConstants.ApiCalls.MANAGER_ORGANIZATIONS);
+        this.setPath(Const.Api.MANAGER_ORGANIZATIONS);
     }
 }

@@ -7,7 +7,7 @@ package sztaki.hexaa.httputility.apicalls.principals;
 
 import sztaki.hexaa.httputility.apicalls.*;
 import sztaki.hexaa.httputility.BasicCall;
-import sztaki.hexaa.httputility.ServerConstants;
+import sztaki.hexaa.httputility.Const;
 
 /**
  *
@@ -19,7 +19,7 @@ public class Principal extends BasicCall {
 
     public Principal() {
         super();
-        this.setPath(ServerConstants.ApiCalls.PRINCIPAL);
+        this.setPath(Const.Api.PRINCIPAL);
 //        this.getEnabled = true;
 //        this.postEnabled = false;
 //        this.putEnabled = false;

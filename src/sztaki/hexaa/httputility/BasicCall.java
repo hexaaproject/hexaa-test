@@ -121,6 +121,15 @@ public class BasicCall {
 
         return callSwitch(restCall);
     }
+    
+    public String call(String path, REST restCall) {
+        this.setPath(path);
+        this.setString(null);
+        this.setId(0);
+        this.setSId(0);
+
+        return callSwitch(restCall);
+    }
 
     public String call(String path, REST restCall, String json, int id, int sId) {
         this.setPath(path);

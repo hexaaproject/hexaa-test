@@ -6,7 +6,7 @@
 package sztaki.hexaa.httputility.apicalls.services;
 
 import sztaki.hexaa.httputility.BasicCall;
-import sztaki.hexaa.httputility.ServerConstants;
+import sztaki.hexaa.httputility.Const;
 
 /**
  *
@@ -18,7 +18,7 @@ public class Services_Entitlementpacks extends BasicCall {
 
     public Services_Entitlementpacks() {
         super();
-        this.setPath(ServerConstants.ApiCalls.SERVICES_ENTITLEMENTPACKS);
+        this.setPath(Const.Api.SERVICES_ENTITLEMENTPACKS);
 //        this.getEnabled = true;
 //        this.postEnabled = true;
 //        this.putEnabled = false;

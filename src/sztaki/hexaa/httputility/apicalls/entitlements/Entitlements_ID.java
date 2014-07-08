@@ -6,7 +6,7 @@
 package sztaki.hexaa.httputility.apicalls.entitlements;
 
 import sztaki.hexaa.httputility.BasicCall;
-import sztaki.hexaa.httputility.ServerConstants;
+import sztaki.hexaa.httputility.Const;
 
 /**
  *
@@ -15,6 +15,6 @@ import sztaki.hexaa.httputility.ServerConstants;
 public class Entitlements_ID extends BasicCall {
 
     public Entitlements_ID() {
-        this.setPath(ServerConstants.ApiCalls.ENTITLEMENTS_ID);
+        this.setPath(Const.Api.ENTITLEMENTS_ID);
     }
 }

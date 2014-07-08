@@ -7,7 +7,7 @@ package sztaki.hexaa.httputility.apicalls.roles;
 
 import sztaki.hexaa.httputility.apicalls.*;
 import sztaki.hexaa.httputility.BasicCall;
-import sztaki.hexaa.httputility.ServerConstants;
+import sztaki.hexaa.httputility.Const;
 
 /**
  *
@@ -19,7 +19,7 @@ public class Roles_ID_Principals extends BasicCall {
 
     public Roles_ID_Principals() {
         super();
-        this.setPath(ServerConstants.ApiCalls.ROLES_ID_PRINCIPALS);
+        this.setPath(Const.Api.ROLES_ID_PRINCIPALS);
 //        this.getEnabled = true;
 //        this.postEnabled = false;
 //        this.putEnabled = false;

@@ -6,7 +6,7 @@
 package sztaki.hexaa.httputility.apicalls.organizations;
 
 import sztaki.hexaa.httputility.BasicCall;
-import sztaki.hexaa.httputility.ServerConstants;
+import sztaki.hexaa.httputility.Const;
 
 /**
  *
@@ -18,7 +18,7 @@ public class Organizations extends BasicCall {
 
     public Organizations() {
         super();
-        this.setPath(ServerConstants.ApiCalls.ORGANIZATIONS);
+        this.setPath(Const.Api.ORGANIZATIONS);
 //        this.getEnabled = true;
 //        this.postEnabled = false;
 //        this.putEnabled = false;

@@ -7,7 +7,7 @@
 package sztaki.hexaa.httputility.apicalls.principals;
 
 import sztaki.hexaa.httputility.BasicCall;
-import sztaki.hexaa.httputility.ServerConstants;
+import sztaki.hexaa.httputility.Const;
 
 /**
  *
@@ -17,7 +17,7 @@ public class Principal_Attributespecs_Attributevalueprincipal extends BasicCall 
 
     public Principal_Attributespecs_Attributevalueprincipal() {
         super();
-        this.setPath(ServerConstants.ApiCalls.PRINCIPAL_ATTRIBUTESPECS_ATTRIBUTEVALUEPRINCIPAL);
+        this.setPath(Const.Api.PRINCIPAL_ATTRIBUTESPECS_ATTRIBUTEVALUEPRINCIPAL);
     }
     
 }

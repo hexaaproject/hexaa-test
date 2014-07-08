@@ -11,7 +11,7 @@ package sztaki.hexaa.httputility;
  *
  * @author Bana Tibor
  */
-public class ServerConstants {
+public class Const {
 
     public static final int HEXAA_PORT = 80;
     public static final String HEXAA_HEADER = ("X-HEXAA-AUTH");
@@ -19,29 +19,40 @@ public class ServerConstants {
     public static final String HEXAA_HOST = ("192.168.203.183");
     public static final String HEXAA_SCHEME = ("http");
 
-    public static class ApiCalls {
-
-        public static final String ATTRIBUTESPECS = ("/app.php/api/attributespecs");
-        public static final String ATTRIBUTESPECS_ID = ("/app.php/api/attributespecs/{id}");
+    public static class Api {
+        
+        // Attribute value (for organization)
         public static final String ATTRIBUTEVALUEORGANIZATIONS_ID = ("/app.php/api/attributevalueorganizations/{id}");
+        public static final String ATTRIBUTEVALUEORGANIZATIONS_ID_CONSENTS = ("/app.php/api/attributevalueorganizations/{id}/consents");
+        public static final String ATTRIBUTEVALUEORGANIZATIONS_ID_SERVICES_SID = ("/app.php/api/attributevalueorganizations/{id}/services/{sid}");
+        public static final String ORGANIZATIONS_ID_ATTRIBUTEVALUEORGANIZATIONS_ASID = ("/app.php/api/organizations/{id}/attributevalueorganizations/{asid}");
+        
+        // Attribute value (for principal)
         public static final String ATTRIBUTEVALUEPRINCIPALS_ASID = ("/app.php/api/attributevalueprincipals/{asid}");
         public static final String ATTRIBUTEVALUEPRINCIPALS_ID = ("/app.php/api/attributevalueprincipals/{id}");
         public static final String ATTRIBUTEVALUEPRINCIPALS_ID_CONSENTS = ("/app.php/api/attributevalueprincipals/{id}/consents");
         public static final String ATTRIBUTEVALUEPRINCIPALS_ID_SERVICES_SID = ("/app.php/api/attributevalueprincipals/{id}/services/{sid}");
+        
+        // AttributeSpec
+        public static final String ATTRIBUTESPECS = ("/app.php/api/attributespecs");
+        public static final String ATTRIBUTESPECS_ID = ("/app.php/api/attributespecs/{id}");
+        
+        // Entitlement
+        public static final String ENTITLEMENTS_ID = ("/app.php/api/entitlements/{id}");
+        
+        // EntitlementPack
         public static final String ENTITLEMENTPACKS_ID = ("/app.php/api/entitlementpacks/{id}");
         public static final String ENTITLEMENTPACKS_ID_ENTITLEMENTS = ("/app.php/api/entitlementpacks/{id}/entitlements");
         public static final String ENTITLEMENTPACKS_ID_ENTITLEMENTS_EID = ("/app.php/api/entitlementpacks/{id}/entitlements/{eid}");
-        public static final String ENTITLEMENTS_ID = ("/app.php/api/entitlements/{id}");
-        public static final String ENTITYIDS = ("/app.php/api/entityids");
+        
+        // Invitation
         public static final String INVITATIONS = ("/app.php/api/invitations");
         public static final String INVITATIONS_ID = ("/app.php/api/invitations/{id}");
-        public static final String MANAGER_ORGANIZATIONS = ("/app.php/api/manager/organizations");
-        public static final String MANAGER_SERVICES = ("/app.php/api/manager/services");
-        public static final String MEMBER_ORGANIZATIONS = ("/app.php/api/member/organizations");
+        
         public static final String ORGANIZATIONS = ("/app.php/api/organizations");
         public static final String ORGANIZATIONS_ID = ("/app.php/api/organizations/{id}");
         public static final String ORGANIZATIONS_ID_ATTRIBUTESPECS = ("/app.php/api/organizations/{id}/attributespecs");
-        public static final String ORGANIZATIONS_ID_ATTRIBUTEVALUEORGANIZATIONS_ASID = ("/app.php/api/organizations/{id}/attributevalueorganizations/{asid}");
+        public static final String ORGANIZATIONS_ID_ATTRIBUTEVALUEORGANIZATIONS = ("/app.php/api/organizations/{id}/attributevalueorganizations");
         public static final String ORGANIZATIONS_ID_ENTITLEMENTPACKS = ("/app.php/api/organizations/{id}/entitlementpacks");
         public static final String ORGANIZATIONS_ID_ENTITLEMENTPACKS_EPID = ("/app.php/api/organizations/{id}/entitlementpacks/{epid}");
         public static final String ORGANIZATIONS_ID_ENTITLEMENTPACKS_TOKEN = ("/app.php/api/organizations/{id}/entitlementpacks/{token}/token");
@@ -52,6 +63,11 @@ public class ServerConstants {
         public static final String ORGANIZATIONS_ID_MEMBERS_PID = ("/app.php/api/organizations/{id}/members/{pid}");
         public static final String ORGANIZATIONS_ID_ROLES = ("/app.php/api/organizations/{id}/roles");
         
+        public static final String ENTITYIDS = ("/app.php/api/entityids");
+        
+        public static final String MANAGER_ORGANIZATIONS = ("/app.php/api/manager/organizations");
+        public static final String MANAGER_SERVICES = ("/app.php/api/manager/services");
+        public static final String MEMBER_ORGANIZATIONS = ("/app.php/api/member/organizations");
         public static final String PRINCIPAL = ("/app.php/api/principal");
         public static final String PRINCIPAL_ATTRIBUTESPECS = ("/app.php/api/principal/attributespecs");
         public static final String PRINCIPAL_ATTRIBUTESPECS_ATTRIBUTEVALUEPRINCIPAL = ("/app.php/api/principal/attributespecs/attributevalueprincipal");

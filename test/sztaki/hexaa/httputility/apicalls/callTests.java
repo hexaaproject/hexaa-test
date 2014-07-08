@@ -14,7 +14,7 @@ import sztaki.hexaa.httputility.apicalls.services.*;
 @RunWith(Suite.class)
 @Suite.SuiteClasses({
     InvitationTest.class,
-    AttributespecsEmptyTest.class,
+    AttributespecsIsEmptyTest.class,
     AttributespecsInsertTest.class,
     AttributespecsNonEmptyTest.class,
     ServicesEmptyTest.class,
@@ -25,6 +25,9 @@ public class callTests {
 
     @BeforeClass
     public static void setUpClass() throws Exception {
+        System.out.println("BeforeClass @ callTests");
+        new DatabaseManipulator().dropDatabase();
+        new Authenticator().authenticate();
     }
 
     @AfterClass
@@ -33,6 +36,7 @@ public class callTests {
 
     @Before
     public void setUp() throws Exception {
+        System.out.println("Before @ callTests");
         new DatabaseManipulator().dropDatabase();
         new Authenticator().authenticate();
     }

@@ -6,7 +6,7 @@
 package sztaki.hexaa.httputility.apicalls.services;
 
 import sztaki.hexaa.httputility.BasicCall;
-import sztaki.hexaa.httputility.ServerConstants;
+import sztaki.hexaa.httputility.Const;
 
 /**
  *
@@ -18,7 +18,7 @@ public class Services extends BasicCall {
 
     public Services() {
         super();
-        this.setPath(ServerConstants.ApiCalls.SERVICES);
+        this.setPath(Const.Api.SERVICES);
 //        this.getEnabled = true;
 //        this.postEnabled = true;
 //        this.putEnabled = false;

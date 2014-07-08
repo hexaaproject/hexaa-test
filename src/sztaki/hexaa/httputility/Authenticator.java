@@ -9,13 +9,10 @@ import java.time.DateTimeException;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import org.json.simple.JSONObject;
-import org.json.simple.parser.JSONParser;
-import org.json.simple.parser.ParseException;
+import org.json.JSONObject;
+import org.skyscreamer.jsonassert.JSONParser;
+import sztaki.hexaa.httputility.BasicCall.REST;
 import sztaki.hexaa.httputility.apicalls.Token;
-import sztaki.hexaa.httputility.apicalls.principals.Principal;
 
 /**
  *
@@ -25,31 +22,26 @@ public class Authenticator {
 
     public void authenticate() {
         // We check the current connection, if we don't get 
-        BasicCall getPrincipal = new Principal();
-        String response = getPrincipal.call(BasicCall.REST.GET);
+        String response = new BasicCall().call(Const.Api.PRINCIPAL, REST.GET);
 
         // If the response is Forbidden, we start the authentication
         if (response.contains("401") || response.contains("403")) {
-            try {
-                System.out.println("Forbidden");
+            System.out.println("Forbidden");
 
-                BasicCall postToken = new Token();
+            BasicCall postToken = new Token();
 
-                JSONObject json = new JSONObject();
-                json.put("fedid", "ede91bt@gmail.com@partners.sztaki.hu");
-                json.put("apikey", this.getAPIKey());
+            JSONObject json = new JSONObject();
+            json.put("fedid", "ede91bt@gmail.com@partners.sztaki.hu");
+            json.put("apikey", this.getAPIKey());
 
-                response = postToken.call(BasicCall.REST.POST, json.toString());
+            response = postToken.call(BasicCall.REST.POST, json.toString());
 
-                JSONObject jsonResponse;
-                jsonResponse = (JSONObject) new JSONParser().parse(response);
+            JSONObject jsonResponse;
+            jsonResponse = (JSONObject) JSONParser.parseJSON(response);
 
-                ServerConstants.HEXAA_AUTH = jsonResponse.get("token").toString();
+            Const.HEXAA_AUTH = jsonResponse.get("token").toString();
 
-                /*End of Forbidden*/
-            } catch (ParseException ex) {
-                Logger.getLogger(Authenticator.class.getName()).log(Level.SEVERE, null, ex);
-            }
+            /*End of Forbidden*/
         }
 
     }

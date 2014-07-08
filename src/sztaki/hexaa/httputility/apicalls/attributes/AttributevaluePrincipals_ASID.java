@@ -6,7 +6,7 @@
 package sztaki.hexaa.httputility.apicalls.attributes;
 
 import sztaki.hexaa.httputility.BasicCall;
-import sztaki.hexaa.httputility.ServerConstants;
+import sztaki.hexaa.httputility.Const;
 
 /**
  *
@@ -16,6 +16,6 @@ public class AttributevaluePrincipals_ASID extends BasicCall {
 
     public AttributevaluePrincipals_ASID() {
         super();
-        this.setPath(ServerConstants.ApiCalls.ATTRIBUTEVALUEPRINCIPALS_ASID);
+        this.setPath(Const.Api.ATTRIBUTEVALUEPRINCIPALS_ASID);
     }
 }

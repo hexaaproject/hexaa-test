@@ -6,7 +6,7 @@
 package sztaki.hexaa.httputility.apicalls.attributes;
 
 import sztaki.hexaa.httputility.BasicCall;
-import sztaki.hexaa.httputility.ServerConstants;
+import sztaki.hexaa.httputility.Const;
 
 /**
  *
@@ -18,6 +18,6 @@ public class Attributespecs extends BasicCall {
 
     public Attributespecs() {
         super();
-        this.setPath(ServerConstants.ApiCalls.ATTRIBUTESPECS);
+        this.setPath(Const.Api.ATTRIBUTESPECS);
     }
 }

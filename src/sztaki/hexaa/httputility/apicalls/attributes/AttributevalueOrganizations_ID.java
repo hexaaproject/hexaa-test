@@ -6,7 +6,7 @@
 package sztaki.hexaa.httputility.apicalls.attributes;
 
 import sztaki.hexaa.httputility.BasicCall;
-import sztaki.hexaa.httputility.ServerConstants;
+import sztaki.hexaa.httputility.Const;
 
 /**
  *
@@ -16,6 +16,6 @@ public class AttributevalueOrganizations_ID extends BasicCall {
 
     public AttributevalueOrganizations_ID() {
         super();
-        this.setPath(ServerConstants.ApiCalls.ATTRIBUTEVALUEORGANIZATIONS_ID);
+        this.setPath(Const.Api.ATTRIBUTEVALUEORGANIZATIONS_ID);
     }
 }

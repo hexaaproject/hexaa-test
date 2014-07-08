@@ -5,7 +5,7 @@ import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import sztaki.hexaa.httputility.ServerConstants;
+import sztaki.hexaa.httputility.Const;
 import org.apache.http.Header;
 import org.apache.http.client.methods.CloseableHttpResponse;
 import org.apache.http.client.methods.HttpDelete;
@@ -26,9 +26,9 @@ public class HttpCoreDelete {
         URI uri = null;
         try {
             uri = new URIBuilder()
-                    .setScheme(ServerConstants.HEXAA_SCHEME)
-                    .setHost(ServerConstants.HEXAA_HOST)
-                    .setPort(ServerConstants.HEXAA_PORT)
+                    .setScheme(Const.HEXAA_SCHEME)
+                    .setHost(Const.HEXAA_HOST)
+                    .setPort(Const.HEXAA_PORT)
                     .setPath(path)
                     .build();
         } catch (URISyntaxException ex) {
@@ -36,7 +36,7 @@ public class HttpCoreDelete {
         }
         if (uri != null) {
             httpAction = new HttpDelete(uri);
-            Header hexaa_auth = new BasicHeader(ServerConstants.HEXAA_HEADER, ServerConstants.HEXAA_AUTH);
+            Header hexaa_auth = new BasicHeader(Const.HEXAA_HEADER, Const.HEXAA_AUTH);
             httpAction.addHeader(hexaa_auth);
             httpAction.setHeader("Content-type", "application/json");
             

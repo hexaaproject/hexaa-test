@@ -7,7 +7,7 @@
 package sztaki.hexaa.httputility.apicalls;
 
 import sztaki.hexaa.httputility.BasicCall;
-import sztaki.hexaa.httputility.ServerConstants;
+import sztaki.hexaa.httputility.Const;
 
 /**
  *
@@ -17,7 +17,7 @@ public class Token extends BasicCall {
     
     public Token() {
         super();
-        this.setPath(ServerConstants.ApiCalls.TOKEN);
+        this.setPath(Const.Api.TOKEN);
     }
     
 }

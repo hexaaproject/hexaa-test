@@ -3,24 +3,8 @@ package sztaki.hexaa.httputility;
 import sztaki.hexaa.httputility.apicalls.principals.Manager_Services;
 import sztaki.hexaa.httputility.apicalls.principals.Member_Organizations;
 import sztaki.hexaa.httputility.apicalls.principals.Manager_Organizations;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import org.json.simple.JSONObject;
 import sztaki.hexaa.httputility.BasicCall.REST;
-import sztaki.hexaa.httputility.apicalls.*;
-import sztaki.hexaa.httputility.apicalls.attributes.*;
-import sztaki.hexaa.httputility.apicalls.entitlements.*;
-import sztaki.hexaa.httputility.apicalls.organizations.*;
 import sztaki.hexaa.httputility.apicalls.principals.*;
-import sztaki.hexaa.httputility.apicalls.roles.*;
-import sztaki.hexaa.httputility.apicalls.services.Services;
-import sztaki.hexaa.httputility.apicalls.services.Services_Attributespecs;
-import sztaki.hexaa.httputility.apicalls.services.Services_Attributespecs_ASID;
-import sztaki.hexaa.httputility.apicalls.services.Services_Entitlementpacks;
-import sztaki.hexaa.httputility.apicalls.services.Services_Entitlements;
-import sztaki.hexaa.httputility.apicalls.services.Services_ID;
-import sztaki.hexaa.httputility.apicalls.services.Services_Managers;
-import sztaki.hexaa.httputility.apicalls.services.Services_Managers_PID;
 
 /**
  *
@@ -49,21 +33,33 @@ public class JavaHttpCoreTest {
         
         System.out.println(new Principal_Attributevalueprincipal().call(REST.GET));
         
-        System.out.println(new BasicCall().call(ServerConstants.ApiCalls.PRINCIPAL_EMAILINVITATIONS,REST.GET,"",0,0));
+        System.out.println(new BasicCall().call(
+                Const.Api.PRINCIPAL_EMAILINVITATIONS,
+                REST.GET,
+                null,
+                0,
+                0));
         
-        System.out.println(new BasicCall().call(ServerConstants.ApiCalls.PRINCIPAL_URLINVITATIONS, REST.GET, "", 0, 0));
+        System.out.println(new BasicCall().call(
+                Const.Api.PRINCIPAL_URLINVITATIONS,
+                REST.GET,
+                null,
+                0,
+                0));
         
-        System.out.println(new BasicCall().call(ServerConstants.ApiCalls.PRINCIPALS, REST.GET, "", 0, 0));
+        System.out.println(new BasicCall().call(Const.Api.PRINCIPALS, REST.GET, "", 0, 0));
         
-        System.out.println(new BasicCall().call(ServerConstants.ApiCalls.PRINCIPALS, REST.POST, "[{\"fedid\": \"ede91bt@gmail.com\"}]", 0, 0));
+        System.out.println(new BasicCall().call(Const.Api.PRINCIPALS, REST.POST, "[{\"fedid\": \"ede91bt@gmail.com\"}]", 0, 0));
         
-        System.out.println(new BasicCall().call(ServerConstants.ApiCalls.PRINCIPAL_FEDID, REST.GET, "", 0, 0, "ede91bt@gmail.com@partners.sztaki.hu"));
+        System.out.println(new BasicCall().call(Const.Api.PRINCIPAL_FEDID, REST.GET, "", 0, 0, "ede91bt@gmail.com@partners.sztaki.hu"));
         
-        System.out.println(new BasicCall().call(ServerConstants.ApiCalls.PRINCIPAL_FEDID, REST.GET, "", 0, 0, "ede91bt@gmail.com"));
+        System.out.println(new BasicCall().call(Const.Api.PRINCIPAL_FEDID, REST.GET, "", 0, 0, "ede91bt@gmail.com"));
         
-        System.out.println(new BasicCall().call(ServerConstants.ApiCalls.PRINCIPALS_ID, REST.GET, "", 1, 1));
+        System.out.println(new BasicCall().call(Const.Api.PRINCIPALS_ID, REST.GET, "", 1, 1));
         
-        System.out.println(new BasicCall().call(ServerConstants.ApiCalls.PRINCIPALS_ID, REST.GET, "", 2, 2));
+        System.out.println(new BasicCall().call(Const.Api.PRINCIPALS_ID, REST.GET, "", 2, 2));
+        
+        
         
     }
 }
