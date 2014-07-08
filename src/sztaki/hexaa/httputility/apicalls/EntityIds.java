@@ -5,7 +5,7 @@
  */
 package sztaki.hexaa.httputility.apicalls;
 
-import sztaki.hexaa.httputility.HttpUtilityBasicCall;
+import sztaki.hexaa.httputility.BasicCall;
 import sztaki.hexaa.httputility.ServerConstants;
 
 /**
@@ -14,7 +14,7 @@ import sztaki.hexaa.httputility.ServerConstants;
  *
  * @author Bana Tibor
  */
-public class EntityIds extends HttpUtilityBasicCall {
+public class EntityIds extends BasicCall {
 
     public EntityIds() {
         super();

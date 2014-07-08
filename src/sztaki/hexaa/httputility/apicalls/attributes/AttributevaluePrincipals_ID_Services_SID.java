@@ -5,14 +5,14 @@
  */
 package sztaki.hexaa.httputility.apicalls.attributes;
 
-import sztaki.hexaa.httputility.HttpUtilityBasicCall;
+import sztaki.hexaa.httputility.BasicCall;
 import sztaki.hexaa.httputility.ServerConstants;
 
 /**
  *
  * @author Bana Tibor
  */
-public class AttributevaluePrincipals_ID_Services_SID extends HttpUtilityBasicCall {
+public class AttributevaluePrincipals_ID_Services_SID extends BasicCall {
 
     public AttributevaluePrincipals_ID_Services_SID() {
         super();

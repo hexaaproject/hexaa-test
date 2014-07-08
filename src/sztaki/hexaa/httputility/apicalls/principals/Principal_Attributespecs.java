@@ -6,7 +6,7 @@
 package sztaki.hexaa.httputility.apicalls.principals;
 
 import sztaki.hexaa.httputility.apicalls.*;
-import sztaki.hexaa.httputility.HttpUtilityBasicCall;
+import sztaki.hexaa.httputility.BasicCall;
 import sztaki.hexaa.httputility.ServerConstants;
 
 /**
@@ -15,14 +15,10 @@ import sztaki.hexaa.httputility.ServerConstants;
  *
  * @author Bana Tibor
  */
-public class Principal_Attributespecs extends HttpUtilityBasicCall {
+public class Principal_Attributespecs extends BasicCall {
 
     public Principal_Attributespecs() {
         super();
         this.setPath(ServerConstants.ApiCalls.PRINCIPAL_ATTRIBUTESPECS);
-//        this.getEnabled = true;
-//        this.postEnabled = false;
-//        this.putEnabled = false;
-//        this.deleteEnabled = false;
     }
 }

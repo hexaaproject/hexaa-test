@@ -5,7 +5,7 @@
  */
 package sztaki.hexaa.httputility.apicalls.organizations;
 
-import sztaki.hexaa.httputility.HttpUtilityBasicCall;
+import sztaki.hexaa.httputility.BasicCall;
 import sztaki.hexaa.httputility.ServerConstants;
 
 /**
@@ -14,7 +14,7 @@ import sztaki.hexaa.httputility.ServerConstants;
  *
  * @author Bana Tibor
  */
-public class Organizations extends HttpUtilityBasicCall {
+public class Organizations extends BasicCall {
 
     public Organizations() {
         super();

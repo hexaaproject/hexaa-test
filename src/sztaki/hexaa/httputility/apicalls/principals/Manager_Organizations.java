@@ -3,9 +3,9 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package sztaki.hexaa.httputility.apicalls;
+package sztaki.hexaa.httputility.apicalls.principals;
 
-import sztaki.hexaa.httputility.HttpUtilityBasicCall;
+import sztaki.hexaa.httputility.BasicCall;
 import sztaki.hexaa.httputility.ServerConstants;
 
 /**
@@ -14,7 +14,7 @@ import sztaki.hexaa.httputility.ServerConstants;
  *
  * @author Bana Tibor
  */
-public class Manager_Organizations extends HttpUtilityBasicCall {
+public class Manager_Organizations extends BasicCall {
 
     public Manager_Organizations() {
         super();

@@ -5,7 +5,7 @@
  */
 package sztaki.hexaa.httputility.apicalls.services;
 
-import sztaki.hexaa.httputility.HttpUtilityBasicCall;
+import sztaki.hexaa.httputility.BasicCall;
 import sztaki.hexaa.httputility.ServerConstants;
 
 /**
@@ -14,7 +14,7 @@ import sztaki.hexaa.httputility.ServerConstants;
  *
  * @author Bana Tibor
  */
-public class Services_Entitlementpacks extends HttpUtilityBasicCall {
+public class Services_Entitlementpacks extends BasicCall {
 
     public Services_Entitlementpacks() {
         super();

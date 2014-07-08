@@ -9,7 +9,9 @@ import org.json.simple.parser.ParseException;
 import static org.junit.Assert.*;
 import org.junit.BeforeClass;
 import org.junit.Test;
-import sztaki.hexaa.httputility.HttpUtilityBasicCall;
+import sztaki.hexaa.httputility.Authenticator;
+import sztaki.hexaa.httputility.DatabaseManipulator;
+import sztaki.hexaa.httputility.BasicCall;
 
 public class AttributespecsNonEmptyTest {
 
@@ -20,6 +22,8 @@ public class AttributespecsNonEmptyTest {
      */
     @BeforeClass
     public static void buildUp() {
+        new DatabaseManipulator().dropDatabase();
+        new Authenticator().authenticate();
 
         JSONObject json1 = new JSONObject();
         JSONObject json2 = new JSONObject();
@@ -30,7 +34,7 @@ public class AttributespecsNonEmptyTest {
         json1.put("is_multivalue", false);
 
         System.out.println(json1.toJSONString());
-        System.out.println(new Attributespecs().call(HttpUtilityBasicCall.REST.POST,
+        System.out.println(new Attributespecs().call(BasicCall.REST.POST,
                 json1.toJSONString()));
         json1.put("id", 1);
 
@@ -40,7 +44,7 @@ public class AttributespecsNonEmptyTest {
         json2.put("is_multivalue", false);
 
         System.out.println(json2.toJSONString());
-        System.out.println(new Attributespecs().call(HttpUtilityBasicCall.REST.POST,
+        System.out.println(new Attributespecs().call(BasicCall.REST.POST,
                 json2.toJSONString()));
         json2.put("id", 2);
 
@@ -56,7 +60,7 @@ public class AttributespecsNonEmptyTest {
     @Test
     public void testGetByArray() {
 
-        String response = new Attributespecs().call(HttpUtilityBasicCall.REST.GET);
+        String response = new Attributespecs().call(BasicCall.REST.GET);
 
         JSONObject jsonResponse = null;
 
@@ -85,7 +89,7 @@ public class AttributespecsNonEmptyTest {
     public void testGetByID() {
         // Get the Attributespecs with the id = 2
         String response
-                = new Attributespecs_ID().call(HttpUtilityBasicCall.REST.GET, 2, 0);
+                = new Attributespecs_ID().call(BasicCall.REST.GET, 2, 0);
 
         JSONObject jsonResponse = null;
         // Parse it to JSON
@@ -114,7 +118,7 @@ public class AttributespecsNonEmptyTest {
     @Test
     public void testArray() {
         /* *** GET the desired array from the server *** */
-        String response = new Attributespecs().call(HttpUtilityBasicCall.REST.GET);
+        String response = new Attributespecs().call(BasicCall.REST.GET);
 
         JSONArray jsonResponse = null;
 
@@ -159,13 +163,13 @@ public class AttributespecsNonEmptyTest {
         // other tests are not effected
         System.out.println(((JSONObject) array.get(1)).toJSONString());
         int idTemp = (int) ((JSONObject) array.get(1)).remove("id");
-        new Attributespecs_ID().call(HttpUtilityBasicCall.REST.PUT,
+        new Attributespecs_ID().call(BasicCall.REST.PUT,
                 ((JSONObject) array.get(1)).toJSONString(), 2, 0);
         ((JSONObject) array.get(1)).put("id", idTemp);
 
         /* *** Verifing the success *** */
         String response
-                = new Attributespecs_ID().call(HttpUtilityBasicCall.REST.GET, 2, 0);
+                = new Attributespecs_ID().call(BasicCall.REST.GET, 2, 0);
 
         JSONObject jsonResponse = null;
 
@@ -205,13 +209,13 @@ public class AttributespecsNonEmptyTest {
         json3.put("is_multivalue", false);
 
         System.out.println(json3.toJSONString());
-        System.out.println(new Attributespecs().call(HttpUtilityBasicCall.REST.POST,
+        System.out.println(new Attributespecs().call(BasicCall.REST.POST,
                 json3.toJSONString()));
         json3.put("id", 3);
 
         /* *** Verify the data on the server *** */
         String response
-                = new Attributespecs_ID().call(HttpUtilityBasicCall.REST.GET, 3, 0);
+                = new Attributespecs_ID().call(BasicCall.REST.GET, 3, 0);
 
         JSONObject jsonOResponse = null;
 
@@ -232,10 +236,10 @@ public class AttributespecsNonEmptyTest {
 
         /* *** Calling DELETE *** */
         System.out.println(
-                new Attributespecs_ID().call(HttpUtilityBasicCall.REST.DELETE, 3, 0));
+                new Attributespecs_ID().call(BasicCall.REST.DELETE, 3, 0));
 
         /* *** Verifing the delete *** */
-        response = new Attributespecs().call(HttpUtilityBasicCall.REST.GET);
+        response = new Attributespecs().call(BasicCall.REST.GET);
 
         JSONArray jsonResponse = null;
 

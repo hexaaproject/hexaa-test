@@ -51,11 +51,17 @@ public class ServerConstants {
         public static final String ORGANIZATIONS_ID_MEMBERS = ("/app.php/api/organizations/{id}/members");
         public static final String ORGANIZATIONS_ID_MEMBERS_PID = ("/app.php/api/organizations/{id}/members/{pid}");
         public static final String ORGANIZATIONS_ID_ROLES = ("/app.php/api/organizations/{id}/roles");
+        
         public static final String PRINCIPAL = ("/app.php/api/principal");
         public static final String PRINCIPAL_ATTRIBUTESPECS = ("/app.php/api/principal/attributespecs");
+        public static final String PRINCIPAL_ATTRIBUTESPECS_ATTRIBUTEVALUEPRINCIPAL = ("/app.php/api/principal/attributespecs/attributevalueprincipal");
+        public static final String PRINCIPAL_ATTRIBUTEVALUEPRINCIPAL = ("/app.php/api/principal/attributevalueprincipal");
+        public static final String PRINCIPAL_EMAILINVITATIONS = ("/app.php/api/principal/emailinvitations");
+        public static final String PRINCIPAL_URLINVITATIONS = ("/app.php/api/principal/urlinvitations");
         public static final String PRINCIPALS = ("/app.php/api/principals");
         public static final String PRINCIPAL_FEDID = ("/app.php/api/principals/{fedid}/fedid");
         public static final String PRINCIPALS_ID = ("/app.php/api/principals/{id}/id");
+        
         public static final String ROLES_ID = ("/app.php/api/roles/{id}");
         public static final String ROLES_ID_PRINCIPALS = ("/app.php/api/roles/{id}/principals");
         public static final String ROLES_ID_PRINCIPALS_PID = ("/app.php/api/roles/{id}/principals/{pid}");

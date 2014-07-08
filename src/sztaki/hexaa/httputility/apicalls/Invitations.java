@@ -6,14 +6,14 @@
 
 package sztaki.hexaa.httputility.apicalls;
 
-import sztaki.hexaa.httputility.HttpUtilityBasicCall;
+import sztaki.hexaa.httputility.BasicCall;
 import sztaki.hexaa.httputility.ServerConstants;
 
 /**
  *
  * @author Bana Tibor
  */
-public class Invitations extends HttpUtilityBasicCall {
+public class Invitations extends BasicCall {
     
     public Invitations() {
         super();

@@ -19,18 +19,17 @@ import org.apache.http.client.methods.CloseableHttpResponse;
  *
  * @author Bana Tibor
  */
-public abstract class HttpUtilityBasicCall {
+public class BasicCall {
 
     // The URI path for the call
     private String path;
+    private String fedid;
 
     // The requested ID and validation and requirement options
     private int id;
-    private boolean validId;
 
     // The possible special ID and validation and requirement options
     private int sId;
-    private boolean validSId;
 
     // The JSON payload in a string format
     private String json;
@@ -48,12 +47,10 @@ public abstract class HttpUtilityBasicCall {
 
     public void setId(int id) {
         this.id = id;
-        this.validId = true;
     }
 
     public void setSId(int sId) {
         this.sId = sId;
-        this.validSId = true;
     }
 
     public void setString(String json) {
@@ -63,19 +60,21 @@ public abstract class HttpUtilityBasicCall {
         this.json = json;
     }
 
+    public void setFedid(String fedid) {
+        this.fedid = fedid;
+    }
+
     /* *** Constructor *** */
-    public HttpUtilityBasicCall() {
+    public BasicCall() {
         this.deleteEnabled = true;
         this.putEnabled = true;
         this.postEnabled = true;
         this.getEnabled = true;
 
         this.id = 0;
-        this.validId = false;
 //        this.setIdRequirement(false);
 
         this.sId = 0;
-        this.validSId = false;
 //        this.setSIdRequirement(false);
 
         this.path = null;
@@ -123,6 +122,25 @@ public abstract class HttpUtilityBasicCall {
         return callSwitch(restCall);
     }
 
+    public String call(String path, REST restCall, String json, int id, int sId) {
+        this.setPath(path);
+        this.setString(json);
+        this.setId(id);
+        this.setSId(sId);
+
+        return callSwitch(restCall);
+    }
+
+    public String call(String path, REST restCall, String json, int id, int sId, String fedid) {
+        this.setPath(path);
+        this.setString(json);
+        this.setId(id);
+        this.setSId(sId);
+        this.setFedid(fedid);
+
+        return callSwitch(restCall);
+    }
+
     protected String callSwitch(REST restCall) {
         // You can enable/disable the get/post/put/delete
         // methods, advised to do it in constructor
@@ -165,30 +183,8 @@ public abstract class HttpUtilityBasicCall {
     private String get() {
         // The method is ready to work with path's that require id-s 
         String nPath;
-        nPath = this.path;
-        if (nPath.contains("{id}")) {
-            nPath = this.path.replace("{id}", Integer.toString(this.id));
-        }
-        if (nPath.contains("{pid}")) {
-            nPath = nPath.replace("{pid}", Integer.toString(this.sId));
-        }
-        if (nPath.contains("{sid}")) {
-            nPath = nPath.replace("{sid}", Integer.toString(this.sId));
-        }
-        if (nPath.contains("{asid}")) {
-            nPath = nPath.replace("{asid}", Integer.toString(this.sId));
-        }
-        if (nPath.contains("{eid}")) {
-            nPath = nPath.replace("{eid}", Integer.toString(this.sId));
-        }
-        if (nPath.contains("{epid}")) {
-            nPath = nPath.replace("{epid}", Integer.toString(this.sId));
-        }
-        if (nPath.contains("{fedid}")) {
-            nPath = nPath.replace("{fedid}", Integer.toString(this.sId));
-        }
-
-        nPath = nPath.concat(".json");
+        nPath = this.fixPath();
+        
         System.out.print("GET \t");
         System.out.println(nPath);
 
@@ -205,7 +201,7 @@ public abstract class HttpUtilityBasicCall {
                 return "";
             }
         } catch (IOException | IllegalStateException ex) {
-            Logger.getLogger(HttpUtilityBasicCall.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(BasicCall.class.getName()).log(Level.SEVERE, null, ex);
         }
 
         // Initializing the required reader
@@ -236,7 +232,7 @@ public abstract class HttpUtilityBasicCall {
                 try {
                     br.close();
                 } catch (IOException ex) {
-                    Logger.getLogger(HttpUtilityBasicCall.class.getName()).log(Level.SEVERE, null, ex);
+                    Logger.getLogger(BasicCall.class.getName()).log(Level.SEVERE, null, ex);
                 }
             }
         }
@@ -252,7 +248,192 @@ public abstract class HttpUtilityBasicCall {
     private String post() {
         // The method is ready to work with path's that require id-s 
         String nPath;
-        nPath = this.path;
+        nPath = this.fixPath();
+        
+        System.out.print("POST \t");
+        System.out.println(nPath);
+
+        // Getting the response from the server, this is
+        // wrapped in the javahttputility.core package
+        HttpCorePost entityids = new HttpCorePost(nPath);
+        entityids.setJSon(this.json);
+
+        CloseableHttpResponse response = entityids.post();
+
+        try {
+            // If there is no content body we have to return an empty string
+            if (response == null
+                    || response.getEntity() == null
+                    || response.getEntity().getContent() == null) {
+                return "";
+            }
+        } catch (IOException | IllegalStateException ex) {
+            Logger.getLogger(BasicCall.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        BufferedReader br = null;
+
+        String responseDataString = new String();
+        try {
+            // Reading the JSON payload in bytes
+            try {
+                br = new BufferedReader(new InputStreamReader(response.getEntity().getContent()));
+            } catch (IOException | IllegalStateException ex) {
+                Logger.getLogger(JavaHttpCoreTest.class.getName()).log(Level.SEVERE, "No Content", ex);
+            }
+            // Concating the read bytes together
+            if (br != null) {
+                String temp;
+                temp = br.readLine();
+                while (temp != null) {
+                    responseDataString = responseDataString.concat(temp);
+                    temp = br.readLine();
+                }
+            }
+
+        } catch (IllegalStateException | IOException ex) {
+            Logger.getLogger(JavaHttpCoreTest.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            if (br != null) {
+                try {
+                    br.close();
+                } catch (IOException ex) {
+                    Logger.getLogger(BasicCall.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+        }
+        return responseDataString;
+    }
+
+    /**
+     *
+     * @return
+     */
+    private String put() {
+        // The method is ready to work with path's that require id-s
+        String nPath;
+        nPath = this.fixPath();
+        
+        System.out.print("PUT \t");
+        System.out.println(nPath);
+
+        // Getting the response from the server, this is
+        // wrapped in the javahttputility.core package
+        HttpCorePut entityids = new HttpCorePut(nPath);
+        entityids.setJSon(this.json);
+
+        CloseableHttpResponse response = entityids.put();
+
+        try {
+            // If there is no content body we have to return an empty string
+            if (response == null
+                    || response.getEntity() == null
+                    || response.getEntity().getContent() == null) {
+                return "";
+            }
+        } catch (IOException | IllegalStateException ex) {
+            Logger.getLogger(BasicCall.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        BufferedReader br = null;
+
+        String responseDataString = new String();
+        try {
+            // Reading the JSON payload in bytes
+            try {
+                br = new BufferedReader(new InputStreamReader(response.getEntity().getContent()));
+            } catch (IOException | IllegalStateException ex) {
+                Logger.getLogger(JavaHttpCoreTest.class.getName()).log(Level.SEVERE, "No Content", ex);
+            }
+            // Concating the read bytes together
+            if (br != null) {
+                String temp;
+                temp = br.readLine();
+                while (temp != null) {
+                    responseDataString = responseDataString.concat(temp);
+                    temp = br.readLine();
+                }
+            }
+
+        } catch (IllegalStateException | IOException ex) {
+            Logger.getLogger(JavaHttpCoreTest.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            if (br != null) {
+                try {
+                    br.close();
+                } catch (IOException ex) {
+                    Logger.getLogger(BasicCall.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+        }
+        return responseDataString;
+    }
+
+    /**
+     *
+     * @return
+     */
+    private String delete() {
+        // The method is ready to work with path's that require id-s
+        String nPath;
+        nPath = this.fixPath();
+        
+        System.out.print("DELETE \t");
+        System.out.println(nPath);
+
+        // Getting the response from the server, this is
+        // wrapped in the javahttputility.core package
+        HttpCoreDelete entityids = new HttpCoreDelete(nPath);
+        CloseableHttpResponse response = entityids.delete();
+
+        try {
+            // If there is no content body we have to return an empty string
+            if (response == null
+                    || response.getEntity() == null
+                    || response.getEntity().getContent() == null) {
+                return "";
+            }
+        } catch (IOException | IllegalStateException ex) {
+            Logger.getLogger(BasicCall.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        BufferedReader br = null;
+
+        String responseDataString = new String();
+        try {
+            // Reading the JSON payload in bytes
+            try {
+                br = new BufferedReader(new InputStreamReader(response.getEntity().getContent()));
+            } catch (IOException | IllegalStateException ex) {
+                Logger.getLogger(JavaHttpCoreTest.class.getName()).log(Level.SEVERE, "No Content", ex);
+            }
+            // Concating the read bytes together
+            if (br != null) {
+                String temp;
+                temp = br.readLine();
+                while (temp != null) {
+                    responseDataString = responseDataString.concat(temp);
+                    temp = br.readLine();
+                }
+            }
+
+        } catch (IllegalStateException | IOException ex) {
+            Logger.getLogger(JavaHttpCoreTest.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            if (br != null) {
+                try {
+                    br.close();
+                } catch (IOException ex) {
+                    Logger.getLogger(BasicCall.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+        }
+
+        return responseDataString;
+    }
+
+    public String fixPath() {
+        String nPath = this.path;
         if (nPath.contains("{id}")) {
             nPath = this.path.replace("{id}", Integer.toString(this.id));
         }
@@ -272,233 +453,9 @@ public abstract class HttpUtilityBasicCall {
             nPath = nPath.replace("{epid}", Integer.toString(this.sId));
         }
         if (nPath.contains("{fedid}")) {
-            nPath = nPath.replace("{fedid}", Integer.toString(this.sId));
+            nPath = nPath.replace("{fedid}", fedid);
         }
 
-        nPath = nPath.concat(".json");
-        System.out.print("POST \t");
-        System.out.println(nPath);
-
-        // Getting the response from the server, this is
-        // wrapped in the javahttputility.core package
-        HttpCorePost entityids = new HttpCorePost(nPath);
-        entityids.setJSon(this.json);
-
-        CloseableHttpResponse response = entityids.post();
-
-        try {
-            // If there is no content body we have to return an empty string
-            if (response == null
-                    || response.getEntity() == null
-                    || response.getEntity().getContent() == null) {
-                return "";
-            }
-        } catch (IOException | IllegalStateException ex) {
-            Logger.getLogger(HttpUtilityBasicCall.class.getName()).log(Level.SEVERE, null, ex);
-        }
-
-        BufferedReader br = null;
-
-        String responseDataString = new String();
-        try {
-            // Reading the JSON payload in bytes
-            try {
-                br = new BufferedReader(new InputStreamReader(response.getEntity().getContent()));
-            } catch (IOException | IllegalStateException ex) {
-                Logger.getLogger(JavaHttpCoreTest.class.getName()).log(Level.SEVERE, "No Content", ex);
-            }
-            // Concating the read bytes together
-            if (br != null) {
-                String temp;
-                temp = br.readLine();
-                while (temp != null) {
-                    responseDataString = responseDataString.concat(temp);
-                    temp = br.readLine();
-                }
-            }
-
-        } catch (IllegalStateException | IOException ex) {
-            Logger.getLogger(JavaHttpCoreTest.class.getName()).log(Level.SEVERE, null, ex);
-        } finally {
-            if (br != null) {
-                try {
-                    br.close();
-                } catch (IOException ex) {
-                    Logger.getLogger(HttpUtilityBasicCall.class.getName()).log(Level.SEVERE, null, ex);
-                }
-            }
-        }
-        return responseDataString;
-    }
-
-    /**
-     *
-     * @return
-     */
-    private String put() {
-        // The method is ready to work with path's that require id-s
-        String nPath;
-        nPath = this.path;
-        if (this.validId) {
-            nPath = nPath.replace("{id}", Integer.toString(this.id));
-        }
-        if (nPath.contains("{pid}")) {
-            nPath = nPath.replace("{pid}", Integer.toString(this.sId));
-        }
-        if (nPath.contains("{sid}")) {
-            nPath = nPath.replace("{sid}", Integer.toString(this.sId));
-        }
-        if (nPath.contains("{asid}")) {
-            nPath = nPath.replace("{asid}", Integer.toString(this.sId));
-        }
-        if (nPath.contains("{eid}")) {
-            nPath = nPath.replace("{eid}", Integer.toString(this.sId));
-        }
-        if (nPath.contains("{epid}")) {
-            nPath = nPath.replace("{epid}", Integer.toString(this.sId));
-        }
-        if (nPath.contains("{fedid}")) {
-            nPath = nPath.replace("{fedid}", Integer.toString(this.sId));
-        }
-
-        nPath = nPath.concat(".json");
-        System.out.print("PUT \t");
-        System.out.println(nPath);
-
-        // Getting the response from the server, this is
-        // wrapped in the javahttputility.core package
-        HttpCorePut entityids = new HttpCorePut(nPath);
-        entityids.setJSon(this.json);
-
-        CloseableHttpResponse response = entityids.put();
-
-        try {
-            // If there is no content body we have to return an empty string
-            if (response == null
-                    || response.getEntity() == null
-                    || response.getEntity().getContent() == null) {
-                return "";
-            }
-        } catch (IOException | IllegalStateException ex) {
-            Logger.getLogger(HttpUtilityBasicCall.class.getName()).log(Level.SEVERE, null, ex);
-        }
-
-        BufferedReader br = null;
-
-        String responseDataString = new String();
-        try {
-            // Reading the JSON payload in bytes
-            try {
-                br = new BufferedReader(new InputStreamReader(response.getEntity().getContent()));
-            } catch (IOException | IllegalStateException ex) {
-                Logger.getLogger(JavaHttpCoreTest.class.getName()).log(Level.SEVERE, "No Content", ex);
-            }
-            // Concating the read bytes together
-            if (br != null) {
-                String temp;
-                temp = br.readLine();
-                while (temp != null) {
-                    responseDataString = responseDataString.concat(temp);
-                    temp = br.readLine();
-                }
-            }
-
-        } catch (IllegalStateException | IOException ex) {
-            Logger.getLogger(JavaHttpCoreTest.class.getName()).log(Level.SEVERE, null, ex);
-        } finally {
-            if (br != null) {
-                try {
-                    br.close();
-                } catch (IOException ex) {
-                    Logger.getLogger(HttpUtilityBasicCall.class.getName()).log(Level.SEVERE, null, ex);
-                }
-            }
-        }
-        return responseDataString;
-    }
-
-    /**
-     *
-     * @return
-     */
-    private String delete() {
-        // The method is ready to work with path's that require id-s
-        String nPath;
-        nPath = this.path;
-        if (this.validId) {
-            nPath = this.path.replace("{id}", Integer.toString(this.id));
-        }
-        if (nPath.contains("{pid}")) {
-            nPath = nPath.replace("{pid}", Integer.toString(this.sId));
-        }
-        if (nPath.contains("{sid}")) {
-            nPath = nPath.replace("{sid}", Integer.toString(this.sId));
-        }
-        if (nPath.contains("{asid}")) {
-            nPath = nPath.replace("{asid}", Integer.toString(this.sId));
-        }
-        if (nPath.contains("{eid}")) {
-            nPath = nPath.replace("{eid}", Integer.toString(this.sId));
-        }
-        if (nPath.contains("{epid}")) {
-            nPath = nPath.replace("{epid}", Integer.toString(this.sId));
-        }
-        if (nPath.contains("{fedid}")) {
-            nPath = nPath.replace("{fedid}", Integer.toString(this.sId));
-        }
-
-        nPath = nPath.concat(".json");
-        System.out.print("DELETE \t");
-        System.out.println(nPath);
-
-        // Getting the response from the server, this is
-        // wrapped in the javahttputility.core package
-        HttpCoreDelete entityids = new HttpCoreDelete(nPath);
-        CloseableHttpResponse response = entityids.delete();
-
-        try {
-            // If there is no content body we have to return an empty string
-            if (response == null
-                    || response.getEntity() == null
-                    || response.getEntity().getContent() == null) {
-                return "";
-            }
-        } catch (IOException | IllegalStateException ex) {
-            Logger.getLogger(HttpUtilityBasicCall.class.getName()).log(Level.SEVERE, null, ex);
-        }
-
-        BufferedReader br = null;
-
-        String responseDataString = new String();
-        try {
-            // Reading the JSON payload in bytes
-            try {
-                br = new BufferedReader(new InputStreamReader(response.getEntity().getContent()));
-            } catch (IOException | IllegalStateException ex) {
-                Logger.getLogger(JavaHttpCoreTest.class.getName()).log(Level.SEVERE, "No Content", ex);
-            }
-            // Concating the read bytes together
-            if (br != null) {
-                String temp;
-                temp = br.readLine();
-                while (temp != null) {
-                    responseDataString = responseDataString.concat(temp);
-                    temp = br.readLine();
-                }
-            }
-
-        } catch (IllegalStateException | IOException ex) {
-            Logger.getLogger(JavaHttpCoreTest.class.getName()).log(Level.SEVERE, null, ex);
-        } finally {
-            if (br != null) {
-                try {
-                    br.close();
-                } catch (IOException ex) {
-                    Logger.getLogger(HttpUtilityBasicCall.class.getName()).log(Level.SEVERE, null, ex);
-                }
-            }
-        }
-
-        return responseDataString;
+        return nPath.concat(".json");
     }
 }

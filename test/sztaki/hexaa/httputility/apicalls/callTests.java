@@ -1,6 +1,5 @@
 package sztaki.hexaa.httputility.apicalls;
 
-
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
@@ -21,14 +20,11 @@ import sztaki.hexaa.httputility.apicalls.services.*;
     ServicesEmptyTest.class,
     ServicesInsertTest.class
 
-
 })
 public class callTests {
 
     @BeforeClass
     public static void setUpClass() throws Exception {
-        new DatabaseManipulator().dropDatabase();
-        new Authenticator().authenticate();
     }
 
     @AfterClass
@@ -37,10 +33,12 @@ public class callTests {
 
     @Before
     public void setUp() throws Exception {
+        new DatabaseManipulator().dropDatabase();
+        new Authenticator().authenticate();
     }
 
     @After
     public void tearDown() throws Exception {
     }
-    
+
 }

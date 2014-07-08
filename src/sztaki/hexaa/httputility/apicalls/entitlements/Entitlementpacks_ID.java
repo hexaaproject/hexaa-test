@@ -5,14 +5,14 @@
  */
 package sztaki.hexaa.httputility.apicalls.entitlements;
 
-import sztaki.hexaa.httputility.HttpUtilityBasicCall;
+import sztaki.hexaa.httputility.BasicCall;
 import sztaki.hexaa.httputility.ServerConstants;
 
 /**
  *
  * @author Bana Tibor
  */
-public class Entitlementpacks_ID extends HttpUtilityBasicCall {
+public class Entitlementpacks_ID extends BasicCall {
 
     public Entitlementpacks_ID() {
         this.setPath(ServerConstants.ApiCalls.ENTITLEMENTPACKS_ID);

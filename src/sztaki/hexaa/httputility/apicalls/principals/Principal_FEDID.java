@@ -6,7 +6,7 @@
 package sztaki.hexaa.httputility.apicalls.principals;
 
 import sztaki.hexaa.httputility.apicalls.*;
-import sztaki.hexaa.httputility.HttpUtilityBasicCall;
+import sztaki.hexaa.httputility.BasicCall;
 import sztaki.hexaa.httputility.ServerConstants;
 
 /**
@@ -15,7 +15,7 @@ import sztaki.hexaa.httputility.ServerConstants;
  *
  * @author Bana Tibor
  */
-public class Principal_FEDID extends HttpUtilityBasicCall {
+public class Principal_FEDID extends BasicCall {
 
     public Principal_FEDID() {
         super();

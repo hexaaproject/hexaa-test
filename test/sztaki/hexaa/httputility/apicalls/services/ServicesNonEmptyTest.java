@@ -8,6 +8,9 @@ package sztaki.hexaa.httputility.apicalls.services;
 
 import org.junit.Test;
 import static org.junit.Assert.*;
+import org.junit.BeforeClass;
+import sztaki.hexaa.httputility.Authenticator;
+import sztaki.hexaa.httputility.DatabaseManipulator;
 
 /**
  *
@@ -15,7 +18,9 @@ import static org.junit.Assert.*;
  */
 public class ServicesNonEmptyTest {
     
-    public ServicesNonEmptyTest() {
+    @BeforeClass
+    public static void setUpClass() {
+        new DatabaseManipulator().dropDatabase();
+        new Authenticator().authenticate();
     }
-    
 }

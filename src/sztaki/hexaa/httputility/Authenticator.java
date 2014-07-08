@@ -25,21 +25,21 @@ public class Authenticator {
 
     public void authenticate() {
         // We check the current connection, if we don't get 
-        HttpUtilityBasicCall getPrincipal = new Principal();
-        String response = getPrincipal.call(HttpUtilityBasicCall.REST.GET);
+        BasicCall getPrincipal = new Principal();
+        String response = getPrincipal.call(BasicCall.REST.GET);
 
         // If the response is Forbidden, we start the authentication
         if (response.contains("401") || response.contains("403")) {
             try {
                 System.out.println("Forbidden");
 
-                HttpUtilityBasicCall postToken = new Token();
+                BasicCall postToken = new Token();
 
                 JSONObject json = new JSONObject();
                 json.put("fedid", "ede91bt@gmail.com@partners.sztaki.hu");
                 json.put("apikey", this.getAPIKey());
 
-                response = postToken.call(HttpUtilityBasicCall.REST.POST, json.toString());
+                response = postToken.call(BasicCall.REST.POST, json.toString());
 
                 JSONObject jsonResponse;
                 jsonResponse = (JSONObject) new JSONParser().parse(response);
