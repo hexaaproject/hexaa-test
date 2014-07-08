@@ -78,6 +78,8 @@ public class BasicCall {
 //        this.setSIdRequirement(false);
 
         this.path = null;
+
+        this.fedid = "";
     }
 
     /**
@@ -121,7 +123,7 @@ public class BasicCall {
 
         return callSwitch(restCall);
     }
-    
+
     public String call(String path, REST restCall) {
         this.setPath(path);
         this.setString(null);
@@ -193,7 +195,7 @@ public class BasicCall {
         // The method is ready to work with path's that require id-s 
         String nPath;
         nPath = this.fixPath();
-        
+
         System.out.print("GET \t");
         System.out.println(nPath);
 
@@ -258,7 +260,7 @@ public class BasicCall {
         // The method is ready to work with path's that require id-s 
         String nPath;
         nPath = this.fixPath();
-        
+
         System.out.print("POST \t");
         System.out.println(nPath);
 
@@ -322,7 +324,7 @@ public class BasicCall {
         // The method is ready to work with path's that require id-s
         String nPath;
         nPath = this.fixPath();
-        
+
         System.out.print("PUT \t");
         System.out.println(nPath);
 
@@ -386,7 +388,7 @@ public class BasicCall {
         // The method is ready to work with path's that require id-s
         String nPath;
         nPath = this.fixPath();
-        
+
         System.out.print("DELETE \t");
         System.out.println(nPath);
 
