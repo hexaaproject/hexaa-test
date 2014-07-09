@@ -8,6 +8,7 @@ import sztaki.hexaa.httputility.apicalls.services.*;
 @RunWith(Suite.class)
 @Suite.SuiteClasses({
     InvitationTest.class,
+    MethodNotAllowedTest.class,
     AttributespecsDeleteTest.class,
     AttributespecsGetTest.class,
     AttributespecsInsertTest.class,
@@ -16,7 +17,6 @@ import sztaki.hexaa.httputility.apicalls.services.*;
     ServicesEmptyTest.class,
     ServicesInsertTest.class,
     //    ServicesNonEmptyTest.class,
-    MethodNotAllowedTest.class
 
 })
 public class callTests {
