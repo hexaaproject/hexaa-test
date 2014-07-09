@@ -107,7 +107,7 @@ public class BasicCall {
     /* *** Normal calls, returns the response json as a String *** */
     /**
      * @param restCall
-     * @return 
+     * @return
      * @deprecated use {@link public String call(String path, REST restCall)}
      * instead.
      */
@@ -378,6 +378,8 @@ public class BasicCall {
         } catch (IOException | IllegalStateException ex) {
             Logger.getLogger(BasicCall.class.getName()).log(Level.SEVERE, null, ex);
         }
+
+        statusLine = response.getStatusLine().toString();
 
         BufferedReader br = null;
 

@@ -7,9 +7,12 @@ import org.junit.Rule;
 import org.junit.rules.ErrorCollector;
 import org.junit.runners.model.MultipleFailureException;
 import sztaki.hexaa.httputility.Authenticator;
+import sztaki.hexaa.httputility.BasicCall;
 import sztaki.hexaa.httputility.DatabaseManipulator;
 
 public class CleanTest {
+    
+    protected BasicCall persistent = new BasicCall();
 
     @Rule
     public TestErrorCollector collector = new TestErrorCollector();

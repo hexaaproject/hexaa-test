@@ -9,10 +9,13 @@ public class MethodNotAllowedTest extends CleanTest {
 
     /**
      * Bunch of tests to verify that the Method Not Allowed exception drop works
-     * fine
+     * fine, and not allowed methods do nut return any information that they
+     * should not
      */
     @Test
     public void testMethodNotAllowed() {
+        /* *** REST(GET,POST,PUT,DELETE) boundles for the   *** */
+        /* easier use, not complete, feel free to add to it *** */
         BasicCall.REST[] restGetPost = {
             BasicCall.REST.GET,
             BasicCall.REST.POST,};
@@ -28,15 +31,15 @@ public class MethodNotAllowedTest extends CleanTest {
 
         /* *** Attributespecs and Attributespecs_ID *** */
         this.testURIMethodPairs(
-                new String [] {
+                new String[]{
                     Const.Api.ATTRIBUTESPECS,},
                 restPutDelete);
-        
+
         this.testURIMethodPairs(
-                new String [] {
+                new String[]{
                     Const.Api.ATTRIBUTESPECS_ID,},
                 restPost);
-        
+
         /* *** Princiapls *** */
         this.testURIMethodPairs(
                 new String[]{
@@ -52,7 +55,7 @@ public class MethodNotAllowedTest extends CleanTest {
                     Const.Api.PRINCIPAL_ATTRIBUTESPECS_ATTRIBUTEVALUEPRINCIPAL,
                     Const.Api.PRINCIPAL_FEDID,},
                 restPostPutDelete);
-        
+
         this.testURIMethodPairs(
                 new String[]{
                     Const.Api.PRINCIPALS,},
@@ -85,17 +88,28 @@ public class MethodNotAllowedTest extends CleanTest {
 
     }
 
+    /**
+     * Easy to use testing bench, running all possible uri/call pair from the
+     * parameter arrays. All the http calls and asserts are in one method, makes
+     * it easier to maintain
+     *
+     * @param uris String[]: Strings for the uri-s to call, preferably from the
+     * Const.Api constants
+     * @param calls REST[]: from the BasicCall.REST[], can be GET, POST, PUT,
+     * DELETE
+     */
     private void testURIMethodPairs(String[] uris, BasicCall.REST[] calls) {
         for (String uri : uris) {
             for (BasicCall.REST method : calls) {
                 try {
-                    assertEquals("{\"code\":405,\"message\":\"Method Not Allowed\"}",
-                            new BasicCall().call(
+                    assertEquals(
+                            "{\"code\":405,\"message\":\"Method Not Allowed\"}",
+                            persistent.call(
                                     uri,
                                     method)
                     );
                 } catch (AssertionError e) {
-                    System.out.println(e.getLocalizedMessage());
+                    System.out.println(persistent.getStatusLine());
                     collector.addError(e);
                 }
             }

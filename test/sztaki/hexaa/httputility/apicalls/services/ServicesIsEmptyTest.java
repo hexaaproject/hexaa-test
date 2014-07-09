@@ -11,63 +11,64 @@ public class ServicesIsEmptyTest extends CleanTest {
     @Test
     public void testServicesIsEmpty() {
         try {
-            assertEquals("[]", new BasicCall().call(
+            assertEquals("[]", persistent.call(
                     Const.Api.SERVICES,
                     BasicCall.REST.GET));
+            assertEquals("HTTP/1.1 200 OK", persistent.getStatusLine());
         } catch (AssertionError e) {
-            System.out.println(e.getLocalizedMessage());
+            System.out.println(persistent.getStatusLine());
             collector.addError(e);
         }
         try {
-            assertEquals("{\"code\":404,\"message\":\"Not Found\"}", new BasicCall().call(
+            assertEquals("{\"code\":404,\"message\":\"Not Found\"}", persistent.call(
                     Const.Api.SERVICES_ID,
                     BasicCall.REST.GET,
                     null,
                     1, 0));
         } catch (AssertionError e) {
-            System.out.println(e.getLocalizedMessage());
+            System.out.println(persistent.getStatusLine());
             collector.addError(e);
         }
         try {
-            assertEquals("{\"code\":404,\"message\":\"Not Found\"}", new BasicCall().call(
+            assertEquals("{\"code\":404,\"message\":\"Not Found\"}", persistent.call(
                     Const.Api.SERVICES_ATTRIBUTESPECS,
                     BasicCall.REST.GET,
                     null,
                     1, 0));
         } catch (AssertionError e) {
-            System.out.println(e.getLocalizedMessage());
+            System.out.println(persistent.getStatusLine());
             collector.addError(e);
         }
         try {
-            assertEquals("{\"code\":404,\"message\":\"Not Found\"}", new BasicCall().call(
+            assertEquals("{\"code\":404,\"message\":\"Not Found\"}", persistent.call(
                     Const.Api.SERVICES_ENTITLEMENTPACKS,
                     BasicCall.REST.GET,
                     null,
                     1, 0));
         } catch (AssertionError e) {
-            System.out.println(e.getLocalizedMessage());
+            System.out.println(persistent.getStatusLine());
             collector.addError(e);
         }
         try {
-            assertEquals("{\"code\":404,\"message\":\"Not Found\"}", new BasicCall().call(
+            assertEquals("{\"code\":404,\"message\":\"Not Found\"}", persistent.call(
                     Const.Api.SERVICES_ENTITLEMENTS,
                     BasicCall.REST.GET,
                     null,
                     1, 0));
         } catch (AssertionError e) {
-            System.out.println(e.getLocalizedMessage());
+            System.out.println(persistent.getStatusLine());
             collector.addError(e);
         }
         try {
-            assertEquals("{\"code\":404,\"message\":\"Not Found\"}", new BasicCall().call(
+            assertEquals("{\"code\":404,\"message\":\"Not Found\"}", persistent.call(
                     Const.Api.SERVICES_MANAGERS,
                     BasicCall.REST.GET,
                     null,
                     1, 0));
         } catch (AssertionError e) {
-            System.out.println(e.getLocalizedMessage());
+            System.out.println(persistent.getStatusLine());
             collector.addError(e);
         }
-        
+
     }
 }

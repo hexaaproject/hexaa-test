@@ -17,7 +17,7 @@ import sztaki.hexaa.httputility.apicalls.services.*;
     AttributespecsPutTest.class,
     AttributespecsDeleteTest.class,
     ServicesIsEmptyTest.class,
-    ServicesInsertTest.class,
+    ServicesPostTest.class,
     InvitationTest.class,
     MethodNotAllowedTest.class,
     //    ServicesNonEmptyTest.class,
