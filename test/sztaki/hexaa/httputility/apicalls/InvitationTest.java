@@ -13,7 +13,7 @@ import static org.junit.Assert.*;
  *
  * @author Bana Tibor
  */
-public class InvitationTest {
+public class InvitationTest extends CleanTest{
     
     @Test
     public void createOrganization() {

@@ -1,4 +1,4 @@
-package sztaki.hexaa.httputility.apicalls.attributes;
+package sztaki.hexaa.httputility.apicalls.attributespecs;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -43,7 +43,7 @@ public class AttributespecsPutTest extends CleanTest {
      * /api/attributespec/{id} GET
      */
     @Test
-    public void testPut() {
+    public void testAttributespecsPut() {
         /* *** The desired changes *** */
         ((JSONObject) array.get(0)).put("oid", "oidByPut");
         ((JSONObject) array.get(0)).put("friendly_name", "nameByPut");
@@ -74,8 +74,11 @@ public class AttributespecsPutTest extends CleanTest {
         if (jsonResponse == null) {
             jsonResponse = new JSONObject();
         }
-
-        assertEquals("oidByPut", jsonResponse.get("oid"));
+        try {
+            assertEquals("oidByPut", jsonResponse.get("oid"));
+        } catch (AssertionError e) {
+            collector.addError(e);
+        }
     }
 
 }

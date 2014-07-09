@@ -1,8 +1,10 @@
-package sztaki.hexaa.httputility.apicalls.attributes;
+package sztaki.hexaa.httputility.apicalls.attributespecs;
 
 import org.json.JSONObject;
 import static org.junit.Assert.*;
 import org.junit.Test;
+import org.skyscreamer.jsonassert.JSONAssert;
+import org.skyscreamer.jsonassert.JSONCompareMode;
 import org.skyscreamer.jsonassert.JSONParser;
 import sztaki.hexaa.httputility.BasicCall;
 import sztaki.hexaa.httputility.Const;
@@ -17,7 +19,7 @@ public class AttributespecsDeleteTest extends CleanTest {
      * local array
      */
     @Test
-    public void testDelete() {
+    public void testAttributespecsDelete() {
 
         /* *** POST a new object *** */
         JSONObject json3 = new JSONObject();
@@ -51,8 +53,12 @@ public class AttributespecsDeleteTest extends CleanTest {
         if (jsonOResponse == null) {
             jsonOResponse = new JSONObject();
         }
-        assertEquals(json3.toString(),
-                jsonOResponse.toString());
+        try {
+            JSONAssert.assertEquals(json3,
+                    jsonOResponse, JSONCompareMode.LENIENT);
+        } catch (AssertionError e) {
+            collector.addError(e);
+        }
 
         /* *** Calling DELETE *** */
         new BasicCall().call(
@@ -62,8 +68,12 @@ public class AttributespecsDeleteTest extends CleanTest {
                 1, 0);
 
         /* *** Verifing the delete *** */
-        assertEquals("[]", new BasicCall().call(
-                Const.Api.ATTRIBUTESPECS,
-                BasicCall.REST.GET));
+        try {
+            assertEquals("[]", new BasicCall().call(
+                    Const.Api.ATTRIBUTESPECS,
+                    BasicCall.REST.GET));
+        } catch (AssertionError e) {
+            collector.addError(e);
+        }
     }
 }

@@ -1,14 +1,15 @@
 package sztaki.hexaa.httputility.apicalls.services;
 
 import org.json.JSONObject;
-import org.junit.Test;
 import static org.junit.Assert.*;
 import org.junit.BeforeClass;
+import org.junit.Test;
 import sztaki.hexaa.httputility.Authenticator;
-import sztaki.hexaa.httputility.DatabaseManipulator;
 import sztaki.hexaa.httputility.BasicCall;
+import sztaki.hexaa.httputility.DatabaseManipulator;
+import sztaki.hexaa.httputility.apicalls.CleanTest;
 
-public class ServicesInsertTest {
+public class ServicesInsertTest extends CleanTest{
 
     @BeforeClass
     public static void setUpClass() {

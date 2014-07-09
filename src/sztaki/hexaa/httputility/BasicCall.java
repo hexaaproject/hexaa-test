@@ -11,6 +11,7 @@ import sztaki.hexaa.httputility.core.HttpCoreGet;
 import sztaki.hexaa.httputility.core.HttpCorePost;
 import sztaki.hexaa.httputility.core.HttpCorePut;
 import org.apache.http.client.methods.CloseableHttpResponse;
+import org.apache.http.util.EntityUtils;
 
 /**
  * Abstract super class to support implementation of API calls on a defined URI.
@@ -20,6 +21,8 @@ import org.apache.http.client.methods.CloseableHttpResponse;
  * @author Bana Tibor
  */
 public class BasicCall {
+
+    private String statusLine = "";
 
     // The URI path for the call
     private String path;
@@ -40,7 +43,7 @@ public class BasicCall {
     protected boolean putEnabled;
     protected boolean deleteEnabled;
 
-    /* *** Setter methods *** */
+    /* *** Setter/getter methods *** */
     public void setPath(String path) {
         this.path = path;
     }
@@ -62,6 +65,16 @@ public class BasicCall {
 
     public void setFedid(String fedid) {
         this.fedid = fedid;
+    }
+
+    /**
+     * Returns the status line associated with the last call. Persist until a
+     * new call is placed and gives an empty String before any call.
+     *
+     * @return String: the status line of the last call, never null, maybe empty
+     */
+    public String getStatusLine() {
+        return statusLine;
     }
 
     /* *** Constructor *** */
@@ -91,7 +104,14 @@ public class BasicCall {
         GET, POST, PUT, DELETE
     }
 
-    /* *** Normal calls, returns the response json *** */
+    /* *** Normal calls, returns the response json as a String *** */
+    /**
+     * @param restCall
+     * @return 
+     * @deprecated use {@link public String call(String path, REST restCall)}
+     * instead.
+     */
+    @Deprecated
     public String call(REST restCall) {
         this.setString(null);
         this.setId(0);
@@ -100,6 +120,15 @@ public class BasicCall {
         return callSwitch(restCall);
     }
 
+    /**
+     * @param restCall
+     * @param json
+     * @return
+     * @deprecated use
+     * {@link call(String path, REST restCall, String json, int id, int sId)}
+     * instead.
+     */
+    @Deprecated
     public String call(REST restCall, String json) {
         this.setString(json);
         this.setId(0);
@@ -108,6 +137,16 @@ public class BasicCall {
         return callSwitch(restCall);
     }
 
+    /**
+     * @param restCall
+     * @param id
+     * @param sId
+     * @return
+     * @deprecated use
+     * {@link call(String path, REST restCall, String json, int id, int sId)}
+     * instead.
+     */
+    @Deprecated
     public String call(REST restCall, int id, int sId) {
         this.setString(null);
         this.setId(id);
@@ -116,6 +155,17 @@ public class BasicCall {
         return callSwitch(restCall);
     }
 
+    /**
+     * @param restCall
+     * @param json
+     * @param id
+     * @param sId
+     * @return
+     * @deprecated use
+     * {@link call(String path, REST restCall, String json, int id, int sId)}
+     * instead.
+     */
+    @Deprecated
     public String call(REST restCall, String json, int id, int sId) {
         this.setString(json);
         this.setId(id);
@@ -204,50 +254,7 @@ public class BasicCall {
         HttpCoreGet entityids = new HttpCoreGet(nPath);
         CloseableHttpResponse response = entityids.get();
 
-        try {
-            // If there is no content body we have to return an empty string
-            if (response == null
-                    || response.getEntity() == null
-                    || response.getEntity().getContent() == null) {
-                return "";
-            }
-        } catch (IOException | IllegalStateException ex) {
-            Logger.getLogger(BasicCall.class.getName()).log(Level.SEVERE, null, ex);
-        }
-
-        // Initializing the required reader
-        BufferedReader br = null;
-
-        String responseDataString = new String();
-        try {
-            // Reading the JSON payload in bytes
-            try {
-                br = new BufferedReader(new InputStreamReader(response.getEntity().getContent()));
-            } catch (IOException | IllegalStateException ex) {
-                Logger.getLogger(JavaHttpCoreTest.class.getName()).log(Level.SEVERE, "No Content", ex);
-            }
-            // Concating the read bytes together
-            if (br != null) {
-                String temp;
-                temp = br.readLine();
-                while (temp != null) {
-                    responseDataString = responseDataString.concat(temp);
-                    temp = br.readLine();
-                }
-            }
-
-        } catch (IllegalStateException | IOException ex) {
-            Logger.getLogger(JavaHttpCoreTest.class.getName()).log(Level.SEVERE, null, ex);
-        } finally {
-            if (br != null) {
-                try {
-                    br.close();
-                } catch (IOException ex) {
-                    Logger.getLogger(BasicCall.class.getName()).log(Level.SEVERE, null, ex);
-                }
-            }
-        }
-        return responseDataString;
+        return getContentString(response);
 
     }
 
@@ -271,49 +278,7 @@ public class BasicCall {
 
         CloseableHttpResponse response = entityids.post();
 
-        try {
-            // If there is no content body we have to return an empty string
-            if (response == null
-                    || response.getEntity() == null
-                    || response.getEntity().getContent() == null) {
-                return "";
-            }
-        } catch (IOException | IllegalStateException ex) {
-            Logger.getLogger(BasicCall.class.getName()).log(Level.SEVERE, null, ex);
-        }
-
-        BufferedReader br = null;
-
-        String responseDataString = new String();
-        try {
-            // Reading the JSON payload in bytes
-            try {
-                br = new BufferedReader(new InputStreamReader(response.getEntity().getContent()));
-            } catch (IOException | IllegalStateException ex) {
-                Logger.getLogger(JavaHttpCoreTest.class.getName()).log(Level.SEVERE, "No Content", ex);
-            }
-            // Concating the read bytes together
-            if (br != null) {
-                String temp;
-                temp = br.readLine();
-                while (temp != null) {
-                    responseDataString = responseDataString.concat(temp);
-                    temp = br.readLine();
-                }
-            }
-
-        } catch (IllegalStateException | IOException ex) {
-            Logger.getLogger(JavaHttpCoreTest.class.getName()).log(Level.SEVERE, null, ex);
-        } finally {
-            if (br != null) {
-                try {
-                    br.close();
-                } catch (IOException ex) {
-                    Logger.getLogger(BasicCall.class.getName()).log(Level.SEVERE, null, ex);
-                }
-            }
-        }
-        return responseDataString;
+        return getContentString(response);
     }
 
     /**
@@ -335,49 +300,7 @@ public class BasicCall {
 
         CloseableHttpResponse response = entityids.put();
 
-        try {
-            // If there is no content body we have to return an empty string
-            if (response == null
-                    || response.getEntity() == null
-                    || response.getEntity().getContent() == null) {
-                return "";
-            }
-        } catch (IOException | IllegalStateException ex) {
-            Logger.getLogger(BasicCall.class.getName()).log(Level.SEVERE, null, ex);
-        }
-
-        BufferedReader br = null;
-
-        String responseDataString = new String();
-        try {
-            // Reading the JSON payload in bytes
-            try {
-                br = new BufferedReader(new InputStreamReader(response.getEntity().getContent()));
-            } catch (IOException | IllegalStateException ex) {
-                Logger.getLogger(JavaHttpCoreTest.class.getName()).log(Level.SEVERE, "No Content", ex);
-            }
-            // Concating the read bytes together
-            if (br != null) {
-                String temp;
-                temp = br.readLine();
-                while (temp != null) {
-                    responseDataString = responseDataString.concat(temp);
-                    temp = br.readLine();
-                }
-            }
-
-        } catch (IllegalStateException | IOException ex) {
-            Logger.getLogger(JavaHttpCoreTest.class.getName()).log(Level.SEVERE, null, ex);
-        } finally {
-            if (br != null) {
-                try {
-                    br.close();
-                } catch (IOException ex) {
-                    Logger.getLogger(BasicCall.class.getName()).log(Level.SEVERE, null, ex);
-                }
-            }
-        }
-        return responseDataString;
+        return getContentString(response);
     }
 
     /**
@@ -397,53 +320,19 @@ public class BasicCall {
         HttpCoreDelete entityids = new HttpCoreDelete(nPath);
         CloseableHttpResponse response = entityids.delete();
 
-        try {
-            // If there is no content body we have to return an empty string
-            if (response == null
-                    || response.getEntity() == null
-                    || response.getEntity().getContent() == null) {
-                return "";
-            }
-        } catch (IOException | IllegalStateException ex) {
-            Logger.getLogger(BasicCall.class.getName()).log(Level.SEVERE, null, ex);
-        }
-
-        BufferedReader br = null;
-
-        String responseDataString = new String();
-        try {
-            // Reading the JSON payload in bytes
-            try {
-                br = new BufferedReader(new InputStreamReader(response.getEntity().getContent()));
-            } catch (IOException | IllegalStateException ex) {
-                Logger.getLogger(JavaHttpCoreTest.class.getName()).log(Level.SEVERE, "No Content", ex);
-            }
-            // Concating the read bytes together
-            if (br != null) {
-                String temp;
-                temp = br.readLine();
-                while (temp != null) {
-                    responseDataString = responseDataString.concat(temp);
-                    temp = br.readLine();
-                }
-            }
-
-        } catch (IllegalStateException | IOException ex) {
-            Logger.getLogger(JavaHttpCoreTest.class.getName()).log(Level.SEVERE, null, ex);
-        } finally {
-            if (br != null) {
-                try {
-                    br.close();
-                } catch (IOException ex) {
-                    Logger.getLogger(BasicCall.class.getName()).log(Level.SEVERE, null, ex);
-                }
-            }
-        }
-
-        return responseDataString;
+        return getContentString(response);
     }
 
-    public String fixPath() {
+    /* *** Utility methods *** */
+    /**
+     * In the constans values of paths (found in {@link Const.Api}) the uris
+     * only contains {id}/{sid}/etc tags, not the actual ids (as these are only
+     * constans values), so the actual ids are replaced in the original string
+     * here, and concats .json at the end as well.
+     *
+     * @return
+     */
+    private String fixPath() {
         String nPath = this.path;
         if (nPath.contains("{id}")) {
             nPath = this.path.replace("{id}", Integer.toString(this.id));
@@ -468,5 +357,68 @@ public class BasicCall {
         }
 
         return nPath.concat(".json");
+    }
+
+    /**
+     * Consumes the response and returns the content in a non-parsed String.
+     *
+     * @param response CloseableHttpResponse
+     * @return String:response.getEntity().getContent() in a non-parsed String,
+     * if response (or the entity or the content) is null than the returned
+     * String is empty (but not null)
+     */
+    private String getContentString(CloseableHttpResponse response) {
+        try {
+            // If there is no content body we have to return an empty string
+            if (response == null
+                    || response.getEntity() == null
+                    || response.getEntity().getContent() == null) {
+                return "";
+            }
+        } catch (IOException | IllegalStateException ex) {
+            Logger.getLogger(BasicCall.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        BufferedReader br = null;
+
+        String responseDataString = new String();
+
+        try {
+            // Reading the JSON payload in bytes
+            try {
+                br = new BufferedReader(
+                        new InputStreamReader(
+                                response.getEntity().getContent()));
+            } catch (IOException | IllegalStateException ex) {
+                Logger.getLogger(
+                        JavaHttpCoreTest.class.getName()).log(
+                                Level.SEVERE, "No Content", ex);
+            }
+            // Concating the read bytes together
+            if (br != null) {
+                String temp;
+                temp = br.readLine();
+                while (temp != null) {
+                    responseDataString = responseDataString.concat(temp);
+                    temp = br.readLine();
+                }
+            }
+
+        } catch (IllegalStateException | IOException ex) {
+            Logger.getLogger(
+                    JavaHttpCoreTest.class.getName()).log(
+                            Level.SEVERE, null, ex);
+        } finally {
+            if (br != null) {
+                try {
+                    br.close();
+                } catch (IOException ex) {
+                    Logger.getLogger(
+                            BasicCall.class.getName()).log(
+                                    Level.SEVERE, null, ex);
+                }
+            }
+        }
+        return responseDataString;
     }
 }

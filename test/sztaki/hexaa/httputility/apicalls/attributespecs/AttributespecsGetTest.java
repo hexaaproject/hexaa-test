@@ -1,4 +1,4 @@
-package sztaki.hexaa.httputility.apicalls.attributes;
+package sztaki.hexaa.httputility.apicalls.attributespecs;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -38,7 +38,7 @@ public class AttributespecsGetTest extends CleanTest {
         array.put(json);
 
         json = new JSONObject();
-        
+
         json.put("oid", "differentName");
         json.put("friendly_name", "differentTestName1");
         json.put("syntax", "noSyntax2");
@@ -60,7 +60,7 @@ public class AttributespecsGetTest extends CleanTest {
      * stored object
      */
     @Test
-    public void testGetByArray() {
+    public void testAttributespecsGetByArray() {
 
         JSONObject jsonResponse = null;
 
@@ -75,11 +75,13 @@ public class AttributespecsGetTest extends CleanTest {
         if (jsonResponse == null) {
             jsonResponse = new JSONObject();
         }
-        
-        
 
-        JSONAssert.assertEquals((JSONObject) array.get(0),
-                jsonResponse, false);
+        try {
+            JSONAssert.assertEquals((JSONObject) array.get(0),
+                    jsonResponse, false);
+        } catch (AssertionError e) {
+            collector.addError(e);
+        }
     }
 
     /**
@@ -87,7 +89,7 @@ public class AttributespecsGetTest extends CleanTest {
      * proper id, tests it against the locally stored object
      */
     @Test
-    public void testGetByID() {
+    public void testAttributespecsGetByID() {
         // Get the Attributespecs with the id = 2
         // Parse it to JSON
         JSONObject jsonResponse = null;
@@ -104,8 +106,12 @@ public class AttributespecsGetTest extends CleanTest {
             jsonResponse = new JSONObject();
         }
         // Assert it with the local object
-        assertEquals(((JSONObject) array.get(1)).toString(),
-                jsonResponse.toString());
+        try {
+            JSONAssert.assertEquals((JSONObject) array.get(1),
+                    jsonResponse, false);
+        } catch (AssertionError e) {
+            collector.addError(e);
+        }
     }
 
     /**
@@ -114,7 +120,7 @@ public class AttributespecsGetTest extends CleanTest {
      * the local array
      */
     @Test
-    public void testArray() {
+    public void testAttributespecsArray() {
         /* *** GET the desired array from the server *** */
         String response = new BasicCall().call(Const.Api.ATTRIBUTESPECS, BasicCall.REST.GET);
 
@@ -137,8 +143,12 @@ public class AttributespecsGetTest extends CleanTest {
             jsonResponse = new JSONArray();
         }
         // Assert the two arrays as string
-        assertEquals(
-                array.toString(), jsonResponse.toString());
+        try {
+            JSONAssert.assertEquals(
+                    array, jsonResponse, false);
+        } catch (AssertionError e) {
+            collector.addError(e);
+        }
 
     }
 

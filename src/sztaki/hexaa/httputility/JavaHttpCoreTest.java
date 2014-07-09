@@ -17,7 +17,7 @@ public class JavaHttpCoreTest {
         JavaHttpCoreTest HCT = new JavaHttpCoreTest();
 
         new DatabaseManipulator().dropDatabase();
-//        new Authenticator().authenticate();
+        new Authenticator().authenticate();
         
 //        System.out.println(new Manager_Organizations().call(REST.GET));
 //

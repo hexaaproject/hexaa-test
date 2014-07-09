@@ -13,81 +13,76 @@ public class MethodNotAllowedTest extends CleanTest {
      */
     @Test
     public void testMethodNotAllowed() {
-        /* *** Attributespecs and Attributespecs_ID *** */
-        try {
-            assertEquals("{\"code\":405,\"message\":\"Method Not Allowed\"}", new BasicCall().call(
-                    Const.Api.ATTRIBUTESPECS,
-                    BasicCall.REST.PUT));
-        } catch (AssertionError e) {
-            collector.addError(e);
-        }
-        try {
-            assertEquals("{\"code\":405,\"message\":\"Method Not Allowed\"}", new BasicCall().call(
-                    Const.Api.ATTRIBUTESPECS,
-                    BasicCall.REST.DELETE));
-        } catch (AssertionError e) {
-            collector.addError(e);
-        }
-        try {
-            assertEquals("{\"code\":405,\"message\":\"Method Not Allowed\"}", new BasicCall().call(
-                    Const.Api.ATTRIBUTESPECS_ID,
-                    BasicCall.REST.POST));
-        } catch (AssertionError e) {
-            collector.addError(e);
-        }
-
-        /* *** Services *** */
-        try {
-            assertEquals("{\"code\":405,\"message\":\"Method Not Allowed\"}", new BasicCall().call(
-                    Const.Api.SERVICES,
-                    BasicCall.REST.PUT));
-        } catch (AssertionError e) {
-            collector.addError(e);
-        }
-        try {
-            assertEquals("{\"code\":405,\"message\":\"Method Not Allowed\"}", new BasicCall().call(
-                    Const.Api.SERVICES,
-                    BasicCall.REST.DELETE));
-        } catch (AssertionError e) {
-            collector.addError(e);
-        }
-        try {
-            assertEquals("{\"code\":405,\"message\":\"Method Not Allowed\"}", new BasicCall().call(
-                    Const.Api.SERVICES_ID,
-                    BasicCall.REST.POST));
-        } catch (AssertionError e) {
-            collector.addError(e);
-        }
-
-        /* *** Princiapls *** */
-        String[] sA = {
-            Const.Api.MANAGER_ORGANIZATIONS,
-            Const.Api.MANAGER_SERVICES,
-            Const.Api.MEMBER_ORGANIZATIONS,
-            Const.Api.PRINCIPAL,
-            Const.Api.PRINCIPAL_ATTRIBUTESPECS,
-            Const.Api.PRINCIPAL_ATTRIBUTEVALUEPRINCIPAL,
-            Const.Api.PRINCIPAL_EMAILINVITATIONS,
-            Const.Api.PRINCIPAL_URLINVITATIONS,
-            Const.Api.PRINCIPALS_ID,
-            // Removed until not fixed or proper assertation error handling is implemented
-            Const.Api.PRINCIPAL_ATTRIBUTESPECS_ATTRIBUTEVALUEPRINCIPAL,
-            // Removed until not fixed or proper assertation error handling is implemented
-            Const.Api.PRINCIPAL_FEDID,};
-        BasicCall.REST[] rA = {
+        BasicCall.REST[] restGetPost = {
+            BasicCall.REST.GET,
+            BasicCall.REST.POST,};
+        BasicCall.REST[] restPost = {
+            BasicCall.REST.POST,};
+        BasicCall.REST[] restPostPutDelete = {
             BasicCall.REST.POST,
             BasicCall.REST.PUT,
             BasicCall.REST.DELETE};
-        this.testURIMethodPairs(sA, rA);
+        BasicCall.REST[] restPutDelete = {
+            BasicCall.REST.PUT,
+            BasicCall.REST.DELETE};
+
+        /* *** Attributespecs and Attributespecs_ID *** */
+        this.testURIMethodPairs(
+                new String [] {
+                    Const.Api.ATTRIBUTESPECS,},
+                restPutDelete);
+        
+        this.testURIMethodPairs(
+                new String [] {
+                    Const.Api.ATTRIBUTESPECS_ID,},
+                restPost);
+        
+        /* *** Princiapls *** */
+        this.testURIMethodPairs(
+                new String[]{
+                    Const.Api.MANAGER_ORGANIZATIONS,
+                    Const.Api.MANAGER_SERVICES,
+                    Const.Api.MEMBER_ORGANIZATIONS,
+                    Const.Api.PRINCIPAL,
+                    Const.Api.PRINCIPAL_ATTRIBUTESPECS,
+                    Const.Api.PRINCIPAL_ATTRIBUTEVALUEPRINCIPAL,
+                    Const.Api.PRINCIPAL_EMAILINVITATIONS,
+                    Const.Api.PRINCIPAL_URLINVITATIONS,
+                    Const.Api.PRINCIPALS_ID,
+                    Const.Api.PRINCIPAL_ATTRIBUTESPECS_ATTRIBUTEVALUEPRINCIPAL,
+                    Const.Api.PRINCIPAL_FEDID,},
+                restPostPutDelete);
+        
+        this.testURIMethodPairs(
+                new String[]{
+                    Const.Api.PRINCIPALS,},
+                restPutDelete);
 
         /* *** Services *** */
-        try {
-            assertEquals("{\"code\":405,\"message\":\"Method Not Allowed\"}", new BasicCall().call(
-                    Const.Api.SERVICES_ID,
-                    BasicCall.REST.POST));
-        } catch (AssertionError e) {
-            collector.addError(e);
-        }
+        this.testURIMethodPairs(
+                new String[]{
+                    Const.Api.SERVICES_MANAGERS,
+                    Const.Api.SERVICES_ATTRIBUTESPECS,},
+                restPostPutDelete);
+
+        this.testURIMethodPairs(
+                new String[]{
+                    Const.Api.SERVICES,
+                    Const.Api.SERVICES_ENTITLEMENTPACKS,
+                    Const.Api.SERVICES_ENTITLEMENTS,},
+                restPutDelete);
+
+        this.testURIMethodPairs(
+                new String[]{
+                    Const.Api.SERVICES_ID,},
+                restPost);
+
+        this.testURIMethodPairs(
+                new String[]{
+                    Const.Api.SERVICES_ATTRIBUTESPECS_ASID,
+                    Const.Api.SERVICES_MANAGERS_PID,},
+                restGetPost);
+
     }
 
     private void testURIMethodPairs(String[] uris, BasicCall.REST[] calls) {

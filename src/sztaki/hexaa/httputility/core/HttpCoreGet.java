@@ -5,24 +5,23 @@ import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import sztaki.hexaa.httputility.Const;
 import org.apache.http.Header;
 import org.apache.http.client.methods.CloseableHttpResponse;
 import org.apache.http.client.methods.HttpGet;
-import org.apache.http.client.methods.HttpPost;
 import org.apache.http.client.utils.URIBuilder;
 import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClients;
 import org.apache.http.message.BasicHeader;
+import sztaki.hexaa.httputility.Const;
 
 /**
  *
  * @author Bana Tibor
  */
 public class HttpCoreGet {
-
+    
     private HttpGet httpAction = null;
-
+    
     public HttpCoreGet(String path) {
         URI uri = null;
         try {
@@ -43,17 +42,17 @@ public class HttpCoreGet {
             
         }
     }
-
+    
     public CloseableHttpResponse get() {
         CloseableHttpResponse response = null;
         CloseableHttpClient httpClient = HttpClients.createDefault();
-
+        
         try {
             response = httpClient.execute(httpAction);
         } catch (IOException ex) {
             Logger.getLogger(HttpCorePost.class.getName()).log(Level.SEVERE, null, ex);
         }
-
+        
         return response;
     }
 }
