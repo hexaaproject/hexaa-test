@@ -121,82 +121,13 @@ public class BasicCall {
 
     /* *** Normal calls, returns the response json as a String *** */
     /**
-     * @param restCall
-     * @return
-     * @deprecated use {@link public String call(String path, REST restCall)}
-     * instead.
-     */
-    @Deprecated
-    public String call(REST restCall) {
-        this.setString(null);
-        this.setId(0);
-        this.setSId(0);
-
-        return callSwitch(restCall);
-    }
-
-    /**
-     * @param restCall
-     * @param json
-     * @return
-     * @deprecated use
-     * {@link call(String path, REST restCall, String json, int id, int sId)}
-     * instead.
-     */
-    @Deprecated
-    public String call(REST restCall, String json) {
-        this.setString(json);
-        this.setId(0);
-        this.setSId(0);
-
-        return callSwitch(restCall);
-    }
-
-    /**
-     * @param restCall
-     * @param id
-     * @param sId
-     * @return
-     * @deprecated use
-     * {@link call(String path, REST restCall, String json, int id, int sId)}
-     * instead.
-     */
-    @Deprecated
-    public String call(REST restCall, int id, int sId) {
-        this.setString(null);
-        this.setId(id);
-        this.setSId(sId);
-
-        return callSwitch(restCall);
-    }
-
-    /**
-     * @param restCall
-     * @param json
-     * @param id
-     * @param sId
-     * @return
-     * @deprecated use
-     * {@link call(String path, REST restCall, String json, int id, int sId)}
-     * instead.
-     */
-    @Deprecated
-    public String call(REST restCall, String json, int id, int sId) {
-        this.setString(json);
-        this.setId(id);
-        this.setSId(sId);
-
-        return callSwitch(restCall);
-    }
-
-    /**
      * Most basic call type, only use it for simple GET methods, as it does not
      * get the required json/id/sid/fedid for most of the more complex calls
      * like any POST/PUT methods or GET/DELETE methods with required ids. These
      * situations see
      * {@link call(String path, REST restCall, String json, int id, int sId)}.
      *
-     * @param path String, the relative path from the {@value Const.HEXAA_HOST}.
+     * @param path String, the relative path from the host.
      * @param restCall REST, the type of the call (GET,POST,PUT,DELETE).
      * @return String, the content of the response for the call, for the Status
      * Line/Code see {@link getStatusLine()}.
@@ -213,9 +144,9 @@ public class BasicCall {
     /**
      * The normal call type, use this for most calls. Does not have a fedid, if
      * fedid is required use
-     * {@link public String call(String path, REST restCall, String json, int id, int sId, String fedid)}.
+     * {@link call(String path, REST restCall, String json, int id, int sId, String fedid)}.
      *
-     * @param path String, the relative path from the {@value Const.HEXAA_HOST}.
+     * @param path String, the relative path from the host.
      * @param restCall REST, the type of the call (GET,POST,PUT,DELETE).
      * @param json String, the json message for the http request's body in
      * string format.
@@ -236,17 +167,17 @@ public class BasicCall {
     /**
      * Call with fedid provided. Use this only if fedid is necessary, otherwise
      * see
-     * {@link public String call(String path, REST restCall, String json, int id, int sId)}
+     * {@link call(String path, REST restCall, String json, int id, int sId)}
      * and {@link String call(String path, REST restCall)}.
      *
-     * @param path String, the relative path from the {@value Const.HEXAA_HOST}.
+     * @param path String, the relative path from the host.
      * @param restCall REST, the type of the call (GET,POST,PUT,DELETE).
      * @param json String, the json message for the http request's body in
      * string format.
      * @param id int, the basic {id} in the urls.
      * @param sId int, all the ids in the url other than {id} and {fedid}.
      * @param fedid String, a special id used only in
-     * {@value Const.Api.PRINCIPALS_FEDID}
+     * /api/principals/{fedid}/fedid
      * @return String, the content of the response for the call, for the Status
      * Line/Code see {@link getStatusLine()}.
      */

@@ -10,31 +10,6 @@
 <project name="JavaCoreTest" default="default" basedir=".">
     <description>Builds, tests, and runs the project JavaCoreTest.</description>
     <import file="nbproject/build-impl.xml"/>
-<target depends="init" name="-javadoc-build">
-    <javadoc additionalparam="${javadoc.additionalparam}" author="${javadoc.author}" charset="UTF-8" destdir="${dist.javadoc.dir}" docencoding="UTF-8" encoding="${javadoc.encoding.used}" failonerror="true" noindex="${javadoc.noindex}" nonavbar="${javadoc.nonavbar}" notree="${javadoc.notree}" private="${javadoc.private}" source="${javac.source}" splitindex="${javadoc.splitindex}" use="${javadoc.use}" useexternalfile="true" version="${javadoc.version}" windowtitle="${javadoc.windowtitle}">
-        <classpath>
-            <path path="${javac.classpath}:${javac.test.classpath}"/>
-        </classpath>
-        <fileset dir="test/sztaki/hexaa/httputility" excludes="*.java,${excludes}" includes="${includes}">
-            <filename name="**/*.java"/>
-        </fileset>
-        <fileset dir="src/sztaki/hexaa/httputility" excludes="*.java,${excludes}" includes="${includes}">
-            <filename name="**/*.java"/>
-        </fileset>
-        <fileset dir="${build.generated.sources.dir}" erroronmissingdir="false">
-            <include name="**/*.java"/>
-            <exclude name="*.java"/>
-        </fileset>
-    </javadoc>
-    <copy todir="${dist.javadoc.dir}">
-        <fileset dir="${src.dir}" excludes="${excludes}" includes="${includes}">
-            <filename name="**/doc-files/**"/>
-        </fileset>
-        <fileset dir="${build.generated.sources.dir}" erroronmissingdir="false">
-            <include name="**/doc-files/**"/>
-        </fileset>
-    </copy>
-</target>
     <!--
 
     There exist several targets which are by default empty and which can be 

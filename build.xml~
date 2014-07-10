@@ -15,7 +15,7 @@
         <classpath>
             <path path="${javac.classpath}:${javac.test.classpath}"/>
         </classpath>
-        <fileset dir="test/sztaki/hexaa/httputility" excludes="*.java,${excludes}" includes="${includes}">
+        <fileset dir="test/sztaki/hexaa/httputility/apicalls" excludes="*.java,${excludes}" includes="${includes}">
             <filename name="**/*.java"/>
         </fileset>
         <fileset dir="src/sztaki/hexaa/httputility" excludes="*.java,${excludes}" includes="${includes}">
