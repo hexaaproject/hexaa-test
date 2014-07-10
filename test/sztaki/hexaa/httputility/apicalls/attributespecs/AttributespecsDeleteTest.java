@@ -22,22 +22,26 @@ public class AttributespecsDeleteTest extends CleanTest {
     public void testAttributespecsDelete() {
 
         /* *** POST a new object *** */
-        JSONObject json3 = new JSONObject();
+        JSONObject json = new JSONObject();
 
-        json3.put("oid", "3");
-        json3.put("friendly_name", "testName3");
-        json3.put("syntax", "noSyntax1");
-        json3.put("is_multivalue", false);
+        json.put("oid", "3");
+        json.put("friendly_name", "testName3");
+        json.put("syntax", "noSyntax1");
+        json.put("is_multivalue", false);
 
-        new BasicCall().call(
+        persistent.call(
                 Const.Api.ATTRIBUTESPECS,
                 BasicCall.REST.POST,
-                json3.toString(),
+                json.toString(),
                 0, 0);
-        json3.put("id", 1);
-
+        json.put("id", 1);
+        try {
+            assertEquals("HTTP/1.1 201 Created", persistent.getStatusLine());
+        } catch (AssertionError e) {
+            AssertErrorHandler(e);
+        }
         /* *** Verify the data on the server *** */
-        String response = new BasicCall().call(
+        String response = persistent.call(
                 Const.Api.ATTRIBUTESPECS_ID,
                 BasicCall.REST.GET,
                 null,
@@ -54,26 +58,32 @@ public class AttributespecsDeleteTest extends CleanTest {
             jsonOResponse = new JSONObject();
         }
         try {
-            JSONAssert.assertEquals(json3,
+            JSONAssert.assertEquals(json,
                     jsonOResponse, JSONCompareMode.LENIENT);
         } catch (AssertionError e) {
-            collector.addError(e);
+            AssertErrorHandler(e);
         }
 
         /* *** Calling DELETE *** */
-        new BasicCall().call(
+        response = persistent.call(
                 Const.Api.ATTRIBUTESPECS_ID,
                 BasicCall.REST.DELETE,
                 null,
                 1, 0);
+        try {
+            assertEquals("HTTP/1.1 204 No Content", persistent.getStatusLine());
+        } catch (AssertionError e) {
+            AssertErrorHandler(e);
+        }
 
         /* *** Verifing the delete *** */
         try {
-            assertEquals("[]", new BasicCall().call(
+            assertEquals("[]", persistent.call(
                     Const.Api.ATTRIBUTESPECS,
                     BasicCall.REST.GET));
+            assertEquals("HTTP/1.1 200 OK", persistent.getStatusLine());
         } catch (AssertionError e) {
-            collector.addError(e);
+            AssertErrorHandler(e);
         }
     }
 }

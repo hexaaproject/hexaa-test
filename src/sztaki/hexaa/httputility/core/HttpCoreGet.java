@@ -15,14 +15,21 @@ import org.apache.http.message.BasicHeader;
 import sztaki.hexaa.httputility.Const;
 
 /**
- *
- * @author Bana Tibor
+ * Basic wrapper class for GET functions using the org.apache.http.client.
  */
 public class HttpCoreGet {
-    
+
     private HttpGet httpAction = null;
-    
+
+    /**
+     * Builds a new URI with the given path and creates a HttpGet action with
+     * it, also sets the required headers (X-HEXAA-AUTH nad Content-type)
+     *
+     * @param path String that represents the URI path of the call. must be a
+     * complete path (with ids injected and .json at the end)
+     */
     public HttpCoreGet(String path) {
+
         URI uri = null;
         try {
             uri = new URIBuilder()
@@ -39,20 +46,24 @@ public class HttpCoreGet {
             Header hexaa_auth = new BasicHeader(Const.HEXAA_HEADER, Const.HEXAA_AUTH);
             httpAction.addHeader(hexaa_auth);
             httpAction.setHeader("Content-type", "application/json");
-            
         }
     }
-    
+
+    /**
+     * Executes the GET action on the path given in the constructor.
+     *
+     * @return returns a CloseableHttpResponse
+     */
     public CloseableHttpResponse get() {
         CloseableHttpResponse response = null;
         CloseableHttpClient httpClient = HttpClients.createDefault();
-        
+
         try {
             response = httpClient.execute(httpAction);
         } catch (IOException ex) {
             Logger.getLogger(HttpCorePost.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
+
         return response;
     }
 }

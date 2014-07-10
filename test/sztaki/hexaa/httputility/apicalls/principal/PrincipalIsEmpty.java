@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package sztaki.hexaa.httputility.apicalls.principal;
 
 import static org.junit.Assert.*;
@@ -13,10 +8,6 @@ import sztaki.hexaa.httputility.BasicCall;
 import sztaki.hexaa.httputility.Const;
 import sztaki.hexaa.httputility.apicalls.CleanTest;
 
-/**
- *
- * @author Bana Tibor
- */
 public class PrincipalIsEmpty extends CleanTest {
 
     @Rule
@@ -25,97 +16,97 @@ public class PrincipalIsEmpty extends CleanTest {
     @Test
     public void isEmpty() {
         try {
-            assertEquals("[]", new BasicCall().call(
+            assertEquals("[]", persistent.call(
                     Const.Api.MANAGER_ORGANIZATIONS,
                     BasicCall.REST.GET));
+            assertEquals("HTTP/1.1 200 OK", persistent.getStatusLine());
         } catch (AssertionError e) {
-            collector.addError(e);
-            System.out.println(e.getLocalizedMessage());
+            AssertErrorHandler(e);
         }
         try {
-            assertEquals("[]", new BasicCall().call(
+            assertEquals("[]", persistent.call(
                     Const.Api.MANAGER_SERVICES,
                     BasicCall.REST.GET));
+            assertEquals("HTTP/1.1 200 OK", persistent.getStatusLine());
         } catch (AssertionError e) {
-            collector.addError(e);
-            System.out.println(e.getLocalizedMessage());
+            AssertErrorHandler(e);
         }
         try {
-            assertEquals("[]", new BasicCall().call(
+            assertEquals("[]", persistent.call(
                     Const.Api.MEMBER_ORGANIZATIONS,
                     BasicCall.REST.GET));
+            assertEquals("HTTP/1.1 200 OK", persistent.getStatusLine());
         } catch (AssertionError e) {
-            collector.addError(e);
-            System.out.println(e.getLocalizedMessage());
+            AssertErrorHandler(e);
         }
         try {
             assertEquals("{\"fedid\":\"ede91bt@gmail.com@partners.sztaki.hu\",\"id\":1}",
-                    new BasicCall().call(
+                    persistent.call(
                             Const.Api.PRINCIPAL,
                             BasicCall.REST.GET));
+            assertEquals("HTTP/1.1 200 OK", persistent.getStatusLine());
         } catch (AssertionError e) {
-            collector.addError(e);
-            System.out.println(e.getLocalizedMessage());
+            AssertErrorHandler(e);
         }
         try {
-            assertEquals("{\"code\":404,\"message\":\"Not Found\"}", new BasicCall().call(
+            assertEquals("{\"code\":404,\"message\":\"Not Found\"}", persistent.call(
                     Const.Api.PRINCIPAL_ATTRIBUTESPECS,
                     BasicCall.REST.GET));
+            assertEquals("HTTP/1.1 404 Not Found", persistent.getStatusLine());
         } catch (AssertionError e) {
-            collector.addError(e);
-            System.out.println(e.getLocalizedMessage());
+            AssertErrorHandler(e);
         }
         try {
-            assertEquals("{\"code\":404,\"message\":\"Not Found\"}", new BasicCall().call(
+            assertEquals("{\"code\":404,\"message\":\"Not Found\"}", persistent.call(
                     Const.Api.PRINCIPAL_ATTRIBUTESPECS_ATTRIBUTEVALUEPRINCIPAL,
                     BasicCall.REST.GET));
+            assertEquals("HTTP/1.1 404 Not Found", persistent.getStatusLine());
         } catch (AssertionError e) {
-            collector.addError(e);
-            System.out.println(e.getLocalizedMessage());
+            AssertErrorHandler(e);
         }
         try {
-            assertEquals("[]", new BasicCall().call(
+            assertEquals("[]", persistent.call(
                     Const.Api.PRINCIPAL_ATTRIBUTEVALUEPRINCIPAL,
                     BasicCall.REST.GET));
+            assertEquals("HTTP/1.1 200 OK", persistent.getStatusLine());
         } catch (AssertionError e) {
-            collector.addError(e);
-            System.out.println(e.getLocalizedMessage());
+            AssertErrorHandler(e);
         }
         try {
-            assertEquals("[]", new BasicCall().call(
+            assertEquals("[]", persistent.call(
                     Const.Api.PRINCIPAL_EMAILINVITATIONS,
                     BasicCall.REST.GET));
+            assertEquals("HTTP/1.1 200 OK", persistent.getStatusLine());
         } catch (AssertionError e) {
-            collector.addError(e);
-            System.out.println(e.getLocalizedMessage());
+            AssertErrorHandler(e);
         }
         try {
-            assertEquals("[]", new BasicCall().call(
+            assertEquals("[]", persistent.call(
                     Const.Api.PRINCIPAL_URLINVITATIONS,
                     BasicCall.REST.GET));
+            assertEquals("HTTP/1.1 200 OK", persistent.getStatusLine());
         } catch (AssertionError e) {
-            collector.addError(e);
-            System.out.println(e.getLocalizedMessage());
+            AssertErrorHandler(e);
         }
         try {
             assertEquals("[{\"fedid\":\"ede91bt@gmail.com@partners.sztaki.hu\",\"id\":1}]",
-                    new BasicCall().call(
+                    persistent.call(
                             Const.Api.PRINCIPALS,
                             BasicCall.REST.GET));
+            assertEquals("HTTP/1.1 200 OK", persistent.getStatusLine());
         } catch (AssertionError e) {
-            collector.addError(e);
-            System.out.println(e.getLocalizedMessage());
+            AssertErrorHandler(e);
         }
         try {
             assertEquals("{\"fedid\":\"ede91bt@gmail.com@partners.sztaki.hu\",\"id\":1}",
-                    new BasicCall().call(
+                    persistent.call(
                             Const.Api.PRINCIPALS_ID,
                             BasicCall.REST.GET,
                             null,
                             1, 0));
+            assertEquals("HTTP/1.1 200 OK", persistent.getStatusLine());
         } catch (AssertionError e) {
-            collector.addError(e);
-            System.out.println(e.getLocalizedMessage());
+            AssertErrorHandler(e);
         }
 
     }

@@ -28,7 +28,7 @@ public class AttributespecsGetTest extends CleanTest {
         json.put("syntax", "noSyntax1");
         json.put("is_multivalue", false);
 
-        new BasicCall().call(
+        persistent.call(
                 Const.Api.ATTRIBUTESPECS,
                 BasicCall.REST.POST,
                 json.toString(),
@@ -44,7 +44,7 @@ public class AttributespecsGetTest extends CleanTest {
         json.put("syntax", "noSyntax2");
         json.put("is_multivalue", false);
 
-        new BasicCall().call(
+        persistent.call(
                 Const.Api.ATTRIBUTESPECS,
                 BasicCall.REST.POST,
                 json.toString(),
@@ -65,7 +65,7 @@ public class AttributespecsGetTest extends CleanTest {
         JSONObject jsonResponse = null;
 
         jsonResponse = (JSONObject) ((JSONArray) JSONParser.parseJSON(
-                new BasicCall().call(
+                persistent.call(
                         Const.Api.ATTRIBUTESPECS,
                         BasicCall.REST.GET))).get(0);
 
@@ -79,8 +79,9 @@ public class AttributespecsGetTest extends CleanTest {
         try {
             JSONAssert.assertEquals((JSONObject) array.get(0),
                     jsonResponse, false);
+            assertEquals("HTTP/1.1 200 OK", persistent.getStatusLine());
         } catch (AssertionError e) {
-            collector.addError(e);
+            AssertErrorHandler(e);
         }
     }
 
@@ -93,11 +94,12 @@ public class AttributespecsGetTest extends CleanTest {
         // Get the Attributespecs with the id = 2
         // Parse it to JSON
         JSONObject jsonResponse = null;
-        jsonResponse = (JSONObject) JSONParser.parseJSON(new BasicCall().call(
-                Const.Api.ATTRIBUTESPECS_ID,
-                BasicCall.REST.GET,
-                null,
-                2, 0));
+        jsonResponse = (JSONObject) JSONParser.parseJSON(
+                persistent.call(
+                        Const.Api.ATTRIBUTESPECS_ID,
+                        BasicCall.REST.GET,
+                        null,
+                        2, 0));
 
         if (jsonResponse != null && jsonResponse.isNull("is_multivalue")) {
             jsonResponse.put("is_multivalue", false);
@@ -109,8 +111,9 @@ public class AttributespecsGetTest extends CleanTest {
         try {
             JSONAssert.assertEquals((JSONObject) array.get(1),
                     jsonResponse, false);
+            assertEquals("HTTP/1.1 200 OK", persistent.getStatusLine());
         } catch (AssertionError e) {
-            collector.addError(e);
+            AssertErrorHandler(e);
         }
     }
 
@@ -122,7 +125,7 @@ public class AttributespecsGetTest extends CleanTest {
     @Test
     public void testAttributespecsArray() {
         /* *** GET the desired array from the server *** */
-        String response = new BasicCall().call(Const.Api.ATTRIBUTESPECS, BasicCall.REST.GET);
+        String response = persistent.call(Const.Api.ATTRIBUTESPECS, BasicCall.REST.GET);
 
         JSONArray jsonResponse = null;
 
@@ -146,8 +149,9 @@ public class AttributespecsGetTest extends CleanTest {
         try {
             JSONAssert.assertEquals(
                     array, jsonResponse, false);
+            assertEquals("HTTP/1.1 200 OK", persistent.getStatusLine());
         } catch (AssertionError e) {
-            collector.addError(e);
+            AssertErrorHandler(e);
         }
 
     }

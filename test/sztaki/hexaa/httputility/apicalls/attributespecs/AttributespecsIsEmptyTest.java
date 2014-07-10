@@ -9,27 +9,30 @@ import sztaki.hexaa.httputility.apicalls.CleanTest;
 public class AttributespecsIsEmptyTest extends CleanTest {
 
     /**
-     * Tests for an empty database from attributespecs point of view
+     * Test the GET calls in Attributespecs on an empty database, they are
+     * supposed to return either empty json or 404 not found error
      */
     @Test
     public void testAttributespecsIsEmpty() {
         try {
-            assertEquals("[]", new BasicCall().call(
+            assertEquals("[]", persistent.call(
                     Const.Api.ATTRIBUTESPECS,
-                    BasicCall.REST.GET));
-
-        } catch (AssertionError e) {
-            collector.addError(e);
-        }
-        try {
-            assertEquals("{\"code\":404,\"message\":\"Not Found\"}", new BasicCall().call(
-                    Const.Api.ATTRIBUTESPECS_ID,
                     BasicCall.REST.GET,
                     null,
-                    1,
-                    0));
+                    1, 0));
+            assertEquals("HTTP/1.1 200 OK", persistent.getStatusLine());
         } catch (AssertionError e) {
-            collector.addError(e);
+            AssertErrorHandler(e);
+        }
+        persistent.call(
+                Const.Api.ATTRIBUTESPECS_ID,
+                BasicCall.REST.GET,
+                null,
+                1, 0);
+        try {
+            assertEquals("HTTP/1.1 404 Not Found", persistent.getStatusLine());
+        } catch (AssertionError e) {
+            AssertErrorHandler(e);
         }
     }
 }

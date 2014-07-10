@@ -108,9 +108,9 @@ public class MethodNotAllowedTest extends CleanTest {
                                     uri,
                                     method)
                     );
+                    assertEquals("HTTP/1.1 405 Method Not Allowed", persistent.getStatusLine());
                 } catch (AssertionError e) {
-                    System.out.println(persistent.getStatusLine());
-                    collector.addError(e);
+                    AssertErrorHandler(e);
                 }
             }
         }

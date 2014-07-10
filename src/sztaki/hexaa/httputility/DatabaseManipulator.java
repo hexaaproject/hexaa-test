@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package sztaki.hexaa.httputility;
 
 import java.io.BufferedReader;
@@ -13,11 +8,14 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 /**
- *
- * @author Bana Tibor
+ * Used to change the database through server side scripts, uses ssh connection
+ * and runs the server side script via Runtime.exec.
  */
 public final class DatabaseManipulator {
 
+    /**
+     * Drops the current database, recreates and reinitializes the tables.
+     */
     public void dropDatabase() {
         try {
 
@@ -46,7 +44,11 @@ public final class DatabaseManipulator {
         }
     }
 
-    class StreamGobbler extends Thread {
+    /**
+     * Uses threads to read error and input stream messages from the input to
+     * avoid puffer problems.
+     */
+    private class StreamGobbler extends Thread {
 
         InputStream is;
         String type;

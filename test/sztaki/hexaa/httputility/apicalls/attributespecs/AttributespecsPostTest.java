@@ -13,7 +13,7 @@ import sztaki.hexaa.httputility.apicalls.CleanTest;
 public class AttributespecsPostTest extends CleanTest {
 
     /**
-     * Uses the /api/attributespecs PUT method with 2 different JSON Object and
+     * Uses the /api/attributespecs POST method with 2 different JSON Object and
      * verifies them from the server
      */
     @Test
@@ -25,16 +25,17 @@ public class AttributespecsPostTest extends CleanTest {
         json.put("syntax", "noSyntax1");
         json.put("is_multivalue", false);
 
-        // POST the object to the server and assert the string right away
-        try {
-            assertEquals("", new BasicCall().call(
+        // POST the object to the server and check the StatusLine
+        persistent.call(
                     Const.Api.ATTRIBUTESPECS,
                     BasicCall.REST.POST,
                     json.toString(),
                     0,
-                    0));
+                    0);
+        try {
+            assertEquals("HTTP/1.1 201 Created", persistent.getStatusLine());
         } catch (AssertionError e) {
-            collector.addError(e);
+            AssertErrorHandler(e);
         }
         // remove the clutter that will not be shown in the response and add what will,
         // this is not a best case
@@ -42,7 +43,7 @@ public class AttributespecsPostTest extends CleanTest {
         json.put("id", 1);
         // GET the recently changed attribute
         JSONObject jsonResponse = (JSONObject) JSONParser.parseJSON(
-                new BasicCall().call(Const.Api.ATTRIBUTESPECS_ID,
+                persistent.call(Const.Api.ATTRIBUTESPECS_ID,
                         BasicCall.REST.GET,
                         null,
                         1,
@@ -51,7 +52,7 @@ public class AttributespecsPostTest extends CleanTest {
             // Assert the response as a JSONObject
             JSONAssert.assertEquals(json, jsonResponse, JSONCompareMode.LENIENT);
         } catch (AssertionError e) {
-            collector.addError(e);
+            AssertErrorHandler(e);
         }
 
         // Specify the second JSON object
@@ -62,15 +63,16 @@ public class AttributespecsPostTest extends CleanTest {
         json.put("is_multivalue", false);
 
         // POST the object to the server and assert the string right away
-        try {
-            assertEquals("", new BasicCall().call(
+        persistent.call(
                     Const.Api.ATTRIBUTESPECS,
                     BasicCall.REST.POST,
                     json.toString(),
                     0,
-                    0));
+                    0);
+        try {
+            assertEquals("HTTP/1.1 201 Created", persistent.getStatusLine());
         } catch (AssertionError e) {
-            collector.addError(e);
+            AssertErrorHandler(e);
         }
         // remove the clutter that will not be shown in the response and add what will,
         // this is not a best case
@@ -78,7 +80,7 @@ public class AttributespecsPostTest extends CleanTest {
         json.put("id", 2);
         // GET the recently changed attribute
         jsonResponse = (JSONObject) JSONParser.parseJSON(
-                new BasicCall().call(Const.Api.ATTRIBUTESPECS_ID,
+                persistent.call(Const.Api.ATTRIBUTESPECS_ID,
                         BasicCall.REST.GET,
                         null,
                         2,
@@ -87,7 +89,7 @@ public class AttributespecsPostTest extends CleanTest {
         try {
             JSONAssert.assertEquals(json, jsonResponse, JSONCompareMode.LENIENT);
         } catch (AssertionError e) {
-            collector.addError(e);
+            AssertErrorHandler(e);
         }
     }
 }

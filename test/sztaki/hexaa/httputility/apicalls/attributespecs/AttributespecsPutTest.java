@@ -26,7 +26,7 @@ public class AttributespecsPutTest extends CleanTest {
         json1.put("friendly_name", "testName1");
         json1.put("syntax", "noSyntax1");
         json1.put("is_multivalue", false);
-        new BasicCall().call(
+        persistent.call(
                 Const.Api.ATTRIBUTESPECS,
                 BasicCall.REST.POST,
                 json1.toString(),
@@ -50,15 +50,20 @@ public class AttributespecsPutTest extends CleanTest {
         // Remove the id key for the call, and re-add it after the call, so the 
         // other tests are not effected
         int idTemp = (int) ((JSONObject) array.get(0)).remove("id");
-        new BasicCall().call(
+        persistent.call(
                 Const.Api.ATTRIBUTESPECS_ID,
                 BasicCall.REST.PUT,
                 ((JSONObject) array.get(0)).toString(),
                 1, 0);
         ((JSONObject) array.get(0)).put("id", idTemp);
+        try {
+            assertEquals("HTTP/1.1 204 No Content", persistent.getStatusLine());
+        } catch (AssertionError e) {
+            AssertErrorHandler(e);
+        }
 
         /* *** Verifing the success *** */
-        String response = new BasicCall().call(
+        String response = persistent.call(
                 Const.Api.ATTRIBUTESPECS_ID,
                 BasicCall.REST.GET,
                 null,
@@ -76,8 +81,9 @@ public class AttributespecsPutTest extends CleanTest {
         }
         try {
             assertEquals("oidByPut", jsonResponse.get("oid"));
+            assertEquals("HTTP/1.1 200 OK", persistent.getStatusLine());
         } catch (AssertionError e) {
-            collector.addError(e);
+            AssertErrorHandler(e);
         }
     }
 
