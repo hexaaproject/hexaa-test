@@ -7,7 +7,6 @@ import java.time.format.DateTimeFormatter;
 import org.json.JSONObject;
 import org.skyscreamer.jsonassert.JSONParser;
 import sztaki.hexaa.httputility.BasicCall.REST;
-import sztaki.hexaa.httputility.apicalls.Token;
 
 /**
  * Provides authentication via Master Secret Authentication. Use the public
@@ -29,7 +28,7 @@ public class Authenticator {
         if (response.contains("401") || response.contains("403")) {
             System.out.println("Getting temporary API key.");
 
-            BasicCall postToken = new Token();
+            BasicCall postToken = new BasicCall();
 
             JSONObject json = new JSONObject();
             json.put("fedid", "ede91bt@gmail.com@partners.sztaki.hu");
@@ -37,7 +36,11 @@ public class Authenticator {
 
             System.out.println("Temporary API key acquired.");
 
-            response = postToken.call(BasicCall.REST.POST, json.toString());
+            response = postToken.call(
+                    Const.Api.TOKEN,
+                    BasicCall.REST.POST,
+                    json.toString(),
+                    0, 0);
 
             JSONObject jsonResponse;
             jsonResponse = (JSONObject) JSONParser.parseJSON(response);
