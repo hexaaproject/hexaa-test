@@ -3,8 +3,10 @@ package sztaki.hexaa.httputility.apicalls.attributespecs;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import static org.junit.Assert.*;
+import org.junit.Assume;
 import org.junit.BeforeClass;
 import org.junit.Test;
+import org.junit.internal.AssumptionViolatedException;
 import org.skyscreamer.jsonassert.JSONAssert;
 import org.skyscreamer.jsonassert.JSONParser;
 import sztaki.hexaa.httputility.BasicCall;
@@ -37,6 +39,17 @@ public class AttributespecsGetTest extends CleanTest {
 
         array.put(json);
 
+        // Fail the test class if the BeforeClass was unsuccessful at creating the necessary attributespecs
+        try {
+            Assume.assumeTrue(persistent.getStatusLine().equalsIgnoreCase("HTTP/1.1 201 Created"));
+        } catch (AssumptionViolatedException e) {
+            System.out.println(
+                    "In "
+                    + AttributespecsGetTest.class.getName()
+                    + " the first POST call failed");
+            fail("POST /api/attributespecs was unsuccessful.");
+        }
+
         json = new JSONObject();
 
         json.put("oid", "differentName");
@@ -52,6 +65,18 @@ public class AttributespecsGetTest extends CleanTest {
         json.put("id", 2);
 
         array.put(json);
+
+        // Fail the test class if the BeforeClass was unsuccessful at creating the necessary attributespecs
+        try {
+            Assume.assumeTrue(persistent.getStatusLine().equalsIgnoreCase("HTTP/1.1 201 Created"));
+        } catch (AssumptionViolatedException e) {
+            System.out.println(
+                    "In "
+                    + AttributespecsGetTest.class.getName()
+                    + " the second POST call failed");
+            fail("POST /api/attributespecs was unsuccessful.");
+        }
+
     }
 
     /**

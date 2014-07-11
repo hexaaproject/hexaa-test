@@ -8,13 +8,15 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 import org.junit.internal.AssumptionViolatedException;
 import org.skyscreamer.jsonassert.JSONAssert;
+import org.skyscreamer.jsonassert.JSONCompareMode;
 import org.skyscreamer.jsonassert.JSONParser;
 import sztaki.hexaa.httputility.BasicCall;
 import sztaki.hexaa.httputility.Const;
 import sztaki.hexaa.httputility.apicalls.CleanTest;
 
-public class ServicesGetTest extends CleanTest {
+public class ServicesEntitlementsTest extends CleanTest {
 
+    private static JSONArray entitlemenets = new JSONArray();
     private static JSONArray services = new JSONArray();
 
     /**
@@ -53,7 +55,7 @@ public class ServicesGetTest extends CleanTest {
         } catch (AssumptionViolatedException e) {
             System.out.println(
                     "In "
-                    + ServicesGetTest.class.getName()
+                    + ServicesEntitlementpacksTest.class.getName()
                     + " the first POST call failed");
             fail("POST /api/services was unsuccessful.");
         }
@@ -80,7 +82,7 @@ public class ServicesGetTest extends CleanTest {
             } catch (AssumptionViolatedException e) {
                 System.out.println(
                         "In "
-                        + ServicesGetTest.class.getName()
+                        + ServicesEntitlementpacksTest.class.getName()
                         + " the second POST call failed");
                 fail("POST /api/services was unsuccessful.");
             }
@@ -88,80 +90,67 @@ public class ServicesGetTest extends CleanTest {
     }
 
     /**
-     * Tests the /api/services GET which responds with an Array of available
-     * services.
+     * POSTs 2 different entitlement over one of the services and verifies them
+     * by GETting them on /api/services/{id}/entitlements
      */
     @Test
-    public void testServicesGetArray() {
-        JSONArray jsonResponseArray
-                = (JSONArray) JSONParser.parseJSON(persistent.call(
-                                Const.Api.SERVICES,
-                                BasicCall.REST.GET));
+    public void testServiceEntitlementsPosts() {
+        // Creating the first entitlement object
+        JSONObject json = new JSONObject();
+        json.put("uri", "/testUri1");
+        json.put("name", "testName1");
+        json.put("description", "This is a test entitlement, the 1st one");
+        // Store it
+        entitlemenets.put(json);
+        // POST it
+        persistent.call(
+                Const.Api.SERVICES_ENTITLEMENTS,
+                BasicCall.REST.POST,
+                json.toString(),
+                1, 0);
+        // Checks the status line
         try {
-            JSONAssert.assertEquals(services, jsonResponseArray, false);
+            assertEquals("HTTP/1.1 201 Created", persistent.getStatusLine());
+        } catch (AssertionError e) {
+            AssertErrorHandler(e);
+        }
+
+        // Creating the second entitlement object
+        json = new JSONObject();
+        json.put("uri", "/testUri2");
+        json.put("name", "testName2");
+        json.put("description", "This is a test entitlement, the 2nd one");
+        // Store it
+        entitlemenets.put(json);
+        // POST it
+        persistent.call(
+                Const.Api.SERVICES_ENTITLEMENTS,
+                BasicCall.REST.POST,
+                json.toString(),
+                1, 0);
+        // Checks the status line
+        try {
+            assertEquals("HTTP/1.1 201 Created", persistent.getStatusLine());
+        } catch (AssertionError e) {
+            AssertErrorHandler(e);
+        }
+
+        // GETs the entitlements from the server
+        JSONArray jsonResponseObject = (JSONArray) JSONParser.parseJSON(
+                persistent.call(
+                        Const.Api.SERVICES_ENTITLEMENTS,
+                        BasicCall.REST.GET,
+                        null,
+                        1, 0));
+
+        try {
             assertEquals("HTTP/1.1 200 OK", persistent.getStatusLine());
+            JSONAssert.assertEquals(entitlemenets.getJSONObject(0), jsonResponseObject.getJSONObject(0), JSONCompareMode.LENIENT);
+            assertEquals("HTTP/1.1 200 OK", persistent.getStatusLine());
+            JSONAssert.assertEquals(entitlemenets.getJSONObject(1), jsonResponseObject.getJSONObject(1), JSONCompareMode.LENIENT);
         } catch (AssertionError e) {
             AssertErrorHandler(e);
         }
     }
 
-    /**
-     * Tests the /api/services/{id} GET which responds with an Object of that
-     * exact service.
-     */
-    @Test
-    public void testServicesGetByID() {
-        JSONObject jsonResponseObject
-                = (JSONObject) JSONParser.parseJSON(persistent.call(
-                                Const.Api.SERVICES_ID,
-                                BasicCall.REST.GET,
-                                null,
-                                1, 0));
-        try {
-            JSONAssert.assertEquals(services.getJSONObject(0), jsonResponseObject, false);
-            assertEquals("HTTP/1.1 200 OK", persistent.getStatusLine());
-        } catch (AssertionError e) {
-            AssertErrorHandler(e);
-        }
-
-        if (services.length() > 1) {
-            jsonResponseObject
-                    = (JSONObject) JSONParser.parseJSON(persistent.call(
-                                    Const.Api.SERVICES_ID,
-                                    BasicCall.REST.GET,
-                                    null,
-                                    2, 0));
-            try {
-                JSONAssert.assertEquals(services.getJSONObject(1), jsonResponseObject, false);
-                assertEquals("HTTP/1.1 200 OK", persistent.getStatusLine());
-            } catch (AssertionError e) {
-                AssertErrorHandler(e);
-            }
-        }
-    }
-
-    /**
-     * Tests the /api/services GET which responds with an Array of available
-     * services and checks the contained Objects one by one.
-     */
-    @Test
-    public void testServicesGetByArray() {
-        JSONArray jsonResponseArray
-                = (JSONArray) JSONParser.parseJSON(persistent.call(
-                                Const.Api.SERVICES,
-                                BasicCall.REST.GET));
-        try {
-            assertEquals("HTTP/1.1 200 OK", persistent.getStatusLine());
-        } catch (AssertionError e) {
-            AssertErrorHandler(e);
-            return;
-        }
-        for (int i = 0; i < services.length(); i++) {
-            try {
-                JSONAssert.assertEquals(services.getJSONObject(i), jsonResponseArray.getJSONObject(i), false);
-            } catch (AssertionError e) {
-                AssertErrorHandler(e);
-            }
-        }
-    }
 }

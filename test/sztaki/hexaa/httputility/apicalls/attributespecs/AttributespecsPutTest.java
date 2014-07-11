@@ -3,8 +3,10 @@ package sztaki.hexaa.httputility.apicalls.attributespecs;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import static org.junit.Assert.*;
+import org.junit.Assume;
 import org.junit.BeforeClass;
 import org.junit.Test;
+import org.junit.internal.AssumptionViolatedException;
 import org.skyscreamer.jsonassert.JSONParser;
 import sztaki.hexaa.httputility.BasicCall;
 import sztaki.hexaa.httputility.Const;
@@ -15,7 +17,8 @@ public class AttributespecsPutTest extends CleanTest {
     private static JSONArray array = new JSONArray();
 
     /**
-     * Before the Class methods run initialize 2 object on the server
+     * Initialize an Attributespecs object on the server (POST
+     * /api/attributespecs)
      */
     @BeforeClass
     public static void buildUp() {
@@ -35,6 +38,18 @@ public class AttributespecsPutTest extends CleanTest {
         json1.put("id", 1);
 
         array.put(json1);
+
+        // Fail the test class if the BeforeClass was unsuccessful at creating the necessary attributespecs
+        try {
+            Assume.assumeTrue(persistent.getStatusLine().equalsIgnoreCase("HTTP/1.1 201 Created"));
+        } catch (AssumptionViolatedException e) {
+            System.out.println(
+                    "In "
+                    + AttributespecsPutTest.class.getName()
+                    + " the first POST call failed");
+            fail("POST /api/attributespecs was unsuccessful.");
+        }
+
     }
 
     /**
