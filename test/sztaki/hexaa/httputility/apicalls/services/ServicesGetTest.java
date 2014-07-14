@@ -26,7 +26,7 @@ public class ServicesGetTest extends Services {
      * file and creates a service for each.
      */
     @BeforeClass
-    public static void buildUp() {
+    public static void setUpClass() {
         services = createServices(2);
     }
 

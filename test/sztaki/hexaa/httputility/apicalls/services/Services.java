@@ -1,9 +1,7 @@
 package sztaki.hexaa.httputility.apicalls.services;
 
-import sztaki.hexaa.httputility.apicalls.services.entitlementpacks.ServicesEntitlementpacksPostTest;
 import org.json.JSONArray;
 import org.json.JSONObject;
-import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.fail;
 import org.junit.Assume;
 import org.junit.internal.AssumptionViolatedException;

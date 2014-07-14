@@ -10,7 +10,7 @@ public class MethodNotAllowedTest extends CleanTest {
     /**
      * Bunch of tests to verify that the Method Not Allowed exception drop works
      * fine, and not allowed methods do nut return any information that they
-     * should not
+     * should not.
      */
     @Test
     public void testMethodNotAllowed() {
@@ -106,6 +106,7 @@ public class MethodNotAllowedTest extends CleanTest {
                                 uri,
                                 method);
                 try {
+// Currently disabled, not necessary to decide the proper behavior.
 //                    assertEquals(
 //                            "{\"code\":405,\"message\":\"Method Not Allowed\"}",
 //                            responseString

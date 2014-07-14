@@ -21,7 +21,7 @@ public class AttributespecsGetTest extends CleanTest {
      * Before the Class methods run initialize 2 object on the server
      */
     @BeforeClass
-    public static void buildUp() {
+    public static void setUpClass() {
 
         JSONObject json = new JSONObject();
 

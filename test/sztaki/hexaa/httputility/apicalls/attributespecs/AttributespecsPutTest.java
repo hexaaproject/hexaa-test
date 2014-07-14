@@ -21,7 +21,7 @@ public class AttributespecsPutTest extends CleanTest {
      * /api/attributespecs)
      */
     @BeforeClass
-    public static void buildUp() {
+    public static void setUpClass() {
 
         JSONObject json1 = new JSONObject();
 

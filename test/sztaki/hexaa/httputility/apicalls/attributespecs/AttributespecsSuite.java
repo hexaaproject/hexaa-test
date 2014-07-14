@@ -13,5 +13,4 @@ import sztaki.hexaa.httputility.apicalls.BasicTestSuite;
     AttributespecsDeleteTest.class,})
 
 public class AttributespecsSuite extends BasicTestSuite {
-
 }
