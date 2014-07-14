@@ -63,7 +63,7 @@ public class Const {
         public static final String MEMBER_ORGANIZATIONS = ("/app.php/api/member/organizations");
         public static final String PRINCIPAL = ("/app.php/api/principal");
         public static final String PRINCIPAL_ATTRIBUTESPECS = ("/app.php/api/principal/attributespecs");
-        public static final String PRINCIPAL_ATTRIBUTESPECS_ATTRIBUTEVALUEPRINCIPAL = ("/app.php/api/principal/attributespecs/attributevalueprincipal");
+        public static final String PRINCIPAL_ATTRIBUTESPECS_ATTRIBUTEVALUEPRINCIPAL = ("/app.php/api/principals/{asid}/attributespecs/attributevalueprincipals");
         public static final String PRINCIPAL_ATTRIBUTEVALUEPRINCIPAL = ("/app.php/api/principal/attributevalueprincipal");
         public static final String PRINCIPAL_EMAILINVITATIONS = ("/app.php/api/principal/emailinvitations");
         public static final String PRINCIPAL_URLINVITATIONS = ("/app.php/api/principal/urlinvitations");

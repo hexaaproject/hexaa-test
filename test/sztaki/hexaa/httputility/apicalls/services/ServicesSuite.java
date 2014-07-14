@@ -1,4 +1,9 @@
-package sztaki.hexaa.httputility.apicalls;
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+package sztaki.hexaa.httputility.apicalls.services;
 
 import java.io.IOException;
 import java.net.InetAddress;
@@ -15,26 +20,24 @@ import org.junit.runners.Suite;
 import sztaki.hexaa.httputility.Authenticator;
 import sztaki.hexaa.httputility.Const;
 import sztaki.hexaa.httputility.DatabaseManipulator;
-import sztaki.hexaa.httputility.apicalls.attributespecs.*;
-import sztaki.hexaa.httputility.apicalls.principal.*;
-import sztaki.hexaa.httputility.apicalls.services.*;
-
-@RunWith(Suite.class)
-@Suite.SuiteClasses({
-    AttributespecsIsEmptyTest.class,
-    AttributespecsGetTest.class,
-    AttributespecsPostTest.class,
-    AttributespecsPutTest.class,
-    AttributespecsDeleteTest.class,
-    PrincipalIsEmpty.class,
-    MethodNotAllowedTest.class, //    ServicesNonEmptyTest.class,
-})
+import sztaki.hexaa.httputility.apicalls.CleanTest;
+import sztaki.hexaa.httputility.apicalls.services.entitlements.*;
+import sztaki.hexaa.httputility.apicalls.services.entitlementpacks.*;
 
 /**
- * Calls the basic test classes that tests the low level api functions, like
- * get/post/delete trivial objects and test for method not found
+ *
+ * @author Bana Tibor
  */
-public class callTests {
+@RunWith(Suite.class)
+@Suite.SuiteClasses({
+    ServicesGetTest.class,
+    ServicesPostTest.class,
+    ServicesIsEmptyTest.class,
+    ServicesEntitlementsPostTest.class,
+    ServicesEntitlementsGetTest.class,
+    ServicesEntitlementpacksPostTest.class,
+    ServicesEntitlementpacksGetTest.class,})
+public class ServicesSuite {
 
     public static boolean CLEANUP_NEEDED = true;
 
@@ -66,4 +69,5 @@ public class callTests {
             new Authenticator().authenticate();
         }
     }
+
 }

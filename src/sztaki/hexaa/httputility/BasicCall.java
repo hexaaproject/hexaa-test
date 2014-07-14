@@ -107,7 +107,7 @@ public class BasicCall {
 
         this.path = null;
 
-        this.fedid = "";
+        this.fedid = "fedid";
     }
 
     /**
@@ -135,8 +135,8 @@ public class BasicCall {
     public String call(String path, REST restCall) {
         this.setPath(path);
         this.setString(null);
-        this.setId(0);
-        this.setSId(0);
+        this.setId(1);
+        this.setSId(1);
 
         return callSwitch(restCall);
     }

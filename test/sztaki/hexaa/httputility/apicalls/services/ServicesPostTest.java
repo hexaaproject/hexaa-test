@@ -9,13 +9,12 @@ import org.skyscreamer.jsonassert.JSONCompareMode;
 import org.skyscreamer.jsonassert.JSONParser;
 import sztaki.hexaa.httputility.BasicCall;
 import sztaki.hexaa.httputility.Const;
-import sztaki.hexaa.httputility.apicalls.CleanTest;
 
-public class ServicesPostTest extends CleanTest {
+public class ServicesPostTest extends Services {
 
     /**
      * Test for the /app.php/api/services POST call, creates a new Service on
-     * the sample entityid and verifies the success
+     * the sample entityid and verifies the success.
      */
     @Test
     public void testServicePost() {

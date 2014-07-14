@@ -4,13 +4,17 @@ import static org.junit.Assert.*;
 import org.junit.Test;
 import sztaki.hexaa.httputility.BasicCall;
 import sztaki.hexaa.httputility.Const;
-import sztaki.hexaa.httputility.apicalls.CleanTest;
 
-public class ServicesIsEmptyTest extends CleanTest {
+/**
+ * Tests the GET methods on the /api/services , /api/services/{id},
+ * /api/services/{id}/attributespecs, /api/services/{id}/entitlementpacks,
+ * /api/services/{id}/entitlements and /api/services/{id}/managers calls.
+ */
+public class ServicesIsEmptyTest extends Services {
 
     /**
      * Test the GET calls in Services on an empty database, they are supposed to
-     * return either empty json or 404 not found error
+     * return either empty json or 404 not found error.
      */
     @Test
     public void testServicesIsEmpty() {

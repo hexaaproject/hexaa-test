@@ -49,6 +49,7 @@ public class HttpCorePost {
             Header hexaa_auth = new BasicHeader(Const.HEXAA_HEADER, Const.HEXAA_AUTH);
             httpAction.addHeader(hexaa_auth);
             httpAction.setHeader("Content-type", "application/json");
+            httpAction.setHeader("Accept", "application/json");
         }
     }
 
