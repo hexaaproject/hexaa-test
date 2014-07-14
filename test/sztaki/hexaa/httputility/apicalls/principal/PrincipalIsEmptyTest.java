@@ -1,20 +1,15 @@
 package sztaki.hexaa.httputility.apicalls.principal;
 
 import static org.junit.Assert.*;
-import org.junit.Rule;
 import org.junit.Test;
-import org.junit.rules.ErrorCollector;
 import sztaki.hexaa.httputility.BasicCall;
 import sztaki.hexaa.httputility.Const;
 import sztaki.hexaa.httputility.apicalls.CleanTest;
 
-public class PrincipalIsEmpty extends CleanTest {
-
-    @Rule
-    public ErrorCollector collector = new ErrorCollector();
+public class PrincipalIsEmptyTest extends CleanTest {
 
     @Test
-    public void isEmpty() {
+    public void testPrincipalisEmpty() {
         try {
             assertEquals("[]", persistent.call(
                     Const.Api.MANAGER_ORGANIZATIONS,

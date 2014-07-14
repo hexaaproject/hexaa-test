@@ -20,9 +20,10 @@ import org.junit.runners.Suite;
 import sztaki.hexaa.httputility.Authenticator;
 import sztaki.hexaa.httputility.Const;
 import sztaki.hexaa.httputility.DatabaseManipulator;
+import sztaki.hexaa.httputility.apicalls.BasicTestSuite;
 import sztaki.hexaa.httputility.apicalls.CleanTest;
-import sztaki.hexaa.httputility.apicalls.services.entitlements.*;
 import sztaki.hexaa.httputility.apicalls.services.entitlementpacks.*;
+import sztaki.hexaa.httputility.apicalls.services.entitlements.*;
 
 /**
  *
@@ -37,37 +38,6 @@ import sztaki.hexaa.httputility.apicalls.services.entitlementpacks.*;
     ServicesEntitlementsGetTest.class,
     ServicesEntitlementpacksPostTest.class,
     ServicesEntitlementpacksGetTest.class,})
-public class ServicesSuite {
-
-    public static boolean CLEANUP_NEEDED = true;
-
-    @BeforeClass
-    public static void checkReachable() {
-        try {
-            InetAddress address;
-            address = InetAddress.getByName(Const.HEXAA_HOST);
-            Assume.assumeTrue(address.isReachable(5000));
-        } catch (UnknownHostException ex) {
-            Logger.getLogger(CleanTest.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (IOException ex) {
-            Logger.getLogger(CleanTest.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (AssumptionViolatedException e) {
-            CLEANUP_NEEDED = false;
-            System.out.println(
-                    "The host could not be reached, check the connection"
-                    + " and/or the sserver constants at"
-                    + " /sztaki/hexaa/httputility/Const");
-            fail("Host unreachable.");
-        }
-
-    }
-
-    @AfterClass
-    public static void cleanUp() {
-        if (CLEANUP_NEEDED) {
-            new DatabaseManipulator().dropDatabase();
-            new Authenticator().authenticate();
-        }
-    }
+public class ServicesSuite extends BasicTestSuite{
 
 }
