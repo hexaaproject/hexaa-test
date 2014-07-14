@@ -14,9 +14,9 @@ import sztaki.hexaa.httputility.apicalls.CleanTest;
 import sztaki.hexaa.httputility.apicalls.services.Services;
 
 /**
- * Tests the GET call on the /api/entitlements/{id}.
+ * Tests the PUT call on the /api/entitlements/{id}.
  */
-public class EntitlementsGetTest extends CleanTest {
+public class EntitlementsPutTest extends CleanTest {
 
     private static JSONArray entitlements = new JSONArray();
 
@@ -30,13 +30,28 @@ public class EntitlementsGetTest extends CleanTest {
     }
 
     /**
-     * Gets the recently created 2 entitlements and compares them to the locally
-     * stored ones.
+     * Changes one attribute of the entitlement and verifies it by GETing the
+     * entitlement from the server.
      */
     @Test
-    public void testEntitlementsGet() {
-        // GETs the entitlement with the id 1.
-        JSONObject jsonReaponse = (JSONObject) JSONParser.parseJSON(
+    public void testEntitlementsPut() {
+        JSONObject json = entitlements.getJSONObject(0);
+
+        json.put("name", "changedNameByPut");
+
+        persistent.call(
+                Const.Api.ENTITLEMENTS_ID,
+                BasicCall.REST.PUT,
+                json.toString(),
+                1, 0);
+
+        try {
+            assertEquals("HTTP/1.1 204 No Content", persistent.getStatusLine());
+        } catch (AssertionError e) {
+            AssertErrorHandler(e);
+        }
+
+        JSONObject jsonResponse = (JSONObject) JSONParser.parseJSON(
                 persistent.call(
                         Const.Api.ENTITLEMENTS_ID,
                         BasicCall.REST.GET,
@@ -44,24 +59,10 @@ public class EntitlementsGetTest extends CleanTest {
                         1, 0));
         try {
             assertEquals("HTTP/1.1 200 OK", persistent.getStatusLine());
-            JSONAssert.assertEquals(entitlements.getJSONObject(0), jsonReaponse, JSONCompareMode.LENIENT);
-        } catch (AssertionError e) {
-            AssertErrorHandler(e);
-        }
-
-        // GETs the entitlement with the id 2.
-        jsonReaponse = (JSONObject) JSONParser.parseJSON(
-                persistent.call(
-                        Const.Api.ENTITLEMENTS_ID,
-                        BasicCall.REST.GET,
-                        null,
-                        2, 0));
-        try {
-            assertEquals("HTTP/1.1 200 OK", persistent.getStatusLine());
-            JSONAssert.assertEquals(entitlements.getJSONObject(1), jsonReaponse, JSONCompareMode.LENIENT);
+            JSONAssert.assertEquals(json, jsonResponse, JSONCompareMode.LENIENT);
+            assertEquals("changedNameByPut", jsonResponse.getString("name"));
         } catch (AssertionError e) {
             AssertErrorHandler(e);
         }
     }
-
 }

@@ -24,10 +24,14 @@ public class MethodNotAllowedTest extends CleanTest {
         BasicCall.REST[] restPostPutDelete = {
             BasicCall.REST.POST,
             BasicCall.REST.PUT,
-            BasicCall.REST.DELETE};
+            BasicCall.REST.DELETE,};
         BasicCall.REST[] restPutDelete = {
             BasicCall.REST.PUT,
-            BasicCall.REST.DELETE};
+            BasicCall.REST.DELETE,};
+//        BasicCall.REST[] restGetPutDelete = {
+//            BasicCall.REST.GET,
+//            BasicCall.REST.PUT,
+//            BasicCall.REST.DELETE,};
 
         /* *** Attributespecs and Attributespecs_ID *** */
         this.testURIMethodPairs(
@@ -98,7 +102,7 @@ public class MethodNotAllowedTest extends CleanTest {
      * @param calls REST[]: from the BasicCall.REST[], can be GET, POST, PUT,
      * DELETE.
      */
-    private void testURIMethodPairs(String[] uris, BasicCall.REST[] calls) {
+    public void testURIMethodPairs(String[] uris, BasicCall.REST[] calls) {
         for (String uri : uris) {
             for (BasicCall.REST method : calls) {
                 String responseString
