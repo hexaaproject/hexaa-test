@@ -50,6 +50,7 @@ public class Const {
         public static final String ORGANIZATIONS_ID_ATTRIBUTEVALUEORGANIZATIONS = ("/app.php/api/organizations/{id}/attributevalueorganizations");
         public static final String ORGANIZATIONS_ID_ENTITLEMENTPACKS = ("/app.php/api/organizations/{id}/entitlementpacks");
         public static final String ORGANIZATIONS_ID_ENTITLEMENTPACKS_EPID = ("/app.php/api/organizations/{id}/entitlementpacks/{epid}");
+        public static final String ORGANIZATIONS_ID_ENTITLEMENTPACKS_EPID_ACCEPT = ("/app.php/api/organizations/{id}/entitlementpacks/{epid}/accept");
         public static final String ORGANIZATIONS_ID_ENTITLEMENTPACKS_TOKEN = ("/app.php/api/organizations/{id}/entitlementpacks/{token}/token");
         public static final String ORGANIZATIONS_ID_ENTITLEMENTS = ("/app.php/api/organizations/{id}/entitlements");
         public static final String ORGANIZATIONS_ID_MANAGER = ("/app.php/api/organizations/{id}/managers");
