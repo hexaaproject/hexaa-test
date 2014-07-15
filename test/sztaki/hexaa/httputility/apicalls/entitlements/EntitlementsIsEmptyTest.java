@@ -7,7 +7,7 @@ import sztaki.hexaa.httputility.Const;
 import sztaki.hexaa.httputility.apicalls.CleanTest;
 
 /**
- * Tests the empty database for the calls on the /api/entitlements/{id} uri.
+ * Tests the empty database for the GET calls on the /api/entitlements/{id} uri.
  */
 public class EntitlementsIsEmptyTest extends CleanTest {
 
@@ -30,7 +30,5 @@ public class EntitlementsIsEmptyTest extends CleanTest {
                 AssertErrorHandler(e);
             }
         }
-
     }
-
 }

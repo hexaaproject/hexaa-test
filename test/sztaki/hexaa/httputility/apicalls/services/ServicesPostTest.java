@@ -10,6 +10,9 @@ import org.skyscreamer.jsonassert.JSONParser;
 import sztaki.hexaa.httputility.BasicCall;
 import sztaki.hexaa.httputility.Const;
 
+/**
+ * Tests the POST methods on the /api/services.
+ */
 public class ServicesPostTest extends Services {
 
     /**

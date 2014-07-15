@@ -10,6 +10,11 @@ import sztaki.hexaa.httputility.BasicCall;
 import sztaki.hexaa.httputility.Const;
 import sztaki.hexaa.httputility.apicalls.CleanTest;
 
+/**
+ * Utility class to inherit from for Services related Test classes and gives
+ * three easy to use calls to create services, entitlements and
+ * entitlementpacks.
+ */
 public class Services extends CleanTest {
 
     /**

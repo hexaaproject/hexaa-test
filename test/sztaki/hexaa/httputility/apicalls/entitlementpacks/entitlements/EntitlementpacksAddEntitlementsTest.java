@@ -14,7 +14,7 @@ import sztaki.hexaa.httputility.apicalls.CleanTest;
  * @author Bana Tibor
  */
 public class EntitlementpacksAddEntitlementsTest extends CleanTest {
-
+// TODO: incomplete
     public EntitlementpacksAddEntitlementsTest() {
     }
 

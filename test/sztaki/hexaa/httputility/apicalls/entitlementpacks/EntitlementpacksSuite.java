@@ -5,6 +5,8 @@ import org.junit.runners.Suite;
 import sztaki.hexaa.httputility.apicalls.BasicTestSuite;
 
 @RunWith(Suite.class)
-@Suite.SuiteClasses({})
+@Suite.SuiteClasses({
+// TODO: update needed
+})
 public class EntitlementpacksSuite extends BasicTestSuite {
 }

@@ -12,7 +12,6 @@ import org.junit.BeforeClass;
 import org.junit.internal.AssumptionViolatedException;
 import org.junit.runner.RunWith;
 import org.junit.runners.Suite;
-import sztaki.hexaa.httputility.Authenticator;
 import sztaki.hexaa.httputility.Const;
 import sztaki.hexaa.httputility.DatabaseManipulator;
 
@@ -25,8 +24,16 @@ import sztaki.hexaa.httputility.DatabaseManipulator;
  */
 public abstract class BasicTestSuite {
 
+    /**
+     * If the test Suite failed there is no need (and chance) for cleanUp, this
+     * prevents the cleanUp method to run.
+     */
     public static boolean CLEANUP_NEEDED = true;
 
+    /**
+     * Checks if the target host (specified in core.Const) is reachable or not.
+     * If not (or not in 5000ms) the Suite fails.
+     */
     @BeforeClass
     public static void checkReachable() {
         try {
@@ -45,14 +52,18 @@ public abstract class BasicTestSuite {
                     + " /sztaki/hexaa/httputility/Const");
             fail("Host unreachable.");
         }
-
     }
 
+    /**
+     * If the @BeforeClass method failed than there is no need and chance for
+     * the method to run properly, if it did not fail the method drops the
+     * database, so the test data won't cause problems by lingering on in the
+     * database.
+     */
     @AfterClass
     public static void cleanUp() {
         if (CLEANUP_NEEDED) {
             new DatabaseManipulator().dropDatabase();
-            new Authenticator().authenticate();
         }
     }
 }

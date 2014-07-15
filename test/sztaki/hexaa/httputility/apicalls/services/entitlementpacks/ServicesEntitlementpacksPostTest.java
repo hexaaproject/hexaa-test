@@ -12,10 +12,13 @@ import sztaki.hexaa.httputility.BasicCall;
 import sztaki.hexaa.httputility.Const;
 import sztaki.hexaa.httputility.apicalls.services.Services;
 
+/**
+ * Tests the POST method on the /api/services/{id}/entitlementpacks call with
+ * more services and entitlementpacks.
+ */
 public class ServicesEntitlementpacksPostTest extends Services {
 
     private static JSONArray entitlemenetpacks = new JSONArray();
-    private static JSONArray services = new JSONArray();
 
     /**
      * Uses the first 2 entityids specified in the /hexaa/app/parameters.yml
@@ -23,7 +26,7 @@ public class ServicesEntitlementpacksPostTest extends Services {
      */
     @BeforeClass
     public static void buildUp() {
-        services = createServices(2);
+        createServices(2);
     }
 
     /**

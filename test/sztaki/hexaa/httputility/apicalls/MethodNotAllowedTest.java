@@ -5,6 +5,10 @@ import org.junit.Test;
 import sztaki.hexaa.httputility.BasicCall;
 import sztaki.hexaa.httputility.Const;
 
+/**
+ * Tests all the possible uri-s for the not existing methods to check that there
+ * are no vulnerability in the system from methods that should not exist.
+ */
 public class MethodNotAllowedTest extends CleanTest {
 
     /**
@@ -28,10 +32,6 @@ public class MethodNotAllowedTest extends CleanTest {
         BasicCall.REST[] restPutDelete = {
             BasicCall.REST.PUT,
             BasicCall.REST.DELETE,};
-//        BasicCall.REST[] restGetPutDelete = {
-//            BasicCall.REST.GET,
-//            BasicCall.REST.PUT,
-//            BasicCall.REST.DELETE,};
 
         /* *** Attributespecs and Attributespecs_ID *** */
         this.testURIMethodPairs(
@@ -110,11 +110,6 @@ public class MethodNotAllowedTest extends CleanTest {
                                 uri,
                                 method);
                 try {
-// Currently disabled, not necessary to decide the proper behavior.
-//                    assertEquals(
-//                            "{\"code\":405,\"message\":\"Method Not Allowed\"}",
-//                            responseString
-//                    );
                     assertEquals("HTTP/1.1 405 Method Not Allowed", persistent.getStatusLine());
                 } catch (AssertionError e) {
                     AssertErrorHandler(e);

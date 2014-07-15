@@ -43,6 +43,7 @@ public class Const {
         public static final String INVITATIONS = ("/app.php/api/invitations");
         public static final String INVITATIONS_ID = ("/app.php/api/invitations/{id}");
 
+        // Organization
         public static final String ORGANIZATIONS = ("/app.php/api/organizations");
         public static final String ORGANIZATIONS_ID = ("/app.php/api/organizations/{id}");
         public static final String ORGANIZATIONS_ID_ATTRIBUTESPECS = ("/app.php/api/organizations/{id}/attributespecs");
@@ -59,6 +60,7 @@ public class Const {
 
         public static final String ENTITYIDS = ("/app.php/api/entityids");
 
+        // Principals
         public static final String MANAGER_ORGANIZATIONS = ("/app.php/api/manager/organizations");
         public static final String MANAGER_SERVICES = ("/app.php/api/manager/services");
         public static final String MEMBER_ORGANIZATIONS = ("/app.php/api/member/organizations");
@@ -72,9 +74,12 @@ public class Const {
         public static final String PRINCIPAL_FEDID = ("/app.php/api/principals/{fedid}/fedid");
         public static final String PRINCIPALS_ID = ("/app.php/api/principals/{id}/id");
 
+        // Roles
         public static final String ROLES_ID = ("/app.php/api/roles/{id}");
         public static final String ROLES_ID_PRINCIPALS = ("/app.php/api/roles/{id}/principals");
         public static final String ROLES_ID_PRINCIPALS_PID = ("/app.php/api/roles/{id}/principals/{pid}");
+
+        // Services
         public static final String SERVICES = ("/app.php/api/services");
         public static final String SERVICES_ID = ("/app.php/api/services/{id}");
         public static final String SERVICES_ATTRIBUTESPECS = ("/app.php/api/services/{id}/attributespecs");
@@ -83,6 +88,7 @@ public class Const {
         public static final String SERVICES_ENTITLEMENTS = ("/app.php/api/services/{id}/entitlements");
         public static final String SERVICES_MANAGERS = ("/app.php/api/services/{id}/managers");
         public static final String SERVICES_MANAGERS_PID = ("/app.php/api/services/{id}/managers/{pid}");
+
         public static final String TOKEN = ("/app.php/api/tokens");
     }
 

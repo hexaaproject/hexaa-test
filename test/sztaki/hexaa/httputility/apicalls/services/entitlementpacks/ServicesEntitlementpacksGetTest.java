@@ -9,7 +9,6 @@ import org.skyscreamer.jsonassert.JSONParser;
 import sztaki.hexaa.httputility.BasicCall;
 import sztaki.hexaa.httputility.Const;
 import sztaki.hexaa.httputility.apicalls.services.Services;
-import static sztaki.hexaa.httputility.apicalls.services.Services.createServiceEntitlements;
 import static sztaki.hexaa.httputility.apicalls.services.Services.createServices;
 
 /**
@@ -19,7 +18,6 @@ import static sztaki.hexaa.httputility.apicalls.services.Services.createServices
 public class ServicesEntitlementpacksGetTest extends Services {
 
     private static JSONArray entitlementpacks = new JSONArray();
-    private static JSONArray services = new JSONArray();
 
     /**
      * Uses the first 2 entityids specified in the /hexaa/app/parameters.yml
@@ -27,13 +25,9 @@ public class ServicesEntitlementpacksGetTest extends Services {
      */
     @BeforeClass
     public static void buildUp() {
-        services = createServices(2);
-        JSONArray jsonResponseArray
-                = (JSONArray) JSONParser.parseJSON(persistent.call(
-                                Const.Api.SERVICES,
-                                BasicCall.REST.GET));
-        entitlementpacks = createServiceEntitlementpacks(jsonResponseArray.getJSONObject(0).getInt("id"), 2);
-        entitlementpacks = createServiceEntitlementpacks(jsonResponseArray.getJSONObject(1).getInt("id"), 1);
+        createServices(2);
+        entitlementpacks = createServiceEntitlementpacks(1, 2);
+        entitlementpacks = createServiceEntitlementpacks(2, 1);
     }
 
     /**
@@ -42,7 +36,7 @@ public class ServicesEntitlementpacksGetTest extends Services {
      */
     @Test
     public void testServicesEntitlementsGet() {
-
+        // GETs the first service's entitlementpacks
         JSONArray jsonResponse = (JSONArray) JSONParser.parseJSON(
                 persistent.call(
                         Const.Api.SERVICES_ENTITLEMENTPACKS,
@@ -60,7 +54,7 @@ public class ServicesEntitlementpacksGetTest extends Services {
         } catch (AssertionError e) {
             AssertErrorHandler(e);
         }
-
+        // GETs the second service's entitlementpacks
         jsonResponse = (JSONArray) JSONParser.parseJSON(
                 persistent.call(
                         Const.Api.SERVICES_ENTITLEMENTPACKS,
@@ -78,5 +72,4 @@ public class ServicesEntitlementpacksGetTest extends Services {
             AssertErrorHandler(e);
         }
     }
-
 }

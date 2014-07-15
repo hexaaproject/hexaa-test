@@ -17,7 +17,6 @@ import sztaki.hexaa.httputility.apicalls.services.Services;
 public class ServicesEntitlementsGetTest extends Services {
 
     private static JSONArray entitlements = new JSONArray();
-    private static JSONArray services = new JSONArray();
 
     /**
      * Uses the first 2 entityids specified in the /hexaa/app/parameters.yml
@@ -25,13 +24,9 @@ public class ServicesEntitlementsGetTest extends Services {
      */
     @BeforeClass
     public static void setUpClass() {
-        services = createServices(2);
-        JSONArray jsonResponseArray
-                = (JSONArray) JSONParser.parseJSON(persistent.call(
-                                Const.Api.SERVICES,
-                                BasicCall.REST.GET));
-        entitlements = createServiceEntitlements(jsonResponseArray.getJSONObject(0).getInt("id"), 2);
-        entitlements = createServiceEntitlements(jsonResponseArray.getJSONObject(1).getInt("id"), 1);
+        createServices(2);
+        entitlements = createServiceEntitlements(1, 2);
+        entitlements = createServiceEntitlements(2, 1);
     }
 
     /**
@@ -40,7 +35,7 @@ public class ServicesEntitlementsGetTest extends Services {
      */
     @Test
     public void testServicesEntitlementsGet() {
-
+        // GETs the first services entitlements
         JSONArray jsonResponse = (JSONArray) JSONParser.parseJSON(
                 persistent.call(
                         Const.Api.SERVICES_ENTITLEMENTS,
@@ -58,7 +53,7 @@ public class ServicesEntitlementsGetTest extends Services {
         } catch (AssertionError e) {
             AssertErrorHandler(e);
         }
-
+        // GETs the second services entitlement
         jsonResponse = (JSONArray) JSONParser.parseJSON(
                 persistent.call(
                         Const.Api.SERVICES_ENTITLEMENTS,
@@ -76,5 +71,4 @@ public class ServicesEntitlementsGetTest extends Services {
             AssertErrorHandler(e);
         }
     }
-
 }

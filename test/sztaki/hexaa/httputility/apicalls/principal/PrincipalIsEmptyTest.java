@@ -6,8 +6,20 @@ import sztaki.hexaa.httputility.BasicCall;
 import sztaki.hexaa.httputility.Const;
 import sztaki.hexaa.httputility.apicalls.CleanTest;
 
+/**
+ * Tests the empty database for the GET calls on the /api/manager/organizations,
+ * /api/manager/services, /api/member/organizations, /api/principal,
+ * /api/principal/attributespecs,
+ * /api/principals/{asid}/attributespecs/attributevalueprincipals,
+ * /api/principal/attributevalueprincipal, /api/principal/emailinvitations,
+ * /api/principal/urlinvitations, /api/principals and /api/principals/{id}/id
+ * uris.
+ */
 public class PrincipalIsEmptyTest extends CleanTest {
 
+    /**
+     * Tests for empty strings and 404 errors.
+     */
     @Test
     public void testPrincipalisEmpty() {
         try {
@@ -103,6 +115,5 @@ public class PrincipalIsEmptyTest extends CleanTest {
         } catch (AssertionError e) {
             AssertErrorHandler(e);
         }
-
     }
 }

@@ -18,7 +18,6 @@ import sztaki.hexaa.httputility.apicalls.services.Services;
 public class ServicesEntitlementsPostTest extends Services {
 
     private static JSONArray entitlemenets = new JSONArray();
-    private static JSONArray services = new JSONArray();
 
     /**
      * Uses the first 2 entityids specified in the /hexaa/app/parameters.yml
@@ -26,7 +25,7 @@ public class ServicesEntitlementsPostTest extends Services {
      */
     @BeforeClass
     public static void setUpClass() {
-        services = createServices(2);
+        createServices(2);
     }
 
     /**
@@ -91,5 +90,4 @@ public class ServicesEntitlementsPostTest extends Services {
             AssertErrorHandler(e);
         }
     }
-
 }

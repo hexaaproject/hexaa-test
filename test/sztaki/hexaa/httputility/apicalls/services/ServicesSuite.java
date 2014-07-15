@@ -20,5 +20,4 @@ import sztaki.hexaa.httputility.apicalls.services.entitlements.*;
  * starting and finishing utility jobs inherited from BasicTestSuite.
  */
 public class ServicesSuite extends BasicTestSuite {
-
 }
