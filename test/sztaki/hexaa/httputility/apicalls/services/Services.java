@@ -192,4 +192,19 @@ public class Services extends CleanTest {
         }
         return entitlementpacks;
     }
+
+    /**
+     * Makes sure that there are no earlier entitlements in the array.
+     */
+    public static void resetEntitlements() {
+        entitlements = new JSONArray();
+    }
+
+    /**
+     * Makes sure that there are no earlier entitlementpacks in the array.
+     */
+    public static void resetEntitlementpacks() {
+        entitlementpacks = new JSONArray();
+    }
+
 }

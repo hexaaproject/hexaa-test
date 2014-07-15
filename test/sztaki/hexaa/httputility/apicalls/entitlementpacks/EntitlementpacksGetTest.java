@@ -16,7 +16,7 @@ import sztaki.hexaa.httputility.apicalls.CleanTest;
 import sztaki.hexaa.httputility.apicalls.services.Services;
 
 /**
- * Tests the GET methods on the /api/entitlementpacks/public,
+ * Tests the GET methods on the /api/entitlementpacks/public uri.
  */
 public class EntitlementpacksGetTest extends CleanTest {
 
@@ -29,6 +29,9 @@ public class EntitlementpacksGetTest extends CleanTest {
      */
     @BeforeClass
     public static void setUpClass() {
+        Services.resetEntitlements();
+        Services.resetEntitlementpacks();
+
         Services.createServices(1);
         entitlementpacks = Services.createServiceEntitlementpacks(1, 2);
         entitlements = Services.createServiceEntitlements(1, 1);
