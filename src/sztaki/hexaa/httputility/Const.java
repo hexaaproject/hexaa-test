@@ -34,6 +34,7 @@ public class Const {
         public static final String ENTITLEMENTS_ID = ("/app.php/api/entitlements/{id}");
 
         // EntitlementPack
+        public static final String ENTITLEMENTPACKS = ("/app.php/api/entitlementpacks/public");
         public static final String ENTITLEMENTPACKS_ID = ("/app.php/api/entitlementpacks/{id}");
         public static final String ENTITLEMENTPACKS_ID_ENTITLEMENTS = ("/app.php/api/entitlementpacks/{id}/entitlements");
         public static final String ENTITLEMENTPACKS_ID_ENTITLEMENTS_EID = ("/app.php/api/entitlementpacks/{id}/entitlements/{eid}");

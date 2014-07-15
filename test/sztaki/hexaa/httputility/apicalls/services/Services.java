@@ -128,7 +128,8 @@ public class Services extends CleanTest {
 
     /**
      * Creates the specified number of entitlementpacks by piece for the service
-     * specified by the serviceId.
+     * specified by the serviceId. For testing purposes the ones that are
+     * created with even ids are private, the ones with odd ids are public.
      *
      * @param serviceId the id for the service.
      * @param piece the number of entitlementpacks to create.
@@ -159,7 +160,12 @@ public class Services extends CleanTest {
             JSONObject json = new JSONObject();
             json.put("name", "testName" + Integer.toString(serviceId) + Integer.toString(i));
             json.put("description", "This is a test entitlement, the #" + Integer.toString(serviceId) + Integer.toString(i));
-            json.put("type", "private");
+            // The ones with even id are private, the ones with odd ids are public
+            if (i % 2 == 1) {
+                json.put("type", "private");
+            } else {
+                json.put("type", "public");
+            }
             // Store it
             entitlementpacks.put(json);
             // POST it
