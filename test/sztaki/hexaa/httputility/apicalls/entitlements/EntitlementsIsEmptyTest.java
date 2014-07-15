@@ -13,7 +13,7 @@ public class EntitlementsIsEmptyTest extends CleanTest {
 
     /**
      * Tests the /api/entitlements/{id} with GET, PUT, DELETE methods for the
-     * required response of the 404.
+     * required response (404).
      */
     @Test
     public void testEntitlementsIsEmpty() {

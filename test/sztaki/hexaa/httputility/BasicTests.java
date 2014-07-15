@@ -7,7 +7,7 @@ import org.junit.runners.Suite;
 @Suite.SuiteClasses({
     sztaki.hexaa.httputility.apicalls.MethodNotAllowedTest.class,
     sztaki.hexaa.httputility.apicalls.services.ServicesSuite.class,
-    sztaki.hexaa.httputility.apicalls.attributespecs.AttributespecsSuite.class,})
+    sztaki.hexaa.httputility.apicalls.attributespecs.AttributespecsSuite.class,
+    sztaki.hexaa.httputility.apicalls.entitlements.EntitlementsSuite.class,})
 public class BasicTests {
-
 }
