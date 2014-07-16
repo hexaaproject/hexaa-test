@@ -33,7 +33,7 @@ public class PrincipalIsEmptyTest extends IsEmptyTest {
         expectingFedid(
                 Const.Api.PRINCIPAL,
                 BasicCall.REST.GET);
-        expectingNotFound(
+        expectingEmpty(
                 Const.Api.PRINCIPAL_ATTRIBUTESPECS,
                 BasicCall.REST.GET);
         expectingNotFound(

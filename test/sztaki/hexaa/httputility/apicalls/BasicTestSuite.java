@@ -19,7 +19,7 @@ import sztaki.hexaa.httputility.DatabaseManipulator;
 @Suite.SuiteClasses({})
 
 /**
- * Abstract class for the testsuites to inherit from, it implements the
+ * Abstract class for the TestSuites to inherit from, it implements the
  * checkReachable and cleanUp methods for utility.
  */
 public abstract class BasicTestSuite {

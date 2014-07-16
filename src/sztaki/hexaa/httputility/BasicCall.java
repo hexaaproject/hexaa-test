@@ -5,7 +5,7 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import sztaki.hexaa.httputility.core.HttpCoreDelete;
+import sztaki.hexaa.httputility.core.HttpCoreDel;
 import sztaki.hexaa.httputility.core.HttpCoreGet;
 import sztaki.hexaa.httputility.core.HttpCorePost;
 import sztaki.hexaa.httputility.core.HttpCorePut;
@@ -298,12 +298,12 @@ public class BasicCall {
         String nPath;
         nPath = this.fixPath();
 
-        System.out.print("DELETE \t");
+        System.out.print("DEL \t");
         System.out.println(nPath);
 
         // Getting the response from the server, this is
         // wrapped in the javahttputility.core package
-        HttpCoreDelete httpAction = new HttpCoreDelete(nPath);
+        HttpCoreDel httpAction = new HttpCoreDel(nPath);
 
         CloseableHttpResponse response = httpAction.delete();
 

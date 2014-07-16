@@ -15,20 +15,20 @@ import org.apache.http.impl.client.HttpClients;
 import org.apache.http.message.BasicHeader;
 
 /**
- * Basic wrapper class for DELETE functions using the org.apache.http.client.
+ * Basic wrapper class for DEL functions using the org.apache.http.client.
  */
-public class HttpCoreDelete {
+public class HttpCoreDel {
 
     private HttpDelete httpAction = null;
 
     /**
      * Builds a new URI with the given path and creates a HttpDelete action with
-     * it, also sets the required headers (X-HEXAA-AUTH nad Content-type)
+     * it, also sets the required headers (X-HEXAA-AUTH nad Content-type).
      *
      * @param path String that represents the URI path of the call. must be a
-     * complete path (with ids injected and .json at the end)
+     * complete path (with ids injected and .json at the end).
      */
-    public HttpCoreDelete(String path) {
+    public HttpCoreDel(String path) {
 
         URI uri = null;
         try {
@@ -51,9 +51,9 @@ public class HttpCoreDelete {
     }
 
     /**
-     * Executes the DELETE action on the path given in the constructor.
+     * Executes the DEL action on the path given in the constructor.
      *
-     * @return returns a CloseableHttpResponse
+     * @return returns a CloseableHttpResponse.
      */
     public CloseableHttpResponse delete() {
         CloseableHttpResponse response = null;
