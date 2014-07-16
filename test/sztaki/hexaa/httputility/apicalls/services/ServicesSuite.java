@@ -10,7 +10,6 @@ import sztaki.hexaa.httputility.apicalls.services.entitlements.*;
 @Suite.SuiteClasses({
     ServicesGetTest.class,
     ServicesPostTest.class,
-    ServicesIsEmptyTest.class,
     ServicesEntitlementsPostTest.class,
     ServicesEntitlementsGetTest.class,
     ServicesEntitlementpacksPostTest.class,

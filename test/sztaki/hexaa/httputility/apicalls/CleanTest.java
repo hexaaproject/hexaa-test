@@ -28,7 +28,7 @@ public class CleanTest {
     /**
      * Connects to the server via Runtime.exec and executes a server side script
      * that drops the database, recreates it and reinitializes it. This method
-     * runs before every child method, this way there is no interference between
+     * runs before every child class, this way there is no interference between
      * classes.
      */
     @BeforeClass

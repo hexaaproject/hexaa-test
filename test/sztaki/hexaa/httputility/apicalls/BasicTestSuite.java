@@ -12,6 +12,7 @@ import org.junit.BeforeClass;
 import org.junit.internal.AssumptionViolatedException;
 import org.junit.runner.RunWith;
 import org.junit.runners.Suite;
+import sztaki.hexaa.httputility.Authenticator;
 import sztaki.hexaa.httputility.Const;
 import sztaki.hexaa.httputility.DatabaseManipulator;
 

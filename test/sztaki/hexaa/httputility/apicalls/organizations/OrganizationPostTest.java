@@ -1,25 +1,49 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package sztaki.hexaa.httputility.apicalls.organizations;
 
-import org.junit.BeforeClass;
-import org.junit.Test;
+import org.json.JSONArray;
+import org.json.JSONObject;
 import static org.junit.Assert.*;
+import org.junit.Test;
+import org.skyscreamer.jsonassert.JSONAssert;
+import org.skyscreamer.jsonassert.JSONCompareMode;
+import org.skyscreamer.jsonassert.JSONParser;
+import sztaki.hexaa.httputility.BasicCall;
+import sztaki.hexaa.httputility.Const;
+import sztaki.hexaa.httputility.apicalls.CleanTest;
 
 /**
- *
- * @author Bana Tibor
+ * Tests the POST method on the /api/organizations call.
  */
-public class OrganizationPostTest {
+public class OrganizationPostTest extends CleanTest {
 
-    public OrganizationPostTest() {
+    /**
+     * Test for creating a new organization and verify its existence.
+     */
+    @Test
+    public void testOrganizationPost() {
+        // Creating the JSON object
+        JSONObject json = new JSONObject();
+        json.put("name", "testOrganizationName1");
+        json.put("description", "testOrganizationDescription");
+        // POST-ing the JSON object
+        persistent.call(
+                Const.Api.ORGANIZATIONS,
+                BasicCall.REST.POST,
+                json.toString(),
+                0, 0);
+        // Verifies the POST with a GET
+        try {
+            assertEquals("HTTP/1.1 201 Created", persistent.getStatusLine());
+            JSONAssert.assertEquals(
+                    json,
+                    ((JSONArray) JSONParser.parseJSON(
+                            persistent.call(
+                                    Const.Api.ORGANIZATIONS,
+                                    BasicCall.REST.GET))).getJSONObject(0),
+                    JSONCompareMode.LENIENT);
+            assertEquals("HTTP/1.1 200 OK", persistent.getStatusLine());
+        } catch (AssertionError e) {
+            AssertErrorHandler(e);
+        }
     }
-
-    @BeforeClass
-    public static void setUpClass() {
-    }
-
 }

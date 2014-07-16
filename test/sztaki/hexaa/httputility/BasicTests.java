@@ -5,6 +5,7 @@ import org.junit.runners.Suite;
 
 @RunWith(Suite.class)
 @Suite.SuiteClasses({
+    sztaki.hexaa.httputility.AllIsEmptyTests.class,
     sztaki.hexaa.httputility.apicalls.MethodNotAllowedTest.class,
     sztaki.hexaa.httputility.apicalls.services.ServicesSuite.class,
     sztaki.hexaa.httputility.apicalls.attributespecs.AttributespecsSuite.class,

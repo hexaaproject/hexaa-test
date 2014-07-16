@@ -6,7 +6,6 @@ import sztaki.hexaa.httputility.apicalls.BasicTestSuite;
 
 @RunWith(Suite.class)
 @Suite.SuiteClasses({
-    AttributespecsIsEmptyTest.class,
     AttributespecsGetTest.class,
     AttributespecsPostTest.class,
     AttributespecsPutTest.class,

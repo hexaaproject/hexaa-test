@@ -76,7 +76,7 @@ public class IsEmptyTest extends CleanTest {
                 AssertErrorHandler(e);
             }
         }
-        
+
         if (object instanceof JSONObject) {
             JSONObject jsonResponse = (JSONObject) object;
             try {
