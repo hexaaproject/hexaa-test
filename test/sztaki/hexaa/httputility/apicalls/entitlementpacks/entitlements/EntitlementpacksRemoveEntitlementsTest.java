@@ -15,7 +15,7 @@ import static sztaki.hexaa.httputility.apicalls.entitlementpacks.Entitlementpack
 import sztaki.hexaa.httputility.apicalls.services.Services;
 
 /**
- * Tests the DELETE methods on the /api/entitlementpacks/{id}/entitlements/{eid}
+ * Tests the DEL methods on the /api/entitlementpacks/{id}/entitlements/{eid}
  * uri.
  */
 public class EntitlementpacksRemoveEntitlementsTest extends CleanTest {
@@ -50,7 +50,7 @@ public class EntitlementpacksRemoveEntitlementsTest extends CleanTest {
         try {
             persistent.call(
                     Const.Api.ENTITLEMENTPACKS_ID_ENTITLEMENTS_EID,
-                    BasicCall.REST.DELETE,
+                    BasicCall.REST.DEL,
                     null,
                     1, 1);
             assertEquals(
@@ -58,7 +58,7 @@ public class EntitlementpacksRemoveEntitlementsTest extends CleanTest {
                     persistent.getStatusLine());
             persistent.call(
                     Const.Api.ENTITLEMENTPACKS_ID_ENTITLEMENTS_EID,
-                    BasicCall.REST.DELETE,
+                    BasicCall.REST.DEL,
                     null,
                     2, 1);
             assertEquals(

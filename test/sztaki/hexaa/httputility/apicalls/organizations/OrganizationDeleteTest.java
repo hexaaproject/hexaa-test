@@ -3,7 +3,6 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package sztaki.hexaa.httputility.apicalls.organizations;
 
 import org.junit.BeforeClass;
@@ -15,12 +14,12 @@ import static org.junit.Assert.*;
  * @author Bana Tibor
  */
 public class OrganizationDeleteTest {
-    
+
     public OrganizationDeleteTest() {
     }
-    
+
     @BeforeClass
     public static void setUpClass() {
     }
-    
+
 }

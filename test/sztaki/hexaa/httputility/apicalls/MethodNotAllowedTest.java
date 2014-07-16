@@ -18,7 +18,7 @@ public class MethodNotAllowedTest extends CleanTest {
      */
     @Test
     public void testMethodNotAllowed() {
-        /* *** REST(GET,POST,PUT,DELETE) boundles for the   *** */
+        /* *** REST(GET,POST,PUT,DEL) boundles for the   *** */
         /* easier use, not complete, feel free to add to it *** */
         BasicCall.REST[] restGetPost = {
             BasicCall.REST.GET,
@@ -28,24 +28,24 @@ public class MethodNotAllowedTest extends CleanTest {
         BasicCall.REST[] restPostPutDelete = {
             BasicCall.REST.POST,
             BasicCall.REST.PUT,
-            BasicCall.REST.DELETE,};
+            BasicCall.REST.DEL,};
         BasicCall.REST[] restPutDelete = {
             BasicCall.REST.PUT,
-            BasicCall.REST.DELETE,};
+            BasicCall.REST.DEL,};
 
         /* *** Attributespecs and Attributespecs_ID *** */
-        this.testURIMethodPairs(
+        this.expectingNotAllowed(
                 new String[]{
                     Const.Api.ATTRIBUTESPECS,},
                 restPutDelete);
 
-        this.testURIMethodPairs(
+        this.expectingNotAllowed(
                 new String[]{
                     Const.Api.ATTRIBUTESPECS_ID,},
                 restPost);
 
         /* *** Princiapls *** */
-        this.testURIMethodPairs(
+        this.expectingNotAllowed(
                 new String[]{
                     Const.Api.MANAGER_ORGANIZATIONS,
                     Const.Api.MANAGER_SERVICES,
@@ -60,31 +60,31 @@ public class MethodNotAllowedTest extends CleanTest {
                     Const.Api.PRINCIPAL_FEDID,},
                 restPostPutDelete);
 
-        this.testURIMethodPairs(
+        this.expectingNotAllowed(
                 new String[]{
                     Const.Api.PRINCIPALS,},
                 restPutDelete);
 
         /* *** Services *** */
-        this.testURIMethodPairs(
+        this.expectingNotAllowed(
                 new String[]{
                     Const.Api.SERVICES_MANAGERS,
                     Const.Api.SERVICES_ATTRIBUTESPECS,},
                 restPostPutDelete);
 
-        this.testURIMethodPairs(
+        this.expectingNotAllowed(
                 new String[]{
                     Const.Api.SERVICES,
                     Const.Api.SERVICES_ENTITLEMENTPACKS,
                     Const.Api.SERVICES_ENTITLEMENTS,},
                 restPutDelete);
 
-        this.testURIMethodPairs(
+        this.expectingNotAllowed(
                 new String[]{
                     Const.Api.SERVICES_ID,},
                 restPost);
 
-        this.testURIMethodPairs(
+        this.expectingNotAllowed(
                 new String[]{
                     Const.Api.SERVICES_ATTRIBUTESPECS_ASID,
                     Const.Api.SERVICES_MANAGERS_PID,},
@@ -100,9 +100,9 @@ public class MethodNotAllowedTest extends CleanTest {
      * @param uris String[]: Strings for the uri-s to call, preferably from the
      * Const.Api constants.
      * @param calls REST[]: from the BasicCall.REST[], can be GET, POST, PUT,
-     * DELETE.
+     * DEL.
      */
-    public void testURIMethodPairs(String[] uris, BasicCall.REST[] calls) {
+    public void expectingNotAllowed(String[] uris, BasicCall.REST[] calls) {
         for (String uri : uris) {
             for (BasicCall.REST method : calls) {
                 String responseString

@@ -112,23 +112,23 @@ public class BasicCall {
 
     /**
      * Enumeration to easily differentiate between the 4 types of calls. Values:
-     * GET, POST, PUT, DELETE.
+     * GET, POST, PUT, DEL.
      */
     public enum REST {
 
-        GET, POST, PUT, DELETE
+        GET, POST, PUT, DEL
     }
 
     /* *** Normal calls, returns the response json as a String *** */
     /**
      * Most basic call type, only use it for simple GET methods, as it does not
      * get the required json/id/sid/fedid for most of the more complex calls
-     * like any POST/PUT methods or GET/DELETE methods with required ids. These
+     * like any POST/PUT methods or GET/DEL methods with required ids. These
      * situations see
      * {@link call(String path, REST restCall, String json, int id, int sId)}.
      *
      * @param path String, the relative path from the host.
-     * @param restCall REST, the type of the call (GET,POST,PUT,DELETE).
+     * @param restCall REST, the type of the call (GET,POST,PUT,DEL).
      * @return String, the content of the response for the call, for the Status
      * Line/Code see {@link getStatusLine()}.
      */
@@ -147,7 +147,7 @@ public class BasicCall {
      * {@link call(String path, REST restCall, String json, int id, int sId, String fedid)}.
      *
      * @param path String, the relative path from the host.
-     * @param restCall REST, the type of the call (GET,POST,PUT,DELETE).
+     * @param restCall REST, the type of the call (GET,POST,PUT,DEL).
      * @param json String, the json message for the http request's body in
      * string format.
      * @param id int, the basic {id} in the urls.
@@ -171,7 +171,7 @@ public class BasicCall {
      * and {@link String call(String path, REST restCall)}.
      *
      * @param path String, the relative path from the host.
-     * @param restCall REST, the type of the call (GET,POST,PUT,DELETE).
+     * @param restCall REST, the type of the call (GET,POST,PUT,DEL).
      * @param json String, the json message for the http request's body in
      * string format.
      * @param id int, the basic {id} in the urls.
@@ -205,7 +205,7 @@ public class BasicCall {
                 return this.post();
             case PUT:
                 return this.put();
-            case DELETE:
+            case DEL:
                 return this.delete();
         }
 
@@ -288,7 +288,7 @@ public class BasicCall {
     }
 
     /**
-     * Returns the DELETE request's response's JSON content in string format, if
+     * Returns the DEL request's response's JSON content in string format, if
      * there is no content empty string will be returned.
      *
      * @return String, JSON content in string format, maybe empty, never null.

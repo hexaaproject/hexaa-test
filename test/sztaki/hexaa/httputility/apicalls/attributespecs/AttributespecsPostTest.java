@@ -27,11 +27,11 @@ public class AttributespecsPostTest extends CleanTest {
 
         // POST the object to the server and check the StatusLine
         persistent.call(
-                    Const.Api.ATTRIBUTESPECS,
-                    BasicCall.REST.POST,
-                    json.toString(),
-                    0,
-                    0);
+                Const.Api.ATTRIBUTESPECS,
+                BasicCall.REST.POST,
+                json.toString(),
+                0,
+                0);
         try {
             assertEquals("HTTP/1.1 201 Created", persistent.getStatusLine());
         } catch (AssertionError e) {
@@ -64,11 +64,11 @@ public class AttributespecsPostTest extends CleanTest {
 
         // POST the object to the server and assert the string right away
         persistent.call(
-                    Const.Api.ATTRIBUTESPECS,
-                    BasicCall.REST.POST,
-                    json.toString(),
-                    0,
-                    0);
+                Const.Api.ATTRIBUTESPECS,
+                BasicCall.REST.POST,
+                json.toString(),
+                0,
+                0);
         try {
             assertEquals("HTTP/1.1 201 Created", persistent.getStatusLine());
         } catch (AssertionError e) {

@@ -1,34 +1,46 @@
 package sztaki.hexaa.httputility.apicalls.entitlements;
 
-import static org.junit.Assert.*;
 import org.junit.Test;
 import sztaki.hexaa.httputility.BasicCall.REST;
 import sztaki.hexaa.httputility.Const;
-import sztaki.hexaa.httputility.apicalls.CleanTest;
+import sztaki.hexaa.httputility.apicalls.IsEmptyTest;
 
 /**
- * Tests the empty database for the GET calls on the /api/entitlements/{id} uri.
+ * Tests the empty database for the GET,PUT,DEL calls on the
+ * /api/entitlements/{id} uri.
  */
-public class EntitlementsIsEmptyTest extends CleanTest {
+public class EntitlementsIsEmptyTest extends IsEmptyTest {
 
     /**
-     * Tests the /api/entitlements/{id} with GET, PUT, DELETE methods for the
-     * required response (404).
+     * Tests the GET methods on an empty database, 404 errors and empty JSONs
+     * are expected.
      */
     @Test
-    public void testEntitlementsIsEmpty() {
-        // Enumerate down the 3 calls on the uri
-        for (REST method : new REST[]{REST.GET, REST.PUT, REST.DELETE}) {
-            persistent.call(
-                    Const.Api.ENTITLEMENTS_ID,
-                    method,
-                    null,
-                    1, 0);
-            try {
-                assertEquals("HTTP/1.1 404 Not Found", persistent.getStatusLine());
-            } catch (AssertionError e) {
-                AssertErrorHandler(e);
-            }
-        }
+    public void testEntitlementsIsEmptyGet() {
+        expectingNotFound(
+                Const.Api.ENTITLEMENTS_ID,
+                REST.GET);
+    }
+
+    /**
+     * Tests the GET methods on an empty database, 404 errors and empty JSONs
+     * are expected.
+     */
+    @Test
+    public void testEntitlementsIsEmptyPut() {
+        expectingNotFound(
+                Const.Api.ENTITLEMENTS_ID,
+                REST.PUT);
+    }
+
+    /**
+     * Tests the GET methods on an empty database, 404 errors and empty JSONs
+     * are expected.
+     */
+    @Test
+    public void testEntitlementsIsEmptyDelete() {
+        expectingNotFound(
+                Const.Api.ENTITLEMENTS_ID,
+                REST.DEL);
     }
 }

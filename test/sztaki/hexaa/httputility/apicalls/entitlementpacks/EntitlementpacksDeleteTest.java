@@ -14,10 +14,10 @@ import sztaki.hexaa.httputility.apicalls.CleanTest;
 import sztaki.hexaa.httputility.apicalls.services.Services;
 
 /**
- * Tests the DELETE methods on the /api/entitlementpacks/{id} uri.
+ * Tests the DEL methods on the /api/entitlementpacks/{id} uri.
  */
 public class EntitlementpacksDeleteTest extends CleanTest {
-    
+
     private static JSONArray entitlementpacks = new JSONArray();
 
     /**
@@ -39,11 +39,11 @@ public class EntitlementpacksDeleteTest extends CleanTest {
      */
     @Test
     public void testEntitlementsDelete() {
-        // The DELETE call
-        persistent.call(Const.Api.ENTITLEMENTPACKS_ID, BasicCall.REST.DELETE, null, 1, 0);
+        // The DEL call
+        persistent.call(Const.Api.ENTITLEMENTPACKS_ID, BasicCall.REST.DEL, null, 1, 0);
 
         try {
-            // Checks the status line from the DELETE call for 204
+            // Checks the status line from the DEL call for 204
             assertEquals("HTTP/1.1 204 No Content", persistent.getStatusLine());
             // GETs the one that was deleted and checks the status line for 404
             persistent.call(Const.Api.ENTITLEMENTPACKS_ID, BasicCall.REST.GET, null, 1, 0);

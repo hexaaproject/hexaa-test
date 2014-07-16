@@ -45,16 +45,16 @@ public class AttributespecsDeleteTest extends CleanTest {
     }
 
     /**
-     * It calls DELETE and verifies the non existence by calling
-     * /api/attributespec GET
+     * It calls DEL and verifies the non existence by calling
+ /api/attributespec GET
      */
     @Test
     public void testAttributespecsDelete() {
 
-        /* *** Calling DELETE *** */
+        /* *** Calling DEL *** */
         String response = persistent.call(
                 Const.Api.ATTRIBUTESPECS_ID,
-                BasicCall.REST.DELETE,
+                BasicCall.REST.DEL,
                 null,
                 1, 0);
         try {

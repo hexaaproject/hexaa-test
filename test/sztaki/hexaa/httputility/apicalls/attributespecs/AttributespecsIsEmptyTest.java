@@ -4,35 +4,47 @@ import static org.junit.Assert.*;
 import org.junit.Test;
 import sztaki.hexaa.httputility.BasicCall;
 import sztaki.hexaa.httputility.Const;
-import sztaki.hexaa.httputility.apicalls.CleanTest;
+import sztaki.hexaa.httputility.apicalls.IsEmptyTest;
 
-public class AttributespecsIsEmptyTest extends CleanTest {
+/**
+ * Tests the GET,PUT,DEL methods on the /api/attributespecs and
+ * /api/attributespecs/{id} calls.
+ */
+public class AttributespecsIsEmptyTest extends IsEmptyTest {
 
     /**
      * Test the GET calls in Attributespecs on an empty database, they are
-     * supposed to return either empty json or 404 not found error
+     * supposed to return either empty json or 404 not found error.
      */
     @Test
-    public void testAttributespecsIsEmpty() {
-        try {
-            assertEquals("[]", persistent.call(
-                    Const.Api.ATTRIBUTESPECS,
-                    BasicCall.REST.GET,
-                    null,
-                    1, 0));
-            assertEquals("HTTP/1.1 200 OK", persistent.getStatusLine());
-        } catch (AssertionError e) {
-            AssertErrorHandler(e);
-        }
-        persistent.call(
+    public void testAttributespecsIsEmptyGet() {
+        expectingEmpty(
+                Const.Api.ATTRIBUTESPECS,
+                BasicCall.REST.GET);
+        expectingNotFound(
                 Const.Api.ATTRIBUTESPECS_ID,
-                BasicCall.REST.GET,
-                null,
-                1, 0);
-        try {
-            assertEquals("HTTP/1.1 404 Not Found", persistent.getStatusLine());
-        } catch (AssertionError e) {
-            AssertErrorHandler(e);
-        }
+                BasicCall.REST.GET);
+    }
+
+    /**
+     * Test the PUT calls in Attributespecs on an empty database, they are
+     * supposed to return either empty json or 404 not found error.
+     */
+    @Test
+    public void testAttributespecsIsEmptyPut() {
+        expectingNotFound(
+                Const.Api.ATTRIBUTESPECS_ID,
+                BasicCall.REST.PUT);
+    }
+
+    /**
+     * Test the DEL calls in Attributespecs on an empty database, they are
+     * supposed to return either empty json or 404 not found error.
+     */
+    @Test
+    public void testAttributespecsIsEmptyDelete() {
+        expectingNotFound(
+                Const.Api.ATTRIBUTESPECS_ID,
+                BasicCall.REST.DEL);
     }
 }

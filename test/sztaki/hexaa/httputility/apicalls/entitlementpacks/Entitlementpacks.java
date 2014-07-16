@@ -6,15 +6,12 @@
 package sztaki.hexaa.httputility.apicalls.entitlementpacks;
 
 import org.json.JSONArray;
-import static org.junit.Assert.*;
-import org.junit.Test;
 import sztaki.hexaa.httputility.BasicCall;
 import sztaki.hexaa.httputility.Const;
 import sztaki.hexaa.httputility.apicalls.CleanTest;
 
 /**
- *
- * @author Bana Tibor
+ * Utitlity class for Entitlementpacks for easier test case buildUps.
  */
 public class Entitlementpacks extends CleanTest {
 
@@ -34,6 +31,5 @@ public class Entitlementpacks extends CleanTest {
                 null,
                 entitlementId, packId);
     }
-    
-    
+
 }
