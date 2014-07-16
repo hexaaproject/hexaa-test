@@ -14,9 +14,12 @@
         <references xmlns="http://www.netbeans.org/ns/ant-project-references/1"/>
         <spellchecker-wordlist xmlns="http://www.netbeans.org/ns/spellchecker-wordlist/1">
             <word>api</word>
+            <word>attributespecs</word>
             <word>entitlementpack</word>
             <word>entitlementpacks</word>
             <word>fedid</word>
+            <word>oid</word>
+            <word>oids</word>
             <word>uri</word>
         </spellchecker-wordlist>
     </configuration>

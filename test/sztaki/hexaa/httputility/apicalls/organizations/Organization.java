@@ -8,7 +8,6 @@ import org.junit.internal.AssumptionViolatedException;
 import sztaki.hexaa.httputility.BasicCall;
 import sztaki.hexaa.httputility.Const;
 import sztaki.hexaa.httputility.apicalls.CleanTest;
-import sztaki.hexaa.httputility.apicalls.services.Services;
 
 /**
  * Utility class to inherit from for Organization related Test classes and gives
@@ -18,6 +17,16 @@ public class Organization extends CleanTest {
     
     public static JSONArray organizations = new JSONArray();
 
+    /**
+     * Creates as many organizations as many name is specified in the names
+     * String array. Returns them as a JSONArray. Can create organizations with
+     * unique names only, if names are repeating it will drop an assumption
+     * error and fails the test case.
+     *
+     * @param names a String array representation of the names to create
+     * organizations with.
+     * @return JSONArray with all the created organizations in it.
+     */
     public static JSONArray createOrganization(String[] names) {
         JSONArray organizations = new JSONArray();
 
@@ -43,8 +52,6 @@ public class Organization extends CleanTest {
                 fail("POST /api/organization was unsuccessful.");
             }
         }
-
         return organizations;
     }
-
 }

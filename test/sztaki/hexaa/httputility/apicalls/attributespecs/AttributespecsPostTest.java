@@ -29,9 +29,7 @@ public class AttributespecsPostTest extends CleanTest {
         persistent.call(
                 Const.Api.ATTRIBUTESPECS,
                 BasicCall.REST.POST,
-                json.toString(),
-                0,
-                0);
+                json.toString());
         try {
             assertEquals("HTTP/1.1 201 Created", persistent.getStatusLine());
         } catch (AssertionError e) {

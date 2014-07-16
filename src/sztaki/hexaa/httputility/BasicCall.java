@@ -142,6 +142,28 @@ public class BasicCall {
     }
 
     /**
+     * The normal call type for creation. Does not have ids or fedid, ids are 1
+     * for default, fedid is simply "fedid", if they are needed use
+     * {@link call(String path, REST restCall, String json, int id, int sId)} or
+     * {@link call(String path, REST restCall, String json, int id, int sId, String fedid)}.
+     *
+     * @param path String, the relative path from the host.
+     * @param restCall REST, the type of the call (GET,POST,PUT,DEL).
+     * @param json String, the json message for the http request's body in
+     * string format.
+     * @return String, the content of the response for the call, for the Status
+     * Line/Code see {@link getStatusLine()}.
+     */
+    public String call(String path, REST restCall, String json) {
+        this.setPath(path);
+        this.setString(json);
+        this.setId(1);
+        this.setSId(1);
+
+        return callSwitch(restCall);
+    }
+
+    /**
      * The normal call type, use this for most calls. Does not have a fedid, if
      * fedid is required use
      * {@link call(String path, REST restCall, String json, int id, int sId, String fedid)}.
