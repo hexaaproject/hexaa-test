@@ -52,4 +52,39 @@ public class Organization extends CleanTest {
         }
         return organizations;
     }
+
+    /**
+     * Links already existing entitlementpacks specified in the packIds array to
+     * the existing organization specified by the orgId.
+     *
+     * @param orgId the id of the organization to link.
+     * @param packIds the ids of the entitlementpacks to link.
+     */
+    public void linkEntitlementpacks(int orgId, int[] packIds) {
+        for (int pack : packIds) {
+            // Connect one entitlementpack to an organization
+            persistent.call(
+                    Const.Api.ORGANIZATIONS_ID_ENTITLEMENTPACKS_EPID,
+                    BasicCall.REST.PUT,
+                    null,
+                    orgId, pack);
+            // Accept the entitlementpack
+            persistent.call(
+                    Const.Api.ORGANIZATIONS_ID_ENTITLEMENTPACKS_EPID_ACCEPT,
+                    BasicCall.REST.PUT,
+                    null,
+                    orgId, pack);
+
+            try {
+                Assume.assumeTrue(
+                        persistent.getStatusLine().equalsIgnoreCase("HTTP/1.1 204 No Content"));
+            } catch (AssumptionViolatedException e) {
+                System.out.println(
+                        "In "
+                        + Organization.class.getName()
+                        + " the PUT call on /api/organizations/{id}/entitlementpacks/{epid} failed");
+                fail("PUT /api/organizations/{id}/entitlementpacks/{epid} was unsuccessful.");
+            }
+        }
+    }
 }
