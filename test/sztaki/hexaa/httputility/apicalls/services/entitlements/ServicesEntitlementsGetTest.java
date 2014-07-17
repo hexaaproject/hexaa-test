@@ -26,7 +26,8 @@ public class ServicesEntitlementsGetTest extends Services {
     public static void setUpClass() {
         createServices(new String[]{"testService1", "testService2"});
         entitlements = createServiceEntitlements(1, new String[]{"testEntitlements1", "testEntitlements2"});
-        entitlements = createServiceEntitlements(2, new String[]{"testEntitlements3"});
+        JSONArray entitlementsTemp = createServiceEntitlements(2, new String[]{"testEntitlements3"});
+        entitlements.put(entitlementsTemp.getJSONObject(0));
     }
 
     /**

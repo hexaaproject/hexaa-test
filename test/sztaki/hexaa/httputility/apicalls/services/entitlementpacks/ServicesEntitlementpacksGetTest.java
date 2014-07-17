@@ -27,7 +27,8 @@ public class ServicesEntitlementpacksGetTest extends Services {
     public static void buildUp() {
         createServices(new String[] {"testService1","testService2"});
         entitlementpacks = createServiceEntitlementpacks(1, new String[]{"testEntitlementpacks1", "testEntitlementpacks2"});
-        entitlementpacks = createServiceEntitlementpacks(2, new String[]{"testEntitlementpacks3"});
+        JSONArray entitlementpacksTemp = createServiceEntitlementpacks(2, new String[]{"testEntitlementpacks3"});
+        entitlementpacks.put(entitlementpacksTemp.getJSONObject(0));
     }
 
     /**
