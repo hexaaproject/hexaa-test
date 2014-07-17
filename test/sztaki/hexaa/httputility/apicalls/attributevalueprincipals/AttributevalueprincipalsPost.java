@@ -13,8 +13,14 @@ import sztaki.hexaa.httputility.Const;
 import sztaki.hexaa.httputility.apicalls.CleanTest;
 import sztaki.hexaa.httputility.apicalls.attributespecs.Attributespecs;
 
+/**
+ * Tests the POST method on the /api/attributevalueprincipals/{asid} call.
+ */
 public class AttributevalueprincipalsPost extends CleanTest {
 
+    /**
+     * Creates two attributespecs.
+     */
     @BeforeClass
     public static void setUpClass() {
         Attributespecs.createAttributespecs(
@@ -23,6 +29,10 @@ public class AttributevalueprincipalsPost extends CleanTest {
                     "testAttributespecs2"});
     }
 
+    /**
+     * Creates an attributevalueprincipal with one value and one of the created
+     * attributespecs, and verifies it with GET.
+     */
     @Test
     public void testAttributevalueprincipalsPost() {
         JSONObject json = new JSONObject();
@@ -48,5 +58,4 @@ public class AttributevalueprincipalsPost extends CleanTest {
             AssertErrorHandler(e);
         }
     }
-
 }

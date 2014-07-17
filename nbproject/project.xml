@@ -14,7 +14,11 @@
         <references xmlns="http://www.netbeans.org/ns/ant-project-references/1"/>
         <spellchecker-wordlist xmlns="http://www.netbeans.org/ns/spellchecker-wordlist/1">
             <word>api</word>
+            <word>asid</word>
+            <word>attributespecification</word>
             <word>attributespecs</word>
+            <word>attributevalueprincipal</word>
+            <word>attributevalueprincipals</word>
             <word>entitlementpack</word>
             <word>entitlementpacks</word>
             <word>fedid</word>
