@@ -36,7 +36,7 @@ public class OrganizationIsEmptyTest extends IsEmptyTest {
                 Const.Api.ORGANIZATIONS_ID_ENTITLEMENTS,
                 BasicCall.REST.GET);
         expectingNotFound(
-                Const.Api.ORGANIZATIONS_ID_MANAGER,
+                Const.Api.ORGANIZATIONS_ID_MANAGERS,
                 BasicCall.REST.GET);
         expectingNotFound(
                 Const.Api.ORGANIZATIONS_ID_MEMBERS,
@@ -65,7 +65,7 @@ public class OrganizationIsEmptyTest extends IsEmptyTest {
                 Const.Api.ORGANIZATIONS_ID_ENTITLEMENTPACKS_TOKEN,
                 BasicCall.REST.PUT);
         expectingNotFound(
-                Const.Api.ORGANIZATIONS_ID_MANAGER_PID,
+                Const.Api.ORGANIZATIONS_ID_MANAGERS_PID,
                 BasicCall.REST.PUT);
         expectingNotFound(
                 Const.Api.ORGANIZATIONS_ID_MEMBERS_PID,
@@ -85,7 +85,7 @@ public class OrganizationIsEmptyTest extends IsEmptyTest {
                 Const.Api.ORGANIZATIONS_ID_ENTITLEMENTPACKS_EPID,
                 BasicCall.REST.DEL);
         expectingNotFound(
-                Const.Api.ORGANIZATIONS_ID_MANAGER_PID,
+                Const.Api.ORGANIZATIONS_ID_MANAGERS_PID,
                 BasicCall.REST.DEL);
         expectingNotFound(
                 Const.Api.ORGANIZATIONS_ID_MEMBERS_PID,

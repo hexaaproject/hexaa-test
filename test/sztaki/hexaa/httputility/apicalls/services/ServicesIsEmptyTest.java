@@ -28,19 +28,19 @@ public class ServicesIsEmptyTest extends IsEmptyTest {
                 BasicCall.REST.GET);
 
         expectingNotFound(
-                Const.Api.SERVICES_ATTRIBUTESPECS,
+                Const.Api.SERVICES_ID_ATTRIBUTESPECS,
                 BasicCall.REST.GET);
 
         expectingNotFound(
-                Const.Api.SERVICES_ENTITLEMENTPACKS,
+                Const.Api.SERVICES_ID_ENTITLEMENTPACKS,
                 BasicCall.REST.GET);
 
         expectingNotFound(
-                Const.Api.SERVICES_ENTITLEMENTS,
+                Const.Api.SERVICES_ID_ENTITLEMENTS,
                 BasicCall.REST.GET);
 
         expectingNotFound(
-                Const.Api.SERVICES_MANAGERS,
+                Const.Api.SERVICES_ID_MANAGERS,
                 BasicCall.REST.GET);
     }
 
@@ -56,11 +56,11 @@ public class ServicesIsEmptyTest extends IsEmptyTest {
                 BasicCall.REST.PUT);
 
         expectingNotFound(
-                Const.Api.SERVICES_ATTRIBUTESPECS_ASID,
+                Const.Api.SERVICES_ID_ATTRIBUTESPECS_ASID,
                 BasicCall.REST.PUT);
 
         expectingNotFound(
-                Const.Api.SERVICES_MANAGERS_PID,
+                Const.Api.SERVICES_ID_MANAGERS_PID,
                 BasicCall.REST.PUT);
     }
 
@@ -76,11 +76,11 @@ public class ServicesIsEmptyTest extends IsEmptyTest {
                 BasicCall.REST.DEL);
 
         expectingNotFound(
-                Const.Api.SERVICES_ATTRIBUTESPECS_ASID,
+                Const.Api.SERVICES_ID_ATTRIBUTESPECS_ASID,
                 BasicCall.REST.DEL);
 
         expectingNotFound(
-                Const.Api.SERVICES_MANAGERS_PID,
+                Const.Api.SERVICES_ID_MANAGERS_PID,
                 BasicCall.REST.DEL);
     }
 }

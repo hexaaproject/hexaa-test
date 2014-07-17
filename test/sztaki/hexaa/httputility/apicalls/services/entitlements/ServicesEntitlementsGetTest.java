@@ -38,7 +38,7 @@ public class ServicesEntitlementsGetTest extends Services {
         // GETs the first services entitlements
         JSONArray jsonResponse = (JSONArray) JSONParser.parseJSON(
                 persistent.call(
-                        Const.Api.SERVICES_ENTITLEMENTS,
+                        Const.Api.SERVICES_ID_ENTITLEMENTS,
                         BasicCall.REST.GET,
                         null,
                         1, 0));
@@ -56,7 +56,7 @@ public class ServicesEntitlementsGetTest extends Services {
         // GETs the second services entitlement
         jsonResponse = (JSONArray) JSONParser.parseJSON(
                 persistent.call(
-                        Const.Api.SERVICES_ENTITLEMENTS,
+                        Const.Api.SERVICES_ID_ENTITLEMENTS,
                         BasicCall.REST.GET,
                         null,
                         2, 0));

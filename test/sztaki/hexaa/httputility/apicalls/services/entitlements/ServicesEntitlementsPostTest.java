@@ -43,7 +43,7 @@ public class ServicesEntitlementsPostTest extends Services {
         entitlemenets.put(json);
         // POST it
         persistent.call(
-                Const.Api.SERVICES_ENTITLEMENTS,
+                Const.Api.SERVICES_ID_ENTITLEMENTS,
                 BasicCall.REST.POST,
                 json.toString(),
                 1, 0);
@@ -63,7 +63,7 @@ public class ServicesEntitlementsPostTest extends Services {
         entitlemenets.put(json);
         // POST it
         persistent.call(
-                Const.Api.SERVICES_ENTITLEMENTS,
+                Const.Api.SERVICES_ID_ENTITLEMENTS,
                 BasicCall.REST.POST,
                 json.toString(),
                 1, 0);
@@ -77,7 +77,7 @@ public class ServicesEntitlementsPostTest extends Services {
         // GETs the entitlements from the server
         JSONArray jsonResponseObject = (JSONArray) JSONParser.parseJSON(
                 persistent.call(
-                        Const.Api.SERVICES_ENTITLEMENTS,
+                        Const.Api.SERVICES_ID_ENTITLEMENTS,
                         BasicCall.REST.GET,
                         null,
                         1, 0));

@@ -37,14 +37,14 @@ public class Authenticator {
             System.out.println("Temporary API key acquired.");
 
             response = postToken.call(
-                    Const.Api.TOKEN,
+                    Const.Api.TOKENS,
                     BasicCall.REST.POST,
                     json.toString(),
                     0, 0);
 
             JSONObject jsonResponse;
             jsonResponse = (JSONObject) JSONParser.parseJSON(response);
-
+            
             Const.HEXAA_AUTH = jsonResponse.get("token").toString();
 
             System.out.println("Normal API key acquired.");

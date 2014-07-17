@@ -113,7 +113,7 @@ public class Services extends CleanTest {
             entitlements.put(json);
             // POST it
             persistent.call(
-                    Const.Api.SERVICES_ENTITLEMENTS,
+                    Const.Api.SERVICES_ID_ENTITLEMENTS,
                     BasicCall.REST.POST,
                     json.toString(),
                     serviceId, 0);
@@ -175,7 +175,7 @@ public class Services extends CleanTest {
             entitlementpacks.put(json);
             // POST it
             persistent.call(
-                    Const.Api.SERVICES_ENTITLEMENTPACKS,
+                    Const.Api.SERVICES_ID_ENTITLEMENTPACKS,
                     BasicCall.REST.POST,
                     json.toString(),
                     serviceId, 0);

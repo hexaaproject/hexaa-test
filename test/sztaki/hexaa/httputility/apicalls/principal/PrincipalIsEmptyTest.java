@@ -37,7 +37,7 @@ public class PrincipalIsEmptyTest extends IsEmptyTest {
                 Const.Api.PRINCIPAL_ATTRIBUTESPECS,
                 BasicCall.REST.GET);
         expectingNotFound(
-                Const.Api.PRINCIPAL_ATTRIBUTESPECS_ATTRIBUTEVALUEPRINCIPAL,
+                Const.Api.PRINCIPALS_ASID_ATTRIBUTESPECS_ATTRIBUTEVALUEPRINCIPALS,
                 BasicCall.REST.GET);
         expectingEmpty(
                 Const.Api.PRINCIPAL_ATTRIBUTEVALUEPRINCIPAL,

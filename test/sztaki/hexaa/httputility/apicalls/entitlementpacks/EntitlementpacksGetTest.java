@@ -62,7 +62,7 @@ public class EntitlementpacksGetTest extends CleanTest {
         JSONArray jsonResponseArray
                 = (JSONArray) JSONParser.parseJSON(
                         persistent.call(
-                                Const.Api.ENTITLEMENTPACKS,
+                                Const.Api.ENTITLEMENTPACKS_PUBLIC,
                                 BasicCall.REST.GET));
         try {
             // Asserting on the statusline for 200

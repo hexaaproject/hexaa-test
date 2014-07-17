@@ -56,8 +56,8 @@ public class MethodNotAllowedTest extends CleanTest {
                     Const.Api.PRINCIPAL_EMAILINVITATIONS,
                     Const.Api.PRINCIPAL_URLINVITATIONS,
                     Const.Api.PRINCIPALS_ID,
-                    Const.Api.PRINCIPAL_ATTRIBUTESPECS_ATTRIBUTEVALUEPRINCIPAL,
-                    Const.Api.PRINCIPAL_FEDID,},
+                    Const.Api.PRINCIPALS_ASID_ATTRIBUTESPECS_ATTRIBUTEVALUEPRINCIPALS,
+                    Const.Api.PRINCIPALS_FEDID,},
                 restPostPutDelete);
 
         this.expectingNotAllowed(
@@ -68,15 +68,15 @@ public class MethodNotAllowedTest extends CleanTest {
         /* *** Services *** */
         this.expectingNotAllowed(
                 new String[]{
-                    Const.Api.SERVICES_MANAGERS,
-                    Const.Api.SERVICES_ATTRIBUTESPECS,},
+                    Const.Api.SERVICES_ID_MANAGERS,
+                    Const.Api.SERVICES_ID_ATTRIBUTESPECS,},
                 restPostPutDelete);
 
         this.expectingNotAllowed(
                 new String[]{
                     Const.Api.SERVICES,
-                    Const.Api.SERVICES_ENTITLEMENTPACKS,
-                    Const.Api.SERVICES_ENTITLEMENTS,},
+                    Const.Api.SERVICES_ID_ENTITLEMENTPACKS,
+                    Const.Api.SERVICES_ID_ENTITLEMENTS,},
                 restPutDelete);
 
         this.expectingNotAllowed(
@@ -86,8 +86,8 @@ public class MethodNotAllowedTest extends CleanTest {
 
         this.expectingNotAllowed(
                 new String[]{
-                    Const.Api.SERVICES_ATTRIBUTESPECS_ASID,
-                    Const.Api.SERVICES_MANAGERS_PID,},
+                    Const.Api.SERVICES_ID_ATTRIBUTESPECS_ASID,
+                    Const.Api.SERVICES_ID_MANAGERS_PID,},
                 restGetPost);
 
     }
