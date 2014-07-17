@@ -9,9 +9,8 @@ import sztaki.hexaa.httputility.apicalls.BasicTestSuite;
     sztaki.hexaa.httputility.apicalls.organizations.OrganizationPutTest.class,
     sztaki.hexaa.httputility.apicalls.organizations.OrganizationDeleteTest.class,
     sztaki.hexaa.httputility.apicalls.organizations.OrganizationPostTest.class,
-    sztaki.hexaa.httputility.apicalls.organizations.OrganizationEntitlementpacks.class,
-    sztaki.hexaa.httputility.apicalls.organizations.OrganizationGetTest.class,
-})
+    sztaki.hexaa.httputility.apicalls.organizations.entitlementpacks.OrganizationEntitlementpackSuite.class,
+    sztaki.hexaa.httputility.apicalls.organizations.OrganizationGetTest.class,})
 public class OrganizationSuite extends BasicTestSuite {
-    
+
 }
