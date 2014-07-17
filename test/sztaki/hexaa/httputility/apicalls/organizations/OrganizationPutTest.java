@@ -65,5 +65,4 @@ public class OrganizationPutTest extends CleanTest {
             AssertErrorHandler(e);
         }
     }
-
 }
