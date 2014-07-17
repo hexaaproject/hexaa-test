@@ -11,8 +11,15 @@ import org.skyscreamer.jsonassert.JSONParser;
 import sztaki.hexaa.httputility.BasicCall;
 import sztaki.hexaa.httputility.Const;
 
+/**
+ * Tests the GET method on the /api/organizations and /api/organizations/{id}
+ * call.
+ */
 public class OrganizationGetTest extends Organization {
 
+    /**
+     * Creates 2 organizations.
+     */
     @BeforeClass
     public static void setUpClass() {
         organizations = createOrganization(
@@ -21,6 +28,9 @@ public class OrganizationGetTest extends Organization {
                     "TestOrgName2,",});
     }
 
+    /**
+     * Test the GET method to get an array of all the organizations.
+     */
     @Test
     public void testOrganizationGetArray() {
         JSONArray jsonResponseArray
@@ -36,6 +46,9 @@ public class OrganizationGetTest extends Organization {
         }
     }
 
+    /**
+     * Tests the GET method to get an object of specific id.
+     */
     @Test
     public void testOrganizationGetById() {
         for (int i = 0; i < organizations.length(); i++) {
