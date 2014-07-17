@@ -14,8 +14,6 @@ import sztaki.hexaa.httputility.apicalls.CleanTest;
  * easy to use calls to create organizations.
  */
 public class Organization extends CleanTest {
-    
-    public static JSONArray organizations = new JSONArray();
 
     /**
      * Creates as many organizations as many name is specified in the names

@@ -16,6 +16,8 @@ import sztaki.hexaa.httputility.Const;
  * call.
  */
 public class OrganizationGetTest extends Organization {
+    
+    public static JSONArray organizations = new JSONArray();
 
     /**
      * Creates 2 organizations.

@@ -1,5 +1,6 @@
 package sztaki.hexaa.httputility.apicalls.organizations;
 
+import org.json.JSONArray;
 import org.json.JSONObject;
 import org.junit.BeforeClass;
 import org.junit.Test;
@@ -11,12 +12,13 @@ import sztaki.hexaa.httputility.BasicCall;
 import sztaki.hexaa.httputility.Const;
 import sztaki.hexaa.httputility.apicalls.CleanTest;
 import static sztaki.hexaa.httputility.apicalls.organizations.Organization.createOrganization;
-import static sztaki.hexaa.httputility.apicalls.organizations.Organization.organizations;
 
 /**
  * Tests the DEL method on the /api/organizations/{id} call.
  */
 public class OrganizationDeleteTest extends CleanTest {
+    
+    public static JSONArray organizations = new JSONArray();
 
     /**
      * Creates 2 organizations.

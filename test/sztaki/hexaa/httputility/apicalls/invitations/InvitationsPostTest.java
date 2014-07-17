@@ -10,9 +10,10 @@ import sztaki.hexaa.httputility.BasicCall;
 import sztaki.hexaa.httputility.Const;
 import sztaki.hexaa.httputility.apicalls.CleanTest;
 import static sztaki.hexaa.httputility.apicalls.organizations.Organization.createOrganization;
-import static sztaki.hexaa.httputility.apicalls.organizations.Organization.organizations;
 
 public class InvitationsPostTest extends CleanTest {
+    
+    public static JSONArray organizations = new JSONArray();
 
     @BeforeClass
     public static void setUpClass() {

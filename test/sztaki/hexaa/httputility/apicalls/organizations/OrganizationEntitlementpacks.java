@@ -13,6 +13,10 @@ import sztaki.hexaa.httputility.Const;
 import sztaki.hexaa.httputility.apicalls.entitlementpacks.Entitlementpacks;
 import sztaki.hexaa.httputility.apicalls.services.Services;
 
+/**
+ * Tests the PUT and GET methods on the
+ * /api/organizations/{id}/entitlementpacks/{epid} call.
+ */
 public class OrganizationEntitlementpacks extends Organization {
 
     public static JSONArray entitlements = new JSONArray();
@@ -92,5 +96,4 @@ public class OrganizationEntitlementpacks extends Organization {
             AssertErrorHandler(e);
         }
     }
-
 }
