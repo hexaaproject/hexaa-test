@@ -29,12 +29,9 @@ public class EntitlementpacksGetTest extends CleanTest {
      */
     @BeforeClass
     public static void setUpClass() {
-        Services.resetEntitlements();
-        Services.resetEntitlementpacks();
-
-        Services.createServices(1);
-        entitlementpacks = Services.createServiceEntitlementpacks(1, 2);
-        entitlements = Services.createServiceEntitlements(1, 1);
+        Services.createServices(new String[] {"testService1"});
+        entitlementpacks = Services.createServiceEntitlementpacks(1, new String[]{"testEntitlementpacks1", "testEntitlementpacks2"});
+        entitlements = Services.createServiceEntitlements(1, new String[]{"testEntitlements1"});
         persistent.call(
                 Const.Api.ENTITLEMENTPACKS_ID_ENTITLEMENTS_EID,
                 BasicCall.REST.PUT,

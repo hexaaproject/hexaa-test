@@ -25,8 +25,8 @@ public class EntitlementsPutTest extends CleanTest {
      */
     @BeforeClass
     public static void setUpClass() {
-        Services.createServices(1);
-        entitlements = Services.createServiceEntitlements(1, 2);
+        Services.createServices(new String[]{"testService1"});
+        entitlements = Services.createServiceEntitlements(1, new String[]{"testEntitlements1", "testEntitlements2"});
     }
 
     /**

@@ -27,7 +27,7 @@ public class ServicesGetTest extends Services {
      */
     @BeforeClass
     public static void setUpClass() {
-        services = createServices(2);
+        services = createServices(new String[] {"testServForSrvGet1","testServForSrvGet2"});
     }
 
     /**

@@ -25,9 +25,9 @@ public class ServicesEntitlementpacksGetTest extends Services {
      */
     @BeforeClass
     public static void buildUp() {
-        createServices(2);
-        entitlementpacks = createServiceEntitlementpacks(1, 2);
-        entitlementpacks = createServiceEntitlementpacks(2, 1);
+        createServices(new String[] {"testService1","testService2"});
+        entitlementpacks = createServiceEntitlementpacks(1, new String[]{"testEntitlementpacks1", "testEntitlementpacks2"});
+        entitlementpacks = createServiceEntitlementpacks(2, new String[]{"testEntitlementpacks3"});
     }
 
     /**

@@ -26,14 +26,11 @@ public class EntitlementpacksRemoveEntitlementsTest extends CleanTest {
      */
     @BeforeClass
     public static void setUpClass() {
-        Services.resetEntitlements();
-        Services.resetEntitlementpacks();
+        Services.createServices(new String[] {"testService1"});
 
-        Services.createServices(1);
+        entitlements = Services.createServiceEntitlements(1, new String[]{"testEntitlements1", "testEntitlements2"});
 
-        entitlements = Services.createServiceEntitlements(1, 2);
-
-        Services.createServiceEntitlementpacks(1, 2);
+        Services.createServiceEntitlementpacks(1, new String[]{"testEntitlementpacks1", "testEntitlementpacks2"});
 
         Entitlementpacks.putEntitlementToPack(1, 1);
         Entitlementpacks.putEntitlementToPack(2, 1);

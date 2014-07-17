@@ -18,23 +18,15 @@ import sztaki.hexaa.httputility.apicalls.CleanTest;
 public class Services extends CleanTest {
 
     /**
-     * Static array to store the created entitlements cross method and call.
-     */
-    private static JSONArray entitlements = new JSONArray();
-    /**
-     * Static array to store the created entitlementpacks cross method and call.
-     */
-    private static JSONArray entitlementpacks = new JSONArray();
-
-    /**
-     * Creates the specified number of services, if there are enough entytids in
-     * the system. Usage: do not use it on a database where are already existing
-     * services, as it will cause 400 Bad Requests and will fail the test class.
+     * Creates services for all the names in the array, if there are enough
+     * entytids in the system. Usage: do not use it on a database where are
+     * already existing services, as it will cause 400 Bad Requests and will
+     * fail the test class.
      *
-     * @param piece The number of services to create.
+     * @param names array of strings with the names of the objects to create.
      * @return A JSONArray populated by the data of the created services.
      */
-    public static JSONArray createServices(int piece) {
+    public static JSONArray createServices(String[] names) {
         JSONArray services = new JSONArray();
         // GET the existing entityids
         JSONArray jsonEntityArray = (JSONArray) JSONParser.parseJSON(
@@ -44,12 +36,13 @@ public class Services extends CleanTest {
                         null,
                         0,
                         0));
-        for (int i = 0; i < piece && i < jsonEntityArray.length(); i++) {
+        int i = 0;
+        for (String name : names) {
             // Creates the first json object to be POSTed on the server
             JSONObject json = new JSONObject();
-            json.put("name", "TestService" + Integer.toString(i));
-            json.put("entityid", jsonEntityArray.getString(i));
-            json.put("url", "test." + jsonEntityArray.getString(i) + ".test");
+            json.put("name", name);
+            json.put("entityid", jsonEntityArray.getString(i++));
+            json.put("url", "test." + name + ".test");
             json.put("description", "This is a test service for the " + jsonEntityArray.getString(0) + "service provider entity.");
             // POSTs the json object
             persistent.call(
@@ -76,14 +69,16 @@ public class Services extends CleanTest {
     }
 
     /**
-     * Creates the specified number of entitlements by piece for the service
+     * Creates entitlements for the names in the array with the service
      * specified by the serviceId.
      *
      * @param serviceId the id for the service.
-     * @param piece the number of entitlements to create.
+     * @param names array of strings with the names of the objects to create.
      * @return JSONArray with the created entitlements.
      */
-    public static JSONArray createServiceEntitlements(int serviceId, int piece) {
+    public static JSONArray createServiceEntitlements(int serviceId, String[] names) {
+        // JSONArray to store the return value
+        JSONArray entitlements = new JSONArray();
         // Verifying the existance of the service
         JSONObject jsonResponse
                 = (JSONObject) JSONParser.parseJSON(
@@ -102,13 +97,13 @@ public class Services extends CleanTest {
             fail("POST /api/services/{id}/entitlements was unsuccessful.");
         }
 
-        for (int i = 0; i < piece; i++) {
+        for (String name : names) {
 
             // Creating the entitlement object
             JSONObject json = new JSONObject();
-            json.put("uri", "/testUri" + Integer.toString(serviceId) + Integer.toString(i));
-            json.put("name", "testName" + Integer.toString(serviceId) + Integer.toString(i));
-            json.put("description", "This is a test entitlement, the #" + Integer.toString(serviceId) + Integer.toString(i));
+            json.put("uri", "/testUri" + name);
+            json.put("name", name);
+            json.put("description", "This is a test entitlement, for the #" + Integer.toString(serviceId) + " service, with name " + name);
             // Store it
             entitlements.put(json);
             // POST it
@@ -132,15 +127,17 @@ public class Services extends CleanTest {
     }
 
     /**
-     * Creates the specified number of entitlementpacks by piece for the service
+     * Creates entitlementpacks for the names in the array with the service
      * specified by the serviceId. For testing purposes the ones that are
      * created with even ids are private, the ones with odd ids are public.
      *
      * @param serviceId the id for the service.
-     * @param piece the number of entitlementpacks to create.
+     * @param names array of strings with the names of the objects to create.
      * @return JSONArray with the created entitlementpacks.
      */
-    public static JSONArray createServiceEntitlementpacks(int serviceId, int piece) {
+    public static JSONArray createServiceEntitlementpacks(int serviceId, String[] names) {
+        // JSONArray to store the return value
+        JSONArray entitlementpacks = new JSONArray();
         // Verifying the existance of the service
         JSONObject jsonResponse
                 = (JSONObject) JSONParser.parseJSON(
@@ -159,14 +156,15 @@ public class Services extends CleanTest {
             fail("POST /api/services/{id}/entitlementpacks was unsuccessful.");
         }
 
-        for (int i = 0; i < piece; i++) {
+        int i = 0;
+        for (String name : names) {
 
             // Creating the entitlementpack object
             JSONObject json = new JSONObject();
-            json.put("name", "testName" + Integer.toString(serviceId) + Integer.toString(i));
-            json.put("description", "This is a test entitlement, the #" + Integer.toString(serviceId) + Integer.toString(i));
+            json.put("name", name);
+            json.put("description", "This is a test entitlement, for the #" + Integer.toString(serviceId) + " service, with name " + name);
             // The ones with even id are private, the ones with odd ids are public
-            if (i % 2 == 1) {
+            if (i++ % 2 == 1) {
                 json.put("type", "private");
             } else {
                 json.put("type", "public");
@@ -192,19 +190,4 @@ public class Services extends CleanTest {
         }
         return entitlementpacks;
     }
-
-    /**
-     * Makes sure that there are no earlier entitlements in the array.
-     */
-    public static void resetEntitlements() {
-        entitlements = new JSONArray();
-    }
-
-    /**
-     * Makes sure that there are no earlier entitlementpacks in the array.
-     */
-    public static void resetEntitlementpacks() {
-        entitlementpacks = new JSONArray();
-    }
-
 }

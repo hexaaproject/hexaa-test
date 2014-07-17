@@ -24,9 +24,9 @@ public class ServicesEntitlementsGetTest extends Services {
      */
     @BeforeClass
     public static void setUpClass() {
-        createServices(2);
-        entitlements = createServiceEntitlements(1, 2);
-        entitlements = createServiceEntitlements(2, 1);
+        createServices(new String[]{"testService1", "testService2"});
+        entitlements = createServiceEntitlements(1, new String[]{"testEntitlements1", "testEntitlements2"});
+        entitlements = createServiceEntitlements(2, new String[]{"testEntitlements3"});
     }
 
     /**
