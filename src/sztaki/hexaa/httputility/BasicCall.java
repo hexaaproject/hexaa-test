@@ -54,26 +54,51 @@ public class BasicCall {
     private String json;
 
     /* *** Setter/getter methods *** */
-    public void setPath(String path) {
+    /**
+     * Sets the path.
+     *
+     * @param path
+     */
+    protected void setPath(String path) {
         this.path = path;
     }
 
-    public void setId(int id) {
+    /**
+     * Sets the id.
+     *
+     * @param id
+     */
+    protected void setId(int id) {
         this.id = id;
     }
 
-    public void setSId(int sId) {
+    /**
+     * Sets the special id.
+     *
+     * @param sId
+     */
+    protected void setSId(int sId) {
         this.sId = sId;
     }
 
-    public void setString(String json) {
+    /**
+     * Sets the JSON string.
+     *
+     * @param json
+     */
+    protected void setString(String json) {
         if (json == null) {
             json = new String();
         }
         this.json = json;
     }
 
-    public void setFedid(String fedid) {
+    /**
+     * Sets the fedid.
+     *
+     * @param fedid
+     */
+    protected void setFedid(String fedid) {
         this.fedid = fedid;
     }
 
@@ -100,6 +125,9 @@ public class BasicCall {
     }
     /* *** Constructor *** */
 
+    /**
+     * Constructor
+     */
     public BasicCall() {
         this.id = 0;
 
@@ -116,7 +144,22 @@ public class BasicCall {
      */
     public enum REST {
 
-        GET, POST, PUT, DEL
+        /**
+         * Use it for GET methods.
+         */
+        GET,
+        /**
+         * Use it for POST methods.
+         */
+        POST,
+        /**
+         * Use it for PUT methods.
+         */
+        PUT,
+        /**
+         * Use it for DELETE methods.
+         */
+        DEL,
     }
 
     /* *** Normal calls, returns the response json as a String *** */
@@ -383,8 +426,7 @@ public class BasicCall {
 
         try {
             // If there is no content body we have to return an empty string
-            if (response == null
-                    || response.getEntity() == null
+            if (response.getEntity() == null
                     || response.getEntity().getContent() == null) {
                 return "";
             }

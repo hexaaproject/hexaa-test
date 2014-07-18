@@ -6,6 +6,10 @@ import sztaki.hexaa.httputility.apicalls.BasicTestSuite;
 import sztaki.hexaa.httputility.apicalls.services.entitlementpacks.*;
 import sztaki.hexaa.httputility.apicalls.services.entitlements.*;
 
+/**
+ * TestSuite for the Services related test cases, runs them all and does the
+ * starting and finishing utility jobs inherited from BasicTestSuite.
+ */
 @RunWith(Suite.class)
 @Suite.SuiteClasses({
     ServicesGetTest.class,
@@ -14,9 +18,5 @@ import sztaki.hexaa.httputility.apicalls.services.entitlements.*;
     ServicesEntitlementsGetTest.class,
     ServicesEntitlementpacksPostTest.class,
     ServicesEntitlementpacksGetTest.class,})
-/**
- * TestSuite for the Services related test cases, runs them all and does the
- * starting and finishing utility jobs inherited from BasicTestSuite.
- */
 public class ServicesSuite extends BasicTestSuite {
 }

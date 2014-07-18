@@ -10,6 +10,9 @@ import sztaki.hexaa.httputility.apicalls.CleanTest;
  */
 public class Entitlementpacks extends CleanTest {
 
+    /**
+     * JSONArray for children to inherit.
+     */
     public static JSONArray entitlements = new JSONArray();
 
     /**

@@ -1,7 +1,6 @@
 package sztaki.hexaa.httputility.apicalls;
 
 import java.util.ArrayList;
-import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.Rule;
 import org.junit.rules.ErrorCollector;
@@ -16,6 +15,11 @@ import sztaki.hexaa.httputility.DatabaseManipulator;
  */
 public class CleanTest {
 
+    /**
+     * BasicCall to be used to easily make a call(...) method without creating
+     * new objects and storing references. Can call the getStatusLine() on it,
+     * to get the last calls status line for additional information.
+     */
     static protected BasicCall persistent = new BasicCall();
 
     /**
@@ -38,14 +42,15 @@ public class CleanTest {
         new Authenticator().authenticate();
     }
 
-    @AfterClass
-    public static void checkErrors() {
-    }
-
-    public CleanTest() {
-        this.collector.setName(this.getClass().getSimpleName());
-    }
-
+    //UNUSED
+//    @AfterClass
+//    public static void checkErrors() {
+//    }
+//
+//    public CleanTest() {
+//        this.collector.setName(this.getClass().getSimpleName());
+//    }
+    //
     /**
      * Handles the AssertationErrors in a unified way, can be easily expanded
      * for better utility.
@@ -69,10 +74,6 @@ public class CleanTest {
         private ArrayList<Throwable> errors = new ArrayList<>();
         private String testMethodName = "";
 
-        public TestErrorCollector() {
-            super();
-        }
-
         @Override
         public void verify() throws Throwable {
             MultipleFailureException.assertEmpty(this.errors);
@@ -85,12 +86,20 @@ public class CleanTest {
             }
         }
 
+        /**
+         * Sets the n as name.
+         *
+         * @param n new name.
+         */
         public void setName(String n) {
             if (n != null) {
                 this.testMethodName = n;
             }
         }
 
+        /**
+         * Prints the error stack and the class name to the standard error.
+         */
         public void printErrorStack() {
             System.err.println(this.testMethodName);
             this.errors.stream().forEach((e) -> {

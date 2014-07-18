@@ -12,17 +12,15 @@ import org.junit.BeforeClass;
 import org.junit.internal.AssumptionViolatedException;
 import org.junit.runner.RunWith;
 import org.junit.runners.Suite;
-import sztaki.hexaa.httputility.Authenticator;
 import sztaki.hexaa.httputility.Const;
 import sztaki.hexaa.httputility.DatabaseManipulator;
-
-@RunWith(Suite.class)
-@Suite.SuiteClasses({})
 
 /**
  * Abstract class for the TestSuites to inherit from, it implements the
  * checkReachable and cleanUp methods for utility.
  */
+@RunWith(Suite.class)
+@Suite.SuiteClasses({})
 public abstract class BasicTestSuite {
 
     /**
