@@ -11,6 +11,10 @@ import sztaki.hexaa.httputility.apicalls.BasicTestSuite;
     sztaki.hexaa.httputility.apicalls.organizations.OrganizationPostTest.class,
     sztaki.hexaa.httputility.apicalls.organizations.entitlementpacks.OrganizationEntitlementpackSuite.class,
     sztaki.hexaa.httputility.apicalls.organizations.OrganizationGetTest.class,})
+/**
+ * TestSuite within the BasicTest test suite to include the tests related to the
+ * /api/organizations calls.
+ */
 public class OrganizationSuite extends BasicTestSuite {
 
 }

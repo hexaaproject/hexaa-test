@@ -9,5 +9,9 @@ import org.junit.runners.Suite;
     sztaki.hexaa.httputility.apicalls.organizations.entitlementpacks.OrganizationEntitlementpacksAccept.class,
     sztaki.hexaa.httputility.apicalls.organizations.entitlementpacks.OrganizationEntitlementpacksDelete.class,
     sztaki.hexaa.httputility.apicalls.organizations.entitlementpacks.OrganizationEntitlementpacksGet.class,})
+/**
+ * TestSuite within the OrganizationSuite to include the tests related to the
+ * /api/organization/{id}/entitlementpacks calls.
+ */
 public class OrganizationEntitlementpackSuite {
 }

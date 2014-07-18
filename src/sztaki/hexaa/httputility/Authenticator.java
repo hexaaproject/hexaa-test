@@ -23,6 +23,7 @@ public class Authenticator {
     public void authenticate() {
         // We check the current connection, if we don't get 
         String response = new BasicCall().call(Const.Api.PRINCIPAL, REST.GET);
+        System.out.println(response);
 
         // If the response is Forbidden, we start the authentication
         if (response.contains("401") || response.contains("403")) {
@@ -44,6 +45,8 @@ public class Authenticator {
 
             JSONObject jsonResponse;
             jsonResponse = (JSONObject) JSONParser.parseJSON(response);
+            
+            System.out.println(jsonResponse.toString());
             
             Const.HEXAA_AUTH = jsonResponse.get("token").toString();
 

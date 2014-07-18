@@ -27,7 +27,7 @@ public class OrganizationIsEmptyTest extends IsEmptyTest {
                 Const.Api.ORGANIZATIONS_ID_ATTRIBUTESPECS,
                 BasicCall.REST.GET);
         expectingNotFound(
-                Const.Api.ORGANIZATIONS_ID_ATTRIBUTEVALUEORGANIZATIONS,
+                Const.Api.ORGANIZATIONS_ID_ATTRIBUTEVALUEORGANIZATION,
                 BasicCall.REST.GET);
         expectingNotFound(
                 Const.Api.ORGANIZATIONS_ID_ENTITLEMENTPACKS,

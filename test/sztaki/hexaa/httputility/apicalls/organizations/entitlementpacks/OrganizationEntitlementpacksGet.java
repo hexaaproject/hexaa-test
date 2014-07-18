@@ -3,15 +3,21 @@ package sztaki.hexaa.httputility.apicalls.organizations.entitlementpacks;
 import org.json.JSONArray;
 import org.junit.Test;
 import static org.junit.Assert.*;
-import org.junit.BeforeClass;
 import org.skyscreamer.jsonassert.JSONAssert;
 import org.skyscreamer.jsonassert.JSONCompareMode;
 import org.skyscreamer.jsonassert.JSONParser;
 import sztaki.hexaa.httputility.BasicCall;
 import sztaki.hexaa.httputility.Const;
 
+/**
+ * Tests the DELETE method on the /api/organizations/{id}/entitlementpacks and
+ * /api/organizations/{id}/entitlements call.
+ */
 public class OrganizationEntitlementpacksGet extends OrganizationEntitlementpack {
 
+    /**
+     * GETs the Entitlementpack.
+     */
     @Test
     public void testOrganizationEntitlementpacksGetPacks() {
         createPendingLink(1, new int[]{1});
@@ -32,6 +38,9 @@ public class OrganizationEntitlementpacksGet extends OrganizationEntitlementpack
         deleteLink(1, new int[]{1});
     }
 
+    /**
+     * GETs the entitlements.
+     */
     @Test
     public void testOrganizationEntitlementpacksGetEntitlements() {
         createPendingLink(1, new int[]{1});

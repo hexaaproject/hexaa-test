@@ -48,7 +48,7 @@ public class Const {
         public static final String ORGANIZATIONS_ID = ("/app.php/api/organizations/{id}");
         public static final String ORGANIZATIONS_ID_ATTRIBUTESPECS = ("/app.php/api/organizations/{id}/attributespecs");
         public static final String ORGANIZATIONS_ID_ATTRIBUTESPECS_ASID_ATTRIBUTEVALUEORGANIZATIONS = ("/app.php/api/organizations/{id}/attributespecs/{asid}/attributevalueorganizations");
-        public static final String ORGANIZATIONS_ID_ATTRIBUTEVALUEORGANIZATIONS = ("/app.php/api/organizations/{id}/attributevalueorganizations");
+        public static final String ORGANIZATIONS_ID_ATTRIBUTEVALUEORGANIZATION = ("/app.php/api/organizations/{id}/attributevalueorganization");
         public static final String ORGANIZATIONS_ID_ENTITLEMENTPACKS = ("/app.php/api/organizations/{id}/entitlementpacks");
         public static final String ORGANIZATIONS_ID_ENTITLEMENTPACKS_EPID = ("/app.php/api/organizations/{id}/entitlementpacks/{epid}");
         public static final String ORGANIZATIONS_ID_ENTITLEMENTPACKS_EPID_ACCEPT = ("/app.php/api/organizations/{id}/entitlementpacks/{epid}/accept");
