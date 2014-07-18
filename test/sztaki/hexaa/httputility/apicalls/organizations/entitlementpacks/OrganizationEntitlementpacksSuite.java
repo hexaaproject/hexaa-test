@@ -13,5 +13,5 @@ import org.junit.runners.Suite;
  * TestSuite within the OrganizationSuite to include the tests related to the
  * /api/organization/{id}/entitlementpacks calls.
  */
-public class OrganizationEntitlementpackSuite {
+public class OrganizationEntitlementpacksSuite {
 }
