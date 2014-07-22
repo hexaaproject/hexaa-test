@@ -3,8 +3,11 @@ package sztaki.hexaa.httputility.apicalls.services;
 import org.junit.runner.RunWith;
 import org.junit.runners.Suite;
 import sztaki.hexaa.httputility.apicalls.BasicTestSuite;
+import sztaki.hexaa.httputility.apicalls.services.attributespecs.ServicesAttributespecsGetTest;
+import sztaki.hexaa.httputility.apicalls.services.attributespecs.ServicesAttributespecsPostTest;
 import sztaki.hexaa.httputility.apicalls.services.entitlementpacks.*;
 import sztaki.hexaa.httputility.apicalls.services.entitlements.*;
+import sztaki.hexaa.httputility.apicalls.services.managers.ServicesManagersGetTest;
 
 /**
  * TestSuite for the Services related test cases, runs them all and does the
@@ -14,9 +17,12 @@ import sztaki.hexaa.httputility.apicalls.services.entitlements.*;
 @Suite.SuiteClasses({
     ServicesGetTest.class,
     ServicesPostTest.class,
+    ServicesAttributespecsGetTest.class,
+    ServicesAttributespecsPostTest.class,
+    ServicesEntitlementpacksPostTest.class,
+    ServicesEntitlementpacksGetTest.class,
     ServicesEntitlementsPostTest.class,
     ServicesEntitlementsGetTest.class,
-    ServicesEntitlementpacksPostTest.class,
-    ServicesEntitlementpacksGetTest.class,})
+    ServicesManagersGetTest.class})
 public class ServicesSuite extends BasicTestSuite {
 }

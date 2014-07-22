@@ -10,8 +10,8 @@ import org.skyscreamer.jsonassert.JSONCompareMode;
 import org.skyscreamer.jsonassert.JSONParser;
 import sztaki.hexaa.httputility.BasicCall;
 import sztaki.hexaa.httputility.Const;
+import sztaki.hexaa.httputility.Utility;
 import sztaki.hexaa.httputility.apicalls.CleanTest;
-import sztaki.hexaa.httputility.apicalls.attributespecs.Attributespecs;
 import sztaki.hexaa.httputility.apicalls.organizations.Organization;
 
 /**
@@ -24,7 +24,7 @@ public class AttributevalueorganizationsPost extends CleanTest {
      */
     @BeforeClass
     public static void setUpClass() {
-        Attributespecs.createAttributespecs(
+        Utility.Create.attributespecs(
                 new String[]{
                     "testAttributespecs1",
                     "testAttributespecs2"});
