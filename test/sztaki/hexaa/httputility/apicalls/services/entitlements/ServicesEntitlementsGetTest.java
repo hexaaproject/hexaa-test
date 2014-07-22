@@ -8,13 +8,14 @@ import org.skyscreamer.jsonassert.JSONAssert;
 import org.skyscreamer.jsonassert.JSONParser;
 import sztaki.hexaa.httputility.BasicCall;
 import sztaki.hexaa.httputility.Const;
-import sztaki.hexaa.httputility.apicalls.services.Services;
+import sztaki.hexaa.httputility.Utility;
+import sztaki.hexaa.httputility.apicalls.CleanTest;
 
 /**
  * Tests the GET method on the /api/services/{id}/entitlements call with more
  * services and entitlements.
  */
-public class ServicesEntitlementsGetTest extends Services {
+public class ServicesEntitlementsGetTest extends CleanTest {
 
     private static JSONArray entitlements = new JSONArray();
 
@@ -24,9 +25,9 @@ public class ServicesEntitlementsGetTest extends Services {
      */
     @BeforeClass
     public static void setUpClass() {
-        createServices(new String[]{"testService1", "testService2"});
-        entitlements = createServiceEntitlements(1, new String[]{"testEntitlements1", "testEntitlements2"});
-        JSONArray entitlementsTemp = createServiceEntitlements(2, new String[]{"testEntitlements3"});
+        Utility.Create.services(new String[]{"testService1", "testService2"});
+        entitlements = Utility.Create.entitlements(1, new String[]{"testEntitlements1", "testEntitlements2"});
+        JSONArray entitlementsTemp = Utility.Create.entitlements(2, new String[]{"testEntitlements3"});
         entitlements.put(entitlementsTemp.getJSONObject(0));
     }
 

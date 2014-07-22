@@ -9,9 +9,8 @@ import org.skyscreamer.jsonassert.JSONCompareMode;
 import org.skyscreamer.jsonassert.JSONParser;
 import sztaki.hexaa.httputility.BasicCall;
 import sztaki.hexaa.httputility.Const;
+import sztaki.hexaa.httputility.Utility;
 import sztaki.hexaa.httputility.apicalls.CleanTest;
-import sztaki.hexaa.httputility.apicalls.organizations.Organization;
-import sztaki.hexaa.httputility.apicalls.services.Services;
 
 public class PrincipalGetTest extends CleanTest {
 
@@ -20,8 +19,8 @@ public class PrincipalGetTest extends CleanTest {
 
     @BeforeClass
     public static void setUpClass() {
-        organizations = Organization.createOrganization(new String[]{"testOrgForPrincGet"});
-        services = Services.createServices(new String[]{"testServForPrincGet"});
+        organizations = Utility.Create.organization(new String[]{"testOrgForPrincGet"});
+        services = Utility.Create.services(new String[]{"testServForPrincGet"});
 
     }
 
@@ -32,11 +31,11 @@ public class PrincipalGetTest extends CleanTest {
                         persistent.call(
                                 Const.Api.MANAGER_ORGANIZATIONS,
                                 BasicCall.REST.GET));
-        
+
         try {
             assertEquals("HTTP/1.1 200 OK", persistent.getStatusLine());
             JSONAssert.assertEquals(organizations, jsonResponse, JSONCompareMode.LENIENT);
-        }catch(AssertionError e) {
+        } catch (AssertionError e) {
             AssertErrorHandler(e);
         }
     }
@@ -48,11 +47,11 @@ public class PrincipalGetTest extends CleanTest {
                         persistent.call(
                                 Const.Api.MANAGER_SERVICES,
                                 BasicCall.REST.GET));
-        
+
         try {
             assertEquals("HTTP/1.1 200 OK", persistent.getStatusLine());
             JSONAssert.assertEquals(services, jsonResponse, JSONCompareMode.LENIENT);
-        }catch(AssertionError e) {
+        } catch (AssertionError e) {
             AssertErrorHandler(e);
         }
     }
@@ -64,11 +63,11 @@ public class PrincipalGetTest extends CleanTest {
                         persistent.call(
                                 Const.Api.MEMBER_ORGANIZATIONS,
                                 BasicCall.REST.GET));
-        
+
         try {
             assertEquals("HTTP/1.1 200 OK", persistent.getStatusLine());
             JSONAssert.assertEquals(organizations, jsonResponse, JSONCompareMode.LENIENT);
-        }catch(AssertionError e) {
+        } catch (AssertionError e) {
             AssertErrorHandler(e);
         }
     }

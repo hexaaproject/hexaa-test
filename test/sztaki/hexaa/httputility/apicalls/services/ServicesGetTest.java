@@ -9,12 +9,14 @@ import org.skyscreamer.jsonassert.JSONAssert;
 import org.skyscreamer.jsonassert.JSONParser;
 import sztaki.hexaa.httputility.BasicCall;
 import sztaki.hexaa.httputility.Const;
+import sztaki.hexaa.httputility.Utility;
+import sztaki.hexaa.httputility.apicalls.CleanTest;
 
 /**
  * Tests the GET methods on the /api/services and /api/services/{id} calls after
  * a sample database (with 2 services) have been built.
  */
-public class ServicesGetTest extends Services {
+public class ServicesGetTest extends CleanTest {
 
     /**
      * JSONArray for a local reference of the objects on the server for asserts.
@@ -27,7 +29,7 @@ public class ServicesGetTest extends Services {
      */
     @BeforeClass
     public static void setUpClass() {
-        services = createServices(new String[] {"testServForSrvGet1","testServForSrvGet2"});
+        services = Utility.Create.services(new String[]{"testServForSrvGet1", "testServForSrvGet2"});
     }
 
     /**

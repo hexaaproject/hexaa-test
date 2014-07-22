@@ -308,7 +308,7 @@ public class Utility {
          * @param orgId the id of the organization to link.
          * @param packIds the ids of the entitlementpacks to link.
          */
-        public void entitlementpackToOrg(int orgId, int[] packIds) {
+        public static void entitlementpackToOrg(int orgId, int[] packIds) {
             for (int pack : packIds) {
                 // Connect one entitlementpack to an organization
                 persistent.call(

@@ -8,14 +8,14 @@ import org.skyscreamer.jsonassert.JSONAssert;
 import org.skyscreamer.jsonassert.JSONParser;
 import sztaki.hexaa.httputility.BasicCall;
 import sztaki.hexaa.httputility.Const;
-import sztaki.hexaa.httputility.apicalls.services.Services;
-import static sztaki.hexaa.httputility.apicalls.services.Services.createServices;
+import sztaki.hexaa.httputility.Utility;
+import sztaki.hexaa.httputility.apicalls.CleanTest;
 
 /**
  * Tests the GET method on the /api/services/{id}/entitlementpacks call with
  * more services and entitlementpacks.
  */
-public class ServicesEntitlementpacksGetTest extends Services {
+public class ServicesEntitlementpacksGetTest extends CleanTest {
 
     private static JSONArray entitlementpacks = new JSONArray();
 
@@ -25,9 +25,9 @@ public class ServicesEntitlementpacksGetTest extends Services {
      */
     @BeforeClass
     public static void buildUp() {
-        createServices(new String[] {"testService1","testService2"});
-        entitlementpacks = createServiceEntitlementpacks(1, new String[]{"testEntitlementpacks1", "testEntitlementpacks2"});
-        JSONArray entitlementpacksTemp = createServiceEntitlementpacks(2, new String[]{"testEntitlementpacks3"});
+        Utility.Create.services(new String[]{"testService1", "testService2"});
+        entitlementpacks = Utility.Create.entitlementpacks(1, new String[]{"testEntitlementpacks1", "testEntitlementpacks2"});
+        JSONArray entitlementpacksTemp = Utility.Create.entitlementpacks(2, new String[]{"testEntitlementpacks3"});
         entitlementpacks.put(entitlementpacksTemp.getJSONObject(0));
     }
 

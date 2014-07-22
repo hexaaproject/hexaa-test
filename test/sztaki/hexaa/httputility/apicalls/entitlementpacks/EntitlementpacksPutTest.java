@@ -10,8 +10,8 @@ import org.skyscreamer.jsonassert.JSONCompareMode;
 import org.skyscreamer.jsonassert.JSONParser;
 import sztaki.hexaa.httputility.BasicCall;
 import sztaki.hexaa.httputility.Const;
+import sztaki.hexaa.httputility.Utility;
 import sztaki.hexaa.httputility.apicalls.CleanTest;
-import sztaki.hexaa.httputility.apicalls.services.Services;
 
 /**
  * Tests the PUT methods on the /api/entitlementpacks/{id} uri.
@@ -25,8 +25,8 @@ public class EntitlementpacksPutTest extends CleanTest {
      */
     @BeforeClass
     public static void setUpClass() {
-        Services.createServices(new String[] {"testService1"});
-        entitlementpacks = Services.createServiceEntitlementpacks(1, new String[]{"testEntitlementpacks1", "testEntitlementpacks2"});
+        Utility.Create.services(new String[] {"testService1"});
+        entitlementpacks = Utility.Create.entitlementpacks(1, new String[]{"testEntitlementpacks1", "testEntitlementpacks2"});
     }
 
     /**

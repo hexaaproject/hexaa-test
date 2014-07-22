@@ -10,8 +10,8 @@ import org.skyscreamer.jsonassert.JSONCompareMode;
 import org.skyscreamer.jsonassert.JSONParser;
 import sztaki.hexaa.httputility.BasicCall;
 import sztaki.hexaa.httputility.Const;
+import sztaki.hexaa.httputility.Utility;
 import sztaki.hexaa.httputility.apicalls.CleanTest;
-import sztaki.hexaa.httputility.apicalls.services.Services;
 
 /**
  * Tests the DEL call on the /api/entitlements/{id}.
@@ -25,8 +25,8 @@ public class EntitlementsDeleteTest extends CleanTest {
      */
     @BeforeClass
     public static void setUpClass() {
-        Services.createServices(new String[]{"testService1"});
-        entitlements = Services.createServiceEntitlements(1, new String[]{"testEntitlements1", "testEntitlements2"});
+        Utility.Create.services(new String[]{"testService1"});
+        entitlements = Utility.Create.entitlements(1, new String[]{"testEntitlements1", "testEntitlements2"});
     }
 
     /**

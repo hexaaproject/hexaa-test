@@ -2,7 +2,6 @@ package sztaki.hexaa.httputility.apicalls.organizations.entitlementpacks;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
-import org.junit.Test;
 import static org.junit.Assert.*;
 import org.junit.BeforeClass;
 import org.skyscreamer.jsonassert.JSONAssert;
@@ -10,16 +9,14 @@ import org.skyscreamer.jsonassert.JSONCompareMode;
 import org.skyscreamer.jsonassert.JSONParser;
 import sztaki.hexaa.httputility.BasicCall;
 import sztaki.hexaa.httputility.Const;
-import sztaki.hexaa.httputility.apicalls.entitlementpacks.Entitlementpacks;
-import sztaki.hexaa.httputility.apicalls.organizations.Organization;
-import static sztaki.hexaa.httputility.apicalls.organizations.Organization.createOrganization;
-import sztaki.hexaa.httputility.apicalls.services.Services;
+import sztaki.hexaa.httputility.Utility;
+import sztaki.hexaa.httputility.apicalls.CleanTest;
 
 /**
  * Abstract utility class for the calls on
  * /api/organizations/{id}/entitlementpacks/{epid} uri.
  */
-public abstract class OrganizationEntitlementpack extends Organization {
+public abstract class OrganizationEntitlementpack extends CleanTest {
 
     public static JSONArray entitlements = new JSONArray();
 
@@ -29,12 +26,12 @@ public abstract class OrganizationEntitlementpack extends Organization {
      */
     @BeforeClass
     public static void setUpClass() {
-        Services.createServices(new String[]{"testService"});
-        createOrganization(new String[]{"testOrganization"});
-        entitlements = Services.createServiceEntitlements(1, new String[]{"testEntitlement1", "testEntitlement2"});
-        Services.createServiceEntitlementpacks(1, new String[]{"testEntitlementpack1"});
-        Entitlementpacks.putEntitlementToPack(1, 1);
-        Entitlementpacks.putEntitlementToPack(2, 1);
+        Utility.Create.services(new String[]{"testService"});
+        Utility.Create.organization(new String[]{"testOrganization"});
+        entitlements = Utility.Create.entitlements(1, new String[]{"testEntitlement1", "testEntitlement2"});
+        Utility.Create.entitlementpacks(1, new String[]{"testEntitlementpack1"});
+        Utility.Link.entitlementToPack(1, 1);
+        Utility.Link.entitlementToPack(2, 1);
     }
 
     /**

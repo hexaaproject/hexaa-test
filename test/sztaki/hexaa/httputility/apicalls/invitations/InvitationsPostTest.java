@@ -2,14 +2,13 @@ package sztaki.hexaa.httputility.apicalls.invitations;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
-import org.junit.Test;
 import static org.junit.Assert.*;
 import org.junit.BeforeClass;
-import org.skyscreamer.jsonassert.JSONParser;
+import org.junit.Test;
 import sztaki.hexaa.httputility.BasicCall;
 import sztaki.hexaa.httputility.Const;
+import sztaki.hexaa.httputility.Utility;
 import sztaki.hexaa.httputility.apicalls.CleanTest;
-import static sztaki.hexaa.httputility.apicalls.organizations.Organization.createOrganization;
 
 public class InvitationsPostTest extends CleanTest {
     
@@ -17,7 +16,7 @@ public class InvitationsPostTest extends CleanTest {
 
     @BeforeClass
     public static void setUpClass() {
-        organizations = createOrganization(
+        organizations = Utility.Create.organization(
                 new String[]{
                     "TestOrgName1",
                     "TestOrgName2,",});

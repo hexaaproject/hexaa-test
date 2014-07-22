@@ -10,13 +10,14 @@ import org.skyscreamer.jsonassert.JSONCompareMode;
 import org.skyscreamer.jsonassert.JSONParser;
 import sztaki.hexaa.httputility.BasicCall;
 import sztaki.hexaa.httputility.Const;
-import sztaki.hexaa.httputility.apicalls.services.Services;
+import sztaki.hexaa.httputility.Utility;
+import sztaki.hexaa.httputility.apicalls.CleanTest;
 
 /**
  * Tests the POST method on the /api/services/{id}/entitlementpacks call with
  * more services and entitlementpacks.
  */
-public class ServicesEntitlementpacksPostTest extends Services {
+public class ServicesEntitlementpacksPostTest extends CleanTest {
 
     private static JSONArray entitlemenetpacks = new JSONArray();
 
@@ -26,7 +27,7 @@ public class ServicesEntitlementpacksPostTest extends Services {
      */
     @BeforeClass
     public static void buildUp() {
-        createServices(new String[] {"testService1","testService2"});
+        Utility.Create.services(new String[] {"testService1","testService2"});
     }
 
     /**

@@ -9,10 +9,8 @@ import org.skyscreamer.jsonassert.JSONCompareMode;
 import org.skyscreamer.jsonassert.JSONParser;
 import sztaki.hexaa.httputility.BasicCall;
 import sztaki.hexaa.httputility.Const;
+import sztaki.hexaa.httputility.Utility;
 import sztaki.hexaa.httputility.apicalls.CleanTest;
-import sztaki.hexaa.httputility.apicalls.entitlementpacks.Entitlementpacks;
-import static sztaki.hexaa.httputility.apicalls.entitlementpacks.Entitlementpacks.entitlements;
-import sztaki.hexaa.httputility.apicalls.services.Services;
 
 /**
  * Tests the DEL methods on the /api/entitlementpacks/{id}/entitlements/{eid}
@@ -20,21 +18,23 @@ import sztaki.hexaa.httputility.apicalls.services.Services;
  */
 public class EntitlementpacksRemoveEntitlementsTest extends CleanTest {
 
+    public static JSONArray entitlements = new JSONArray();
+
     /**
      * Uses the Services class utilities to build services, entitlements and
      * entitlementpacks. Also PUTs entitlements to the packs.
      */
     @BeforeClass
     public static void setUpClass() {
-        Services.createServices(new String[] {"testService1"});
+        Utility.Create.services(new String[]{"testService1"});
 
-        entitlements = Services.createServiceEntitlements(1, new String[]{"testEntitlements1", "testEntitlements2"});
+        entitlements = Utility.Create.entitlements(1, new String[]{"testEntitlements1", "testEntitlements2"});
 
-        Services.createServiceEntitlementpacks(1, new String[]{"testEntitlementpacks1", "testEntitlementpacks2"});
+        Utility.Create.entitlementpacks(1, new String[]{"testEntitlementpacks1", "testEntitlementpacks2"});
 
-        Entitlementpacks.putEntitlementToPack(1, 1);
-        Entitlementpacks.putEntitlementToPack(2, 1);
-        Entitlementpacks.putEntitlementToPack(1, 2);
+        Utility.Link.entitlementToPack(1, 1);
+        Utility.Link.entitlementToPack(2, 1);
+        Utility.Link.entitlementToPack(1, 2);
     }
 
     /**

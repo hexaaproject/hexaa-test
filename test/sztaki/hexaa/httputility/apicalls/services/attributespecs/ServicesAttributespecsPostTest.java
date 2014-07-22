@@ -8,10 +8,9 @@ import org.skyscreamer.jsonassert.JSONParser;
 import sztaki.hexaa.httputility.BasicCall;
 import sztaki.hexaa.httputility.Const;
 import sztaki.hexaa.httputility.Utility;
-import sztaki.hexaa.httputility.apicalls.services.Services;
-import static sztaki.hexaa.httputility.apicalls.services.Services.createServices;
+import sztaki.hexaa.httputility.apicalls.CleanTest;
 
-public class ServicesAttributespecsPostTest extends Services {
+public class ServicesAttributespecsPostTest extends CleanTest {
 
     /**
      * Uses the first 2 entityids specified in the /hexaa/app/parameters.yml
@@ -20,7 +19,7 @@ public class ServicesAttributespecsPostTest extends Services {
      */
     @BeforeClass
     public static void setUpClass() {
-        createServices(new String[]{"testService1", "testService2"});
+        Utility.Create.services(new String[]{"testService1", "testService2"});
         Utility.Create.attributespecs(new String[]{"asTest1", "asTest2"});
     }
 

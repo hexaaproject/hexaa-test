@@ -12,7 +12,6 @@ import sztaki.hexaa.httputility.BasicCall;
 import sztaki.hexaa.httputility.Const;
 import sztaki.hexaa.httputility.Utility;
 import sztaki.hexaa.httputility.apicalls.CleanTest;
-import sztaki.hexaa.httputility.apicalls.organizations.Organization;
 
 /**
  * Tests the POST method on the /api/attributevalueorganizations/{asid} call.
@@ -28,7 +27,7 @@ public class AttributevalueorganizationsPost extends CleanTest {
                 new String[]{
                     "testAttributespecs1",
                     "testAttributespecs2"});
-        Organization.createOrganization(new String[]{"testForAtt"});
+        Utility.Create.organization(new String[]{"testForAtt"});
     }
 
     /**

@@ -10,14 +10,14 @@ import org.skyscreamer.jsonassert.JSONCompareMode;
 import org.skyscreamer.jsonassert.JSONParser;
 import sztaki.hexaa.httputility.BasicCall;
 import sztaki.hexaa.httputility.Const;
+import sztaki.hexaa.httputility.Utility;
 import sztaki.hexaa.httputility.apicalls.CleanTest;
-import static sztaki.hexaa.httputility.apicalls.organizations.Organization.createOrganization;
 
 /**
  * Tests the PUT method on the /api/organizations/{id} call.
  */
 public class OrganizationPutTest extends CleanTest {
-    
+
     public static JSONArray organizations = new JSONArray();
 
     /**
@@ -25,7 +25,7 @@ public class OrganizationPutTest extends CleanTest {
      */
     @BeforeClass
     public static void setUpClass() {
-        organizations = createOrganization(
+        organizations = Utility.Create.organization(
                 new String[]{
                     "TestOrgName1",
                     "TestOrgName2,",});

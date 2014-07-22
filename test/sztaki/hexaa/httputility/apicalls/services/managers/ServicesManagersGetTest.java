@@ -1,12 +1,12 @@
 package sztaki.hexaa.httputility.apicalls.services.managers;
 
-import org.junit.Test;
 import static org.junit.Assert.*;
 import org.junit.BeforeClass;
-import sztaki.hexaa.httputility.apicalls.services.Services;
-import static sztaki.hexaa.httputility.apicalls.services.Services.createServices;
+import org.junit.Test;
+import sztaki.hexaa.httputility.Utility;
+import sztaki.hexaa.httputility.apicalls.CleanTest;
 
-public class ServicesManagersGetTest extends Services {
+public class ServicesManagersGetTest extends CleanTest {
 
     /**
      * Uses the first 2 entityids specified in the /hexaa/app/parameters.yml
@@ -15,12 +15,12 @@ public class ServicesManagersGetTest extends Services {
      */
     @BeforeClass
     public static void setUpClass() {
-        createServices(new String[]{"testService1", "testService2"});
+        Utility.Create.services(new String[]{"testService1", "testService2"});
     }
-    
+
     @Test
     public void testServicesManagersGet() {
         fail("TODO: Can't post principals yet");
     }
-    
+
 }
