@@ -1,4 +1,4 @@
-package sztaki.hexaa.httputility.apicalls.principal;
+package sztaki.hexaa.httputility.apicalls.principals;
 
 import org.junit.Test;
 import sztaki.hexaa.httputility.BasicCall;

@@ -1,4 +1,4 @@
-package sztaki.hexaa.httputility.apicalls.principal;
+package sztaki.hexaa.httputility.apicalls.principals;
 
 import org.json.JSONArray;
 import org.json.JSONObject;

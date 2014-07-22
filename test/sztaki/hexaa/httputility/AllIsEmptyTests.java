@@ -14,7 +14,8 @@ import sztaki.hexaa.httputility.apicalls.BasicTestSuite;
     sztaki.hexaa.httputility.apicalls.entitlementpacks.EntitlementpacksIsEmptyTest.class,
     sztaki.hexaa.httputility.apicalls.entitlements.EntitlementsIsEmptyTest.class,
     sztaki.hexaa.httputility.apicalls.organizations.OrganizationIsEmptyTest.class,
-    sztaki.hexaa.httputility.apicalls.principal.PrincipalIsEmptyTest.class,
+    sztaki.hexaa.httputility.apicalls.principals.PrincipalIsEmptyTest.class,
+    sztaki.hexaa.httputility.apicalls.roles.RolesIsEmptyTest.class,
     sztaki.hexaa.httputility.apicalls.services.ServicesIsEmptyTest.class,})
 public class AllIsEmptyTests extends BasicTestSuite {
 

@@ -1,5 +1,7 @@
 package sztaki.hexaa.httputility;
 
+import java.time.LocalDate;
+import java.time.ZoneId;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import org.skyscreamer.jsonassert.JSONParser;
@@ -11,16 +13,16 @@ import org.skyscreamer.jsonassert.JSONParser;
  */
 public class Utility {
 
-        /**
-         * BasicCall to be used inside the method, static.
-         */
-        static protected BasicCall persistent = new BasicCall();
+    /**
+     * BasicCall to be used inside the method, static.
+     */
+    static protected BasicCall persistent = new BasicCall();
 
     /**
      * Utility class within Utility for creation methods.
      */
     public static class Create {
-        
+
         /**
          * Creates as many attributevalueorganizations as many value is
          * specified in the values String array with the given
@@ -232,12 +234,47 @@ public class Utility {
             return organizations;
         }
 
-        public static JSONArray principal () {
+        public static JSONArray principal(String[] names) {
             JSONArray response = new JSONArray();
-            
+
+            for (String name : names) {
+
+            }
+
             return response;
         }
-        
+
+        /**
+         * Creates as many roles as many name is specified in the names String
+         * array. Returns them as a JSONArray. Can create roles with unique
+         * names only.
+         *
+         * @param names array of names to create roles with.
+         * @param orgId organization id to create the roles to.
+         * @return JSONArray of the POST-ed roles.
+         */
+        public static JSONArray roles(String[] names, int orgId) {
+            JSONArray response = new JSONArray();
+
+            for (String name : names) {
+                // Creates the JSON object
+                JSONObject json = new JSONObject();
+                json.put("name", name);
+                json.put("start_date", LocalDate.now(ZoneId.of("UTC")).toString());
+                // POSTs the role
+                persistent.call(
+                        Const.Api.ORGANIZATIONS_ID_ROLES,
+                        BasicCall.REST.POST,
+                        json.toString(),
+                        1, 1);
+                // Just to match the servers format
+                json.put("start_date", json.getString("start_date").concat("T00:00:00+0000"));
+                response.put(json);
+            }
+
+            return response;
+        }
+
         /**
          * Creates services for all the names in the array, if there are enough
          * entytids in the system. Usage: do not use it on a database where are
@@ -280,12 +317,12 @@ public class Utility {
             return services;
         }
     }
-    
+
     /**
      * Utility class within Utility for linking methods.
      */
     public static class Link {
-        
+
         /**
          * PUTs the existing entitlement specified by the entitlementId in the
          * entitlementpack specified by the packId
