@@ -29,6 +29,7 @@ public class Const {
         // AttributeSpec
         public static final String ATTRIBUTESPECS = ("/app.php/api/attributespecs");
         public static final String ATTRIBUTESPECS_ID = ("/app.php/api/attributespecs/{id}");
+        public static final String ATTRIBUTESPECS_ID_SERVICES = ("/app.php/api/attributespecs/{id}/services");
 
         // Entitlement
         public static final String ENTITLEMENTS_ID = ("/app.php/api/entitlements/{id}");

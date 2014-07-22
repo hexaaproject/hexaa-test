@@ -12,6 +12,7 @@ import org.junit.runners.Suite;
     sztaki.hexaa.httputility.AllIsEmptyTests.class,
     sztaki.hexaa.httputility.apicalls.MethodNotAllowedTest.class,
     sztaki.hexaa.httputility.apicalls.attributespecs.AttributespecsSuite.class,
+    sztaki.hexaa.httputility.apicalls.attributevalueorganizations.AttributevalueorganizationsSuite.class,
     sztaki.hexaa.httputility.apicalls.attributevalueprincipals.AttributevalueprincipalsSuite.class,
     sztaki.hexaa.httputility.apicalls.entitlements.EntitlementsSuite.class,
     sztaki.hexaa.httputility.apicalls.entitlementpacks.EntitlementpacksSuite.class,
