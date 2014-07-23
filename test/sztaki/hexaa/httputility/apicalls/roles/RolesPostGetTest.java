@@ -19,7 +19,7 @@ import sztaki.hexaa.httputility.apicalls.CleanTest;
  * Tests the POST and GET method on the /api/organizations/{id}/roles call and
  * the GET method on the /api/roles/{id}.
  */
-public class RolesPostTest extends CleanTest {
+public class RolesPostGetTest extends CleanTest {
 
     /**
      * Creates one organization.

@@ -1,9 +1,9 @@
 package sztaki.hexaa.httputility.apicalls.roles;
 
 import org.json.JSONArray;
-import static org.junit.Assert.*;
 import org.junit.BeforeClass;
 import org.junit.Test;
+import static org.junit.Assert.*;
 import org.skyscreamer.jsonassert.JSONAssert;
 import org.skyscreamer.jsonassert.JSONCompareMode;
 import org.skyscreamer.jsonassert.JSONParser;
@@ -15,7 +15,7 @@ import sztaki.hexaa.httputility.apicalls.CleanTest;
 /**
  * Tests the DELETE method on the /api/roles/{id} call.
  */
-public class RolesDeleteTest extends CleanTest {
+public class RolesPutTest extends CleanTest {
 
     /**
      * JSONArray to store the created roles.
@@ -32,21 +32,24 @@ public class RolesDeleteTest extends CleanTest {
     }
 
     /**
-     * DELETEs the first role and checks that only the second one exists.
+     * PUTs the first role and checks that only the first one was modified and
+     * the second one is the original.
      */
     @Test
     public void testRolesDelete() {
-        // DELETE call
-        persistent.call(Const.Api.ROLES_ID, BasicCall.REST.DEL);
+        // Modify the first role
+        roles.getJSONObject(0).put("name", "modifiedByPut1");
+
+        persistent.call(Const.Api.ROLES_ID, BasicCall.REST.PUT, roles.getJSONObject(0).toString());
 
         try {
             assertEquals("HTTP/1.1 204 No Content", persistent.getStatusLine());
             JSONAssert.assertEquals(
-                    roles.getJSONObject(1),
-                    ((JSONArray) JSONParser.parseJSON(
+                    roles,
+                    (JSONArray) JSONParser.parseJSON(
                             persistent.call(
                                     Const.Api.ORGANIZATIONS_ID_ROLES,
-                                    BasicCall.REST.GET))).getJSONObject(0),
+                                    BasicCall.REST.GET)),
                     JSONCompareMode.LENIENT);
         } catch (AssertionError e) {
             AssertErrorHandler(e);

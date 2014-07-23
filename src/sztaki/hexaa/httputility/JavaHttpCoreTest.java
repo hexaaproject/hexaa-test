@@ -13,5 +13,7 @@ public class JavaHttpCoreTest {
     public static void main(String[] args) {
         new DatabaseManipulator().dropDatabase();
         new Authenticator().authenticate();
+        
+        System.out.println(Const.HEXAA_AUTH);
     }
 }

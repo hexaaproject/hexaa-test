@@ -10,6 +10,6 @@ import sztaki.hexaa.httputility.apicalls.BasicTestSuite;
  */
 @RunWith(Suite.class)
 @Suite.SuiteClasses({
-    sztaki.hexaa.httputility.apicalls.roles.RolesPostTest.class,})
+    sztaki.hexaa.httputility.apicalls.roles.RolesPostGetTest.class,})
 public class RolesSuite extends BasicTestSuite {
 }
