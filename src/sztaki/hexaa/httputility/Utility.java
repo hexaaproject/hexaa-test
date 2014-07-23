@@ -32,7 +32,7 @@ public class Utility {
          * attributevalueorganizations with.
          * @param asid the id of the attributespecification to create the values
          * with.
-         * @param orgId the id of the organization to get the
+         * @param orgId the id of the organizations to get the
          * attributespecvalues.
          * @return JSONArray with all the created attributevalueorganizations in
          * it.
@@ -90,8 +90,7 @@ public class Utility {
         /**
          * Creates as many attributespecs as many oid is specified in the oids
          * String array. Returns them as a JSONArray. Can create attributespecs
-         * with unique oids only, if oids are repeating it will drop an
-         * assumption error and fails the test case.
+         * with unique oids only.
          *
          * @param oids a String array representation of the names to create
          * organizations with.
@@ -209,14 +208,13 @@ public class Utility {
         /**
          * Creates as many organizations as many name is specified in the names
          * String array. Returns them as a JSONArray. Can create organizations
-         * with unique names only, if names are repeating it will drop an
-         * assumption error and fails the test case.
+         * with unique names only.
          *
          * @param names a String array representation of the names to create
          * organizations with.
          * @return JSONArray with all the created organizations in it.
          */
-        public static JSONArray organization(String[] names) {
+        public static JSONArray organizations(String[] names) {
             JSONArray organizations = new JSONArray();
 
             for (String name : names) {
@@ -234,13 +232,29 @@ public class Utility {
             return organizations;
         }
 
-        public static JSONArray principal(String[] names) {
+        /**
+         * Creates as many principals as many fedid is specified in the fedids
+         * String array. Returns them as a JSONArray. Can create principals with
+         * unique fedids only. The principals email address will look like
+         * fedid@email.something.
+         *
+         * @param fedids string array representation of the fedids to create
+         * principals with.
+         * @return JSONArray with all the created organizations in it.
+         */
+        public static JSONArray principals(String[] fedids) {
             JSONArray response = new JSONArray();
 
-            for (String name : names) {
+            for (String fedid : fedids) {
+                JSONObject json = new JSONObject();
+                json.put("fedid", fedid);
+                json.put("email", fedid + "@email.something");
 
+                persistent.call(Const.Api.PRINCIPALS, BasicCall.REST.POST, json.toString());
+                if (persistent.getStatusLine().contains("201")) {
+                    response.put(json);
+                }
             }
-
             return response;
         }
 
@@ -250,7 +264,7 @@ public class Utility {
          * names only.
          *
          * @param names array of names to create roles with.
-         * @param orgId organization id to create the roles to.
+         * @param orgId organizations id to create the roles to.
          * @return JSONArray of the POST-ed roles.
          */
         public static JSONArray roles(String[] names, int orgId) {
@@ -340,14 +354,14 @@ public class Utility {
 
         /**
          * Links already existing entitlementpacks specified in the packIds
-         * array to the existing organization specified by the orgId.
+         * array to the existing organizations specified by the orgId.
          *
-         * @param orgId the id of the organization to link.
+         * @param orgId the id of the organizations to link.
          * @param packIds the ids of the entitlementpacks to link.
          */
-        public static void entitlementpackToOrg(int orgId, int[] packIds) {
+        public static void entitlementpacksToOrg(int orgId, int[] packIds) {
             for (int pack : packIds) {
-                // Connect one entitlementpack to an organization
+                // Connect one entitlementpack to an organizations
                 persistent.call(
                         Const.Api.ORGANIZATIONS_ID_ENTITLEMENTPACKS_EPID,
                         BasicCall.REST.PUT,
@@ -363,7 +377,14 @@ public class Utility {
             }
         }
 
-        public static void entitlementToRole(int roleId, int[] entitlementIds) {
+        /**
+         * Links already existing entitlements specified in the entitlementIds
+         * array to the existing role specified by the roleId.
+         *
+         * @param roleId the id of the role to link to.
+         * @param entitlementIds the ids of the entitlements to link.
+         */
+        public static void entitlementsToRole(int roleId, int[] entitlementIds) {
             for (int id : entitlementIds) {
                 persistent.call(
                         Const.Api.ROLES_ID_ENTITLEMENTS_EID,

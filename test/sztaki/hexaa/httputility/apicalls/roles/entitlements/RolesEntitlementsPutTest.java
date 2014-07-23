@@ -12,7 +12,7 @@ public class RolesEntitlementsPutTest extends CleanTest {
 
     @BeforeClass
     public static void setUpClass() {
-        Utility.Create.organization(new String[]{"testOrg1"});
+        Utility.Create.organizations(new String[]{"testOrg1"});
         Utility.Create.roles(new String[]{"testRole1", "testRole2"}, 1);
         Utility.Create.services(new String[]{"testService1"});
         Utility.Create.entitlements(1, new String[]{"testEntitlement1"});
@@ -30,7 +30,7 @@ public class RolesEntitlementsPutTest extends CleanTest {
         }
 
         Utility.Link.entitlementToPack(1, 1);
-        Utility.Link.entitlementpackToOrg(1, new int[]{1});
+        Utility.Link.entitlementpacksToOrg(1, new int[]{1});
 
         persistent.call(Const.Api.ROLES_ID_ENTITLEMENTS_EID, BasicCall.REST.PUT, null, 1, 1);
 

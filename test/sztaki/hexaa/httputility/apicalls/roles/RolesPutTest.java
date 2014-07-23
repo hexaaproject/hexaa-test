@@ -23,11 +23,11 @@ public class RolesPutTest extends CleanTest {
     public static JSONArray roles = new JSONArray();
 
     /**
-     * Creates one organization and two roles.
+     * Creates one organizations and two roles.
      */
     @BeforeClass
     public static void setUpClass() {
-        Utility.Create.organization(new String[]{"testOrgForRoleDel"});
+        Utility.Create.organizations(new String[]{"testOrgForRoleDel"});
         roles = Utility.Create.roles(new String[]{"testRole1", "testRole2"}, 1);
     }
 

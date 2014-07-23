@@ -14,38 +14,48 @@ import sztaki.hexaa.httputility.Utility;
 import sztaki.hexaa.httputility.apicalls.CleanTest;
 
 /**
- * Tests the DEL call on the /api/entitlements/{id}.
+ * Tests the DELETE method on the /api/entitlements/{id} call.
  */
 public class EntitlementsDeleteTest extends CleanTest {
 
+    /**
+     * JSONArray to store the created entitlements.
+     */
     private static JSONArray entitlements = new JSONArray();
 
     /**
-     * Uses the Services class utilities to build services and entitlements.
+     * Creates one service and two entitlements.
      */
     @BeforeClass
     public static void setUpClass() {
-        Utility.Create.services(new String[]{"testService1"});
-        entitlements = Utility.Create.entitlements(1, new String[]{"testEntitlements1", "testEntitlements2"});
+        Utility.Create.services(
+                new String[]{
+                    "testService1"});
+        entitlements = Utility.Create.entitlements(
+                1,
+                new String[]{
+                    "testEntitlements1",
+                    "testEntitlements2"});
     }
 
     /**
-     * DELETEs one of the two created entitlements, and GETs both of them, the
-     * first to check that its deleted and gives a 404 error, and the second to
-     * make sure that it does not effect independent objects.
+     * DELETEs the first entitlement and checks that only the second one exists.
      */
     @Test
     public void testEntitlementsDelete() {
-        // The DEL call
-        persistent.call(Const.Api.ENTITLEMENTS_ID, BasicCall.REST.DEL, null, 1, 0);
+        // The DELETE call.
+        persistent.call(
+                Const.Api.ENTITLEMENTS_ID,
+                BasicCall.REST.DEL);
 
         try {
-            // Checks the status line from the DEL call for 204
             assertEquals("HTTP/1.1 204 No Content", persistent.getStatusLine());
-            // GETs the one that was deleted and checks the status line for 404
-            persistent.call(Const.Api.ENTITLEMENTS_ID, BasicCall.REST.GET, null, 1, 0);
+            // GET the first one (the DELETEd one).
+            persistent.call(
+                    Const.Api.ENTITLEMENTS_ID,
+                    BasicCall.REST.GET);
             assertEquals("HTTP/1.1 404 Not Found", persistent.getStatusLine());
-            // GETs the second entitlements and asserts it as a JSON
+            // GET the second one.
             JSONAssert.assertEquals(
                     entitlements.getJSONObject(1),
                     (JSONObject) JSONParser.parseJSON(
@@ -55,7 +65,6 @@ public class EntitlementsDeleteTest extends CleanTest {
                                     null,
                                     2, 0)),
                     JSONCompareMode.LENIENT);
-            // Checks the status line for 200
             assertEquals("HTTP/1.1 200 OK", persistent.getStatusLine());
         } catch (AssertionError e) {
             AssertErrorHandler(e);

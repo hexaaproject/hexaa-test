@@ -14,14 +14,17 @@ import sztaki.hexaa.httputility.Utility;
 import sztaki.hexaa.httputility.apicalls.CleanTest;
 
 /**
- * Tests the DEL methods on the /api/entitlementpacks/{id} uri.
+ * Tests the DELETE method on the /api/entitlementpacks/{id} call.
  */
 public class EntitlementpacksDeleteTest extends CleanTest {
 
+    /**
+     * JSONArray to store the created entitlementpacks.
+     */
     private static JSONArray entitlementpacks = new JSONArray();
 
     /**
-     * Uses the Services class utilities to build services and entitlementpacks.
+     * Creates one service and two entitlementpacks.
      */
     @BeforeClass
     public static void setUpClass() {
@@ -30,13 +33,11 @@ public class EntitlementpacksDeleteTest extends CleanTest {
     }
 
     /**
-     * DELETEs one of the two created entitlements, and GETs both of them, the
-     * first to check that its deleted and gives a 404 error, and the second to
-     * make sure that it does not effect independent objects.
+     * DELETEs one of the two created entitlements, and GETs both of them.
      */
     @Test
     public void testEntitlementsDelete() {
-        // The DEL call
+        // The DELETE call.
         persistent.call(Const.Api.ENTITLEMENTPACKS_ID, BasicCall.REST.DEL, null, 1, 0);
 
         try {

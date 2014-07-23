@@ -1,12 +1,10 @@
 package sztaki.hexaa.httputility.apicalls.roles;
 
-import java.time.LocalDate;
-import java.time.ZoneId;
 import org.json.JSONArray;
 import org.json.JSONObject;
-import static org.junit.Assert.*;
 import org.junit.BeforeClass;
 import org.junit.Test;
+import static org.junit.Assert.*;
 import org.skyscreamer.jsonassert.JSONAssert;
 import org.skyscreamer.jsonassert.JSONCompareMode;
 import org.skyscreamer.jsonassert.JSONParser;
@@ -16,50 +14,38 @@ import sztaki.hexaa.httputility.Utility;
 import sztaki.hexaa.httputility.apicalls.CleanTest;
 
 /**
- * Tests the POST and GET method on the /api/organizations/{id}/roles call and
- * the GET method on the /api/roles/{id}.
+ * Tests the GET method on the /api/organizations/{id}/roles and /api/roles/{id}
+ * calls.
  */
-public class RolesPostGetTest extends CleanTest {
+public class RolesGetTest extends CleanTest {
+
+    public static JSONArray roles = new JSONArray();
 
     /**
-     * Creates one organization.
+     * Creates one organization and one role for it.
      */
     @BeforeClass
     public static void setUpClass() {
-        Utility.Create.organization(new String[]{"testOrgForRole1"});
+        Utility.Create.organizations(new String[]{"testOrgForRole1"});
+        roles = Utility.Create.roles(new String[]{"testRole1"}, 1);
     }
 
     /**
-     * POSTs a new role and checks it with /api/organizations/{id}/roles and
-     * /api/role/{id} as well.
+     * GETs the role in two way.
      */
     @Test
-    public void testRolesPost() {
-        // Creates the JSON object
-        JSONObject json = new JSONObject();
-        json.put("name", "testPrimeLeader1");
-        json.put("start_date", LocalDate.now(ZoneId.of("UTC")).toString());
-        // POSTs the role
-        persistent.call(
-                Const.Api.ORGANIZATIONS_ID_ROLES,
-                BasicCall.REST.POST,
-                json.toString(),
-                1, 1);
-        // Just to match the servers format
-        json.put("start_date", json.getString("start_date").concat("T00:00:00+0000"));
-
+    public void testRolesGet() {
         try {
-            assertEquals("HTTP/1.1 201 Created", persistent.getStatusLine());
             JSONAssert.assertEquals(
-                    json,
-                    ((JSONArray) JSONParser.parseJSON(
+                    roles,
+                    (JSONArray) JSONParser.parseJSON(
                             persistent.call(
                                     Const.Api.ORGANIZATIONS_ID_ROLES,
-                                    BasicCall.REST.GET))).getJSONObject(0),
+                                    BasicCall.REST.GET)),
                     JSONCompareMode.LENIENT);
             assertEquals("HTTP/1.1 200 OK", persistent.getStatusLine());
             JSONAssert.assertEquals(
-                    json,
+                    roles.getJSONObject(0),
                     (JSONObject) JSONParser.parseJSON(
                             persistent.call(
                                     Const.Api.ROLES_ID,

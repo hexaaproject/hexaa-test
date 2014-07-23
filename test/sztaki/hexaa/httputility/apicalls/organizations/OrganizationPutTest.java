@@ -25,15 +25,15 @@ public class OrganizationPutTest extends CleanTest {
      */
     @BeforeClass
     public static void setUpClass() {
-        organizations = Utility.Create.organization(
+        organizations = Utility.Create.organizations(
                 new String[]{
                     "TestOrgName1",
                     "TestOrgName2,",});
     }
 
     /**
-     * Modifies one of the two existing organization and verifies the change of
-     * its name, and the unchanged second one as well.
+     * Modifies one of the two existing organizations and verifies the change of
+ its name, and the unchanged second one as well.
      */
     @Test
     public void testOrganizationPut() {

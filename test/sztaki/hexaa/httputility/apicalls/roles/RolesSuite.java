@@ -10,7 +10,7 @@ import sztaki.hexaa.httputility.apicalls.BasicTestSuite;
  */
 @RunWith(Suite.class)
 @Suite.SuiteClasses({
-    sztaki.hexaa.httputility.apicalls.roles.RolesPostGetTest.class,
+    sztaki.hexaa.httputility.apicalls.roles.RolesPostTest.class,
     sztaki.hexaa.httputility.apicalls.roles.RolesDeleteTest.class,
     sztaki.hexaa.httputility.apicalls.roles.RolesPutTest.class,
     sztaki.hexaa.httputility.apicalls.roles.entitlements.RolesEntitlementsPutTest.class,})

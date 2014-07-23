@@ -6,99 +6,342 @@ package sztaki.hexaa.httputility;
  */
 public class Const {
 
+    /**
+     * The servers port number.
+     */
     public static final int HEXAA_PORT = 80;
+    /**
+     * The header required by the server application to authenticate.
+     */
     public static final String HEXAA_HEADER = ("X-HEXAA-AUTH");
+    /**
+     * The api key required by the server to authenticate. The
+     * Authenticator.authenticate() method updates it if necessary.
+     */
     public static String HEXAA_AUTH = ("1c04c81498d1e534abe433998c48c60c9df628d7ce0ab60897546ac4599edd28");
+    /**
+     * The IP address or name of the server.
+     */
     public static final String HEXAA_HOST = ("192.168.203.183");
+    /**
+     * The scheme required by the server.
+     */
     public static final String HEXAA_SCHEME = ("http");
 
+    /**
+     * Contains the existing URL-s of the server.
+     */
     public static class Api {
 
         // Attribute value (for organization)
+        /**
+         * GET, PUT(edit), DELETE attribute value for organizations.
+         */
         public static final String ATTRIBUTEVALUEORGANIZATIONS_ID = ("/app.php/api/attributevalueorganizations/{id}");
+        /**
+         * GET all consents for attribute value.
+         */
         public static final String ATTRIBUTEVALUEORGANIZATIONS_ID_CONSENTS = ("/app.php/api/attributevalueorganizations/{id}/consents");
+        /**
+         * GET,PUT(set),DELETE attribute value consent per service.
+         */
         public static final String ATTRIBUTEVALUEORGANIZATIONS_ID_SERVICES_SID = ("/app.php/api/attributevalueorganizations/{id}/services/{sid}");
+        /**
+         * POST(create) attribute value for organizations.
+         */
         public static final String ORGANIZATIONS_ID_ATTRIBUTEVALUEORGANIZATIONS_ASID = ("/app.php/api/organizations/{id}/attributevalueorganizations/{asid}");
 
-        // Attribute value (for principal)
+        /* *** Attribute value (for principal) *** */
+        /**
+         * POST(create) attribute value for principals.
+         */
         public static final String ATTRIBUTEVALUEPRINCIPALS_ASID = ("/app.php/api/attributevalueprincipals/{asid}");
+        /**
+         * GET, PUT(edit), DELETE attribute value for principals.
+         */
         public static final String ATTRIBUTEVALUEPRINCIPALS_ID = ("/app.php/api/attributevalueprincipals/{id}");
+        /**
+         * GET all consents for attribute value.
+         */
         public static final String ATTRIBUTEVALUEPRINCIPALS_ID_CONSENTS = ("/app.php/api/attributevalueprincipals/{id}/consents");
+        /**
+         * GET,PUT(set),DELETE attribute value consent per service.
+         */
         public static final String ATTRIBUTEVALUEPRINCIPALS_ID_SERVICES_SID = ("/app.php/api/attributevalueprincipals/{id}/services/{sid}");
 
-        // AttributeSpec
+        /* *** AttributeSpec *** */
+        /**
+         * GET, POST(create) attribute specifications.
+         */
         public static final String ATTRIBUTESPECS = ("/app.php/api/attributespecs");
+        /**
+         * GET,PUT(edit),DELETE attribute specification with the id.
+         */
         public static final String ATTRIBUTESPECS_ID = ("/app.php/api/attributespecs/{id}");
+        /**
+         * GET connected services to the attribute specification with the id.
+         */
         public static final String ATTRIBUTESPECS_ID_SERVICES = ("/app.php/api/attributespecs/{id}/service");
 
-        // Entitlement
+        /* *** Entitlement *** */
+        /**
+         * GET,PUT(edit),DELETE entitlement.
+         */
         public static final String ENTITLEMENTS_ID = ("/app.php/api/entitlements/{id}");
 
-        // EntitlementPack
+        /* *** EntitlementPack *** */
+        /**
+         * GET all public entitlement packages.
+         */
         public static final String ENTITLEMENTPACKS_PUBLIC = ("/app.php/api/entitlementpacks/public");
+        /**
+         * GET,PUT(edit),DELETE entitlement pack.
+         */
         public static final String ENTITLEMENTPACKS_ID = ("/app.php/api/entitlementpacks/{id}");
+        /**
+         * GET entitlements of entitlement pack.
+         */
         public static final String ENTITLEMENTPACKS_ID_ENTITLEMENTS = ("/app.php/api/entitlementpacks/{id}/entitlements");
+        /**
+         * PUT(add),DELETE(remove) entitlement to/from entitlement pack.
+         */
         public static final String ENTITLEMENTPACKS_ID_ENTITLEMENTS_EID = ("/app.php/api/entitlementpacks/{id}/entitlements/{eid}");
 
-        // Invitation
+        /* *** Invitation *** */
+        /**
+         * POST(send) new invitation.
+         */
         public static final String INVITATIONS = ("/app.php/api/invitations");
+        /**
+         * GET,PUT(edit),DELETE invitation.
+         */
         public static final String INVITATIONS_ID = ("/app.php/api/invitations/{id}");
+        /**
+         * GET(resend) invitation.
+         */
+        public static final String INVITATIONS_ID_RESEND = ("/app.php/api/invitations/{id}/resend");
+        /**
+         * GET(accept) invitation with only token.
+         */
+        public static final String INVITATIONS_TOKEN_ACCEPT_TOKEN = ("/app.php/api/invitations/{token}/accept/token");
+        /**
+         * GET(accept) invitation with email address.
+         */
+        public static final String INVITATIONS_TOKEN_ACCEPT_EMAIL_EMAIL = ("/app.php/api/invitations/{token}/accept/{email}/email");
+        /**
+         * GET(reject) invitation with email address.
+         */
+        public static final String INVITATIONS_TOKEN_REJECTS_EMAIL_EMAIL = ("/app.php/api/invitations/{token}/accept/{email}/email");
 
-        // Organization
+        /* *** Organization *** */
+        /**
+         * GET,POST(create) organization.
+         */
         public static final String ORGANIZATIONS = ("/app.php/api/organizations");
+        /**
+         * GET,PUT(edit),DELETE organization.
+         */
         public static final String ORGANIZATIONS_ID = ("/app.php/api/organizations/{id}");
+        /**
+         * GET available attribute specifications.
+         */
         public static final String ORGANIZATIONS_ID_ATTRIBUTESPECS = ("/app.php/api/organizations/{id}/attributespecs");
+        /**
+         * GET all attribute values of an attribute specification for an
+         * organization.
+         */
         public static final String ORGANIZATIONS_ID_ATTRIBUTESPECS_ASID_ATTRIBUTEVALUEORGANIZATIONS = ("/app.php/api/organizations/{id}/attributespecs/{asid}/attributevalueorganizations");
+        /**
+         * GET all attribute values of the organization.
+         */
         public static final String ORGANIZATIONS_ID_ATTRIBUTEVALUEORGANIZATION = ("/app.php/api/organizations/{id}/attributevalueorganization");
+        /**
+         * GET entitlement packs of organization.
+         */
         public static final String ORGANIZATIONS_ID_ENTITLEMENTPACKS = ("/app.php/api/organizations/{id}/entitlementpacks");
+        /**
+         * PUT(request link),DELETE entitlement pack to/from organization.
+         */
         public static final String ORGANIZATIONS_ID_ENTITLEMENTPACKS_EPID = ("/app.php/api/organizations/{id}/entitlementpacks/{epid}");
+        /**
+         * PUT(accept link) entitlement pack to an organization.
+         */
         public static final String ORGANIZATIONS_ID_ENTITLEMENTPACKS_EPID_ACCEPT = ("/app.php/api/organizations/{id}/entitlementpacks/{epid}/accept");
+        /**
+         * PUT(link) entitlement pack to organization by token.
+         */
         public static final String ORGANIZATIONS_ID_ENTITLEMENTPACKS_TOKEN = ("/app.php/api/organizations/{id}/entitlementpacks/{token}/token");
+        /**
+         * GET entitlements of organization.
+         */
         public static final String ORGANIZATIONS_ID_ENTITLEMENTS = ("/app.php/api/organizations/{id}/entitlements");
+        /**
+         * GET all pending and rejected invitations of the specified
+         * organization.
+         */
+        public static final String ORGANIZATIONS_ID_INVITATIONS = ("/app.php/api/organizations/{id}/invitations");
+        /**
+         * GET managers of organization.
+         */
         public static final String ORGANIZATIONS_ID_MANAGERS = ("/app.php/api/organizations/{id}/managers");
+        /**
+         * PUT(add),DELETE(remove) manager to/from organization.
+         */
         public static final String ORGANIZATIONS_ID_MANAGERS_PID = ("/app.php/api/organizations/{id}/managers/{pid}");
+        /**
+         * GET members of organization.
+         */
         public static final String ORGANIZATIONS_ID_MEMBERS = ("/app.php/api/organizations/{id}/members");
+        /**
+         * PUT(add),DELETE(remove) member to/from organization.
+         */
         public static final String ORGANIZATIONS_ID_MEMBERS_PID = ("/app.php/api/organizations/{id}/members/{pid}");
+        /**
+         * GET,POST(create) roles of/for organization.
+         */
         public static final String ORGANIZATIONS_ID_ROLES = ("/app.php/api/organizations/{id}/roles");
 
+        /* *** OTHER *** */
+        /**
+         * POST(get) all attributes (including entitlements) for a principal per
+         * service.
+         */
         public static final String ATTRIBUTES = ("/app.php/api/attributes");
+        /**
+         * GET service entityIds from config.
+         */
         public static final String ENTITYIDS = ("/app.php/api/entityids");
+        /**
+         * POST(get) a token for the API (master-secret authentication).
+         */
         public static final String TOKENS = ("/app.php/api/tokens");
 
-        // Principals
+        /* *** Principals *** */
+        /**
+         * GET all organizations where the user is a manager.
+         */
         public static final String MANAGER_ORGANIZATIONS = ("/app.php/api/manager/organizations");
+        /**
+         * GET all services where the user is a manager.
+         */
         public static final String MANAGER_SERVICES = ("/app.php/api/manager/services");
+        /**
+         * GET all organizations where the user is a member.
+         */
         public static final String MEMBER_ORGANIZATIONS = ("/app.php/api/member/organizations");
-        public static final String PRINCIPAL_SELF = ("/app.php/api/principal/self");
+        /**
+         * GET available attribute specifications.
+         */
         public static final String PRINCIPAL_ATTRIBUTESPECS = ("/app.php/api/principal/attributespecs");
+        /**
+         * GET all attribute values of the principal.
+         */
         public static final String PRINCIPAL_ATTRIBUTEVALUEPRINCIPAL = ("/app.php/api/principal/attributevalueprincipal");
+        /**
+         * GET all entitlements of the user.
+         */
         public static final String PRINCIPAL_ENTITLEMENTS = ("/app.php/api/principal/entitlements");
+        /**
+         * GET all invitations of current principal.
+         */
+        public static final String PRINCIPAL_INVITATIONS = ("/app.php/api/principal/invitations");
+        /**
+         * GET all roles of the user.
+         */
         public static final String PRINCIPAL_ROLES = ("/app.php/api/principal/roles");
+        /**
+         * GET info about current principal.
+         */
+        public static final String PRINCIPAL_SELF = ("/app.php/api/principal/self");
+        /**
+         * GET,POST(create) principal(s).
+         */
         public static final String PRINCIPALS = ("/app.php/api/principals");
+        /**
+         * GET available attribute values per principal and attribute
+         * specification.
+         */
         public static final String PRINCIPALS_ASID_ATTRIBUTESPECS_ATTRIBUTEVALUEPRINCIPALS = ("/app.php/api/principals/{asid}/attributespecs/attributevalueprincipals");
+        /**
+         * GET info about a principal by fedid.
+         */
         public static final String PRINCIPALS_FEDID = ("/app.php/api/principals/{fedid}/fedid");
+        /**
+         * GET info about a principal by id.
+         */
         public static final String PRINCIPALS_ID = ("/app.php/api/principals/{id}/id");
 
-        // Roles
+        /* *** Roles *** */
+        /**
+         * GET,PUT(edit),DELETE role.
+         */
         public static final String ROLES_ID = ("/app.php/api/roles/{id}");
+        /**
+         * GET entitlements in role.
+         */
         public static final String ROLES_ID_ENTITLEMENTS = ("/app.php/api/roles/{id}/entitlements");
+        /**
+         * PUT(add),DELETE(remove) entitlement to/from role.
+         */
         public static final String ROLES_ID_ENTITLEMENTS_EID = ("/app.php/api/roles/{id}/entitlements/{eid}");
+        /**
+         * GET principals in role.
+         */
         public static final String ROLES_ID_PRINCIPALS = ("/app.php/api/roles/{id}/principals");
+        /**
+         * PUT(add),DELETE(remove) principal to/from role.
+         */
         public static final String ROLES_ID_PRINCIPALS_PID = ("/app.php/api/roles/{id}/principals/{pid}");
 
-        // Services
+        /* *** Services *** */
+        /**
+         * GET services where user is a manager. POST(create) new service.
+         */
         public static final String SERVICES = ("/app.php/api/services");
+        /**
+         * GET,PUT(edit),DELETE service.
+         */
         public static final String SERVICES_ID = ("/app.php/api/services/{id}");
+        /**
+         * GET attribute specifications linked to the service.
+         */
         public static final String SERVICES_ID_ATTRIBUTESPECS = ("/app.php/api/services/{id}/attributespecs");
+        /**
+         * PUT(add),DELETE(remove) attribute specification to/from service.
+         */
         public static final String SERVICES_ID_ATTRIBUTESPECS_ASID = ("/app.php/api/services/{id}/attributespecs/{asid}");
+        /**
+         * GET entitlementpacks of the service.
+         */
         public static final String SERVICES_ID_ENTITLEMENTPACKS = ("/app.php/api/services/{id}/entitlementpacks");
+        /**
+         * GET,POST(create) entitlements of service.
+         */
         public static final String SERVICES_ID_ENTITLEMENTS = ("/app.php/api/services/{id}/entitlements");
+        /**
+         * GET all pending and rejected invitations of the service.
+         */
+        public static final String SERVICES_ID_INVITATIONS = ("/app.php/api/services/{id}/invitations");
+        /**
+         * GET managers of the service.
+         */
         public static final String SERVICES_ID_MANAGERS = ("/app.php/api/services/{id}/managers");
+        /**
+         * PUT(add),DELETE(remove) manager to/from service.
+         */
         public static final String SERVICES_ID_MANAGERS_PID = ("/app.php/api/services/{id}/managers/{pid}");
+        /**
+         * GET organizations linked to the service.
+         */
         public static final String SERVICES_ID_ORGANIZATIONS = ("/app.php/api/services/{id}/organizations");
 
     }
 
+    /**
+     * Setter for {@link HEXAA_AUTH}.
+     *
+     * @param string string representation of the required hash code.
+     */
     public void setAuth(String string) {
         HEXAA_AUTH = string;
     }

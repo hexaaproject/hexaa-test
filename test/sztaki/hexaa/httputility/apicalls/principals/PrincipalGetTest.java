@@ -19,7 +19,7 @@ public class PrincipalGetTest extends CleanTest {
 
     @BeforeClass
     public static void setUpClass() {
-        organizations = Utility.Create.organization(new String[]{"testOrgForPrincGet"});
+        organizations = Utility.Create.organizations(new String[]{"testOrgForPrincGet"});
         services = Utility.Create.services(new String[]{"testServForPrincGet"});
 
     }

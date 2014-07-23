@@ -11,7 +11,7 @@ import static sztaki.hexaa.httputility.apicalls.CleanTest.persistent;
  * Utility class to be inherited by the IsEmpty test classes. Implements
  * CleanTest and provides two methods for easier testing.
  */
-public class IsEmptyTest extends CleanTest {
+public abstract class IsEmptyTest extends CleanTest {
 
     /**
      * Calls the rest method on the constApi uri and expects an empty JSON

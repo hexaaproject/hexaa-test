@@ -16,7 +16,7 @@ public class InvitationsPostTest extends CleanTest {
 
     @BeforeClass
     public static void setUpClass() {
-        organizations = Utility.Create.organization(
+        organizations = Utility.Create.organizations(
                 new String[]{
                     "TestOrgName1",
                     "TestOrgName2,",});

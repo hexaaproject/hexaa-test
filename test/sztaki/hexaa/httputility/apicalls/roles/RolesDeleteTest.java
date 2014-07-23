@@ -23,11 +23,11 @@ public class RolesDeleteTest extends CleanTest {
     public static JSONArray roles = new JSONArray();
 
     /**
-     * Creates one organization and two roles.
+     * Creates one organizations and two roles.
      */
     @BeforeClass
     public static void setUpClass() {
-        Utility.Create.organization(new String[]{"testOrgForRoleDel"});
+        Utility.Create.organizations(new String[]{"testOrgForRoleDel"});
         roles = Utility.Create.roles(new String[]{"testRole1", "testRole2"}, 1);
     }
 
@@ -36,7 +36,7 @@ public class RolesDeleteTest extends CleanTest {
      */
     @Test
     public void testRolesDelete() {
-        // DELETE call
+        // The DELETE call.
         persistent.call(Const.Api.ROLES_ID, BasicCall.REST.DEL);
 
         try {

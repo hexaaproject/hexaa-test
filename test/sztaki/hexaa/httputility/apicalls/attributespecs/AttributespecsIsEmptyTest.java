@@ -7,14 +7,13 @@ import sztaki.hexaa.httputility.Const;
 import sztaki.hexaa.httputility.apicalls.IsEmptyTest;
 
 /**
- * Tests the GET,PUT,DEL methods on the /api/attributespecs and
- * /api/attributespecs/{id} calls.
+ * Tests the GET,PUT,DELETE methods on the attributespecs related calls and
+ * expecting not found or empty answers.
  */
 public class AttributespecsIsEmptyTest extends IsEmptyTest {
 
     /**
-     * Test the GET calls in Attributespecs on an empty database, they are
-     * supposed to return either empty json or 404 not found error.
+     * GET method tests.
      */
     @Test
     public void testAttributespecsIsEmptyGet() {
@@ -27,8 +26,7 @@ public class AttributespecsIsEmptyTest extends IsEmptyTest {
     }
 
     /**
-     * Test the PUT calls in Attributespecs on an empty database, they are
-     * supposed to return either empty json or 404 not found error.
+     * PUT method tests.
      */
     @Test
     public void testAttributespecsIsEmptyPut() {
@@ -38,8 +36,7 @@ public class AttributespecsIsEmptyTest extends IsEmptyTest {
     }
 
     /**
-     * Test the DEL calls in Attributespecs on an empty database, they are
-     * supposed to return either empty json or 404 not found error.
+     * DELETE method tests.
      */
     @Test
     public void testAttributespecsIsEmptyDelete() {

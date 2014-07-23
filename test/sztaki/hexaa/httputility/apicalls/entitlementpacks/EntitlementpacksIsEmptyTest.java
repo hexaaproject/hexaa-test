@@ -6,14 +6,13 @@ import sztaki.hexaa.httputility.Const;
 import sztaki.hexaa.httputility.apicalls.IsEmptyTest;
 
 /**
- * Tests the GET,PUT,DEL methods on the /api/entitlementpacks/public ,
- * /api/entitlementpacks/{id} and /api/entitlementpacks/{id}/entitlements calls.
+ * Tests the GET,PUT,DELETE methods on the entitlementpack related calls and
+ * expecting not found or empty answers.
  */
 public class EntitlementpacksIsEmptyTest extends IsEmptyTest {
 
     /**
-     * Tests the GET methods on an empty database, 404 errors and empty JSONs
-     * are expected.
+     * GET method tests.
      */
     @Test
     public void testEntitlementpacksIsEmptyGet() {
@@ -32,8 +31,7 @@ public class EntitlementpacksIsEmptyTest extends IsEmptyTest {
     }
 
     /**
-     * Tests the PUT methods on an empty database, 404 errors and empty JSONs
-     * are expected.
+     * PUT method tests.
      */
     @Test
     public void testEntitlementpacksIsEmptyPut() {
@@ -46,8 +44,7 @@ public class EntitlementpacksIsEmptyTest extends IsEmptyTest {
     }
 
     /**
-     * Tests the DEL methods on an empty database, 404 errors and empty JSONs
-     * are expected.
+     * DELETE method tests.
      */
     @Test
     public void testEntitlementpacksIsEmptyDelete() {

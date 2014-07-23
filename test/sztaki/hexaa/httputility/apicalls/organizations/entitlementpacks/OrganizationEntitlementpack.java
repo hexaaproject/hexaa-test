@@ -21,13 +21,13 @@ public abstract class OrganizationEntitlementpack extends CleanTest {
     public static JSONArray entitlements = new JSONArray();
 
     /**
-     * Creates a service, an organization, entitlements and entitlementpacks and
-     * puts them together to create full entitlementpacks.
+     * Creates a service, an organizations, entitlements and entitlementpacks and
+ puts them together to create full entitlementpacks.
      */
     @BeforeClass
     public static void setUpClass() {
         Utility.Create.services(new String[]{"testService"});
-        Utility.Create.organization(new String[]{"testOrganization"});
+        Utility.Create.organizations(new String[]{"testOrganization"});
         entitlements = Utility.Create.entitlements(1, new String[]{"testEntitlement1", "testEntitlement2"});
         Utility.Create.entitlementpacks(1, new String[]{"testEntitlementpack1"});
         Utility.Link.entitlementToPack(1, 1);
@@ -35,15 +35,15 @@ public abstract class OrganizationEntitlementpack extends CleanTest {
     }
 
     /**
-     * Creates a link between the organization(orgId) and the
-     * entitlementpacks(packIds), and checks that it is a pending link.
+     * Creates a link between the organizations(orgId) and the
+ entitlementpacks(packIds), and checks that it is a pending link.
      *
-     * @param orgId single organization to link to.
+     * @param orgId single organizations to link to.
      * @param packIds entitlementpacks' ids to link.
      */
     protected void createPendingLink(int orgId, int[] packIds) {
         for (int pack : packIds) {
-            // Connect one entitlementpack to an organization
+            // Connect one entitlementpack to an organizations
             persistent.call(
                     Const.Api.ORGANIZATIONS_ID_ENTITLEMENTPACKS_EPID,
                     BasicCall.REST.PUT,
@@ -75,10 +75,10 @@ public abstract class OrganizationEntitlementpack extends CleanTest {
     }
 
     /**
-     * Accepts the link between the organization(orgId) and the
-     * entitlementpacks(packIds), and checks that it is a pending link.
+     * Accepts the link between the organizations(orgId) and the
+ entitlementpacks(packIds), and checks that it is a pending link.
      *
-     * @param orgId single organization to link to.
+     * @param orgId single organizations to link to.
      * @param packIds entitlementpacks' ids to link.
      */
     protected void acceptPendingLink(int orgId, int[] packIds) {
@@ -115,10 +115,10 @@ public abstract class OrganizationEntitlementpack extends CleanTest {
     }
 
     /**
-     * Deletes the link between the organization(orgId) and the
-     * entitlementpacks(packIds), but there are no checks between.
+     * Deletes the link between the organizations(orgId) and the
+ entitlementpacks(packIds), but there are no checks between.
      *
-     * @param orgId single organization to delete the link.
+     * @param orgId single organizations to delete the link.
      * @param packIds entitlementpacks' ids to delete the link.
      */
     protected void deleteLink(int orgId, int[] packIds) {
