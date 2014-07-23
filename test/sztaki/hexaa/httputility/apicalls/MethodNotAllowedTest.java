@@ -95,7 +95,7 @@ public class MethodNotAllowedTest extends CleanTest {
         /* *** Entitlementpacks *** */
         this.expectingNotAllowed(
                 new String[]{
-                    Const.Api.ENTITLEMENTPACKS_PUBLIC,
+//                    Const.Api.ENTITLEMENTPACKS_PUBLIC,
                     Const.Api.ENTITLEMENTPACKS_ID_ENTITLEMENTS,},
                 restPostPutDelete);
 
@@ -151,13 +151,11 @@ public class MethodNotAllowedTest extends CleanTest {
                     Const.Api.MANAGER_ORGANIZATIONS,
                     Const.Api.MANAGER_SERVICES,
                     Const.Api.MEMBER_ORGANIZATIONS,
-                    Const.Api.PRINCIPAL,
+                    Const.Api.PRINCIPAL_SELF,
                     Const.Api.PRINCIPAL_ATTRIBUTESPECS,
                     Const.Api.PRINCIPAL_ATTRIBUTEVALUEPRINCIPAL,
-                    Const.Api.PRINCIPAL_EMAILINVITATIONS,
                     Const.Api.PRINCIPAL_ENTITLEMENTS,
                     Const.Api.PRINCIPAL_ROLES,
-                    Const.Api.PRINCIPAL_URLINVITATIONS,
                     Const.Api.PRINCIPALS_ASID_ATTRIBUTESPECS_ATTRIBUTEVALUEPRINCIPALS,
                     Const.Api.PRINCIPALS_ID,
                     Const.Api.PRINCIPALS_FEDID,},

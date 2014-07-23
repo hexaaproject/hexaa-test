@@ -20,7 +20,7 @@ public class ServicesManagersGetTest extends CleanTest {
 
     @Test
     public void testServicesManagersGet() {
-        fail("TODO: Can't post principals yet");
+        // TODO
     }
 
 }

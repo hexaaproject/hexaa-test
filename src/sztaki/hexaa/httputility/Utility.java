@@ -363,5 +363,15 @@ public class Utility {
             }
         }
 
+        public static void entitlementToRole(int roleId, int[] entitlementIds) {
+            for (int id : entitlementIds) {
+                persistent.call(
+                        Const.Api.ROLES_ID_ENTITLEMENTS_EID,
+                        BasicCall.REST.PUT,
+                        null,
+                        roleId, id);
+            }
+
+        }
     }
 }

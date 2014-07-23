@@ -11,6 +11,9 @@ import sztaki.hexaa.httputility.BasicCall;
 import sztaki.hexaa.httputility.Const;
 import sztaki.hexaa.httputility.apicalls.CleanTest;
 
+/**
+ * 
+ */
 public class PrincipalPostTest extends CleanTest {
 
     @Test

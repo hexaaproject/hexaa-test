@@ -31,7 +31,7 @@ public class PrincipalIsEmptyTest extends IsEmptyTest {
                 Const.Api.MEMBER_ORGANIZATIONS,
                 BasicCall.REST.GET);
         expectingFedid(
-                Const.Api.PRINCIPAL,
+                Const.Api.PRINCIPAL_SELF,
                 BasicCall.REST.GET);
         expectingEmpty(
                 Const.Api.PRINCIPAL_ATTRIBUTESPECS,
@@ -40,16 +40,10 @@ public class PrincipalIsEmptyTest extends IsEmptyTest {
                 Const.Api.PRINCIPAL_ATTRIBUTEVALUEPRINCIPAL,
                 BasicCall.REST.GET);
         expectingEmpty(
-                Const.Api.PRINCIPAL_EMAILINVITATIONS,
-                BasicCall.REST.GET);
-        expectingEmpty(
                 Const.Api.PRINCIPAL_ENTITLEMENTS,
                 BasicCall.REST.GET);
         expectingEmpty(
                 Const.Api.PRINCIPAL_ROLES,
-                BasicCall.REST.GET);
-        expectingEmpty(
-                Const.Api.PRINCIPAL_URLINVITATIONS,
                 BasicCall.REST.GET);
         expectingFedid(
                 Const.Api.PRINCIPALS,

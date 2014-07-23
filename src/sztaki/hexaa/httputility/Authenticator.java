@@ -22,7 +22,7 @@ public class Authenticator {
      */
     public void authenticate() {
         // We check the current connection, if we don't get 
-        String response = new BasicCall().call(Const.Api.PRINCIPAL, REST.GET);
+        String response = new BasicCall().call(Const.Api.PRINCIPAL_SELF, REST.GET);
         System.out.println(response);
 
         // If the response is Forbidden, we start the authentication

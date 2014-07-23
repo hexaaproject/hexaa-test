@@ -29,7 +29,7 @@ public class Const {
         // AttributeSpec
         public static final String ATTRIBUTESPECS = ("/app.php/api/attributespecs");
         public static final String ATTRIBUTESPECS_ID = ("/app.php/api/attributespecs/{id}");
-        public static final String ATTRIBUTESPECS_ID_SERVICES = ("/app.php/api/attributespecs/{id}/services");
+        public static final String ATTRIBUTESPECS_ID_SERVICES = ("/app.php/api/attributespecs/{id}/service");
 
         // Entitlement
         public static final String ENTITLEMENTS_ID = ("/app.php/api/entitlements/{id}");
@@ -69,13 +69,11 @@ public class Const {
         public static final String MANAGER_ORGANIZATIONS = ("/app.php/api/manager/organizations");
         public static final String MANAGER_SERVICES = ("/app.php/api/manager/services");
         public static final String MEMBER_ORGANIZATIONS = ("/app.php/api/member/organizations");
-        public static final String PRINCIPAL = ("/app.php/api/principal/self");
+        public static final String PRINCIPAL_SELF = ("/app.php/api/principal/self");
         public static final String PRINCIPAL_ATTRIBUTESPECS = ("/app.php/api/principal/attributespecs");
         public static final String PRINCIPAL_ATTRIBUTEVALUEPRINCIPAL = ("/app.php/api/principal/attributevalueprincipal");
-        public static final String PRINCIPAL_EMAILINVITATIONS = ("/app.php/api/principal/emailinvitations");
         public static final String PRINCIPAL_ENTITLEMENTS = ("/app.php/api/principal/entitlements");
         public static final String PRINCIPAL_ROLES = ("/app.php/api/principal/roles");
-        public static final String PRINCIPAL_URLINVITATIONS = ("/app.php/api/principal/urlinvitations");
         public static final String PRINCIPALS = ("/app.php/api/principals");
         public static final String PRINCIPALS_ASID_ATTRIBUTESPECS_ATTRIBUTEVALUEPRINCIPALS = ("/app.php/api/principals/{asid}/attributespecs/attributevalueprincipals");
         public static final String PRINCIPALS_FEDID = ("/app.php/api/principals/{fedid}/fedid");
