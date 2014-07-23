@@ -26,7 +26,7 @@ public class Authenticator {
         System.out.println(response);
 
         // If the response is Forbidden, we start the authentication
-        if (response.contains("401") || response.contains("403")) {
+        if (response.contains("401") || response.contains("403") || response.contains("404")) {
             System.out.println("Getting temporary API key.");
 
             BasicCall postToken = new BasicCall();
@@ -45,9 +45,9 @@ public class Authenticator {
 
             JSONObject jsonResponse;
             jsonResponse = (JSONObject) JSONParser.parseJSON(response);
-            
+
             System.out.println(jsonResponse.toString());
-            
+
             Const.HEXAA_AUTH = jsonResponse.get("token").toString();
 
             System.out.println("Normal API key acquired.");
