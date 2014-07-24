@@ -13,7 +13,7 @@ import sztaki.hexaa.httputility.Const;
  * Tests the DELETE method on the /api/organizations/{id}/entitlementpacks and
  * /api/organizations/{id}/entitlements call.
  */
-public class OrganizationEntitlementpacksGet extends OrganizationEntitlementpack {
+public class OrganizationEntitlementpacksGetTest extends OrganizationEntitlementpack {
 
     /**
      * GETs the Entitlementpack.

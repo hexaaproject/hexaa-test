@@ -5,8 +5,8 @@ import org.junit.runners.Suite;
 import sztaki.hexaa.httputility.apicalls.BasicTestSuite;
 
 /**
- * TestSuite for all the IsEmptyTest class, and gives the BasicTestSuite
- * utility.
+ * TestSuite for the IsEmpty related test cases, runs them all and does the
+ * starting and finishing utility jobs inherited from BasicTestSuite.
  */
 @RunWith(Suite.class)
 @Suite.SuiteClasses({
@@ -18,5 +18,4 @@ import sztaki.hexaa.httputility.apicalls.BasicTestSuite;
     sztaki.hexaa.httputility.apicalls.roles.RolesIsEmptyTest.class,
     sztaki.hexaa.httputility.apicalls.services.ServicesIsEmptyTest.class,})
 public class AllIsEmptyTests extends BasicTestSuite {
-
 }

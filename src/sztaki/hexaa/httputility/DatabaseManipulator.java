@@ -22,7 +22,7 @@ public final class DatabaseManipulator {
             Runtime rt = Runtime.getRuntime();
 
             // Call for server side script
-            Process proc = rt.exec(new String[]{"ssh", "user@192.168.203.183",
+            Process proc = rt.exec(new String[]{"ssh", "user@"+Const.HEXAA_HOST,
                 "~/databasedrop.sh", "exit"});
 
             // any error message?

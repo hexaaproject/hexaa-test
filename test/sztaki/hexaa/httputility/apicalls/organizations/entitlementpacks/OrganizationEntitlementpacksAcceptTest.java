@@ -6,7 +6,7 @@ import org.junit.Test;
  * Tests the PUT method on the
  * /api/organizations/{id}/entitlementpacks/{epid}/accept call.
  */
-public class OrganizationEntitlementpacksAccept extends OrganizationEntitlementpack {
+public class OrganizationEntitlementpacksAcceptTest extends OrganizationEntitlementpack {
 
     /**
      * Creates a pending link between an organization and an entitlementpack and

@@ -11,6 +11,6 @@ import sztaki.hexaa.httputility.apicalls.BasicTestSuite;
  */
 @RunWith(Suite.class)
 @Suite.SuiteClasses({
-    sztaki.hexaa.httputility.apicalls.attributevalueorganizations.AttributevalueorganizationsPost.class,})
+    AttributevalueorganizationsPost.class,})
 public class AttributevalueorganizationsSuite extends BasicTestSuite {
 }

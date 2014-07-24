@@ -10,9 +10,10 @@ import org.junit.runners.Suite;
  */
 @RunWith(Suite.class)
 @Suite.SuiteClasses({
-    sztaki.hexaa.httputility.apicalls.organizations.entitlementpacks.OrganizationEntitlementpacksPut.class,
-    sztaki.hexaa.httputility.apicalls.organizations.entitlementpacks.OrganizationEntitlementpacksAccept.class,
-    sztaki.hexaa.httputility.apicalls.organizations.entitlementpacks.OrganizationEntitlementpacksDelete.class,
-    sztaki.hexaa.httputility.apicalls.organizations.entitlementpacks.OrganizationEntitlementpacksGet.class,})
+    OrganizationEntitlementpacksPutTest.class,
+    OrganizationEntitlementpacksAcceptTest.class,
+    OrganizationEntitlementpacksDeleteTest.class,
+    OrganizationEntitlementpacksGetTest.class,
+    OrganizationEntitlementpacksTokenTest.class,})
 public class OrganizationEntitlementpacksSuite {
 }

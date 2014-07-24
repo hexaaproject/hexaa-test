@@ -19,10 +19,10 @@ import sztaki.hexaa.httputility.apicalls.services.managers.ServicesManagersGetTe
     ServicesPostTest.class,
     ServicesAttributespecsGetTest.class,
     ServicesAttributespecsPostTest.class,
-    ServicesEntitlementpacksPostTest.class,
     ServicesEntitlementpacksGetTest.class,
-    ServicesEntitlementsPostTest.class,
+    ServicesEntitlementpacksPostTest.class,
     ServicesEntitlementsGetTest.class,
+    ServicesEntitlementsPostTest.class,
     ServicesManagersGetTest.class})
 public class ServicesSuite extends BasicTestSuite {
 }
