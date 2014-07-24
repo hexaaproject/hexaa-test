@@ -3,10 +3,8 @@ package sztaki.hexaa.httputility.apicalls.entitlementpacks;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import static org.junit.Assert.*;
-import org.junit.Assume;
 import org.junit.BeforeClass;
 import org.junit.Test;
-import org.junit.internal.AssumptionViolatedException;
 import org.skyscreamer.jsonassert.JSONAssert;
 import org.skyscreamer.jsonassert.JSONCompareMode;
 import org.skyscreamer.jsonassert.JSONParser;
@@ -16,11 +14,17 @@ import sztaki.hexaa.httputility.Utility;
 import sztaki.hexaa.httputility.apicalls.CleanTest;
 
 /**
- * Tests the GET methods on the /api/entitlementpacks/public uri.
+ * Tests the GET methods on the /api/entitlementpacks/public call.
  */
 public class EntitlementpacksGetTest extends CleanTest {
 
+    /**
+     * JSONArray to store the created entitlementpacks.
+     */
     public static JSONArray entitlementpacks = new JSONArray();
+    /**
+     * JSONArray to store the created entitlements.
+     */
     public static JSONArray entitlements = new JSONArray();
 
     /**
@@ -32,26 +36,11 @@ public class EntitlementpacksGetTest extends CleanTest {
         Utility.Create.services(new String[]{"testService1"});
         entitlementpacks = Utility.Create.entitlementpacks(1, new String[]{"testEntitlementpacks1", "testEntitlementpacks2"});
         entitlements = Utility.Create.entitlements(1, new String[]{"testEntitlements1"});
-        persistent.call(
-                Const.Api.ENTITLEMENTPACKS_ID_ENTITLEMENTS_EID,
-                BasicCall.REST.PUT,
-                null,
-                1, 1);
-        try {
-            Assume.assumeTrue(persistent.getStatusLine().equalsIgnoreCase("HTTP/1.1 201 Created"));
-        } catch (AssumptionViolatedException e) {
-            System.out.println(
-                    "In "
-                    + EntitlementpacksGetTest.class.getName()
-                    + " the PUT call on /api/entitlementpacks/{id}/entitlements/{eid} failed");
-            fail("PUT /api/entitlementpacks/{id}/entitlements/{eid} was unsuccessful.");
-        }
+        Utility.Link.entitlementToPack(1, 1);
     }
 
     /**
-     * Tests the GET method on /api/entitlementpacks/public,
-     * /api/entitlementpacks/{id} and /api/entitlementpacks/{id}/entitlements
-     * calls.
+     * Tests the GET method on /api/entitlementpacks/public call.
      */
     @Test
     public void testEntitlementpacksPublicGet() {

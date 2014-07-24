@@ -14,10 +14,13 @@ import sztaki.hexaa.httputility.apicalls.CleanTest;
 
 /**
  * Tests the DEL methods on the /api/entitlementpacks/{id}/entitlements/{eid}
- * uri.
+ * call.
  */
 public class EntitlementpacksRemoveEntitlementsTest extends CleanTest {
 
+    /**
+     * JSONArray to store the created entitlements.
+     */
     public static JSONArray entitlements = new JSONArray();
 
     /**

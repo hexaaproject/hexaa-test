@@ -15,13 +15,12 @@ import sztaki.hexaa.httputility.apicalls.CleanTest;
 
 /**
  * Tests the PUT methods on the /api/entitlementpacks/{id}/entitlements/{eid}
- * uri.
+ * call.
  */
 public class EntitlementpacksAddEntitlementsTest extends CleanTest {
 
     /**
-     * Uses the Services class utilities to build services, entitlements and
-     * entitlementpacks.
+     * Creates one service, two entitlements and two entitlementpacks.
      */
     @BeforeClass
     public static void setUpClass() {
@@ -37,33 +36,12 @@ public class EntitlementpacksAddEntitlementsTest extends CleanTest {
     @Test
     public void testEntitlementpacksAddEntitlements() {
 
-        putEntitlementToPack(1, 1);
-        putEntitlementToPack(2, 1);
-        putEntitlementToPack(1, 2);
+        Utility.Link.entitlementToPack(1, 1);
+        Utility.Link.entitlementToPack(2, 1);
+        Utility.Link.entitlementToPack(1, 2);
 
         checkEntitlementInPacks(new int[]{1, 2}, 1);
         checkEntitlementInPacks(new int[]{1}, 2);
-    }
-
-    /**
-     * PUTs the existing entitlement specified by the entitlementId in the
-     * entitlementpack specified by the packId
-     *
-     * @param entitlementId int: the id of the entitlement
-     * @param packId int: id of the entitlementpack
-     */
-    public void putEntitlementToPack(int entitlementId, int packId) {
-        persistent.call(
-                Const.Api.ENTITLEMENTPACKS_ID_ENTITLEMENTS_EID,
-                BasicCall.REST.PUT,
-                null,
-                entitlementId, packId);
-
-        try {
-            assertEquals("HTTP/1.1 201 Created", persistent.getStatusLine());
-        } catch (AssertionError e) {
-            AssertErrorHandler(e);
-        }
     }
 
     /**

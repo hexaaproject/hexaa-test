@@ -5,8 +5,9 @@ import org.junit.runners.Suite;
 import sztaki.hexaa.httputility.apicalls.BasicTestSuite;
 
 /**
- * TestSuite to include the tests related to the
- * /api/attributevalueorganizations/{id} calls.
+ * TestSuite for the Attributevalueorganizations related test cases, runs them
+ * all and does the starting and finishing utility jobs inherited from
+ * BasicTestSuite.
  */
 @RunWith(Suite.class)
 @Suite.SuiteClasses({

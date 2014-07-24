@@ -18,10 +18,13 @@ import sztaki.hexaa.httputility.apicalls.CleanTest;
  */
 public class EntitlementpacksPutTest extends CleanTest {
 
+    /**
+     * JSONArray to store the created entitlementpacks.
+     */
     private static JSONArray entitlementpacks = new JSONArray();
 
     /**
-     * Uses the Services class utilities to build services and entitlementpacks.
+     * Creates one service and two entitlementpacks.
      */
     @BeforeClass
     public static void setUpClass() {

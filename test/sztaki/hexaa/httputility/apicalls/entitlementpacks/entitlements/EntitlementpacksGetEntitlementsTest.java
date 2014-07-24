@@ -13,10 +13,13 @@ import sztaki.hexaa.httputility.Utility;
 import sztaki.hexaa.httputility.apicalls.CleanTest;
 
 /**
- * Tests the GET methods on the /api/entitlementpacks/{id}/entitlements uri.
+ * Tests the GET methods on the /api/entitlementpacks/{id}/entitlements call.
  */
 public class EntitlementpacksGetEntitlementsTest extends CleanTest {
 
+    /**
+     * JSONArray to store the created entitlements.
+     */
     public static JSONArray entitlements = new JSONArray();
 
     /**
