@@ -29,6 +29,7 @@
             <word>oid</word>
             <word>oids</word>
             <word>uri</word>
+            <word>url</word>
         </spellchecker-wordlist>
     </configuration>
 </project>

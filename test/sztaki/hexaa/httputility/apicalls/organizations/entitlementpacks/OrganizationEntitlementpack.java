@@ -22,6 +22,10 @@ public abstract class OrganizationEntitlementpack extends CleanTest {
      * JSONArray to store the created entitlements.
      */
     public static JSONArray entitlements = new JSONArray();
+    /**
+     * JSONArray to store the created entitlements.
+     */
+    public static JSONArray entitlementpacks = new JSONArray();
 
     /**
      * Creates a service, an organizations, entitlements and entitlementpacks
@@ -32,7 +36,7 @@ public abstract class OrganizationEntitlementpack extends CleanTest {
         Utility.Create.services(new String[]{"testService"});
         Utility.Create.organizations(new String[]{"testOrganization"});
         entitlements = Utility.Create.entitlements(1, new String[]{"testEntitlement1", "testEntitlement2"});
-        Utility.Create.entitlementpacks(1, new String[]{"testEntitlementpack1"});
+        entitlementpacks = Utility.Create.entitlementpacks(1, new String[]{"testEntitlementpack1"});
         Utility.Link.entitlementToPack(1, 1);
         Utility.Link.entitlementToPack(2, 1);
     }

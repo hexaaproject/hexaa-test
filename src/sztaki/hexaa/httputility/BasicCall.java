@@ -37,6 +37,16 @@ public class BasicCall {
     private String fedid;
 
     /**
+     * The token required by a few calls in the url.
+     */
+    private String token;
+
+    /**
+     * The email required by a few calls in the url.
+     */
+    private String email;
+
+    /**
      * The requested ID, always inserted into the {id} part of the url.
      */
     private int id;
@@ -103,6 +113,24 @@ public class BasicCall {
     }
 
     /**
+     * Sets the token.
+     *
+     * @param token
+     */
+    public void setToken(String token) {
+        this.token = token;
+    }
+
+    /**
+     * Sets the token.
+     *
+     * @param email
+     */
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    /**
      * Returns the status line associated with the last call. Persist until a
      * new call is placed and gives an empty String before any call.
      *
@@ -136,6 +164,10 @@ public class BasicCall {
         this.path = null;
 
         this.fedid = "fedid";
+
+        this.token = "token";
+
+        this.email = "email";
     }
 
     /**
@@ -406,6 +438,9 @@ public class BasicCall {
         }
         if (nPath.contains("{fedid}")) {
             nPath = nPath.replace("{fedid}", fedid);
+        }
+        if (nPath.contains("{token}")) {
+            nPath = nPath.replace("{token}", token);
         }
 
         return nPath.concat(".json");
