@@ -3,18 +3,17 @@ package sztaki.hexaa.httputility.apicalls.attributespecs;
 import static org.junit.Assert.*;
 import org.junit.Test;
 import org.json.JSONObject;
-import org.skyscreamer.jsonassert.JSONAssert;
-import org.skyscreamer.jsonassert.JSONCompareMode;
-import org.skyscreamer.jsonassert.JSONParser;
 import sztaki.hexaa.httputility.BasicCall;
 import sztaki.hexaa.httputility.Const;
 import sztaki.hexaa.httputility.apicalls.CleanTest;
 
+/**
+ * Tests the POST method on the /app.php/api/attributespecs call.
+ */
 public class AttributespecsPostTest extends CleanTest {
 
     /**
-     * Uses the /api/attributespecs POST method with 2 different JSON Object and
-     * verifies them from the server
+     * POST 2 different attributespecs.
      */
     @Test
     public void testAttributespecsPost() {
@@ -35,23 +34,6 @@ public class AttributespecsPostTest extends CleanTest {
         } catch (AssertionError e) {
             AssertErrorHandler(e);
         }
-        // remove the clutter that will not be shown in the response and add what will,
-        // this is not a best case
-        json.remove("is_multivalue");
-        json.put("id", 1);
-        // GET the recently changed attribute
-        JSONObject jsonResponse = (JSONObject) JSONParser.parseJSON(
-                persistent.call(Const.Api.ATTRIBUTESPECS_ID,
-                        BasicCall.REST.GET,
-                        null,
-                        1,
-                        0));
-        try {
-            // Assert the response as a JSONObject
-            JSONAssert.assertEquals(json, jsonResponse, JSONCompareMode.LENIENT);
-        } catch (AssertionError e) {
-            AssertErrorHandler(e);
-        }
 
         // Specify the second JSON object
         json = new JSONObject();
@@ -69,23 +51,6 @@ public class AttributespecsPostTest extends CleanTest {
                 0);
         try {
             assertEquals("HTTP/1.1 201 Created", persistent.getStatusLine());
-        } catch (AssertionError e) {
-            AssertErrorHandler(e);
-        }
-        // remove the clutter that will not be shown in the response and add what will,
-        // this is not a best case
-        json.remove("is_multivalue");
-        json.put("id", 2);
-        // GET the recently changed attribute
-        jsonResponse = (JSONObject) JSONParser.parseJSON(
-                persistent.call(Const.Api.ATTRIBUTESPECS_ID,
-                        BasicCall.REST.GET,
-                        null,
-                        2,
-                        0));
-        // Assert the response as a JSONObject
-        try {
-            JSONAssert.assertEquals(json, jsonResponse, JSONCompareMode.LENIENT);
         } catch (AssertionError e) {
             AssertErrorHandler(e);
         }

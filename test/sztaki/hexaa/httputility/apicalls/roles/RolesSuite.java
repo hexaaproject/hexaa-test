@@ -5,8 +5,8 @@ import org.junit.runners.Suite;
 import sztaki.hexaa.httputility.apicalls.BasicTestSuite;
 
 /**
- * TestSuite for the Role related calls, extends BasicTestSuite to provide some
- * utility.
+ * TestSuite for the Roles related test cases, runs them all and does the
+ * starting and finishing utility jobs inherited from BasicTestSuite.
  */
 @RunWith(Suite.class)
 @Suite.SuiteClasses({

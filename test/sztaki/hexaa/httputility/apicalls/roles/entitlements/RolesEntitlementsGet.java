@@ -11,51 +11,57 @@ import sztaki.hexaa.httputility.Const;
 import sztaki.hexaa.httputility.Utility;
 import sztaki.hexaa.httputility.apicalls.CleanTest;
 
+/**
+ * Tests the GET method on the /api/roles/{id}/entitlements call.
+ */
 public class RolesEntitlementsGet extends CleanTest {
 
+    /**
+     * JSONArray to store the created roles.
+     */
     public static JSONArray entitlements = new JSONArray();
-    
+
+    /**
+     * Creates an organization, a role, a service, two entitlements and an
+     * entitlementpack, and links them together.
+     */
     @BeforeClass
     public static void setUpClass() {
         Utility.Create.organizations(new String[]{"testOrg1"});
         Utility.Create.roles(new String[]{"testRole1"}, 1);
         Utility.Create.services(new String[]{"testService1"});
-        entitlements = Utility.Create.entitlements(1, new String[]{"testEntitlement1","testEntitlement2"});
+        entitlements = Utility.Create.entitlements(1, new String[]{"testEntitlement1", "testEntitlement2"});
         Utility.Create.entitlementpacks(1, new String[]{"testEntitlementpack1"});
 
         Utility.Link.entitlementToPack(1, 1);
         Utility.Link.entitlementToPack(2, 1);
         Utility.Link.entitlementpacksToOrg(1, new int[]{1});
-        
-        System.out.println(persistent.call(Const.Api.ORGANIZATIONS_ID_ENTITLEMENTS, BasicCall.REST.GET));
 
-        Utility.Link.entitlementsToRole(1, new int[]{1,2});
+        Utility.Link.entitlementsToRole(1, new int[]{1, 2});
     }
-    
+
+    /**
+     * GETs the entitlements of the role.
+     */
     @Test
     public void testRolesEntitlementsGet() {
-        
+
         JSONArray jsonResponseArray
                 = (JSONArray) JSONParser.parseJSON(
                         persistent.call(
                                 Const.Api.ROLES_ID_ENTITLEMENTS,
                                 BasicCall.REST.GET));
-        System.out.println(jsonResponseArray.toString());
+
         try {
             JSONAssert.assertEquals(
                     entitlements.getJSONObject(0),
                     jsonResponseArray.getJSONObject(0),
                     JSONCompareMode.LENIENT);
-        }catch (AssertionError e) {
-            AssertErrorHandler(e);
-        }
-        
-        try {
             JSONAssert.assertEquals(
                     entitlements,
                     jsonResponseArray,
                     JSONCompareMode.LENIENT);
-        }catch (AssertionError e) {
+        } catch (AssertionError e) {
             AssertErrorHandler(e);
         }
     }

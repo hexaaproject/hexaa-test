@@ -1,6 +1,5 @@
 package sztaki.hexaa.httputility.apicalls.attributespecs;
 
-import static org.junit.Assert.*;
 import org.junit.Test;
 import sztaki.hexaa.httputility.BasicCall;
 import sztaki.hexaa.httputility.Const;

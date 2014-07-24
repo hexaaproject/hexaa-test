@@ -5,6 +5,10 @@ import org.junit.runners.Suite;
 import sztaki.hexaa.httputility.apicalls.BasicTestSuite;
 import sztaki.hexaa.httputility.apicalls.entitlementpacks.entitlements.*;
 
+/**
+ * TestSuite for the Entitlementpacks related test cases, runs them all and does the
+ * starting and finishing utility jobs inherited from BasicTestSuite.
+ */
 @RunWith(Suite.class)
 @Suite.SuiteClasses({
     EntitlementpacksGetTest.class,

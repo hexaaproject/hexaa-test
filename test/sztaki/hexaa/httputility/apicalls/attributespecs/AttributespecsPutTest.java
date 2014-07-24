@@ -10,93 +10,60 @@ import org.junit.internal.AssumptionViolatedException;
 import org.skyscreamer.jsonassert.JSONParser;
 import sztaki.hexaa.httputility.BasicCall;
 import sztaki.hexaa.httputility.Const;
+import sztaki.hexaa.httputility.Utility;
 import sztaki.hexaa.httputility.apicalls.CleanTest;
 
+/**
+ * Tests the PUT method on the /app.php/api/attributespecs/{id} call.
+ */
 public class AttributespecsPutTest extends CleanTest {
 
-    private static JSONArray array = new JSONArray();
+    /**
+     * JSONArray to store the created attributespecs.
+     */
+    private static JSONArray attributespecs = new JSONArray();
 
     /**
-     * Initialize an Attributespecs object on the server (POST
-     * /api/attributespecs)
+     * Creates one attributespec.
      */
     @BeforeClass
     public static void setUpClass() {
-
-        JSONObject json1 = new JSONObject();
-
-        json1.put("oid", "1");
-        json1.put("friendly_name", "testName1");
-        json1.put("syntax", "noSyntax1");
-        json1.put("is_multivalue", false);
-        persistent.call(
-                Const.Api.ATTRIBUTESPECS,
-                BasicCall.REST.POST,
-                json1.toString(),
-                0, 0);
-
-        json1.put("id", 1);
-
-        array.put(json1);
-
-        // Fail the test class if the BeforeClass was unsuccessful at creating the necessary attributespecs
-        try {
-            Assume.assumeTrue(persistent.getStatusLine().equalsIgnoreCase("HTTP/1.1 201 Created"));
-        } catch (AssumptionViolatedException e) {
-            System.out.println(
-                    "In "
-                    + AttributespecsPutTest.class.getName()
-                    + " the first POST call failed");
-            fail("POST /api/attributespecs was unsuccessful.");
-        }
-
+        attributespecs = Utility.Create.attributespecs(new String[]{"testName1"});
     }
 
     /**
-     * Changes an Attributespecs on the server by calling PUT on
-     * /api/attributespec/{id}, after that it verifies the success by
-     * /api/attributespec/{id} GET
+     * PUT a changed attributespec and verify it.
      */
     @Test
     public void testAttributespecsPut() {
-        /* *** The desired changes *** */
-        ((JSONObject) array.get(0)).put("oid", "oidByPut");
-        ((JSONObject) array.get(0)).put("friendly_name", "nameByPut");
-        // Remove the id key for the call, and re-add it after the call, so the 
-        // other tests are not effected
-        int idTemp = (int) ((JSONObject) array.get(0)).remove("id");
+        // Change and PUT
+        ((JSONObject) attributespecs.get(0)).put("oid", "oidByPut");
+        ((JSONObject) attributespecs.get(0)).put("friendly_name", "nameByPut");
+
         persistent.call(
                 Const.Api.ATTRIBUTESPECS_ID,
                 BasicCall.REST.PUT,
-                ((JSONObject) array.get(0)).toString(),
+                ((JSONObject) attributespecs.get(0)).toString(),
                 1, 0);
-        ((JSONObject) array.get(0)).put("id", idTemp);
+
         try {
             assertEquals("HTTP/1.1 204 No Content", persistent.getStatusLine());
         } catch (AssertionError e) {
             AssertErrorHandler(e);
         }
 
-        /* *** Verifing the success *** */
-        String response = persistent.call(
-                Const.Api.ATTRIBUTESPECS_ID,
-                BasicCall.REST.GET,
-                null,
-                1, 0);
+        // Verify
+        JSONObject jsonResponse
+                = (JSONObject) JSONParser.parseJSON(
+                        persistent.call(
+                                Const.Api.ATTRIBUTESPECS_ID,
+                                BasicCall.REST.GET,
+                                null,
+                                1, 0));
 
-        JSONObject jsonResponse = null;
-
-        jsonResponse = (JSONObject) JSONParser.parseJSON(response);
-
-        if (jsonResponse != null && jsonResponse.isNull("is_multivalue")) {
-            jsonResponse.put("is_multivalue", false);
-        }
-        if (jsonResponse == null) {
-            jsonResponse = new JSONObject();
-        }
         try {
-            assertEquals("oidByPut", jsonResponse.get("oid"));
             assertEquals("HTTP/1.1 200 OK", persistent.getStatusLine());
+            assertEquals("oidByPut", jsonResponse.get("oid"));
         } catch (AssertionError e) {
             AssertErrorHandler(e);
         }

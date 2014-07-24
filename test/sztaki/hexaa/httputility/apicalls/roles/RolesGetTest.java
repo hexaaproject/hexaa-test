@@ -19,6 +19,10 @@ import sztaki.hexaa.httputility.apicalls.CleanTest;
  */
 public class RolesGetTest extends CleanTest {
 
+    
+    /**
+     * JSONArray to store the created roles.
+     */
     public static JSONArray roles = new JSONArray();
 
     /**

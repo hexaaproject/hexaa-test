@@ -104,7 +104,7 @@ public class Utility {
                 json.put("oid", oid);
                 json.put("friendly_name", "testFriendlyName" + oid);
                 json.put("syntax", "syntaxTest");
-                json.put("is_multivalue", false);
+                json.put("is_multivalue", true);
 
                 attributespecs.put(json);
 
