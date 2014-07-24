@@ -13,16 +13,19 @@ import sztaki.hexaa.httputility.Utility;
 import sztaki.hexaa.httputility.apicalls.CleanTest;
 
 /**
- * Abstract utility class for the calls on
- * /api/organizations/{id}/entitlementpacks/{epid} uri.
+ * Abstract utility class for the methods on
+ * /api/organizations/{id}/entitlementpacks/{epid} call.
  */
 public abstract class OrganizationEntitlementpack extends CleanTest {
 
+    /**
+     * JSONArray to store the created entitlements.
+     */
     public static JSONArray entitlements = new JSONArray();
 
     /**
-     * Creates a service, an organizations, entitlements and entitlementpacks and
- puts them together to create full entitlementpacks.
+     * Creates a service, an organizations, entitlements and entitlementpacks
+     * and puts them together to create full entitlementpacks.
      */
     @BeforeClass
     public static void setUpClass() {
@@ -36,7 +39,7 @@ public abstract class OrganizationEntitlementpack extends CleanTest {
 
     /**
      * Creates a link between the organizations(orgId) and the
- entitlementpacks(packIds), and checks that it is a pending link.
+     * entitlementpacks(packIds), and checks that it is a pending link.
      *
      * @param orgId single organizations to link to.
      * @param packIds entitlementpacks' ids to link.
@@ -76,7 +79,7 @@ public abstract class OrganizationEntitlementpack extends CleanTest {
 
     /**
      * Accepts the link between the organizations(orgId) and the
- entitlementpacks(packIds), and checks that it is a pending link.
+     * entitlementpacks(packIds), and checks that it is a pending link.
      *
      * @param orgId single organizations to link to.
      * @param packIds entitlementpacks' ids to link.
@@ -116,7 +119,7 @@ public abstract class OrganizationEntitlementpack extends CleanTest {
 
     /**
      * Deletes the link between the organizations(orgId) and the
- entitlementpacks(packIds), but there are no checks between.
+     * entitlementpacks(packIds), but there are no checks between.
      *
      * @param orgId single organizations to delete the link.
      * @param packIds entitlementpacks' ids to delete the link.

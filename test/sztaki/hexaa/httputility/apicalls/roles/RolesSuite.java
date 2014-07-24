@@ -13,6 +13,7 @@ import sztaki.hexaa.httputility.apicalls.BasicTestSuite;
     sztaki.hexaa.httputility.apicalls.roles.RolesPostTest.class,
     sztaki.hexaa.httputility.apicalls.roles.RolesDeleteTest.class,
     sztaki.hexaa.httputility.apicalls.roles.RolesPutTest.class,
-    sztaki.hexaa.httputility.apicalls.roles.entitlements.RolesEntitlementsPutTest.class,})
+    sztaki.hexaa.httputility.apicalls.roles.entitlements.RolesEntitlementsPutTest.class,
+    sztaki.hexaa.httputility.apicalls.roles.entitlements.RolesEntitlementsGetTest.class,})
 public class RolesSuite extends BasicTestSuite {
 }

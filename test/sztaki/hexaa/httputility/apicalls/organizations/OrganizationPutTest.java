@@ -18,6 +18,9 @@ import sztaki.hexaa.httputility.apicalls.CleanTest;
  */
 public class OrganizationPutTest extends CleanTest {
 
+    /**
+     * JSONArray to store the created organizations.
+     */
     public static JSONArray organizations = new JSONArray();
 
     /**
@@ -33,7 +36,7 @@ public class OrganizationPutTest extends CleanTest {
 
     /**
      * Modifies one of the two existing organizations and verifies the change of
- its name, and the unchanged second one as well.
+     * its name, and the unchanged second one as well.
      */
     @Test
     public void testOrganizationPut() {

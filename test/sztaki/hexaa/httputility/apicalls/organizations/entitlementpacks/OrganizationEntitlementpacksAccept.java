@@ -15,8 +15,8 @@ public class OrganizationEntitlementpacksAccept extends OrganizationEntitlementp
     @Test
     public void testOrganizationEntitlementpacksAccept() {
         // Creates a link between an organization and an entitlementpack, and checks that it is pending
-        this.createPendingLink(1, new int[] {1});
+        this.createPendingLink(1, new int[]{1});
         // Accepts the pending link
-        acceptPendingLink(1, new int[] {1});
+        acceptPendingLink(1, new int[]{1});
     }
 }

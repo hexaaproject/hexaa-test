@@ -19,6 +19,9 @@ import sztaki.hexaa.httputility.apicalls.CleanTest;
  */
 public class OrganizationGetTest extends CleanTest {
 
+    /**
+     * JSONArray to store the created organizations.
+     */
     public static JSONArray organizations = new JSONArray();
 
     /**

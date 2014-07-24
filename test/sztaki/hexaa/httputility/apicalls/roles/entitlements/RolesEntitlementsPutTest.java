@@ -8,8 +8,15 @@ import sztaki.hexaa.httputility.Const;
 import sztaki.hexaa.httputility.Utility;
 import sztaki.hexaa.httputility.apicalls.CleanTest;
 
+/**
+ * Tests the PUT method on the /api/roles/{id}/entitlements/{eid} call.
+ */
 public class RolesEntitlementsPutTest extends CleanTest {
 
+    /**
+     * Creates an organization, two roles, a service, an entitlement and an
+     * entitlementpack.
+     */
     @BeforeClass
     public static void setUpClass() {
         Utility.Create.organizations(new String[]{"testOrg1"});
@@ -19,9 +26,15 @@ public class RolesEntitlementsPutTest extends CleanTest {
         Utility.Create.entitlementpacks(1, new String[]{"testEntitlementpack1"});
     }
 
+    /**
+     * PUT the entitlement to a role with three different outcome.
+     */
     @Test
     public void testRolesEntitlementsPut() {
-        persistent.call(Const.Api.ROLES_ID_ENTITLEMENTS_EID, BasicCall.REST.PUT, null, 1, 1);
+        // PUT an entitlement from outside of organization.
+        persistent.call(
+                Const.Api.ROLES_ID_ENTITLEMENTS_EID,
+                BasicCall.REST.PUT);
 
         try {
             assertEquals("HTTP/1.1 400 Bad Request", persistent.getStatusLine());
@@ -29,10 +42,14 @@ public class RolesEntitlementsPutTest extends CleanTest {
             AssertErrorHandler(e);
         }
 
+        // PUT entitlement to pack and pack to organization.
         Utility.Link.entitlementToPack(1, 1);
         Utility.Link.entitlementpacksToOrg(1, new int[]{1});
 
-        persistent.call(Const.Api.ROLES_ID_ENTITLEMENTS_EID, BasicCall.REST.PUT, null, 1, 1);
+        // PUT entitlement to role.
+        persistent.call(
+                Const.Api.ROLES_ID_ENTITLEMENTS_EID,
+                BasicCall.REST.PUT);
 
         try {
             assertEquals("HTTP/1.1 201 Created", persistent.getStatusLine());
@@ -40,7 +57,10 @@ public class RolesEntitlementsPutTest extends CleanTest {
             AssertErrorHandler(e);
         }
 
-        persistent.call(Const.Api.ROLES_ID_ENTITLEMENTS_EID, BasicCall.REST.PUT, null, 1, 1);
+        // PUT same entitlement to role again.
+        persistent.call(
+                Const.Api.ROLES_ID_ENTITLEMENTS_EID,
+                BasicCall.REST.PUT);
 
         try {
             assertEquals("HTTP/1.1 204 No Content", persistent.getStatusLine());
@@ -48,5 +68,4 @@ public class RolesEntitlementsPutTest extends CleanTest {
             AssertErrorHandler(e);
         }
     }
-
 }

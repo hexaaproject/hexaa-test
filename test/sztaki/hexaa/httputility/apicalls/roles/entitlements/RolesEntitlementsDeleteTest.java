@@ -3,6 +3,7 @@ package sztaki.hexaa.httputility.apicalls.roles.entitlements;
 import org.json.JSONArray;
 import org.junit.BeforeClass;
 import org.junit.Test;
+import static org.junit.Assert.*;
 import org.skyscreamer.jsonassert.JSONAssert;
 import org.skyscreamer.jsonassert.JSONCompareMode;
 import org.skyscreamer.jsonassert.JSONParser;
@@ -12,9 +13,9 @@ import sztaki.hexaa.httputility.Utility;
 import sztaki.hexaa.httputility.apicalls.CleanTest;
 
 /**
- * Tests the GET method on the /api/roles/{id}/entitlements call.
+ * Tests the DELETE method on the /api/roles/{id}/entitlements/{eid} call.
  */
-public class RolesEntitlementsGet extends CleanTest {
+public class RolesEntitlementsDeleteTest extends CleanTest{
 
     /**
      * JSONArray to store the created roles.
@@ -39,27 +40,27 @@ public class RolesEntitlementsGet extends CleanTest {
 
         Utility.Link.entitlementsToRole(1, new int[]{1, 2});
     }
-
+    
     /**
-     * GETs the entitlements of the role.
+     * DELETE the entitlements of the role.
      */
     @Test
-    public void testRolesEntitlementsGet() {
-
-        JSONArray jsonResponseArray
-                = (JSONArray) JSONParser.parseJSON(
-                        persistent.call(
-                                Const.Api.ROLES_ID_ENTITLEMENTS,
-                                BasicCall.REST.GET));
-
+    public void testRolesEntitlementsDelete() {
+        entitlements.remove(0);
+        
+        persistent.call(
+                Const.Api.ROLES_ID_ENTITLEMENTS_EID,
+                BasicCall.REST.DEL);
+        
         try {
-            JSONAssert.assertEquals(
-                    entitlements.getJSONObject(0),
-                    jsonResponseArray.getJSONObject(0),
-                    JSONCompareMode.LENIENT);
+            System.out.println(persistent.getStatusLine());
+            assertEquals("HTTP/1.1 204 No Content", persistent.getStatusLine());
             JSONAssert.assertEquals(
                     entitlements,
-                    jsonResponseArray,
+                    (JSONArray) JSONParser.parseJSON(
+                            persistent.call(
+                                    Const.Api.ROLES_ID_ENTITLEMENTS,
+                                    BasicCall.REST.GET)),
                     JSONCompareMode.LENIENT);
         } catch (AssertionError e) {
             AssertErrorHandler(e);

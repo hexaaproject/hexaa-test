@@ -15,6 +15,6 @@ public class OrganizationEntitlementpacksPut extends OrganizationEntitlementpack
     @Test
     public void testOrganizationEntitlementpacksPut() {
         // Creates a link between an organization and an entitlementpack, and checks that it is pending
-        this.createPendingLink(1, new int[] {1});
+        this.createPendingLink(1, new int[]{1});
     }
 }

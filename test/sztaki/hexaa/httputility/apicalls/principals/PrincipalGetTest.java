@@ -12,6 +12,10 @@ import sztaki.hexaa.httputility.Const;
 import sztaki.hexaa.httputility.Utility;
 import sztaki.hexaa.httputility.apicalls.CleanTest;
 
+/**
+ * Tests the GET method on the /api/organizations/{id}/roles and /api/roles/{id}
+ * calls.
+ */
 public class PrincipalGetTest extends CleanTest {
 
     public static JSONArray organizations = new JSONArray();

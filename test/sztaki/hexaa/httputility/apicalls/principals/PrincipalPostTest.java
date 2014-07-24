@@ -12,10 +12,13 @@ import sztaki.hexaa.httputility.Const;
 import sztaki.hexaa.httputility.apicalls.CleanTest;
 
 /**
- * 
+ * Tests the POST method on the /app.php/api/principals call.
  */
 public class PrincipalPostTest extends CleanTest {
 
+    /**
+     * POST a new principal and verify it.
+     */
     @Test
     public void testPrincipalPost() {
         JSONObject json = new JSONObject();

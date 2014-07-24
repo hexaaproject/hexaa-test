@@ -14,14 +14,17 @@ import sztaki.hexaa.httputility.Utility;
 import sztaki.hexaa.httputility.apicalls.CleanTest;
 
 /**
- * Tests the PUT call on the /api/entitlements/{id}.
+ * Tests the PUT method on the /api/entitlements/{id} call.
  */
 public class EntitlementsPutTest extends CleanTest {
 
+    /**
+     * JSONArray to store the created entitlements.
+     */
     private static JSONArray entitlements = new JSONArray();
 
     /**
-     * Uses the Services class utilities to build services and entitlements.
+     * Creates one service and two entitlements.
      */
     @BeforeClass
     public static void setUpClass() {
