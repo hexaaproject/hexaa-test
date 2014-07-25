@@ -10,12 +10,13 @@ import sztaki.hexaa.httputility.Const;
 import sztaki.hexaa.httputility.Utility;
 import sztaki.hexaa.httputility.apicalls.CleanTest;
 
-public class ServicesAttributespecsPostTest extends CleanTest {
+/**
+ * Tests the PUT method on the /api/services/{id}/attributespecs/{asid} call.
+ */
+public class ServicesAttributespecsAddTest extends CleanTest {
 
     /**
-     * Uses the first 2 entityids specified in the /hexaa/app/parameters.yml
-     * file and creates a service for each and creates 2 attributespecs to work
-     * with as well.
+     * Creates two services and two attributespecs.
      */
     @BeforeClass
     public static void setUpClass() {
@@ -27,8 +28,8 @@ public class ServicesAttributespecsPostTest extends CleanTest {
      * Adds two attributespecs to one of the services and checks both of them.
      */
     @Test
-    public void testServicesAttributespecsPost() {
-        // POSTs the first attributespec to the first service
+    public void testServicesAttributespecsAdd() {
+        // PUT the first attributespec to the first service.
         persistent.call(
                 Const.Api.SERVICES_ID_ATTRIBUTESPECS_ASID,
                 BasicCall.REST.PUT,
@@ -51,7 +52,7 @@ public class ServicesAttributespecsPostTest extends CleanTest {
             AssertErrorHandler(e);
         }
 
-        // POSTs the second attributespec to the first service as well
+        // PUT the second attributespec to the first service as well.
         persistent.call(
                 Const.Api.SERVICES_ID_ATTRIBUTESPECS_ASID,
                 BasicCall.REST.PUT,

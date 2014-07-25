@@ -38,9 +38,17 @@ public class ServicesIsEmptyTest extends IsEmptyTest {
         expectingNotFound(
                 Const.Api.SERVICES_ID_ENTITLEMENTS,
                 BasicCall.REST.GET);
+        
+        expectingNotFound(
+                Const.Api.SERVICES_ID_INVITATIONS,
+                BasicCall.REST.GET);
 
         expectingNotFound(
                 Const.Api.SERVICES_ID_MANAGERS,
+                BasicCall.REST.GET);
+
+        expectingNotFound(
+                Const.Api.SERVICES_ID_ORGANIZATIONS,
                 BasicCall.REST.GET);
     }
 

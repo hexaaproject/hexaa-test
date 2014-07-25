@@ -32,9 +32,9 @@ public class Authenticator {
             BasicCall postToken = new BasicCall();
 
             JSONObject json = new JSONObject();
-            json.put("fedid", "ede91bt@gmail.com@partners.sztaki.hu");
+            json.put("fedid", Const.HEXAA_FEDID);
             json.put("apikey", this.getAPIKey());
-            json.put("email", "ede91bt@gmail.com@partners.sztaki.hu");
+            json.put("email", Const.HEXAA_FEDID);
             json.put("display_name", "ede91bt");
 
             System.out.println("Temporary API key acquired.");

@@ -27,6 +27,10 @@ public class Const {
      * The scheme required by the server.
      */
     public static final String HEXAA_SCHEME = ("http");
+    /**
+     * The fedid of the superadmin that we use for the tests.
+     */
+    public static final String HEXAA_FEDID = ("ede91bt@gmail.com@partners.sztaki.hu");
 
     /**
      * Contains the existing URL-s of the server.

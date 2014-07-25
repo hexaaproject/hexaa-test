@@ -17,6 +17,9 @@ import sztaki.hexaa.httputility.apicalls.CleanTest;
  */
 public class ServicesEntitlementpacksGetTest extends CleanTest {
 
+    /**
+     * JSONArray to store entitlementpacks.
+     */
     private static JSONArray entitlementpacks = new JSONArray();
 
     /**
@@ -27,13 +30,12 @@ public class ServicesEntitlementpacksGetTest extends CleanTest {
     public static void buildUp() {
         Utility.Create.services(new String[]{"testService1", "testService2"});
         entitlementpacks = Utility.Create.entitlementpacks(1, new String[]{"testEntitlementpacks1", "testEntitlementpacks2"});
-        JSONArray entitlementpacksTemp = Utility.Create.entitlementpacks(2, new String[]{"testEntitlementpacks3"});
-        entitlementpacks.put(entitlementpacksTemp.getJSONObject(0));
+        entitlementpacks.put(Utility.Create.entitlementpacks(2, new String[]{"testEntitlementpacks3"}).getJSONObject(0));
     }
 
     /**
      * Calls GET /api/services/{id}/entitlements on the 2 services to get the 3
-     * enttitlements created in the buildUp().
+     * enttitlements.
      */
     @Test
     public void testServicesEntitlementsGet() {

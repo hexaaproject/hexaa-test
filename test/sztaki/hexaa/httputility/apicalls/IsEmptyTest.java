@@ -5,6 +5,7 @@ import org.json.JSONObject;
 import static org.junit.Assert.*;
 import org.skyscreamer.jsonassert.JSONParser;
 import sztaki.hexaa.httputility.BasicCall.REST;
+import sztaki.hexaa.httputility.Const;
 import static sztaki.hexaa.httputility.apicalls.CleanTest.persistent;
 
 /**
@@ -70,7 +71,7 @@ public abstract class IsEmptyTest extends CleanTest {
             try {
                 assertEquals("HTTP/1.1 200 OK", persistent.getStatusLine());
                 assertEquals(
-                        "ede91bt@gmail.com@partners.sztaki.hu",
+                        Const.HEXAA_FEDID,
                         jsonResponse.getJSONObject(0).getString("fedid"));
             } catch (AssertionError e) {
                 AssertErrorHandler(e);
@@ -82,7 +83,7 @@ public abstract class IsEmptyTest extends CleanTest {
             try {
                 assertEquals("HTTP/1.1 200 OK", persistent.getStatusLine());
                 assertEquals(
-                        "ede91bt@gmail.com@partners.sztaki.hu",
+                        Const.HEXAA_FEDID,
                         jsonResponse.getString("fedid"));
             } catch (AssertionError e) {
                 AssertErrorHandler(e);

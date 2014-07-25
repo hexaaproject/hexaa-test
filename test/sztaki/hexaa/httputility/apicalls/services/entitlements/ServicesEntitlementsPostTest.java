@@ -18,11 +18,13 @@ import sztaki.hexaa.httputility.apicalls.CleanTest;
  */
 public class ServicesEntitlementsPostTest extends CleanTest {
 
+    /**
+     * JSONArray to store entitlements.
+     */
     private static JSONArray entitlemenets = new JSONArray();
 
     /**
-     * Uses the first 2 entityids specified in the /hexaa/app/parameters.yml
-     * file and creates a service for each.
+     * Creates two services.
      */
     @BeforeClass
     public static void setUpClass() {

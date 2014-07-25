@@ -1,6 +1,8 @@
 package sztaki.hexaa.httputility.apicalls;
 
 import java.util.ArrayList;
+import org.json.JSONArray;
+import org.json.JSONObject;
 import org.junit.BeforeClass;
 import org.junit.Rule;
 import org.junit.rules.ErrorCollector;
@@ -21,6 +23,56 @@ public class CleanTest {
      * to get the last calls status line for additional information.
      */
     static protected BasicCall persistent = new BasicCall();
+
+    /**
+     * The error code after the checkArrayError or checkObjectError.
+     */
+    static protected int errorCode = 0;
+
+    /**
+     * The error message after the checkArrayError or checkObjectError.
+     */
+    static protected String errorMsg = new String();
+
+    /**
+     * Check if the object is a JSONObject or not, true if there is some problem
+     * and sets the error code and message in the case of an error.
+     *
+     * @param json an object to decide if its a valid JSONArray or not.
+     * @return true if there is an error, false if there is no problem.
+     */
+    public static boolean checkObjectError(Object json) {
+        if (json instanceof JSONArray) {
+            errorMsg = ((JSONObject) json).getString("message");
+            errorCode = ((JSONObject) json).getInt("code");
+
+            return true;
+        } else if (json instanceof JSONObject) {
+            return false;
+        } else {
+            return true;
+        }
+    }
+
+    /**
+     * Check if the object is a JSONArray or not, true if there is some problem
+     * and sets the error code and message in the case of an error.
+     *
+     * @param json an object to decide if its a valid JSONArray or not.
+     * @return true if there is an error, false if there is no problem.
+     */
+    public static boolean checkArrayError(Object json) {
+        if (json instanceof JSONObject) {
+            errorMsg = ((JSONObject) json).getString("message");
+            errorCode = ((JSONObject) json).getInt("code");
+
+            return true;
+        } else if (json instanceof JSONArray) {
+            return false;
+        } else {
+            return true;
+        }
+    }
 
     /**
      * This Rule allows the TestErrorCollector to bypass the AssertationErrors

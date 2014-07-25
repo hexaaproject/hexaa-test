@@ -14,20 +14,21 @@ import sztaki.hexaa.httputility.Utility;
 import sztaki.hexaa.httputility.apicalls.CleanTest;
 
 /**
- * Tests the POST method on the /api/services/{id}/entitlementpacks call with
- * more services and entitlementpacks.
+ * Tests the POST method on the /api/services/{id}/entitlementpacks call.
  */
 public class ServicesEntitlementpacksPostTest extends CleanTest {
 
+    /**
+     * JSONArray to store entitlementpacks.
+     */
     private static JSONArray entitlemenetpacks = new JSONArray();
 
     /**
-     * Uses the first 2 entityids specified in the /hexaa/app/parameters.yml
-     * file and creates a service for each.
+     * Creates two services.
      */
     @BeforeClass
     public static void buildUp() {
-        Utility.Create.services(new String[] {"testService1","testService2"});
+        Utility.Create.services(new String[]{"testService1", "testService2"});
     }
 
     /**

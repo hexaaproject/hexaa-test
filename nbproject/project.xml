@@ -14,6 +14,7 @@
         <references xmlns="http://www.netbeans.org/ns/ant-project-references/1"/>
         <spellchecker-wordlist xmlns="http://www.netbeans.org/ns/spellchecker-wordlist/1">
             <word>api</word>
+            <word>app</word>
             <word>asid</word>
             <word>attributespec</word>
             <word>attributespecification</word>
@@ -25,11 +26,16 @@
             <word>attributevalueprincipals</word>
             <word>entitlementpack</word>
             <word>entitlementpacks</word>
+            <word>entityids</word>
             <word>fedid</word>
+            <word>fedids</word>
+            <word>hexaa</word>
             <word>oid</word>
             <word>oids</word>
+            <word>superadmin</word>
             <word>uri</word>
             <word>url</word>
+            <word>yml</word>
         </spellchecker-wordlist>
     </configuration>
 </project>

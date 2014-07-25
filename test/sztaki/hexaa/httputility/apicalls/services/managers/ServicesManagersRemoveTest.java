@@ -4,6 +4,7 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 import org.junit.BeforeClass;
 import org.junit.Test;
+import static org.junit.Assert.*;
 import org.skyscreamer.jsonassert.JSONAssert;
 import org.skyscreamer.jsonassert.JSONCompareMode;
 import org.skyscreamer.jsonassert.JSONParser;
@@ -13,9 +14,9 @@ import sztaki.hexaa.httputility.Utility;
 import sztaki.hexaa.httputility.apicalls.CleanTest;
 
 /**
- * Tests the GET method on the /api/services/{id}/managers call.
+ * Tests the DELETE method on the /api/services/{id}/managers call.
  */
-public class ServicesManagersGetTest extends CleanTest {
+public class ServicesManagersRemoveTest extends CleanTest {
 
     /**
      * JSONArray to store managers.
@@ -35,11 +36,21 @@ public class ServicesManagersGetTest extends CleanTest {
     }
 
     /**
-     * GET managers on both services.
+     * Remove the first test manager from the first service, then GET managers
+     * on both services.
      */
     @Test
-    public void testServicesManagersGet() {
+    public void testServicesManagersRemove() {
+        // DELETE call
+        persistent.call(
+                Const.Api.SERVICES_ID_MANAGERS_PID,
+                BasicCall.REST.DEL,
+                null,
+                1, 2);
+        managers.remove(0);
+        
         try {
+            assertEquals("HTTP/1.1 204 No Content", persistent.getStatusLine());
             JSONAssert.assertEquals(
                     managers,
                     (JSONArray) JSONParser.parseJSON(
@@ -48,7 +59,7 @@ public class ServicesManagersGetTest extends CleanTest {
                                     BasicCall.REST.GET)),
                     JSONCompareMode.LENIENT);
             JSONAssert.assertEquals(
-                    managers.getJSONObject(2),
+                    managers.getJSONObject(1),
                     ((JSONArray) JSONParser.parseJSON(
                             persistent.call(
                                     Const.Api.SERVICES_ID_MANAGERS,

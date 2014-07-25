@@ -4,6 +4,7 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 import org.junit.BeforeClass;
 import org.junit.Test;
+import static org.junit.Assert.*;
 import org.skyscreamer.jsonassert.JSONAssert;
 import org.skyscreamer.jsonassert.JSONCompareMode;
 import org.skyscreamer.jsonassert.JSONParser;
@@ -13,9 +14,9 @@ import sztaki.hexaa.httputility.Utility;
 import sztaki.hexaa.httputility.apicalls.CleanTest;
 
 /**
- * Tests the GET method on the /api/services/{id}/managers call.
+ * Tests the PUT method on the /api/services/{id}/managers/{pid} call.
  */
-public class ServicesManagersGetTest extends CleanTest {
+public class ServicesManagersAddTest extends CleanTest {
 
     /**
      * JSONArray to store managers.
@@ -23,23 +24,38 @@ public class ServicesManagersGetTest extends CleanTest {
     public static JSONArray managers = new JSONArray();
 
     /**
-     * Creates two services and two managers and link the two managers to the
-     * first service.
+     * Creates two services and two principals.
      */
     @BeforeClass
     public static void setUpClass() {
         Utility.Create.services(new String[]{"testService1", "testService2"});
         managers = Utility.Create.principals(new String[]{"principalTest1", "principalTest2"});
         managers.put((JSONObject) JSONParser.parseJSON(persistent.call(Const.Api.PRINCIPAL_SELF, BasicCall.REST.GET)));
-        Utility.Link.managersToService(1, new int[]{2, 3});
     }
 
-    /**
-     * GET managers on both services.
-     */
     @Test
-    public void testServicesManagersGet() {
+    public void testServicesManagersAdd() {
+        // PUT the first manager.
+        persistent.call(
+                Const.Api.SERVICES_ID_MANAGERS_PID,
+                BasicCall.REST.PUT,
+                null,
+                1, 2);
         try {
+            assertEquals("HTTP/1.1 201 Created", persistent.getStatusLine());
+        } catch (AssertionError e) {
+            AssertErrorHandler(e);
+        }
+
+        // PUT the second manager
+        persistent.call(
+                Const.Api.SERVICES_ID_MANAGERS_PID,
+                BasicCall.REST.PUT,
+                null,
+                1, 3);
+
+        try {
+            assertEquals("HTTP/1.1 201 Created", persistent.getStatusLine());
             JSONAssert.assertEquals(
                     managers,
                     (JSONArray) JSONParser.parseJSON(
@@ -47,15 +63,7 @@ public class ServicesManagersGetTest extends CleanTest {
                                     Const.Api.SERVICES_ID_MANAGERS,
                                     BasicCall.REST.GET)),
                     JSONCompareMode.LENIENT);
-            JSONAssert.assertEquals(
-                    managers.getJSONObject(2),
-                    ((JSONArray) JSONParser.parseJSON(
-                            persistent.call(
-                                    Const.Api.SERVICES_ID_MANAGERS,
-                                    BasicCall.REST.GET,
-                                    null,
-                                    2, 2))).getJSONObject(0),
-                    JSONCompareMode.LENIENT);
+
         } catch (AssertionError e) {
             AssertErrorHandler(e);
         }

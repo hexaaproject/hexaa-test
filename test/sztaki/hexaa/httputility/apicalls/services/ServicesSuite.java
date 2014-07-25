@@ -3,11 +3,11 @@ package sztaki.hexaa.httputility.apicalls.services;
 import org.junit.runner.RunWith;
 import org.junit.runners.Suite;
 import sztaki.hexaa.httputility.apicalls.BasicTestSuite;
-import sztaki.hexaa.httputility.apicalls.services.attributespecs.ServicesAttributespecsGetTest;
-import sztaki.hexaa.httputility.apicalls.services.attributespecs.ServicesAttributespecsPostTest;
+import sztaki.hexaa.httputility.apicalls.services.attributespecs.*;
 import sztaki.hexaa.httputility.apicalls.services.entitlementpacks.*;
 import sztaki.hexaa.httputility.apicalls.services.entitlements.*;
-import sztaki.hexaa.httputility.apicalls.services.managers.ServicesManagersGetTest;
+import sztaki.hexaa.httputility.apicalls.services.managers.*;
+import sztaki.hexaa.httputility.apicalls.services.organizations.*;
 
 /**
  * TestSuite for the Services related test cases, runs them all and does the
@@ -15,14 +15,20 @@ import sztaki.hexaa.httputility.apicalls.services.managers.ServicesManagersGetTe
  */
 @RunWith(Suite.class)
 @Suite.SuiteClasses({
-    ServicesGetTest.class,
     ServicesPostTest.class,
+    ServicesGetTest.class,
+    ServicesDeleteTest.class,
+    ServicesPutTest.class,
+    ServicesAttributespecsAddTest.class,
     ServicesAttributespecsGetTest.class,
-    ServicesAttributespecsPostTest.class,
-    ServicesEntitlementpacksGetTest.class,
+    ServicesAttributespecsRemoveTest.class,
     ServicesEntitlementpacksPostTest.class,
-    ServicesEntitlementsGetTest.class,
+    ServicesEntitlementpacksGetTest.class,
     ServicesEntitlementsPostTest.class,
-    ServicesManagersGetTest.class})
+    ServicesEntitlementsGetTest.class,
+    ServicesManagersAddTest.class,
+    ServicesManagersGetTest.class,
+    ServicesManagersRemoveTest.class,
+    ServicesOrganizationsGetTest.class,})
 public class ServicesSuite extends BasicTestSuite {
 }

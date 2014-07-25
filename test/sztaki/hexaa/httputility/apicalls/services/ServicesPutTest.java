@@ -1,4 +1,4 @@
-package sztaki.hexaa.httputility.apicalls.roles;
+package sztaki.hexaa.httputility.apicalls.services;
 
 import org.json.JSONArray;
 import org.junit.BeforeClass;
@@ -13,45 +13,44 @@ import sztaki.hexaa.httputility.Utility;
 import sztaki.hexaa.httputility.apicalls.CleanTest;
 
 /**
- * Tests the PUT method on the /api/roles/{id} call.
+ * Tests the PUT method on the /api/services/{id} call.
  */
-public class RolesPutTest extends CleanTest {
+public class ServicesPutTest extends CleanTest {
 
     /**
-     * JSONArray to store the created roles.
+     * JSONArray to store the created services.
      */
-    public static JSONArray roles = new JSONArray();
+    public static JSONArray services = new JSONArray();
 
     /**
-     * Creates one organizations and two roles.
+     * Creates two services.
      */
     @BeforeClass
     public static void setUpClass() {
-        Utility.Create.organizations(new String[]{"testOrgForRoleDel"});
-        roles = Utility.Create.roles(new String[]{"testRole1", "testRole2"}, 1);
+        services = Utility.Create.services(new String[]{"testService1", "testService2"});
     }
 
     /**
-     * PUTs the first role and checks that only the first one was modified and
+     * PUTs the first service and checks that only the first one was modified and
      * the second one is the original.
      */
     @Test
-    public void testRolesPut() {
+    public void testRolesDelete() {
         // Modify the first role
-        roles.getJSONObject(0).put("name", "modifiedByPut1");
+        services.getJSONObject(0).put("name", "modifiedByPut1");
 
         persistent.call(
-                Const.Api.ROLES_ID,
+                Const.Api.SERVICES_ID,
                 BasicCall.REST.PUT,
-                roles.getJSONObject(0).toString());
+                services.getJSONObject(0).toString());
 
         try {
             assertEquals("HTTP/1.1 204 No Content", persistent.getStatusLine());
             JSONAssert.assertEquals(
-                    roles,
+                    services,
                     (JSONArray) JSONParser.parseJSON(
                             persistent.call(
-                                    Const.Api.ORGANIZATIONS_ID_ROLES,
+                                    Const.Api.SERVICES,
                                     BasicCall.REST.GET)),
                     JSONCompareMode.LENIENT);
         } catch (AssertionError e) {

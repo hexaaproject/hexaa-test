@@ -38,13 +38,21 @@ public class AttributespecsGetTest extends CleanTest {
     @Test
     public void testAttributespecsGetByID() {
         // Get the attributespec.
-        JSONObject jsonResponse
-                = (JSONObject) JSONParser.parseJSON(
+        Object response
+                = JSONParser.parseJSON(
                         persistent.call(
                                 Const.Api.ATTRIBUTESPECS_ID,
                                 BasicCall.REST.GET,
                                 null,
                                 2, 0));
+
+        if (this.checkObjectError(response)) {
+            System.out.println(errorCode + " " + errorMsg);
+            fail(errorCode + " " + errorMsg);
+        }
+
+        JSONObject jsonResponse = (JSONObject) response;
+
         try {
             JSONAssert.assertEquals((JSONObject) attributespecs.get(1),
                     jsonResponse, false);
@@ -60,12 +68,18 @@ public class AttributespecsGetTest extends CleanTest {
     @Test
     public void testAttributespecsArray() {
         // GET the array.
-        JSONArray jsonResponse
-                = (JSONArray) JSONParser.parseJSON(
+        Object response
+                = JSONParser.parseJSON(
                         persistent.call(
                                 Const.Api.ATTRIBUTESPECS,
                                 BasicCall.REST.GET));
 
+        if (this.checkArrayError(response)) {
+            System.out.println(errorCode + " " + errorMsg);
+            fail(errorCode + " " + errorMsg);
+        }
+
+        JSONArray jsonResponse = (JSONArray) response;
         try {
 
             JSONAssert.assertEquals(

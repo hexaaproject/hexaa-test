@@ -13,19 +13,17 @@ import sztaki.hexaa.httputility.Utility;
 import sztaki.hexaa.httputility.apicalls.CleanTest;
 
 /**
- * Tests the GET methods on the /api/services and /api/services/{id} calls after
- * a sample database (with 2 services) have been built.
+ * Tests the GET methods on the /api/services and /api/services/{id} calls.
  */
 public class ServicesGetTest extends CleanTest {
 
     /**
-     * JSONArray for a local reference of the objects on the server for asserts.
+     * JSONArray to store the created services.
      */
     private static JSONArray services = new JSONArray();
 
     /**
-     * Uses the first 2 entityids specified in the /hexaa/app/parameters.yml
-     * file and creates a service for each.
+     * Creates two services.
      */
     @BeforeClass
     public static void setUpClass() {

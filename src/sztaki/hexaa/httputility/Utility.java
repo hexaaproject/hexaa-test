@@ -249,8 +249,12 @@ public class Utility {
                 JSONObject json = new JSONObject();
                 json.put("fedid", fedid);
                 json.put("email", fedid + "@email.something");
+                json.put("display_name", fedid + "_name");
 
-                persistent.call(Const.Api.PRINCIPALS, BasicCall.REST.POST, json.toString());
+                persistent.call(
+                        Const.Api.PRINCIPALS,
+                        BasicCall.REST.POST,
+                        json.toString());
                 if (persistent.getStatusLine().contains("201")) {
                     response.put(json);
                 }
@@ -393,6 +397,41 @@ public class Utility {
                         roleId, id);
             }
 
+        }
+
+        /**
+         * Links already existing attributespecs specified in the attributeIds
+         * array to the existing service specified by the serviceId.
+         *
+         * @param serviceId the id of the service to link to.
+         * @param attributeIds the ids of the attributespecs to link.
+         */
+        public static void attributespecsToService(int serviceId, int[] attributeIds) {
+            for (int asid : attributeIds) {
+                persistent.call(
+                        Const.Api.SERVICES_ID_ATTRIBUTESPECS_ASID,
+                        BasicCall.REST.PUT,
+                        null,
+                        serviceId, asid);
+            }
+        }
+
+        /**
+         * Links already existing principals (as managers) specified in the
+         * attributeIds array to the existing service specified by the
+         * serviceId.
+         *
+         * @param serviceId the id of the service to link to.
+         * @param principalIds the ids of the principals to link.
+         */
+        public static void managersToService(int serviceId, int[] principalIds) {
+            for (int pid : principalIds) {
+                persistent.call(
+                        Const.Api.SERVICES_ID_MANAGERS_PID,
+                        BasicCall.REST.PUT,
+                        null,
+                        serviceId, pid);
+            }
         }
     }
 }

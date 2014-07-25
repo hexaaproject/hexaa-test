@@ -12,23 +12,23 @@ import sztaki.hexaa.httputility.Utility;
 import sztaki.hexaa.httputility.apicalls.CleanTest;
 
 /**
- * Tests the GET method on the /api/services/{id}/entitlements call with more
- * services and entitlements.
+ * Tests the GET method on the /api/services/{id}/entitlements call.
  */
 public class ServicesEntitlementsGetTest extends CleanTest {
 
+    /**
+     * JSONArray to store entitlements.
+     */
     private static JSONArray entitlements = new JSONArray();
 
     /**
-     * Uses the first 2 entityids specified in the /hexaa/app/parameters.yml
-     * file and creates a service for each.
+     * Creates 2 services and 3 entitlements.
      */
     @BeforeClass
     public static void setUpClass() {
         Utility.Create.services(new String[]{"testService1", "testService2"});
         entitlements = Utility.Create.entitlements(1, new String[]{"testEntitlements1", "testEntitlements2"});
-        JSONArray entitlementsTemp = Utility.Create.entitlements(2, new String[]{"testEntitlements3"});
-        entitlements.put(entitlementsTemp.getJSONObject(0));
+        entitlements.put(Utility.Create.entitlements(2, new String[]{"testEntitlements3"}).getJSONObject(0));
     }
 
     /**

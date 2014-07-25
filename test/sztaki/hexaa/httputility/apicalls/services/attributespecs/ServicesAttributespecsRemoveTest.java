@@ -1,9 +1,9 @@
 package sztaki.hexaa.httputility.apicalls.services.attributespecs;
 
 import org.json.JSONArray;
-import static org.junit.Assert.*;
 import org.junit.BeforeClass;
 import org.junit.Test;
+import static org.junit.Assert.*;
 import org.skyscreamer.jsonassert.JSONParser;
 import sztaki.hexaa.httputility.BasicCall;
 import sztaki.hexaa.httputility.Const;
@@ -11,9 +11,9 @@ import sztaki.hexaa.httputility.Utility;
 import sztaki.hexaa.httputility.apicalls.CleanTest;
 
 /**
- * Tests the GET method on the /api/services/{id}/attributespecs call.
+ * Tests the DELETE method on the /api/services/{id}/attributespecs/{asid} call.
  */
-public class ServicesAttributespecsGetTest extends CleanTest {
+public class ServicesAttributespecsRemoveTest extends CleanTest {
 
     /**
      * Creates two services, two attributespecs and links them together.
@@ -26,22 +26,17 @@ public class ServicesAttributespecsGetTest extends CleanTest {
     }
 
     /**
-     * GET the 2 services attributespecs and checks if they are with the correct
-     * id.
+     * DELETE(remove) one of the attributespecs from the first service, and
+     * check both services.
      */
     @Test
-    public void testServicesAttributespecsGet() {
+    public void testServicesAttributespecsRemove() {
+        persistent.call(
+                Const.Api.SERVICES_ID_ATTRIBUTESPECS_ASID,
+                BasicCall.REST.DEL);
+
         try {
-            assertEquals(
-                    "1",
-                    ((JSONArray) JSONParser.parseJSON(
-                            persistent.call(
-                                    Const.Api.SERVICES_ID_ATTRIBUTESPECS,
-                                    BasicCall.REST.GET,
-                                    null,
-                                    1, 1)))
-                    .getJSONObject(0).getString("attribute_spec_id"));
-            assertEquals("HTTP/1.1 200 OK", persistent.getStatusLine());
+            assertEquals("HTTP/1.1 204 No Content", persistent.getStatusLine());
             assertEquals(
                     "2",
                     ((JSONArray) JSONParser.parseJSON(
@@ -50,7 +45,7 @@ public class ServicesAttributespecsGetTest extends CleanTest {
                                     BasicCall.REST.GET,
                                     null,
                                     1, 1)))
-                    .getJSONObject(1).getString("attribute_spec_id"));
+                    .getJSONObject(0).getString("attribute_spec_id"));
             assertEquals("HTTP/1.1 200 OK", persistent.getStatusLine());
             assertEquals(
                     "[]",
