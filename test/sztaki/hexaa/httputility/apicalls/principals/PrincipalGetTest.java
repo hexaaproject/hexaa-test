@@ -1,8 +1,10 @@
 package sztaki.hexaa.httputility.apicalls.principals;
 
 import org.json.JSONArray;
+import org.json.JSONObject;
 import static org.junit.Assert.*;
 import org.junit.BeforeClass;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.skyscreamer.jsonassert.JSONAssert;
 import org.skyscreamer.jsonassert.JSONCompareMode;
@@ -18,14 +20,22 @@ import sztaki.hexaa.httputility.apicalls.CleanTest;
  */
 public class PrincipalGetTest extends CleanTest {
 
+    public static JSONArray managers = new JSONArray();
     public static JSONArray organizations = new JSONArray();
     public static JSONArray services = new JSONArray();
+    public static JSONArray attributespecs = new JSONArray();
 
     @BeforeClass
     public static void setUpClass() {
         organizations = Utility.Create.organizations(new String[]{"testOrgForPrincGet"});
         services = Utility.Create.services(new String[]{"testServForPrincGet"});
+        attributespecs = Utility.Create.attributespecs(new String[]{"testAttrSpec"});
+        Utility.Link.attributespecsToService(1, new int[]{1});
 
+        managers = (JSONArray) JSONParser.parseJSON(
+                persistent.call(
+                        Const.Api.PRINCIPALS,
+                        BasicCall.REST.GET));
     }
 
     @Test
@@ -76,8 +86,41 @@ public class PrincipalGetTest extends CleanTest {
         }
     }
 
+    @Ignore
     @Test
-    public void testPrincipalGet() {
-        //TODO
+    public void testPrincipalGetAttributespecs() {
+        JSONArray jsonResponse
+                = (JSONArray) JSONParser.parseJSON(
+                        persistent.call(
+                                Const.Api.PRINCIPAL_ATTRIBUTESPECS,
+                                BasicCall.REST.GET));
+
+        try {
+            assertEquals("HTTP/1.1 200 OK", persistent.getStatusLine());
+            JSONAssert.assertEquals(attributespecs, jsonResponse, JSONCompareMode.LENIENT);
+        } catch (AssertionError e) {
+            AssertErrorHandler(e);
+        }
+    }
+
+    @Test
+    public void testPrincipalGetIsAdmin() {
+        JSONObject jsonResponse
+                = (JSONObject) JSONParser.parseJSON(
+                        persistent.call(
+                                Const.Api.PRINCIPAL_ISADMIN,
+                                BasicCall.REST.GET));
+
+        try {
+            assertEquals("HTTP/1.1 200 OK", persistent.getStatusLine());
+            assertEquals(true, jsonResponse.getBoolean("is_admin"));
+        } catch (AssertionError e) {
+            AssertErrorHandler(e);
+        }
+    }
+    
+    @Test
+    public void testPrincipalGetNotAdmin () {
+        
     }
 }

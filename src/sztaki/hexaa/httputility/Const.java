@@ -30,7 +30,7 @@ public class Const {
     /**
      * The fedid of the superadmin that we use for the tests.
      */
-    public static final String HEXAA_FEDID = ("ede91bt@gmail.com@partners.sztaki.hu");
+    public static final String HEXAA_FEDID = ("tesztAdmin@sztaki.hu");
 
     /**
      * Contains the existing URL-s of the server.
