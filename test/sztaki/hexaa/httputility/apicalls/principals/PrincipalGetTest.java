@@ -9,6 +9,7 @@ import org.junit.Test;
 import org.skyscreamer.jsonassert.JSONAssert;
 import org.skyscreamer.jsonassert.JSONCompareMode;
 import org.skyscreamer.jsonassert.JSONParser;
+import sztaki.hexaa.httputility.Authenticator;
 import sztaki.hexaa.httputility.BasicCall;
 import sztaki.hexaa.httputility.Const;
 import sztaki.hexaa.httputility.Utility;
@@ -121,6 +122,23 @@ public class PrincipalGetTest extends CleanTest {
     
     @Test
     public void testPrincipalGetNotAdmin () {
+        new Authenticator().authenticate("admin@is.not");
         
+        JSONObject jsonResponse
+                = (JSONObject) JSONParser.parseJSON(
+                        persistent.call(
+                                Const.Api.PRINCIPAL_ISADMIN,
+                                BasicCall.REST.GET));
+
+        try {
+            assertEquals("HTTP/1.1 200 OK", persistent.getStatusLine());
+            assertEquals(false, jsonResponse.getBoolean("is_admin"));
+        } catch (AssertionError e) {
+            AssertErrorHandler(e);
+        }
+        
+        System.out.println(persistent.call(Const.Api.PRINCIPALS, BasicCall.REST.GET));
+        
+        new Authenticator().authenticate(Const.HEXAA_FEDID);
     }
 }

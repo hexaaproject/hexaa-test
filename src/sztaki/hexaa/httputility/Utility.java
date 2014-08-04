@@ -401,17 +401,27 @@ public class Utility {
 
         /**
          * Links already existing attributespecs specified in the attributeIds
-         * array to the existing service specified by the serviceId.
+         * array to the existing service specified by the serviceId. If the
+         * service id is odd the attributespec will be public, if even it will
+         * be private.
          *
          * @param serviceId the id of the service to link to.
          * @param attributeIds the ids of the attributespecs to link.
          */
         public static void attributespecsToService(int serviceId, int[] attributeIds) {
+            JSONObject json = new JSONObject();
+
+            if (serviceId % 2 == 1) {
+                json.put("is_public", true);
+            } else {
+                json.put("is_public", false);
+            }
+
             for (int asid : attributeIds) {
                 persistent.call(
                         Const.Api.SERVICES_ID_ATTRIBUTESPECS_ASID,
                         BasicCall.REST.PUT,
-                        null,
+                        json.toString(),
                         serviceId, asid);
             }
         }

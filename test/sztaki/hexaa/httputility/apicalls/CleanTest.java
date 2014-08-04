@@ -9,6 +9,7 @@ import org.junit.rules.ErrorCollector;
 import org.junit.runners.model.MultipleFailureException;
 import sztaki.hexaa.httputility.Authenticator;
 import sztaki.hexaa.httputility.BasicCall;
+import sztaki.hexaa.httputility.Const;
 import sztaki.hexaa.httputility.DatabaseManipulator;
 
 /**
@@ -91,7 +92,7 @@ public class CleanTest {
     public static void cleanDB() {
         System.out.println("BeforeClass @ CleanTest");
         new DatabaseManipulator().dropDatabase();
-        new Authenticator().authenticate();
+        new Authenticator().authenticate(Const.HEXAA_FEDID);
     }
 
     //UNUSED

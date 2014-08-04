@@ -19,23 +19,26 @@ public class Authenticator {
      * Checks if the session is authenticated or not, and authenticates if
      * necessary. Gets a short time limited API key and uses the /api/token GET
      * method to get the usual 1 hour limited API key.
+     *
+     * @param fedid the fedid we want to authenticate with, normally the fedid
+     * is the {@link Const.HEXAA_FEDID}
      */
-    public void authenticate() {
+    public void authenticate(String fedid) {
         // We check the current connection, if we don't get 
         String response = new BasicCall().call(Const.Api.PRINCIPAL_SELF, REST.GET);
         System.out.println(response);
 
         // If the response is Forbidden, we start the authentication
-        if (response.contains("401") || response.contains("403") || response.contains("404")) {
+        if (!response.contains(fedid)) {
             System.out.println("Getting temporary API key.");
 
             BasicCall postToken = new BasicCall();
 
             JSONObject json = new JSONObject();
-            json.put("fedid", Const.HEXAA_FEDID);
+            json.put("fedid", fedid);
             json.put("apikey", this.getAPIKey());
-            json.put("email", Const.HEXAA_FEDID);
-            json.put("display_name", "ede91bt");
+            json.put("email", fedid);
+            json.put("display_name", fedid + "_name");
 
             System.out.println("Temporary API key acquired.");
 
