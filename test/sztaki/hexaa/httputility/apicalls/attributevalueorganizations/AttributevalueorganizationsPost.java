@@ -27,7 +27,7 @@ public class AttributevalueorganizationsPost extends CleanTest {
                 new String[]{
                     "testAttributespecs1",
                     "testAttributespecs2"});
-        Utility.Create.organizations(new String[]{"testForAtt"});
+        Utility.Create.organization(new String[]{"testForAtt"});
     }
 
     /**

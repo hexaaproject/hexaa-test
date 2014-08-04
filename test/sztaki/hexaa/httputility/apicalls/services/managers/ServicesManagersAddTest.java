@@ -24,12 +24,12 @@ public class ServicesManagersAddTest extends CleanTest {
     public static JSONArray managers = new JSONArray();
 
     /**
-     * Creates two services and two principals.
+     * Creates two services and two principal.
      */
     @BeforeClass
     public static void setUpClass() {
         Utility.Create.services(new String[]{"testService1", "testService2"});
-        managers = Utility.Create.principals(new String[]{"principalTest1", "principalTest2"});
+        managers = Utility.Create.principal(new String[]{"principalTest1", "principalTest2"});
         managers.put((JSONObject) JSONParser.parseJSON(persistent.call(Const.Api.PRINCIPAL_SELF, BasicCall.REST.GET)));
     }
 

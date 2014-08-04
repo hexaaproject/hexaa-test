@@ -16,7 +16,7 @@ import sztaki.hexaa.httputility.Utility;
 import sztaki.hexaa.httputility.apicalls.CleanTest;
 
 /**
- * Tests the POST method on the /api/organizations/{id}/roles call.
+ * Tests the POST method on the /api/organization/{id}/roles call.
  */
 public class RolesPostTest extends CleanTest {
 
@@ -25,7 +25,7 @@ public class RolesPostTest extends CleanTest {
      */
     @BeforeClass
     public static void setUpClass() {
-        Utility.Create.organizations(new String[]{"testOrgForRole1"});
+        Utility.Create.organization(new String[]{"testOrgForRole1"});
     }
 
     /**

@@ -23,7 +23,7 @@ public class ServicesDeleteTest extends CleanTest {
     public static JSONArray services = new JSONArray();
 
     /**
-     * Creates one organizations and two services.
+     * Creates one organization and two services.
      */
     @BeforeClass
     public static void setUpClass() {

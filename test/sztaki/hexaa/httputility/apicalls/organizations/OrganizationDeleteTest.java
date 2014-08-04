@@ -14,21 +14,21 @@ import sztaki.hexaa.httputility.Utility;
 import sztaki.hexaa.httputility.apicalls.CleanTest;
 
 /**
- * Tests the DELETE method on the /api/organizations/{id} call.
+ * Tests the DELETE method on the /api/organization/{id} call.
  */
 public class OrganizationDeleteTest extends CleanTest {
 
     /**
-     * JSONArray to store the created organizations.
+     * JSONArray to store the created organization.
      */
     public static JSONArray organizations = new JSONArray();
 
     /**
-     * Creates 2 organizations.
+     * Creates 2 organization.
      */
     @BeforeClass
     public static void setUpClass() {
-        organizations = Utility.Create.organizations(
+        organizations = Utility.Create.organization(
                 new String[]{
                     "TestOrgName1",
                     "TestOrgName2,",});

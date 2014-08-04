@@ -14,29 +14,29 @@ import sztaki.hexaa.httputility.Utility;
 import sztaki.hexaa.httputility.apicalls.CleanTest;
 
 /**
- * Tests the PUT method on the /api/organizations/{id} call.
+ * Tests the PUT method on the /api/organization/{id} call.
  */
 public class OrganizationPutTest extends CleanTest {
 
     /**
-     * JSONArray to store the created organizations.
+     * JSONArray to store the created organization.
      */
     public static JSONArray organizations = new JSONArray();
 
     /**
-     * Creates 2 organizations.
+     * Creates 2 organization.
      */
     @BeforeClass
     public static void setUpClass() {
-        organizations = Utility.Create.organizations(
+        organizations = Utility.Create.organization(
                 new String[]{
                     "TestOrgName1",
                     "TestOrgName2,",});
     }
 
     /**
-     * Modifies one of the two existing organizations and verifies the change of
-     * its name, and the unchanged second one as well.
+     * Modifies one of the two existing organization and verifies the change of
+ its name, and the unchanged second one as well.
      */
     @Test
     public void testOrganizationPut() {

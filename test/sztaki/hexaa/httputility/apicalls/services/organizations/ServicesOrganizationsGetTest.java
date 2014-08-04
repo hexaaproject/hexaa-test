@@ -11,7 +11,7 @@ import sztaki.hexaa.httputility.Utility;
 import sztaki.hexaa.httputility.apicalls.CleanTest;
 
 /**
- * Tests the GET method on the /api/services/{id}/organizations call.
+ * Tests the GET method on the /api/services/{id}/organization call.
  */
 public class ServicesOrganizationsGetTest extends CleanTest {
 
@@ -27,7 +27,7 @@ public class ServicesOrganizationsGetTest extends CleanTest {
     @BeforeClass
     public static void setUpClass() {
         Utility.Create.services(new String[]{"testService1", "testService2"});
-        organizations = Utility.Create.organizations(new String[]{"testOrgSrv1"});
+        organizations = Utility.Create.organization(new String[]{"testOrgSrv1"});
         Utility.Create.entitlementpacks(1, new String[]{"testPack1"});
         Utility.Link.entitlementpacksToOrg(1, new int[]{1});
     }

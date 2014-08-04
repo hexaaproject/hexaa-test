@@ -32,7 +32,7 @@ public class Utility {
          * attributevalueorganizations with.
          * @param asid the id of the attributespecification to create the values
          * with.
-         * @param orgId the id of the organizations to get the
+         * @param orgId the id of the organization to get the
          * attributespecvalues.
          * @return JSONArray with all the created attributevalueorganizations in
          * it.
@@ -93,8 +93,8 @@ public class Utility {
          * with unique oids only.
          *
          * @param oids a String array representation of the names to create
-         * organizations with.
-         * @return JSONArray with all the created organizations in it.
+         * organization with.
+         * @return JSONArray with all the created organization in it.
          */
         public static JSONArray attributespecs(String[] oids) {
             JSONArray attributespecs = new JSONArray();
@@ -206,15 +206,15 @@ public class Utility {
         }
 
         /**
-         * Creates as many organizations as many name is specified in the names
-         * String array. Returns them as a JSONArray. Can create organizations
+         * Creates as many organization as many name is specified in the names
+         * String array. Returns them as a JSONArray. Can create organization
          * with unique names only.
          *
          * @param names a String array representation of the names to create
-         * organizations with.
-         * @return JSONArray with all the created organizations in it.
+         * organization with.
+         * @return JSONArray with all the created organization in it.
          */
-        public static JSONArray organizations(String[] names) {
+        public static JSONArray organization(String[] names) {
             JSONArray organizations = new JSONArray();
 
             for (String name : names) {
@@ -233,16 +233,27 @@ public class Utility {
         }
 
         /**
-         * Creates as many principals as many fedid is specified in the fedids
-         * String array. Returns them as a JSONArray. Can create principals with
-         * unique fedids only. The principals email address will look like
+         * Alternative for the {@link #organization(String[])} for single
+         * organization creation.
+         *
+         * @param name the names to create organization with.
+         * @return JSONArray with all the created organization in it.
+         */
+        public static JSONArray organization(String name) {
+            return organization(new String[]{name});
+        }
+
+        /**
+         * Creates as many principal as many fedid is specified in the fedids
+         * String array. Returns them as a JSONArray. Can create principal with
+         * unique fedids only. The principal email address will look like
          * fedid@email.something.
          *
          * @param fedids string array representation of the fedids to create
-         * principals with.
-         * @return JSONArray with all the created organizations in it.
+         * principal with.
+         * @return JSONArray with all the created organization in it.
          */
-        public static JSONArray principals(String[] fedids) {
+        public static JSONArray principal(String[] fedids) {
             JSONArray response = new JSONArray();
 
             for (String fedid : fedids) {
@@ -263,12 +274,23 @@ public class Utility {
         }
 
         /**
+         * Alternative call for {@link #principal(String[])} for single
+         * principal creation.
+         *
+         * @param fedid the fedid to create principal with.
+         * @return JSONArray with all the created organization in it.
+         */
+        public static JSONArray principal(String fedid) {
+            return principal(new String[]{fedid});
+        }
+
+        /**
          * Creates as many roles as many name is specified in the names String
          * array. Returns them as a JSONArray. Can create roles with unique
          * names only.
          *
          * @param names array of names to create roles with.
-         * @param orgId organizations id to create the roles to.
+         * @param orgId organization id to create the roles to.
          * @return JSONArray of the POST-ed roles.
          */
         public static JSONArray roles(String[] names, int orgId) {
@@ -295,7 +317,7 @@ public class Utility {
 
         /**
          * Creates services for all the names in the array, if there are enough
-         * entytids in the system. Usage: do not use it on a database where are
+         * entityids in the system. Usage: do not use it on a database where are
          * already existing services, as it will cause 400 Bad Requests and will
          * fail the test class.
          *
@@ -358,14 +380,14 @@ public class Utility {
 
         /**
          * Links already existing entitlementpacks specified in the packIds
-         * array to the existing organizations specified by the orgId.
+         * array to the existing organization specified by the orgId.
          *
-         * @param orgId the id of the organizations to link.
+         * @param orgId the id of the organization to link.
          * @param packIds the ids of the entitlementpacks to link.
          */
         public static void entitlementpacksToOrg(int orgId, int[] packIds) {
             for (int pack : packIds) {
-                // Connect one entitlementpack to an organizations
+                // Connect one entitlementpack to an organization
                 persistent.call(
                         Const.Api.ORGANIZATIONS_ID_ENTITLEMENTPACKS_EPID,
                         BasicCall.REST.PUT,
@@ -427,12 +449,12 @@ public class Utility {
         }
 
         /**
-         * Links already existing principals (as managers) specified in the
+         * Links already existing principal (as managers) specified in the
          * attributeIds array to the existing service specified by the
          * serviceId.
          *
          * @param serviceId the id of the service to link to.
-         * @param principalIds the ids of the principals to link.
+         * @param principalIds the ids of the principal to link.
          */
         public static void managersToService(int serviceId, int[] principalIds) {
             for (int pid : principalIds) {
@@ -443,5 +465,72 @@ public class Utility {
                         serviceId, pid);
             }
         }
+
+        /**
+         * Links already existing principal specified in the principalIds array
+         * to the existing role specified by the roleId.
+         *
+         * @param roleId the id of the role to link.
+         * @param principalIds the ids of the principal to link.
+         */
+        public static void principalToRole(int roleId, int[] principalIds) {
+            for (int pid : principalIds) {
+                persistent.call(
+                        Const.Api.ROLES_ID_PRINCIPALS_PID,
+                        BasicCall.REST.PUT,
+                        null,
+                        roleId, pid);
+            }
+        }
+
+        /**
+         * Alternative for the
+         * {@link principalToRole(int roleId, int[] principalIds)} for single
+         * principal.
+         *
+         * @param roleId the id of the role to link.
+         * @param principalId the ids of the principal to link.
+         */
+        public static void principalToRole(int roleId, int principalId) {
+            principalToRole(roleId, new int[]{principalId});
+        }
+
+        /**
+         * Links already existing principal specified in the principalIds array
+         * to the existing organization specified by the orgId.
+         *
+         * @param orgId the id of the organization to link.
+         * @param principalIds the ids of the principal to link as an array.
+         */
+        public static void memberToOrganization(int orgId, int[] principalIds) {
+            for (int pid : principalIds) {
+                persistent.call(
+                        Const.Api.ORGANIZATIONS_ID_MEMBERS_PID,
+                        BasicCall.REST.PUT,
+                        null,
+                        orgId, pid);
+            }
+        }
+
+        /**
+         * Alternative for the
+         * {@link memberToOrganization(int orgId, int[] principalIds)} for
+         * single principal.
+         *
+         * @param orgId the id of the organization to link.
+         * @param principalId the id of the principal to link.
+         */
+        public static void memberToOrganization(int orgId, int principalId) {
+            memberToOrganization(orgId, new int[]{principalId});
+        }
     }
+
+    public static class Remove {
+
+        public static void principalFromRole(int roleId, int principalId) {
+
+        }
+
+    }
+
 }

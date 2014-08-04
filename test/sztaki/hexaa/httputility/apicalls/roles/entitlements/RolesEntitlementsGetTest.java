@@ -27,7 +27,7 @@ public class RolesEntitlementsGetTest extends CleanTest {
      */
     @BeforeClass
     public static void setUpClass() {
-        Utility.Create.organizations(new String[]{"testOrg1"});
+        Utility.Create.organization(new String[]{"testOrg1"});
         Utility.Create.roles(new String[]{"testRole1"}, 1);
         Utility.Create.services(new String[]{"testService1"});
         entitlements = Utility.Create.entitlements(1, new String[]{"testEntitlement1", "testEntitlement2"});

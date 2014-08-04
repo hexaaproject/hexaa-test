@@ -19,7 +19,7 @@ public class RolesEntitlementsPutTest extends CleanTest {
      */
     @BeforeClass
     public static void setUpClass() {
-        Utility.Create.organizations(new String[]{"testOrg1"});
+        Utility.Create.organization(new String[]{"testOrg1"});
         Utility.Create.roles(new String[]{"testRole1", "testRole2"}, 1);
         Utility.Create.services(new String[]{"testService1"});
         Utility.Create.entitlements(1, new String[]{"testEntitlement1"});
