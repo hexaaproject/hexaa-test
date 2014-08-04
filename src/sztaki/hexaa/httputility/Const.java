@@ -111,6 +111,28 @@ public class Const {
          */
         public static final String ENTITLEMENTPACKS_ID_ENTITLEMENTS_EID = ("/app.php/api/entitlementpacks/{id}/entitlements/{eid}");
 
+        /* *** EntityID *** */
+        /**
+         * GET,POST(create) entityid request(s).
+         */
+        public static final String ENTITYIDREQUESTS = ("/app.php/api/entityidrequests");
+        /**
+         * GET,PUT(edit),DELETE entityid request.
+         */
+        public static final String ENTITYIDREQUESTS_ID = ("/app.php/api/entityidrequests/{id}");
+        /**
+         * GET(accept) entityid request.
+         */
+        public static final String ENTITYIDREQUESTS_ID_ACCEPT = ("/app.php/api/entityidrequests/{id}/accept");
+        /**
+         * GET(reject) entityid request.
+         */
+        public static final String ENTITYIDREQUESTS_ID_REJECT = ("/app.php/api/entityidrequests/{id}/reject");
+        /**
+         * GET(list) service entityIDs.
+         */
+        public static final String ENTITYIDS = ("/app.php/api/entityids");
+        
         /* *** Invitation *** */
         /**
          * POST(send) new invitation.
@@ -135,7 +157,7 @@ public class Const {
         /**
          * GET(reject) invitation with email address.
          */
-        public static final String INVITATIONS_TOKEN_REJECTS_EMAIL_EMAIL = ("/app.php/api/invitations/{token}/accept/{email}/email");
+        public static final String INVITATIONS_TOKEN_REJECTS_EMAIL_EMAIL = ("/app.php/api/invitations/{token}/rejects/{email}/email");
 
         /* *** Organization *** */
         /**
@@ -212,10 +234,6 @@ public class Const {
          */
         public static final String ATTRIBUTES = ("/app.php/api/attributes");
         /**
-         * GET service entityIds from config.
-         */
-        public static final String ENTITYIDS = ("/app.php/api/entityids");
-        /**
          * POST(get) a token for the API (master-secret authentication).
          */
         public static final String TOKENS = ("/app.php/api/tokens");
@@ -250,6 +268,10 @@ public class Const {
          */
         public static final String PRINCIPAL_INVITATIONS = ("/app.php/api/principal/invitations");
         /**
+         * GET all invitations of current principal.
+         */
+        public static final String PRINCIPAL_ISADMIN = ("/app.php/api/principal/isadmin");
+        /**
          * GET all roles of the user.
          */
         public static final String PRINCIPAL_ROLES = ("/app.php/api/principal/roles");
@@ -274,6 +296,10 @@ public class Const {
          * GET info about a principal by id.
          */
         public static final String PRINCIPALS_ID = ("/app.php/api/principals/{id}/id");
+        /**
+         * GET info about a principal by id.
+         */
+        public static final String PRINCIPAL = ("/app.php/api/principal");
 
         /* *** Roles *** */
         /**
