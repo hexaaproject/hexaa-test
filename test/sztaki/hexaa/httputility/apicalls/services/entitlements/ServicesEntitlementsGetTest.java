@@ -33,7 +33,7 @@ public class ServicesEntitlementsGetTest extends CleanTest {
 
     /**
      * Calls GET /api/services/{id}/entitlements on the 2 services to get the 3
-     * enttitlements created in the buildUp().
+     * entitlements created in the buildUp().
      */
     @Test
     public void testServicesEntitlementsGet() {
