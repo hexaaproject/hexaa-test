@@ -13,7 +13,7 @@ import sztaki.hexaa.httputility.Const;
  * Tests the DELETE method on the
  * /api/organizations/{id}/entitlementpacks/{epid} call.
  */
-public class OrganizationEntitlementpacksDeleteTest extends OrganizationEntitlementpack {
+public class OrganizationEntitlementpacksUnlinkTest extends OrganizationEntitlementpack {
 
     /**
      * Creates a pending link and deletes it than creates an accepted link and

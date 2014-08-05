@@ -1,4 +1,4 @@
-package sztaki.hexaa.httputility.apicalls.organizations.members;
+package sztaki.hexaa.httputility.apicalls.organizations.principals;
 
 import static org.junit.Assert.*;
 import org.junit.BeforeClass;
@@ -9,9 +9,9 @@ import sztaki.hexaa.httputility.Utility;
 import sztaki.hexaa.httputility.apicalls.CleanTest;
 
 /**
- * Tests the GET method on the /api/organizations/{id}/members/{pid} call.
+ * Tests the PUT method on the /api/organizations/{id}/members/{pid} call.
  */
-public class OrganizationMemberAddTest extends CleanTest {
+public class OrganizationsMembersAddTest extends CleanTest {
 
     /**
      * Creates one organization and one principal.

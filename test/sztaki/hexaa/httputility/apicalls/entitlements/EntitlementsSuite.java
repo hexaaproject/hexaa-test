@@ -14,5 +14,4 @@ import sztaki.hexaa.httputility.apicalls.BasicTestSuite;
     EntitlementsPutTest.class,
     EntitlementsDeleteTest.class,})
 public class EntitlementsSuite extends BasicTestSuite {
-
 }

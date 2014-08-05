@@ -10,9 +10,9 @@ import org.junit.runners.Suite;
  */
 @RunWith(Suite.class)
 @Suite.SuiteClasses({
-    OrganizationEntitlementpacksPutTest.class,
+    OrganizationEntitlementpacksLinkTest.class,
     OrganizationEntitlementpacksAcceptTest.class,
-    OrganizationEntitlementpacksDeleteTest.class,
+    OrganizationEntitlementpacksUnlinkTest.class,
     OrganizationEntitlementpacksGetTest.class,
     OrganizationEntitlementpacksTokenTest.class,})
 public class OrganizationEntitlementpacksSuite {

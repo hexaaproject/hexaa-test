@@ -522,7 +522,7 @@ public class Utility {
 
         /**
          * Links already existing principal specified in the principalIds array
-         * to the existing organization specified by the orgId.
+         * to the existing organization specified by the orgId as a member.
          *
          * @param orgId the id of the organization to link.
          * @param principalIds the ids of the principal to link as an array.
@@ -548,6 +548,37 @@ public class Utility {
         public static void memberToOrganization(int orgId, int principalId) {
             memberToOrganization(orgId, new int[]{principalId});
         }
+        
+        /**
+         * Links already existing principal specified in the principalIds array
+         * to the existing organization specified by the orgId as a manager.
+         *
+         * @param orgId the id of the organization to link.
+         * @param principalIds the ids of the principal to link as an array.
+         */
+        public static void managerToOrganization(int orgId, int[] principalIds) {
+            for (int pid : principalIds) {
+                persistent.call(
+                        Const.Api.ORGANIZATIONS_ID_MANAGERS_PID,
+                        BasicCall.REST.PUT,
+                        null,
+                        orgId, pid);
+            }
+        }
+
+        /**
+         * Alternative for the
+         * {@link managerToOrganization(int orgId, int[] principalIds)} for
+         * single principal.
+         *
+         * @param orgId the id of the organization to link.
+         * @param principalId the id of the principal to link.
+         */
+        public static void managerToOrganization(int orgId, int principalId) {
+            managerToOrganization(orgId, new int[]{principalId});
+        }
+        
+        
     }
 
     public static class Remove {
