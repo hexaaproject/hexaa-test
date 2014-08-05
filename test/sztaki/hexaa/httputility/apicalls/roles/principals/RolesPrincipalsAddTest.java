@@ -9,17 +9,17 @@ import sztaki.hexaa.httputility.Utility;
 import sztaki.hexaa.httputility.apicalls.CleanTest;
 
 /**
- * Tests the PUT method on the /api/roles/{id}/principal/{pid} call.
+ * Tests the PUT method on the /api/role/{id}/principal/{pid} call.
  */
 public class RolesPrincipalsAddTest extends CleanTest {
 
     /**
-     * Creates an organization, two roles, a service and a principal.
+     * Creates an organization, two role, a service and a principal.
      */
     @BeforeClass
     public static void setUpClass() {
         Utility.Create.organization(new String[]{"testOrg1"});
-        Utility.Create.roles(new String[]{"testRole1", "testRole2"}, 1);
+        Utility.Create.role(new String[]{"testRole1", "testRole2"}, 1);
         Utility.Create.services(new String[]{"testService1"});
         Utility.Create.principal(new String[]{"fedidTest1"});
     }

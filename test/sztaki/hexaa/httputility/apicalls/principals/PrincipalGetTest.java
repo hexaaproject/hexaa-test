@@ -13,10 +13,10 @@ import sztaki.hexaa.httputility.BasicCall;
 import sztaki.hexaa.httputility.Const;
 import sztaki.hexaa.httputility.Utility;
 import sztaki.hexaa.httputility.apicalls.CleanTest;
-// TODO commentek
+
 /**
- * Tests the GET method on the /api/organization/{id}/roles and /api/roles/{id}
- calls.
+ * Tests the GET method on the /api/organization/{id}/role and /api/role/{id}
+ * calls.
  */
 public class PrincipalGetTest extends CleanTest {
 
@@ -25,6 +25,9 @@ public class PrincipalGetTest extends CleanTest {
     public static JSONArray services = new JSONArray();
     public static JSONArray attributespecs = new JSONArray();
 
+    /**
+     * Creates all the necessary objects for the tests.
+     */
     @BeforeClass
     public static void setUpClass() {
         organizations = Utility.Create.organization(new String[]{"testOrgForPrincGet"});
@@ -32,11 +35,11 @@ public class PrincipalGetTest extends CleanTest {
         attributespecs = Utility.Create.attributespecs(new String[]{"testAttrSpec1", "testAttrSpec2"});
         Utility.Link.attributespecsToService(1, new int[]{1});
         Utility.Link.attributespecsToService(2, new int[]{2});
-        Utility.Create.roles(new String[]{"role1"}, 1);
+        Utility.Create.role(new String[]{"role1"}, 1);
         Utility.Create.entitlements(2, new String[]{"entitlementServ2"});
         Utility.Create.entitlementpacks(2, new String[]{"entPackServ2"});
         Utility.Link.entitlementToPack(1, 1);
-        Utility.Link.entitlementpacksToOrg(1, new int[] {1});
+        Utility.Link.entitlementpacksToOrg(1, new int[]{1});
         Utility.Link.entitlementsToRole(1, new int[]{1});
 
         managers = (JSONArray) JSONParser.parseJSON(
@@ -45,6 +48,9 @@ public class PrincipalGetTest extends CleanTest {
                         BasicCall.REST.GET));
     }
 
+    /**
+     * GET the list of organizations where the user is at least a manager.
+     */
     @Test
     public void testPrincipalGetManagerOrg() {
         JSONArray jsonResponse
@@ -61,6 +67,9 @@ public class PrincipalGetTest extends CleanTest {
         }
     }
 
+    /**
+     * GET the list of services where the user is manager.
+     */
     @Test
     public void testPrincipalGetManagerService() {
         JSONArray jsonResponse
@@ -77,8 +86,11 @@ public class PrincipalGetTest extends CleanTest {
         }
     }
 
+    /**
+     * GET the list of organizations where the user is a member.
+     */
     @Test
-    public void testPrincipalGetMember() {
+    public void testPrincipalGetMemberOrg() {
         JSONArray jsonResponse
                 = (JSONArray) JSONParser.parseJSON(
                         persistent.call(
@@ -93,6 +105,10 @@ public class PrincipalGetTest extends CleanTest {
         }
     }
 
+    /**
+     * GET the available (public) attributespecs (as the principal is not a
+     * member of any role).
+     */
     @Test
     public void testPrincipalGetPublicAttributespecs() {
         JSONArray jsonResponse
@@ -110,6 +126,9 @@ public class PrincipalGetTest extends CleanTest {
         }
     }
 
+    /**
+     * GET all available attributespecs.
+     */
     @Test
     public void testPrincipalGetPrivateAttributespecs() {
         Utility.Link.principalToRole(1, new int[]{1});
@@ -128,6 +147,9 @@ public class PrincipalGetTest extends CleanTest {
         }
     }
 
+    /**
+     * GET the admin info about the principal when the principal is an admin.
+     */
     @Test
     public void testPrincipalGetIsAdmin() {
         JSONObject jsonResponse
@@ -144,6 +166,10 @@ public class PrincipalGetTest extends CleanTest {
         }
     }
 
+    /**
+     * GET the admin info about the principal when the principal is not an
+     * admin.
+     */
     @Test
     public void testPrincipalGetNotAdmin() {
         new Authenticator().authenticate("admin@is.not");
@@ -165,4 +191,5 @@ public class PrincipalGetTest extends CleanTest {
 
         new Authenticator().authenticate(Const.HEXAA_FEDID);
     }
+//TODO
 }

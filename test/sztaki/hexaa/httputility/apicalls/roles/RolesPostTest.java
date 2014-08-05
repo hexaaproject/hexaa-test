@@ -2,21 +2,17 @@ package sztaki.hexaa.httputility.apicalls.roles;
 
 import java.time.LocalDate;
 import java.time.ZoneId;
-import org.json.JSONArray;
 import org.json.JSONObject;
 import static org.junit.Assert.*;
 import org.junit.BeforeClass;
 import org.junit.Test;
-import org.skyscreamer.jsonassert.JSONAssert;
-import org.skyscreamer.jsonassert.JSONCompareMode;
-import org.skyscreamer.jsonassert.JSONParser;
 import sztaki.hexaa.httputility.BasicCall;
 import sztaki.hexaa.httputility.Const;
 import sztaki.hexaa.httputility.Utility;
 import sztaki.hexaa.httputility.apicalls.CleanTest;
 
 /**
- * Tests the POST method on the /api/organization/{id}/roles call.
+ * Tests the POST method on the /api/organization/{id}/role call.
  */
 public class RolesPostTest extends CleanTest {
 

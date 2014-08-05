@@ -286,15 +286,15 @@ public class Utility {
         }
 
         /**
-         * Creates as many roles as many name is specified in the names String
-         * array. Returns them as a JSONArray. Can create roles with unique
-         * names only.
+         * Creates as many role as many name is specified in the names String
+         * array. Returns them as a JSONArray. Can create role with unique names
+         * only.
          *
-         * @param names array of names to create roles with.
-         * @param orgId organization id to create the roles to.
-         * @return JSONArray of the POST-ed roles.
+         * @param names array of names to create role with.
+         * @param orgId organization id to create the role to.
+         * @return JSONArray of the POST-ed role.
          */
-        public static JSONArray roles(String[] names, int orgId) {
+        public static JSONArray role(String[] names, int orgId) {
             JSONArray response = new JSONArray();
 
             for (String name : names) {
@@ -314,6 +314,18 @@ public class Utility {
             }
 
             return response;
+        }
+
+        /**
+         * Alternative call for {@link #role(String[], int)} for single role
+         * creation.
+         *
+         * @param name name to create a role with.
+         * @param orgId organization id to create the role to.
+         * @return JSONArray of the POST-ed role.
+         */
+        public static JSONArray role(String name, int orgId) {
+            return role(new String[]{name}, orgId);
         }
 
         /**
@@ -469,7 +481,8 @@ public class Utility {
 
         /**
          * Links already existing principal specified in the principalIds array
-         * to the existing role specified by the roleId.
+         * to the existing role specified by the roleId. The principal has to be
+         * in the organization!
          *
          * @param roleId the id of the role to link.
          * @param principalIds the ids of the principal to link.

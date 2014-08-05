@@ -14,12 +14,11 @@ import sztaki.hexaa.httputility.Utility;
 import sztaki.hexaa.httputility.apicalls.CleanTest;
 
 /**
- * Tests the GET method on the /api/organization/{id}/roles and /api/roles/{id}
- calls.
+ * Tests the GET method on the /api/organizations/{id}/role and /api/roles/{id}
+ * calls.
  */
 public class RolesGetTest extends CleanTest {
 
-    
     /**
      * JSONArray to store the created roles.
      */
@@ -31,11 +30,11 @@ public class RolesGetTest extends CleanTest {
     @BeforeClass
     public static void setUpClass() {
         Utility.Create.organization(new String[]{"testOrgForRole1"});
-        roles = Utility.Create.roles(new String[]{"testRole1"}, 1);
+        roles = Utility.Create.role(new String[]{"testRole1"}, 1);
     }
 
     /**
-     * GETs the role in two way.
+     * GET the role in two way.
      */
     @Test
     public void testRolesGet() {

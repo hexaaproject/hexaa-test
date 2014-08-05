@@ -5,6 +5,7 @@ import org.junit.runners.Suite;
 import sztaki.hexaa.httputility.apicalls.BasicTestSuite;
 import sztaki.hexaa.httputility.apicalls.roles.entitlements.*;
 import sztaki.hexaa.httputility.apicalls.roles.principals.*;
+
 /**
  * TestSuite for the Roles related test cases, runs them all and does the
  * starting and finishing utility jobs inherited from BasicTestSuite.
@@ -15,9 +16,11 @@ import sztaki.hexaa.httputility.apicalls.roles.principals.*;
     RolesDeleteTest.class,
     RolesPutTest.class,
     RolesGetTest.class,
-    RolesEntitlementsPutTest.class,
+    RolesEntitlementsAddTest.class,
     RolesEntitlementsGetTest.class,
-    RolesEntitlementsDeleteTest.class,
-    RolesPrincipalsAddTest.class,})
+    RolesEntitlementsRemoveTest.class,
+    RolesPrincipalsAddTest.class,
+    RolesPrincipalsGetTest.class,
+    RolesPrincipalsRemoveTest.class,})
 public class RolesSuite extends BasicTestSuite {
 }

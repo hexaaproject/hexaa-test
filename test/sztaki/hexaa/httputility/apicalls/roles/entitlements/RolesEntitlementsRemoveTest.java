@@ -13,12 +13,12 @@ import sztaki.hexaa.httputility.Utility;
 import sztaki.hexaa.httputility.apicalls.CleanTest;
 
 /**
- * Tests the DELETE method on the /api/roles/{id}/entitlements/{eid} call.
+ * Tests the DELETE method on the /api/role/{id}/entitlements/{eid} call.
  */
-public class RolesEntitlementsDeleteTest extends CleanTest{
+public class RolesEntitlementsRemoveTest extends CleanTest{
 
     /**
-     * JSONArray to store the created roles.
+     * JSONArray to store the created entitlements.
      */
     public static JSONArray entitlements = new JSONArray();
 
@@ -29,7 +29,7 @@ public class RolesEntitlementsDeleteTest extends CleanTest{
     @BeforeClass
     public static void setUpClass() {
         Utility.Create.organization(new String[]{"testOrg1"});
-        Utility.Create.roles(new String[]{"testRole1"}, 1);
+        Utility.Create.role(new String[]{"testRole1"}, 1);
         Utility.Create.services(new String[]{"testService1"});
         entitlements = Utility.Create.entitlements(1, new String[]{"testEntitlement1", "testEntitlement2"});
         Utility.Create.entitlementpacks(1, new String[]{"testEntitlementpack1"});

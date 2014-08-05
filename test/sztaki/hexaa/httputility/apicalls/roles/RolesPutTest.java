@@ -13,22 +13,22 @@ import sztaki.hexaa.httputility.Utility;
 import sztaki.hexaa.httputility.apicalls.CleanTest;
 
 /**
- * Tests the PUT method on the /api/roles/{id} call.
+ * Tests the PUT method on the /api/role/{id} call.
  */
 public class RolesPutTest extends CleanTest {
 
     /**
-     * JSONArray to store the created roles.
+     * JSONArray to store the created role.
      */
     public static JSONArray roles = new JSONArray();
 
     /**
-     * Creates one organization and two roles.
+     * Creates one organization and two role.
      */
     @BeforeClass
     public static void setUpClass() {
         Utility.Create.organization(new String[]{"testOrgForRoleDel"});
-        roles = Utility.Create.roles(new String[]{"testRole1", "testRole2"}, 1);
+        roles = Utility.Create.role(new String[]{"testRole1", "testRole2"}, 1);
     }
 
     /**
