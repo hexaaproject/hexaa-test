@@ -23,6 +23,7 @@ public class AttributespecsPostTest extends CleanTest {
         json.put("friendly_name", "testName1");
         json.put("syntax", "noSyntax1");
         json.put("is_multivalue", false);
+        json.put("maintainer", "user");
 
         // POST the object to the server and check the StatusLine
         persistent.call(
@@ -41,6 +42,7 @@ public class AttributespecsPostTest extends CleanTest {
         json.put("friendly_name", "testName2");
         json.put("syntax", "noSyntax2");
         json.put("is_multivalue", false);
+        json.put("maintainer", "user");
 
         // POST the object to the server and assert the string right away
         persistent.call(
