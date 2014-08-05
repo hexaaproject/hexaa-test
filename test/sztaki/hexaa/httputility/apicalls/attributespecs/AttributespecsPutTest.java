@@ -12,7 +12,7 @@ import sztaki.hexaa.httputility.Utility;
 import sztaki.hexaa.httputility.apicalls.CleanTest;
 
 /**
- * Tests the PUT method on the /app.php/api/attributespecs/{id} call.
+ * Tests the PUT method on the /api/attributespecs/{id} call.
  */
 public class AttributespecsPutTest extends CleanTest {
 
@@ -26,7 +26,7 @@ public class AttributespecsPutTest extends CleanTest {
      */
     @BeforeClass
     public static void setUpClass() {
-        attributespecs = Utility.Create.attributespecs(new String[]{"testName1"});
+        attributespecs = Utility.Create.attributespec(new String[]{"testName1"});
     }
 
     /**

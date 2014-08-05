@@ -8,7 +8,7 @@ import sztaki.hexaa.httputility.Const;
 import sztaki.hexaa.httputility.apicalls.CleanTest;
 
 /**
- * Tests the POST method on the /app.php/api/attributespecs call.
+ * Tests the POST method on the /api/attributespecs call.
  */
 public class AttributespecsPostTest extends CleanTest {
 

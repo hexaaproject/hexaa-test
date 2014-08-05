@@ -14,8 +14,8 @@ import sztaki.hexaa.httputility.Utility;
 import sztaki.hexaa.httputility.apicalls.CleanTest;
 
 /**
- * Tests the GET method on the /app.php/api/attributespecs and
- * /app.php/api/attributespecs/{id} calls.
+ * Tests the GET method on the /api/attributespecs and /api/attributespecs/{id}
+ * calls.
  */
 public class AttributespecsGetTest extends CleanTest {
 
@@ -29,7 +29,7 @@ public class AttributespecsGetTest extends CleanTest {
      */
     @BeforeClass
     public static void setUpClass() {
-        attributespecs = Utility.Create.attributespecs(new String[]{"testName1", "differentTestName1"});
+        attributespecs = Utility.Create.attributespec(new String[]{"testName1", "differentTestName1"});
     }
 
     /**

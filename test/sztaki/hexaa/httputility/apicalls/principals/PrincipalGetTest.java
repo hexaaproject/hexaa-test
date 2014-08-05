@@ -32,7 +32,7 @@ public class PrincipalGetTest extends CleanTest {
     public static void setUpClass() {
         organizations = Utility.Create.organization(new String[]{"testOrgForPrincGet"});
         services = Utility.Create.services(new String[]{"testServForPrincGet1", "testServForPrincGet2"});
-        attributespecs = Utility.Create.attributespecs(new String[]{"testAttrSpec1", "testAttrSpec2"});
+        attributespecs = Utility.Create.attributespec(new String[]{"testAttrSpec1", "testAttrSpec2"});
         Utility.Link.attributespecsToService(1, new int[]{1});
         Utility.Link.attributespecsToService(2, new int[]{2});
         Utility.Create.role(new String[]{"role1"}, 1);

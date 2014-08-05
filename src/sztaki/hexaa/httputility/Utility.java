@@ -93,10 +93,10 @@ public class Utility {
          * with unique oids only.
          *
          * @param oids a String array representation of the names to create
-         * organization with.
-         * @return JSONArray with all the created organization in it.
+         * attributespecs with.
+         * @return JSONArray with all the created attributespecs in it.
          */
-        public static JSONArray attributespecs(String[] oids) {
+        public static JSONArray attributespec(String[] oids) {
             JSONArray attributespecs = new JSONArray();
 
             for (String oid : oids) {
@@ -115,6 +115,17 @@ public class Utility {
                         json.toString());
             }
             return attributespecs;
+        }
+
+        /**
+         * Alternative call for {@link attributespec(String[] oids)} for single
+         * attributespec creation.
+         *
+         * @param oid the names to create attributespec with.
+         * @return JSONArray with the created attributespec in it.
+         */
+        public static JSONArray attributespec(String oid) {
+            return attributespec(new String[]{oid});
         }
 
         /**

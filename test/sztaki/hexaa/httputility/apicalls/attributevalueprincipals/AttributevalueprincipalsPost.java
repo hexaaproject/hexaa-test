@@ -23,7 +23,7 @@ public class AttributevalueprincipalsPost extends CleanTest {
      */
     @BeforeClass
     public static void setUpClass() {
-        Utility.Create.attributespecs(
+        Utility.Create.attributespec(
                 new String[]{
                     "testAttributespecs1",
                     "testAttributespecs2"});
