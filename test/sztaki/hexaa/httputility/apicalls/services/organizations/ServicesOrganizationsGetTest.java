@@ -32,6 +32,9 @@ public class ServicesOrganizationsGetTest extends CleanTest {
         Utility.Link.entitlementpacksToOrg(1, new int[]{1});
     }
 
+    /**
+     * GET the organization linked to the service.
+     */
     @Test
     public void testServicesOrganizationsGet() {
         try {

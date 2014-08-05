@@ -95,15 +95,6 @@ public class CleanTest {
         new Authenticator().authenticate(Const.HEXAA_FEDID);
     }
 
-    //UNUSED
-//    @AfterClass
-//    public static void checkErrors() {
-//    }
-//
-//    public CleanTest() {
-//        this.collector.setName(this.getClass().getSimpleName());
-//    }
-    //
     /**
      * Handles the AssertationErrors in a unified way, can be easily expanded
      * for better utility.
@@ -124,14 +115,31 @@ public class CleanTest {
      */
     public class TestErrorCollector extends ErrorCollector {
 
+        /**
+         * List to collect the thrown errors for future use.
+         */
         private ArrayList<Throwable> errors = new ArrayList<>();
+        /**
+         * String representing the method where the error was thrown. Not yet
+         * implemented.
+         */
         private String testMethodName = "";
 
+        /**
+         * Overriden from ErrorCollector.
+         *
+         * @throws Throwable
+         */
         @Override
         public void verify() throws Throwable {
             MultipleFailureException.assertEmpty(this.errors);
         }
 
+        /**
+         * Overriden from ErrorCollector.
+         *
+         * @param e
+         */
         @Override
         public void addError(Throwable e) {
             if (!this.errors.contains(e)) {

@@ -46,7 +46,7 @@ public class AttributespecsGetTest extends CleanTest {
                                 null,
                                 2, 0));
 
-        if (this.checkObjectError(response)) {
+        if (AttributespecsGetTest.checkObjectError(response)) {
             System.out.println(errorCode + " " + errorMsg);
             fail(errorCode + " " + errorMsg);
         }
@@ -74,7 +74,7 @@ public class AttributespecsGetTest extends CleanTest {
                                 Const.Api.ATTRIBUTESPECS,
                                 BasicCall.REST.GET));
 
-        if (this.checkArrayError(response)) {
+        if (AttributespecsGetTest.checkArrayError(response)) {
             System.out.println(errorCode + " " + errorMsg);
             fail(errorCode + " " + errorMsg);
         }

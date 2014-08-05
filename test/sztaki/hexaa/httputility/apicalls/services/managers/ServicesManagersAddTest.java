@@ -33,6 +33,9 @@ public class ServicesManagersAddTest extends CleanTest {
         managers.put((JSONObject) JSONParser.parseJSON(persistent.call(Const.Api.PRINCIPAL_SELF, BasicCall.REST.GET)));
     }
 
+    /**
+     * ADD two managers to the service and check them by GET.
+     */
     @Test
     public void testServicesManagersAdd() {
         // PUT the first manager.
