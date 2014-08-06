@@ -24,6 +24,9 @@ public class PrincipalGetTest extends CleanTest {
     public static JSONArray organizations = new JSONArray();
     public static JSONArray services = new JSONArray();
     public static JSONArray attributespecs = new JSONArray();
+    public static JSONArray attributevalue = new JSONArray();
+    public static JSONArray entitlements = new JSONArray();
+    public static JSONArray roles = new JSONArray();
 
     /**
      * Creates all the necessary objects for the tests.
@@ -31,16 +34,25 @@ public class PrincipalGetTest extends CleanTest {
     @BeforeClass
     public static void setUpClass() {
         organizations = Utility.Create.organization(new String[]{"testOrgForPrincGet"});
+
         services = Utility.Create.service(new String[]{"testServForPrincGet1", "testServForPrincGet2"});
+
         attributespecs = Utility.Create.attributespec(new String[]{"testAttrSpec1", "testAttrSpec2"});
         Utility.Link.attributespecsToService(1, new int[]{1});
         Utility.Link.attributespecsToService(2, new int[]{2});
-        Utility.Create.role(new String[]{"role1"}, 1);
-        Utility.Create.entitlements(2, new String[]{"entitlementServ2"});
+
+        roles = Utility.Create.role(new String[]{"role1"}, 1);
+
+        entitlements = Utility.Create.entitlements(2, new String[]{"entitlementServ2"});
         Utility.Create.entitlementpacks(2, new String[]{"entPackServ2"});
+
         Utility.Link.entitlementToPack(1, 1);
         Utility.Link.entitlementpacksToOrg(1, new int[]{1});
         Utility.Link.entitlementsToRole(1, new int[]{1});
+
+        Utility.Link.principalToRole(1, new int[]{1});
+
+        attributevalue = Utility.Create.attributevalueprincipals(new String[]{"testValue"}, 1);
 
         managers = (JSONArray) JSONParser.parseJSON(
                 persistent.call(
@@ -134,8 +146,6 @@ public class PrincipalGetTest extends CleanTest {
      */
     @Test
     public void testPrincipalGetPrivateAttributespecs() {
-        Utility.Link.principalToRole(1, new int[]{1});
-
         JSONArray jsonResponse
                 = (JSONArray) JSONParser.parseJSON(
                         persistent.call(
@@ -148,6 +158,55 @@ public class PrincipalGetTest extends CleanTest {
         } catch (AssertionError e) {
             AssertErrorHandler(e);
         }
+    }
+
+    /**
+     * GET all attributevalues.
+     */
+    @Test
+    public void testPrincipalGetAttributevalues() {
+        Object response
+                = JSONParser.parseJSON(
+                        persistent.call(
+                                Const.Api.PRINCIPAL_ATTRIBUTEVALUEPRINCIPAL,
+                                BasicCall.REST.GET));
+
+        if (response instanceof JSONObject) {
+            fail("Not a JSONArray but JSONObject: " + ((JSONObject) response).toString());
+        }
+        JSONArray jsonResponse = (JSONArray) response;
+
+        try {
+            assertEquals("HTTP/1.1 200 OK", persistent.getStatusLine());
+            JSONAssert.assertEquals(attributevalue, jsonResponse, JSONCompareMode.LENIENT);
+        } catch (AssertionError e) {
+            AssertErrorHandler(e);
+        }
+    }
+
+    /**
+     * GET all entitlements of user.
+     */
+    @Test
+    public void testPrincipalGetEntitlements() {
+        Object response
+                = JSONParser.parseJSON(
+                        persistent.call(
+                                Const.Api.PRINCIPAL_ENTITLEMENTS,
+                                BasicCall.REST.GET));
+
+        if (response instanceof JSONObject) {
+            fail("Not a JSONArray but JSONObject: " + ((JSONObject) response).toString());
+        }
+        JSONArray jsonResponse = (JSONArray) response;
+
+        try {
+            assertEquals("HTTP/1.1 200 OK", persistent.getStatusLine());
+            JSONAssert.assertEquals(entitlements, jsonResponse, JSONCompareMode.LENIENT);
+        } catch (AssertionError e) {
+            AssertErrorHandler(e);
+        }
+
     }
 
     /**
@@ -194,5 +253,30 @@ public class PrincipalGetTest extends CleanTest {
 
         new Authenticator().authenticate(Const.HEXAA_FEDID);
     }
+
+    /**
+     * GET all the roles of the current principal.
+     */
+    @Test
+    public void testPrincipalRolesGet() {
+        Object response
+                = JSONParser.parseJSON(
+                        persistent.call(
+                                Const.Api.PRINCIPAL_ROLES,
+                                BasicCall.REST.GET));
+
+        if (response instanceof JSONObject) {
+            fail("Not a JSONArray but JSONObject: " + ((JSONObject) response).toString());
+        }
+        JSONArray jsonResponse = (JSONArray) response;
+
+        try {
+            assertEquals("HTTP/1.1 200 OK", persistent.getStatusLine());
+            JSONAssert.assertEquals(roles, jsonResponse, JSONCompareMode.LENIENT);
+        } catch (AssertionError e) {
+            AssertErrorHandler(e);
+        }
+    }
+
 //TODO
 }
