@@ -6,6 +6,7 @@ import sztaki.hexaa.httputility.apicalls.BasicTestSuite;
 import sztaki.hexaa.httputility.apicalls.organizations.entitlementpacks.*;
 import sztaki.hexaa.httputility.apicalls.organizations.principals.*;
 import sztaki.hexaa.httputility.apicalls.organizations.roles.*;
+import sztaki.hexaa.httputility.apicalls.organizations.attributes.*;
 
 
 /**
@@ -25,6 +26,7 @@ import sztaki.hexaa.httputility.apicalls.organizations.roles.*;
     OrganizationsManagersRemoveTest.class,
     OrganizationsMembersRemoveTest.class,
     OrganizationsRolesGetTest.class,
+    OrganizationsAttributesGet.class,
     OrganizationEntitlementpacksSuite.class,})
 public class OrganizationSuite extends BasicTestSuite {
 

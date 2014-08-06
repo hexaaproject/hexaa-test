@@ -1,6 +1,7 @@
 package sztaki.hexaa.httputility.apicalls.organizations.attributes;
 
 import org.json.JSONArray;
+import org.json.JSONObject;
 import static org.junit.Assert.*;
 import org.junit.BeforeClass;
 import org.junit.Test;
@@ -70,11 +71,18 @@ public class OrganizationsAttributesGet extends CleanTest {
      */
     @Test
     public void testOrganizationsAttributevaluesBySpecsGet() {
-        JSONArray jsonResponse
-                = (JSONArray) JSONParser.parseJSON(
+        Object response
+                = JSONParser.parseJSON(
                         persistent.call(
                                 Const.Api.ORGANIZATIONS_ID_ATTRIBUTESPECS_ASID_ATTRIBUTEVALUEORGANIZATIONS,
                                 BasicCall.REST.GET));
+
+        if (response instanceof JSONObject) {
+            fail ("Not a JSONArray but a JSONObject, so only an error.");
+        }
+        
+        JSONArray jsonResponse
+                = (JSONArray)response;
 
         JSONArray jsonExpected = new JSONArray();
 
