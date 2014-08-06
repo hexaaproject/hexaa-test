@@ -18,7 +18,7 @@ public class AttributespecsDeleteTest extends CleanTest {
      */
     @BeforeClass
     public static void setUpClass() {
-        Utility.Create.attributespec(new String[]{"testName1"});
+        Utility.Create.attributespec(new String[]{"testName1"}, "user");
     }
 
     /**

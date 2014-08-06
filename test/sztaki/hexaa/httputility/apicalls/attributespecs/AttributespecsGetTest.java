@@ -29,7 +29,7 @@ public class AttributespecsGetTest extends CleanTest {
      */
     @BeforeClass
     public static void setUpClass() {
-        attributespecs = Utility.Create.attributespec(new String[]{"testName1", "differentTestName1"});
+        attributespecs = Utility.Create.attributespec(new String[]{"testName1", "differentTestName1"}, "user");
     }
 
     /**

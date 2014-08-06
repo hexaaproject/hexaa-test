@@ -153,7 +153,7 @@ public class Const {
         /**
          * GET(accept) invitation with email address.
          */
-        public static final String INVITATIONS_TOKEN_ACCEPT_EMAIL_EMAIL = ("/app.php/api/invitations/{token}/accept/{email}/email");
+        public static final String INVITATIONS_TOKEN_ACCEPTS_EMAIL_EMAIL = ("/app.php/api/invitations/{token}/accepts/{email}/email");
         /**
          * GET(reject) invitation with email address.
          */

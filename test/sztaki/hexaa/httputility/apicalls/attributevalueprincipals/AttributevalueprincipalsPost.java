@@ -26,7 +26,8 @@ public class AttributevalueprincipalsPost extends CleanTest {
         Utility.Create.attributespec(
                 new String[]{
                     "testAttributespecs1",
-                    "testAttributespecs2"});
+                    "testAttributespecs2"},
+                "user");
     }
 
     /**

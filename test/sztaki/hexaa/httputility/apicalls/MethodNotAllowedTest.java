@@ -158,7 +158,7 @@ public class MethodNotAllowedTest extends CleanTest {
                 new String[]{
                     Const.Api.INVITATIONS_ID_RESEND,
                     Const.Api.INVITATIONS_TOKEN_ACCEPT_TOKEN,
-                    Const.Api.INVITATIONS_TOKEN_ACCEPT_EMAIL_EMAIL,
+                    Const.Api.INVITATIONS_TOKEN_ACCEPTS_EMAIL_EMAIL,
                     Const.Api.INVITATIONS_TOKEN_REJECTS_EMAIL_EMAIL,},
                 restPostPutDelete);
 

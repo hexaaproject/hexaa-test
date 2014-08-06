@@ -37,7 +37,7 @@ public class PrincipalGetTest extends CleanTest {
 
         services = Utility.Create.service(new String[]{"testServForPrincGet1", "testServForPrincGet2"});
 
-        attributespecs = Utility.Create.attributespec(new String[]{"testAttrSpec1", "testAttrSpec2"});
+        attributespecs = Utility.Create.attributespec(new String[]{"testAttrSpec1", "testAttrSpec2"}, "user");
         Utility.Link.attributespecsToService(1, new int[]{1});
         Utility.Link.attributespecsToService(2, new int[]{2});
 
@@ -259,6 +259,27 @@ public class PrincipalGetTest extends CleanTest {
      */
     @Test
     public void testPrincipalRolesGet() {
+        Object response
+                = JSONParser.parseJSON(
+                        persistent.call(
+                                Const.Api.PRINCIPAL_ROLES,
+                                BasicCall.REST.GET));
+
+        if (response instanceof JSONObject) {
+            fail("Not a JSONArray but JSONObject: " + ((JSONObject) response).toString());
+        }
+        JSONArray jsonResponse = (JSONArray) response;
+
+        try {
+            assertEquals("HTTP/1.1 200 OK", persistent.getStatusLine());
+            JSONAssert.assertEquals(roles, jsonResponse, JSONCompareMode.LENIENT);
+        } catch (AssertionError e) {
+            AssertErrorHandler(e);
+        }
+    }
+
+    @Test
+    public void testPrincipalSelfGet() {
         Object response
                 = JSONParser.parseJSON(
                         persistent.call(

@@ -35,13 +35,19 @@ public class OrganizationsAttributesGet extends CleanTest {
     @BeforeClass
     public static void setUpClass() {
         Utility.Create.organization("testOrg");
-        attributespecs = Utility.Create.attributespec(new String[]{"atributespec1", "atributespec2"});
+
+        attributespecs = Utility.Create.attributespec(new String[]{"atributespec1", "atributespec2"}, "manager");
+
         Utility.Create.service("testService");
+
         Utility.Create.entitlementpacks(1, new String[]{"testEPack1"});
+
         Utility.Link.attributespecsToService(1, new int[]{1, 2});
+
         Utility.Link.entitlementpacksToOrg(1, new int[]{1});
-        attributevalue = Utility.Create.attributevalueorganizations(new String[]{"testValue"}, 1, 1);
-        attributevalue.put((Utility.Create.attributevalueorganizations(new String[]{"testValue"}, 2, 1)).getJSONObject(0));
+
+        attributevalue = Utility.Create.attributevalueorganizations(new String[]{"testValue1"}, 1, 1);
+        attributevalue.put((Utility.Create.attributevalueorganizations(new String[]{"testValue2"}, 2, 1)).getJSONObject(0));
     }
 
     /**
@@ -78,11 +84,11 @@ public class OrganizationsAttributesGet extends CleanTest {
                                 BasicCall.REST.GET));
 
         if (response instanceof JSONObject) {
-            fail ("Not a JSONArray but a JSONObject, so only an error.");
+            fail("Not a JSONArray but a JSONObject: " + ((JSONObject) response).toString());
         }
-        
+
         JSONArray jsonResponse
-                = (JSONArray)response;
+                = (JSONArray) response;
 
         JSONArray jsonExpected = new JSONArray();
 

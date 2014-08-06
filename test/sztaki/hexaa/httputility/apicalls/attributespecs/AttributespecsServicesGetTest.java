@@ -21,7 +21,7 @@ public class AttributespecsServicesGetTest extends CleanTest {
      */
     @BeforeClass
     public static void setUpClass() {
-        Utility.Create.attributespec("testOid");
+        Utility.Create.attributespec("testOid", "user");
         Utility.Create.service(new String[]{"testService1", "testService2"});
         Utility.Link.attributespecsToService(1, new int[]{1});
     }

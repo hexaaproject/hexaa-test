@@ -94,9 +94,12 @@ public class Utility {
          *
          * @param oids a String array representation of the names to create
          * attributespecs with.
+         * @param user String should be user or manager according to the usage:
+         * use the user if it is used by a principal, use manager if it is used
+         * by an organization.
          * @return JSONArray with all the created attributespecs in it.
          */
-        public static JSONArray attributespec(String[] oids) {
+        public static JSONArray attributespec(String[] oids, String user) {
             JSONArray attributespecs = new JSONArray();
 
             for (String oid : oids) {
@@ -105,7 +108,7 @@ public class Utility {
                 json.put("friendly_name", "testFriendlyName" + oid);
                 json.put("syntax", "syntaxTest");
                 json.put("is_multivalue", true);
-                json.put("maintainer", "user");
+                json.put("maintainer", user);
 
                 attributespecs.put(json);
 
@@ -124,8 +127,8 @@ public class Utility {
          * @param oid the names to create attributespec with.
          * @return JSONArray with the created attributespec in it.
          */
-        public static JSONArray attributespec(String oid) {
-            return attributespec(new String[]{oid});
+        public static JSONArray attributespec(String oid, String user) {
+            return attributespec(new String[]{oid}, user);
         }
 
         /**
@@ -191,7 +194,7 @@ public class Utility {
                                     null,
                                     serviceId, 0));
 
-            int i = 0;
+            int i = 1;
             for (String name : names) {
 
                 // Creating the entitlementpack object
@@ -200,9 +203,9 @@ public class Utility {
                 json.put("description", "This is a test entitlement, for the #" + Integer.toString(serviceId) + " service, with name " + name);
                 // The ones with even id are private, the ones with odd ids are public
                 if (i++ % 2 == 1) {
-                    json.put("type", "private");
-                } else {
                     json.put("type", "public");
+                } else {
+                    json.put("type", "private");
                 }
                 // Store it
                 entitlementpacks.put(json);

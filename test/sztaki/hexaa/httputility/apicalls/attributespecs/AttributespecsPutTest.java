@@ -26,7 +26,7 @@ public class AttributespecsPutTest extends CleanTest {
      */
     @BeforeClass
     public static void setUpClass() {
-        attributespecs = Utility.Create.attributespec(new String[]{"testName1"});
+        attributespecs = Utility.Create.attributespec(new String[]{"testName1"}, "user");
     }
 
     /**
