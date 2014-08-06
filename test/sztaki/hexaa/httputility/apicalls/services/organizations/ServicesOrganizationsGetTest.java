@@ -26,7 +26,7 @@ public class ServicesOrganizationsGetTest extends CleanTest {
      */
     @BeforeClass
     public static void setUpClass() {
-        Utility.Create.services(new String[]{"testService1", "testService2"});
+        Utility.Create.service(new String[]{"testService1", "testService2"});
         organizations = Utility.Create.organization(new String[]{"testOrgSrv1"});
         Utility.Create.entitlementpacks(1, new String[]{"testPack1"});
         Utility.Link.entitlementpacksToOrg(1, new int[]{1});

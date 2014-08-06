@@ -105,7 +105,7 @@ public class Utility {
                 json.put("friendly_name", "testFriendlyName" + oid);
                 json.put("syntax", "syntaxTest");
                 json.put("is_multivalue", true);
-                json.put("maintainer", "user");
+                //json.put("maintainer", "user");
 
                 attributespecs.put(json);
 
@@ -345,11 +345,11 @@ public class Utility {
          * already existing services, as it will cause 400 Bad Requests and will
          * fail the test class.
          *
-         * @param names array of strings with the names of the objects to
+         * @param names array of strings with the names of the services to
          * create.
          * @return A JSONArray populated by the data of the created services.
          */
-        public static JSONArray services(String[] names) {
+        public static JSONArray service(String[] names) {
             JSONArray services = new JSONArray();
             // GET the existing entityids
             JSONArray jsonEntityArray = (JSONArray) JSONParser.parseJSON(
@@ -379,6 +379,17 @@ public class Utility {
             }
 
             return services;
+        }
+
+        /**
+         * Alternative call for {@link #service(String[])} for single role
+         * creation.
+         *
+         * @param name the name of the service to create.
+         * @return JSONArray of the POST-ed service.
+         */
+        public static JSONArray service(String name) {
+            return Create.service(new String[]{name});
         }
     }
 
@@ -548,7 +559,7 @@ public class Utility {
         public static void memberToOrganization(int orgId, int principalId) {
             memberToOrganization(orgId, new int[]{principalId});
         }
-        
+
         /**
          * Links already existing principal specified in the principalIds array
          * to the existing organization specified by the orgId as a manager.
@@ -577,8 +588,7 @@ public class Utility {
         public static void managerToOrganization(int orgId, int principalId) {
             managerToOrganization(orgId, new int[]{principalId});
         }
-        
-        
+
     }
 
     public static class Remove {

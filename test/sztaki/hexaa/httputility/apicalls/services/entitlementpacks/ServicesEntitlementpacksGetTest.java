@@ -28,7 +28,7 @@ public class ServicesEntitlementpacksGetTest extends CleanTest {
      */
     @BeforeClass
     public static void buildUp() {
-        Utility.Create.services(new String[]{"testService1", "testService2"});
+        Utility.Create.service(new String[]{"testService1", "testService2"});
         entitlementpacks = Utility.Create.entitlementpacks(1, new String[]{"testEntitlementpacks1", "testEntitlementpacks2"});
         entitlementpacks.put(Utility.Create.entitlementpacks(2, new String[]{"testEntitlementpacks3"}).getJSONObject(0));
     }

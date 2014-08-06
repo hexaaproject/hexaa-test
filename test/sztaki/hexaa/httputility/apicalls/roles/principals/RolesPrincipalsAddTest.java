@@ -20,7 +20,7 @@ public class RolesPrincipalsAddTest extends CleanTest {
     public static void setUpClass() {
         Utility.Create.organization(new String[]{"testOrg1"});
         Utility.Create.role(new String[]{"testRole1", "testRole2"}, 1);
-        Utility.Create.services(new String[]{"testService1"});
+        Utility.Create.service(new String[]{"testService1"});
         Utility.Create.principal(new String[]{"fedidTest1"});
     }
 

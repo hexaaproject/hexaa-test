@@ -25,11 +25,14 @@ public class Authenticator {
      */
     public void authenticate(String fedid) {
         // We check the current connection, if we don't get 
+            System.out.print("** AUTHENTICATE **\t");
         String response = new BasicCall().call(Const.Api.PRINCIPAL_SELF, REST.GET);
+            System.out.print("** AUTHENTICATE **\t");
         System.out.println(response);
 
         // If the response is Forbidden, we start the authentication
         if (!response.contains(fedid)) {
+            System.out.print("** AUTHENTICATE **\t");
             System.out.println("Getting temporary API key.");
 
             BasicCall postToken = new BasicCall();
@@ -40,8 +43,10 @@ public class Authenticator {
             json.put("email", fedid);
             json.put("display_name", fedid + "_name");
 
+            System.out.print("** AUTHENTICATE **\t");
             System.out.println("Temporary API key acquired.");
 
+            System.out.print("** AUTHENTICATE **\t");
             response = postToken.call(
                     Const.Api.TOKENS,
                     BasicCall.REST.POST,
@@ -51,10 +56,12 @@ public class Authenticator {
             JSONObject jsonResponse;
             jsonResponse = (JSONObject) JSONParser.parseJSON(response);
 
+            System.out.print("** AUTHENTICATE **\t");
             System.out.println(jsonResponse.toString());
 
             Const.HEXAA_AUTH = jsonResponse.get("token").toString();
 
+            System.out.print("** AUTHENTICATE **\t");
             System.out.println("Normal API key acquired.");
 
             /*End of Forbidden*/

@@ -101,7 +101,7 @@ public class CleanTest {
      *
      * @param e AssertationError
      */
-    public void AssertErrorHandler(AssertionError e) {
+    public void AssertErrorHandler(Throwable e) {
         System.out.println(persistent.getStatusLine());
         System.out.println(e.getLocalizedMessage());
         collector.addError(e);

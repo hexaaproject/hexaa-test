@@ -33,7 +33,7 @@ public abstract class OrganizationEntitlementpack extends CleanTest {
      */
     @BeforeClass
     public static void setUpClass() {
-        Utility.Create.services(new String[]{"testService"});
+        Utility.Create.service(new String[]{"testService"});
         Utility.Create.organization(new String[]{"testOrganization"});
         entitlements = Utility.Create.entitlements(1, new String[]{"testEntitlement1", "testEntitlement2"});
         entitlementpacks = Utility.Create.entitlementpacks(1, new String[]{"testEntitlementpack1"});

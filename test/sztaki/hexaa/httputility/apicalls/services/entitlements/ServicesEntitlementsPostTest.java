@@ -28,7 +28,7 @@ public class ServicesEntitlementsPostTest extends CleanTest {
      */
     @BeforeClass
     public static void setUpClass() {
-        Utility.Create.services(new String[]{"testService1", "testService2"});
+        Utility.Create.service(new String[]{"testService1", "testService2"});
     }
 
     /**

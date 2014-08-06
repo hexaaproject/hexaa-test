@@ -24,7 +24,7 @@ public class EntitlementpacksAddEntitlementsTest extends CleanTest {
      */
     @BeforeClass
     public static void setUpClass() {
-        Utility.Create.services(new String[]{"testService1"});
+        Utility.Create.service(new String[]{"testService1"});
         Utility.Create.entitlements(1, new String[]{"testEntitlements1", "testEntitlements2"});
         Utility.Create.entitlementpacks(1, new String[]{"testEntitlementpacks1", "testEntitlementpacks2"});
     }

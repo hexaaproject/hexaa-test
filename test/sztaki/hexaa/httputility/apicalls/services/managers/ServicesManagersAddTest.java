@@ -28,7 +28,7 @@ public class ServicesManagersAddTest extends CleanTest {
      */
     @BeforeClass
     public static void setUpClass() {
-        Utility.Create.services(new String[]{"testService1", "testService2"});
+        Utility.Create.service(new String[]{"testService1", "testService2"});
         managers = Utility.Create.principal(new String[]{"principalTest1", "principalTest2"});
         managers.put((JSONObject) JSONParser.parseJSON(persistent.call(Const.Api.PRINCIPAL_SELF, BasicCall.REST.GET)));
     }

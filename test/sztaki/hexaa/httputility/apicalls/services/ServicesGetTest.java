@@ -27,7 +27,7 @@ public class ServicesGetTest extends CleanTest {
      */
     @BeforeClass
     public static void setUpClass() {
-        services = Utility.Create.services(new String[]{"testServForSrvGet1", "testServForSrvGet2"});
+        services = Utility.Create.service(new String[]{"testServForSrvGet1", "testServForSrvGet2"});
     }
 
     /**

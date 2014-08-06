@@ -27,7 +27,7 @@ public class ServicesDeleteTest extends CleanTest {
      */
     @BeforeClass
     public static void setUpClass() {
-        services = Utility.Create.services(new String[]{"testService1", "testService2"});
+        services = Utility.Create.service(new String[]{"testService1", "testService2"});
     }
 
     /**
