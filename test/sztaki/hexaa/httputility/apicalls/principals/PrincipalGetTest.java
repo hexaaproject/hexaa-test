@@ -34,12 +34,13 @@ public class PrincipalGetTest extends CleanTest {
     @BeforeClass
     public static void setUpClass() {
         organizations = Utility.Create.organization(new String[]{"testOrgForPrincGet"});
+        Utility.Link.memberToOrganization(1, 1);
 
         services = Utility.Create.service(new String[]{"testServForPrincGet1", "testServForPrincGet2"});
 
         attributespecs = Utility.Create.attributespec(new String[]{"testAttrSpec1", "testAttrSpec2"}, "user");
-        Utility.Link.attributespecsToService(1, new int[]{1});
-        Utility.Link.attributespecsToService(2, new int[]{2});
+        Utility.Link.attributespecsPublicToService(1, new int[]{1});
+        Utility.Link.attributespecsPrivateToService(2, new int[]{2});
 
         roles = Utility.Create.role(new String[]{"role1"}, 1);
 
@@ -47,7 +48,7 @@ public class PrincipalGetTest extends CleanTest {
         Utility.Create.entitlementpacks(2, new String[]{"entPackServ2"});
 
         Utility.Link.entitlementToPack(1, 1);
-        Utility.Link.entitlementpacksToOrg(1, new int[]{1});
+        Utility.Link.entitlementpackToOrg(1, new int[]{1});
         Utility.Link.entitlementsToRole(1, new int[]{1});
 
         Utility.Link.principalToRole(1, new int[]{1});
@@ -123,6 +124,10 @@ public class PrincipalGetTest extends CleanTest {
      */
     @Test
     public void testPrincipalGetPublicAttributespecs() {
+
+        Utility.Remove.principalFromRole(1, new int[]{1});
+        Utility.Remove.entitlementpackFromOrg(1, 1);
+
         JSONArray jsonResponse
                 = (JSONArray) JSONParser.parseJSON(
                         persistent.call(
@@ -132,6 +137,9 @@ public class PrincipalGetTest extends CleanTest {
         JSONArray publicAttributespecs = new JSONArray();
 
         publicAttributespecs.put(attributespecs.getJSONObject(0));
+        
+        System.out.println(jsonResponse.toString());
+        System.out.println(persistent.call(Const.Api.PRINCIPAL_ROLES, BasicCall.REST.GET));
 
         try {
             assertEquals("HTTP/1.1 200 OK", persistent.getStatusLine());
@@ -139,6 +147,10 @@ public class PrincipalGetTest extends CleanTest {
         } catch (AssertionError e) {
             AssertErrorHandler(e);
         }
+
+        Utility.Link.principalToRole(1, new int[]{1});
+        Utility.Link.entitlementpackToOrg(1, new int[]{1});
+        Utility.Link.entitlementsToRole(1, new int[]{1});
     }
 
     /**

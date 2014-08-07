@@ -44,7 +44,7 @@ public class OrganizationsAttributesGet extends CleanTest {
 
         Utility.Link.attributespecsToService(1, new int[]{1, 2});
 
-        Utility.Link.entitlementpacksToOrg(1, new int[]{1});
+        Utility.Link.entitlementpackToOrg(1, new int[]{1});
 
         attributevalue = Utility.Create.attributevalueorganizations(new String[]{"testValue1"}, 1, 1);
         attributevalue.put((Utility.Create.attributevalueorganizations(new String[]{"testValue2"}, 2, 1)).getJSONObject(0));

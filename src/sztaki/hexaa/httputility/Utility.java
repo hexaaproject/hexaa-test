@@ -423,7 +423,7 @@ public class Utility {
          * @param orgId the id of the organization to link.
          * @param packIds the ids of the entitlementpacks to link.
          */
-        public static void entitlementpacksToOrg(int orgId, int[] packIds) {
+        public static void entitlementpackToOrg(int orgId, int[] packIds) {
             for (int pack : packIds) {
                 // Connect one entitlementpack to an organization
                 persistent.call(
@@ -439,6 +439,17 @@ public class Utility {
                         orgId, pack);
 
             }
+        }
+
+        /**
+         * Alternative for the {@link #entitlementpackToOrg(int, int[])} for
+         * single entitlementpack.
+         *
+         * @param orgId the id of the organization to link.
+         * @param packIds the ids of the entitlementpacks to link.
+         */
+        public static void entitlementpackToOrg(int orgId, int packIds) {
+            entitlementpackToOrg(orgId, new int[]{packIds});
         }
 
         /**
@@ -476,6 +487,50 @@ public class Utility {
             } else {
                 json.put("is_public", false);
             }
+
+            for (int asid : attributeIds) {
+                persistent.call(
+                        Const.Api.SERVICES_ID_ATTRIBUTESPECS_ASID,
+                        BasicCall.REST.PUT,
+                        json.toString(),
+                        serviceId, asid);
+            }
+        }
+
+        /**
+         * Links already existing attributespecs specified in the attributeIds
+         * array to the existing service specified by the serviceId. The
+         * attributespecs will be public.
+         *
+         * @param serviceId the id of the service to link to.
+         * @param attributeIds the ids of the attributespecs to link.
+         */
+        public static void attributespecsPublicToService(int serviceId, int[] attributeIds) {
+            JSONObject json = new JSONObject();
+
+            json.put("is_public", true);
+
+            for (int asid : attributeIds) {
+                persistent.call(
+                        Const.Api.SERVICES_ID_ATTRIBUTESPECS_ASID,
+                        BasicCall.REST.PUT,
+                        json.toString(),
+                        serviceId, asid);
+            }
+        }
+
+        /**
+         * Links already existing attributespecs specified in the attributeIds
+         * array to the existing service specified by the serviceId. The
+         * attributespecs will be private.
+         *
+         * @param serviceId the id of the service to link to.
+         * @param attributeIds the ids of the attributespecs to link.
+         */
+        public static void attributespecsPrivateToService(int serviceId, int[] attributeIds) {
+            JSONObject json = new JSONObject();
+
+            json.put("is_public", false);
 
             for (int asid : attributeIds) {
                 persistent.call(
@@ -594,10 +649,68 @@ public class Utility {
 
     }
 
+    /**
+     * Utility class within Utility for removing links and/or objects.
+     */
     public static class Remove {
 
+        /**
+         * Removes already existing linking of principal specified in the
+         * principalIds array to the existing role specified by the roleId.
+         *
+         * @param roleId the id of the role to link.
+         * @param principalIds the ids of the principal to link.
+         */
+        public static void principalFromRole(int roleId, int[] principalIds) {
+            for (int pid : principalIds) {
+                persistent.call(
+                        Const.Api.ROLES_ID_PRINCIPALS_PID,
+                        BasicCall.REST.DEL,
+                        null,
+                        roleId, pid);
+            }
+        }
+
+        /**
+         * Alternative for the
+         * {@link principalFromRole(int roleId, int[] principalIds)} for single
+         * principal.
+         *
+         * @param roleId the id of the role to link.
+         * @param principalId the ids of the principal to link.
+         */
         public static void principalFromRole(int roleId, int principalId) {
-            // TODO
+            principalFromRole(roleId, new int[]{principalId});
+        }
+
+        /**
+         * Removes already existing links between entitlementpacks specified in
+         * the packIds array to the existing organization specified by the
+         * orgId.
+         *
+         * @param orgId the id of the organization to link.
+         * @param packIds the ids of the entitlementpacks to link.
+         */
+        public static void entitlementpackFromOrg(int orgId, int[] packIds) {
+            for (int eid : packIds) {
+                persistent.call(
+                        Const.Api.ORGANIZATIONS_ID_ENTITLEMENTPACKS_EPID,
+                        BasicCall.REST.DEL,
+                        null,
+                        orgId, eid);
+            }
+        }
+
+        /**
+         * Alternative for the
+         * {@link entitlementpackFromOrg(int orgId, int[] packIds)} for single
+         * principal.
+         *
+         * @param orgId the id of the organization to link.
+         * @param packIds the ids of the entitlementpacks to link.
+         */
+        public static void entitlementpackFromOrg(int orgId, int packIds) {
+            entitlementpackFromOrg(orgId, new int[]{packIds});
         }
 
     }

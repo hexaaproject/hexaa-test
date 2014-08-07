@@ -44,7 +44,7 @@ public class RolesEntitlementsAddTest extends CleanTest {
 
         // PUT entitlement to pack and pack to organization.
         Utility.Link.entitlementToPack(1, 1);
-        Utility.Link.entitlementpacksToOrg(1, new int[]{1});
+        Utility.Link.entitlementpackToOrg(1, new int[]{1});
 
         // PUT entitlement to role.
         persistent.call(

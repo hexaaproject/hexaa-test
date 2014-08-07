@@ -35,7 +35,7 @@ public class RolesEntitlementsGetTest extends CleanTest {
 
         Utility.Link.entitlementToPack(1, 1);
         Utility.Link.entitlementToPack(2, 1);
-        Utility.Link.entitlementpacksToOrg(1, new int[]{1});
+        Utility.Link.entitlementpackToOrg(1, new int[]{1});
 
         Utility.Link.entitlementsToRole(1, new int[]{1, 2});
     }
