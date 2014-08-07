@@ -11,6 +11,9 @@ public class JavaHttpCoreTest {
      * @param args
      */
     public static void main(String[] args) {
+        new DatabaseManipulator().dropDatabase();
+        new DatabaseManipulator().dropCache();
+        
         new Authenticator().authenticate(Const.HEXAA_FEDID);
         
     }

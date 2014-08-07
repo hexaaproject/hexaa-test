@@ -10,9 +10,18 @@ import sztaki.hexaa.httputility.apicalls.BasicTestSuite;
  */
 @RunWith(Suite.class)
 @Suite.SuiteClasses({
+    PrincipalGetAdmin.class,
     PrincipalGetTest.class,
-    PrincipalsPostTest.class,
+    PrincipalsAttributespecsPrivateGetTest.class,
+    PrincipalsAttributespecsPublicGetTest.class,
+    PrincipalsAttributevaluesGetTest.class,
     PrincipalsDeleteSelfTest.class,
-    PrincipalsDeleteTest.class,})
+    PrincipalsDeleteTest.class,
+    PrincipalsEntitlementsGetTest.class,
+    PrincipalsManagerGetOrganizationsTest.class,
+    PrincipalsManagerGetServicesTest.class,
+    PrincipalsMemeberGetOrganizationsTest.class,
+    PrincipalsPostTest.class,
+    PrincipalsRoleGetTest.class,})
 public class PrincipalsSuite extends BasicTestSuite {
 }

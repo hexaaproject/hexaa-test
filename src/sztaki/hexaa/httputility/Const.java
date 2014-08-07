@@ -57,7 +57,7 @@ public class Const {
 
         /* *** Attribute value (for principal) *** */
         /**
-         * POST(create) attribute value for principals.
+         * POST(create) attribute value for principal.
          */
         public static final String ATTRIBUTEVALUEPRINCIPALS_ASID = ("/app.php/api/attributevalueprincipals/{asid}");
         /**

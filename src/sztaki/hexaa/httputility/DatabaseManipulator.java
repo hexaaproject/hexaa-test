@@ -22,8 +22,36 @@ public final class DatabaseManipulator {
             Runtime rt = Runtime.getRuntime();
 
             // Call for server side script
-            Process proc = rt.exec(new String[]{"ssh", "user@"+Const.HEXAA_HOST,
+            Process proc = rt.exec(new String[]{"ssh", "user@" + Const.HEXAA_HOST,
                 "~/databasedrop.sh", "exit"});
+
+            // any error message?
+            StreamGobbler errorGobbler = new StreamGobbler(proc.getErrorStream(), "ERROR");
+
+            // any output?
+            StreamGobbler outputGobbler = new StreamGobbler(proc.getInputStream(), "OUTPUT");
+
+            // kick them off
+            errorGobbler.start();
+            outputGobbler.start();
+
+            // any error???
+            int exitVal = proc.waitFor();
+            System.out.println("ExitValue: " + exitVal);
+
+        } catch (IOException | InterruptedException ex) {
+            Logger.getLogger(DatabaseManipulator.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+    public void dropCache() {
+        try {
+
+            Runtime rt = Runtime.getRuntime();
+
+            // Call for server side script
+            Process proc = rt.exec(new String[]{"ssh", "user@" + Const.HEXAA_HOST,
+                "~/cachedrop.sh", "exit"});
 
             // any error message?
             StreamGobbler errorGobbler = new StreamGobbler(proc.getErrorStream(), "ERROR");

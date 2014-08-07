@@ -82,7 +82,6 @@ public class Utility {
                         BasicCall.REST.POST,
                         json.toString(),
                         asid, asid);
-
             }
             return attributevalues;
         }
