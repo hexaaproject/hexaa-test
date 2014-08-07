@@ -17,7 +17,7 @@ import org.junit.runners.Suite;
     sztaki.hexaa.httputility.apicalls.entitlements.EntitlementsSuite.class,
     sztaki.hexaa.httputility.apicalls.entitlementpacks.EntitlementpacksSuite.class,
     sztaki.hexaa.httputility.apicalls.organizations.OrganizationSuite.class,
-    sztaki.hexaa.httputility.apicalls.principals.PrincipalSuite.class,
+    sztaki.hexaa.httputility.apicalls.principals.PrincipalsSuite.class,
     sztaki.hexaa.httputility.apicalls.roles.RolesSuite.class,
     sztaki.hexaa.httputility.apicalls.services.ServicesSuite.class,})
 public class BasicTests {

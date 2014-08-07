@@ -297,7 +297,7 @@ public class Const {
          */
         public static final String PRINCIPALS_ID = ("/app.php/api/principals/{id}/id");
         /**
-         * GET info about a principal by id.
+         * DELETE current principal.
          */
         public static final String PRINCIPAL = ("/app.php/api/principal");
 

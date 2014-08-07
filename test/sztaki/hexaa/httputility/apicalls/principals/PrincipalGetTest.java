@@ -137,7 +137,7 @@ public class PrincipalGetTest extends CleanTest {
         JSONArray publicAttributespecs = new JSONArray();
 
         publicAttributespecs.put(attributespecs.getJSONObject(0));
-        
+
         System.out.println(jsonResponse.toString());
         System.out.println(persistent.call(Const.Api.PRINCIPAL_ROLES, BasicCall.REST.GET));
 
@@ -290,25 +290,35 @@ public class PrincipalGetTest extends CleanTest {
         }
     }
 
+    /**
+     * GET info about the current principal.
+     */
     @Test
     public void testPrincipalSelfGet() {
         Object response
                 = JSONParser.parseJSON(
                         persistent.call(
-                                Const.Api.PRINCIPAL_ROLES,
+                                Const.Api.PRINCIPAL_SELF,
                                 BasicCall.REST.GET));
 
-        if (response instanceof JSONObject) {
-            fail("Not a JSONArray but JSONObject: " + ((JSONObject) response).toString());
-        }
-        JSONArray jsonResponse = (JSONArray) response;
+        JSONObject jsonResponse = (JSONObject) response;
 
         try {
             assertEquals("HTTP/1.1 200 OK", persistent.getStatusLine());
-            JSONAssert.assertEquals(roles, jsonResponse, JSONCompareMode.LENIENT);
+            assertEquals(Const.HEXAA_FEDID, jsonResponse.getString("fedid"));
         } catch (AssertionError e) {
             AssertErrorHandler(e);
         }
+    }
+
+    public void testPrincipalsGet() {
+        Object response
+                = JSONParser.parseJSON(
+                        persistent.call(
+                                Const.Api.PRINCIPALS,
+                                BasicCall.REST.GET));
+        
+        
     }
 
 //TODO
