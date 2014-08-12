@@ -26,7 +26,7 @@ public final class DatabaseManipulator {
             if (Const.HEXAA_HOST.equals("localhost")) {
                 // Call for server side script if it runs on the server
                 proc = rt.exec(new String[]{
-                    "~/databasedrop.sh"
+                    "/var/lib/jenkins/databasedrop.sh"
                 });
             } else {
                 // Call for server side script remotely
@@ -65,7 +65,7 @@ public final class DatabaseManipulator {
             if (Const.HEXAA_HOST.equals("localhost")) {
                 // Call for server side script if it runs on the server
                 proc = rt.exec(new String[]{
-                    "~/cachedrop.sh"
+                    "/var/lib/jenkins/cachedrop.sh"
                 });
             } else {
                 // Call for server side script remotely
