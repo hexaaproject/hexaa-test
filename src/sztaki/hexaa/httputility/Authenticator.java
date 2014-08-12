@@ -1,9 +1,12 @@
 package sztaki.hexaa.httputility;
 
+import java.io.IOException;
+import java.io.InputStream;
 import java.time.DateTimeException;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
+import java.util.Properties;
 import org.json.JSONObject;
 import org.skyscreamer.jsonassert.JSONParser;
 import sztaki.hexaa.httputility.BasicCall.REST;
@@ -25,6 +28,11 @@ public class Authenticator {
      * is the {@link Const.HEXAA_FEDID}, if not use a valid e-mail format.
      */
     public void authenticate(String fedid) {
+        // Load the properties file if it has not been yet loaded and it exist.
+        if (!Const.PROPERTIES_LOADED) {
+            this.loadProperties();
+        }
+
         // We check the current connection, if we don't get 
         System.out.print("** AUTHENTICATE **\t");
         String response = new BasicCall().call(Const.Api.PRINCIPAL_SELF, REST.GET);
@@ -89,16 +97,52 @@ public class Authenticator {
         } catch (DateTimeException exc) {
             throw exc;
         }
-        String text = "7lrfjlpu5br2vpv1jcaogdz481b28xf7lz85wqmv";
+        String temp = Const.MASTER_SECRET;
 
-        text = text.concat(out);
+        temp = temp.concat(out);
 
-        sha256hex = org.apache.commons.codec.digest.DigestUtils.sha256Hex(text);
+        sha256hex = org.apache.commons.codec.digest.DigestUtils.sha256Hex(temp);
         if (sha256hex == null) {
             System.exit(0);
         }
 
         return sha256hex;
+
+    }
+
+    public void loadProperties() {
+        Properties prop = new Properties();
+        InputStream input = null;
+
+        try {
+
+            String filename = "config.properties";
+            input = Authenticator.class.getClassLoader().getResourceAsStream(filename);
+            if (input == null) {
+                System.out.println("Unable to load config.properties, make sure config.properties exists" + filename);
+                return;
+            }
+
+            //load a properties file from class path, inside static method
+            prop.load(input);
+
+            //get the property value and print it out
+            Const.HEXAA_FEDID = prop.getProperty("fedid");
+            Const.HEXAA_HOST = prop.getProperty("host");
+            Const.HEXAA_PORT = Integer.getInteger(prop.getProperty("port"));
+            Const.MASTER_SECRET = prop.getProperty("master_secret");
+
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        } finally {
+            if (input != null) {
+                try {
+                    input.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
 
     }
 }

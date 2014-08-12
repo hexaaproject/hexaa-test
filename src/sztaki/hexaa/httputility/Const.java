@@ -7,9 +7,13 @@ package sztaki.hexaa.httputility;
 public class Const {
 
     /**
-     * The servers port number.
+     * Flag to load the properties if false.
      */
-    public static final int HEXAA_PORT = 80;
+    public static boolean PROPERTIES_LOADED = false;
+    /**
+     * The servers port number. Default 80, load from config.properties.
+     */
+    public static int HEXAA_PORT = 80;
     /**
      * The header required by the server application to authenticate.
      */
@@ -20,18 +24,25 @@ public class Const {
      */
     public static String HEXAA_AUTH = ("1c04c81498d1e534abe433998c48c60c9df628d7ce0ab60897546ac4599edd28");
     /**
-     * The IP address or name of the server.
+     * The IP address or name of the server. Default localhost, load from
+     * config.properties.
      */
     //public static final String HEXAA_HOST = ("192.168.203.203");
-    public static final String HEXAA_HOST = ("localhost");
+    public static String HEXAA_HOST = ("localhost");
     /**
      * The scheme required by the server.
      */
     public static final String HEXAA_SCHEME = ("http");
     /**
-     * The fedid of the superadmin that we use for the tests.
+     * The fedid of the superadmin that we use for the tests. Default
+     * tesztAdmin@sztaki.hu, load from config.properties.
      */
     public static String HEXAA_FEDID = ("tesztAdmin@sztaki.hu");
+    /**
+     * The master_secret that match the servers master_secret for
+     * authentication. Default exist, load from config.properties.
+     */
+    public static String MASTER_SECRET = ("7lrfjlpu5br2vpv1jcaogdz481b28xf7lz85wqmv");
 
     /**
      * Contains the existing URL-s of the server.
@@ -133,7 +144,7 @@ public class Const {
          * GET(list) service entityIDs.
          */
         public static final String ENTITYIDS = ("/app.php/api/entityids");
-        
+
         /* *** Invitation *** */
         /**
          * POST(send) new invitation.

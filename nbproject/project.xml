@@ -27,6 +27,7 @@
             <word>attributevalueprincipal</word>
             <word>attributevalueprincipals</word>
             <word>attributevalues</word>
+            <word>config</word>
             <word>Const</word>
             <word>entitlementpack</word>
             <word>entitlementpacks</word>
@@ -36,8 +37,10 @@
             <word>fedids</word>
             <word>hexaa</word>
             <word>http</word>
+            <word>hu</word>
             <word>ids</word>
             <word>isadmin</word>
+            <word>localhost</word>
             <word>oid</word>
             <word>oids</word>
             <word>Overriden</word>
