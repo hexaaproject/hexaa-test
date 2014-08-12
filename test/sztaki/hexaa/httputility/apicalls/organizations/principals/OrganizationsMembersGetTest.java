@@ -50,7 +50,7 @@ public class OrganizationsMembersGetTest extends CleanTest {
      * Tests the GET method.
      */
     @Test
-    public void testOrganizationMemberPut() {
+    public void testOrganizationMembersGet() {
         JSONArray jsonResponse
                 = (JSONArray) JSONParser.parseJSON(
                         persistent.call(

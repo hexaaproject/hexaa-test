@@ -35,7 +35,7 @@ public class OrganizationsMembersAddTest extends CleanTest {
      * member.
      */
     @Test
-    public void testOrganizationMemberPut() {
+    public void testOrganizationMemberAdd() {
         persistent.call(
                 Const.Api.ORGANIZATIONS_ID_MEMBERS_PID,
                 BasicCall.REST.PUT,

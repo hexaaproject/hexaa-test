@@ -50,7 +50,7 @@ public class OrganizationsMembersRemoveTest extends CleanTest {
      * Tests the DEL method.
      */
     @Test
-    public void testOrganizationMemberPut() {
+    public void testOrganizationMemberRemove() {
         persistent.call(
                 Const.Api.ORGANIZATIONS_ID_MEMBERS_PID,
                 BasicCall.REST.DEL,

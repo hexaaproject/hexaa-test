@@ -35,7 +35,7 @@ public class OrganizationsManagersAddTest extends CleanTest {
      * manager.
      */
     @Test
-    public void testOrganizationManagerPut() {
+    public void testOrganizationManagersAdd() {
         persistent.call(
                 Const.Api.ORGANIZATIONS_ID_MANAGERS_PID,
                 BasicCall.REST.PUT,
