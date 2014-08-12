@@ -25,6 +25,7 @@ public class BasicTests {
     
     @BeforeClass
     public static void setUpClass() {
+        System.out.println("BeforeClass @ BasicTests");
         new DatabaseManipulator().dropCache();
     }
 }
