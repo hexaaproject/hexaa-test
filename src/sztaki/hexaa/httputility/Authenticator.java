@@ -18,10 +18,11 @@ public class Authenticator {
     /**
      * Checks if the session is authenticated or not, and authenticates if
      * necessary. Gets a short time limited API key and uses the /api/token GET
-     * method to get the usual 1 hour limited API key.
+     * method to get the usual 1 hour limited API key. The given fedid has to be
+     * in a valid e-mail format (some@thing.example).
      *
      * @param fedid the fedid we want to authenticate with, normally the fedid
-     * is the {@link Const.HEXAA_FEDID}
+     * is the {@link Const.HEXAA_FEDID}, if not use a valid e-mail format.
      */
     public void authenticate(String fedid) {
         // We check the current connection, if we don't get 

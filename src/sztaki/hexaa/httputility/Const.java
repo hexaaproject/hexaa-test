@@ -22,7 +22,8 @@ public class Const {
     /**
      * The IP address or name of the server.
      */
-    public static final String HEXAA_HOST = ("192.168.203.203");
+    //public static final String HEXAA_HOST = ("192.168.203.203");
+    public static final String HEXAA_HOST = ("localhost");
     /**
      * The scheme required by the server.
      */

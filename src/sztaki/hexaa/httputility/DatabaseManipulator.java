@@ -21,9 +21,20 @@ public final class DatabaseManipulator {
 
             Runtime rt = Runtime.getRuntime();
 
-            // Call for server side script
-            Process proc = rt.exec(new String[]{"ssh", "user@" + Const.HEXAA_HOST,
-                "~/databasedrop.sh", "exit"});
+            Process proc = null;
+
+            if (Const.HEXAA_HOST.equals("localhost")) {
+                // Call for server side script if it runs on the server
+                proc = rt.exec(new String[]{
+                    "~/databasedrop.sh"
+                });
+            } else {
+                // Call for server side script remotely
+                proc = rt.exec(new String[]{
+                    "ssh", "user@" + Const.HEXAA_HOST,
+                    "~/databasedrop.sh", "exit"
+                });
+            }
 
             // any error message?
             StreamGobbler errorGobbler = new StreamGobbler(proc.getErrorStream(), "ERROR");
@@ -49,9 +60,20 @@ public final class DatabaseManipulator {
 
             Runtime rt = Runtime.getRuntime();
 
-            // Call for server side script
-            Process proc = rt.exec(new String[]{"ssh", "user@" + Const.HEXAA_HOST,
-                "~/cachedrop.sh", "exit"});
+            Process proc = null;
+
+            if (Const.HEXAA_HOST.equals("localhost")) {
+                // Call for server side script if it runs on the server
+                proc = rt.exec(new String[]{
+                    "~/cachedrop.sh"
+                });
+            } else {
+                // Call for server side script remotely
+                proc = rt.exec(new String[]{
+                    "ssh", "user@" + Const.HEXAA_HOST,
+                    "~/cachedrop.sh", "exit"
+                });
+            }
 
             // any error message?
             StreamGobbler errorGobbler = new StreamGobbler(proc.getErrorStream(), "ERROR");
