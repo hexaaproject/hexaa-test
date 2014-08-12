@@ -14,6 +14,14 @@ import sztaki.hexaa.httputility.apicalls.CleanTest;
 public class RolesPrincipalsAddTest extends CleanTest {
 
     /**
+     * Print the class name on the output.
+     */
+    @BeforeClass
+    public static void classInformation() {
+        System.out.println("***\t " + RolesPrincipalsAddTest.class.getSimpleName() + " ***");
+    }
+
+    /**
      * Creates an organization, two role, a service and a principal.
      */
     @BeforeClass

@@ -14,16 +14,24 @@ import sztaki.hexaa.httputility.Const;
 import sztaki.hexaa.httputility.apicalls.CleanTest;
 
 /**
- *
+ * Test the DELETE method on the /api/principal call.
  */
 public class PrincipalsDeleteSelfTest extends CleanTest {
+
+    /**
+     * Print the class name on the output.
+     */
+    @BeforeClass
+    public static void classInformation() {
+        System.out.println("***\t " + PrincipalsDeleteSelfTest.class.getSimpleName() + " ***");
+    }
 
     /**
      * Re-Authenticates as testPrincipal for the test.
      */
     @BeforeClass
     public static void setUpClass() {
-        new Authenticator().authenticate("testPrincipal");
+        new Authenticator().authenticate("testPrincipal@something.test");
     }
 
     /**

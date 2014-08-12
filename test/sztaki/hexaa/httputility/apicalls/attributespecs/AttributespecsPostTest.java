@@ -3,6 +3,7 @@ package sztaki.hexaa.httputility.apicalls.attributespecs;
 import static org.junit.Assert.*;
 import org.junit.Test;
 import org.json.JSONObject;
+import org.junit.BeforeClass;
 import sztaki.hexaa.httputility.BasicCall;
 import sztaki.hexaa.httputility.Const;
 import sztaki.hexaa.httputility.apicalls.CleanTest;
@@ -11,6 +12,14 @@ import sztaki.hexaa.httputility.apicalls.CleanTest;
  * Tests the POST method on the /api/attributespecs call.
  */
 public class AttributespecsPostTest extends CleanTest {
+
+    /**
+     * Print the class name on the output.
+     */
+    @BeforeClass
+    public static void classInformation() {
+        System.out.println("***\t " + AttributespecsPostTest.class.getSimpleName() + " ***");
+    }
 
     /**
      * POST 2 different attributespecs.

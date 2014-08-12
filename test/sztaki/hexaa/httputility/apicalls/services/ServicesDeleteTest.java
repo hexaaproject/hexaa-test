@@ -18,6 +18,14 @@ import sztaki.hexaa.httputility.apicalls.CleanTest;
 public class ServicesDeleteTest extends CleanTest {
 
     /**
+     * Print the class name on the output.
+     */
+    @BeforeClass
+    public static void classInformation() {
+        System.out.println("***\t " + ServicesDeleteTest.class.getSimpleName() + " ***");
+    }
+
+    /**
      * JSONArray to store the created services.
      */
     public static JSONArray services = new JSONArray();

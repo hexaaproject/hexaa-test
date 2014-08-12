@@ -1,5 +1,6 @@
 package sztaki.hexaa.httputility.apicalls.entitlements;
 
+import org.junit.BeforeClass;
 import org.junit.Test;
 import sztaki.hexaa.httputility.BasicCall.REST;
 import sztaki.hexaa.httputility.Const;
@@ -10,6 +11,14 @@ import sztaki.hexaa.httputility.apicalls.IsEmptyTest;
  * expecting not found or empty answers.
  */
 public class EntitlementsIsEmptyTest extends IsEmptyTest {
+
+    /**
+     * Print the class name on the output.
+     */
+    @BeforeClass
+    public static void classInformation() {
+        System.out.println("***\t " + EntitlementsIsEmptyTest.class.getSimpleName() + " ***");
+    }
 
     /**
      * GET method tests.

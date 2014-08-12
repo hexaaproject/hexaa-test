@@ -13,9 +13,17 @@ import sztaki.hexaa.httputility.Utility;
 import sztaki.hexaa.httputility.apicalls.CleanTest;
 
 /**
- *
+ * Test the GET method on the /api/principal/attributespecs call.
  */
 public class PrincipalsAttributespecsPrivateGetTest extends CleanTest {
+
+    /**
+     * Print the class name on the output.
+     */
+    @BeforeClass
+    public static void classInformation() {
+        System.out.println("***\t " + PrincipalsAttributespecsPrivateGetTest.class.getSimpleName() + " ***");
+    }
 
     /**
      * JSONArray to store the created attributespecs.

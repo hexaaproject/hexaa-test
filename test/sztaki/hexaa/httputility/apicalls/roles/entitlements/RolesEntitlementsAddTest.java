@@ -14,6 +14,14 @@ import sztaki.hexaa.httputility.apicalls.CleanTest;
 public class RolesEntitlementsAddTest extends CleanTest {
 
     /**
+     * Print the class name on the output.
+     */
+    @BeforeClass
+    public static void classInformation() {
+        System.out.println("***\t " + RolesEntitlementsAddTest.class.getSimpleName() + " ***");
+    }
+
+    /**
      * Creates an organization, two role, a service, an entitlement and an
  entitlementpack.
      */

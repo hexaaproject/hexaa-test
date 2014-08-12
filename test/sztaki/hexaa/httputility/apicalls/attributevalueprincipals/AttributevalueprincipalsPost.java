@@ -19,6 +19,14 @@ import sztaki.hexaa.httputility.apicalls.CleanTest;
 public class AttributevalueprincipalsPost extends CleanTest {
 
     /**
+     * Print the class name on the output.
+     */
+    @BeforeClass
+    public static void classInformation() {
+        System.out.println("***\t " + AttributevalueprincipalsPost.class.getSimpleName() + " ***");
+    }
+
+    /**
      * Creates two attributespecs.
      */
     @BeforeClass

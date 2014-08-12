@@ -3,6 +3,7 @@ package sztaki.hexaa.httputility.apicalls.organizations.entitlementpacks;
 import org.json.JSONArray;
 import org.junit.Test;
 import static org.junit.Assert.*;
+import org.junit.BeforeClass;
 import org.skyscreamer.jsonassert.JSONAssert;
 import org.skyscreamer.jsonassert.JSONCompareMode;
 import org.skyscreamer.jsonassert.JSONParser;
@@ -14,6 +15,14 @@ import sztaki.hexaa.httputility.Const;
  * /api/organizations/{id}/entitlementpacks/{epid} call.
  */
 public class OrganizationEntitlementpacksUnlinkTest extends OrganizationEntitlementpack {
+
+    /**
+     * Print the class name on the output.
+     */
+    @BeforeClass
+    public static void classInformation() {
+        System.out.println("***\t " + OrganizationEntitlementpacksUnlinkTest.class.getSimpleName() + " ***");
+    }
 
     /**
      * Creates a pending link and deletes it than creates an accepted link and

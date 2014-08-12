@@ -4,6 +4,7 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 import org.junit.Test;
 import static org.junit.Assert.*;
+import org.junit.BeforeClass;
 import org.skyscreamer.jsonassert.JSONParser;
 import sztaki.hexaa.httputility.BasicCall;
 import sztaki.hexaa.httputility.Const;
@@ -13,6 +14,14 @@ import sztaki.hexaa.httputility.Const;
  * /api/organizations/{id}/entitlementpacks/{token}/token call.
  */
 public class OrganizationEntitlementpacksTokenTest extends OrganizationEntitlementpack {
+
+    /**
+     * Print the class name on the output.
+     */
+    @BeforeClass
+    public static void classInformation() {
+        System.out.println("***\t " + OrganizationEntitlementpacksTokenTest.class.getSimpleName() + " ***");
+    }
 
     /**
      * Connects an entitlementpack to an organization with PUT using the token.
@@ -47,11 +56,11 @@ public class OrganizationEntitlementpacksTokenTest extends OrganizationEntitleme
         } catch (AssertionError e) {
             AssertErrorHandler(e);
         }
-        System.out.println(persistent.call(
-                Const.Api.ENTITLEMENTPACKS_PUBLIC,
-                BasicCall.REST.GET));
-        System.out.println(persistent.call(
-                Const.Api.ORGANIZATIONS_ID_ENTITLEMENTPACKS,
-                BasicCall.REST.GET));
+//        System.out.println(persistent.call(
+//                Const.Api.ENTITLEMENTPACKS_PUBLIC,
+//                BasicCall.REST.GET));
+//        System.out.println(persistent.call(
+//                Const.Api.ORGANIZATIONS_ID_ENTITLEMENTPACKS,
+//                BasicCall.REST.GET));
     }
 }

@@ -18,6 +18,14 @@ import sztaki.hexaa.httputility.apicalls.CleanTest;
 public class EntitlementpacksGetEntitlementsTest extends CleanTest {
 
     /**
+     * Print the class name on the output.
+     */
+    @BeforeClass
+    public static void classInformation() {
+        System.out.println("***\t " + EntitlementpacksGetEntitlementsTest.class.getSimpleName() + " ***");
+    }
+
+    /**
      * JSONArray to store the created entitlements.
      */
     public static JSONArray entitlements = new JSONArray();

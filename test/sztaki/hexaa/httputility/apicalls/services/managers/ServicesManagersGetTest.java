@@ -18,6 +18,14 @@ import sztaki.hexaa.httputility.apicalls.CleanTest;
 public class ServicesManagersGetTest extends CleanTest {
 
     /**
+     * Print the class name on the output.
+     */
+    @BeforeClass
+    public static void classInformation() {
+        System.out.println("***\t " + ServicesManagersGetTest.class.getSimpleName() + " ***");
+    }
+
+    /**
      * JSONArray to store managers.
      */
     public static JSONArray managers = new JSONArray();

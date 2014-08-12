@@ -19,6 +19,14 @@ import sztaki.hexaa.httputility.apicalls.CleanTest;
 public class OrganizationsManagersGetTest extends CleanTest {
 
     /**
+     * Print the class name on the output.
+     */
+    @BeforeClass
+    public static void classInformation() {
+        System.out.println("***\t " + OrganizationsManagersGetTest.class.getSimpleName() + " ***");
+    }
+
+    /**
      * JSONArray to store the created principals.
      */
     public static JSONArray principals = new JSONArray();

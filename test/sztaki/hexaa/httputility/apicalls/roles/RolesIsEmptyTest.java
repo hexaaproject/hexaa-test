@@ -1,5 +1,6 @@
 package sztaki.hexaa.httputility.apicalls.roles;
 
+import org.junit.BeforeClass;
 import org.junit.Test;
 import sztaki.hexaa.httputility.BasicCall;
 import sztaki.hexaa.httputility.Const;
@@ -10,6 +11,14 @@ import sztaki.hexaa.httputility.apicalls.IsEmptyTest;
  * found or empty answers.
  */
 public class RolesIsEmptyTest extends IsEmptyTest {
+
+    /**
+     * Print the class name on the output.
+     */
+    @BeforeClass
+    public static void classInformation() {
+        System.out.println("***\t " + RolesIsEmptyTest.class.getSimpleName() + " ***");
+    }
 
     /**
      * GET method tests.

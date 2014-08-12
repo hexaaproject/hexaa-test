@@ -16,6 +16,14 @@ import sztaki.hexaa.httputility.apicalls.CleanTest;
 public class AttributespecsServicesGetTest extends CleanTest {
 
     /**
+     * Print the class name on the output.
+     */
+    @BeforeClass
+    public static void classInformation() {
+        System.out.println("***\t " + AttributespecsServicesGetTest.class.getSimpleName() + " ***");
+    }
+
+    /**
      * Creates one attributespec and two services and links the attributespec to
      * the first service.
      */

@@ -17,6 +17,14 @@ import sztaki.hexaa.httputility.apicalls.CleanTest;
 public class AttributespecsPutTest extends CleanTest {
 
     /**
+     * Print the class name on the output.
+     */
+    @BeforeClass
+    public static void classInformation() {
+        System.out.println("***\t " + AttributespecsPutTest.class.getSimpleName() + " ***");
+    }
+
+    /**
      * JSONArray to store the created attributespecs.
      */
     private static JSONArray attributespecs = new JSONArray();

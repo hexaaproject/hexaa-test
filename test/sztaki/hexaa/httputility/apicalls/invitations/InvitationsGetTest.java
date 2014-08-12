@@ -12,6 +12,14 @@ import sztaki.hexaa.httputility.Const;
 import sztaki.hexaa.httputility.apicalls.CleanTest;
 
 public class InvitationsGetTest extends CleanTest {
+
+    /**
+     * Print the class name on the output.
+     */
+    @BeforeClass
+    public static void classInformation() {
+        System.out.println("***\t " + InvitationsGetTest.class.getSimpleName() + " ***");
+    }
     
     public static JSONObject json = new JSONObject();
 

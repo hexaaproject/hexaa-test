@@ -19,6 +19,14 @@ import sztaki.hexaa.httputility.apicalls.CleanTest;
 public class PrincipalsAttributevaluesGetTest extends CleanTest {
 
     /**
+     * Print the class name on the output.
+     */
+    @BeforeClass
+    public static void classInformation() {
+        System.out.println("***\t " + PrincipalsAttributevaluesGetTest.class.getSimpleName() + " ***");
+    }
+
+    /**
      * JSONArray to store the created attributevalues.
      */
     private static JSONArray attributevalue = new JSONArray();

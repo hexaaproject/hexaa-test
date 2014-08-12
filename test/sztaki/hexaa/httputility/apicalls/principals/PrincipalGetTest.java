@@ -16,6 +16,14 @@ import sztaki.hexaa.httputility.apicalls.CleanTest;
 public class PrincipalGetTest extends CleanTest {
 
     /**
+     * Print the class name on the output.
+     */
+    @BeforeClass
+    public static void classInformation() {
+        System.out.println("***\t " + PrincipalGetTest.class.getSimpleName() + " ***");
+    }
+
+    /**
      * Creates all the necessary objects for the tests.
      */
     @BeforeClass

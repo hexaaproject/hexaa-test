@@ -1,5 +1,6 @@
 package sztaki.hexaa.httputility;
 
+import org.junit.BeforeClass;
 import org.junit.runner.RunWith;
 import org.junit.runners.Suite;
 
@@ -21,4 +22,9 @@ import org.junit.runners.Suite;
     sztaki.hexaa.httputility.apicalls.roles.RolesSuite.class,
     sztaki.hexaa.httputility.apicalls.services.ServicesSuite.class,})
 public class BasicTests {
+    
+    @BeforeClass
+    public static void setUpClass() {
+        new DatabaseManipulator().dropCache();
+    }
 }

@@ -1,5 +1,6 @@
 package sztaki.hexaa.httputility.apicalls.services;
 
+import org.junit.BeforeClass;
 import org.junit.Test;
 import sztaki.hexaa.httputility.BasicCall;
 import sztaki.hexaa.httputility.Const;
@@ -11,6 +12,14 @@ import sztaki.hexaa.httputility.apicalls.IsEmptyTest;
  * /api/services/{id}/entitlements and /api/services/{id}/managers calls.
  */
 public class ServicesIsEmptyTest extends IsEmptyTest {
+
+    /**
+     * Print the class name on the output.
+     */
+    @BeforeClass
+    public static void classInformation() {
+        System.out.println("***\t " + ServicesIsEmptyTest.class.getSimpleName() + " ***");
+    }
 
     /**
      * Test the GET calls in Services on an empty database, they are supposed to

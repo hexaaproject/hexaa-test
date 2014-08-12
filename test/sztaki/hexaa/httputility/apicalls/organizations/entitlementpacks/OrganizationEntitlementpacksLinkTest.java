@@ -1,5 +1,6 @@
 package sztaki.hexaa.httputility.apicalls.organizations.entitlementpacks;
 
+import org.junit.BeforeClass;
 import org.junit.Test;
 
 /**
@@ -7,6 +8,14 @@ import org.junit.Test;
  * call.
  */
 public class OrganizationEntitlementpacksLinkTest extends OrganizationEntitlementpack {
+
+    /**
+     * Print the class name on the output.
+     */
+    @BeforeClass
+    public static void classInformation() {
+        System.out.println("***\t " + OrganizationEntitlementpacksLinkTest.class.getSimpleName() + " ***");
+    }
 
     /**
      * Connects an entitlementpack to an organization with PUT and verifies its

@@ -14,6 +14,14 @@ import sztaki.hexaa.httputility.apicalls.CleanTest;
 public class AttributespecsDeleteTest extends CleanTest {
 
     /**
+     * Print the class name on the output.
+     */
+    @BeforeClass
+    public static void classInformation() {
+        System.out.println("***\t " + AttributespecsDeleteTest.class.getSimpleName() + " ***");
+    }
+
+    /**
      * Creates one attributespecs.
      */
     @BeforeClass

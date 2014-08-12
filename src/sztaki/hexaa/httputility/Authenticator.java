@@ -25,9 +25,9 @@ public class Authenticator {
      */
     public void authenticate(String fedid) {
         // We check the current connection, if we don't get 
-            System.out.print("** AUTHENTICATE **\t");
+        System.out.print("** AUTHENTICATE **\t");
         String response = new BasicCall().call(Const.Api.PRINCIPAL_SELF, REST.GET);
-            System.out.print("** AUTHENTICATE **\t");
+        System.out.print("** AUTHENTICATE **\t");
         System.out.println(response);
 
         // If the response is Forbidden, we start the authentication

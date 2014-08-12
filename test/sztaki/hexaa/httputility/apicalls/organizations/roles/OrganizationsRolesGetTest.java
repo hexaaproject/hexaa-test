@@ -18,6 +18,14 @@ import sztaki.hexaa.httputility.apicalls.CleanTest;
 public class OrganizationsRolesGetTest extends CleanTest {
 
     /**
+     * Print the class name on the output.
+     */
+    @BeforeClass
+    public static void classInformation() {
+        System.out.println("***\t " + OrganizationsRolesGetTest.class.getSimpleName() + " ***");
+    }
+
+    /**
      * JSONArray to store the created roles in it.
      */
     public static JSONArray roles = new JSONArray();

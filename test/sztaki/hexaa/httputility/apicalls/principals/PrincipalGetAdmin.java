@@ -3,6 +3,7 @@ package sztaki.hexaa.httputility.apicalls.principals;
 import org.json.JSONObject;
 import org.junit.Test;
 import static org.junit.Assert.*;
+import org.junit.BeforeClass;
 import org.skyscreamer.jsonassert.JSONParser;
 import sztaki.hexaa.httputility.Authenticator;
 import sztaki.hexaa.httputility.BasicCall;
@@ -13,6 +14,14 @@ import sztaki.hexaa.httputility.apicalls.CleanTest;
  * Test the GET method on the /api/principal/isadmin call.
  */
 public class PrincipalGetAdmin extends CleanTest {
+
+    /**
+     * Print the class name on the output.
+     */
+    @BeforeClass
+    public static void classInformation() {
+        System.out.println("***\t " + PrincipalGetAdmin.class.getSimpleName() + " ***");
+    }
 
     /**
      * GET the admin info about the principal when the principal is an admin.

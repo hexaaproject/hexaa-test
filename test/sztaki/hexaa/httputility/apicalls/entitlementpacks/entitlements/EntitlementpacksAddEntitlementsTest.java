@@ -20,6 +20,14 @@ import sztaki.hexaa.httputility.apicalls.CleanTest;
 public class EntitlementpacksAddEntitlementsTest extends CleanTest {
 
     /**
+     * Print the class name on the output.
+     */
+    @BeforeClass
+    public static void classInformation() {
+        System.out.println("***\t " + EntitlementpacksAddEntitlementsTest.class.getSimpleName() + " ***");
+    }
+
+    /**
      * Creates one service, two entitlements and two entitlementpacks.
      */
     @BeforeClass

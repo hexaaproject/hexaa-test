@@ -3,6 +3,7 @@ package sztaki.hexaa.httputility.apicalls.organizations.entitlementpacks;
 import org.json.JSONArray;
 import org.junit.Test;
 import static org.junit.Assert.*;
+import org.junit.BeforeClass;
 import org.skyscreamer.jsonassert.JSONAssert;
 import org.skyscreamer.jsonassert.JSONCompareMode;
 import org.skyscreamer.jsonassert.JSONParser;
@@ -14,6 +15,14 @@ import sztaki.hexaa.httputility.Const;
  * /api/organizations/{id}/entitlements call.
  */
 public class OrganizationEntitlementpacksGetTest extends OrganizationEntitlementpack {
+
+    /**
+     * Print the class name on the output.
+     */
+    @BeforeClass
+    public static void classInformation() {
+        System.out.println("***\t " + OrganizationEntitlementpacksGetTest.class.getSimpleName() + " ***");
+    }
 
     /**
      * GETs the Entitlementpack.
@@ -45,13 +54,13 @@ public class OrganizationEntitlementpacksGetTest extends OrganizationEntitlement
     public void testOrganizationEntitlementpacksGetEntitlements() {
         createPendingLink(1, new int[]{1});
         acceptPendingLink(1, new int[]{1});
-
-        System.out.println(persistent.call(
-                Const.Api.ORGANIZATIONS_ID_ENTITLEMENTS,
-                BasicCall.REST.GET));
-        System.out.println(persistent.call(
-                Const.Api.ENTITLEMENTPACKS_ID_ENTITLEMENTS,
-                BasicCall.REST.GET));
+//
+//        System.out.println(persistent.call(
+//                Const.Api.ORGANIZATIONS_ID_ENTITLEMENTS,
+//                BasicCall.REST.GET));
+//        System.out.println(persistent.call(
+//                Const.Api.ENTITLEMENTPACKS_ID_ENTITLEMENTS,
+//                BasicCall.REST.GET));
 
         try {
             JSONAssert.assertEquals(
