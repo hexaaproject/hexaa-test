@@ -10,6 +10,9 @@ import sztaki.hexaa.httputility.core.HttpCoreGet;
 import sztaki.hexaa.httputility.core.HttpCorePost;
 import sztaki.hexaa.httputility.core.HttpCorePut;
 import org.apache.http.client.methods.CloseableHttpResponse;
+import org.json.JSONArray;
+import org.json.JSONObject;
+import org.skyscreamer.jsonassert.JSONParser;
 
 /**
  * Support class that implements the 4 RESTful API calls. Can easily be expanded
@@ -509,6 +512,32 @@ public class BasicCall {
                 }
             }
         }
+
+        JSONObject jsonResponse;
+        JSONArray jsonResponseArray;
+
+        if (responseDataString != null && responseDataString.length() != 0) {
+            Object parsedResponse = JSONParser.parseJSON(responseDataString);
+
+            if (parsedResponse instanceof JSONObject) {
+                jsonResponse = ((JSONObject) parsedResponse);
+                if (jsonResponse.has("updated_at")) {
+                    jsonResponse.remove("updated_at");
+                    return jsonResponse.toString();
+                }
+            } else {
+                if (parsedResponse instanceof JSONArray) {
+                    jsonResponseArray = (JSONArray) parsedResponse;
+                    for (int i = 0; i < jsonResponseArray.length(); i++) {
+                        if (jsonResponseArray.getJSONObject(i).has("updated_at")) {
+                            jsonResponseArray.getJSONObject(i).remove("updated_at");
+                        }
+                    }
+                    return jsonResponseArray.toString();
+                }
+            }
+        }
+
         return responseDataString;
     }
 }
