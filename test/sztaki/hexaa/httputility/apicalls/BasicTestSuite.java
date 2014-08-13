@@ -12,6 +12,7 @@ import org.junit.BeforeClass;
 import org.junit.internal.AssumptionViolatedException;
 import org.junit.runner.RunWith;
 import org.junit.runners.Suite;
+import sztaki.hexaa.httputility.Authenticator;
 import sztaki.hexaa.httputility.Const;
 import sztaki.hexaa.httputility.DatabaseManipulator;
 
@@ -62,6 +63,7 @@ public abstract class BasicTestSuite {
     @AfterClass
     public static void cleanUp() {
         if (CLEANUP_NEEDED) {
+            new Authenticator().loadProperties();
             new DatabaseManipulator().dropDatabase();
         }
     }

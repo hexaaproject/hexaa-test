@@ -1,5 +1,6 @@
 package sztaki.hexaa.httputility;
 
+import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.time.DateTimeException;
@@ -111,26 +112,38 @@ public class Authenticator {
     }
 
     public void loadProperties() {
+        System.out.println(System.getProperty("user.dir"));
         Properties prop = new Properties();
         InputStream input = null;
 
         try {
 
             String filename = "config.properties";
-            input = Authenticator.class.getClassLoader().getResourceAsStream(filename);
+//            input = Authenticator.class.getClassLoader().getResourceAsStream(filename);
+            input = new FileInputStream(filename);
             if (input == null) {
-                System.out.println("Unable to load config.properties, make sure config.properties exists" + filename);
+                System.out.println("Unable to load config.properties, make sure " + filename + " exists");
                 return;
             }
 
             //load a properties file from class path, inside static method
             prop.load(input);
 
+            System.out.println("*** Loading Properties ***");
             //get the property value and print it out
-            Const.HEXAA_FEDID = prop.getProperty("fedid");
+            Const.HEXAA_PORT = Integer.parseInt(prop.getProperty("port"));
+            System.out.println("*** " + Const.HEXAA_PORT);
+
             Const.HEXAA_HOST = prop.getProperty("host");
-            Const.HEXAA_PORT = Integer.getInteger(prop.getProperty("port"));
+            System.out.println("*** " + Const.HEXAA_HOST);
+
+            Const.HEXAA_FEDID = prop.getProperty("fedid");
+            System.out.println("*** " + Const.HEXAA_FEDID);
+
             Const.MASTER_SECRET = prop.getProperty("master_secret");
+            System.out.println("*** " + Const.MASTER_SECRET);
+
+            Const.PROPERTIES_LOADED = true;
 
         } catch (IOException ex) {
             ex.printStackTrace();

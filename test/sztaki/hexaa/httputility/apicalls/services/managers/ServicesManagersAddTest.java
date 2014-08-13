@@ -67,12 +67,23 @@ public class ServicesManagersAddTest extends CleanTest {
 
         try {
             assertEquals("HTTP/1.1 201 Created", persistent.getStatusLine());
-            JSONAssert.assertEquals(
-                    managers,
-                    (JSONArray) JSONParser.parseJSON(
+            // GET the managers of the service
+            JSONArray jsonResponseArray
+                    = (JSONArray) JSONParser.parseJSON(
                             persistent.call(
                                     Const.Api.SERVICES_ID_MANAGERS,
-                                    BasicCall.REST.GET)),
+                                    BasicCall.REST.GET));
+            // Remove the updated_at key, as it is changing every time it is asked for
+            for (int i=0;i<jsonResponseArray.length();i++) {
+                jsonResponseArray.getJSONObject(i).remove("updated_at");
+            }
+            for (int i=0;i<managers.length();i++) {
+                managers.getJSONObject(i).remove("updated_at");
+            }
+            
+            JSONAssert.assertEquals(
+                    managers,
+                    jsonResponseArray,
                     JSONCompareMode.LENIENT);
 
         } catch (AssertionError e) {

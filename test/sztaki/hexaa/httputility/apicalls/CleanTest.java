@@ -91,6 +91,7 @@ public class CleanTest {
     @BeforeClass
     public static void cleanDB() {
         System.out.println("BeforeClass @ CleanTest");
+        new Authenticator().loadProperties();
         new DatabaseManipulator().dropDatabase();
         new Authenticator().authenticate(Const.HEXAA_FEDID);
     }
