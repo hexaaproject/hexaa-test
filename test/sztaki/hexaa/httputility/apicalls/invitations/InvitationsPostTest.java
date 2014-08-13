@@ -10,6 +10,9 @@ import sztaki.hexaa.httputility.Const;
 import sztaki.hexaa.httputility.Utility;
 import sztaki.hexaa.httputility.apicalls.CleanTest;
 
+/**
+ * Test the POST method on the /api/invitations call.
+ */
 public class InvitationsPostTest extends CleanTest {
 
     /**
@@ -19,9 +22,15 @@ public class InvitationsPostTest extends CleanTest {
     public static void classInformation() {
         System.out.println("***\t " + InvitationsPostTest.class.getSimpleName() + " ***");
     }
-    
+
+    /**
+     * JSONArray to store created organizations.
+     */
     public static JSONArray organizations = new JSONArray();
 
+    /**
+     * Creates two organizations.
+     */
     @BeforeClass
     public static void setUpClass() {
         organizations = Utility.Create.organization(
@@ -30,6 +39,9 @@ public class InvitationsPostTest extends CleanTest {
                     "TestOrgName2,",});
     }
 
+    /**
+     * POST one invitation.
+     */
     @Test
     public void testInvitationsPost() {
         JSONObject json = new JSONObject();

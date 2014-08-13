@@ -27,7 +27,7 @@ public class JavaHttpCoreTest {
         Properties prop = new Properties();
         OutputStream output = null;
 
-        File f = new File("config.properties");
+        File f = new File(Const.PROPERTIES);
         if (f.exists()) {
             return;
         } else {
@@ -41,7 +41,7 @@ public class JavaHttpCoreTest {
 
         try {
 
-            output = new FileOutputStream("config.properties");
+            output = new FileOutputStream(Const.PROPERTIES);
 
             // set the properties value
             prop.setProperty("port", "80");
@@ -53,13 +53,11 @@ public class JavaHttpCoreTest {
             prop.store(output, null);
 
         } catch (IOException io) {
-            io.printStackTrace();
         } finally {
             if (output != null) {
                 try {
                     output.close();
                 } catch (IOException e) {
-                    e.printStackTrace();
                 }
             }
 

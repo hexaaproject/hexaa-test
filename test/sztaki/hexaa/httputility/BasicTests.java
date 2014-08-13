@@ -22,7 +22,10 @@ import org.junit.runners.Suite;
     sztaki.hexaa.httputility.apicalls.roles.RolesSuite.class,
     sztaki.hexaa.httputility.apicalls.services.ServicesSuite.class,})
 public class BasicTests {
-    
+
+    /**
+     * Loads the .properties file and resets the database.
+     */
     @BeforeClass
     public static void setUpClass() {
         System.out.println("BeforeClass @ BasicTests");

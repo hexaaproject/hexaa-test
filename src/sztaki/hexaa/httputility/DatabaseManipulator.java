@@ -14,14 +14,15 @@ import java.util.logging.Logger;
 public final class DatabaseManipulator {
 
     /**
-     * Drops the current database, recreates and reinitializes the tables.
+     * Drops the current database, recreates and reinitializes the tables via a
+     * server side script.
      */
     public void dropDatabase() {
         try {
 
             Runtime rt = Runtime.getRuntime();
 
-            Process proc = null;
+            Process proc;
 
             if (Const.HEXAA_HOST.equals("localhost")) {
                 // Call for server side script if it runs on the server
@@ -55,12 +56,16 @@ public final class DatabaseManipulator {
         }
     }
 
+    /**
+     * Clears the cache and log directories on the server via a server side
+     * script.
+     */
     public void dropCache() {
         try {
 
             Runtime rt = Runtime.getRuntime();
 
-            Process proc = null;
+            Process proc;
 
             if (Const.HEXAA_HOST.equals("localhost")) {
                 // Call for server side script if it runs on the server

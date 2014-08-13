@@ -45,6 +45,12 @@ public class Const {
     public static String MASTER_SECRET = ("7lrfjlpu5br2vpv1jcaogdz481b28xf7lz85wqmv");
 
     /**
+     * The .properties file to load some of the Strings found in the Const. By
+     * default its config.properties.
+     */
+    public static final String PROPERTIES = ("config.properties");
+
+    /**
      * Contains the existing URL-s of the server.
      */
     public static class Api {

@@ -54,11 +54,6 @@ public class AttributespecsGetTest extends CleanTest {
                                 null,
                                 2, 0));
 
-        if (AttributespecsGetTest.checkObjectError(response)) {
-            System.out.println(errorCode + " " + errorMsg);
-            fail(errorCode + " " + errorMsg);
-        }
-
         JSONObject jsonResponse = (JSONObject) response;
 
         try {
@@ -81,10 +76,9 @@ public class AttributespecsGetTest extends CleanTest {
                         persistent.call(
                                 Const.Api.ATTRIBUTESPECS,
                                 BasicCall.REST.GET));
-
-        if (AttributespecsGetTest.checkArrayError(response)) {
-            System.out.println(errorCode + " " + errorMsg);
-            fail(errorCode + " " + errorMsg);
+        
+        if (response instanceof JSONObject) {
+            fail("Not a JSONArray but a JSONObject: " + ((JSONObject) response).toString());
         }
 
         JSONArray jsonResponse = (JSONArray) response;

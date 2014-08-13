@@ -3,7 +3,6 @@ package sztaki.hexaa.httputility.apicalls.invitations;
 import org.json.JSONObject;
 import org.junit.BeforeClass;
 import org.junit.Test;
-import static org.junit.Assert.*;
 import org.skyscreamer.jsonassert.JSONAssert;
 import org.skyscreamer.jsonassert.JSONCompareMode;
 import org.skyscreamer.jsonassert.JSONParser;
@@ -11,6 +10,9 @@ import sztaki.hexaa.httputility.BasicCall;
 import sztaki.hexaa.httputility.Const;
 import sztaki.hexaa.httputility.apicalls.CleanTest;
 
+/**
+ * Test the GET method on the /api/invitations/{id} call.
+ */
 public class InvitationsGetTest extends CleanTest {
 
     /**
@@ -20,12 +22,18 @@ public class InvitationsGetTest extends CleanTest {
     public static void classInformation() {
         System.out.println("***\t " + InvitationsGetTest.class.getSimpleName() + " ***");
     }
-    
+
+    /**
+     * JSONObject to store single JSON Data.
+     */
     public static JSONObject json = new JSONObject();
 
+    /**
+     * Creates one invitation.
+     */
     @BeforeClass
     public static void setUpClass() {
-        
+
         json.put("email", "testmail@testsztaki.test");
         json.put("landing_url", "http://test.something.test");
         json.put("message", "This is a test invitation.");
@@ -36,6 +44,9 @@ public class InvitationsGetTest extends CleanTest {
                 BasicCall.REST.POST);
     }
 
+    /**
+     * GET the invitation.
+     */
     @Test
     public void testInvitationGet() {
         JSONObject jsonResponse
@@ -46,12 +57,11 @@ public class InvitationsGetTest extends CleanTest {
                                 null,
                                 1, 1));
         System.out.println(jsonResponse.toString());
-        
+
         try {
             JSONAssert.assertEquals(jsonResponse, json, JSONCompareMode.LENIENT);
         } catch (AssertionError e) {
             AssertErrorHandler(e);
         }
     }
-
 }

@@ -124,6 +124,9 @@ public class Utility {
          * attributespec creation.
          *
          * @param oid the names to create attributespec with.
+         * @param user String should be user or manager according to the usage:
+         * use the user if it is used by a principal, use manager if it is used
+         * by an organization.
          * @return JSONArray with the created attributespec in it.
          */
         public static JSONArray attributespec(String oid, String user) {

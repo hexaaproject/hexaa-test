@@ -83,6 +83,9 @@ public class PrincipalsAttributevaluesGetTest extends CleanTest {
         }
     }
 
+    /**
+     * GET all attributevalue specified by the attributespec id.
+     */
     @Test
     public void testPrincipalsGetAttributevalueBySpec() {
         Object response
@@ -104,5 +107,4 @@ public class PrincipalsAttributevaluesGetTest extends CleanTest {
             AssertErrorHandler(e);
         }
     }
-
 }

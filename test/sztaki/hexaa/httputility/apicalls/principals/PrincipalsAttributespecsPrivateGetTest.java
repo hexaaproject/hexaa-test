@@ -31,7 +31,8 @@ public class PrincipalsAttributespecsPrivateGetTest extends CleanTest {
     private static JSONArray attributespecs = new JSONArray();
 
     /**
-     * 
+     * Creates one organization, two services, one role, one entitlement and one
+     * entitlementpack, and links them together.
      */
     @BeforeClass
     public static void setUpClass() {

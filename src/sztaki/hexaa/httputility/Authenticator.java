@@ -111,6 +111,10 @@ public class Authenticator {
 
     }
 
+    /**
+     * Load the .properties file specified in the Const, config.properties is
+     * the default.
+     */
     public void loadProperties() {
         System.out.println(System.getProperty("user.dir"));
         Properties prop = new Properties();
@@ -118,13 +122,9 @@ public class Authenticator {
 
         try {
 
-            String filename = "config.properties";
+            String filename = Const.PROPERTIES;
 //            input = Authenticator.class.getClassLoader().getResourceAsStream(filename);
             input = new FileInputStream(filename);
-            if (input == null) {
-                System.out.println("Unable to load config.properties, make sure " + filename + " exists");
-                return;
-            }
 
             //load a properties file from class path, inside static method
             prop.load(input);
@@ -146,13 +146,11 @@ public class Authenticator {
             Const.PROPERTIES_LOADED = true;
 
         } catch (IOException ex) {
-            ex.printStackTrace();
         } finally {
             if (input != null) {
                 try {
                     input.close();
                 } catch (IOException e) {
-                    e.printStackTrace();
                 }
             }
         }
