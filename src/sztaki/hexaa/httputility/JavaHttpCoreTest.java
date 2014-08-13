@@ -1,5 +1,6 @@
 package sztaki.hexaa.httputility;
 
+import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
@@ -17,15 +18,26 @@ public class JavaHttpCoreTest {
      */
     public static void main(String[] args) {
 //        System.out.println(System.getProperty("user.dir"));
-        
+
 //        new Authenticator().loadProperties();
 //        new DatabaseManipulator().dropDatabase();
 //        new DatabaseManipulator().dropCache();
 //        
 //        new Authenticator().authenticate(Const.HEXAA_FEDID);
-
         Properties prop = new Properties();
         OutputStream output = null;
+
+        File f = new File("config.properties");
+        if (f.exists()) {
+            return;
+        } else {
+            System.out.println("The file config.properties does not exists,"
+                    + " creating it with default attributes.");
+            System.err.println("The file config.properties does not exists, no"
+                    + " properties can be read, if your setup does not match the"
+                    + " default this will cause inconsitent tests (mostly failed"
+                    + " tests and errors).");
+        }
 
         try {
 
