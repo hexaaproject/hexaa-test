@@ -528,16 +528,27 @@ public class BasicCall {
             } else {
                 if (parsedResponse instanceof JSONArray) {
                     jsonResponseArray = (JSONArray) parsedResponse;
-                    for (int i = 0; i < jsonResponseArray.length(); i++) {
-                        if (jsonResponseArray.getJSONObject(i).has("updated_at")) {
-                            jsonResponseArray.getJSONObject(i).remove("updated_at");
-                        }
-                    }
+
+                    removeUpdate(jsonResponseArray);
+
                     return jsonResponseArray.toString();
                 }
             }
         }
 
         return responseDataString;
+    }
+
+    private void removeUpdate(JSONArray array) {
+        for (int i = 0; i < array.length(); i++) {
+            Object temp = array.get(i);
+
+            if (temp instanceof JSONObject && array.getJSONObject(i).has("updated_at")) {
+                array.getJSONObject(i).remove("updated_at");
+            } else if (temp instanceof JSONArray) {
+                removeUpdate((JSONArray) temp);
+            }
+
+        }
     }
 }

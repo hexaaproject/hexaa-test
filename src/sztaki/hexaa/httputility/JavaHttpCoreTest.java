@@ -16,13 +16,13 @@ public class JavaHttpCoreTest {
      * @param args
      */
     public static void main(String[] args) {
-        System.out.println(System.getProperty("user.dir"));
+//        System.out.println(System.getProperty("user.dir"));
         
 //        new Authenticator().loadProperties();
 //        new DatabaseManipulator().dropDatabase();
 //        new DatabaseManipulator().dropCache();
 //        
-        new Authenticator().authenticate(Const.HEXAA_FEDID);
+//        new Authenticator().authenticate(Const.HEXAA_FEDID);
 
         Properties prop = new Properties();
         OutputStream output = null;
