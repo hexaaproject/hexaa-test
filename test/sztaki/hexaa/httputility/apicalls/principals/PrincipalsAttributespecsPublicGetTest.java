@@ -64,7 +64,7 @@ public class PrincipalsAttributespecsPublicGetTest extends CleanTest {
         publicAttributespecs.put(attributespecs.getJSONObject(0));
 
         try {
-            assertEquals("HTTP/1.1 200 OK", persistent.getStatusLine());
+            assertEquals(Const.StatusLine.OK, persistent.getStatusLine());
             JSONAssert.assertEquals(publicAttributespecs, jsonResponse, JSONCompareMode.LENIENT);
         } catch (AssertionError e) {
             AssertErrorHandler(e);

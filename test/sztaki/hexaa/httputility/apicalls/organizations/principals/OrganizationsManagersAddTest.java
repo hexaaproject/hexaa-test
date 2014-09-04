@@ -43,7 +43,7 @@ public class OrganizationsManagersAddTest extends CleanTest {
                 1, 2);
 
         try {
-            assertEquals("HTTP/1.1 201 Created", persistent.getStatusLine());
+            assertEquals(Const.StatusLine.Created, persistent.getStatusLine());
         } catch (AssertionError e) {
             AssertErrorHandler(e);
         }

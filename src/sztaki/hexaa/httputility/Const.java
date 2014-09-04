@@ -57,7 +57,11 @@ public class Const {
 
         // Attribute value (for organization)
         /**
-         * GET, PUT(edit), DELETE attribute value for organizations.
+         * POST(create) attribute value for organizations.
+         */
+        public static final String ATTRIBUTEVALUEORGANIZATIONS = ("/app.php/api/attributevalueorganizations");
+        /**
+         * GET, PATCH, PUT(edit), DELETE attribute value for organizations.
          */
         public static final String ATTRIBUTEVALUEORGANIZATIONS_ID = ("/app.php/api/attributevalueorganizations/{id}");
         /**
@@ -68,18 +72,14 @@ public class Const {
          * GET,PUT(set),DELETE attribute value consent per service.
          */
         public static final String ATTRIBUTEVALUEORGANIZATIONS_ID_SERVICES_SID = ("/app.php/api/attributevalueorganizations/{id}/services/{sid}");
-        /**
-         * POST(create) attribute value for organizations.
-         */
-        public static final String ORGANIZATIONS_ID_ATTRIBUTEVALUEORGANIZATIONS_ASID = ("/app.php/api/organizations/{id}/attributevalueorganizations/{asid}");
 
         /* *** Attribute value (for principal) *** */
         /**
          * POST(create) attribute value for principal.
          */
-        public static final String ATTRIBUTEVALUEPRINCIPALS_ASID = ("/app.php/api/attributevalueprincipals/{asid}");
+        public static final String ATTRIBUTEVALUEPRINCIPALS = ("/app.php/api/attributevalueprincipals");
         /**
-         * GET, PUT(edit), DELETE attribute value for principals.
+         * GET, PATCH(edit), PUT(edit), DELETE attribute value for principals.
          */
         public static final String ATTRIBUTEVALUEPRINCIPALS_ID = ("/app.php/api/attributevalueprincipals/{id}");
         /**
@@ -97,7 +97,8 @@ public class Const {
          */
         public static final String ATTRIBUTESPECS = ("/app.php/api/attributespecs");
         /**
-         * GET,PUT(edit),DELETE attribute specification with the id.
+         * GET, PATCH(edit), PUT(edit), DELETE attribute specification with the
+         * id.
          */
         public static final String ATTRIBUTESPECS_ID = ("/app.php/api/attributespecs/{id}");
         /**
@@ -105,9 +106,23 @@ public class Const {
          */
         public static final String ATTRIBUTESPECS_ID_SERVICES = ("/app.php/api/attributespecs/{id}/service");
 
+        /* *** Consent *** */
+        /**
+         * GET, POST(create) consent.
+         */
+        public static final String CONSENTS = ("/app.php/api/consents");
+        /**
+         * GET, PATCH(edit), PUT(edit), DELETE consent.
+         */
+        public static final String CONSENTS_ID = ("/app.php/api/consents/{id}");
+        /**
+         * GET consent for current user for specific service.
+         */
+        public static final String CONSENTS_SID_SERVICE = ("/app.php/api/consents/{sid}/service");
+
         /* *** Entitlement *** */
         /**
-         * GET,PUT(edit),DELETE entitlement.
+         * GET, PATCH, PUT(edit), DELETE entitlement.
          */
         public static final String ENTITLEMENTS_ID = ("/app.php/api/entitlements/{id}");
 
@@ -117,7 +132,7 @@ public class Const {
          */
         public static final String ENTITLEMENTPACKS_PUBLIC = ("/app.php/api/entitlementpacks/public");
         /**
-         * GET,PUT(edit),DELETE entitlement pack.
+         * GET, PATCH(edit), PUT(edit), DELETE entitlement pack.
          */
         public static final String ENTITLEMENTPACKS_ID = ("/app.php/api/entitlementpacks/{id}");
         /**
@@ -131,11 +146,11 @@ public class Const {
 
         /* *** EntityID *** */
         /**
-         * GET,POST(create) entityid request(s).
+         * GET, POST(create) entityid request(s).
          */
         public static final String ENTITYIDREQUESTS = ("/app.php/api/entityidrequests");
         /**
-         * GET,PUT(edit),DELETE entityid request.
+         * GET, PATCH(edit), PUT(edit), DELETE entityid request.
          */
         public static final String ENTITYIDREQUESTS_ID = ("/app.php/api/entityidrequests/{id}");
         /**
@@ -157,7 +172,7 @@ public class Const {
          */
         public static final String INVITATIONS = ("/app.php/api/invitations");
         /**
-         * GET,PUT(edit),DELETE invitation.
+         * GET, PATCH(edit), PUT(edit), DELETE invitation.
          */
         public static final String INVITATIONS_ID = ("/app.php/api/invitations/{id}");
         /**
@@ -177,13 +192,31 @@ public class Const {
          */
         public static final String INVITATIONS_TOKEN_REJECTS_EMAIL_EMAIL = ("/app.php/api/invitations/{token}/rejects/{email}/email");
 
+        /* *** News *** */
+        /**
+         * GET news for current user.
+         */
+        public static final String PRINCIPAL_PRINCIPAL_NEWS = ("/app.php/api/principal/principal/news");
+        /**
+         * GET news for specified organization.
+         */
+        public static final String PRINCIPALS_ID_ORGANIZATIONS_NEWS = ("/app.php/api/principals/{id}/organizations/news");
+        /**
+         * GET news for specified user.
+         */
+        public static final String PRINCIPALS_PID_PRINCIPALS_NEWS = ("/app.php/api/principals/{pid}/principals/news");
+        /**
+         * GET news for specified service.
+         */
+        public static final String PRINCIPALS_SID_SERVICES_NEWS = ("/app.php/api/principals/{sid}/services/news");
+
         /* *** Organization *** */
         /**
-         * GET,POST(create) organization.
+         * GET, POST(create) organization.
          */
         public static final String ORGANIZATIONS = ("/app.php/api/organizations");
         /**
-         * GET,PUT(edit),DELETE organization.
+         * GET, PATCH(edit), PUT(edit), DELETE organization.
          */
         public static final String ORGANIZATIONS_ID = ("/app.php/api/organizations/{id}");
         /**
@@ -204,7 +237,7 @@ public class Const {
          */
         public static final String ORGANIZATIONS_ID_ENTITLEMENTPACKS = ("/app.php/api/organizations/{id}/entitlementpacks");
         /**
-         * PUT(request link),DELETE entitlement pack to/from organization.
+         * PUT(request link) ,DELETE entitlement pack to/from organization.
          */
         public static final String ORGANIZATIONS_ID_ENTITLEMENTPACKS_EPID = ("/app.php/api/organizations/{id}/entitlementpacks/{epid}");
         /**
@@ -229,7 +262,7 @@ public class Const {
          */
         public static final String ORGANIZATIONS_ID_MANAGERS = ("/app.php/api/organizations/{id}/managers");
         /**
-         * PUT(add),DELETE(remove) manager to/from organization.
+         * PUT(add), DELETE(remove) manager to/from organization.
          */
         public static final String ORGANIZATIONS_ID_MANAGERS_PID = ("/app.php/api/organizations/{id}/managers/{pid}");
         /**
@@ -237,11 +270,11 @@ public class Const {
          */
         public static final String ORGANIZATIONS_ID_MEMBERS = ("/app.php/api/organizations/{id}/members");
         /**
-         * PUT(add),DELETE(remove) member to/from organization.
+         * PUT(add), DELETE(remove) member to/from organization.
          */
         public static final String ORGANIZATIONS_ID_MEMBERS_PID = ("/app.php/api/organizations/{id}/members/{pid}");
         /**
-         * GET,POST(create) roles of/for organization.
+         * GET, POST(create) roles of/for organization.
          */
         public static final String ORGANIZATIONS_ID_ROLES = ("/app.php/api/organizations/{id}/roles");
 
@@ -298,7 +331,7 @@ public class Const {
          */
         public static final String PRINCIPAL_SELF = ("/app.php/api/principal/self");
         /**
-         * GET,POST(create) principal(s).
+         * GET, PATCH(edit), PUT(edit), POST(create) principal(s).
          */
         public static final String PRINCIPALS = ("/app.php/api/principals");
         /**
@@ -307,11 +340,11 @@ public class Const {
          */
         public static final String PRINCIPALS_ASID_ATTRIBUTESPECS_ATTRIBUTEVALUEPRINCIPALS = ("/app.php/api/principals/{asid}/attributespecs/attributevalueprincipals");
         /**
-         * GET info about a principal by fedid.
+         * GET, DELETE info about, delete a principal by fedid.
          */
         public static final String PRINCIPALS_FEDID = ("/app.php/api/principals/{fedid}/fedid");
         /**
-         * GET info about a principal by id.
+         * GET, DELETE info about, delete a principal by id.
          */
         public static final String PRINCIPALS_ID = ("/app.php/api/principals/{id}/id");
         /**
@@ -321,15 +354,19 @@ public class Const {
 
         /* *** Roles *** */
         /**
-         * GET,PUT(edit),DELETE role.
+         * GET, PATCH(edit), PUT(edit), DELETE role.
          */
         public static final String ROLES_ID = ("/app.php/api/roles/{id}");
+        /**
+         * PUT(set) principal.
+         */
+        public static final String ROLES_ID_PRINCIPAL = ("/app.php/api/roles/{id}");
         /**
          * GET entitlements in role.
          */
         public static final String ROLES_ID_ENTITLEMENTS = ("/app.php/api/roles/{id}/entitlements");
         /**
-         * PUT(add),DELETE(remove) entitlement to/from role.
+         * PUT(add), DELETE(remove) entitlement to/from role.
          */
         public static final String ROLES_ID_ENTITLEMENTS_EID = ("/app.php/api/roles/{id}/entitlements/{eid}");
         /**
@@ -337,7 +374,7 @@ public class Const {
          */
         public static final String ROLES_ID_PRINCIPALS = ("/app.php/api/roles/{id}/principals");
         /**
-         * PUT(add),DELETE(remove) principal to/from role.
+         * PUT(add), DELETE(remove) principal to/from role.
          */
         public static final String ROLES_ID_PRINCIPALS_PID = ("/app.php/api/roles/{id}/principals/{pid}");
 
@@ -347,7 +384,7 @@ public class Const {
          */
         public static final String SERVICES = ("/app.php/api/services");
         /**
-         * GET,PUT(edit),DELETE service.
+         * GET, PATCH(edit), PUT(edit), DELETE service.
          */
         public static final String SERVICES_ID = ("/app.php/api/services/{id}");
         /**
@@ -355,7 +392,7 @@ public class Const {
          */
         public static final String SERVICES_ID_ATTRIBUTESPECS = ("/app.php/api/services/{id}/attributespecs");
         /**
-         * PUT(add),DELETE(remove) attribute specification to/from service.
+         * PUT(add), DELETE(remove) attribute specification to/from service.
          */
         public static final String SERVICES_ID_ATTRIBUTESPECS_ASID = ("/app.php/api/services/{id}/attributespecs/{asid}");
         /**
@@ -363,7 +400,7 @@ public class Const {
          */
         public static final String SERVICES_ID_ENTITLEMENTPACKS = ("/app.php/api/services/{id}/entitlementpacks");
         /**
-         * GET,POST(create) entitlements of service.
+         * GET, POST(create) entitlements of service.
          */
         public static final String SERVICES_ID_ENTITLEMENTS = ("/app.php/api/services/{id}/entitlements");
         /**
@@ -375,7 +412,7 @@ public class Const {
          */
         public static final String SERVICES_ID_MANAGERS = ("/app.php/api/services/{id}/managers");
         /**
-         * PUT(add),DELETE(remove) manager to/from service.
+         * PUT(add), DELETE(remove) manager to/from service.
          */
         public static final String SERVICES_ID_MANAGERS_PID = ("/app.php/api/services/{id}/managers/{pid}");
         /**
@@ -383,6 +420,41 @@ public class Const {
          */
         public static final String SERVICES_ID_ORGANIZATIONS = ("/app.php/api/services/{id}/organizations");
 
+    }
+
+    /**
+     * Contains the possible Status Lines the server can answer with.
+     */
+    public static class StatusLine {
+
+        /**
+         * HTTP/1.1 200 OK.
+         */
+        public static String OK = "HTTP/1.1 200 OK";
+        /**
+         * HTTP/1.1 201 Created.
+         */
+        public static String Created = "HTTP/1.1 201 Created";
+        /**
+         * HTTP/1.1 204 No Content.
+         */
+        public static String NoContent = "HTTP/1.1 204 No Content";
+        /**
+         * HTTP/1.1 400 Bad Request.
+         */
+        public static String BadRequest = "HTTP/1.1 400 Bad Request";
+        /**
+         * HTTP/1.1 403 Forbidden.
+         */
+        public static String Forbidden = "HTTP/1.1 403 Forbidden";
+        /**
+         * HTTP/1.1 404 Not Found.
+         */
+        public static String NotFound = "HTTP/1.1 404 Not Found";
+        /**
+         * HTTP/1.1 405 Method Not Allowed.
+         */
+        public static String MethodNotAllowed = "HTTP/1.1 405 Method Not Allowed";
     }
 
     /**

@@ -63,7 +63,7 @@ public class RolesPrincipalsGetTest extends CleanTest {
         JSONArray jsonResponse = (JSONArray) response;
 
         try {
-            assertEquals("HTTP/1.1 200 OK", persistent.getStatusLine());
+            assertEquals(Const.StatusLine.OK, persistent.getStatusLine());
             JSONAssert.assertEquals(
                     principals.getJSONObject(0),
                     jsonResponse.getJSONObject(0).getJSONObject("principal"),

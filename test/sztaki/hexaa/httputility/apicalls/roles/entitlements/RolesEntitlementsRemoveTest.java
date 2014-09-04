@@ -62,7 +62,7 @@ public class RolesEntitlementsRemoveTest extends CleanTest{
         
         try {
             System.out.println(persistent.getStatusLine());
-            assertEquals("HTTP/1.1 204 No Content", persistent.getStatusLine());
+            assertEquals(Const.StatusLine.NoContent, persistent.getStatusLine());
             JSONAssert.assertEquals(
                     entitlements,
                     (JSONArray) JSONParser.parseJSON(

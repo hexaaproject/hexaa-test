@@ -54,7 +54,7 @@ public class OrganizationPutTest extends CleanTest {
         persistent.call(Const.Api.ORGANIZATIONS_ID, BasicCall.REST.PUT, json.toString(), 1, 1);
 
         try {
-            assertEquals("HTTP/1.1 204 No Content", persistent.getStatusLine());
+            assertEquals(Const.StatusLine.NoContent, persistent.getStatusLine());
             assertEquals(
                     "ModifiedByPut",
                     ((JSONObject) JSONParser.parseJSON(
@@ -63,7 +63,7 @@ public class OrganizationPutTest extends CleanTest {
                                     BasicCall.REST.GET,
                                     null,
                                     1, 1))).getString("name"));
-            assertEquals("HTTP/1.1 200 OK", persistent.getStatusLine());
+            assertEquals(Const.StatusLine.OK, persistent.getStatusLine());
             JSONAssert.assertEquals(
                     organizations.getJSONObject(1),
                     (JSONObject) JSONParser.parseJSON(

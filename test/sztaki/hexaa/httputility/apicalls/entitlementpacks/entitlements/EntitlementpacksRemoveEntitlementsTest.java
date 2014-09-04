@@ -62,7 +62,7 @@ public class EntitlementpacksRemoveEntitlementsTest extends CleanTest {
                     null,
                     1, 1);
             assertEquals(
-                    "HTTP/1.1 204 No Content",
+                    Const.StatusLine.NoContent,
                     persistent.getStatusLine());
             persistent.call(
                     Const.Api.ENTITLEMENTPACKS_ID_ENTITLEMENTS_EID,
@@ -70,7 +70,7 @@ public class EntitlementpacksRemoveEntitlementsTest extends CleanTest {
                     null,
                     2, 1);
             assertEquals(
-                    "HTTP/1.1 204 No Content",
+                    Const.StatusLine.NoContent,
                     persistent.getStatusLine());
         } catch (AssertionError e) {
             AssertErrorHandler(e);
@@ -90,7 +90,7 @@ public class EntitlementpacksRemoveEntitlementsTest extends CleanTest {
                                     1, 0)),
                     JSONCompareMode.LENIENT);
             assertEquals(
-                    "HTTP/1.1 200 OK",
+                    Const.StatusLine.OK,
                     persistent.getStatusLine());
         } catch (AssertionError e) {
             AssertErrorHandler(e);
@@ -104,7 +104,7 @@ public class EntitlementpacksRemoveEntitlementsTest extends CleanTest {
                             null,
                             2, 0));
             assertEquals(
-                    "HTTP/1.1 200 OK",
+                    Const.StatusLine.OK,
                     persistent.getStatusLine());
         } catch (AssertionError e) {
             AssertErrorHandler(e);

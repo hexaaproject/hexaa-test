@@ -35,7 +35,7 @@ public class PrincipalGetAdmin extends CleanTest {
                                 BasicCall.REST.GET));
 
         try {
-            assertEquals("HTTP/1.1 200 OK", persistent.getStatusLine());
+            assertEquals(Const.StatusLine.OK, persistent.getStatusLine());
             assertEquals(true, jsonResponse.getBoolean("is_admin"));
         } catch (AssertionError e) {
             AssertErrorHandler(e);
@@ -57,7 +57,7 @@ public class PrincipalGetAdmin extends CleanTest {
                                 BasicCall.REST.GET));
 
         try {
-            assertEquals("HTTP/1.1 200 OK", persistent.getStatusLine());
+            assertEquals(Const.StatusLine.OK, persistent.getStatusLine());
             assertEquals(false, jsonResponse.getBoolean("is_admin"));
         } catch (AssertionError e) {
             AssertErrorHandler(e);

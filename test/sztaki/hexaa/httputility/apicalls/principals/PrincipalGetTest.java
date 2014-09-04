@@ -44,7 +44,7 @@ public class PrincipalGetTest extends CleanTest {
         JSONObject jsonResponse = (JSONObject) response;
 
         try {
-            assertEquals("HTTP/1.1 200 OK", persistent.getStatusLine());
+            assertEquals(Const.StatusLine.OK, persistent.getStatusLine());
             assertEquals(Const.HEXAA_FEDID, jsonResponse.getString("fedid"));
         } catch (AssertionError e) {
             AssertErrorHandler(e);
@@ -93,7 +93,7 @@ public class PrincipalGetTest extends CleanTest {
         JSONObject jsonResponse = (JSONObject) response;
 
         try {
-            assertEquals("HTTP/1.1 200 OK", persistent.getStatusLine());
+            assertEquals(Const.StatusLine.OK, persistent.getStatusLine());
             assertEquals(Const.HEXAA_FEDID, jsonResponse.getString("fedid"));
         } catch (AssertionError e) {
             AssertErrorHandler(e);
@@ -116,7 +116,7 @@ public class PrincipalGetTest extends CleanTest {
         JSONObject jsonResponse = (JSONObject) response;
 
         try {
-            assertEquals("HTTP/1.1 200 OK", persistent.getStatusLine());
+            assertEquals(Const.StatusLine.OK, persistent.getStatusLine());
             assertEquals(Const.HEXAA_FEDID, jsonResponse.getString("fedid"));
         } catch (AssertionError e) {
             AssertErrorHandler(e);

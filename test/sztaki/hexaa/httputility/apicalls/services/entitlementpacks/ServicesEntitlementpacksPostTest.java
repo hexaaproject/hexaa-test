@@ -60,7 +60,7 @@ public class ServicesEntitlementpacksPostTest extends CleanTest {
                 1, 0);
         // Checks the status line
         try {
-            assertEquals("HTTP/1.1 201 Created", persistent.getStatusLine());
+            assertEquals(Const.StatusLine.Created, persistent.getStatusLine());
         } catch (AssertionError e) {
             AssertErrorHandler(e);
         }
@@ -80,7 +80,7 @@ public class ServicesEntitlementpacksPostTest extends CleanTest {
                 1, 0);
         // Checks the status line
         try {
-            assertEquals("HTTP/1.1 201 Created", persistent.getStatusLine());
+            assertEquals(Const.StatusLine.Created, persistent.getStatusLine());
         } catch (AssertionError e) {
             AssertErrorHandler(e);
         }
@@ -94,7 +94,7 @@ public class ServicesEntitlementpacksPostTest extends CleanTest {
                         1, 0));
 
         try {
-            assertEquals("HTTP/1.1 200 OK", persistent.getStatusLine());
+            assertEquals(Const.StatusLine.OK, persistent.getStatusLine());
             JSONAssert.assertEquals(entitlemenetpacks.getJSONObject(0), jsonResponseObject.getJSONObject(0), JSONCompareMode.LENIENT);
             JSONAssert.assertEquals(entitlemenetpacks.getJSONObject(1), jsonResponseObject.getJSONObject(1), JSONCompareMode.LENIENT);
         } catch (AssertionError e) {

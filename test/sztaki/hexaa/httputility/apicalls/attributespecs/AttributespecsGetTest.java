@@ -59,7 +59,7 @@ public class AttributespecsGetTest extends CleanTest {
         try {
             JSONAssert.assertEquals((JSONObject) attributespecs.get(1),
                     jsonResponse, false);
-            assertEquals("HTTP/1.1 200 OK", persistent.getStatusLine());
+            assertEquals(Const.StatusLine.OK, persistent.getStatusLine());
         } catch (AssertionError e) {
             AssertErrorHandler(e);
         }
@@ -88,7 +88,7 @@ public class AttributespecsGetTest extends CleanTest {
                     attributespecs,
                     jsonResponse,
                     JSONCompareMode.LENIENT);
-            assertEquals("HTTP/1.1 200 OK", persistent.getStatusLine());
+            assertEquals(Const.StatusLine.OK, persistent.getStatusLine());
         } catch (AssertionError e) {
             AssertErrorHandler(e);
         }

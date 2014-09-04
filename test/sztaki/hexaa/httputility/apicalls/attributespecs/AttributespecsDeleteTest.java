@@ -41,11 +41,11 @@ public class AttributespecsDeleteTest extends CleanTest {
                 null,
                 1, 0);
         try {
-            assertEquals("HTTP/1.1 204 No Content", persistent.getStatusLine());
+            assertEquals(Const.StatusLine.NoContent, persistent.getStatusLine());
             assertEquals("[]", persistent.call(
                     Const.Api.ATTRIBUTESPECS,
                     BasicCall.REST.GET));
-            assertEquals("HTTP/1.1 200 OK", persistent.getStatusLine());
+            assertEquals(Const.StatusLine.OK, persistent.getStatusLine());
         } catch (AssertionError e) {
             AssertErrorHandler(e);
         }

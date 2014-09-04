@@ -63,7 +63,7 @@ public class RolesPrincipalsRemoveTest extends CleanTest {
                 1, 1);
 
         try {
-            assertEquals("HTTP/1.1 204 No Content", persistent.getStatusLine());
+            assertEquals(Const.StatusLine.NoContent, persistent.getStatusLine());
             JSONAssert.assertEquals(
                     principals.getJSONObject(0),
                     ((JSONArray) JSONParser.parseJSON(

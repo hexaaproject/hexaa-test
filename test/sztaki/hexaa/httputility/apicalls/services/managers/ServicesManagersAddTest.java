@@ -53,7 +53,7 @@ public class ServicesManagersAddTest extends CleanTest {
                 null,
                 1, 2);
         try {
-            assertEquals("HTTP/1.1 201 Created", persistent.getStatusLine());
+            assertEquals(Const.StatusLine.Created, persistent.getStatusLine());
         } catch (AssertionError e) {
             AssertErrorHandler(e);
         }
@@ -66,7 +66,7 @@ public class ServicesManagersAddTest extends CleanTest {
                 1, 3);
 
         try {
-            assertEquals("HTTP/1.1 201 Created", persistent.getStatusLine());
+            assertEquals(Const.StatusLine.Created, persistent.getStatusLine());
             // GET the managers of the service
             JSONArray jsonResponseArray
                     = (JSONArray) JSONParser.parseJSON(

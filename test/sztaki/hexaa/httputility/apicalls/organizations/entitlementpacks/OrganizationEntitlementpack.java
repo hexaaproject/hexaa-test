@@ -65,7 +65,7 @@ public abstract class OrganizationEntitlementpack extends CleanTest {
             tempArray.put(tempObject);
             // GET the details of this connection and check that it is pending
             try {
-                assertEquals("HTTP/1.1 201 Created", persistent.getStatusLine());
+                assertEquals(Const.StatusLine.Created, persistent.getStatusLine());
                 JSONAssert.assertEquals(
                         tempArray,
                         (JSONArray) JSONParser.parseJSON(persistent.call(
@@ -74,7 +74,7 @@ public abstract class OrganizationEntitlementpack extends CleanTest {
                                         null,
                                         1, 1)),
                         JSONCompareMode.LENIENT);
-                assertEquals("HTTP/1.1 200 OK", persistent.getStatusLine());
+                assertEquals(Const.StatusLine.OK, persistent.getStatusLine());
             } catch (AssertionError e) {
                 AssertErrorHandler(e);
             }
@@ -105,7 +105,7 @@ public abstract class OrganizationEntitlementpack extends CleanTest {
             tempArray.put(tempObject);
             // GET the details of this connection and check that it is accepted
             try {
-                assertEquals("HTTP/1.1 204 No Content", persistent.getStatusLine());
+                assertEquals(Const.StatusLine.NoContent, persistent.getStatusLine());
                 JSONAssert.assertEquals(
                         tempArray,
                         (JSONArray) JSONParser.parseJSON(persistent.call(
@@ -114,7 +114,7 @@ public abstract class OrganizationEntitlementpack extends CleanTest {
                                         null,
                                         1, 1)),
                         JSONCompareMode.LENIENT);
-                assertEquals("HTTP/1.1 200 OK", persistent.getStatusLine());
+                assertEquals(Const.StatusLine.OK, persistent.getStatusLine());
             } catch (AssertionError e) {
                 AssertErrorHandler(e);
             }

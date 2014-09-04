@@ -54,7 +54,7 @@ public class RolesPutTest extends CleanTest {
                 roles.getJSONObject(0).toString());
 
         try {
-            assertEquals("HTTP/1.1 204 No Content", persistent.getStatusLine());
+            assertEquals(Const.StatusLine.NoContent, persistent.getStatusLine());
             JSONAssert.assertEquals(
                     roles,
                     (JSONArray) JSONParser.parseJSON(

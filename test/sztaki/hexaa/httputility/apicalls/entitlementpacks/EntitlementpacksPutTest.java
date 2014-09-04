@@ -57,7 +57,7 @@ public class EntitlementpacksPutTest extends CleanTest {
                 1, 0);
 
         try {
-            assertEquals("HTTP/1.1 204 No Content", persistent.getStatusLine());
+            assertEquals(Const.StatusLine.NoContent, persistent.getStatusLine());
         } catch (AssertionError e) {
             AssertErrorHandler(e);
         }
@@ -69,7 +69,7 @@ public class EntitlementpacksPutTest extends CleanTest {
                         null,
                         1, 0));
         try {
-            assertEquals("HTTP/1.1 200 OK", persistent.getStatusLine());
+            assertEquals(Const.StatusLine.OK, persistent.getStatusLine());
             JSONAssert.assertEquals(json, jsonResponse, JSONCompareMode.LENIENT);
             assertEquals("changedNameByPut", jsonResponse.getString("name"));
         } catch (AssertionError e) {

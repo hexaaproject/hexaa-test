@@ -53,7 +53,7 @@ public class AttributespecsPutTest extends CleanTest {
                 1, 0);
 
         try {
-            assertEquals("HTTP/1.1 204 No Content", persistent.getStatusLine());
+            assertEquals(Const.StatusLine.NoContent, persistent.getStatusLine());
         } catch (AssertionError e) {
             AssertErrorHandler(e);
         }
@@ -68,7 +68,7 @@ public class AttributespecsPutTest extends CleanTest {
                                 1, 0));
 
         try {
-            assertEquals("HTTP/1.1 200 OK", persistent.getStatusLine());
+            assertEquals(Const.StatusLine.OK, persistent.getStatusLine());
             assertEquals("oidByPut", jsonResponse.get("oid"));
         } catch (AssertionError e) {
             AssertErrorHandler(e);

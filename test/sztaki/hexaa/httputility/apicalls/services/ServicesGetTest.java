@@ -50,7 +50,7 @@ public class ServicesGetTest extends CleanTest {
                                 BasicCall.REST.GET));
         try {
             JSONAssert.assertEquals(services, jsonResponseArray, false);
-            assertEquals("HTTP/1.1 200 OK", persistent.getStatusLine());
+            assertEquals(Const.StatusLine.OK, persistent.getStatusLine());
         } catch (AssertionError e) {
             AssertErrorHandler(e);
         }
@@ -70,7 +70,7 @@ public class ServicesGetTest extends CleanTest {
                                 1, 0));
         try {
             JSONAssert.assertEquals(services.getJSONObject(0), jsonResponseObject, false);
-            assertEquals("HTTP/1.1 200 OK", persistent.getStatusLine());
+            assertEquals(Const.StatusLine.OK, persistent.getStatusLine());
         } catch (AssertionError e) {
             AssertErrorHandler(e);
         }
@@ -84,7 +84,7 @@ public class ServicesGetTest extends CleanTest {
                                     2, 0));
             try {
                 JSONAssert.assertEquals(services.getJSONObject(1), jsonResponseObject, false);
-                assertEquals("HTTP/1.1 200 OK", persistent.getStatusLine());
+                assertEquals(Const.StatusLine.OK, persistent.getStatusLine());
             } catch (AssertionError e) {
                 AssertErrorHandler(e);
             }
@@ -102,7 +102,7 @@ public class ServicesGetTest extends CleanTest {
                                 Const.Api.SERVICES,
                                 BasicCall.REST.GET));
         try {
-            assertEquals("HTTP/1.1 200 OK", persistent.getStatusLine());
+            assertEquals(Const.StatusLine.OK, persistent.getStatusLine());
         } catch (AssertionError e) {
             AssertErrorHandler(e);
             return;

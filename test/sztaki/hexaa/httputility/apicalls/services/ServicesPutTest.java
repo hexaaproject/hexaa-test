@@ -53,7 +53,7 @@ public class ServicesPutTest extends CleanTest {
                 services.getJSONObject(0).toString());
 
         try {
-            assertEquals("HTTP/1.1 204 No Content", persistent.getStatusLine());
+            assertEquals(Const.StatusLine.NoContent, persistent.getStatusLine());
             JSONAssert.assertEquals(
                     services,
                     (JSONArray) JSONParser.parseJSON(

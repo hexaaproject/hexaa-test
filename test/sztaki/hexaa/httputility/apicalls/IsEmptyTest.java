@@ -27,7 +27,7 @@ public abstract class IsEmptyTest extends CleanTest {
                         constApi,
                         rest);
         try {
-            assertEquals("HTTP/1.1 200 OK", persistent.getStatusLine());
+            assertEquals(Const.StatusLine.OK, persistent.getStatusLine());
             assertEquals("[]", stringResponse);
         } catch (AssertionError e) {
             AssertErrorHandler(e);
@@ -47,8 +47,8 @@ public abstract class IsEmptyTest extends CleanTest {
                         constApi,
                         rest);
         try {
-            assertEquals("HTTP/1.1 404 Not Found", persistent.getStatusLine());
-            assertEquals("{\"code\":404,\"message\":\"Not Found\"}", stringResponse);
+            assertEquals(Const.StatusLine.NotFound, persistent.getStatusLine());
+            assertEquals("{\"code\":404,\"message\":\"Not Found\",\"errors\":null}", stringResponse);
         } catch (AssertionError e) {
             AssertErrorHandler(e);
         }
@@ -69,7 +69,7 @@ public abstract class IsEmptyTest extends CleanTest {
         if (object instanceof JSONArray) {
             JSONArray jsonResponse = (JSONArray) object;
             try {
-                assertEquals("HTTP/1.1 200 OK", persistent.getStatusLine());
+                assertEquals(Const.StatusLine.OK, persistent.getStatusLine());
                 assertEquals(
                         Const.HEXAA_FEDID,
                         jsonResponse.getJSONObject(0).getString("fedid"));
@@ -81,7 +81,7 @@ public abstract class IsEmptyTest extends CleanTest {
         if (object instanceof JSONObject) {
             JSONObject jsonResponse = (JSONObject) object;
             try {
-                assertEquals("HTTP/1.1 200 OK", persistent.getStatusLine());
+                assertEquals(Const.StatusLine.OK, persistent.getStatusLine());
                 assertEquals(
                         Const.HEXAA_FEDID,
                         jsonResponse.getString("fedid"));

@@ -54,7 +54,7 @@ public class EntitlementsGetTest extends CleanTest {
                         null,
                         1, 0));
         try {
-            assertEquals("HTTP/1.1 200 OK", persistent.getStatusLine());
+            assertEquals(Const.StatusLine.OK, persistent.getStatusLine());
             JSONAssert.assertEquals(entitlements.getJSONObject(0), jsonReaponse, JSONCompareMode.LENIENT);
         } catch (AssertionError e) {
             AssertErrorHandler(e);
@@ -68,7 +68,7 @@ public class EntitlementsGetTest extends CleanTest {
                         null,
                         2, 0));
         try {
-            assertEquals("HTTP/1.1 200 OK", persistent.getStatusLine());
+            assertEquals(Const.StatusLine.OK, persistent.getStatusLine());
             JSONAssert.assertEquals(entitlements.getJSONObject(1), jsonReaponse, JSONCompareMode.LENIENT);
         } catch (AssertionError e) {
             AssertErrorHandler(e);

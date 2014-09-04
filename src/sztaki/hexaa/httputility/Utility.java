@@ -47,7 +47,7 @@ public class Utility {
                 attributevalues.put(json);
 
                 persistent.call(
-                        Const.Api.ORGANIZATIONS_ID_ATTRIBUTEVALUEORGANIZATIONS_ASID,
+                        Const.Api.ATTRIBUTEVALUEORGANIZATIONS,
                         BasicCall.REST.POST,
                         json.toString(),
                         orgId, asid);
@@ -78,7 +78,7 @@ public class Utility {
                 attributevalues.put(json);
 
                 persistent.call(
-                        Const.Api.ATTRIBUTEVALUEPRINCIPALS_ASID,
+                        Const.Api.ATTRIBUTEVALUEPRINCIPALS,
                         BasicCall.REST.POST,
                         json.toString(),
                         asid, asid);
@@ -93,13 +93,19 @@ public class Utility {
          *
          * @param oids a String array representation of the names to create
          * attributespecs with.
-         * @param user String should be user or manager according to the usage:
-         * use the user if it is used by a principal, use manager if it is used
-         * by an organization.
+         * @param maintainer String should be user or manager according to the
+         * usage: use the user if it is used by a principal, use manager if it
+         * is used by an organization.
          * @return JSONArray with all the created attributespecs in it.
          */
-        public static JSONArray attributespec(String[] oids, String user) {
+        public static JSONArray attributespec(String[] oids, String maintainer) {
             JSONArray attributespecs = new JSONArray();
+
+            for (String oid : oids) {
+                if (oid.length() < 3) {
+                    oid = "oid".concat(oid);
+                }
+            }
 
             for (String oid : oids) {
                 JSONObject json = new JSONObject();
@@ -107,7 +113,7 @@ public class Utility {
                 json.put("friendly_name", "testFriendlyName" + oid);
                 json.put("syntax", "syntaxTest");
                 json.put("is_multivalue", true);
-                json.put("maintainer", user);
+                json.put("maintainer", maintainer);
 
                 attributespecs.put(json);
 

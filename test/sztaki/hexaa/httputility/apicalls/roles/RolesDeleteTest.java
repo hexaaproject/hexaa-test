@@ -48,7 +48,7 @@ public class RolesDeleteTest extends CleanTest {
         persistent.call(Const.Api.ROLES_ID, BasicCall.REST.DEL);
 
         try {
-            assertEquals("HTTP/1.1 204 No Content", persistent.getStatusLine());
+            assertEquals(Const.StatusLine.NoContent, persistent.getStatusLine());
             JSONAssert.assertEquals(
                     roles.getJSONObject(1),
                     ((JSONArray) JSONParser.parseJSON(

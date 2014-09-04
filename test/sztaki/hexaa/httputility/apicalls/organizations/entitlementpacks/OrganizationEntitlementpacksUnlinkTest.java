@@ -42,7 +42,7 @@ public class OrganizationEntitlementpacksUnlinkTest extends OrganizationEntitlem
                 1, 1);
 
         try {
-            assertEquals("HTTP/1.1 204 No Content", persistent.getStatusLine());
+            assertEquals(Const.StatusLine.NoContent, persistent.getStatusLine());
         } catch (AssertionError e) {
             AssertErrorHandler(e);
         }
@@ -60,7 +60,7 @@ public class OrganizationEntitlementpacksUnlinkTest extends OrganizationEntitlem
                 1, 1);
 
         try {
-            assertEquals("HTTP/1.1 204 No Content", persistent.getStatusLine());
+            assertEquals(Const.StatusLine.NoContent, persistent.getStatusLine());
             JSONAssert.assertEquals(
                     new JSONArray(),
                     (JSONArray) JSONParser.parseJSON(
@@ -70,7 +70,7 @@ public class OrganizationEntitlementpacksUnlinkTest extends OrganizationEntitlem
                                     null,
                                     1, 1)),
                     JSONCompareMode.LENIENT);
-            assertEquals("HTTP/1.1 200 OK", persistent.getStatusLine());
+            assertEquals(Const.StatusLine.OK, persistent.getStatusLine());
         } catch (AssertionError e) {
             AssertErrorHandler(e);
         }

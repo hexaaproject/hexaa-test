@@ -70,7 +70,7 @@ public class EntitlementpacksAddEntitlementsTest extends CleanTest {
                                     null,
                                     i, 0)));
             try {
-                assertEquals("HTTP/1.1 200 OK", persistent.getStatusLine());
+                assertEquals(Const.StatusLine.OK, persistent.getStatusLine());
             } catch (AssertionError e) {
                 AssertErrorHandler(e);
             }
@@ -87,7 +87,7 @@ public class EntitlementpacksAddEntitlementsTest extends CleanTest {
                                 packId, 0));
 
         try {
-            assertEquals("HTTP/1.1 200 OK", persistent.getStatusLine());
+            assertEquals(Const.StatusLine.OK, persistent.getStatusLine());
             JSONAssert.assertEquals(jsonResponseArray, jsonEntitlementArray, JSONCompareMode.LENIENT);
         } catch (AssertionError e) {
             AssertErrorHandler(e);

@@ -63,7 +63,7 @@ public class EntitlementpacksGetEntitlementsTest extends CleanTest {
                                 1, 0));
 
         try {
-            assertEquals("HTTP/1.1 200 OK", persistent.getStatusLine());
+            assertEquals(Const.StatusLine.OK, persistent.getStatusLine());
             JSONAssert.assertEquals(
                     entitlements,
                     jsonResponse,
@@ -82,7 +82,7 @@ public class EntitlementpacksGetEntitlementsTest extends CleanTest {
                                 2, 0));
 
         try {
-            assertEquals("HTTP/1.1 200 OK", persistent.getStatusLine());
+            assertEquals(Const.StatusLine.OK, persistent.getStatusLine());
             JSONAssert.assertEquals(
                     entitlements.getJSONObject(0),
                     jsonResponse.getJSONObject(0),

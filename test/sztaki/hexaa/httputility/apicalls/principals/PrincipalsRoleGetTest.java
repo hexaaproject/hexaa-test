@@ -62,7 +62,7 @@ public class PrincipalsRoleGetTest extends CleanTest {
         JSONArray jsonResponse = (JSONArray) response;
 
         try {
-            assertEquals("HTTP/1.1 200 OK", persistent.getStatusLine());
+            assertEquals(Const.StatusLine.OK, persistent.getStatusLine());
             JSONAssert.assertEquals(roles, jsonResponse, JSONCompareMode.LENIENT);
         } catch (AssertionError e) {
             AssertErrorHandler(e);

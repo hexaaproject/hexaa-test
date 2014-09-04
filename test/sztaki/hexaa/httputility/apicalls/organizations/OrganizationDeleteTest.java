@@ -53,12 +53,12 @@ public class OrganizationDeleteTest extends CleanTest {
                 BasicCall.REST.DEL);
 
         try {
-            assertEquals("HTTP/1.1 204 No Content", persistent.getStatusLine());
+            assertEquals(Const.StatusLine.NoContent, persistent.getStatusLine());
             // GET the first one (the DELETEd one).
             persistent.call(
                     Const.Api.ORGANIZATIONS_ID,
                     BasicCall.REST.GET);
-            assertEquals("HTTP/1.1 404 Not Found", persistent.getStatusLine());
+            assertEquals(Const.StatusLine.NotFound, persistent.getStatusLine());
             // GET the second one.
             JSONAssert.assertEquals(
                     organizations.getJSONObject(1),
@@ -69,7 +69,7 @@ public class OrganizationDeleteTest extends CleanTest {
                                     null,
                                     2, 2)),
                     JSONCompareMode.LENIENT);
-            assertEquals("HTTP/1.1 200 OK", persistent.getStatusLine());
+            assertEquals(Const.StatusLine.OK, persistent.getStatusLine());
         } catch (AssertionError e) {
             AssertErrorHandler(e);
         }

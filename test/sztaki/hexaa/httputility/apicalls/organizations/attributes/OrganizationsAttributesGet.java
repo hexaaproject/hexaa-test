@@ -70,7 +70,7 @@ public class OrganizationsAttributesGet extends CleanTest {
                                 BasicCall.REST.GET));
 
         try {
-            assertEquals("HTTP/1.1 200 OK", persistent.getStatusLine());
+            assertEquals(Const.StatusLine.OK, persistent.getStatusLine());
             JSONAssert.assertEquals(
                     attributespecs,
                     jsonResponse,
@@ -103,7 +103,7 @@ public class OrganizationsAttributesGet extends CleanTest {
         jsonExpected.put(attributevalue.getJSONObject(0));
 
         try {
-            assertEquals("HTTP/1.1 200 OK", persistent.getStatusLine());
+            assertEquals(Const.StatusLine.OK, persistent.getStatusLine());
             JSONAssert.assertEquals(
                     jsonExpected,
                     jsonResponse,
@@ -125,7 +125,7 @@ public class OrganizationsAttributesGet extends CleanTest {
                                 BasicCall.REST.GET));
 
         try {
-            assertEquals("HTTP/1.1 200 OK", persistent.getStatusLine());
+            assertEquals(Const.StatusLine.OK, persistent.getStatusLine());
             JSONAssert.assertEquals(
                     attributevalue,
                     jsonResponse,

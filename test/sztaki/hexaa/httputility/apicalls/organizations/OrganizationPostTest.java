@@ -42,7 +42,7 @@ public class OrganizationPostTest extends CleanTest {
                 0, 0);
         // Verifies the POST with a GET
         try {
-            assertEquals("HTTP/1.1 201 Created", persistent.getStatusLine());
+            assertEquals(Const.StatusLine.Created, persistent.getStatusLine());
             JSONAssert.assertEquals(
                     json,
                     ((JSONArray) JSONParser.parseJSON(
@@ -50,7 +50,7 @@ public class OrganizationPostTest extends CleanTest {
                                     Const.Api.ORGANIZATIONS,
                                     BasicCall.REST.GET))).getJSONObject(0),
                     JSONCompareMode.LENIENT);
-            assertEquals("HTTP/1.1 200 OK", persistent.getStatusLine());
+            assertEquals(Const.StatusLine.OK, persistent.getStatusLine());
         } catch (AssertionError e) {
             AssertErrorHandler(e);
         }

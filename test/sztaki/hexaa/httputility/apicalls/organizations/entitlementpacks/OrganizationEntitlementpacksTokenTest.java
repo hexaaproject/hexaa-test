@@ -41,7 +41,7 @@ public class OrganizationEntitlementpacksTokenTest extends OrganizationEntitleme
         persistent.call(Const.Api.ORGANIZATIONS_ID_ENTITLEMENTPACKS_TOKEN, BasicCall.REST.PUT);
 
         try {
-            assertEquals("HTTP/1.1 201 Created", persistent.getStatusLine());
+            assertEquals(Const.StatusLine.Created, persistent.getStatusLine());
             JSONArray jsonResponseArray
                     = (JSONArray) JSONParser.parseJSON(
                             persistent.call(

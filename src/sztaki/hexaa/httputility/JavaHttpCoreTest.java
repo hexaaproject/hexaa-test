@@ -17,13 +17,17 @@ public class JavaHttpCoreTest {
      * @param args
      */
     public static void main(String[] args) {
-//        System.out.println(System.getProperty("user.dir"));
+        new JavaHttpCoreTest().properties();
 
-//        new Authenticator().loadProperties();
-//        new DatabaseManipulator().dropDatabase();
-//        new DatabaseManipulator().dropCache();
+        new Authenticator().loadProperties();
+        new DatabaseManipulator().dropDatabase();
+        new DatabaseManipulator().dropCache();
 //        
 //        new Authenticator().authenticate(Const.HEXAA_FEDID);
+        
+    }
+    
+    private void properties() {
         Properties prop = new Properties();
         OutputStream output = null;
 

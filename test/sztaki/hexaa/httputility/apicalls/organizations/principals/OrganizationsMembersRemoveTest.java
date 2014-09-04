@@ -60,7 +60,7 @@ public class OrganizationsMembersRemoveTest extends CleanTest {
         principals.remove(0);
         
         try {
-            assertEquals("HTTP/1.1 204 No Content", persistent.getStatusLine());
+            assertEquals(Const.StatusLine.NoContent, persistent.getStatusLine());
             JSONAssert.assertEquals(
                     principals,
                     (JSONArray) JSONParser.parseJSON(

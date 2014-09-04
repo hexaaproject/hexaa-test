@@ -49,7 +49,7 @@ public class PrincipalsDeleteSelfTest extends CleanTest {
         persistent.call(Const.Api.PRINCIPAL, BasicCall.REST.DEL);
 
         try {
-            assertEquals("HTTP/1.1 204 No Content", persistent.getStatusLine());
+            assertEquals(Const.StatusLine.NoContent, persistent.getStatusLine());
         } catch (AssertionError e) {
             AssertErrorHandler(e);
         }
@@ -57,7 +57,7 @@ public class PrincipalsDeleteSelfTest extends CleanTest {
         persistent.call(Const.Api.PRINCIPAL_SELF, BasicCall.REST.GET);
 
         try {
-            assertEquals("HTTP/1.1 403 Forbidden", persistent.getStatusLine());
+            assertEquals(Const.StatusLine.Forbidden, persistent.getStatusLine());
         } catch (AssertionError e) {
             AssertErrorHandler(e);
         }

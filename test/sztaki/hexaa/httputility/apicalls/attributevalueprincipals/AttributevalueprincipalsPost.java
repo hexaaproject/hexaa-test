@@ -48,13 +48,13 @@ public class AttributevalueprincipalsPost extends CleanTest {
         json.put("value", "testValueString");
 
         persistent.call(
-                Const.Api.ATTRIBUTEVALUEPRINCIPALS_ASID,
+                Const.Api.ATTRIBUTEVALUEPRINCIPALS,
                 BasicCall.REST.POST,
                 json.toString(),
                 1, 1);
 
         try {
-            assertEquals("HTTP/1.1 201 Created", persistent.getStatusLine());
+            assertEquals(Const.StatusLine.Created, persistent.getStatusLine());
             JSONAssert.assertEquals(
                     json,
                     ((JSONArray) JSONParser.parseJSON(
@@ -62,7 +62,7 @@ public class AttributevalueprincipalsPost extends CleanTest {
                                     Const.Api.PRINCIPAL_ATTRIBUTEVALUEPRINCIPAL,
                                     BasicCall.REST.GET))).getJSONObject(0),
                     JSONCompareMode.LENIENT);
-            assertEquals("HTTP/1.1 200 OK", persistent.getStatusLine());
+            assertEquals(Const.StatusLine.OK, persistent.getStatusLine());
         } catch (AssertionError e) {
             AssertErrorHandler(e);
         }

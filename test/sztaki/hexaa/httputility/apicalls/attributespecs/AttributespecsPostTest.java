@@ -28,30 +28,30 @@ public class AttributespecsPostTest extends CleanTest {
     public void testAttributespecsPost() {
         // Create a JSON object
         JSONObject json = new JSONObject();
-        json.put("oid", "1");
+        json.put("oid", "oid1");
         json.put("friendly_name", "testName1");
+        json.put("maintainer", "user");
         json.put("syntax", "noSyntax1");
         json.put("is_multivalue", false);
-        json.put("maintainer", "user");
 
         // POST the object to the server and check the StatusLine
-        persistent.call(
+        System.out.println(persistent.call(
                 Const.Api.ATTRIBUTESPECS,
                 BasicCall.REST.POST,
-                json.toString());
+                json.toString()));
         try {
-            assertEquals("HTTP/1.1 201 Created", persistent.getStatusLine());
+            assertEquals(Const.StatusLine.Created, persistent.getStatusLine());
         } catch (AssertionError e) {
             AssertErrorHandler(e);
         }
 
         // Specify the second JSON object
         json = new JSONObject();
-        json.put("oid", "2");
+        json.put("oid", "oid2");
         json.put("friendly_name", "testName2");
+        json.put("maintainer", "user");
         json.put("syntax", "noSyntax2");
         json.put("is_multivalue", false);
-        json.put("maintainer", "user");
 
         // POST the object to the server and assert the string right away
         persistent.call(
@@ -61,7 +61,7 @@ public class AttributespecsPostTest extends CleanTest {
                 0,
                 0);
         try {
-            assertEquals("HTTP/1.1 201 Created", persistent.getStatusLine());
+            assertEquals(Const.StatusLine.Created, persistent.getStatusLine());
         } catch (AssertionError e) {
             AssertErrorHandler(e);
         }

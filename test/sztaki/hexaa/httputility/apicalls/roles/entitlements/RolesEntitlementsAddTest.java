@@ -45,7 +45,7 @@ public class RolesEntitlementsAddTest extends CleanTest {
                 BasicCall.REST.PUT);
 
         try {
-            assertEquals("HTTP/1.1 400 Bad Request", persistent.getStatusLine());
+            assertEquals(Const.StatusLine.BadRequest, persistent.getStatusLine());
         } catch (AssertionError e) {
             AssertErrorHandler(e);
         }
@@ -60,7 +60,7 @@ public class RolesEntitlementsAddTest extends CleanTest {
                 BasicCall.REST.PUT);
 
         try {
-            assertEquals("HTTP/1.1 201 Created", persistent.getStatusLine());
+            assertEquals(Const.StatusLine.Created, persistent.getStatusLine());
         } catch (AssertionError e) {
             AssertErrorHandler(e);
         }
@@ -71,7 +71,7 @@ public class RolesEntitlementsAddTest extends CleanTest {
                 BasicCall.REST.PUT);
 
         try {
-            assertEquals("HTTP/1.1 204 No Content", persistent.getStatusLine());
+            assertEquals(Const.StatusLine.NoContent, persistent.getStatusLine());
         } catch (AssertionError e) {
             AssertErrorHandler(e);
         }

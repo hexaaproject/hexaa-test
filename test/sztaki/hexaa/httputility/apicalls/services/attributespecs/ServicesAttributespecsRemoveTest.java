@@ -44,7 +44,7 @@ public class ServicesAttributespecsRemoveTest extends CleanTest {
                 BasicCall.REST.DEL);
 
         try {
-            assertEquals("HTTP/1.1 204 No Content", persistent.getStatusLine());
+            assertEquals(Const.StatusLine.NoContent, persistent.getStatusLine());
             assertEquals(
                     "2",
                     ((JSONArray) JSONParser.parseJSON(
@@ -54,7 +54,7 @@ public class ServicesAttributespecsRemoveTest extends CleanTest {
                                     null,
                                     1, 1)))
                     .getJSONObject(0).getString("attribute_spec_id"));
-            assertEquals("HTTP/1.1 200 OK", persistent.getStatusLine());
+            assertEquals(Const.StatusLine.OK, persistent.getStatusLine());
             assertEquals(
                     "[]",
                     persistent.call(
@@ -62,7 +62,7 @@ public class ServicesAttributespecsRemoveTest extends CleanTest {
                             BasicCall.REST.GET,
                             null,
                             2, 1));
-            assertEquals("HTTP/1.1 200 OK", persistent.getStatusLine());
+            assertEquals(Const.StatusLine.OK, persistent.getStatusLine());
         } catch (AssertionError e) {
             AssertErrorHandler(e);
         }

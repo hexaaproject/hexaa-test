@@ -50,10 +50,10 @@ public class EntitlementpacksDeleteTest extends CleanTest {
 
         try {
             // Checks the status line from the DEL call for 204
-            assertEquals("HTTP/1.1 204 No Content", persistent.getStatusLine());
+            assertEquals(Const.StatusLine.NoContent, persistent.getStatusLine());
             // GETs the one that was deleted and checks the status line for 404
             persistent.call(Const.Api.ENTITLEMENTPACKS_ID, BasicCall.REST.GET, null, 1, 0);
-            assertEquals("HTTP/1.1 404 Not Found", persistent.getStatusLine());
+            assertEquals(Const.StatusLine.NotFound, persistent.getStatusLine());
             // GETs the second entitlements and asserts it as a JSON
             JSONAssert.assertEquals(
                     entitlementpacks.getJSONObject(1),
@@ -65,7 +65,7 @@ public class EntitlementpacksDeleteTest extends CleanTest {
                                     2, 0)),
                     JSONCompareMode.LENIENT);
             // Checks the status line for 200
-            assertEquals("HTTP/1.1 200 OK", persistent.getStatusLine());
+            assertEquals(Const.StatusLine.OK, persistent.getStatusLine());
         } catch (AssertionError e) {
             AssertErrorHandler(e);
         }

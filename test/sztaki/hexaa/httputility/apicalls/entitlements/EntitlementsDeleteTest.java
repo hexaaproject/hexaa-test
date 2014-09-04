@@ -57,12 +57,12 @@ public class EntitlementsDeleteTest extends CleanTest {
                 BasicCall.REST.DEL);
 
         try {
-            assertEquals("HTTP/1.1 204 No Content", persistent.getStatusLine());
+            assertEquals(Const.StatusLine.NoContent, persistent.getStatusLine());
             // GET the first one (the DELETEd one).
             persistent.call(
                     Const.Api.ENTITLEMENTS_ID,
                     BasicCall.REST.GET);
-            assertEquals("HTTP/1.1 404 Not Found", persistent.getStatusLine());
+            assertEquals(Const.StatusLine.NotFound, persistent.getStatusLine());
             // GET the second one.
             JSONAssert.assertEquals(
                     entitlements.getJSONObject(1),
@@ -73,7 +73,7 @@ public class EntitlementsDeleteTest extends CleanTest {
                                     null,
                                     2, 0)),
                     JSONCompareMode.LENIENT);
-            assertEquals("HTTP/1.1 200 OK", persistent.getStatusLine());
+            assertEquals(Const.StatusLine.OK, persistent.getStatusLine());
         } catch (AssertionError e) {
             AssertErrorHandler(e);
         }

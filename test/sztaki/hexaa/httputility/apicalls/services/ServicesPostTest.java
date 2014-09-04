@@ -54,7 +54,7 @@ public class ServicesPostTest extends CleanTest {
                 0, 0);
         // Checks the creation by Status Line
         try {
-            assertEquals("HTTP/1.1 201 Created", persistent.getStatusLine());
+            assertEquals(Const.StatusLine.Created, persistent.getStatusLine());
         } catch (AssertionError e) {
             AssertErrorHandler(e);
         }
@@ -67,7 +67,7 @@ public class ServicesPostTest extends CleanTest {
                 1, 0));
         // Checks the service by StatusLine and id as well
         try {
-            assertEquals("HTTP/1.1 200 OK", persistent.getStatusLine());
+            assertEquals(Const.StatusLine.OK, persistent.getStatusLine());
             JSONAssert.assertEquals(json, jsonResponse, JSONCompareMode.LENIENT);
         } catch (AssertionError e) {
             AssertErrorHandler(e);

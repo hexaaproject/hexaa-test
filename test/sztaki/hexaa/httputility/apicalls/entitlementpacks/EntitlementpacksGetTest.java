@@ -60,7 +60,7 @@ public class EntitlementpacksGetTest extends CleanTest {
                                 BasicCall.REST.GET));
         try {
             // Asserting on the statusline for 200
-            assertEquals("HTTP/1.1 200 OK", persistent.getStatusLine());
+            assertEquals(Const.StatusLine.OK, persistent.getStatusLine());
             // Asserting the JSON response with the local entitlementpacks array
             JSONAssert.assertEquals(
                     entitlementpacks.getJSONObject(0),
@@ -87,7 +87,7 @@ public class EntitlementpacksGetTest extends CleanTest {
                                     i + 1, 0));
             try {
                 // Asserting on the statusline for 200
-                assertEquals("HTTP/1.1 200 OK", persistent.getStatusLine());
+                assertEquals(Const.StatusLine.OK, persistent.getStatusLine());
                 // Asserting the JSON response with the local entitlementpacks array
                 JSONAssert.assertEquals(
                         entitlementpacks.getJSONObject(i),
@@ -114,7 +114,7 @@ public class EntitlementpacksGetTest extends CleanTest {
                                 1, 0));
         try {
             // Asserting on the statusline for 200
-            assertEquals("HTTP/1.1 200 OK", persistent.getStatusLine());
+            assertEquals(Const.StatusLine.OK, persistent.getStatusLine());
             // Asserting the JSON response with the local entitlements array
             JSONAssert.assertEquals(
                     entitlements.getJSONObject(0),

@@ -54,7 +54,7 @@ public class RolesGetTest extends CleanTest {
                                     Const.Api.ORGANIZATIONS_ID_ROLES,
                                     BasicCall.REST.GET)),
                     JSONCompareMode.LENIENT);
-            assertEquals("HTTP/1.1 200 OK", persistent.getStatusLine());
+            assertEquals(Const.StatusLine.OK, persistent.getStatusLine());
             JSONAssert.assertEquals(
                     roles.getJSONObject(0),
                     (JSONObject) JSONParser.parseJSON(
@@ -62,7 +62,7 @@ public class RolesGetTest extends CleanTest {
                                     Const.Api.ROLES_ID,
                                     BasicCall.REST.GET)),
                     JSONCompareMode.LENIENT);
-            assertEquals("HTTP/1.1 200 OK", persistent.getStatusLine());
+            assertEquals(Const.StatusLine.OK, persistent.getStatusLine());
         } catch (AssertionError e) {
             AssertErrorHandler(e);
         }

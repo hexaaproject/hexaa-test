@@ -59,7 +59,7 @@ public class MethodNotAllowedTest extends CleanTest {
 
         this.expectingNotAllowed(
                 new String[]{
-                    Const.Api.ORGANIZATIONS_ID_ATTRIBUTEVALUEORGANIZATIONS_ASID,},
+                    Const.Api.ATTRIBUTEVALUEORGANIZATIONS,},
                 restGetPutDelete);
 
         this.expectingNotAllowed(
@@ -299,7 +299,7 @@ public class MethodNotAllowedTest extends CleanTest {
                                 uri,
                                 method);
                 try {
-                    assertEquals("HTTP/1.1 405 Method Not Allowed", persistent.getStatusLine());
+                    assertEquals(Const.StatusLine.MethodNotAllowed, persistent.getStatusLine());
                 } catch (AssertionError e) {
                     AssertErrorHandler(e);
                 }

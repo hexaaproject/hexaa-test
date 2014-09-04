@@ -37,7 +37,7 @@ public class PrincipalsPostTest extends CleanTest {
         persistent.call(Const.Api.PRINCIPALS, BasicCall.REST.POST, json.toString());
 
         try {
-            assertEquals("HTTP/1.1 201 Created", persistent.getStatusLine());
+            assertEquals(Const.StatusLine.Created, persistent.getStatusLine());
             JSONAssert.assertEquals(
                     json,
                     ((JSONArray) JSONParser.parseJSON(

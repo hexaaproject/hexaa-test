@@ -58,7 +58,7 @@ public class ServicesManagersRemoveTest extends CleanTest {
         managers.remove(0);
         
         try {
-            assertEquals("HTTP/1.1 204 No Content", persistent.getStatusLine());
+            assertEquals(Const.StatusLine.NoContent, persistent.getStatusLine());
             JSONAssert.assertEquals(
                     managers,
                     (JSONArray) JSONParser.parseJSON(

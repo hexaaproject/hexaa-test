@@ -39,7 +39,7 @@ public class OrganizationEntitlementpacksGetTest extends OrganizationEntitlement
                                 null,
                                 1, 1));
         try {
-            assertEquals("HTTP/1.1 200 OK", persistent.getStatusLine());
+            assertEquals(Const.StatusLine.OK, persistent.getStatusLine());
             assertEquals("1", jsonResponseArray.getJSONObject(0).getString("entitlement_pack_id"));
         } catch (AssertionError e) {
             AssertErrorHandler(e);
