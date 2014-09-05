@@ -515,7 +515,7 @@ public class BasicCall {
 
         JSONObject jsonResponse;
         JSONArray jsonResponseArray;
-
+        System.out.println(responseDataString);
         if (responseDataString != null && responseDataString.length() != 0) {
             Object parsedResponse = JSONParser.parseJSON(responseDataString);
 
