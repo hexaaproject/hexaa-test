@@ -62,22 +62,12 @@ public class MethodNotAllowedTest extends CleanTest {
                     Const.Api.ATTRIBUTEVALUEORGANIZATIONS,},
                 restGetPutDelete);
 
-        this.expectingNotAllowed(
-                new String[]{
-                    Const.Api.ATTRIBUTEVALUEORGANIZATIONS_ID_CONSENTS,},
-                restPostPutDelete);
-
         /* *** Attributevalueprincipal *** */
         // ATTRIBUTEVALUEPRINCIPALS_ID/ASID can be called with all 4 methods.
         this.expectingNotAllowed(
                 new String[]{
                     Const.Api.ATTRIBUTEVALUEPRINCIPALS_ID_SERVICES_SID,},
                 restPost);
-
-        this.expectingNotAllowed(
-                new String[]{
-                    Const.Api.ATTRIBUTEVALUEPRINCIPALS_ID_CONSENTS,},
-                restPostPutDelete);
 
         /* *** Attributespec *** */
         this.expectingNotAllowed(

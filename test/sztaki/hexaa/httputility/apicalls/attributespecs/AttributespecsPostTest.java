@@ -35,10 +35,10 @@ public class AttributespecsPostTest extends CleanTest {
         json.put("is_multivalue", false);
 
         // POST the object to the server and check the StatusLine
-        System.out.println(persistent.call(
+        persistent.call(
                 Const.Api.ATTRIBUTESPECS,
                 BasicCall.REST.POST,
-                json.toString()));
+                json.toString());
         try {
             assertEquals(Const.StatusLine.Created, persistent.getStatusLine());
         } catch (AssertionError e) {

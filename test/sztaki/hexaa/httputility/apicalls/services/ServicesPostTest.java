@@ -39,22 +39,18 @@ public class ServicesPostTest extends CleanTest {
                         null,
                         0,
                         0));
-        System.out.println(jsonEntityArray.toString());
         // Creates the json object to be POSTed on the server
         JSONObject json = new JSONObject();
         json.put("name", "myService");
         json.put("entityid", jsonEntityArray.getString(0));
         json.put("url", "my.service.is.awsome");
         json.put("description", "My service really is awsome!");
-        System.out.println(json.toString());
         // POSTs the json object
-        System.out.println(
-                persistent.call(
-                        Const.Api.SERVICES,
-                        BasicCall.REST.POST,
-                        json.toString(),
-                        0, 0)
-        );
+        persistent.call(
+                Const.Api.SERVICES,
+                BasicCall.REST.POST,
+                json.toString(),
+                0, 0);
         // Checks the creation by Status Line
         try {
             assertEquals(Const.StatusLine.Created, persistent.getStatusLine());

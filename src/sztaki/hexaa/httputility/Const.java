@@ -65,10 +65,6 @@ public class Const {
          */
         public static final String ATTRIBUTEVALUEORGANIZATIONS_ID = ("/app.php/api/attributevalueorganizations/{id}");
         /**
-         * GET all consents for attribute value.
-         */
-        public static final String ATTRIBUTEVALUEORGANIZATIONS_ID_CONSENTS = ("/app.php/api/attributevalueorganizations/{id}/consents");
-        /**
          * GET,PUT(set),DELETE attribute value consent per service.
          */
         public static final String ATTRIBUTEVALUEORGANIZATIONS_ID_SERVICES_SID = ("/app.php/api/attributevalueorganizations/{id}/services/{sid}");
@@ -82,10 +78,6 @@ public class Const {
          * GET, PATCH(edit), PUT(edit), DELETE attribute value for principals.
          */
         public static final String ATTRIBUTEVALUEPRINCIPALS_ID = ("/app.php/api/attributevalueprincipals/{id}");
-        /**
-         * GET all consents for attribute value.
-         */
-        public static final String ATTRIBUTEVALUEPRINCIPALS_ID_CONSENTS = ("/app.php/api/attributevalueprincipals/{id}/consents");
         /**
          * GET,PUT(set),DELETE attribute value consent per service.
          */
