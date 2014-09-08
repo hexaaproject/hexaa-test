@@ -1,2 +1,5 @@
 /dist/
-
+config.properties~
+config.properties
+config_dist.properties
+build.xml~
