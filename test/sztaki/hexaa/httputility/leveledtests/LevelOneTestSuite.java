@@ -13,9 +13,9 @@ import org.junit.runners.Suite;
     sztaki.hexaa.httputility.AllIsEmptyTests.class,
     sztaki.hexaa.httputility.apicalls.MethodNotAllowedTest.class,
     sztaki.hexaa.httputility.apicalls.attributespecs.AttributespecsPostTest.class,
+    sztaki.hexaa.httputility.apicalls.organizations.OrganizationPostTest.class,
     sztaki.hexaa.httputility.apicalls.principals.PrincipalsPostTest.class,
     sztaki.hexaa.httputility.apicalls.services.ServicesPostTest.class,
-    sztaki.hexaa.httputility.apicalls.organizations.OrganizationPostTest.class,
 
 })
 public class LevelOneTestSuite {

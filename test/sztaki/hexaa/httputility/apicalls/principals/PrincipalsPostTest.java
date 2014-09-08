@@ -10,6 +10,7 @@ import org.skyscreamer.jsonassert.JSONCompareMode;
 import org.skyscreamer.jsonassert.JSONParser;
 import sztaki.hexaa.httputility.BasicCall;
 import sztaki.hexaa.httputility.Const;
+import sztaki.hexaa.httputility.Utility;
 import sztaki.hexaa.httputility.apicalls.CleanTest;
 
 /**
@@ -32,12 +33,13 @@ public class PrincipalsPostTest extends CleanTest {
     public void testPrincipalsPost() {
         JSONObject json = new JSONObject();
         json.put("fedid", "testFedid1");
-        json.put("email", "test@email.something");
+        json.put("email", "testFedid1@email.something");
+        json.put("display_name", "testFedid1_name");
 
-        persistent.call(Const.Api.PRINCIPALS, BasicCall.REST.POST, json.toString());
-
+        Utility.Create.principal(json.getString("fedid"));
+        
         try {
-            assertEquals(Const.StatusLine.Created, persistent.getStatusLine());
+            assertEquals(Const.StatusLine.Created, Utility.persistent.getStatusLine());
             JSONAssert.assertEquals(
                     json,
                     ((JSONArray) JSONParser.parseJSON(

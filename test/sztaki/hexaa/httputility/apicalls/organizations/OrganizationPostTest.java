@@ -10,6 +10,7 @@ import org.skyscreamer.jsonassert.JSONCompareMode;
 import org.skyscreamer.jsonassert.JSONParser;
 import sztaki.hexaa.httputility.BasicCall;
 import sztaki.hexaa.httputility.Const;
+import sztaki.hexaa.httputility.Utility;
 import sztaki.hexaa.httputility.apicalls.CleanTest;
 
 /**
@@ -33,16 +34,11 @@ public class OrganizationPostTest extends CleanTest {
         // Creating the JSON object
         JSONObject json = new JSONObject();
         json.put("name", "testOrganizationName1");
-        json.put("description", "testOrganizationDescription");
-        // POST-ing the JSON object
-        persistent.call(
-                Const.Api.ORGANIZATIONS,
-                BasicCall.REST.POST,
-                json.toString(),
-                0, 0);
+        
+        Utility.Create.organization(json.getString("name"));
         // Verifies the POST with a GET
         try {
-            assertEquals(Const.StatusLine.Created, persistent.getStatusLine());
+            assertEquals(Const.StatusLine.Created, Utility.persistent.getStatusLine());
             JSONAssert.assertEquals(
                     json,
                     ((JSONArray) JSONParser.parseJSON(

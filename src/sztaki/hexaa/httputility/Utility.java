@@ -16,7 +16,7 @@ public class Utility {
     /**
      * BasicCall to be used inside the method, static.
      */
-    static protected BasicCall persistent = new BasicCall();
+    static public BasicCall persistent = new BasicCall();
 
     /**
      * Utility class within Utility for creation methods.
@@ -92,7 +92,8 @@ public class Utility {
          * with unique oids only.
          *
          * @param oids a String array representation of the names to create
-         * attributespecs with.
+         * attributespecs with. If these are less than 3 character "oid" will be
+         * concatenated to the beginning of the string.
          * @param maintainer String should be user or manager according to the
          * usage: use the user if it is used by a principal, use manager if it
          * is used by an organization.
@@ -101,9 +102,9 @@ public class Utility {
         public static JSONArray attributespec(String[] oids, String maintainer) {
             JSONArray attributespecs = new JSONArray();
 
-            for (String oid : oids) {
-                if (oid.length() < 3) {
-                    oid = "oid".concat(oid);
+            for (int i = 0; i < oids.length; i++) {
+                if (oids[i].length() <= 3) {
+                    oids[i] = "oid".concat(oids[i]);
                 }
             }
 
@@ -129,7 +130,9 @@ public class Utility {
          * Alternative call for {@link attributespec(String[] oids)} for single
          * attributespec creation.
          *
-         * @param oid the names to create attributespec with.
+         * @param oid the names to create attributespec with. If it is less than
+         * 3 character "oid" will be concatenated to the beginning of the
+         * string.
          * @param user String should be user or manager according to the usage:
          * use the user if it is used by a principal, use manager if it is used
          * by an organization.
@@ -372,7 +375,7 @@ public class Utility {
                             0));
             int i = 0;
             for (String name : names) {
-                // Creates the first json object to be POSTed on the server
+                // Creates the json object to be POSTed on the server
                 JSONObject json = new JSONObject();
                 json.put("name", name);
                 json.put("entityid", jsonEntityArray.getString(i++));

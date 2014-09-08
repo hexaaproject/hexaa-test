@@ -6,6 +6,7 @@ import org.json.JSONObject;
 import org.junit.BeforeClass;
 import sztaki.hexaa.httputility.BasicCall;
 import sztaki.hexaa.httputility.Const;
+import sztaki.hexaa.httputility.Utility;
 import sztaki.hexaa.httputility.apicalls.CleanTest;
 
 /**
@@ -26,42 +27,16 @@ public class AttributespecsPostTest extends CleanTest {
      */
     @Test
     public void testAttributespecsPost() {
-        // Create a JSON object
-        JSONObject json = new JSONObject();
-        json.put("oid", "oid1");
-        json.put("friendly_name", "testName1");
-        json.put("maintainer", "user");
-        json.put("syntax", "noSyntax1");
-        json.put("is_multivalue", false);
-
-        // POST the object to the server and check the StatusLine
-        persistent.call(
-                Const.Api.ATTRIBUTESPECS,
-                BasicCall.REST.POST,
-                json.toString());
+        Utility.Create.attributespec("1", "user");
         try {
-            assertEquals(Const.StatusLine.Created, persistent.getStatusLine());
+            assertEquals(Const.StatusLine.Created, Utility.persistent.getStatusLine());
         } catch (AssertionError e) {
             AssertErrorHandler(e);
         }
 
-        // Specify the second JSON object
-        json = new JSONObject();
-        json.put("oid", "oid2");
-        json.put("friendly_name", "testName2");
-        json.put("maintainer", "user");
-        json.put("syntax", "noSyntax2");
-        json.put("is_multivalue", false);
-
-        // POST the object to the server and assert the string right away
-        persistent.call(
-                Const.Api.ATTRIBUTESPECS,
-                BasicCall.REST.POST,
-                json.toString(),
-                0,
-                0);
+        Utility.Create.attributespec("2", "user");
         try {
-            assertEquals(Const.StatusLine.Created, persistent.getStatusLine());
+            assertEquals(Const.StatusLine.Created, Utility.persistent.getStatusLine());
         } catch (AssertionError e) {
             AssertErrorHandler(e);
         }
