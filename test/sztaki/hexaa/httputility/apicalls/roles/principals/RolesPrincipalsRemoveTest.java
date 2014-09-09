@@ -62,14 +62,26 @@ public class RolesPrincipalsRemoveTest extends CleanTest {
                 null,
                 1, 1);
 
+        Object response
+                = JSONParser.parseJSON(
+                        persistent.call(
+                                Const.Api.ROLES_ID_PRINCIPALS,
+                                BasicCall.REST.GET));
+
+        if (response instanceof JSONObject) {
+            fail(response.toString());
+        }
+        JSONArray jsonResponse = (JSONArray) response;
+        System.out.println(response);
+        if (jsonResponse.length() < 1) {
+            fail(jsonResponse.toString());
+        }
+
         try {
             assertEquals(Const.StatusLine.NoContent, persistent.getStatusLine());
             JSONAssert.assertEquals(
                     principals.getJSONObject(0),
-                    ((JSONArray) JSONParser.parseJSON(
-                            persistent.call(
-                                    Const.Api.ROLES_ID_PRINCIPALS,
-                                    BasicCall.REST.GET))).getJSONObject(0).getJSONObject("principal"),
+                    jsonResponse.getJSONObject(0).getJSONObject("principal"),
                     JSONCompareMode.LENIENT);
         } catch (AssertionError e) {
             AssertErrorHandler(e);

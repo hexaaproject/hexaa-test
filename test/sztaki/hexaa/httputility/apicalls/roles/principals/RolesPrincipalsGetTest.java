@@ -53,14 +53,16 @@ public class RolesPrincipalsGetTest extends CleanTest {
                 = JSONParser.parseJSON(
                         persistent.call(
                                 Const.Api.ROLES_ID_PRINCIPALS,
-                                BasicCall.REST.GET,
-                                null,
-                                1, 1));
+                                BasicCall.REST.GET));
 
         if (response instanceof JSONObject) {
-            fail();
+            fail(response.toString());
         }
         JSONArray jsonResponse = (JSONArray) response;
+        System.out.println(response);
+        if (jsonResponse.length() < 1) {
+            fail(jsonResponse.toString());
+        }
 
         try {
             assertEquals(Const.StatusLine.OK, persistent.getStatusLine());
