@@ -92,16 +92,20 @@ public class OrganizationsAttributesGet extends CleanTest {
                                 BasicCall.REST.GET));
 
         if (response instanceof JSONObject) {
-            fail("Not a JSONArray but a JSONObject: " + ((JSONObject) response).toString());
+            fail(((JSONObject) response).toString());
         }
 
         JSONArray jsonResponse
                 = (JSONArray) response;
+        if (jsonResponse.length() < 1) {
+            fail(jsonResponse.toString());
+        }
 
         JSONArray jsonExpected = new JSONArray();
 
         jsonExpected.put(attributevalue.getJSONObject(0));
-
+        System.out.println(jsonResponse.toString());
+        System.out.println(jsonExpected.toString());
         try {
             assertEquals(Const.StatusLine.OK, persistent.getStatusLine());
             JSONAssert.assertEquals(

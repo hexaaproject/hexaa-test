@@ -39,8 +39,10 @@ public class RolesPrincipalsGetTest extends CleanTest {
     public static void setUpClass() {
         Utility.Create.organization("testOrg");
         Utility.Create.role("testRole", 1);
+        
         principals = Utility.Create.principal("testPrincipal");
         Utility.Link.memberToOrganization(1, 2);
+        
         Utility.Link.principalToRole(1, 2);
     }
 

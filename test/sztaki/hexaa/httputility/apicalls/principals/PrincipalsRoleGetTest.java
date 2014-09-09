@@ -38,9 +38,9 @@ public class PrincipalsRoleGetTest extends CleanTest {
     @BeforeClass
     public static void setUpClass() {
         Utility.Create.organization(new String[]{"testOrgForPrincGet"});
-        Utility.Link.memberToOrganization(1, 1);
-
         roles = Utility.Create.role(new String[]{"role1"}, 1);
+        
+        Utility.Link.memberToOrganization(1, 1);
 
         Utility.Link.principalToRole(1, new int[]{1});
     }
