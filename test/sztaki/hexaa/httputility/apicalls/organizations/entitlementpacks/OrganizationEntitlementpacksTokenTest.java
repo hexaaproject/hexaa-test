@@ -48,8 +48,8 @@ public class OrganizationEntitlementpacksTokenTest extends OrganizationEntitleme
                                     Const.Api.ORGANIZATIONS_ID_ENTITLEMENTPACKS,
                                     BasicCall.REST.GET));
             assertEquals(
-                    "1",
-                    jsonResponseArray.getJSONObject(0).getString("entitlement_pack_id"));
+                    1,
+                    jsonResponseArray.getJSONObject(0).getInt("entitlement_pack_id"));
             assertEquals(
                     "accepted",
                     jsonResponseArray.getJSONObject(0).getString("status"));

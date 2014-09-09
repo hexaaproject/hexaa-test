@@ -47,13 +47,13 @@ public class ServicesOrganizationsGetTest extends CleanTest {
     public void testServicesOrganizationsGet() {
         try {
             assertEquals(
-                    "1",
+                    1,
                     ((JSONArray) JSONParser.parseJSON(
                             persistent.call(
                                     Const.Api.SERVICES_ID_ORGANIZATIONS,
                                     BasicCall.REST.GET)))
                     .getJSONObject(0)
-                    .getString("organization_id"));
+                    .getInt("id"));
         } catch (AssertionError e) {
             AssertErrorHandler(e);
         }

@@ -40,7 +40,7 @@ public class OrganizationEntitlementpacksGetTest extends OrganizationEntitlement
                                 1, 1));
         try {
             assertEquals(Const.StatusLine.OK, persistent.getStatusLine());
-            assertEquals("1", jsonResponseArray.getJSONObject(0).getString("entitlement_pack_id"));
+            assertEquals(1, jsonResponseArray.getJSONObject(0).getInt("entitlement_pack_id"));
         } catch (AssertionError e) {
             AssertErrorHandler(e);
         }

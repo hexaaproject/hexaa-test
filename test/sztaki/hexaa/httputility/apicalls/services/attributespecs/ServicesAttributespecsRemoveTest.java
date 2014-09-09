@@ -46,14 +46,14 @@ public class ServicesAttributespecsRemoveTest extends CleanTest {
         try {
             assertEquals(Const.StatusLine.NoContent, persistent.getStatusLine());
             assertEquals(
-                    "2",
+                    2,
                     ((JSONArray) JSONParser.parseJSON(
                             persistent.call(
                                     Const.Api.SERVICES_ID_ATTRIBUTESPECS,
                                     BasicCall.REST.GET,
                                     null,
                                     1, 1)))
-                    .getJSONObject(0).getString("attribute_spec_id"));
+                    .getJSONObject(0).getInt("attribute_spec_id"));
             assertEquals(Const.StatusLine.OK, persistent.getStatusLine());
             assertEquals(
                     "[]",
