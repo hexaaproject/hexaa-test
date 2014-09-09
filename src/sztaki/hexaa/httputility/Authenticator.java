@@ -64,6 +64,10 @@ public class Authenticator {
                     0, 0);
 
             JSONObject jsonResponse;
+            System.out.println(response);
+            if (response == null || response.isEmpty()) {
+                response = "{}";
+            }
             jsonResponse = (JSONObject) JSONParser.parseJSON(response);
 
             System.out.print("** AUTHENTICATE **\t");
@@ -84,7 +88,7 @@ public class Authenticator {
      *
      * @return String temporal API key for limited time of authentication.
      */
-    private String getAPIKey() {
+    public String getAPIKey() {
         String out = null;
         String sha256hex;
 

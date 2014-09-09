@@ -47,7 +47,7 @@ public class AttributespecsServicesGetTest extends CleanTest {
 
         try {
             assertEquals(Const.StatusLine.OK, persistent.getStatusLine());
-            assertEquals("1", jsonResponse.getJSONObject(0).getString("service_id"));
+            assertEquals(1, jsonResponse.getJSONObject(0).getInt("service_id"));
         } catch (AssertionError e) {
             AssertErrorHandler(e);
         }

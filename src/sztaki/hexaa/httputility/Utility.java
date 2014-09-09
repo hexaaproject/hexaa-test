@@ -37,23 +37,43 @@ public class Utility {
          * @return JSONArray with all the created attributevalueorganizations in
          * it.
          */
-        public static JSONArray attributevalueorganizations(String[] values, int asid, int orgId) {
+        public static JSONArray attributevalueorganization(String[] values, int asid, int orgId) {
             // Array for the return value
             JSONArray attributevalues = new JSONArray();
             // For every value it creates a json object and calls the /api/organizations/{id}/attributevalueorganizations/{asid}
             for (String value : values) {
                 JSONObject json = new JSONObject();
                 json.put("value", value);
+                json.put("services", new JSONArray(new int[]{1}));
+                json.put("attribute_spec", asid);
+                json.put("organization", orgId);
+
                 attributevalues.put(json);
 
                 persistent.call(
                         Const.Api.ATTRIBUTEVALUEORGANIZATIONS,
                         BasicCall.REST.POST,
-                        json.toString(),
-                        orgId, asid);
+                        json.toString());
 
             }
             return attributevalues;
+        }
+
+        /**
+         * Alternative call for
+         * {@link #attributevalueorganization(String[], int, int)} for single
+         * attributevalueorganization creation.
+         *
+         * @param value the value to create attributevalueorganization with.
+         * @param asid the id of the attributespecification to create the values
+         * with.
+         * @param orgId the id of the organization to get the
+         * attributespecvalues.
+         * @return JSONArray with all the created attributevalueorganizations in
+         * it.
+         */
+        public static JSONArray attributevalueorganization(String value, int asid, int orgId) {
+            return attributevalueorganization(new String[]{value}, asid, orgId);
         }
 
         /**
@@ -68,7 +88,7 @@ public class Utility {
          * @return JSONArray with all the created attributevalueprincipals in
          * it.
          */
-        public static JSONArray attributevalueprincipals(String[] values, int asid) {
+        public static JSONArray attributevalueprincipal(String[] values, int asid) {
             // Array for the return value
             JSONArray attributevalues = new JSONArray();
             // For every value it creates a json object and calls the /api/attributevalueprincipals/{asid}
@@ -84,6 +104,21 @@ public class Utility {
                         asid, asid);
             }
             return attributevalues;
+        }
+
+        /**
+         * Alternative call for
+         * {@link #attributevalueorganization(String[], int, int)} for single
+         * attributevalueorganization creation.
+         *
+         * @param value the value to create attributevalueprincipals with.
+         * @param asid the id of the attributespecification to create the values
+         * with.
+         * @return JSONArray with all the created attributevalueprincipals in
+         * it.
+         */
+        public static JSONArray attributevalueprincipal(String value, int asid) {
+            return attributevalueprincipal(new String[]{value}, asid);
         }
 
         /**
@@ -506,6 +541,18 @@ public class Utility {
                         json.toString(),
                         serviceId, asid);
             }
+        }
+
+        /**
+         * Alternative for the
+         * {@link attributespecsToService(int serviceId, int[] attributeIds)}
+         * for single attribute.
+         *
+         * @param serviceId the id of the service to link to.
+         * @param attributeIds the ids of the attributespecs to link.
+         */
+        public static void attributespecsToService(int serviceId, int attributeIds) {
+            attributespecsToService(serviceId, new int[]{attributeIds});
         }
 
         /**

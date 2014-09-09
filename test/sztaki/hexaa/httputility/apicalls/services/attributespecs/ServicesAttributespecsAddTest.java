@@ -38,14 +38,10 @@ public class ServicesAttributespecsAddTest extends CleanTest {
     @Test
     public void testServicesAttributespecsAdd() {
         // PUT the first attributespec to the first service.
-        persistent.call(
-                Const.Api.SERVICES_ID_ATTRIBUTESPECS_ASID,
-                BasicCall.REST.PUT,
-                null,
-                1, 1);
+        Utility.Link.attributespecsToService(1, 1);
 
         try {
-            assertEquals(Const.StatusLine.Created, persistent.getStatusLine());
+            assertEquals(Const.StatusLine.Created, Utility.persistent.getStatusLine());
             assertEquals(
                     1,
                     ((JSONArray) JSONParser.parseJSON(
@@ -61,14 +57,10 @@ public class ServicesAttributespecsAddTest extends CleanTest {
         }
 
         // PUT the second attributespec to the first service as well.
-        persistent.call(
-                Const.Api.SERVICES_ID_ATTRIBUTESPECS_ASID,
-                BasicCall.REST.PUT,
-                null,
-                1, 2);
-
+        Utility.Link.attributespecsToService(1, 2);
+        
         try {
-            assertEquals(Const.StatusLine.Created, persistent.getStatusLine());
+            assertEquals(Const.StatusLine.Created, Utility.persistent.getStatusLine());
             assertEquals(
                     1,
                     ((JSONArray) JSONParser.parseJSON(

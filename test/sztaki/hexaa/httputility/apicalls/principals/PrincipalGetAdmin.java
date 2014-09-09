@@ -1,9 +1,10 @@
 package sztaki.hexaa.httputility.apicalls.principals;
 
 import org.json.JSONObject;
-import org.junit.Test;
 import static org.junit.Assert.*;
 import org.junit.BeforeClass;
+import org.junit.Ignore;
+import org.junit.Test;
 import org.skyscreamer.jsonassert.JSONParser;
 import sztaki.hexaa.httputility.Authenticator;
 import sztaki.hexaa.httputility.BasicCall;
@@ -22,7 +23,7 @@ public class PrincipalGetAdmin extends CleanTest {
     public static void classInformation() {
         System.out.println("***\t " + PrincipalGetAdmin.class.getSimpleName() + " ***");
     }
-
+    
     /**
      * GET the admin info about the principal when the principal is an admin.
      */
@@ -62,8 +63,10 @@ public class PrincipalGetAdmin extends CleanTest {
         } catch (AssertionError e) {
             AssertErrorHandler(e);
         }
+        
 
-        System.out.println(persistent.call(Const.Api.PRINCIPALS, BasicCall.REST.GET));
+        System.out.println(
+                persistent.call(Const.Api.PRINCIPALS, BasicCall.REST.GET));
 
         new Authenticator().authenticate(Const.HEXAA_FEDID);
     }

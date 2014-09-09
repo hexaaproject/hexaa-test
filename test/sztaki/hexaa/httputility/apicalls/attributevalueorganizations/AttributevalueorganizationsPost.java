@@ -37,6 +37,8 @@ public class AttributevalueorganizationsPost extends CleanTest {
                     "testAttributespecs2"},
                 "manager");
         Utility.Create.organization(new String[]{"testForAtt"});
+        Utility.Create.service("testService");
+        Utility.Link.attributespecsToService(1, 1);
     }
 
     /**
@@ -47,15 +49,14 @@ public class AttributevalueorganizationsPost extends CleanTest {
     public void testAttributevalueorganizationsPost() {
         JSONObject json = new JSONObject();
         json.put("value", "testValueString");
+        json.put("service_ids", new JSONArray(new int[]{1}));
+        json.put("attribute_spec_id", 1);
+        json.put("organization_id", 1);
 
-        persistent.call(
-                Const.Api.ATTRIBUTEVALUEORGANIZATIONS,
-                BasicCall.REST.POST,
-                json.toString(),
-                1, 1);
+        Utility.Create.attributevalueorganization("testValueString", 1, 1);
 
         try {
-            assertEquals(Const.StatusLine.Created, persistent.getStatusLine());
+            assertEquals(Const.StatusLine.Created, Utility.persistent.getStatusLine());
             JSONAssert.assertEquals(
                     json,
                     ((JSONArray) JSONParser.parseJSON(

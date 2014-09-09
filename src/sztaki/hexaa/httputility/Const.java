@@ -22,7 +22,7 @@ public class Const {
      * The api key required by the server to authenticate. The
      * Authenticator.authenticate() method updates it if necessary.
      */
-    public static String HEXAA_AUTH = ("1c04c81498d1e534abe433998c48c60c9df628d7ce0ab60897546ac4599edd28");
+    public static String HEXAA_AUTH = ("fb97b1edd685f39d3df497b9e207d9cf6c6dca55dc46cb89933c9f95f172d3b2");
     /**
      * The IP address or name of the server. Default localhost, load from
      * config.properties.

@@ -46,15 +46,14 @@ public class AttributevalueprincipalsPost extends CleanTest {
     public void testAttributevalueprincipalsPost() {
         JSONObject json = new JSONObject();
         json.put("value", "testValueString");
+        json.put("service_ids", new JSONArray(new int[]{1}));
+        json.put("attribute_spec_id", 1);
+        json.put("organization_id", 1);
 
-        persistent.call(
-                Const.Api.ATTRIBUTEVALUEPRINCIPALS,
-                BasicCall.REST.POST,
-                json.toString(),
-                1, 1);
+        Utility.Create.attributevalueprincipal("testValueString", 1);
 
         try {
-            assertEquals(Const.StatusLine.Created, persistent.getStatusLine());
+            assertEquals(Const.StatusLine.Created, Utility.persistent.getStatusLine());
             JSONAssert.assertEquals(
                     json,
                     ((JSONArray) JSONParser.parseJSON(
