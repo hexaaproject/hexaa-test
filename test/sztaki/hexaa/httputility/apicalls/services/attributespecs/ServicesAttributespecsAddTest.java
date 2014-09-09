@@ -38,7 +38,7 @@ public class ServicesAttributespecsAddTest extends CleanTest {
     @Test
     public void testServicesAttributespecsAdd() {
         // PUT the first attributespec to the first service.
-        Utility.Link.attributespecsToService(1, 1);
+        Utility.Link.attributespecsToService(1, 1,true);
 
         try {
             assertEquals(Const.StatusLine.Created, Utility.persistent.getStatusLine());
@@ -57,7 +57,7 @@ public class ServicesAttributespecsAddTest extends CleanTest {
         }
 
         // PUT the second attributespec to the first service as well.
-        Utility.Link.attributespecsToService(1, 2);
+        Utility.Link.attributespecsToService(1, 2,true);
         
         try {
             assertEquals(Const.StatusLine.Created, Utility.persistent.getStatusLine());

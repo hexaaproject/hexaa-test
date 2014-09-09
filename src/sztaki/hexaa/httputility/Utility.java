@@ -85,23 +85,26 @@ public class Utility {
          * attributevalueprincipals with.
          * @param asid the id of the attributespecification to create the values
          * with.
+         * @param services array of services to add to, the array can have 0
+         * items.
          * @return JSONArray with all the created attributevalueprincipals in
          * it.
          */
-        public static JSONArray attributevalueprincipal(String[] values, int asid) {
+        public static JSONArray attributevalueprincipal(String[] values, int asid, int[] services) {
             // Array for the return value
             JSONArray attributevalues = new JSONArray();
             // For every value it creates a json object and calls the /api/attributevalueprincipals/{asid}
             for (String value : values) {
                 JSONObject json = new JSONObject();
                 json.put("value", value);
+                json.put("services", new JSONArray(services));
+                json.put("attribute_spec", asid);
                 attributevalues.put(json);
 
                 persistent.call(
                         Const.Api.ATTRIBUTEVALUEPRINCIPALS,
                         BasicCall.REST.POST,
-                        json.toString(),
-                        asid, asid);
+                        json.toString());
             }
             return attributevalues;
         }
@@ -114,11 +117,13 @@ public class Utility {
          * @param value the value to create attributevalueprincipals with.
          * @param asid the id of the attributespecification to create the values
          * with.
+         * @param services array of services to add to, the array can have 0
+         * items.
          * @return JSONArray with all the created attributevalueprincipals in
          * it.
          */
-        public static JSONArray attributevalueprincipal(String value, int asid) {
-            return attributevalueprincipal(new String[]{value}, asid);
+        public static JSONArray attributevalueprincipal(String value, int asid, int[] services) {
+            return attributevalueprincipal(new String[]{value}, asid, services);
         }
 
         /**
@@ -525,14 +530,10 @@ public class Utility {
          * @param serviceId the id of the service to link to.
          * @param attributeIds the ids of the attributespecs to link.
          */
-        public static void attributespecsToService(int serviceId, int[] attributeIds) {
+        public static void attributespecsToService(int serviceId, int[] attributeIds, boolean isPublic) {
             JSONObject json = new JSONObject();
 
-            if (serviceId % 2 == 1) {
-                json.put("is_public", true);
-            } else {
-                json.put("is_public", false);
-            }
+            json.put("is_public", isPublic);
 
             for (int asid : attributeIds) {
                 persistent.call(
@@ -551,8 +552,8 @@ public class Utility {
          * @param serviceId the id of the service to link to.
          * @param attributeIds the ids of the attributespecs to link.
          */
-        public static void attributespecsToService(int serviceId, int attributeIds) {
-            attributespecsToService(serviceId, new int[]{attributeIds});
+        public static void attributespecsToService(int serviceId, int attributeIds, boolean isPublic) {
+            attributespecsToService(serviceId, new int[]{attributeIds}, isPublic);
         }
 
         /**

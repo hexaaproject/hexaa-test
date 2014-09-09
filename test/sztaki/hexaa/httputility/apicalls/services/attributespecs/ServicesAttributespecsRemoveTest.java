@@ -30,7 +30,7 @@ public class ServicesAttributespecsRemoveTest extends CleanTest {
     public static void setUpClass() {
         Utility.Create.service(new String[]{"testService1", "testService2"});
         Utility.Create.attributespec(new String[]{"asTest1", "asTest2"}, "user");
-        Utility.Link.attributespecsToService(1, new int[]{1, 2});
+        Utility.Link.attributespecsToService(1, new int[]{1, 2},true);
     }
 
     /**

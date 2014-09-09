@@ -56,7 +56,7 @@ public class PrincipalsAttributevaluesGetTest extends CleanTest {
         Utility.Create.attributespec(new String[]{"testAttrSpec1"}, "user");
         Utility.Link.attributespecsPublicToService(1, new int[]{1});
 
-        attributevalue = Utility.Create.attributevalueprincipal(new String[]{"testValue1", "testValue2"}, 1);
+        attributevalue = Utility.Create.attributevalueprincipal(new String[]{"testValue1", "testValue2"}, 1, new int[]{});
     }
 
     /**

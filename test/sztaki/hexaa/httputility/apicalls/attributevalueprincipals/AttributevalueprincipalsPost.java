@@ -36,6 +36,8 @@ public class AttributevalueprincipalsPost extends CleanTest {
                     "testAttributespecs1",
                     "testAttributespecs2"},
                 "user");
+        Utility.Create.service("testService");
+        Utility.Link.attributespecsToService(1, 2, true);
     }
 
     /**
@@ -46,11 +48,10 @@ public class AttributevalueprincipalsPost extends CleanTest {
     public void testAttributevalueprincipalsPost() {
         JSONObject json = new JSONObject();
         json.put("value", "testValueString");
-        json.put("service_ids", new JSONArray(new int[]{1}));
+        json.put("service_ids", new JSONArray(new int[]{}));
         json.put("attribute_spec_id", 1);
-        json.put("organization_id", 1);
 
-        Utility.Create.attributevalueprincipal("testValueString", 1);
+        Utility.Create.attributevalueprincipal("testValueString", 1, new int[]{});
 
         try {
             assertEquals(Const.StatusLine.Created, Utility.persistent.getStatusLine());
@@ -60,6 +61,34 @@ public class AttributevalueprincipalsPost extends CleanTest {
                             persistent.call(
                                     Const.Api.PRINCIPAL_ATTRIBUTEVALUEPRINCIPAL,
                                     BasicCall.REST.GET))).getJSONObject(0),
+                    JSONCompareMode.LENIENT);
+            assertEquals(Const.StatusLine.OK, persistent.getStatusLine());
+        } catch (AssertionError e) {
+            AssertErrorHandler(e);
+        }
+    }
+    
+    /**
+     * Creates an attributevalueprincipal with one value and one of the created
+     * attributespecs, and verifies it with GET, linked it to a service.
+     */
+    @Test
+    public void testAttributevalueprincipalsPostWithService() {
+        JSONObject json = new JSONObject();
+        json.put("value", "testValueString");
+        json.put("service_ids", new JSONArray(new int[]{1}));
+        json.put("attribute_spec_id", 2);
+
+        Utility.Create.attributevalueprincipal("testValueString", 2, new int[]{1});
+
+        try {
+            assertEquals(Const.StatusLine.Created, Utility.persistent.getStatusLine());
+            JSONAssert.assertEquals(
+                    json,
+                    ((JSONArray) JSONParser.parseJSON(
+                            persistent.call(
+                                    Const.Api.PRINCIPAL_ATTRIBUTEVALUEPRINCIPAL,
+                                    BasicCall.REST.GET))).getJSONObject(1),
                     JSONCompareMode.LENIENT);
             assertEquals(Const.StatusLine.OK, persistent.getStatusLine());
         } catch (AssertionError e) {

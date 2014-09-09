@@ -38,7 +38,7 @@ public class AttributevalueorganizationsPost extends CleanTest {
                 "manager");
         Utility.Create.organization(new String[]{"testForAtt"});
         Utility.Create.service("testService");
-        Utility.Link.attributespecsToService(1, 1);
+        Utility.Link.attributespecsToService(1, 1, true);
     }
 
     /**

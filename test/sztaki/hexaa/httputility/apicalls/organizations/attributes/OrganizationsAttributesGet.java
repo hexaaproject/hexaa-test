@@ -50,7 +50,7 @@ public class OrganizationsAttributesGet extends CleanTest {
 
         Utility.Create.entitlementpacks(1, new String[]{"testEPack1"});
 
-        Utility.Link.attributespecsToService(1, new int[]{1, 2});
+        Utility.Link.attributespecsToService(1, new int[]{1, 2}, true);
 
         Utility.Link.entitlementpackToOrg(1, new int[]{1});
 
