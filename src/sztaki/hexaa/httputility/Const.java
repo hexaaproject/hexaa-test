@@ -135,6 +135,10 @@ public class Const {
          * PUT(add),DELETE(remove) entitlement to/from entitlement pack.
          */
         public static final String ENTITLEMENTPACKS_ID_ENTITLEMENTS_EID = ("/app.php/api/entitlementpacks/{id}/entitlements/{eid}");
+        /**
+         * GET(generate) new entitlement pack token.
+         */
+        public static final String ENTITLEMENTPACKS_ID_TOKEN = ("/app.php/api/entitlementpacks/{id}/token");
 
         /* *** EntityID *** */
         /**

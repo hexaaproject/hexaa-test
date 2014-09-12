@@ -28,15 +28,16 @@ public class OrganizationEntitlementpacksTokenTest extends OrganizationEntitleme
      */
     @Test
     public void testOrganizationEntitlementpacksPut() {
-        // GET the token.
         JSONObject json
-                = (JSONObject) JSONParser.parseJSON(
-                        persistent.call(
-                                Const.Api.ENTITLEMENTPACKS_ID,
+                = (JSONObject) JSONParser.parseJSON(persistent.call(
+                                Const.Api.ENTITLEMENTPACKS_ID_TOKEN,
                                 BasicCall.REST.GET,
                                 null,
                                 1, 1));
+        // GET the token.
+        System.out.println(json);
         persistent.setToken(json.getString("token"));
+        //persistent.setToken("1");
 
         persistent.call(Const.Api.ORGANIZATIONS_ID_ENTITLEMENTPACKS_TOKEN, BasicCall.REST.PUT);
 
