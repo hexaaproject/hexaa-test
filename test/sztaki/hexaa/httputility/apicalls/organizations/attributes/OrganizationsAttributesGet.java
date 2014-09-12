@@ -104,8 +104,16 @@ public class OrganizationsAttributesGet extends CleanTest {
         JSONArray jsonExpected = new JSONArray();
 
         jsonExpected.put(attributevalue.getJSONObject(0));
-        System.out.println(jsonResponse.toString());
-        System.out.println(jsonExpected.toString());
+
+        JSONObject expectedObject = new JSONObject();
+        expectedObject.put("organization_id", jsonExpected.getJSONObject(0).get("organization"));
+        expectedObject.put("attribute_spec_id", jsonExpected.getJSONObject(0).get("attribute_spec"));
+        expectedObject.put("service_ids", jsonExpected.getJSONObject(0).get("services"));
+        expectedObject.put("value", jsonExpected.getJSONObject(0).get("value"));
+
+        jsonExpected.remove(0);
+        jsonExpected.put(0, expectedObject);
+
         try {
             assertEquals(Const.StatusLine.OK, persistent.getStatusLine());
             JSONAssert.assertEquals(
@@ -128,10 +136,26 @@ public class OrganizationsAttributesGet extends CleanTest {
                                 Const.Api.ORGANIZATIONS_ID_ATTRIBUTEVALUEORGANIZATION,
                                 BasicCall.REST.GET));
 
+        // TODO
+        JSONArray jsonExpected = new JSONArray();
+        for (int i = 0; i < attributevalue.length(); i++) {
+
+            jsonExpected.put(attributevalue.getJSONObject(i));
+
+            JSONObject expectedObject = new JSONObject();
+            expectedObject.put("organization_id", jsonExpected.getJSONObject(i).getInt("organization"));
+            expectedObject.put("attribute_spec_id", jsonExpected.getJSONObject(i).getInt("attribute_spec"));
+            expectedObject.put("service_ids", jsonExpected.getJSONObject(i).get("services"));
+            expectedObject.put("value", jsonExpected.getJSONObject(i).getString("value"));
+
+            jsonExpected.remove(i);
+            jsonExpected.put(i, expectedObject);
+        }
+
         try {
             assertEquals(Const.StatusLine.OK, persistent.getStatusLine());
             JSONAssert.assertEquals(
-                    attributevalue,
+                    jsonExpected,
                     jsonResponse,
                     JSONCompareMode.LENIENT);
         } catch (AssertionError e) {
