@@ -27,9 +27,13 @@ public class RolesPrincipalsAddTest extends CleanTest {
     @BeforeClass
     public static void setUpClass() {
         Utility.Create.organization(new String[]{"testOrg1"});
+        System.out.println(Utility.persistent.getStatusLine());
         Utility.Create.role(new String[]{"testRole1", "testRole2"}, 1);
+        System.out.println(Utility.persistent.getStatusLine());
         Utility.Create.service(new String[]{"testService1"});
+        System.out.println(Utility.persistent.getStatusLine());
         Utility.Create.principal(new String[]{"fedidTest1"});
+        System.out.println(Utility.persistent.getStatusLine());
     }
 
     /**
@@ -38,11 +42,11 @@ public class RolesPrincipalsAddTest extends CleanTest {
     @Test
     public void testRolesPrincipalsPut() {
         // PUT the first principal to the first role.
-        persistent.call(
+        System.out.println(persistent.call(
                 Const.Api.ROLES_ID_PRINCIPALS_PID,
                 BasicCall.REST.PUT,
                 null,
-                1, 2);
+                1, 2));
         // Bad Request because the principal is not a member of the organization.
         try {
             assertEquals(Const.StatusLine.BadRequest, persistent.getStatusLine());
@@ -52,11 +56,11 @@ public class RolesPrincipalsAddTest extends CleanTest {
 
         Utility.Link.memberToOrganization(1, 2);
         // PUT the first principal to the first role again.
-        persistent.call(
+        System.out.println(persistent.call(
                 Const.Api.ROLES_ID_PRINCIPALS_PID,
                 BasicCall.REST.PUT,
                 null,
-                1, 2);
+                1, 2));
         // 201 because the principal is now a member and not yet part of the role.
         try {
             assertEquals(Const.StatusLine.Created, persistent.getStatusLine());

@@ -1,13 +1,12 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package sztaki.hexaa.httputility.leveledtests;
 
 import org.junit.runner.RunWith;
 import org.junit.runners.Suite;
 
+/**
+ * 72 class + ismepty + methodnotallowed -> 74, 6 here, 68 after.
+ * @author ede
+ */
 @RunWith(Suite.class)
 @Suite.SuiteClasses({
     sztaki.hexaa.httputility.AllIsEmptyTests.class,
