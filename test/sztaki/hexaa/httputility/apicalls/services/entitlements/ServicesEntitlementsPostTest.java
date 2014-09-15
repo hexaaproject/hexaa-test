@@ -47,7 +47,7 @@ public class ServicesEntitlementsPostTest extends CleanTest {
     public void testServiceEntitlementsPosts() {
         // Creating the first entitlement object
         JSONObject json = new JSONObject();
-        json.put("uri", Const.URI_PREFIX + "testUri1");
+        json.put("uri", Const.URI_PREFIX + Integer.toString(1) + ":" + "testUri1");
         json.put("name", "testEntitlementName1");
         json.put("description", "This is a test entitlement, the 1st one");
         // Store it
@@ -67,7 +67,7 @@ public class ServicesEntitlementsPostTest extends CleanTest {
 
         // Creating the second entitlement object
         json = new JSONObject();
-        json.put("uri", Const.URI_PREFIX + "testUri2");
+        json.put("uri", Const.URI_PREFIX + Integer.toString(1) + ":" + "testUri2");
         json.put("name", "testName2");
         json.put("description", "This is a test entitlement, the 2nd one");
         // Store it

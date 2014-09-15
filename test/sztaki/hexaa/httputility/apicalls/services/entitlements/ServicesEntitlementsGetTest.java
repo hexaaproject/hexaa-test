@@ -52,7 +52,7 @@ public class ServicesEntitlementsGetTest extends CleanTest {
                         BasicCall.REST.GET,
                         null,
                         1, 0));
-
+        
         JSONArray jsonTemp = new JSONArray();
         jsonTemp.put(entitlements.getJSONObject(0));
         jsonTemp.put(entitlements.getJSONObject(1));
@@ -70,7 +70,7 @@ public class ServicesEntitlementsGetTest extends CleanTest {
                         BasicCall.REST.GET,
                         null,
                         2, 0));
-
+        
         jsonTemp = new JSONArray();
         jsonTemp.put(entitlements.getJSONObject(2));
 

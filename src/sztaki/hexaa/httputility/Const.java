@@ -53,7 +53,7 @@ public class Const {
     /**
      * The prefix for the uri's that should be used.
      */
-    public static final String URI_PREFIX = ("urn:geant:server.org:hexaa:1:");
+    public static final String URI_PREFIX = ("urn:geant:server.org:hexaa:");
     
     /**
      * Contains the existing URL-s of the server.

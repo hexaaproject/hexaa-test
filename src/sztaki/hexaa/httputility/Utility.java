@@ -194,30 +194,22 @@ public class Utility {
         public static JSONArray entitlements(int serviceId, String[] names) {
             // JSONArray to store the return value
             JSONArray entitlements = new JSONArray();
-            // Verifying the existance of the service
-            JSONObject jsonResponse
-                    = (JSONObject) JSONParser.parseJSON(
-                            persistent.call(
-                                    Const.Api.SERVICES_ID,
-                                    BasicCall.REST.GET,
-                                    null,
-                                    serviceId, 0));
 
             for (String name : names) {
 
                 // Creating the entitlement object
                 JSONObject json = new JSONObject();
-                json.put("uri", Const.URI_PREFIX + "testUri" + name);
+                json.put("uri", Const.URI_PREFIX + Integer.toString(serviceId) + ":" + "testUri" + name);
                 json.put("name", name);
                 json.put("description", "This is a test entitlement, for the #" + Integer.toString(serviceId) + " service, with name " + name);
                 // Store it
                 entitlements.put(json);
                 // POST it
-                System.out.println(persistent.call(
+                persistent.call(
                         Const.Api.SERVICES_ID_ENTITLEMENTS,
                         BasicCall.REST.POST,
                         json.toString(),
-                        serviceId, 0));
+                        serviceId, 0);
 
             }
             return entitlements;
