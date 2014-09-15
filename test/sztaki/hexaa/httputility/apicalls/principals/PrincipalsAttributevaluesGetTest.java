@@ -42,32 +42,26 @@ public class PrincipalsAttributevaluesGetTest extends CleanTest {
         /**
          */
         Utility.Create.organization("testOrg");
-        System.out.println(Utility.persistent.getStatusLine());
         Utility.Create.role("testRole", 1);
-        System.out.println(Utility.persistent.getStatusLine());
 
         Utility.Create.entitlementpacks(1, new String[]{"testPack"});
-        System.out.println(Utility.persistent.getStatusLine());
         Utility.Create.entitlements(1, new String[]{"testEntitlement"});
-        System.out.println(Utility.persistent.getStatusLine());
 
         Utility.Link.entitlementToPack(1, 1);
-        System.out.println(Utility.persistent.getStatusLine());
         Utility.Link.entitlementpackToOrg(1, 1);
-        System.out.println(Utility.persistent.getStatusLine());
         Utility.Link.entitlementsToRole(1, new int[]{1});
-        System.out.println(Utility.persistent.getStatusLine());
         Utility.Link.principalToRole(1, 1);
-        System.out.println(Utility.persistent.getStatusLine());
         /**
          */
         Utility.Create.attributespec(new String[]{"testAttrSpec1"}, "user");
-        System.out.println(Utility.persistent.getStatusLine());
         Utility.Link.attributespecsPublicToService(1, new int[]{1});
-        System.out.println(Utility.persistent.getStatusLine());
 
-        attributevalue = Utility.Create.attributevalueprincipal(new String[]{"testValue1", "testValue2"}, 1, new int[]{});
-        System.out.println(Utility.persistent.getStatusLine());
+        attributevalue = Utility.Create.attributevalueprincipal(new String[]{"testValue1"}, 1, new int[]{});
+        JSONObject jsonTemp = new JSONObject();
+        jsonTemp.put("attribute_spec_id", attributevalue.getJSONObject(0).getInt("attribute_spec"));
+        jsonTemp.put("service_ids", attributevalue.getJSONObject(0).get("services"));
+        jsonTemp.put("value", attributevalue.getJSONObject(0).get("value"));
+        attributevalue.put(0, jsonTemp);
     }
 
     /**
@@ -85,6 +79,7 @@ public class PrincipalsAttributevaluesGetTest extends CleanTest {
             fail("Not a JSONArray but JSONObject: " + ((JSONObject) response).toString());
         }
         JSONArray jsonResponse = (JSONArray) response;
+        
 
         try {
             assertEquals(Const.StatusLine.OK, persistent.getStatusLine());

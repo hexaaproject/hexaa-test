@@ -27,13 +27,9 @@ public class RolesPrincipalsAddTest extends CleanTest {
     @BeforeClass
     public static void setUpClass() {
         Utility.Create.organization(new String[]{"testOrg1"});
-        System.out.println(Utility.persistent.getStatusLine());
         Utility.Create.role(new String[]{"testRole1", "testRole2"}, 1);
-        System.out.println(Utility.persistent.getStatusLine());
         Utility.Create.service(new String[]{"testService1"});
-        System.out.println(Utility.persistent.getStatusLine());
         Utility.Create.principal(new String[]{"fedidTest1"});
-        System.out.println(Utility.persistent.getStatusLine());
     }
 
     /**
@@ -42,11 +38,11 @@ public class RolesPrincipalsAddTest extends CleanTest {
     @Test
     public void testRolesPrincipalsPut() {
         // PUT the first principal to the first role.
-        System.out.println(persistent.call(
+        persistent.call(
                 Const.Api.ROLES_ID_PRINCIPALS_PID,
                 BasicCall.REST.PUT,
                 null,
-                1, 2));
+                1, 2);
         // Bad Request because the principal is not a member of the organization.
         try {
             assertEquals(Const.StatusLine.BadRequest, persistent.getStatusLine());
@@ -68,11 +64,11 @@ public class RolesPrincipalsAddTest extends CleanTest {
             AssertErrorHandler(e);
         }
         // PUT the first principal to the first role for the third time.
-        System.out.println(persistent.call(
+        persistent.call(
                 Const.Api.ROLES_ID_PRINCIPALS_PID,
                 BasicCall.REST.PUT,
                 null,
-                1, 2));
+                1, 2);
         // 204 No Content because the principal is already part of the role.
         try {
             assertEquals(Const.StatusLine.NoContent, persistent.getStatusLine());

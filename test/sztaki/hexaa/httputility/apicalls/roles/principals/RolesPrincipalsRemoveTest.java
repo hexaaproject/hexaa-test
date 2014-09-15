@@ -72,13 +72,12 @@ public class RolesPrincipalsRemoveTest extends CleanTest {
             fail(response.toString());
         }
         JSONArray jsonResponse = (JSONArray) response;
-        System.out.println(response);
         if (jsonResponse.length() < 1) {
             fail(jsonResponse.toString());
         }
 
         try {
-            assertEquals(Const.StatusLine.NoContent, persistent.getStatusLine());
+            assertEquals(Const.StatusLine.OK, persistent.getStatusLine());
             JSONAssert.assertEquals(
                     principals.getJSONObject(0),
                     jsonResponse.getJSONObject(0).getJSONObject("principal"),
