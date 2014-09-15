@@ -56,11 +56,11 @@ public class RolesPrincipalsAddTest extends CleanTest {
 
         Utility.Link.memberToOrganization(1, 2);
         // PUT the first principal to the first role again.
-        System.out.println(persistent.call(
+        persistent.call(
                 Const.Api.ROLES_ID_PRINCIPALS_PID,
                 BasicCall.REST.PUT,
                 null,
-                1, 2));
+                1, 2);
         // 201 because the principal is now a member and not yet part of the role.
         try {
             assertEquals(Const.StatusLine.Created, persistent.getStatusLine());
@@ -68,11 +68,11 @@ public class RolesPrincipalsAddTest extends CleanTest {
             AssertErrorHandler(e);
         }
         // PUT the first principal to the first role for the third time.
-        persistent.call(
+        System.out.println(persistent.call(
                 Const.Api.ROLES_ID_PRINCIPALS_PID,
                 BasicCall.REST.PUT,
                 null,
-                1, 2);
+                1, 2));
         // 204 No Content because the principal is already part of the role.
         try {
             assertEquals(Const.StatusLine.NoContent, persistent.getStatusLine());
