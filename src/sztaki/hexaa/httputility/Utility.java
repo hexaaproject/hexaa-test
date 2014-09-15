@@ -207,17 +207,17 @@ public class Utility {
 
                 // Creating the entitlement object
                 JSONObject json = new JSONObject();
-                json.put("uri", "/testUri" + name);
+                json.put("uri", Const.URI_PREFIX + "testUri" + name);
                 json.put("name", name);
                 json.put("description", "This is a test entitlement, for the #" + Integer.toString(serviceId) + " service, with name " + name);
                 // Store it
                 entitlements.put(json);
                 // POST it
-                persistent.call(
+                System.out.println(persistent.call(
                         Const.Api.SERVICES_ID_ENTITLEMENTS,
                         BasicCall.REST.POST,
                         json.toString(),
-                        serviceId, 0);
+                        serviceId, 0));
 
             }
             return entitlements;

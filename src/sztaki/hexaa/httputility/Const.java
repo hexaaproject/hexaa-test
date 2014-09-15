@@ -49,7 +49,12 @@ public class Const {
      * default its config.properties.
      */
     public static final String PROPERTIES = ("config.properties");
-
+    
+    /**
+     * The prefix for the uri's that should be used.
+     */
+    public static final String URI_PREFIX = ("urn:geant:server.org:hexaa:1:");
+    
     /**
      * Contains the existing URL-s of the server.
      */

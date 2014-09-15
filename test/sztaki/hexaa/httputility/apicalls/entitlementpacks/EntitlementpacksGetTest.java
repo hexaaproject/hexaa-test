@@ -44,7 +44,9 @@ public class EntitlementpacksGetTest extends CleanTest {
         Utility.Create.service(new String[]{"testService1"});
         entitlementpacks = Utility.Create.entitlementpacks(1, new String[]{"testEntitlementpacks1", "testEntitlementpacks2"});
         entitlements = Utility.Create.entitlements(1, new String[]{"testEntitlements1"});
+        System.out.println(Utility.persistent.getStatusLine());
         Utility.Link.entitlementToPack(1, 1);
+        System.out.println(Utility.persistent.getStatusLine());
     }
 
     /**
@@ -112,6 +114,7 @@ public class EntitlementpacksGetTest extends CleanTest {
                                 BasicCall.REST.GET,
                                 null,
                                 1, 0));
+        System.out.println(jsonResponseArray.toString());
         try {
             // Asserting on the statusline for 200
             assertEquals(Const.StatusLine.OK, persistent.getStatusLine());
