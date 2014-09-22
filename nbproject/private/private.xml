@@ -3,7 +3,10 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/home/ede/NetBeansProjects/JavaCoreTest/hexaa-test/src/sztaki/hexaa/httputility/JavaHttpCoreTest.java</file>
+            <file>file:/home/ede/NetBeansProjects/JavaCoreTest/hexaa-test/src/sztaki/hexaa/httputility/Utility.java</file>
+            <file>file:/home/ede/NetBeansProjects/JavaCoreTest/hexaa-test/test/sztaki/hexaa/httputility/leveledtests/LevelThreeTestSuite.java</file>
+            <file>file:/home/ede/NetBeansProjects/JavaCoreTest/hexaa-test/test/sztaki/hexaa/httputility/apicalls/services/entitlementpacks/ServicesEntitlementpacksPostTest.java</file>
+            <file>file:/home/ede/NetBeansProjects/JavaCoreTest/hexaa-test/test/sztaki/hexaa/httputility/leveledtests/LevelTwoTestSuite.java</file>
         </group>
     </open-files>
 </project-private>

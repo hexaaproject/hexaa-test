@@ -32,22 +32,8 @@ public class ServicesPostTest extends CleanTest {
      */
     @Test
     public void testServicePost() {
-        // GET the existing entityids
-        JSONArray jsonEntityArray = (JSONArray) JSONParser.parseJSON(
-                persistent.call(
-                        Const.Api.ENTITYIDS,
-                        BasicCall.REST.GET,
-                        null,
-                        0,
-                        0));
         // Creates the json object to be POSTed on the server
-        JSONObject json = new JSONObject();
-        json.put("name", "myService");
-        json.put("entityid", jsonEntityArray.getString(0));
-        json.put("url", "test." + "myService" + ".test");
-        json.put("description", "This is a test service for the " + jsonEntityArray.getString(0) + "service provider entity.");
-
-        JSONArray services = Utility.Create.service(json.getString("name"));
+        JSONArray services = Utility.Create.service("myService");
 
         // Checks the creation by Status Line
         try {

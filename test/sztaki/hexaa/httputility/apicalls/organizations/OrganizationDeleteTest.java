@@ -48,12 +48,10 @@ public class OrganizationDeleteTest extends CleanTest {
     @Test
     public void testOrganizationDelete() {
         // The DELETE call.
-        persistent.call(
-                Const.Api.ORGANIZATIONS_ID,
-                BasicCall.REST.DEL);
+        Utility.Remove.organization(1);
 
         try {
-            assertEquals(Const.StatusLine.NoContent, persistent.getStatusLine());
+            assertEquals(Const.StatusLine.NoContent, Utility.persistent.getStatusLine());
             // GET the first one (the DELETEd one).
             persistent.call(
                     Const.Api.ORGANIZATIONS_ID,

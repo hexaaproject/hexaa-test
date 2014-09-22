@@ -36,14 +36,10 @@ public class OrganizationsMembersAddTest extends CleanTest {
      */
     @Test
     public void testOrganizationMemberAdd() {
-        persistent.call(
-                Const.Api.ORGANIZATIONS_ID_MEMBERS_PID,
-                BasicCall.REST.PUT,
-                null,
-                1, 2);
+        Utility.Link.memberToOrganization(1, 2);
 
         try {
-            assertEquals(Const.StatusLine.Created, persistent.getStatusLine());
+            assertEquals(Const.StatusLine.Created, Utility.persistent.getStatusLine());
         } catch (AssertionError e) {
             AssertErrorHandler(e);
         }

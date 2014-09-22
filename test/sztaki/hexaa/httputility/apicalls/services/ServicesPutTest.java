@@ -43,7 +43,7 @@ public class ServicesPutTest extends CleanTest {
      * the second one is the original.
      */
     @Test
-    public void testRolesDelete() {
+    public void testServicesPut() {
         // Modify the first role
         services.getJSONObject(0).put("name", "modifiedByPut1");
 

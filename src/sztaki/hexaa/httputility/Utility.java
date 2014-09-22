@@ -216,6 +216,19 @@ public class Utility {
         }
 
         /**
+         * Alternative call for
+         * {@link entitlements(int serviceId, String[] names)} for single
+         * entitlement.
+         *
+         * @param serviceId the id for the service.
+         * @param names the name of the object to create.
+         * @return JSONArray with the created entitlements.
+         */
+        public static JSONArray entitlements(int serviceId, String names) {
+            return entitlements(serviceId, new String[]{names});
+        }
+
+        /**
          * Creates entitlementpacks for the names in the array with the service
          * specified by the serviceId. For testing purposes the ones that are
          * created with even ids are private, the ones with odd ids are public.
@@ -228,14 +241,6 @@ public class Utility {
         public static JSONArray entitlementpacks(int serviceId, String[] names) {
             // JSONArray to store the return value
             JSONArray entitlementpacks = new JSONArray();
-            // Verifying the existance of the service
-            JSONObject jsonResponse
-                    = (JSONObject) JSONParser.parseJSON(
-                            persistent.call(
-                                    Const.Api.SERVICES_ID,
-                                    BasicCall.REST.GET,
-                                    null,
-                                    serviceId, 0));
 
             int i = 1;
             for (String name : names) {
@@ -261,6 +266,19 @@ public class Utility {
 
             }
             return entitlementpacks;
+        }
+
+        /**
+         * Alternative call for
+         * {@link entitlementpacks(int serviceId, String[] names)} for single
+         * entitlementpack.
+         *
+         * @param serviceId the id for the service.
+         * @param names string with the name of the object to create.
+         * @return JSONArray with the created entitlementpacks.
+         */
+        public static JSONArray entitlementpacks(int serviceId, String names) {
+            return entitlementpacks(serviceId, new String[]{names});
         }
 
         /**
@@ -557,17 +575,7 @@ public class Utility {
          * @param attributeIds the ids of the attributespecs to link.
          */
         public static void attributespecsPublicToService(int serviceId, int[] attributeIds) {
-            JSONObject json = new JSONObject();
-
-            json.put("is_public", true);
-
-            for (int asid : attributeIds) {
-                persistent.call(
-                        Const.Api.SERVICES_ID_ATTRIBUTESPECS_ASID,
-                        BasicCall.REST.PUT,
-                        json.toString(),
-                        serviceId, asid);
-            }
+            attributespecsToService(serviceId, attributeIds, true);
         }
 
         /**
@@ -579,17 +587,7 @@ public class Utility {
          * @param attributeIds the ids of the attributespecs to link.
          */
         public static void attributespecsPrivateToService(int serviceId, int[] attributeIds) {
-            JSONObject json = new JSONObject();
-
-            json.put("is_public", false);
-
-            for (int asid : attributeIds) {
-                persistent.call(
-                        Const.Api.SERVICES_ID_ATTRIBUTESPECS_ASID,
-                        BasicCall.REST.PUT,
-                        json.toString(),
-                        serviceId, asid);
-            }
+            attributespecsToService(serviceId, attributeIds, false);
         }
 
         /**
@@ -764,6 +762,164 @@ public class Utility {
             entitlementpackFromOrg(orgId, new int[]{packIds});
         }
 
+        /**
+         * Removes attributespec if exist.
+         *
+         * @param asIDs array of attributespec ids.
+         */
+        public static void attributespec(int[] asIDs) {
+            for (int asID : asIDs) {
+                persistent.call(
+                        Const.Api.ATTRIBUTESPECS_ID,
+                        BasicCall.REST.DEL,
+                        null,
+                        asID, 0);
+            }
+        }
+
+        /**
+         * Alternative for the {@link attributespec(int[] asIDs)} for single
+         * attributespec.
+         *
+         * @param asID attributespec id.
+         */
+        public static void attributespec(int asID) {
+            attributespec(new int[]{asID});
+        }
+
+        /**
+         * Removes organization if exist.
+         *
+         * @param orgIDs array of organization ids.
+         */
+        public static void organization(int[] orgIDs) {
+            for (int orgID : orgIDs) {
+                persistent.call(
+                        Const.Api.ORGANIZATIONS_ID,
+                        BasicCall.REST.DEL,
+                        null,
+                        orgID, 0);
+            }
+        }
+
+        /**
+         * Alternative for the {@link attributespec(int[] asIDs)} for single
+         * organization.
+         *
+         * @param orgID organization id.
+         */
+        public static void organization(int orgID) {
+            organization(new int[]{orgID});
+        }
+
+        /**
+         * Removes services if exist.
+         *
+         * @param serviceIDs array of service ids.
+         */
+        public static void service(int[] serviceIDs) {
+            for (int serviceID : serviceIDs) {
+                persistent.call(
+                        Const.Api.SERVICES_ID,
+                        BasicCall.REST.DEL,
+                        null,
+                        serviceID, 0);
+            }
+        }
+
+        /**
+         * Alternative for the {@link attributespec(int[] asIDs)} for single
+         * service.
+         *
+         * @param serviceID service id.
+         */
+        public static void service(int serviceID) {
+            service(new int[]{serviceID});
+        }
+
+        /**
+         * Removes the current principal.
+         */
+        public static void principalSelf() {
+            persistent.call(Const.Api.PRINCIPAL, BasicCall.REST.DEL);
+        }
+
+        /**
+         * Removes the principal with the provided fedid.
+         *
+         * @param fedid the fedid of the principal to remove.
+         */
+        public static void principal(String fedid) {
+            persistent.call(
+                    Const.Api.PRINCIPALS_FEDID,
+                    BasicCall.REST.DEL,
+                    null,
+                    0, 0,
+                    "testPrincipal");
+        }
+
+        /**
+         * Removes the principal with the provided id.
+         *
+         * @param id the id of the principal to remove.
+         */
+        public static void principal(int id) {
+            persistent.call(
+                    Const.Api.PRINCIPALS_ID,
+                    BasicCall.REST.DEL,
+                    null,
+                    id, id);
+        }
+
+        /**
+         * Alternative call for {@link #entitlement(int[])} for single
+         * entitlement.
+         *
+         * @param id id of the entitlement to remove.
+         */
+        public static void entitlement(int id) {
+            entitlement(new int[] {id});
+        }
+
+        /**
+         * Removes the entitlement with the specified ids in the array of ids.
+         *
+         * @param ids array of entitlement id's.
+         */
+        public static void entitlement(int[] ids) {
+            for (int id : ids) {
+                persistent.call(
+                        Const.Api.ENTITLEMENTS_ID,
+                        BasicCall.REST.DEL,
+                        null,
+                        id, id);
+            }
+        }
+
+        /**
+         * Alternative call for {@link #entitlementpack(int[])} for single
+         * entitlementpack.
+         *
+         * @param id id of the entitlementpack to remove.
+         */
+        public static void entitlementpack(int id) {
+            entitlementpack(new int[] {id});
+        }
+
+        /**
+         * Removes the entitlementpack with the specified ids in the array of ids.
+         *
+         * @param ids array of entitlementpack id's.
+         */
+        public static void entitlementpack(int[] ids) {
+            for (int id : ids) {
+                persistent.call(
+                        Const.Api.ENTITLEMENTPACKS_ID,
+                        BasicCall.REST.DEL,
+                        null,
+                        id, id);
+            }
+        }
     }
 
 }

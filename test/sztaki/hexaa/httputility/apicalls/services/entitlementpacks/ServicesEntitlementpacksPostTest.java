@@ -46,41 +46,19 @@ public class ServicesEntitlementpacksPostTest extends CleanTest {
     @Test
     public void testServiceEntitlementpacksPosts() {
         // Creating the first entitlement object
-        JSONObject json = new JSONObject();
-        json.put("name", "testEntitlementpackName1");
-        json.put("description", "This is a test entitlementpack, the 1st one");
-        json.put("type", "public");
-        // Store it
-        entitlemenetpacks.put(json);
-        // POST it
-        persistent.call(
-                Const.Api.SERVICES_ID_ENTITLEMENTPACKS,
-                BasicCall.REST.POST,
-                json.toString(),
-                1, 0);
+        entitlemenetpacks = Utility.Create.entitlementpacks(1, "testEntitlementpackName1");
         // Checks the status line
         try {
-            assertEquals(Const.StatusLine.Created, persistent.getStatusLine());
+            assertEquals(Const.StatusLine.Created, Utility.persistent.getStatusLine());
         } catch (AssertionError e) {
             AssertErrorHandler(e);
         }
 
         // Creating the second entitlement object
-        json = new JSONObject();
-        json.put("name", "testEntitlementpackName2");
-        json.put("description", "This is a test entitlementpack, the 2nd one");
-        json.put("type", "public");
-        // Store it
-        entitlemenetpacks.put(json);
-        // POST it
-        persistent.call(
-                Const.Api.SERVICES_ID_ENTITLEMENTPACKS,
-                BasicCall.REST.POST,
-                json.toString(),
-                1, 0);
+        entitlemenetpacks.put(Utility.Create.entitlementpacks(1, "testEntitlementpackName2").get(0));
         // Checks the status line
         try {
-            assertEquals(Const.StatusLine.Created, persistent.getStatusLine());
+            assertEquals(Const.StatusLine.Created, Utility.persistent.getStatusLine());
         } catch (AssertionError e) {
             AssertErrorHandler(e);
         }

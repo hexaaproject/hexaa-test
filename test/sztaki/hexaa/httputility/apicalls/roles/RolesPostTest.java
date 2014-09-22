@@ -38,18 +38,10 @@ public class RolesPostTest extends CleanTest {
     @Test
     public void testRolesPost() {
         // Creates the JSON object
-        JSONObject json = new JSONObject();
-        json.put("name", "testPrimeLeader1");
-        json.put("start_date", LocalDate.now(ZoneId.of("UTC")).toString());
-        // POST the role
-        persistent.call(
-                Const.Api.ORGANIZATIONS_ID_ROLES,
-                BasicCall.REST.POST,
-                json.toString(),
-                1, 1);
+        Utility.Create.role("testRole", 1);
 
         try {
-            assertEquals(Const.StatusLine.Created, persistent.getStatusLine());
+            assertEquals(Const.StatusLine.Created, Utility.persistent.getStatusLine());
         } catch (AssertionError e) {
             AssertErrorHandler(e);
         }

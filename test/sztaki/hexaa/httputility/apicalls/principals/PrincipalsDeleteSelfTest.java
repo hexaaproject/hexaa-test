@@ -11,6 +11,7 @@ import org.skyscreamer.jsonassert.JSONParser;
 import sztaki.hexaa.httputility.Authenticator;
 import sztaki.hexaa.httputility.BasicCall;
 import sztaki.hexaa.httputility.Const;
+import sztaki.hexaa.httputility.Utility;
 import sztaki.hexaa.httputility.apicalls.CleanTest;
 
 /**
@@ -46,10 +47,10 @@ public class PrincipalsDeleteSelfTest extends CleanTest {
                                 Const.Api.PRINCIPAL_SELF,
                                 BasicCall.REST.GET));
 
-        persistent.call(Const.Api.PRINCIPAL, BasicCall.REST.DEL);
+        Utility.Remove.principalSelf();
 
         try {
-            assertEquals(Const.StatusLine.NoContent, persistent.getStatusLine());
+            assertEquals(Const.StatusLine.NoContent, Utility.persistent.getStatusLine());
         } catch (AssertionError e) {
             AssertErrorHandler(e);
         }

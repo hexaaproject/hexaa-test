@@ -36,14 +36,10 @@ public class OrganizationsManagersAddTest extends CleanTest {
      */
     @Test
     public void testOrganizationManagersAdd() {
-        persistent.call(
-                Const.Api.ORGANIZATIONS_ID_MANAGERS_PID,
-                BasicCall.REST.PUT,
-                null,
-                1, 2);
+        Utility.Link.managerToOrganization(1, 2);
 
         try {
-            assertEquals(Const.StatusLine.Created, persistent.getStatusLine());
+            assertEquals(Const.StatusLine.Created, Utility.persistent.getStatusLine());
         } catch (AssertionError e) {
             AssertErrorHandler(e);
         }

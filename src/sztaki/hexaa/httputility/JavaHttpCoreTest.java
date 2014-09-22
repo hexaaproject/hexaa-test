@@ -17,7 +17,7 @@ public class JavaHttpCoreTest {
      * @param args
      */
     public static void main(String[] args) {
-
+        
     }
 
     private void properties() {

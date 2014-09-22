@@ -40,16 +40,11 @@ public class PrincipalsDeleteTest extends CleanTest {
      */
     @Test
     public void testPrincipalsDeleteByFedid() {
-        persistent.call(
-                Const.Api.PRINCIPALS_FEDID,
-                BasicCall.REST.DEL,
-                null,
-                p, p,
-                "testPrincipal");
+        Utility.Remove.principal("testPrincipal");
         p++;
 
         try {
-            assertEquals(Const.StatusLine.NoContent, persistent.getStatusLine());
+            assertEquals(Const.StatusLine.NoContent, Utility.persistent.getStatusLine());
         } catch (AssertionError e) {
             AssertErrorHandler(e);
         }
@@ -60,15 +55,11 @@ public class PrincipalsDeleteTest extends CleanTest {
      */
     @Test
     public void testPrincipalsDeleteById() {
-        persistent.call(
-                Const.Api.PRINCIPALS_ID,
-                BasicCall.REST.DEL,
-                null,
-                p, p);
+        Utility.Remove.principal(p);
         p++;
 
         try {
-            assertEquals(Const.StatusLine.NoContent, persistent.getStatusLine());
+            assertEquals(Const.StatusLine.NoContent, Utility.persistent.getStatusLine());
         } catch (AssertionError e) {
             AssertErrorHandler(e);
         }

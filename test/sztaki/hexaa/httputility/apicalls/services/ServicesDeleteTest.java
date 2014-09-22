@@ -42,12 +42,12 @@ public class ServicesDeleteTest extends CleanTest {
      * DELETE the first service and checks that only the second one exists.
      */
     @Test
-    public void testRolesDelete() {
+    public void testServicesDelete() {
         // The DELETE call.
-        persistent.call(Const.Api.SERVICES_ID, BasicCall.REST.DEL);
+        Utility.Remove.service(1);
 
         try {
-            assertEquals(Const.StatusLine.NoContent, persistent.getStatusLine());
+            assertEquals(Const.StatusLine.NoContent, Utility.persistent.getStatusLine());
             JSONAssert.assertEquals(
                     services.getJSONObject(1),
                     ((JSONArray) JSONParser.parseJSON(

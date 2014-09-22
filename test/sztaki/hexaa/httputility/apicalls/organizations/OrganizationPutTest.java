@@ -44,14 +44,18 @@ public class OrganizationPutTest extends CleanTest {
 
     /**
      * Modifies one of the two existing organization and verifies the change of
- its name, and the unchanged second one as well.
+     * its name, and the unchanged second one as well.
      */
     @Test
     public void testOrganizationPut() {
         JSONObject json = new JSONObject();
         json.put("name", "ModifiedByPut");
 
-        persistent.call(Const.Api.ORGANIZATIONS_ID, BasicCall.REST.PUT, json.toString(), 1, 1);
+        persistent.call(
+                Const.Api.ORGANIZATIONS_ID,
+                BasicCall.REST.PUT,
+                json.toString(),
+                1, 1);
 
         try {
             assertEquals(Const.StatusLine.NoContent, persistent.getStatusLine());

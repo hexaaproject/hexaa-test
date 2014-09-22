@@ -35,13 +35,9 @@ public class AttributespecsDeleteTest extends CleanTest {
     @Test
     public void testAttributespecsDelete() {
         // The DELETE call.
-        persistent.call(
-                Const.Api.ATTRIBUTESPECS_ID,
-                BasicCall.REST.DEL,
-                null,
-                1, 0);
+        Utility.Remove.attributespec(1);
         try {
-            assertEquals(Const.StatusLine.NoContent, persistent.getStatusLine());
+            assertEquals(Const.StatusLine.NoContent, Utility.persistent.getStatusLine());
             assertEquals("[]", persistent.call(
                     Const.Api.ATTRIBUTESPECS,
                     BasicCall.REST.GET));

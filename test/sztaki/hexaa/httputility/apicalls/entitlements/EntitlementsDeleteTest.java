@@ -51,13 +51,11 @@ public class EntitlementsDeleteTest extends CleanTest {
      */
     @Test
     public void testEntitlementsDelete() {
-        // The DELETE call.
-        persistent.call(
-                Const.Api.ENTITLEMENTS_ID,
-                BasicCall.REST.DEL);
+        // The DELETE call on the first one.
+        Utility.Remove.entitlement(1);
 
         try {
-            assertEquals(Const.StatusLine.NoContent, persistent.getStatusLine());
+            assertEquals(Const.StatusLine.NoContent, Utility.persistent.getStatusLine());
             // GET the first one (the DELETEd one).
             persistent.call(
                     Const.Api.ENTITLEMENTS_ID,
