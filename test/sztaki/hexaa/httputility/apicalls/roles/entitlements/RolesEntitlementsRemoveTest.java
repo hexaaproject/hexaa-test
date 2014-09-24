@@ -15,7 +15,7 @@ import sztaki.hexaa.httputility.apicalls.CleanTest;
 /**
  * Tests the DELETE method on the /api/role/{id}/entitlements/{eid} call.
  */
-public class RolesEntitlementsRemoveTest extends CleanTest{
+public class RolesEntitlementsRemoveTest extends CleanTest {
 
     /**
      * Print the class name on the output.
@@ -48,21 +48,18 @@ public class RolesEntitlementsRemoveTest extends CleanTest{
 
         Utility.Link.entitlementsToRole(1, new int[]{1, 2});
     }
-    
+
     /**
      * DELETE the entitlements of the role.
      */
     @Test
     public void testRolesEntitlementsDelete() {
         entitlements.remove(0);
-        
-        persistent.call(
-                Const.Api.ROLES_ID_ENTITLEMENTS_EID,
-                BasicCall.REST.DEL);
-        
+
+        Utility.Remove.entitlementFromRole(1, 1);
+
         try {
-            System.out.println(persistent.getStatusLine());
-            assertEquals(Const.StatusLine.NoContent, persistent.getStatusLine());
+            assertEquals(Const.StatusLine.NoContent, Utility.persistent.getStatusLine());
             JSONAssert.assertEquals(
                     entitlements,
                     (JSONArray) JSONParser.parseJSON(

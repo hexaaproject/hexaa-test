@@ -47,26 +47,19 @@ public class ServicesManagersAddTest extends CleanTest {
     @Test
     public void testServicesManagersAdd() {
         // PUT the first manager.
-        persistent.call(
-                Const.Api.SERVICES_ID_MANAGERS_PID,
-                BasicCall.REST.PUT,
-                null,
-                1, 2);
+        Utility.Link.managersToService(1, 2);
+        
         try {
-            assertEquals(Const.StatusLine.Created, persistent.getStatusLine());
+            assertEquals(Const.StatusLine.Created, Utility.persistent.getStatusLine());
         } catch (AssertionError e) {
             AssertErrorHandler(e);
         }
 
         // PUT the second manager
-        persistent.call(
-                Const.Api.SERVICES_ID_MANAGERS_PID,
-                BasicCall.REST.PUT,
-                null,
-                1, 3);
-
+        Utility.Link.managersToService(1, 3);
+        
         try {
-            assertEquals(Const.StatusLine.Created, persistent.getStatusLine());
+            assertEquals(Const.StatusLine.Created, Utility.persistent.getStatusLine());
             // GET the managers of the service
             JSONArray jsonResponseArray
                     = (JSONArray) JSONParser.parseJSON(

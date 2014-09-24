@@ -38,40 +38,28 @@ public class RolesPrincipalsAddTest extends CleanTest {
     @Test
     public void testRolesPrincipalsPut() {
         // PUT the first principal to the first role.
-        persistent.call(
-                Const.Api.ROLES_ID_PRINCIPALS_PID,
-                BasicCall.REST.PUT,
-                null,
-                1, 2);
+        Utility.Link.principalToRole(1, 2);
         // Bad Request because the principal is not a member of the organization.
         try {
-            assertEquals(Const.StatusLine.BadRequest, persistent.getStatusLine());
+            assertEquals(Const.StatusLine.BadRequest, Utility.persistent.getStatusLine());
         } catch (AssertionError e) {
             AssertErrorHandler(e);
         }
 
         Utility.Link.memberToOrganization(1, 2);
         // PUT the first principal to the first role again.
-        persistent.call(
-                Const.Api.ROLES_ID_PRINCIPALS_PID,
-                BasicCall.REST.PUT,
-                null,
-                1, 2);
+        Utility.Link.principalToRole(1, 2);
         // 201 because the principal is now a member and not yet part of the role.
         try {
-            assertEquals(Const.StatusLine.Created, persistent.getStatusLine());
+            assertEquals(Const.StatusLine.Created, Utility.persistent.getStatusLine());
         } catch (AssertionError e) {
             AssertErrorHandler(e);
         }
         // PUT the first principal to the first role for the third time.
-        persistent.call(
-                Const.Api.ROLES_ID_PRINCIPALS_PID,
-                BasicCall.REST.PUT,
-                null,
-                1, 2);
+        Utility.Link.principalToRole(1, 2);
         // 204 No Content because the principal is already part of the role.
         try {
-            assertEquals(Const.StatusLine.NoContent, persistent.getStatusLine());
+            assertEquals(Const.StatusLine.NoContent, Utility.persistent.getStatusLine());
         } catch (AssertionError e) {
             AssertErrorHandler(e);
         }

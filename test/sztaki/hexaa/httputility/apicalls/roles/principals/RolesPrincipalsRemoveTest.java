@@ -55,12 +55,14 @@ public class RolesPrincipalsRemoveTest extends CleanTest {
     @Test
     public void testRolesPrincipalRemove() {
         principals.remove(1);
-
-        persistent.call(
-                Const.Api.ROLES_ID_PRINCIPALS_PID,
-                BasicCall.REST.DEL,
-                null,
-                1, 1);
+        
+        Utility.Remove.principalFromRole(1, 1);
+        
+        try {
+            assertEquals(Const.StatusLine.NoContent, Utility.persistent.getStatusLine());
+        } catch (AssertionError e) {
+            AssertErrorHandler(e);
+        }
 
         Object response
                 = JSONParser.parseJSON(

@@ -9,6 +9,7 @@ import org.skyscreamer.jsonassert.JSONCompareMode;
 import org.skyscreamer.jsonassert.JSONParser;
 import sztaki.hexaa.httputility.BasicCall;
 import sztaki.hexaa.httputility.Const;
+import sztaki.hexaa.httputility.Utility;
 
 /**
  * Tests the DELETE method on the
@@ -35,14 +36,10 @@ public class OrganizationEntitlementpacksUnlinkTest extends OrganizationEntitlem
         this.createPendingLink(1, new int[]{1});
 
         // Delete a pending link
-        persistent.call(
-                Const.Api.ORGANIZATIONS_ID_ENTITLEMENTPACKS_EPID,
-                BasicCall.REST.DEL,
-                null,
-                1, 1);
+        Utility.Remove.entitlementpackFromOrg(1, 1);
 
         try {
-            assertEquals(Const.StatusLine.NoContent, persistent.getStatusLine());
+            assertEquals(Const.StatusLine.NoContent, Utility.persistent.getStatusLine());
         } catch (AssertionError e) {
             AssertErrorHandler(e);
         }
@@ -53,14 +50,10 @@ public class OrganizationEntitlementpacksUnlinkTest extends OrganizationEntitlem
         this.acceptPendingLink(1, new int[]{1});
 
         // Delete an accepted link
-        persistent.call(
-                Const.Api.ORGANIZATIONS_ID_ENTITLEMENTPACKS_EPID,
-                BasicCall.REST.DEL,
-                null,
-                1, 1);
+        Utility.Remove.entitlementpackFromOrg(1, 1);
 
         try {
-            assertEquals(Const.StatusLine.NoContent, persistent.getStatusLine());
+            assertEquals(Const.StatusLine.NoContent, Utility.persistent.getStatusLine());
             JSONAssert.assertEquals(
                     new JSONArray(),
                     (JSONArray) JSONParser.parseJSON(

@@ -8,6 +8,7 @@ import org.junit.BeforeClass;
 import org.skyscreamer.jsonassert.JSONParser;
 import sztaki.hexaa.httputility.BasicCall;
 import sztaki.hexaa.httputility.Const;
+import sztaki.hexaa.httputility.Utility;
 
 /**
  * Tests the PUT method on the
@@ -28,21 +29,10 @@ public class OrganizationEntitlementpacksTokenTest extends OrganizationEntitleme
      */
     @Test
     public void testOrganizationEntitlementpacksPut() {
-        JSONObject json
-                = (JSONObject) JSONParser.parseJSON(persistent.call(
-                                Const.Api.ENTITLEMENTPACKS_ID_TOKEN,
-                                BasicCall.REST.GET,
-                                null,
-                                1, 1));
-        // GET the token.
-        System.out.println(json);
-        persistent.setToken(json.getString("token"));
-        //persistent.setToken("1");
-
-        persistent.call(Const.Api.ORGANIZATIONS_ID_ENTITLEMENTPACKS_TOKEN, BasicCall.REST.PUT);
+        Utility.Link.entitlementpackToOrgByToken(1, 1);
 
         try {
-            assertEquals(Const.StatusLine.Created, persistent.getStatusLine());
+            assertEquals(Const.StatusLine.Created, Utility.persistent.getStatusLine());
             JSONArray jsonResponseArray
                     = (JSONArray) JSONParser.parseJSON(
                             persistent.call(
@@ -57,11 +47,5 @@ public class OrganizationEntitlementpacksTokenTest extends OrganizationEntitleme
         } catch (AssertionError e) {
             AssertErrorHandler(e);
         }
-//        System.out.println(persistent.call(
-//                Const.Api.ENTITLEMENTPACKS_PUBLIC,
-//                BasicCall.REST.GET));
-//        System.out.println(persistent.call(
-//                Const.Api.ORGANIZATIONS_ID_ENTITLEMENTPACKS,
-//                BasicCall.REST.GET));
     }
 }

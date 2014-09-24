@@ -3,10 +3,6 @@ package sztaki.hexaa.httputility.leveledtests;
 import org.junit.runner.RunWith;
 import org.junit.runners.Suite;
 
-/**
- * 68 class, 20 here 48 after.
- * @author ede
- */
 @RunWith(Suite.class)
 @Suite.SuiteClasses({
     sztaki.hexaa.httputility.apicalls.attributespecs.AttributespecsDeleteTest.class,

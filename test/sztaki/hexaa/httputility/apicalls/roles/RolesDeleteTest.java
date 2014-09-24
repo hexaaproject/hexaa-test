@@ -45,10 +45,10 @@ public class RolesDeleteTest extends CleanTest {
     @Test
     public void testRolesDelete() {
         // The DELETE call.
-        persistent.call(Const.Api.ROLES_ID, BasicCall.REST.DEL);
+        Utility.Remove.roles(1);
 
         try {
-            assertEquals(Const.StatusLine.NoContent, persistent.getStatusLine());
+            assertEquals(Const.StatusLine.NoContent, Utility.persistent.getStatusLine());
             JSONAssert.assertEquals(
                     roles.getJSONObject(1),
                     ((JSONArray) JSONParser.parseJSON(

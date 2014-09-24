@@ -38,14 +38,12 @@ public class RolesEntitlementsAddTest extends CleanTest {
      * PUT the entitlement to a role with three different outcome.
      */
     @Test
-    public void testRolesEntitlementsPut() {
+    public void testRolesEntitlementsAdd() {
         // PUT an entitlement from outside of organization.
-        persistent.call(
-                Const.Api.ROLES_ID_ENTITLEMENTS_EID,
-                BasicCall.REST.PUT);
+        Utility.Link.entitlementsToRole(1, 1);
 
         try {
-            assertEquals(Const.StatusLine.BadRequest, persistent.getStatusLine());
+            assertEquals(Const.StatusLine.BadRequest, Utility.persistent.getStatusLine());
         } catch (AssertionError e) {
             AssertErrorHandler(e);
         }
@@ -55,23 +53,19 @@ public class RolesEntitlementsAddTest extends CleanTest {
         Utility.Link.entitlementpackToOrg(1, new int[]{1});
 
         // PUT entitlement to role.
-        persistent.call(
-                Const.Api.ROLES_ID_ENTITLEMENTS_EID,
-                BasicCall.REST.PUT);
+        Utility.Link.entitlementsToRole(1, 1);
 
         try {
-            assertEquals(Const.StatusLine.Created, persistent.getStatusLine());
+            assertEquals(Const.StatusLine.Created, Utility.persistent.getStatusLine());
         } catch (AssertionError e) {
             AssertErrorHandler(e);
         }
 
         // PUT same entitlement to role again.
-        persistent.call(
-                Const.Api.ROLES_ID_ENTITLEMENTS_EID,
-                BasicCall.REST.PUT);
+        Utility.Link.entitlementsToRole(1, 1);
 
         try {
-            assertEquals(Const.StatusLine.NoContent, persistent.getStatusLine());
+            assertEquals(Const.StatusLine.NoContent, Utility.persistent.getStatusLine());
         } catch (AssertionError e) {
             AssertErrorHandler(e);
         }

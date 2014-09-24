@@ -12,12 +12,15 @@ import java.util.Properties;
 public class JavaHttpCoreTest {
 
     /**
+    // TODO meg kell vizsgálni egy alternatív lehetőséget a rétegezésre: ant build.xml-t használva lehet dependecy-ket megadni
+     */
+    /**
      * Main program starting point.
      *
      * @param args
      */
     public static void main(String[] args) {
-        
+
     }
 
     private void properties() {

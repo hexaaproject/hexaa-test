@@ -51,16 +51,12 @@ public class OrganizationsManagersRemoveTest extends CleanTest {
      */
     @Test
     public void testOrganizationManagersRemove() {
-        persistent.call(
-                Const.Api.ORGANIZATIONS_ID_MANAGERS_PID,
-                BasicCall.REST.DEL,
-                null,
-                1, 2);
+        Utility.Remove.managers(1, 2);
 
         principals.remove(0);
 
         try {
-            assertEquals(Const.StatusLine.NoContent, persistent.getStatusLine());
+            assertEquals(Const.StatusLine.NoContent, Utility.persistent.getStatusLine());
             JSONAssert.assertEquals(
                     principals,
                     (JSONArray) JSONParser.parseJSON(

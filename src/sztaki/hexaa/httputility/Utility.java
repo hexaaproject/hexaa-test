@@ -514,6 +514,72 @@ public class Utility {
         }
 
         /**
+         * Links already existing entitlementpacks specified in the packIds
+         * array to the existing organization specified by the orgId using the
+         * token method.
+         *
+         * @param orgId the id of the organization to link.
+         * @param packIds the ids of the entitlementpacks to link.
+         */
+        public static void entitlementpackToOrgByToken(int orgId, int[] packIds) {
+            for (int pack : packIds) {
+                JSONObject json
+                        = (JSONObject) JSONParser.parseJSON(persistent.call(
+                                        Const.Api.ENTITLEMENTPACKS_ID_TOKEN,
+                                        BasicCall.REST.GET,
+                                        null,
+                                        pack, pack));
+                // GET the token.
+                persistent.setToken(json.getString("token"));
+
+                persistent.call(Const.Api.ORGANIZATIONS_ID_ENTITLEMENTPACKS_TOKEN, BasicCall.REST.PUT);
+            }
+        }
+
+        /**
+         * Alternative for the {@link #entitlementpackToOrg(int, int[])} for
+         * single entitlementpack.
+         *
+         * @param orgId the id of the organization to link.
+         * @param packIds the ids of the entitlementpacks to link.
+         */
+        public static void entitlementpackToOrgByToken(int orgId, int packIds) {
+            entitlementpackToOrgByToken(orgId, new int[]{packIds});
+        }
+
+        /**
+         * Links already existing entitlementpacks specified in the packIds
+         * array to the existing organization specified by the orgId using the
+         * token method.
+         *
+         * @param orgID the id of the organization to link.
+         * @param tokens array of tokens of entitlementpacks.
+         */
+        public static void entitlementpackToOrgByToken(int orgID, String[] tokens) {
+            for (String token : tokens) {
+                persistent.setToken(token);
+
+                persistent.call(
+                        Const.Api.ORGANIZATIONS_ID_ENTITLEMENTPACKS_TOKEN,
+                        BasicCall.REST.PUT,
+                        null,
+                        orgID, orgID);
+            }
+        }
+
+        /**
+         * Alternative for the
+         * {@link entitlementpackToOrgByToken(int orgID, String[] tokens)} for
+         * single entitlementpack.
+         *
+         * @param orgID the id of the organization to link.
+         * @param token token of an entitlementpack to link.
+         */
+        public static void entitlementpackToOrgByToken(int orgID, String token) {
+            entitlementpackToOrgByToken(orgID, new String[]{token});
+        }
+
+        /**
          * Links already existing entitlements specified in the entitlementIds
          * array to the existing role specified by the roleId.
          *
@@ -529,6 +595,17 @@ public class Utility {
                         roleId, id);
             }
 
+        }
+
+        /**
+         * Alternative call for
+         * {@link entitlementsToRole(int roleId, int[] entitlementIds)}.
+         *
+         * @param roleId the id of the role to link to.
+         * @param entitlementId the id of the entitlement to link.
+         */
+        public static void entitlementsToRole(int roleId, int entitlementId) {
+            entitlementsToRole(roleId, new int[]{entitlementId});
         }
 
         /**
@@ -606,6 +683,17 @@ public class Utility {
                         null,
                         serviceId, pid);
             }
+        }
+
+        /**
+         * Alternative call for
+         * {@link managersToService(int serviceId, int[] principalIds)}.
+         *
+         * @param serviceID id of the service.
+         * @param principalID id of the manager.
+         */
+        public static void managersToService(int serviceID, int principalID) {
+            managersToService(serviceID, new int[]{principalID});
         }
 
         /**
@@ -788,6 +876,20 @@ public class Utility {
         }
 
         /**
+         * Removes the link between attributespec and service.
+         *
+         * @param sID id of the service to remove from.
+         * @param asID id of the attributespec to remove.
+         */
+        public static void attributespecFromService(int sID, int asID) {
+            persistent.call(
+                    Const.Api.SERVICES_ID_ATTRIBUTESPECS_ASID,
+                    BasicCall.REST.DEL,
+                    null,
+                    sID, asID);
+        }
+
+        /**
          * Removes organization if exist.
          *
          * @param orgIDs array of organization ids.
@@ -878,7 +980,7 @@ public class Utility {
          * @param id id of the entitlement to remove.
          */
         public static void entitlement(int id) {
-            entitlement(new int[] {id});
+            entitlement(new int[]{id});
         }
 
         /**
@@ -903,11 +1005,12 @@ public class Utility {
          * @param id id of the entitlementpack to remove.
          */
         public static void entitlementpack(int id) {
-            entitlementpack(new int[] {id});
+            entitlementpack(new int[]{id});
         }
 
         /**
-         * Removes the entitlementpack with the specified ids in the array of ids.
+         * Removes the entitlementpack with the specified ids in the array of
+         * ids.
          *
          * @param ids array of entitlementpack id's.
          */
@@ -920,6 +1023,211 @@ public class Utility {
                         id, id);
             }
         }
+
+        /**
+         * Alternative call for {@link members(int[] orgIDs, int[] pIDs)}.
+         *
+         * @param orgID the id of the organization to remove from.
+         * @param pID the id of the principal to remove.
+         */
+        public static void members(int orgID, int pID) {
+            members(new int[]{orgID}, new int[]{pID});
+        }
+
+        /**
+         * Alternative call for {@link members(int[] orgIDs, int[] pIDs)}.
+         *
+         * @param orgIDs the id of the organization to remove from.
+         * @param pID the id of the principal to remove.
+         */
+        public static void members(int[] orgIDs, int pID) {
+            members(orgIDs, new int[]{pID});
+        }
+
+        /**
+         * Alternative call for {@link members(int[] orgIDs, int[] pIDs)}.
+         *
+         * @param orgID the id of the organization to remove from.
+         * @param pIDs the id of the principal to remove.
+         */
+        public static void members(int orgID, int[] pIDs) {
+            members(new int[]{orgID}, pIDs);
+        }
+
+        /**
+         * Removes the members from the specified organizations.
+         *
+         * @param orgIDs the ids of the organization to remove from.
+         * @param pIDs the ids of the principal to remove.
+         */
+        public static void members(int[] orgIDs, int[] pIDs) {
+            for (int orgID : orgIDs) {
+                for (int pID : pIDs) {
+                    persistent.call(
+                            Const.Api.ORGANIZATIONS_ID_MEMBERS_PID,
+                            BasicCall.REST.DEL,
+                            null,
+                            orgID, pID);
+                }
+            }
+        }
+
+        /**
+         * Alternative call for {@link managers(int[] orgIDs, int[] pIDs)}.
+         *
+         * @param orgID the id of the organization to remove from.
+         * @param pID the id of the principal to remove.
+         */
+        public static void managers(int orgID, int pID) {
+            managers(new int[]{orgID}, new int[]{pID});
+        }
+
+        /**
+         * Alternative call for {@link managers(int[] orgIDs, int[] pIDs)}.
+         *
+         * @param orgIDs the id of the organization to remove from.
+         * @param pID the id of the principal to remove.
+         */
+        public static void managers(int[] orgIDs, int pID) {
+            managers(orgIDs, new int[]{pID});
+        }
+
+        /**
+         * Alternative call for {@link managers(int[] orgIDs, int[] pIDs)}.
+         *
+         * @param orgID the id of the organization to remove from.
+         * @param pIDs the id of the principal to remove.
+         */
+        public static void managers(int orgID, int[] pIDs) {
+            managers(new int[]{orgID}, pIDs);
+        }
+
+        /**
+         * Removes the managers from the specified organizations.
+         *
+         * @param orgIDs the ids of the organization to remove from.
+         * @param pIDs the ids of the principal to remove.
+         */
+        public static void managers(int[] orgIDs, int[] pIDs) {
+            for (int orgID : orgIDs) {
+                for (int pID : pIDs) {
+                    persistent.call(
+                            Const.Api.ORGANIZATIONS_ID_MANAGERS_PID,
+                            BasicCall.REST.DEL,
+                            null,
+                            orgID, pID);
+                }
+            }
+        }
+
+        /**
+         * Alternative call for {@link roles(int[] roleIDs)}.
+         *
+         * @param roleID the id of the role to delete.
+         */
+        public static void roles(int roleID) {
+            roles(new int[]{roleID});
+        }
+
+        /**
+         * Removes the role with the specified id.
+         *
+         * @param roleIDs ids of the roles to remove.
+         */
+        public static void roles(int[] roleIDs) {
+            for (int roleID : roleIDs) {
+                persistent.call(
+                        Const.Api.ROLES_ID,
+                        BasicCall.REST.DEL,
+                        null,
+                        roleID, roleID);
+            }
+        }
+
+        /**
+         * Removes the link between entitlement and entitlementpack.
+         *
+         * @param packIDs ids of the entitlementpacks.
+         * @param eIDs ids of the entitlements.
+         */
+        public static void entitlementFromPack(int[] packIDs, int[] eIDs) {
+            for (int packID : packIDs) {
+                for (int eID : eIDs) {
+                    persistent.call(
+                            Const.Api.ENTITLEMENTPACKS_ID_ENTITLEMENTS_EID,
+                            BasicCall.REST.DEL,
+                            null,
+                            packID, eID);
+                }
+            }
+        }
+
+        /**
+         * Alternative call for
+         * {@link entitlementFromPack(int[] packIDs, int[] eIDs)}.
+         *
+         * @param packID id of the entitlementpack.
+         * @param eID id of the entitlement.
+         */
+        public static void entitlementFromPack(int packID, int eID) {
+            entitlementFromPack(new int[]{packID}, new int[]{eID});
+        }
+
+        /**
+         * Removes the managers specified by the pIDs from the service specified
+         * by the serviceID.
+         *
+         * @param serviceID id of the service.
+         * @param pIDs array of ids of managers.
+         */
+        public static void managerFromService(int serviceID, int[] pIDs) {
+            for (int pID : pIDs) {
+                persistent.call(
+                        Const.Api.SERVICES_ID_MANAGERS_PID,
+                        BasicCall.REST.DEL,
+                        null,
+                        serviceID, pID);
+            }
+        }
+
+        /**
+         * Alternative call for
+         * {@link managerFromService(int serviceID, int[] pIDs)}
+         *
+         * @param serviceID id of the service.
+         * @param pID id of managers.
+         */
+        public static void managerFromService(int serviceID, int pID) {
+            managerFromService(serviceID, new int[]{pID});
+        }
+
+        /**
+         * Removes entitlements from role.
+         *
+         * @param roleID the id of the role.
+         * @param entitlementIDs array of ids of entitlements.
+         */
+        public static void entitlementFromRole(int roleID, int[] entitlementIDs) {
+            for (int entitlementID : entitlementIDs) {
+                persistent.call(
+                        Const.Api.ROLES_ID_ENTITLEMENTS_EID,
+                        BasicCall.REST.DEL,
+                        null,
+                        roleID, entitlementID);
+            }
+        }
+
+        /**
+         * Alternative call for
+         * {@link entitlementFromRole(int roleID, int[] entitlementIDs)}.
+         *
+         * @param roleID the id of the role.
+         * @param entitlementID id of entitlements.
+         */
+        public static void entitlementFromRole(int roleID, int entitlementID) {
+            entitlementFromRole(roleID, new int[]{entitlementID});
+        }
+    
     }
 
 }

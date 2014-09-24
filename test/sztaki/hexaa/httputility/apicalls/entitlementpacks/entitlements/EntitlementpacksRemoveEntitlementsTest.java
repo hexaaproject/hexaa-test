@@ -56,22 +56,14 @@ public class EntitlementpacksRemoveEntitlementsTest extends CleanTest {
     public void testEntitlementpacksRemoveEntitlements() {
         // DELETEs the first entitlements in both packs
         try {
-            persistent.call(
-                    Const.Api.ENTITLEMENTPACKS_ID_ENTITLEMENTS_EID,
-                    BasicCall.REST.DEL,
-                    null,
-                    1, 1);
+            Utility.Remove.entitlementFromPack(1, 1);
             assertEquals(
                     Const.StatusLine.NoContent,
-                    persistent.getStatusLine());
-            persistent.call(
-                    Const.Api.ENTITLEMENTPACKS_ID_ENTITLEMENTS_EID,
-                    BasicCall.REST.DEL,
-                    null,
-                    2, 1);
+                    Utility.persistent.getStatusLine());
+            Utility.Remove.entitlementFromPack(2, 1);
             assertEquals(
                     Const.StatusLine.NoContent,
-                    persistent.getStatusLine());
+                    Utility.persistent.getStatusLine());
         } catch (AssertionError e) {
             AssertErrorHandler(e);
         }
