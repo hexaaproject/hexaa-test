@@ -46,10 +46,13 @@ public class PrincipalsPostTest extends CleanTest {
                             persistent.call(
                                     Const.Api.PRINCIPALS,
                                     BasicCall.REST.GET)))
-                    .getJSONObject(1),
+                    .getJSONObject(0),
                     JSONCompareMode.LENIENT);
         } catch (AssertionError e) {
             AssertErrorHandler(e);
         }
+        System.out.println(persistent.call(
+                                    Const.Api.PRINCIPALS,
+                                    BasicCall.REST.GET));
     }
 }

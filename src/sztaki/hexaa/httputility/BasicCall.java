@@ -13,6 +13,7 @@ import org.apache.http.client.methods.CloseableHttpResponse;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import org.skyscreamer.jsonassert.JSONParser;
+import sztaki.hexaa.httputility.core.HttpCorePatch;
 
 /**
  * Support class that implements the 4 RESTful API calls. Can easily be expanded
@@ -154,8 +155,8 @@ public class BasicCall {
         System.out.println("\t" + Integer.toString(sId));
         System.out.println("\t" + json);
     }
+    
     /* *** Constructor *** */
-
     /**
      * Constructor
      */
@@ -197,6 +198,10 @@ public class BasicCall {
          * Use it for DELETE methods.
          */
         DEL,
+        /**
+         * Use it for PATCH methods.
+         */
+        PATCH,
     }
 
     /* *** Normal calls, returns the response json as a String *** */
@@ -309,6 +314,8 @@ public class BasicCall {
                 return this.put();
             case DEL:
                 return this.delete();
+            case PATCH:
+                return this.patch();
         }
         
         return "Could not call";
@@ -412,6 +419,31 @@ public class BasicCall {
         return getContentString(response);
     }
 
+    /**
+     * Uses the supplied JSON for the PATCH request and returns the response's
+     * JSON content in string format, if there is no content empty string will
+     * be returned.
+     *
+     * @return String, JSON content in string format, maybe empty, never null.
+     */
+    private String patch() {
+        // The method is ready to work with path's that require id-s
+        String nPath;
+        nPath = this.fixPath();
+        
+        System.out.print("PATCH \t");
+        System.out.println(nPath);
+
+        // Getting the response from the server, this is
+        // wrapped in the javahttputility.core package
+        HttpCorePatch httpAction = new HttpCorePatch(nPath);
+        httpAction.setJSon(this.json);
+        
+        CloseableHttpResponse response = httpAction.patch();
+        
+        return getContentString(response);
+    }
+    
     /* *** Utility methods *** */
     /**
      * In the constans values of paths (found in {@link Const.Api}) the uris
