@@ -1,26 +1,27 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<testsuite errors="0" failures="0" hostname="banat" name="sztaki.hexaa.httputility.leveledtests.LevelFiveTestSuite" skipped="0" tests="5" time="32.619" timestamp="2014-09-29T13:49:07">
+<testsuite errors="0" failures="0" hostname="banat" name="sztaki.hexaa.httputility.leveledtests.LevelFiveTestSuite" skipped="0" tests="5" time="28.429" timestamp="2014-10-06T13:45:54">
   <properties>
     <property name="java.vendor" value="Oracle Corporation" />
     <property name="lib.dir" value="lib" />
     <property name="sun.java.launcher" value="SUN_STANDARD" />
     <property name="sun.management.compiler" value="HotSpot 64-Bit Tiered Compilers" />
-    <property name="current.time" value="09/29 03:42:08 PM" />
+    <property name="current.time" value="10/06 03:38:24 PM" />
     <property name="os.name" value="Linux" />
     <property name="sun.boot.class.path" value="/usr/lib/jvm/java-8-oracle/jre/lib/resources.jar:/usr/lib/jvm/java-8-oracle/jre/lib/rt.jar:/usr/lib/jvm/java-8-oracle/jre/lib/sunrsasign.jar:/usr/lib/jvm/java-8-oracle/jre/lib/jsse.jar:/usr/lib/jvm/java-8-oracle/jre/lib/jce.jar:/usr/lib/jvm/java-8-oracle/jre/lib/charsets.jar:/usr/lib/jvm/java-8-oracle/jre/lib/jfr.jar:/usr/lib/jvm/java-8-oracle/jre/classes" />
-    <property name="TODAY" value="September 29 2014" />
+    <property name="TODAY" value="October 6 2014" />
     <property name="sun.desktop" value="gnome" />
     <property name="java.vm.specification.vendor" value="Oracle Corporation" />
     <property name="ant.home" value="/usr/share/ant" />
     <property name="java.runtime.version" value="1.8.0_20-b26" />
     <property name="user.name" value="ede" />
+    <property name="ant.file.JavaCoreTest" value="/home/ede/NetBeansProjects/JavaCoreTest/hexaa-test/build.xml" />
     <property name="junit.out.dir.html" value="/var/www/html" />
+    <property name="ant.file.type.JavaCoreTest" value="file" />
     <property name="user.language" value="en" />
     <property name="sun.boot.library.path" value="/usr/lib/jvm/java-8-oracle/jre/lib/amd64" />
-    <property name="ant.file.HEXAA Tests" value="/home/ede/NetBeansProjects/JavaCoreTest/hexaa-test/alternate_buil.xml" />
     <property name="ant.project.default-target" value="leveledtests" />
-    <property name="ant.project.name" value="HEXAA Tests" />
-    <property name="DSTAMP" value="20140929" />
+    <property name="ant.project.name" value="JavaCoreTest" />
+    <property name="DSTAMP" value="20141006" />
     <property name="java.version" value="1.8.0_20" />
     <property name="user.timezone" value="Europe/Budapest" />
     <property name="sun.arch.data.model" value="64" />
@@ -32,11 +33,10 @@
     <property name="java.specification.name" value="Java Platform API Specification" />
     <property name="classes.dir" value="target/classes" />
     <property name="java.class.version" value="52.0" />
-    <property name="ant.file.type.HEXAA Tests" value="file" />
     <property name="user.country" value="US" />
     <property name="java.home" value="/usr/lib/jvm/java-8-oracle/jre" />
     <property name="java.vm.info" value="mixed mode" />
-    <property name="ant.file" value="/home/ede/NetBeansProjects/JavaCoreTest/hexaa-test/alternate_buil.xml" />
+    <property name="ant.file" value="/home/ede/NetBeansProjects/JavaCoreTest/hexaa-test/build.xml" />
     <property name="os.version" value="3.13.0-36-generic" />
     <property name="path.separator" value=":" />
     <property name="java.vm.version" value="25.20-b23" />
@@ -52,11 +52,11 @@
     <property name="java.vendor.url" value="http://java.oracle.com/" />
     <property name="java.vm.vendor" value="Oracle Corporation" />
     <property name="java.runtime.name" value="Java(TM) SE Runtime Environment" />
-    <property name="sun.java.command" value="org.apache.tools.ant.taskdefs.optional.junit.JUnitTestRunner sztaki.hexaa.httputility.leveledtests.LevelFiveTestSuite skipNonTests=false filtertrace=true haltOnError=false haltOnFailure=false formatter=org.apache.tools.ant.taskdefs.optional.junit.SummaryJUnitResultFormatter showoutput=false outputtoformatters=true logfailedtests=true logtestlistenerevents=false formatter=org.apache.tools.ant.taskdefs.optional.junit.XMLJUnitResultFormatter,/home/ede/NetBeansProjects/JavaCoreTest/hexaa-test/target/report/junit/TEST-sztaki.hexaa.httputility.leveledtests.LevelFiveTestSuite.xml crashfile=/home/ede/NetBeansProjects/JavaCoreTest/hexaa-test/junitvmwatcher8659481902123979925.properties propsfile=/home/ede/NetBeansProjects/JavaCoreTest/hexaa-test/junit4419784368289515087.properties" />
+    <property name="sun.java.command" value="org.apache.tools.ant.taskdefs.optional.junit.JUnitTestRunner sztaki.hexaa.httputility.leveledtests.LevelFiveTestSuite skipNonTests=false filtertrace=true haltOnError=false haltOnFailure=false formatter=org.apache.tools.ant.taskdefs.optional.junit.SummaryJUnitResultFormatter showoutput=false outputtoformatters=true logfailedtests=true logtestlistenerevents=false formatter=org.apache.tools.ant.taskdefs.optional.junit.XMLJUnitResultFormatter,/home/ede/NetBeansProjects/JavaCoreTest/hexaa-test/target/report/junit/TEST-sztaki.hexaa.httputility.leveledtests.LevelFiveTestSuite.xml crashfile=/home/ede/NetBeansProjects/JavaCoreTest/hexaa-test/junitvmwatcher7778697888313884823.properties propsfile=/home/ede/NetBeansProjects/JavaCoreTest/hexaa-test/junit6795919231175289527.properties" />
     <property name="java.class.path" value="/usr/share/ant/lib/ant-launcher.jar:/usr/share/java/xmlParserAPIs.jar:/usr/share/java/xercesImpl.jar:/usr/share/ant/lib/ant-apache-log4j.jar:/usr/share/ant/lib/ant-apache-resolver.jar:/usr/share/ant/lib/ant-testutil.jar:/usr/share/ant/lib/ant-jsch.jar:/usr/share/ant/lib/ant-antlr.jar:/usr/share/ant/lib/ant-commons-logging.jar:/usr/share/ant/lib/ant-jdepend.jar:/usr/share/ant/lib/ant-apache-xalan2.jar:/usr/share/ant/lib/ant-apache-bcel.jar:/usr/share/ant/lib/ant-apache-regexp.jar:/usr/share/ant/lib/ant-junit.jar:/usr/share/ant/lib/ant-apache-bsf.jar:/usr/share/ant/lib/ant-junit4.jar:/usr/share/ant/lib/ant-jmf.jar:/usr/share/ant/lib/ant-apache-oro.jar:/usr/share/ant/lib/ant-swing.jar:/usr/share/ant/lib/ant.jar:/usr/share/ant/lib/ant-javamail.jar:/usr/share/ant/lib/ant-commons-net.jar:/usr/lib/jvm/java-8-oracle/lib/tools.jar:/home/ede/NetBeansProjects/JavaCoreTest/hexaa-test/target/classes:/home/ede/NetBeansProjects/JavaCoreTest/hexaa-test/lib/commons-codec-1.9.jar:/home/ede/NetBeansProjects/JavaCoreTest/hexaa-test/lib/commons-logging-1.1.3.jar:/home/ede/NetBeansProjects/JavaCoreTest/hexaa-test/lib/httpclient-4.3.4.jar:/home/ede/NetBeansProjects/JavaCoreTest/hexaa-test/lib/httpcore-4.3.2.jar:/home/ede/NetBeansProjects/JavaCoreTest/hexaa-test/lib/json.jar:/home/ede/NetBeansProjects/JavaCoreTest/hexaa-test/lib/jsonassert-1.2.3.jar:/home/ede/NetBeansProjects/JavaCoreTest/hexaa-test/lib/junit-4.10.jar:/usr/share/java/ant-launcher-1.9.3.jar" />
     <property name="ant.version" value="Apache Ant(TM) version 1.9.3 compiled on April 8 2014" />
-    <property name="TSTAMP" value="1542" />
-    <property name="project.name" value="junitsuite" />
+    <property name="TSTAMP" value="1538" />
+    <property name="project.name" value="JavaCoreTest" />
     <property name="java.vm.specification.name" value="Java Virtual Machine Specification" />
     <property name="ant.file.type" value="file" />
     <property name="java.vm.specification.version" value="1.8" />
@@ -79,11 +79,11 @@
     <property name="src.dir" value="src" />
     <property name="ant.project.invoked-targets" value="leveledtests" />
   </properties>
-  <testcase classname="sztaki.hexaa.httputility.apicalls.organizations.entitlementpacks.OrganizationEntitlementpacksUnlinkTest" name="testOrganizationEntitlementpacksDelete" time="1.43" />
-  <testcase classname="sztaki.hexaa.httputility.apicalls.organizations.entitlementpacks.OrganizationEntitlementpacksGetTest" name="testOrganizationEntitlementpacksGetPacks" time="0.918" />
-  <testcase classname="sztaki.hexaa.httputility.apicalls.organizations.entitlementpacks.OrganizationEntitlementpacksGetTest" name="testOrganizationEntitlementpacksGetEntitlements" time="2.075" />
-  <testcase classname="sztaki.hexaa.httputility.apicalls.roles.entitlements.RolesEntitlementsGetTest" name="testRolesEntitlementsGet" time="0.144" />
-  <testcase classname="sztaki.hexaa.httputility.apicalls.roles.entitlements.RolesEntitlementsRemoveTest" name="testRolesEntitlementsDelete" time="0.298" />
+  <testcase classname="sztaki.hexaa.httputility.apicalls.organizations.entitlementpacks.OrganizationEntitlementpacksUnlinkTest" name="testOrganizationEntitlementpacksDelete" time="2.295" />
+  <testcase classname="sztaki.hexaa.httputility.apicalls.organizations.entitlementpacks.OrganizationEntitlementpacksGetTest" name="testOrganizationEntitlementpacksGetPacks" time="0.947" />
+  <testcase classname="sztaki.hexaa.httputility.apicalls.organizations.entitlementpacks.OrganizationEntitlementpacksGetTest" name="testOrganizationEntitlementpacksGetEntitlements" time="0.935" />
+  <testcase classname="sztaki.hexaa.httputility.apicalls.roles.entitlements.RolesEntitlementsGetTest" name="testRolesEntitlementsGet" time="0.161" />
+  <testcase classname="sztaki.hexaa.httputility.apicalls.roles.entitlements.RolesEntitlementsRemoveTest" name="testRolesEntitlementsDelete" time="0.296" />
   <system-out><![CDATA[BeforeClass @ CleanTest
 /home/ede/NetBeansProjects/JavaCoreTest/hexaa-test
 *** Loading Properties ***
@@ -91,6 +91,7 @@
 *** 192.168.203.203
 *** tesztAdmin@sztaki.hu
 *** 7lrfjlpu5br2vpv1jcaogdz481b28xf7lz85wqmv
+OUTPUT>Could not open input file: app/console
 OUTPUT>Dropped database for connection named `hexaa`
 OUTPUT>Created database for connection named `hexaa`
 OUTPUT>Updating database schema...
@@ -101,8 +102,8 @@ ExitValue: 0
 ** AUTHENTICATE **	Getting temporary API key.
 ** AUTHENTICATE **	Temporary API key acquired.
 ** AUTHENTICATE **	POST 	/app.php/api/tokens.json
-{"fedid":"tesztAdmin@sztaki.hu","token":"06c745f27a7f38a2b44feabdf6492b2a2fd692f2589d93c8db0c866ea1840757"}
-** AUTHENTICATE **	{"fedid":"tesztAdmin@sztaki.hu","token":"06c745f27a7f38a2b44feabdf6492b2a2fd692f2589d93c8db0c866ea1840757"}
+{"fedid":"tesztAdmin@sztaki.hu","token":"c676b1217de26eb53373a7e8527481b5ced547607790e382858e03a5a70761b8"}
+** AUTHENTICATE **	{"fedid":"tesztAdmin@sztaki.hu","token":"c676b1217de26eb53373a7e8527481b5ced547607790e382858e03a5a70761b8"}
 ** AUTHENTICATE **	Normal API key acquired.
 GET 	/app.php/api/entityids.json
 POST 	/app.php/api/services.json
@@ -129,6 +130,7 @@ BeforeClass @ CleanTest
 *** 192.168.203.203
 *** tesztAdmin@sztaki.hu
 *** 7lrfjlpu5br2vpv1jcaogdz481b28xf7lz85wqmv
+OUTPUT>Could not open input file: app/console
 OUTPUT>Dropped database for connection named `hexaa`
 OUTPUT>Created database for connection named `hexaa`
 OUTPUT>Updating database schema...
@@ -139,8 +141,8 @@ ExitValue: 0
 ** AUTHENTICATE **	Getting temporary API key.
 ** AUTHENTICATE **	Temporary API key acquired.
 ** AUTHENTICATE **	POST 	/app.php/api/tokens.json
-{"fedid":"tesztAdmin@sztaki.hu","token":"773e21d0aad40155d86f024f6fce96e42b8e554c34c2842403ce9fa996dc35ed"}
-** AUTHENTICATE **	{"fedid":"tesztAdmin@sztaki.hu","token":"773e21d0aad40155d86f024f6fce96e42b8e554c34c2842403ce9fa996dc35ed"}
+{"fedid":"tesztAdmin@sztaki.hu","token":"2eac61c74abb1afd37bb189a55474000ca2d5124f0450a9b7faa09be68c735ef"}
+** AUTHENTICATE **	{"fedid":"tesztAdmin@sztaki.hu","token":"2eac61c74abb1afd37bb189a55474000ca2d5124f0450a9b7faa09be68c735ef"}
 ** AUTHENTICATE **	Normal API key acquired.
 GET 	/app.php/api/entityids.json
 POST 	/app.php/api/services.json
@@ -170,6 +172,7 @@ BeforeClass @ CleanTest
 *** 192.168.203.203
 *** tesztAdmin@sztaki.hu
 *** 7lrfjlpu5br2vpv1jcaogdz481b28xf7lz85wqmv
+OUTPUT>Could not open input file: app/console
 OUTPUT>Dropped database for connection named `hexaa`
 OUTPUT>Created database for connection named `hexaa`
 OUTPUT>Updating database schema...
@@ -180,8 +183,8 @@ ExitValue: 0
 ** AUTHENTICATE **	Getting temporary API key.
 ** AUTHENTICATE **	Temporary API key acquired.
 ** AUTHENTICATE **	POST 	/app.php/api/tokens.json
-{"fedid":"tesztAdmin@sztaki.hu","token":"82946ee9936c48f6697fc9b92af1b60dbbd148b3f1fca23ce4f5b22c69bf0bfc"}
-** AUTHENTICATE **	{"fedid":"tesztAdmin@sztaki.hu","token":"82946ee9936c48f6697fc9b92af1b60dbbd148b3f1fca23ce4f5b22c69bf0bfc"}
+{"fedid":"tesztAdmin@sztaki.hu","token":"f142e956934ee4a3236e3e2d6bf08a905f5ca3a31fa2aeadf59b0ff39daa74a6"}
+** AUTHENTICATE **	{"fedid":"tesztAdmin@sztaki.hu","token":"f142e956934ee4a3236e3e2d6bf08a905f5ca3a31fa2aeadf59b0ff39daa74a6"}
 ** AUTHENTICATE **	Normal API key acquired.
 POST 	/app.php/api/organizations.json
 POST 	/app.php/api/organizations/1/roles.json
@@ -205,6 +208,7 @@ BeforeClass @ CleanTest
 *** 192.168.203.203
 *** tesztAdmin@sztaki.hu
 *** 7lrfjlpu5br2vpv1jcaogdz481b28xf7lz85wqmv
+OUTPUT>Could not open input file: app/console
 OUTPUT>Dropped database for connection named `hexaa`
 OUTPUT>Created database for connection named `hexaa`
 OUTPUT>Updating database schema...
@@ -215,8 +219,8 @@ ExitValue: 0
 ** AUTHENTICATE **	Getting temporary API key.
 ** AUTHENTICATE **	Temporary API key acquired.
 ** AUTHENTICATE **	POST 	/app.php/api/tokens.json
-{"fedid":"tesztAdmin@sztaki.hu","token":"23dc6cd07431b299af5ec5854e85adf0ae6083275ff22315956b690cb1b8bdb3"}
-** AUTHENTICATE **	{"fedid":"tesztAdmin@sztaki.hu","token":"23dc6cd07431b299af5ec5854e85adf0ae6083275ff22315956b690cb1b8bdb3"}
+{"fedid":"tesztAdmin@sztaki.hu","token":"d1a439f209823fb2860f7746f1afd03737335d6d22abb6fe901ffe50dfbd54a1"}
+** AUTHENTICATE **	{"fedid":"tesztAdmin@sztaki.hu","token":"d1a439f209823fb2860f7746f1afd03737335d6d22abb6fe901ffe50dfbd54a1"}
 ** AUTHENTICATE **	Normal API key acquired.
 POST 	/app.php/api/organizations.json
 POST 	/app.php/api/organizations/1/roles.json

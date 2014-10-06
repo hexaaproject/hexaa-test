@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
-<project name="HEXAA Tests" default="leveledtests">
+<project name="JavaCoreTest" default="leveledtests">
 
-  <property name="project.name" value="junitsuite"/>
+  <property name="project.name" value="JavaCoreTest"/>
   <property name="src.dir" value="src"/>
   <property name="test.dir" value="test"/>
   <property name="lib.dir" value="lib"/>

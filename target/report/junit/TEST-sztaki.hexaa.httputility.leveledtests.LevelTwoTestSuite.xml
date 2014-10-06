@@ -1,26 +1,27 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<testsuite errors="0" failures="0" hostname="banat" name="sztaki.hexaa.httputility.leveledtests.LevelTwoTestSuite" skipped="0" tests="31" time="105.058" timestamp="2014-09-29T13:43:38">
+<testsuite errors="0" failures="0" hostname="banat" name="sztaki.hexaa.httputility.leveledtests.LevelTwoTestSuite" skipped="0" tests="32" time="112.366" timestamp="2014-10-06T13:40:05">
   <properties>
     <property name="java.vendor" value="Oracle Corporation" />
     <property name="lib.dir" value="lib" />
     <property name="sun.java.launcher" value="SUN_STANDARD" />
     <property name="sun.management.compiler" value="HotSpot 64-Bit Tiered Compilers" />
-    <property name="current.time" value="09/29 03:42:08 PM" />
+    <property name="current.time" value="10/06 03:38:24 PM" />
     <property name="os.name" value="Linux" />
     <property name="sun.boot.class.path" value="/usr/lib/jvm/java-8-oracle/jre/lib/resources.jar:/usr/lib/jvm/java-8-oracle/jre/lib/rt.jar:/usr/lib/jvm/java-8-oracle/jre/lib/sunrsasign.jar:/usr/lib/jvm/java-8-oracle/jre/lib/jsse.jar:/usr/lib/jvm/java-8-oracle/jre/lib/jce.jar:/usr/lib/jvm/java-8-oracle/jre/lib/charsets.jar:/usr/lib/jvm/java-8-oracle/jre/lib/jfr.jar:/usr/lib/jvm/java-8-oracle/jre/classes" />
-    <property name="TODAY" value="September 29 2014" />
+    <property name="TODAY" value="October 6 2014" />
     <property name="sun.desktop" value="gnome" />
     <property name="java.vm.specification.vendor" value="Oracle Corporation" />
     <property name="ant.home" value="/usr/share/ant" />
     <property name="java.runtime.version" value="1.8.0_20-b26" />
     <property name="user.name" value="ede" />
+    <property name="ant.file.JavaCoreTest" value="/home/ede/NetBeansProjects/JavaCoreTest/hexaa-test/build.xml" />
     <property name="junit.out.dir.html" value="/var/www/html" />
+    <property name="ant.file.type.JavaCoreTest" value="file" />
     <property name="user.language" value="en" />
     <property name="sun.boot.library.path" value="/usr/lib/jvm/java-8-oracle/jre/lib/amd64" />
-    <property name="ant.file.HEXAA Tests" value="/home/ede/NetBeansProjects/JavaCoreTest/hexaa-test/alternate_buil.xml" />
     <property name="ant.project.default-target" value="leveledtests" />
-    <property name="ant.project.name" value="HEXAA Tests" />
-    <property name="DSTAMP" value="20140929" />
+    <property name="ant.project.name" value="JavaCoreTest" />
+    <property name="DSTAMP" value="20141006" />
     <property name="java.version" value="1.8.0_20" />
     <property name="user.timezone" value="Europe/Budapest" />
     <property name="sun.arch.data.model" value="64" />
@@ -32,11 +33,10 @@
     <property name="java.specification.name" value="Java Platform API Specification" />
     <property name="classes.dir" value="target/classes" />
     <property name="java.class.version" value="52.0" />
-    <property name="ant.file.type.HEXAA Tests" value="file" />
     <property name="user.country" value="US" />
     <property name="java.home" value="/usr/lib/jvm/java-8-oracle/jre" />
     <property name="java.vm.info" value="mixed mode" />
-    <property name="ant.file" value="/home/ede/NetBeansProjects/JavaCoreTest/hexaa-test/alternate_buil.xml" />
+    <property name="ant.file" value="/home/ede/NetBeansProjects/JavaCoreTest/hexaa-test/build.xml" />
     <property name="os.version" value="3.13.0-36-generic" />
     <property name="path.separator" value=":" />
     <property name="java.vm.version" value="25.20-b23" />
@@ -52,11 +52,11 @@
     <property name="java.vendor.url" value="http://java.oracle.com/" />
     <property name="java.vm.vendor" value="Oracle Corporation" />
     <property name="java.runtime.name" value="Java(TM) SE Runtime Environment" />
-    <property name="sun.java.command" value="org.apache.tools.ant.taskdefs.optional.junit.JUnitTestRunner sztaki.hexaa.httputility.leveledtests.LevelTwoTestSuite skipNonTests=false filtertrace=true haltOnError=false haltOnFailure=false formatter=org.apache.tools.ant.taskdefs.optional.junit.SummaryJUnitResultFormatter showoutput=false outputtoformatters=true logfailedtests=true logtestlistenerevents=false formatter=org.apache.tools.ant.taskdefs.optional.junit.XMLJUnitResultFormatter,/home/ede/NetBeansProjects/JavaCoreTest/hexaa-test/target/report/junit/TEST-sztaki.hexaa.httputility.leveledtests.LevelTwoTestSuite.xml crashfile=/home/ede/NetBeansProjects/JavaCoreTest/hexaa-test/junitvmwatcher6597457517220711230.properties propsfile=/home/ede/NetBeansProjects/JavaCoreTest/hexaa-test/junit5777196697846216189.properties" />
+    <property name="sun.java.command" value="org.apache.tools.ant.taskdefs.optional.junit.JUnitTestRunner sztaki.hexaa.httputility.leveledtests.LevelTwoTestSuite skipNonTests=false filtertrace=true haltOnError=false haltOnFailure=false formatter=org.apache.tools.ant.taskdefs.optional.junit.SummaryJUnitResultFormatter showoutput=false outputtoformatters=true logfailedtests=true logtestlistenerevents=false formatter=org.apache.tools.ant.taskdefs.optional.junit.XMLJUnitResultFormatter,/home/ede/NetBeansProjects/JavaCoreTest/hexaa-test/target/report/junit/TEST-sztaki.hexaa.httputility.leveledtests.LevelTwoTestSuite.xml crashfile=/home/ede/NetBeansProjects/JavaCoreTest/hexaa-test/junitvmwatcher6084906317851415513.properties propsfile=/home/ede/NetBeansProjects/JavaCoreTest/hexaa-test/junit2580711897290640247.properties" />
     <property name="java.class.path" value="/usr/share/ant/lib/ant-launcher.jar:/usr/share/java/xmlParserAPIs.jar:/usr/share/java/xercesImpl.jar:/usr/share/ant/lib/ant-apache-log4j.jar:/usr/share/ant/lib/ant-apache-resolver.jar:/usr/share/ant/lib/ant-testutil.jar:/usr/share/ant/lib/ant-jsch.jar:/usr/share/ant/lib/ant-antlr.jar:/usr/share/ant/lib/ant-commons-logging.jar:/usr/share/ant/lib/ant-jdepend.jar:/usr/share/ant/lib/ant-apache-xalan2.jar:/usr/share/ant/lib/ant-apache-bcel.jar:/usr/share/ant/lib/ant-apache-regexp.jar:/usr/share/ant/lib/ant-junit.jar:/usr/share/ant/lib/ant-apache-bsf.jar:/usr/share/ant/lib/ant-junit4.jar:/usr/share/ant/lib/ant-jmf.jar:/usr/share/ant/lib/ant-apache-oro.jar:/usr/share/ant/lib/ant-swing.jar:/usr/share/ant/lib/ant.jar:/usr/share/ant/lib/ant-javamail.jar:/usr/share/ant/lib/ant-commons-net.jar:/usr/lib/jvm/java-8-oracle/lib/tools.jar:/home/ede/NetBeansProjects/JavaCoreTest/hexaa-test/target/classes:/home/ede/NetBeansProjects/JavaCoreTest/hexaa-test/lib/commons-codec-1.9.jar:/home/ede/NetBeansProjects/JavaCoreTest/hexaa-test/lib/commons-logging-1.1.3.jar:/home/ede/NetBeansProjects/JavaCoreTest/hexaa-test/lib/httpclient-4.3.4.jar:/home/ede/NetBeansProjects/JavaCoreTest/hexaa-test/lib/httpcore-4.3.2.jar:/home/ede/NetBeansProjects/JavaCoreTest/hexaa-test/lib/json.jar:/home/ede/NetBeansProjects/JavaCoreTest/hexaa-test/lib/jsonassert-1.2.3.jar:/home/ede/NetBeansProjects/JavaCoreTest/hexaa-test/lib/junit-4.10.jar:/usr/share/java/ant-launcher-1.9.3.jar" />
     <property name="ant.version" value="Apache Ant(TM) version 1.9.3 compiled on April 8 2014" />
-    <property name="TSTAMP" value="1542" />
-    <property name="project.name" value="junitsuite" />
+    <property name="TSTAMP" value="1538" />
+    <property name="project.name" value="JavaCoreTest" />
     <property name="java.vm.specification.name" value="Java Virtual Machine Specification" />
     <property name="ant.file.type" value="file" />
     <property name="java.vm.specification.version" value="1.8" />
@@ -79,37 +79,38 @@
     <property name="src.dir" value="src" />
     <property name="ant.project.invoked-targets" value="leveledtests" />
   </properties>
-  <testcase classname="sztaki.hexaa.httputility.apicalls.attributespecs.AttributespecsDeleteTest" name="testAttributespecsDelete" time="0.253" />
-  <testcase classname="sztaki.hexaa.httputility.apicalls.attributespecs.AttributespecsGetTest" name="testAttributespecsGetByID" time="0.144" />
-  <testcase classname="sztaki.hexaa.httputility.apicalls.attributespecs.AttributespecsGetTest" name="testAttributespecsArray" time="0.133" />
-  <testcase classname="sztaki.hexaa.httputility.apicalls.attributespecs.AttributespecsPutTest" name="testAttributespecsPut" time="0.289" />
-  <testcase classname="sztaki.hexaa.httputility.apicalls.organizations.OrganizationDeleteTest" name="testOrganizationDelete" time="0.424" />
-  <testcase classname="sztaki.hexaa.httputility.apicalls.organizations.OrganizationGetTest" name="testOrganizationGetArray" time="0.151" />
-  <testcase classname="sztaki.hexaa.httputility.apicalls.organizations.OrganizationGetTest" name="testOrganizationGetById" time="0.251" />
-  <testcase classname="sztaki.hexaa.httputility.apicalls.organizations.OrganizationPutTest" name="testOrganizationPut" time="0.411" />
-  <testcase classname="sztaki.hexaa.httputility.apicalls.organizations.principals.OrganizationsManagersAddTest" name="testOrganizationManagersAdd" time="0.159" />
-  <testcase classname="sztaki.hexaa.httputility.apicalls.organizations.principals.OrganizationsMembersAddTest" name="testOrganizationMemberAdd" time="0.167" />
-  <testcase classname="sztaki.hexaa.httputility.apicalls.principals.PrincipalGetAdmin" name="testPrincipalGetNotAdmin" time="0.667" />
-  <testcase classname="sztaki.hexaa.httputility.apicalls.principals.PrincipalGetAdmin" name="testPrincipalGetIsAdmin" time="0.133" />
-  <testcase classname="sztaki.hexaa.httputility.apicalls.principals.PrincipalGetTest" name="testPrincipalSelfGet" time="0.154" />
-  <testcase classname="sztaki.hexaa.httputility.apicalls.principals.PrincipalGetTest" name="testPrincipalsGet" time="0.159" />
-  <testcase classname="sztaki.hexaa.httputility.apicalls.principals.PrincipalGetTest" name="testPrincipalsGetByFedid" time="0.114" />
-  <testcase classname="sztaki.hexaa.httputility.apicalls.principals.PrincipalGetTest" name="testPrincipalsGetById" time="0.134" />
-  <testcase classname="sztaki.hexaa.httputility.apicalls.principals.PrincipalsDeleteSelfTest" name="testPrincipalDeleteSelf" time="0.733" />
-  <testcase classname="sztaki.hexaa.httputility.apicalls.principals.PrincipalsDeleteTest" name="testPrincipalsDeleteByFedid" time="0.333" />
-  <testcase classname="sztaki.hexaa.httputility.apicalls.principals.PrincipalsDeleteTest" name="testPrincipalsDeleteById" time="0.291" />
-  <testcase classname="sztaki.hexaa.httputility.apicalls.principals.PrincipalsManagerGetOrganizationsTest" name="testPrincipalGetManagerOrg" time="0.149" />
-  <testcase classname="sztaki.hexaa.httputility.apicalls.principals.PrincipalsManagerGetServicesTest" name="testPrincipalGetManagerService" time="0.147" />
-  <testcase classname="sztaki.hexaa.httputility.apicalls.principals.PrincipalsMemeberGetOrganizationsTest" name="testPrincipalGetMemberOrg" time="0.158" />
-  <testcase classname="sztaki.hexaa.httputility.apicalls.roles.RolesPostTest" name="testRolesPost" time="0.173" />
-  <testcase classname="sztaki.hexaa.httputility.apicalls.services.ServicesDeleteTest" name="testServicesDelete" time="0.285" />
-  <testcase classname="sztaki.hexaa.httputility.apicalls.services.ServicesGetTest" name="testServicesGetArray" time="0.137" />
-  <testcase classname="sztaki.hexaa.httputility.apicalls.services.ServicesGetTest" name="testServicesGetByID" time="0.269" />
-  <testcase classname="sztaki.hexaa.httputility.apicalls.services.ServicesGetTest" name="testServicesGetByArray" time="0.141" />
-  <testcase classname="sztaki.hexaa.httputility.apicalls.services.ServicesPutTest" name="testServicesPut" time="0.36" />
-  <testcase classname="sztaki.hexaa.httputility.apicalls.services.attributespecs.ServicesAttributespecsAddTest" name="testServicesAttributespecsAdd" time="0.965" />
-  <testcase classname="sztaki.hexaa.httputility.apicalls.services.entitlementpacks.ServicesEntitlementpacksPostTest" name="testServiceEntitlementpacksPosts" time="0.663" />
-  <testcase classname="sztaki.hexaa.httputility.apicalls.services.entitlements.ServicesEntitlementsPostTest" name="testServiceEntitlementsPosts" time="0.47" />
+  <testcase classname="sztaki.hexaa.httputility.apicalls.attributespecs.AttributespecsDeleteTest" name="testAttributespecsDelete" time="0.262" />
+  <testcase classname="sztaki.hexaa.httputility.apicalls.attributespecs.AttributespecsGetTest" name="testAttributespecsArray" time="0.137" />
+  <testcase classname="sztaki.hexaa.httputility.apicalls.attributespecs.AttributespecsGetTest" name="testAttributespecsGetByID" time="0.133" />
+  <testcase classname="sztaki.hexaa.httputility.apicalls.attributespecs.AttributespecsPutTest" name="testAttributespecsPut" time="0.306" />
+  <testcase classname="sztaki.hexaa.httputility.apicalls.attributespecs.AttributespecsPatchTest" name="testAttributespecsPatch" time="0.262" />
+  <testcase classname="sztaki.hexaa.httputility.apicalls.organizations.OrganizationDeleteTest" name="testOrganizationDelete" time="0.409" />
+  <testcase classname="sztaki.hexaa.httputility.apicalls.organizations.OrganizationGetTest" name="testOrganizationGetArray" time="0.159" />
+  <testcase classname="sztaki.hexaa.httputility.apicalls.organizations.OrganizationGetTest" name="testOrganizationGetById" time="0.278" />
+  <testcase classname="sztaki.hexaa.httputility.apicalls.organizations.OrganizationPutTest" name="testOrganizationPut" time="0.484" />
+  <testcase classname="sztaki.hexaa.httputility.apicalls.organizations.principals.OrganizationsManagersAddTest" name="testOrganizationManagersAdd" time="0.156" />
+  <testcase classname="sztaki.hexaa.httputility.apicalls.organizations.principals.OrganizationsMembersAddTest" name="testOrganizationMemberAdd" time="0.136" />
+  <testcase classname="sztaki.hexaa.httputility.apicalls.principals.PrincipalGetAdmin" name="testPrincipalGetIsAdmin" time="0.13" />
+  <testcase classname="sztaki.hexaa.httputility.apicalls.principals.PrincipalGetAdmin" name="testPrincipalGetNotAdmin" time="0.705" />
+  <testcase classname="sztaki.hexaa.httputility.apicalls.principals.PrincipalGetTest" name="testPrincipalSelfGet" time="0.125" />
+  <testcase classname="sztaki.hexaa.httputility.apicalls.principals.PrincipalGetTest" name="testPrincipalsGet" time="0.139" />
+  <testcase classname="sztaki.hexaa.httputility.apicalls.principals.PrincipalGetTest" name="testPrincipalsGetByFedid" time="0.158" />
+  <testcase classname="sztaki.hexaa.httputility.apicalls.principals.PrincipalGetTest" name="testPrincipalsGetById" time="0.116" />
+  <testcase classname="sztaki.hexaa.httputility.apicalls.principals.PrincipalsDeleteSelfTest" name="testPrincipalDeleteSelf" time="0.713" />
+  <testcase classname="sztaki.hexaa.httputility.apicalls.principals.PrincipalsDeleteTest" name="testPrincipalsDeleteByFedid" time="0.308" />
+  <testcase classname="sztaki.hexaa.httputility.apicalls.principals.PrincipalsDeleteTest" name="testPrincipalsDeleteById" time="0.292" />
+  <testcase classname="sztaki.hexaa.httputility.apicalls.principals.PrincipalsManagerGetOrganizationsTest" name="testPrincipalGetManagerOrg" time="0.155" />
+  <testcase classname="sztaki.hexaa.httputility.apicalls.principals.PrincipalsManagerGetServicesTest" name="testPrincipalGetManagerService" time="0.154" />
+  <testcase classname="sztaki.hexaa.httputility.apicalls.principals.PrincipalsMemeberGetOrganizationsTest" name="testPrincipalGetMemberOrg" time="0.15" />
+  <testcase classname="sztaki.hexaa.httputility.apicalls.roles.RolesPostTest" name="testRolesPost" time="0.147" />
+  <testcase classname="sztaki.hexaa.httputility.apicalls.services.ServicesDeleteTest" name="testServicesDelete" time="0.283" />
+  <testcase classname="sztaki.hexaa.httputility.apicalls.services.ServicesGetTest" name="testServicesGetArray" time="0.144" />
+  <testcase classname="sztaki.hexaa.httputility.apicalls.services.ServicesGetTest" name="testServicesGetByID" time="0.281" />
+  <testcase classname="sztaki.hexaa.httputility.apicalls.services.ServicesGetTest" name="testServicesGetByArray" time="0.142" />
+  <testcase classname="sztaki.hexaa.httputility.apicalls.services.ServicesPutTest" name="testServicesPut" time="0.315" />
+  <testcase classname="sztaki.hexaa.httputility.apicalls.services.attributespecs.ServicesAttributespecsAddTest" name="testServicesAttributespecsAdd" time="1.125" />
+  <testcase classname="sztaki.hexaa.httputility.apicalls.services.entitlementpacks.ServicesEntitlementpacksPostTest" name="testServiceEntitlementpacksPosts" time="0.535" />
+  <testcase classname="sztaki.hexaa.httputility.apicalls.services.entitlements.ServicesEntitlementsPostTest" name="testServiceEntitlementsPosts" time="0.483" />
   <system-out><![CDATA[BeforeClass @ CleanTest
 /home/ede/NetBeansProjects/JavaCoreTest/hexaa-test
 *** Loading Properties ***
@@ -117,6 +118,7 @@
 *** 192.168.203.203
 *** tesztAdmin@sztaki.hu
 *** 7lrfjlpu5br2vpv1jcaogdz481b28xf7lz85wqmv
+OUTPUT>Could not open input file: app/console
 OUTPUT>Dropped database for connection named `hexaa`
 OUTPUT>Created database for connection named `hexaa`
 OUTPUT>Updating database schema...
@@ -127,11 +129,11 @@ ExitValue: 0
 ** AUTHENTICATE **	Getting temporary API key.
 ** AUTHENTICATE **	Temporary API key acquired.
 ** AUTHENTICATE **	POST 	/app.php/api/tokens.json
-{"fedid":"tesztAdmin@sztaki.hu","token":"202ce480f20c137dd08b635c8c2ab54eef3e82c9486de31df48ce81b6f422939"}
-** AUTHENTICATE **	{"fedid":"tesztAdmin@sztaki.hu","token":"202ce480f20c137dd08b635c8c2ab54eef3e82c9486de31df48ce81b6f422939"}
+{"fedid":"tesztAdmin@sztaki.hu","token":"eb4b8268da9f0ec967ab88149a9c4a4169c233a97972291c3a0581a6b9827fdd"}
+** AUTHENTICATE **	{"fedid":"tesztAdmin@sztaki.hu","token":"eb4b8268da9f0ec967ab88149a9c4a4169c233a97972291c3a0581a6b9827fdd"}
 ** AUTHENTICATE **	Normal API key acquired.
-***	 AttributespecsDeleteTest ***
 POST 	/app.php/api/attributespecs.json
+***	 AttributespecsDeleteTest ***
 DEL 	/app.php/api/attributespecs/1.json
 GET 	/app.php/api/attributespecs.json
 BeforeClass @ CleanTest
@@ -141,6 +143,7 @@ BeforeClass @ CleanTest
 *** 192.168.203.203
 *** tesztAdmin@sztaki.hu
 *** 7lrfjlpu5br2vpv1jcaogdz481b28xf7lz85wqmv
+OUTPUT>Could not open input file: app/console
 OUTPUT>Dropped database for connection named `hexaa`
 OUTPUT>Created database for connection named `hexaa`
 OUTPUT>Updating database schema...
@@ -151,14 +154,14 @@ ExitValue: 0
 ** AUTHENTICATE **	Getting temporary API key.
 ** AUTHENTICATE **	Temporary API key acquired.
 ** AUTHENTICATE **	POST 	/app.php/api/tokens.json
-{"fedid":"tesztAdmin@sztaki.hu","token":"2b4131ba01b71e5b1898c4739665b319f8e9127a40ebb9b64f8e85c273f8deae"}
-** AUTHENTICATE **	{"fedid":"tesztAdmin@sztaki.hu","token":"2b4131ba01b71e5b1898c4739665b319f8e9127a40ebb9b64f8e85c273f8deae"}
+{"fedid":"tesztAdmin@sztaki.hu","token":"9bd317e63726ddf582449ef2fe069d009f19de41922cef40a7deccdf38f5d822"}
+** AUTHENTICATE **	{"fedid":"tesztAdmin@sztaki.hu","token":"9bd317e63726ddf582449ef2fe069d009f19de41922cef40a7deccdf38f5d822"}
 ** AUTHENTICATE **	Normal API key acquired.
+POST 	/app.php/api/attributespecs.json
+POST 	/app.php/api/attributespecs.json
 ***	 AttributespecsGetTest ***
-POST 	/app.php/api/attributespecs.json
-POST 	/app.php/api/attributespecs.json
-GET 	/app.php/api/attributespecs/2.json
 GET 	/app.php/api/attributespecs.json
+GET 	/app.php/api/attributespecs/2.json
 BeforeClass @ CleanTest
 /home/ede/NetBeansProjects/JavaCoreTest/hexaa-test
 *** Loading Properties ***
@@ -166,6 +169,7 @@ BeforeClass @ CleanTest
 *** 192.168.203.203
 *** tesztAdmin@sztaki.hu
 *** 7lrfjlpu5br2vpv1jcaogdz481b28xf7lz85wqmv
+OUTPUT>Could not open input file: app/console
 OUTPUT>Dropped database for connection named `hexaa`
 OUTPUT>Created database for connection named `hexaa`
 OUTPUT>Updating database schema...
@@ -176,11 +180,11 @@ ExitValue: 0
 ** AUTHENTICATE **	Getting temporary API key.
 ** AUTHENTICATE **	Temporary API key acquired.
 ** AUTHENTICATE **	POST 	/app.php/api/tokens.json
-{"fedid":"tesztAdmin@sztaki.hu","token":"887fdecf952cca3243f1ed9fe14ae3f0393da48896aa4a17f33ac915e1a9f816"}
-** AUTHENTICATE **	{"fedid":"tesztAdmin@sztaki.hu","token":"887fdecf952cca3243f1ed9fe14ae3f0393da48896aa4a17f33ac915e1a9f816"}
+{"fedid":"tesztAdmin@sztaki.hu","token":"6981b82acb65270ab350ac917deaf0f112987047c18b6f5686fd00bd3bda12c1"}
+** AUTHENTICATE **	{"fedid":"tesztAdmin@sztaki.hu","token":"6981b82acb65270ab350ac917deaf0f112987047c18b6f5686fd00bd3bda12c1"}
 ** AUTHENTICATE **	Normal API key acquired.
-***	 AttributespecsPutTest ***
 POST 	/app.php/api/attributespecs.json
+***	 AttributespecsPutTest ***
 PUT 	/app.php/api/attributespecs/1.json
 GET 	/app.php/api/attributespecs/1.json
 BeforeClass @ CleanTest
@@ -190,6 +194,7 @@ BeforeClass @ CleanTest
 *** 192.168.203.203
 *** tesztAdmin@sztaki.hu
 *** 7lrfjlpu5br2vpv1jcaogdz481b28xf7lz85wqmv
+OUTPUT>Could not open input file: app/console
 OUTPUT>Dropped database for connection named `hexaa`
 OUTPUT>Created database for connection named `hexaa`
 OUTPUT>Updating database schema...
@@ -200,12 +205,37 @@ ExitValue: 0
 ** AUTHENTICATE **	Getting temporary API key.
 ** AUTHENTICATE **	Temporary API key acquired.
 ** AUTHENTICATE **	POST 	/app.php/api/tokens.json
-{"fedid":"tesztAdmin@sztaki.hu","token":"6ab54a8c9e258e32fc781d70ee7e00c56ab7630cefc41bcde40bda192d1fc9b1"}
-** AUTHENTICATE **	{"fedid":"tesztAdmin@sztaki.hu","token":"6ab54a8c9e258e32fc781d70ee7e00c56ab7630cefc41bcde40bda192d1fc9b1"}
+{"fedid":"tesztAdmin@sztaki.hu","token":"2a938de15cfbf4af54d77887d74330e3fb978ab13f41fdbc6d6891445cc0acd7"}
+** AUTHENTICATE **	{"fedid":"tesztAdmin@sztaki.hu","token":"2a938de15cfbf4af54d77887d74330e3fb978ab13f41fdbc6d6891445cc0acd7"}
 ** AUTHENTICATE **	Normal API key acquired.
+POST 	/app.php/api/attributespecs.json
+***	 AttributespecsPatchTest ***
+PATCH 	/app.php/api/attributespecs/1.json
+GET 	/app.php/api/attributespecs/1.json
+BeforeClass @ CleanTest
+/home/ede/NetBeansProjects/JavaCoreTest/hexaa-test
+*** Loading Properties ***
+*** 80
+*** 192.168.203.203
+*** tesztAdmin@sztaki.hu
+*** 7lrfjlpu5br2vpv1jcaogdz481b28xf7lz85wqmv
+OUTPUT>Could not open input file: app/console
+OUTPUT>Dropped database for connection named `hexaa`
+OUTPUT>Created database for connection named `hexaa`
+OUTPUT>Updating database schema...
+OUTPUT>Database schema updated successfully! "64" queries were executed
+ExitValue: 0
+** AUTHENTICATE **	GET 	/app.php/api/principal/self.json
+** AUTHENTICATE **	{"code":403,"message":"Forbidden","errors":null}
+** AUTHENTICATE **	Getting temporary API key.
+** AUTHENTICATE **	Temporary API key acquired.
+** AUTHENTICATE **	POST 	/app.php/api/tokens.json
+{"fedid":"tesztAdmin@sztaki.hu","token":"4b78e6e3bb23f43621ea6dcd5456402c370a6801f240ce791e9f6c09caadbd91"}
+** AUTHENTICATE **	{"fedid":"tesztAdmin@sztaki.hu","token":"4b78e6e3bb23f43621ea6dcd5456402c370a6801f240ce791e9f6c09caadbd91"}
+** AUTHENTICATE **	Normal API key acquired.
+POST 	/app.php/api/organizations.json
+POST 	/app.php/api/organizations.json
 ***	 OrganizationDeleteTest ***
-POST 	/app.php/api/organizations.json
-POST 	/app.php/api/organizations.json
 DEL 	/app.php/api/organizations/1.json
 GET 	/app.php/api/organizations/1.json
 GET 	/app.php/api/organizations/2.json
@@ -216,6 +246,7 @@ BeforeClass @ CleanTest
 *** 192.168.203.203
 *** tesztAdmin@sztaki.hu
 *** 7lrfjlpu5br2vpv1jcaogdz481b28xf7lz85wqmv
+OUTPUT>Could not open input file: app/console
 OUTPUT>Dropped database for connection named `hexaa`
 OUTPUT>Created database for connection named `hexaa`
 OUTPUT>Updating database schema...
@@ -226,12 +257,12 @@ ExitValue: 0
 ** AUTHENTICATE **	Getting temporary API key.
 ** AUTHENTICATE **	Temporary API key acquired.
 ** AUTHENTICATE **	POST 	/app.php/api/tokens.json
-{"fedid":"tesztAdmin@sztaki.hu","token":"b12f6db271bb1841c3f47fbff63381810a5c46bd442583559b9fa640e4f18f00"}
-** AUTHENTICATE **	{"fedid":"tesztAdmin@sztaki.hu","token":"b12f6db271bb1841c3f47fbff63381810a5c46bd442583559b9fa640e4f18f00"}
+{"fedid":"tesztAdmin@sztaki.hu","token":"40b15acdb84dfbb4f8adde4f1d84e5e78d7f5d92ab6eaf9763aa679842fabe30"}
+** AUTHENTICATE **	{"fedid":"tesztAdmin@sztaki.hu","token":"40b15acdb84dfbb4f8adde4f1d84e5e78d7f5d92ab6eaf9763aa679842fabe30"}
 ** AUTHENTICATE **	Normal API key acquired.
+POST 	/app.php/api/organizations.json
+POST 	/app.php/api/organizations.json
 ***	 OrganizationGetTest ***
-POST 	/app.php/api/organizations.json
-POST 	/app.php/api/organizations.json
 GET 	/app.php/api/organizations.json
 GET 	/app.php/api/organizations/1.json
 GET 	/app.php/api/organizations/2.json
@@ -242,6 +273,7 @@ BeforeClass @ CleanTest
 *** 192.168.203.203
 *** tesztAdmin@sztaki.hu
 *** 7lrfjlpu5br2vpv1jcaogdz481b28xf7lz85wqmv
+OUTPUT>Could not open input file: app/console
 OUTPUT>Dropped database for connection named `hexaa`
 OUTPUT>Created database for connection named `hexaa`
 OUTPUT>Updating database schema...
@@ -252,12 +284,12 @@ ExitValue: 0
 ** AUTHENTICATE **	Getting temporary API key.
 ** AUTHENTICATE **	Temporary API key acquired.
 ** AUTHENTICATE **	POST 	/app.php/api/tokens.json
-{"fedid":"tesztAdmin@sztaki.hu","token":"9b28e11be8ceea9a12dd20f699dcfb6a944e20f7747ffa4efaa1a7b97335692a"}
-** AUTHENTICATE **	{"fedid":"tesztAdmin@sztaki.hu","token":"9b28e11be8ceea9a12dd20f699dcfb6a944e20f7747ffa4efaa1a7b97335692a"}
+{"fedid":"tesztAdmin@sztaki.hu","token":"78f77e4d853a855d0bea2efc11be37205f7cd5f93244632c4e29d184161dfa0f"}
+** AUTHENTICATE **	{"fedid":"tesztAdmin@sztaki.hu","token":"78f77e4d853a855d0bea2efc11be37205f7cd5f93244632c4e29d184161dfa0f"}
 ** AUTHENTICATE **	Normal API key acquired.
+POST 	/app.php/api/organizations.json
+POST 	/app.php/api/organizations.json
 ***	 OrganizationPutTest ***
-POST 	/app.php/api/organizations.json
-POST 	/app.php/api/organizations.json
 PUT 	/app.php/api/organizations/1.json
 GET 	/app.php/api/organizations/1.json
 GET 	/app.php/api/organizations/2.json
@@ -268,6 +300,7 @@ BeforeClass @ CleanTest
 *** 192.168.203.203
 *** tesztAdmin@sztaki.hu
 *** 7lrfjlpu5br2vpv1jcaogdz481b28xf7lz85wqmv
+OUTPUT>Could not open input file: app/console
 OUTPUT>Dropped database for connection named `hexaa`
 OUTPUT>Created database for connection named `hexaa`
 OUTPUT>Updating database schema...
@@ -278,12 +311,12 @@ ExitValue: 0
 ** AUTHENTICATE **	Getting temporary API key.
 ** AUTHENTICATE **	Temporary API key acquired.
 ** AUTHENTICATE **	POST 	/app.php/api/tokens.json
-{"fedid":"tesztAdmin@sztaki.hu","token":"9fb7615fe2ae4bab04c14db64cac1cedc5e35ad024d6a5719b6f1354b4c60c08"}
-** AUTHENTICATE **	{"fedid":"tesztAdmin@sztaki.hu","token":"9fb7615fe2ae4bab04c14db64cac1cedc5e35ad024d6a5719b6f1354b4c60c08"}
+{"fedid":"tesztAdmin@sztaki.hu","token":"668a480183258aaa18f0bb15f96ffbf786e88061fad875e927da2cc57baaac2c"}
+** AUTHENTICATE **	{"fedid":"tesztAdmin@sztaki.hu","token":"668a480183258aaa18f0bb15f96ffbf786e88061fad875e927da2cc57baaac2c"}
 ** AUTHENTICATE **	Normal API key acquired.
-***	 OrganizationsManagersAddTest ***
 POST 	/app.php/api/organizations.json
 POST 	/app.php/api/principals.json
+***	 OrganizationsManagersAddTest ***
 PUT 	/app.php/api/organizations/1/managers/2.json
 BeforeClass @ CleanTest
 /home/ede/NetBeansProjects/JavaCoreTest/hexaa-test
@@ -292,6 +325,7 @@ BeforeClass @ CleanTest
 *** 192.168.203.203
 *** tesztAdmin@sztaki.hu
 *** 7lrfjlpu5br2vpv1jcaogdz481b28xf7lz85wqmv
+OUTPUT>Could not open input file: app/console
 OUTPUT>Dropped database for connection named `hexaa`
 OUTPUT>Created database for connection named `hexaa`
 OUTPUT>Updating database schema...
@@ -302,12 +336,12 @@ ExitValue: 0
 ** AUTHENTICATE **	Getting temporary API key.
 ** AUTHENTICATE **	Temporary API key acquired.
 ** AUTHENTICATE **	POST 	/app.php/api/tokens.json
-{"fedid":"tesztAdmin@sztaki.hu","token":"fb8919d3ba93f328168338fb1931bb588ad4b4a938109fdb98ee37da161a257e"}
-** AUTHENTICATE **	{"fedid":"tesztAdmin@sztaki.hu","token":"fb8919d3ba93f328168338fb1931bb588ad4b4a938109fdb98ee37da161a257e"}
+{"fedid":"tesztAdmin@sztaki.hu","token":"73b916962127f621cdef107f84e619de297a1e3a8de377e17ab0e6797cc61c9e"}
+** AUTHENTICATE **	{"fedid":"tesztAdmin@sztaki.hu","token":"73b916962127f621cdef107f84e619de297a1e3a8de377e17ab0e6797cc61c9e"}
 ** AUTHENTICATE **	Normal API key acquired.
-***	 OrganizationsMembersAddTest ***
 POST 	/app.php/api/organizations.json
 POST 	/app.php/api/principals.json
+***	 OrganizationsMembersAddTest ***
 PUT 	/app.php/api/organizations/1/members/2.json
 BeforeClass @ CleanTest
 /home/ede/NetBeansProjects/JavaCoreTest/hexaa-test
@@ -316,6 +350,7 @@ BeforeClass @ CleanTest
 *** 192.168.203.203
 *** tesztAdmin@sztaki.hu
 *** 7lrfjlpu5br2vpv1jcaogdz481b28xf7lz85wqmv
+OUTPUT>Could not open input file: app/console
 OUTPUT>Dropped database for connection named `hexaa`
 OUTPUT>Created database for connection named `hexaa`
 OUTPUT>Updating database schema...
@@ -326,28 +361,28 @@ ExitValue: 0
 ** AUTHENTICATE **	Getting temporary API key.
 ** AUTHENTICATE **	Temporary API key acquired.
 ** AUTHENTICATE **	POST 	/app.php/api/tokens.json
-{"fedid":"tesztAdmin@sztaki.hu","token":"a362e1453a15360c4cd7ced805786e210a5f48f45bf697ba307d42b7d7dd9b24"}
-** AUTHENTICATE **	{"fedid":"tesztAdmin@sztaki.hu","token":"a362e1453a15360c4cd7ced805786e210a5f48f45bf697ba307d42b7d7dd9b24"}
+{"fedid":"tesztAdmin@sztaki.hu","token":"6b361daaf7836922b2f507cf7edeb6be5e8a407d49362772ab87dfde91c8ef8e"}
+** AUTHENTICATE **	{"fedid":"tesztAdmin@sztaki.hu","token":"6b361daaf7836922b2f507cf7edeb6be5e8a407d49362772ab87dfde91c8ef8e"}
 ** AUTHENTICATE **	Normal API key acquired.
 ***	 PrincipalGetAdmin ***
+GET 	/app.php/api/principal/isadmin.json
 ** AUTHENTICATE **	GET 	/app.php/api/principal/self.json
-** AUTHENTICATE **	{"created_at":"2014-09-29T13:44:18+0000","id":1,"fedid":"tesztAdmin@sztaki.hu","display_name":"tesztAdmin@sztaki.hu_name","email":"tesztAdmin@sztaki.hu"}
+** AUTHENTICATE **	{"created_at":"2014-10-06T13:40:53+0000","id":1,"fedid":"tesztAdmin@sztaki.hu","display_name":"tesztAdmin@sztaki.hu_name","email":"tesztAdmin@sztaki.hu"}
 ** AUTHENTICATE **	Getting temporary API key.
 ** AUTHENTICATE **	Temporary API key acquired.
 ** AUTHENTICATE **	POST 	/app.php/api/tokens.json
-{"fedid":"admin@is.not","token":"3712eab6174b556f75e5ecba7e3b144c92377db921e18e13b7085d2abf1cb5dc"}
-** AUTHENTICATE **	{"fedid":"admin@is.not","token":"3712eab6174b556f75e5ecba7e3b144c92377db921e18e13b7085d2abf1cb5dc"}
+{"fedid":"admin@is.not","token":"96c2c6e96aa6449c2ac775d9394eda772dce358e77bf8b5c0bb35f7c28fa75a8"}
+** AUTHENTICATE **	{"fedid":"admin@is.not","token":"96c2c6e96aa6449c2ac775d9394eda772dce358e77bf8b5c0bb35f7c28fa75a8"}
 ** AUTHENTICATE **	Normal API key acquired.
 GET 	/app.php/api/principal/isadmin.json
 ** AUTHENTICATE **	GET 	/app.php/api/principal/self.json
-** AUTHENTICATE **	{"created_at":"2014-09-29T13:44:18+0000","id":2,"fedid":"admin@is.not","display_name":"admin@is.not_name","email":"admin@is.not"}
+** AUTHENTICATE **	{"created_at":"2014-10-06T13:40:53+0000","id":2,"fedid":"admin@is.not","display_name":"admin@is.not_name","email":"admin@is.not"}
 ** AUTHENTICATE **	Getting temporary API key.
 ** AUTHENTICATE **	Temporary API key acquired.
 ** AUTHENTICATE **	POST 	/app.php/api/tokens.json
-{"fedid":"tesztAdmin@sztaki.hu","token":"a362e1453a15360c4cd7ced805786e210a5f48f45bf697ba307d42b7d7dd9b24"}
-** AUTHENTICATE **	{"fedid":"tesztAdmin@sztaki.hu","token":"a362e1453a15360c4cd7ced805786e210a5f48f45bf697ba307d42b7d7dd9b24"}
+{"fedid":"tesztAdmin@sztaki.hu","token":"6b361daaf7836922b2f507cf7edeb6be5e8a407d49362772ab87dfde91c8ef8e"}
+** AUTHENTICATE **	{"fedid":"tesztAdmin@sztaki.hu","token":"6b361daaf7836922b2f507cf7edeb6be5e8a407d49362772ab87dfde91c8ef8e"}
 ** AUTHENTICATE **	Normal API key acquired.
-GET 	/app.php/api/principal/isadmin.json
 BeforeClass @ CleanTest
 /home/ede/NetBeansProjects/JavaCoreTest/hexaa-test
 *** Loading Properties ***
@@ -355,6 +390,7 @@ BeforeClass @ CleanTest
 *** 192.168.203.203
 *** tesztAdmin@sztaki.hu
 *** 7lrfjlpu5br2vpv1jcaogdz481b28xf7lz85wqmv
+OUTPUT>Could not open input file: app/console
 OUTPUT>Dropped database for connection named `hexaa`
 OUTPUT>Created database for connection named `hexaa`
 OUTPUT>Updating database schema...
@@ -365,8 +401,8 @@ ExitValue: 0
 ** AUTHENTICATE **	Getting temporary API key.
 ** AUTHENTICATE **	Temporary API key acquired.
 ** AUTHENTICATE **	POST 	/app.php/api/tokens.json
-{"fedid":"tesztAdmin@sztaki.hu","token":"d0dd2a715a77dae83114cda24b03a671fb43f076fd7228f885c4ad3de179347c"}
-** AUTHENTICATE **	{"fedid":"tesztAdmin@sztaki.hu","token":"d0dd2a715a77dae83114cda24b03a671fb43f076fd7228f885c4ad3de179347c"}
+{"fedid":"tesztAdmin@sztaki.hu","token":"35c62c1212bd31b58930ac3d9dee0a8ce2e6146d77576ca23daf9f8a77a19b6c"}
+** AUTHENTICATE **	{"fedid":"tesztAdmin@sztaki.hu","token":"35c62c1212bd31b58930ac3d9dee0a8ce2e6146d77576ca23daf9f8a77a19b6c"}
 ** AUTHENTICATE **	Normal API key acquired.
 ***	 PrincipalGetTest ***
 GET 	/app.php/api/principal/self.json
@@ -380,6 +416,7 @@ BeforeClass @ CleanTest
 *** 192.168.203.203
 *** tesztAdmin@sztaki.hu
 *** 7lrfjlpu5br2vpv1jcaogdz481b28xf7lz85wqmv
+OUTPUT>Could not open input file: app/console
 OUTPUT>Dropped database for connection named `hexaa`
 OUTPUT>Created database for connection named `hexaa`
 OUTPUT>Updating database schema...
@@ -390,18 +427,18 @@ ExitValue: 0
 ** AUTHENTICATE **	Getting temporary API key.
 ** AUTHENTICATE **	Temporary API key acquired.
 ** AUTHENTICATE **	POST 	/app.php/api/tokens.json
-{"fedid":"tesztAdmin@sztaki.hu","token":"8af7f5a0b1b75580a54ff3583e0d5ba1c79dbc3df2293de161bb5a56ad78b427"}
-** AUTHENTICATE **	{"fedid":"tesztAdmin@sztaki.hu","token":"8af7f5a0b1b75580a54ff3583e0d5ba1c79dbc3df2293de161bb5a56ad78b427"}
+{"fedid":"tesztAdmin@sztaki.hu","token":"ed63afd8eaf605a6fae744e075ea1d22734a2e6b7ca443eadf3cb3945b4b9f6b"}
+** AUTHENTICATE **	{"fedid":"tesztAdmin@sztaki.hu","token":"ed63afd8eaf605a6fae744e075ea1d22734a2e6b7ca443eadf3cb3945b4b9f6b"}
 ** AUTHENTICATE **	Normal API key acquired.
-***	 PrincipalsDeleteSelfTest ***
 ** AUTHENTICATE **	GET 	/app.php/api/principal/self.json
-** AUTHENTICATE **	{"created_at":"2014-09-29T13:44:27+0000","id":1,"fedid":"tesztAdmin@sztaki.hu","display_name":"tesztAdmin@sztaki.hu_name","email":"tesztAdmin@sztaki.hu"}
+** AUTHENTICATE **	{"created_at":"2014-10-06T13:41:03+0000","id":1,"fedid":"tesztAdmin@sztaki.hu","display_name":"tesztAdmin@sztaki.hu_name","email":"tesztAdmin@sztaki.hu"}
 ** AUTHENTICATE **	Getting temporary API key.
 ** AUTHENTICATE **	Temporary API key acquired.
 ** AUTHENTICATE **	POST 	/app.php/api/tokens.json
-{"fedid":"testPrincipal@something.test","token":"32b0f5cd3f5c4091ec7b3ed587005ab5f14f26df79488f3cefb63acb7c11c0b9"}
-** AUTHENTICATE **	{"fedid":"testPrincipal@something.test","token":"32b0f5cd3f5c4091ec7b3ed587005ab5f14f26df79488f3cefb63acb7c11c0b9"}
+{"fedid":"testPrincipal@something.test","token":"b9109b0bb421e6aaab07155fa5609d2d35a3648ed8b65a965a0020b118f103b2"}
+** AUTHENTICATE **	{"fedid":"testPrincipal@something.test","token":"b9109b0bb421e6aaab07155fa5609d2d35a3648ed8b65a965a0020b118f103b2"}
 ** AUTHENTICATE **	Normal API key acquired.
+***	 PrincipalsDeleteSelfTest ***
 GET 	/app.php/api/principal/self.json
 DEL 	/app.php/api/principal.json
 GET 	/app.php/api/principal/self.json
@@ -410,8 +447,8 @@ GET 	/app.php/api/principal/self.json
 ** AUTHENTICATE **	Getting temporary API key.
 ** AUTHENTICATE **	Temporary API key acquired.
 ** AUTHENTICATE **	POST 	/app.php/api/tokens.json
-{"fedid":"tesztAdmin@sztaki.hu","token":"8af7f5a0b1b75580a54ff3583e0d5ba1c79dbc3df2293de161bb5a56ad78b427"}
-** AUTHENTICATE **	{"fedid":"tesztAdmin@sztaki.hu","token":"8af7f5a0b1b75580a54ff3583e0d5ba1c79dbc3df2293de161bb5a56ad78b427"}
+{"fedid":"tesztAdmin@sztaki.hu","token":"ed63afd8eaf605a6fae744e075ea1d22734a2e6b7ca443eadf3cb3945b4b9f6b"}
+** AUTHENTICATE **	{"fedid":"tesztAdmin@sztaki.hu","token":"ed63afd8eaf605a6fae744e075ea1d22734a2e6b7ca443eadf3cb3945b4b9f6b"}
 ** AUTHENTICATE **	Normal API key acquired.
 GET 	/app.php/api/principals.json
 BeforeClass @ CleanTest
@@ -421,6 +458,7 @@ BeforeClass @ CleanTest
 *** 192.168.203.203
 *** tesztAdmin@sztaki.hu
 *** 7lrfjlpu5br2vpv1jcaogdz481b28xf7lz85wqmv
+OUTPUT>Could not open input file: app/console
 OUTPUT>Dropped database for connection named `hexaa`
 OUTPUT>Created database for connection named `hexaa`
 OUTPUT>Updating database schema...
@@ -431,8 +469,8 @@ ExitValue: 0
 ** AUTHENTICATE **	Getting temporary API key.
 ** AUTHENTICATE **	Temporary API key acquired.
 ** AUTHENTICATE **	POST 	/app.php/api/tokens.json
-{"fedid":"tesztAdmin@sztaki.hu","token":"79e15ed4b921989b62efa33a8f5bd60653e39e20e0537a9f40d85fb6c1ed9a1a"}
-** AUTHENTICATE **	{"fedid":"tesztAdmin@sztaki.hu","token":"79e15ed4b921989b62efa33a8f5bd60653e39e20e0537a9f40d85fb6c1ed9a1a"}
+{"fedid":"tesztAdmin@sztaki.hu","token":"69bc1471ccca75546e312ab04fc80d804cb556bf236b158cbb2d73090f361f62"}
+** AUTHENTICATE **	{"fedid":"tesztAdmin@sztaki.hu","token":"69bc1471ccca75546e312ab04fc80d804cb556bf236b158cbb2d73090f361f62"}
 ** AUTHENTICATE **	Normal API key acquired.
 ***	 PrincipalsDeleteTest ***
 POST 	/app.php/api/principals.json
@@ -446,6 +484,7 @@ BeforeClass @ CleanTest
 *** 192.168.203.203
 *** tesztAdmin@sztaki.hu
 *** 7lrfjlpu5br2vpv1jcaogdz481b28xf7lz85wqmv
+OUTPUT>Could not open input file: app/console
 OUTPUT>Dropped database for connection named `hexaa`
 OUTPUT>Created database for connection named `hexaa`
 OUTPUT>Updating database schema...
@@ -456,11 +495,11 @@ ExitValue: 0
 ** AUTHENTICATE **	Getting temporary API key.
 ** AUTHENTICATE **	Temporary API key acquired.
 ** AUTHENTICATE **	POST 	/app.php/api/tokens.json
-{"fedid":"tesztAdmin@sztaki.hu","token":"835772114a865f1be78e20ecdba67f2fcb374cbee30ccbb45edee23d7f0e1ea5"}
-** AUTHENTICATE **	{"fedid":"tesztAdmin@sztaki.hu","token":"835772114a865f1be78e20ecdba67f2fcb374cbee30ccbb45edee23d7f0e1ea5"}
+{"fedid":"tesztAdmin@sztaki.hu","token":"9435b40792adf53c36f2ad28810f1ba94b681d5331ccf316a44b143dacd0ce19"}
+** AUTHENTICATE **	{"fedid":"tesztAdmin@sztaki.hu","token":"9435b40792adf53c36f2ad28810f1ba94b681d5331ccf316a44b143dacd0ce19"}
 ** AUTHENTICATE **	Normal API key acquired.
-***	 PrincipalsManagerGetOrganizationsTest ***
 POST 	/app.php/api/organizations.json
+***	 PrincipalsManagerGetOrganizationsTest ***
 GET 	/app.php/api/manager/organizations.json
 BeforeClass @ CleanTest
 /home/ede/NetBeansProjects/JavaCoreTest/hexaa-test
@@ -469,6 +508,7 @@ BeforeClass @ CleanTest
 *** 192.168.203.203
 *** tesztAdmin@sztaki.hu
 *** 7lrfjlpu5br2vpv1jcaogdz481b28xf7lz85wqmv
+OUTPUT>Could not open input file: app/console
 OUTPUT>Dropped database for connection named `hexaa`
 OUTPUT>Created database for connection named `hexaa`
 OUTPUT>Updating database schema...
@@ -479,12 +519,12 @@ ExitValue: 0
 ** AUTHENTICATE **	Getting temporary API key.
 ** AUTHENTICATE **	Temporary API key acquired.
 ** AUTHENTICATE **	POST 	/app.php/api/tokens.json
-{"fedid":"tesztAdmin@sztaki.hu","token":"9fed9424f6cab810f9ceac8e3ed59193edda4b72ce32130ad08bbe1306350481"}
-** AUTHENTICATE **	{"fedid":"tesztAdmin@sztaki.hu","token":"9fed9424f6cab810f9ceac8e3ed59193edda4b72ce32130ad08bbe1306350481"}
+{"fedid":"tesztAdmin@sztaki.hu","token":"f058fd67d83dd123989326a84266d0977660ef593391cc0c597ceb35b341d5f2"}
+** AUTHENTICATE **	{"fedid":"tesztAdmin@sztaki.hu","token":"f058fd67d83dd123989326a84266d0977660ef593391cc0c597ceb35b341d5f2"}
 ** AUTHENTICATE **	Normal API key acquired.
-***	 PrincipalsManagerGetServicesTest ***
 GET 	/app.php/api/entityids.json
 POST 	/app.php/api/services.json
+***	 PrincipalsManagerGetServicesTest ***
 GET 	/app.php/api/manager/services.json
 BeforeClass @ CleanTest
 /home/ede/NetBeansProjects/JavaCoreTest/hexaa-test
@@ -493,6 +533,7 @@ BeforeClass @ CleanTest
 *** 192.168.203.203
 *** tesztAdmin@sztaki.hu
 *** 7lrfjlpu5br2vpv1jcaogdz481b28xf7lz85wqmv
+OUTPUT>Could not open input file: app/console
 OUTPUT>Dropped database for connection named `hexaa`
 OUTPUT>Created database for connection named `hexaa`
 OUTPUT>Updating database schema...
@@ -503,11 +544,11 @@ ExitValue: 0
 ** AUTHENTICATE **	Getting temporary API key.
 ** AUTHENTICATE **	Temporary API key acquired.
 ** AUTHENTICATE **	POST 	/app.php/api/tokens.json
-{"fedid":"tesztAdmin@sztaki.hu","token":"1b9c819bb7372aa24082f7ad26a0f4bc594e940854cd9b9022360f620d126075"}
-** AUTHENTICATE **	{"fedid":"tesztAdmin@sztaki.hu","token":"1b9c819bb7372aa24082f7ad26a0f4bc594e940854cd9b9022360f620d126075"}
+{"fedid":"tesztAdmin@sztaki.hu","token":"320de8f2e1a3c916c5e86ee1f2a3955bc4f63eeadcd8bc22b2da7a60b760830f"}
+** AUTHENTICATE **	{"fedid":"tesztAdmin@sztaki.hu","token":"320de8f2e1a3c916c5e86ee1f2a3955bc4f63eeadcd8bc22b2da7a60b760830f"}
 ** AUTHENTICATE **	Normal API key acquired.
-***	 PrincipalsMemeberGetOrganizationsTest ***
 POST 	/app.php/api/organizations.json
+***	 PrincipalsMemeberGetOrganizationsTest ***
 GET 	/app.php/api/member/organizations.json
 BeforeClass @ CleanTest
 /home/ede/NetBeansProjects/JavaCoreTest/hexaa-test
@@ -516,6 +557,7 @@ BeforeClass @ CleanTest
 *** 192.168.203.203
 *** tesztAdmin@sztaki.hu
 *** 7lrfjlpu5br2vpv1jcaogdz481b28xf7lz85wqmv
+OUTPUT>Could not open input file: app/console
 OUTPUT>Dropped database for connection named `hexaa`
 OUTPUT>Created database for connection named `hexaa`
 OUTPUT>Updating database schema...
@@ -526,11 +568,11 @@ ExitValue: 0
 ** AUTHENTICATE **	Getting temporary API key.
 ** AUTHENTICATE **	Temporary API key acquired.
 ** AUTHENTICATE **	POST 	/app.php/api/tokens.json
-{"fedid":"tesztAdmin@sztaki.hu","token":"8d13fc62cbf0c7e09470b3ed49eed8206ae82f75c59539aeb7feb510bb2f091e"}
-** AUTHENTICATE **	{"fedid":"tesztAdmin@sztaki.hu","token":"8d13fc62cbf0c7e09470b3ed49eed8206ae82f75c59539aeb7feb510bb2f091e"}
+{"fedid":"tesztAdmin@sztaki.hu","token":"6ae0999c9a69263943ba6ec117979e7034e718f9267b110150afaafd2b8a8a6d"}
+** AUTHENTICATE **	{"fedid":"tesztAdmin@sztaki.hu","token":"6ae0999c9a69263943ba6ec117979e7034e718f9267b110150afaafd2b8a8a6d"}
 ** AUTHENTICATE **	Normal API key acquired.
-***	 RolesPostTest ***
 POST 	/app.php/api/organizations.json
+***	 RolesPostTest ***
 POST 	/app.php/api/organizations/1/roles.json
 BeforeClass @ CleanTest
 /home/ede/NetBeansProjects/JavaCoreTest/hexaa-test
@@ -539,6 +581,7 @@ BeforeClass @ CleanTest
 *** 192.168.203.203
 *** tesztAdmin@sztaki.hu
 *** 7lrfjlpu5br2vpv1jcaogdz481b28xf7lz85wqmv
+OUTPUT>Could not open input file: app/console
 OUTPUT>Dropped database for connection named `hexaa`
 OUTPUT>Created database for connection named `hexaa`
 OUTPUT>Updating database schema...
@@ -549,13 +592,13 @@ ExitValue: 0
 ** AUTHENTICATE **	Getting temporary API key.
 ** AUTHENTICATE **	Temporary API key acquired.
 ** AUTHENTICATE **	POST 	/app.php/api/tokens.json
-{"fedid":"tesztAdmin@sztaki.hu","token":"68875bf11aa7d92ab78ede1e2162b07d769af08f7a93a928127bde0249ec49ab"}
-** AUTHENTICATE **	{"fedid":"tesztAdmin@sztaki.hu","token":"68875bf11aa7d92ab78ede1e2162b07d769af08f7a93a928127bde0249ec49ab"}
+{"fedid":"tesztAdmin@sztaki.hu","token":"ecc826ddffb203dd2c19de702451e7faaf60fae79cf287cdb882fb780785aa03"}
+** AUTHENTICATE **	{"fedid":"tesztAdmin@sztaki.hu","token":"ecc826ddffb203dd2c19de702451e7faaf60fae79cf287cdb882fb780785aa03"}
 ** AUTHENTICATE **	Normal API key acquired.
-***	 ServicesDeleteTest ***
 GET 	/app.php/api/entityids.json
 POST 	/app.php/api/services.json
 POST 	/app.php/api/services.json
+***	 ServicesDeleteTest ***
 DEL 	/app.php/api/services/1.json
 GET 	/app.php/api/services.json
 BeforeClass @ CleanTest
@@ -565,6 +608,7 @@ BeforeClass @ CleanTest
 *** 192.168.203.203
 *** tesztAdmin@sztaki.hu
 *** 7lrfjlpu5br2vpv1jcaogdz481b28xf7lz85wqmv
+OUTPUT>Could not open input file: app/console
 OUTPUT>Dropped database for connection named `hexaa`
 OUTPUT>Created database for connection named `hexaa`
 OUTPUT>Updating database schema...
@@ -575,13 +619,13 @@ ExitValue: 0
 ** AUTHENTICATE **	Getting temporary API key.
 ** AUTHENTICATE **	Temporary API key acquired.
 ** AUTHENTICATE **	POST 	/app.php/api/tokens.json
-{"fedid":"tesztAdmin@sztaki.hu","token":"c65c3ff91e61ac3062b794566b4a64a1a43e4715ac5ae17ef6fb9b98e1f2940d"}
-** AUTHENTICATE **	{"fedid":"tesztAdmin@sztaki.hu","token":"c65c3ff91e61ac3062b794566b4a64a1a43e4715ac5ae17ef6fb9b98e1f2940d"}
+{"fedid":"tesztAdmin@sztaki.hu","token":"10699e6b5a41c020aefd938d2b7e5f76ee30e33e75f46a234024446a9d5acb7c"}
+** AUTHENTICATE **	{"fedid":"tesztAdmin@sztaki.hu","token":"10699e6b5a41c020aefd938d2b7e5f76ee30e33e75f46a234024446a9d5acb7c"}
 ** AUTHENTICATE **	Normal API key acquired.
-***	 ServicesGetTest ***
 GET 	/app.php/api/entityids.json
 POST 	/app.php/api/services.json
 POST 	/app.php/api/services.json
+***	 ServicesGetTest ***
 GET 	/app.php/api/services.json
 GET 	/app.php/api/services/1.json
 GET 	/app.php/api/services/2.json
@@ -593,6 +637,7 @@ BeforeClass @ CleanTest
 *** 192.168.203.203
 *** tesztAdmin@sztaki.hu
 *** 7lrfjlpu5br2vpv1jcaogdz481b28xf7lz85wqmv
+OUTPUT>Could not open input file: app/console
 OUTPUT>Dropped database for connection named `hexaa`
 OUTPUT>Created database for connection named `hexaa`
 OUTPUT>Updating database schema...
@@ -603,13 +648,13 @@ ExitValue: 0
 ** AUTHENTICATE **	Getting temporary API key.
 ** AUTHENTICATE **	Temporary API key acquired.
 ** AUTHENTICATE **	POST 	/app.php/api/tokens.json
-{"fedid":"tesztAdmin@sztaki.hu","token":"777d310c380630cc7f0cfc165323ef955bee3fb31b1b1e23b86b96536af82711"}
-** AUTHENTICATE **	{"fedid":"tesztAdmin@sztaki.hu","token":"777d310c380630cc7f0cfc165323ef955bee3fb31b1b1e23b86b96536af82711"}
+{"fedid":"tesztAdmin@sztaki.hu","token":"3448c129cdd54b0e61fab790db6072151d64e6559049291493afee3e3f3f2750"}
+** AUTHENTICATE **	{"fedid":"tesztAdmin@sztaki.hu","token":"3448c129cdd54b0e61fab790db6072151d64e6559049291493afee3e3f3f2750"}
 ** AUTHENTICATE **	Normal API key acquired.
-***	 ServicesPutTest ***
 GET 	/app.php/api/entityids.json
 POST 	/app.php/api/services.json
 POST 	/app.php/api/services.json
+***	 ServicesPutTest ***
 PUT 	/app.php/api/services/1.json
 GET 	/app.php/api/services.json
 BeforeClass @ CleanTest
@@ -619,6 +664,7 @@ BeforeClass @ CleanTest
 *** 192.168.203.203
 *** tesztAdmin@sztaki.hu
 *** 7lrfjlpu5br2vpv1jcaogdz481b28xf7lz85wqmv
+OUTPUT>Could not open input file: app/console
 OUTPUT>Dropped database for connection named `hexaa`
 OUTPUT>Created database for connection named `hexaa`
 OUTPUT>Updating database schema...
@@ -629,15 +675,15 @@ ExitValue: 0
 ** AUTHENTICATE **	Getting temporary API key.
 ** AUTHENTICATE **	Temporary API key acquired.
 ** AUTHENTICATE **	POST 	/app.php/api/tokens.json
-{"fedid":"tesztAdmin@sztaki.hu","token":"e81340032885146f01c07ab123ccca334213a4ee6932497676d942ea6c6fc8da"}
-** AUTHENTICATE **	{"fedid":"tesztAdmin@sztaki.hu","token":"e81340032885146f01c07ab123ccca334213a4ee6932497676d942ea6c6fc8da"}
+{"fedid":"tesztAdmin@sztaki.hu","token":"e938a5f1fa9d19503b55cb3ac30159f44e2e0ef1eeef0e211e7f5094f65c159b"}
+** AUTHENTICATE **	{"fedid":"tesztAdmin@sztaki.hu","token":"e938a5f1fa9d19503b55cb3ac30159f44e2e0ef1eeef0e211e7f5094f65c159b"}
 ** AUTHENTICATE **	Normal API key acquired.
-***	 ServicesAttributespecsAddTest ***
 GET 	/app.php/api/entityids.json
 POST 	/app.php/api/services.json
 POST 	/app.php/api/services.json
 POST 	/app.php/api/attributespecs.json
 POST 	/app.php/api/attributespecs.json
+***	 ServicesAttributespecsAddTest ***
 PUT 	/app.php/api/services/1/attributespecs/1.json
 GET 	/app.php/api/services/1/attributespecs.json
 PUT 	/app.php/api/services/1/attributespecs/2.json
@@ -651,6 +697,7 @@ BeforeClass @ CleanTest
 *** 192.168.203.203
 *** tesztAdmin@sztaki.hu
 *** 7lrfjlpu5br2vpv1jcaogdz481b28xf7lz85wqmv
+OUTPUT>Could not open input file: app/console
 OUTPUT>Dropped database for connection named `hexaa`
 OUTPUT>Created database for connection named `hexaa`
 OUTPUT>Updating database schema...
@@ -661,8 +708,8 @@ ExitValue: 0
 ** AUTHENTICATE **	Getting temporary API key.
 ** AUTHENTICATE **	Temporary API key acquired.
 ** AUTHENTICATE **	POST 	/app.php/api/tokens.json
-{"fedid":"tesztAdmin@sztaki.hu","token":"ce1622b99dab94617c6e65e084e7eaab388f1c4e7f8de15021d9e630e27a9b70"}
-** AUTHENTICATE **	{"fedid":"tesztAdmin@sztaki.hu","token":"ce1622b99dab94617c6e65e084e7eaab388f1c4e7f8de15021d9e630e27a9b70"}
+{"fedid":"tesztAdmin@sztaki.hu","token":"524daaa5249a5d5f87af6c3abb608666ed9a2fa0480d3021cc7ecb2067adf2f1"}
+** AUTHENTICATE **	{"fedid":"tesztAdmin@sztaki.hu","token":"524daaa5249a5d5f87af6c3abb608666ed9a2fa0480d3021cc7ecb2067adf2f1"}
 ** AUTHENTICATE **	Normal API key acquired.
 GET 	/app.php/api/entityids.json
 POST 	/app.php/api/services.json
@@ -678,6 +725,7 @@ BeforeClass @ CleanTest
 *** 192.168.203.203
 *** tesztAdmin@sztaki.hu
 *** 7lrfjlpu5br2vpv1jcaogdz481b28xf7lz85wqmv
+OUTPUT>Could not open input file: app/console
 OUTPUT>Dropped database for connection named `hexaa`
 OUTPUT>Created database for connection named `hexaa`
 OUTPUT>Updating database schema...
@@ -688,13 +736,13 @@ ExitValue: 0
 ** AUTHENTICATE **	Getting temporary API key.
 ** AUTHENTICATE **	Temporary API key acquired.
 ** AUTHENTICATE **	POST 	/app.php/api/tokens.json
-{"fedid":"tesztAdmin@sztaki.hu","token":"76e921a4980445aa1d7d5a1df90dd6f1ec448ee2b71497f416a80d4e180bdf36"}
-** AUTHENTICATE **	{"fedid":"tesztAdmin@sztaki.hu","token":"76e921a4980445aa1d7d5a1df90dd6f1ec448ee2b71497f416a80d4e180bdf36"}
+{"fedid":"tesztAdmin@sztaki.hu","token":"edcf869ca0d13cf1944dbcd4ba291b18eb85a4d2d14b603a98ed9b71811a6501"}
+** AUTHENTICATE **	{"fedid":"tesztAdmin@sztaki.hu","token":"edcf869ca0d13cf1944dbcd4ba291b18eb85a4d2d14b603a98ed9b71811a6501"}
 ** AUTHENTICATE **	Normal API key acquired.
-***	 ServicesEntitlementsPostTest ***
 GET 	/app.php/api/entityids.json
 POST 	/app.php/api/services.json
 POST 	/app.php/api/services.json
+***	 ServicesEntitlementsPostTest ***
 POST 	/app.php/api/services/1/entitlements.json
 POST 	/app.php/api/services/1/entitlements.json
 GET 	/app.php/api/services/1/entitlements.json
