@@ -51,7 +51,7 @@ public class AttributevalueprincipalsPost extends CleanTest {
         json.put("service_ids", new JSONArray(new int[]{}));
         json.put("attribute_spec_id", 1);
 
-        Utility.Create.attributevalueprincipal("testValueString", 1, new int[]{});
+        Utility.Create.attributevalueprincipal("testValueString", 1);
 
         try {
             assertEquals(Const.StatusLine.Created, Utility.persistent.getStatusLine());

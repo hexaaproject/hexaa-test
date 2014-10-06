@@ -67,4 +67,14 @@ public class RolesIsEmptyTest extends IsEmptyTest {
                 Const.Api.ROLES_ID_PRINCIPALS_PID,
                 BasicCall.REST.DEL);
     }
+    
+    /**
+     * PATCH method tests.
+     */
+    @Test
+    public void testRolesIsEmptyPatch() {
+        expectingNotFound(
+                Const.Api.ROLES_ID,
+                BasicCall.REST.PATCH);
+    }
 }

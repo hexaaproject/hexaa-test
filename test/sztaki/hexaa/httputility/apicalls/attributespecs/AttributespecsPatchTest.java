@@ -12,16 +12,16 @@ import sztaki.hexaa.httputility.Utility;
 import sztaki.hexaa.httputility.apicalls.CleanTest;
 
 /**
- * Tests the PUT method on the /api/attributespecs/{id} call.
+ * Tests the PATCH method on the /api/attributespecs/{id} call.
  */
-public class AttributespecsPutTest extends CleanTest {
+public class AttributespecsPatchTest extends CleanTest {
 
     /**
      * Print the class name on the output.
      */
     @BeforeClass
     public static void classInformation() {
-        System.out.println("***\t " + AttributespecsPutTest.class.getSimpleName() + " ***");
+        System.out.println("***\t " + AttributespecsPatchTest.class.getSimpleName() + " ***");
     }
 
     /**
@@ -38,18 +38,20 @@ public class AttributespecsPutTest extends CleanTest {
     }
 
     /**
-     * PUT a changed attributespec and verify it.
+     * PATCH a changed attributespec and verify it.
      */
     @Test
-    public void testAttributespecsPut() {
+    public void testAttributespecsPatch() {
         // Change and PUT
+        JSONObject json = new JSONObject();
+        json.put("oid", "oidByPut");
         attributespecs.getJSONObject(0).put("oid", "oidByPut");
-        attributespecs.getJSONObject(0).put("friendly_name", "nameByPut");
+        
 
         persistent.call(
                 Const.Api.ATTRIBUTESPECS_ID,
-                BasicCall.REST.PUT,
-                ((JSONObject) attributespecs.get(0)).toString(),
+                BasicCall.REST.PATCH,
+                json.toString(),
                 1, 0);
 
         try {
@@ -74,5 +76,4 @@ public class AttributespecsPutTest extends CleanTest {
             AssertErrorHandler(e);
         }
     }
-
 }

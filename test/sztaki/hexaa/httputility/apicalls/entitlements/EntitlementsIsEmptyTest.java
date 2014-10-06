@@ -2,7 +2,7 @@ package sztaki.hexaa.httputility.apicalls.entitlements;
 
 import org.junit.BeforeClass;
 import org.junit.Test;
-import sztaki.hexaa.httputility.BasicCall.REST;
+import sztaki.hexaa.httputility.BasicCall;
 import sztaki.hexaa.httputility.Const;
 import sztaki.hexaa.httputility.apicalls.IsEmptyTest;
 
@@ -27,7 +27,7 @@ public class EntitlementsIsEmptyTest extends IsEmptyTest {
     public void testEntitlementsIsEmptyGet() {
         expectingNotFound(
                 Const.Api.ENTITLEMENTS_ID,
-                REST.GET);
+                BasicCall.REST.GET);
     }
 
     /**
@@ -37,7 +37,7 @@ public class EntitlementsIsEmptyTest extends IsEmptyTest {
     public void testEntitlementsIsEmptyPut() {
         expectingNotFound(
                 Const.Api.ENTITLEMENTS_ID,
-                REST.PUT);
+                BasicCall.REST.PUT);
     }
 
     /**
@@ -47,6 +47,16 @@ public class EntitlementsIsEmptyTest extends IsEmptyTest {
     public void testEntitlementsIsEmptyDelete() {
         expectingNotFound(
                 Const.Api.ENTITLEMENTS_ID,
-                REST.DEL);
+                BasicCall.REST.DEL);
+    }
+    
+    /**
+     * PATCH method tests.
+     */
+    @Test
+    public void testEntitlementsIsEmptyPatch() {
+        expectingNotFound(
+                Const.Api.ENTITLEMENTS_ID,
+                BasicCall.REST.PATCH);
     }
 }

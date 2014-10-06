@@ -52,4 +52,14 @@ public class AttributespecsIsEmptyTest extends IsEmptyTest {
                 Const.Api.ATTRIBUTESPECS_ID,
                 BasicCall.REST.DEL);
     }
+    
+    /**
+     * PATCH method tests.
+     */
+    @Test
+    public void testAttributespecsIsEmptyPatch() {
+        expectingNotFound(
+                Const.Api.ATTRIBUTESPECS_ID,
+                BasicCall.REST.PATCH);
+    }
 }

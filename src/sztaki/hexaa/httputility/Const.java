@@ -49,12 +49,12 @@ public class Const {
      * default its config.properties.
      */
     public static final String PROPERTIES = ("config.properties");
-    
+
     /**
      * The prefix for the uri's that should be used.
      */
     public static final String URI_PREFIX = ("urn:geant:server.org:hexaa:");
-    
+
     /**
      * Contains the existing URL-s of the server.
      */
@@ -70,6 +70,10 @@ public class Const {
          */
         public static final String ATTRIBUTEVALUEORGANIZATIONS_ID = ("/app.php/api/attributevalueorganizations/{id}");
         /**
+         * GET all services linked to this attributevalue.
+         */
+        public static final String ATTRIBUTEVALUEORGANIZATIONS_ID_SERVICES = ("/app.php/api/attributevalueorganizations/{id}/services");
+        /**
          * GET,PUT(set),DELETE attribute value consent per service.
          */
         public static final String ATTRIBUTEVALUEORGANIZATIONS_ID_SERVICES_SID = ("/app.php/api/attributevalueorganizations/{id}/services/{sid}");
@@ -83,6 +87,10 @@ public class Const {
          * GET, PATCH(edit), PUT(edit), DELETE attribute value for principals.
          */
         public static final String ATTRIBUTEVALUEPRINCIPALS_ID = ("/app.php/api/attributevalueprincipals/{id}");
+        /**
+         * GET,PUT(set),DELETE attribute value consent per service.
+         */
+        public static final String ATTRIBUTEVALUEPRINCIPALS_ID_SERVICES = ("/app.php/api/attributevalueprincipals/{id}/services");
         /**
          * GET,PUT(set),DELETE attribute value consent per service.
          */

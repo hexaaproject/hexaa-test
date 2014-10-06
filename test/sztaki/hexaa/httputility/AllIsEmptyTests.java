@@ -10,6 +10,8 @@ import sztaki.hexaa.httputility.apicalls.BasicTestSuite;
  */
 @RunWith(Suite.class)
 @Suite.SuiteClasses({
+    sztaki.hexaa.httputility.apicalls.attributevalueorganizations.AttributevalueorganizationIsEmptyTest.class,
+    sztaki.hexaa.httputility.apicalls.attributevalueprincipals.AttributevalueprincipalIsEmptyTest.class,
     sztaki.hexaa.httputility.apicalls.attributespecs.AttributespecsIsEmptyTest.class,
     sztaki.hexaa.httputility.apicalls.entitlementpacks.EntitlementpacksIsEmptyTest.class,
     sztaki.hexaa.httputility.apicalls.entitlements.EntitlementsIsEmptyTest.class,

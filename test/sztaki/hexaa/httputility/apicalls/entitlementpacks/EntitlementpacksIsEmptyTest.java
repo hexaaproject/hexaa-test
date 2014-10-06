@@ -64,4 +64,14 @@ public class EntitlementpacksIsEmptyTest extends IsEmptyTest {
                 Const.Api.ENTITLEMENTPACKS_ID_ENTITLEMENTS_EID,
                 BasicCall.REST.DEL);
     }
+    
+    /**
+     * PATCH method tests.
+     */
+    @Test
+    public void testEntitlementpacksIsEmptyPatch() {
+        expectingNotFound(
+                Const.Api.ENTITLEMENTPACKS_ID,
+                BasicCall.REST.PATCH);
+    }
 }

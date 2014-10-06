@@ -14,6 +14,7 @@ import sztaki.hexaa.httputility.apicalls.BasicTestSuite;
     AttributespecsPostTest.class,
     AttributespecsPutTest.class,
     AttributespecsDeleteTest.class,
-    AttributespecsServicesGetTest.class,})
+    AttributespecsServicesGetTest.class,
+    AttributespecsPatchTest.class,})
 public class AttributespecsSuite extends BasicTestSuite {
 }

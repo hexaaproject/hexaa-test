@@ -97,4 +97,14 @@ public class OrganizationIsEmptyTest extends IsEmptyTest {
                 Const.Api.ORGANIZATIONS_ID_MEMBERS_PID,
                 BasicCall.REST.DEL);
     }
+    
+    /**
+     * PATCH method tests.
+     */
+    @Test
+    public void testOrganizationIsEmptyPatch() {
+        expectingNotFound(
+                Const.Api.ORGANIZATIONS_ID,
+                BasicCall.REST.PATCH);
+    }
 }

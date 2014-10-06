@@ -100,4 +100,14 @@ public class ServicesIsEmptyTest extends IsEmptyTest {
                 Const.Api.SERVICES_ID_MANAGERS_PID,
                 BasicCall.REST.DEL);
     }
+    
+    /**
+     * PATCH method tests.
+     */
+    @Test
+    public void testServicesIsEmptyPatch() {
+        expectingNotFound(
+                Const.Api.SERVICES_ID,
+                BasicCall.REST.PATCH);
+    }
 }

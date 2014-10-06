@@ -8,6 +8,7 @@ import org.junit.runners.Suite;
     sztaki.hexaa.httputility.apicalls.attributespecs.AttributespecsDeleteTest.class,
     sztaki.hexaa.httputility.apicalls.attributespecs.AttributespecsGetTest.class,
     sztaki.hexaa.httputility.apicalls.attributespecs.AttributespecsPutTest.class,
+    sztaki.hexaa.httputility.apicalls.attributespecs.AttributespecsPatchTest.class,
     sztaki.hexaa.httputility.apicalls.organizations.OrganizationDeleteTest.class,
     sztaki.hexaa.httputility.apicalls.organizations.OrganizationGetTest.class,
     sztaki.hexaa.httputility.apicalls.organizations.OrganizationPutTest.class,

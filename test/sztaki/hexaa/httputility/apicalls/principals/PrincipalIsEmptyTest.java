@@ -59,4 +59,14 @@ public class PrincipalIsEmptyTest extends IsEmptyTest {
                 Const.Api.PRINCIPALS_ID,
                 BasicCall.REST.GET);
     }
+    
+    /**
+     * PATCH method tests.
+     */
+    @Test
+    public void testPrincipalIsEmptyPatch() {
+        expectingNotFound(
+                Const.Api.PRINCIPALS_ID,
+                BasicCall.REST.PATCH);
+    }
 }

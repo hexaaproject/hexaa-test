@@ -44,7 +44,7 @@ public class Utility {
             for (String value : values) {
                 JSONObject json = new JSONObject();
                 json.put("value", value);
-                json.put("services", new JSONArray(new int[]{1}));
+                json.put("services", new JSONArray(new int[]{}));
                 json.put("attribute_spec", asid);
                 json.put("organization", orgId);
 
@@ -111,8 +111,38 @@ public class Utility {
 
         /**
          * Alternative call for
-         * {@link #attributevalueorganization(String[], int, int)} for single
-         * attributevalueorganization creation.
+         * {@link attributevalueprincipal(String[] values, int asid, int[] services)}
+         * for single attributevalueorganization creation.
+         *
+         * @param value the value to create attributevalueprincipals with.
+         * @param asid the id of the attributespecification to create the values
+         * with.
+         * @return JSONArray with all the created attributevalueprincipals in
+         * it.
+         */
+        public static JSONArray attributevalueprincipal(String value, int asid) {
+            return attributevalueprincipal(new String[]{value}, asid, new int[]{});
+        }
+
+        /**
+         * Alternative call for
+         * {@link attributevalueprincipal(String[] values, int asid, int[] services)}
+         * for single attributevalueorganization creation.
+         *
+         * @param values the values to create attributevalueprincipals with.
+         * @param asid the id of the attributespecification to create the values
+         * with.
+         * @return JSONArray with all the created attributevalueprincipals in
+         * it.
+         */
+        public static JSONArray attributevalueprincipal(String[] values, int asid) {
+            return attributevalueprincipal(values, asid, new int[]{});
+        }
+
+        /**
+         * Alternative call for
+         * {@link attributevalueprincipal(String[] values, int asid, int[] services)}
+         * for single attributevalueorganization creation.
          *
          * @param value the value to create attributevalueprincipals with.
          * @param asid the id of the attributespecification to create the values
@@ -792,6 +822,56 @@ public class Utility {
     public static class Remove {
 
         /**
+         * Removes attributevalue for organization if exist.
+         *
+         * @param avoIDs array of attributevalue ids.
+         */
+        public static void attributevalueorganization(int[] avoIDs) {
+            for (int avoID : avoIDs) {
+                persistent.call(
+                        Const.Api.ATTRIBUTEVALUEORGANIZATIONS_ID,
+                        BasicCall.REST.DEL,
+                        null,
+                        avoID, 0);
+            }
+        }
+
+        /**
+         * Alternative for the {@link attributevalueorganization(int[] orgIDs)}
+         * for single attributevalues.
+         *
+         * @param avoID attributevalue id.
+         */
+        public static void attributevalueorganization(int avoID) {
+            attributevalueorganization(new int[]{avoID});
+        }
+
+        /**
+         * Removes attributevalue for principal if exist.
+         *
+         * @param avpIDs array of attributevalue ids.
+         */
+        public static void attributevalueprincipal(int[] avpIDs) {
+            for (int avpID : avpIDs) {
+                persistent.call(
+                        Const.Api.ATTRIBUTEVALUEPRINCIPALS_ID,
+                        BasicCall.REST.DEL,
+                        null,
+                        avpID, 0);
+            }
+        }
+
+        /**
+         * Alternative for the {@link attributevalueprincipal(int[] avpIDs)} for
+         * single attributevalues.
+         *
+         * @param avpID attributevalue id.
+         */
+        public static void attributevalueprincipal(int avpID) {
+            attributevalueprincipal(new int[]{avpID});
+        }
+
+        /**
          * Removes already existing linking of principal specified in the
          * principalIds array to the existing role specified by the roleId.
          *
@@ -1227,7 +1307,6 @@ public class Utility {
         public static void entitlementFromRole(int roleID, int entitlementID) {
             entitlementFromRole(roleID, new int[]{entitlementID});
         }
-    
-    }
 
+    }
 }

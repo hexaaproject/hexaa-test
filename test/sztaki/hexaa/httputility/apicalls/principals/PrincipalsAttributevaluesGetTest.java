@@ -56,7 +56,7 @@ public class PrincipalsAttributevaluesGetTest extends CleanTest {
         Utility.Create.attributespec(new String[]{"testAttrSpec1"}, "user");
         Utility.Link.attributespecsPublicToService(1, new int[]{1});
 
-        attributevalue = Utility.Create.attributevalueprincipal(new String[]{"testValue1"}, 1, new int[]{});
+        attributevalue = Utility.Create.attributevalueprincipal(new String[]{"testValue1"}, 1);
         JSONObject jsonTemp = new JSONObject();
         jsonTemp.put("attribute_spec_id", attributevalue.getJSONObject(0).getInt("attribute_spec"));
         jsonTemp.put("service_ids", attributevalue.getJSONObject(0).get("services"));
