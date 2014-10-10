@@ -34,17 +34,18 @@ public class Utility {
          * with.
          * @param orgId the id of the organization to get the
          * attributespecvalues.
+         * @param services int array of service ids.
          * @return JSONArray with all the created attributevalueorganizations in
          * it.
          */
-        public static JSONArray attributevalueorganization(String[] values, int asid, int orgId) {
+        public static JSONArray attributevalueorganization(String[] values, int asid, int orgId, int[] services) {
             // Array for the return value
             JSONArray attributevalues = new JSONArray();
             // For every value it creates a json object and calls the /api/organizations/{id}/attributevalueorganizations/{asid}
             for (String value : values) {
                 JSONObject json = new JSONObject();
                 json.put("value", value);
-                json.put("services", new JSONArray(new int[]{}));
+                json.put("services", new JSONArray(services));
                 json.put("attribute_spec", asid);
                 json.put("organization", orgId);
 
@@ -64,6 +65,24 @@ public class Utility {
          * {@link #attributevalueorganization(String[], int, int)} for single
          * attributevalueorganization creation.
          *
+         * @param values a String array representation of the values to create
+         * attributevalueorganizations with.
+         * @param asid the id of the attributespecification to create the values
+         * with.
+         * @param orgId the id of the organization to get the
+         * attributespecvalues.
+         * @return JSONArray with all the created attributevalueorganizations in
+         * it.
+         */
+        public static JSONArray attributevalueorganization(String[] values, int asid, int orgId) {
+            return attributevalueorganization(values, asid, orgId, new int[]{});
+        }
+
+        /**
+         * Alternative call for
+         * {@link #attributevalueorganization(String[], int, int)} for single
+         * attributevalueorganization creation.
+         *
          * @param value the value to create attributevalueorganization with.
          * @param asid the id of the attributespecification to create the values
          * with.
@@ -74,6 +93,24 @@ public class Utility {
          */
         public static JSONArray attributevalueorganization(String value, int asid, int orgId) {
             return attributevalueorganization(new String[]{value}, asid, orgId);
+        }
+        
+        /**
+         * Alternative call for
+         * {@link #attributevalueorganization(String[], int, int)} for single
+         * attributevalueorganization creation.
+         *
+         * @param value the value to create attributevalueorganization with.
+         * @param asid the id of the attributespecification to create the values
+         * with.
+         * @param orgId the id of the organization to get the
+         * attributespecvalues.
+         * @param service int array of the service ids.
+         * @return JSONArray with all the created attributevalueorganizations in
+         * it.
+         */
+        public static JSONArray attributevalueorganization(String value, int asid, int orgId, int[] service) {
+            return attributevalueorganization(new String[]{value}, asid, orgId, service);
         }
 
         /**
