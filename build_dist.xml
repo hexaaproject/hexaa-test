@@ -8,7 +8,7 @@
   <property name="target.dir" value="target"/>
   <property name="classes.dir" value="${target.dir}/classes"/>
   <property name="junit.out.dir"  value="${target.dir}/report/junit"/>
-  <property name="junit.out.dir.html" value="/var/www/html"/>
+  <property name="junit.out.dir.html" value="/usr/share/hexaa/web/report"/>
 
   <echo>Make required directories...</echo>
   <target name="makedir" description="Create required directories">
