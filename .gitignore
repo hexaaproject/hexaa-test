@@ -1,5 +1,6 @@
 /dist/
 /build/
+build.xml
 build (copy).xml
 config.properties~
 config.properties

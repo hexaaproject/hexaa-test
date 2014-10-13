@@ -12,15 +12,12 @@ import java.util.Properties;
 public class JavaHttpCoreTest {
 
     /**
-    // TODO meg kell vizsgálni egy alternatív lehetőséget a rétegezésre: ant build.xml-t használva lehet dependecy-ket megadni
-     */
-    /**
      * Main program starting point.
      *
      * @param args
      */
     public static void main(String[] args) {
-
+        new JavaHttpCoreTest().properties();
     }
 
     private void properties() {
@@ -35,7 +32,7 @@ public class JavaHttpCoreTest {
                     + " creating it with default attributes.");
             System.err.println("The file config.properties does not exists, no"
                     + " properties can be read, if your setup does not match the"
-                    + " default this will cause inconsitent tests (mostly failed"
+                    + " default this may cause inconsitent tests (mostly failed"
                     + " tests and errors).");
         }
 
