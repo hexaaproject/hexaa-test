@@ -1,5 +1,11 @@
 /dist/
+/build/
+build (copy).xml
 config.properties~
 config.properties
 config_dist.properties
 build.xml~
+manifest.mf
+/nbproject/
+/target/
+alternate_build.xml
