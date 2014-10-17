@@ -65,8 +65,9 @@ public class Authenticator {
 
             JSONObject jsonResponse;
             System.out.println(response);
-            if (response == null || response.isEmpty()) {
-                response = "{}";
+            if (response == null || response.isEmpty() || response.contains("503 Service Unavailable")) {
+                System.out.println(response);
+                return;
             }
             jsonResponse = (JSONObject) JSONParser.parseJSON(response);
 
@@ -137,6 +138,9 @@ public class Authenticator {
             //get the property value and print it out
             Const.HEXAA_PORT = Integer.parseInt(prop.getProperty("port"));
             System.out.println("*** " + Const.HEXAA_PORT);
+            
+            Const.SSH_PORT = Integer.parseInt(prop.getProperty("ssh"));
+            System.out.println("*** " + Const.SSH_PORT);
 
             Const.HEXAA_HOST = prop.getProperty("host");
             System.out.println("*** " + Const.HEXAA_HOST);

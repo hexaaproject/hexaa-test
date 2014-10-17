@@ -56,6 +56,12 @@ public class Const {
     public static final String URI_PREFIX = ("urn:geant:server.org:hexaa:");
 
     /**
+     * The port number the ssh should use. Default 22, load from
+     * config.properties.
+     */
+    public static int SSH_PORT = 22;
+
+    /**
      * Contains the existing URL-s of the server.
      */
     public static class Api {

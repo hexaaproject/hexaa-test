@@ -49,7 +49,7 @@ public class PrincipalsRoleGetTest extends CleanTest {
      * GET all the roles of the current principal.
      */
     @Test
-    public void testPrincipalRolesGet() {
+    public void testPrincipalsRolesGet() {
         Object response
                 = JSONParser.parseJSON(
                         persistent.call(

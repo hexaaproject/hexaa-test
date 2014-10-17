@@ -32,7 +32,8 @@ public final class DatabaseManipulator {
             } else {
                 // Call for server side script remotely
                 proc = rt.exec(new String[]{
-                    "ssh", "user@" + Const.HEXAA_HOST,
+                    "ssh", "root@" + Const.HEXAA_HOST,
+                    "-p", Integer.toString(Const.SSH_PORT),
                     "~/databasedrop.sh", "exit"
                 });
             }
@@ -75,7 +76,8 @@ public final class DatabaseManipulator {
             } else {
                 // Call for server side script remotely
                 proc = rt.exec(new String[]{
-                    "ssh", "user@" + Const.HEXAA_HOST,
+                    "ssh", "root@" + Const.HEXAA_HOST,
+                    "-p", Integer.toString(Const.SSH_PORT),
                     "~/cachedrop.sh", "exit"
                 });
             }

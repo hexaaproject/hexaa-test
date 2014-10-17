@@ -443,7 +443,7 @@ public class Utility {
                 // Creates the JSON object
                 JSONObject json = new JSONObject();
                 json.put("name", name);
-                json.put("start_date", LocalDate.now(ZoneId.of("UTC")).toString());
+                //json.put("start_date", LocalDate.now(ZoneId.of("UTC")).toString());
                 // POSTs the role
                 persistent.call(
                         Const.Api.ORGANIZATIONS_ID_ROLES,
@@ -451,7 +451,7 @@ public class Utility {
                         json.toString(),
                         1, 1);
                 // Just to match the servers format
-                json.put("start_date", json.getString("start_date").concat("T00:00:00+0000"));
+                //json.put("start_date", json.getString("start_date").concat("T00:00:00+0000"));
                 response.put(json);
             }
 
