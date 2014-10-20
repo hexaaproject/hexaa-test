@@ -3,6 +3,7 @@ package sztaki.hexaa.httputility.apicalls.services.entitlementpacks;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.fail;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import org.skyscreamer.jsonassert.JSONAssert;
@@ -64,17 +65,21 @@ public class ServicesEntitlementpacksPostTest extends CleanTest {
         }
 
         // GETs the entitlements from the server
-        JSONArray jsonResponseObject = (JSONArray) JSONParser.parseJSON(
+        Object response = JSONParser.parseJSON(
                 persistent.call(
                         Const.Api.SERVICES_ID_ENTITLEMENTPACKS,
                         BasicCall.REST.GET,
                         null,
                         1, 0));
+        if (response instanceof JSONObject) {
+            fail("Got error obejct instead of array response: " + response.toString());
+        }
+        JSONArray jsonResponse = (JSONArray) response;
 
         try {
             assertEquals(Const.StatusLine.OK, persistent.getStatusLine());
-            JSONAssert.assertEquals(entitlemenetpacks.getJSONObject(0), jsonResponseObject.getJSONObject(0), JSONCompareMode.LENIENT);
-            JSONAssert.assertEquals(entitlemenetpacks.getJSONObject(1), jsonResponseObject.getJSONObject(1), JSONCompareMode.LENIENT);
+            JSONAssert.assertEquals(entitlemenetpacks.getJSONObject(0), jsonResponse.getJSONObject(0), JSONCompareMode.LENIENT);
+            JSONAssert.assertEquals(entitlemenetpacks.getJSONObject(1), jsonResponse.getJSONObject(1), JSONCompareMode.LENIENT);
         } catch (AssertionError e) {
             AssertErrorHandler(e);
         }

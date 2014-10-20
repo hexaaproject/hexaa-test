@@ -64,17 +64,21 @@ public class ServicesEntitlementsPostTest extends CleanTest {
         }
 
         // GETs the entitlements from the server
-        JSONArray jsonResponseObject = (JSONArray) JSONParser.parseJSON(
+        Object response = JSONParser.parseJSON(
                 persistent.call(
                         Const.Api.SERVICES_ID_ENTITLEMENTS,
                         BasicCall.REST.GET,
                         null,
                         1, 0));
+        if (response instanceof JSONObject) {
+            fail("Got error obejct instead of array response: " + response.toString());
+        }
+        JSONArray jsonResponse = (JSONArray) response;
 
         try {
             assertEquals(Const.StatusLine.OK, persistent.getStatusLine());
-            JSONAssert.assertEquals(entitlemenets.getJSONObject(0), jsonResponseObject.getJSONObject(0), JSONCompareMode.LENIENT);
-            JSONAssert.assertEquals(entitlemenets.getJSONObject(1), jsonResponseObject.getJSONObject(1), JSONCompareMode.LENIENT);
+            JSONAssert.assertEquals(entitlemenets.getJSONObject(0), jsonResponse.getJSONObject(0), JSONCompareMode.LENIENT);
+            JSONAssert.assertEquals(entitlemenets.getJSONObject(1), jsonResponse.getJSONObject(1), JSONCompareMode.LENIENT);
         } catch (AssertionError e) {
             AssertErrorHandler(e);
         }

@@ -490,12 +490,11 @@ public class Utility {
                             null,
                             0,
                             0));
-            int i = 0;
             for (String name : names) {
                 // Creates the json object to be POSTed on the server
                 JSONObject json = new JSONObject();
                 json.put("name", name);
-                json.put("entityid", jsonEntityArray.getString(i++));
+                json.put("entityid", jsonEntityArray.getString(0));
                 json.put("url", "test." + name + ".test");
                 json.put("description", "This is a test service for the " + jsonEntityArray.getString(0) + "service provider entity.");
                 // POSTs the json object

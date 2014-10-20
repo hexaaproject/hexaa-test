@@ -14,7 +14,8 @@ import sztaki.hexaa.httputility.Utility;
 import sztaki.hexaa.httputility.apicalls.CleanTest;
 
 /**
- * Tests the GET methods on the /api/entitlementpacks/public call.
+ * Tests the GET methods on the /api/entitlementpacks/public and
+ * /api/entitlementpacks/{id} calls.
  */
 public class EntitlementpacksGetTest extends CleanTest {
 
@@ -98,33 +99,6 @@ public class EntitlementpacksGetTest extends CleanTest {
             } catch (AssertionError e) {
                 AssertErrorHandler(e);
             }
-        }
-    }
-
-    /**
-     * Tests the GET method on /api/entitlementpacks/{id}/entitlements.
-     */
-    @Test
-    public void testEntitlementpacksGetEntitlement() {
-        // GET call and JSON parsing
-        JSONArray jsonResponseArray
-                = (JSONArray) JSONParser.parseJSON(
-                        persistent.call(
-                                Const.Api.ENTITLEMENTPACKS_ID_ENTITLEMENTS,
-                                BasicCall.REST.GET,
-                                null,
-                                1, 0));
-        System.out.println(jsonResponseArray.toString());
-        try {
-            // Asserting on the statusline for 200
-            assertEquals(Const.StatusLine.OK, persistent.getStatusLine());
-            // Asserting the JSON response with the local entitlements array
-            JSONAssert.assertEquals(
-                    entitlements.getJSONObject(0),
-                    jsonResponseArray.getJSONObject(0),
-                    JSONCompareMode.LENIENT);
-        } catch (AssertionError e) {
-            AssertErrorHandler(e);
         }
     }
 }

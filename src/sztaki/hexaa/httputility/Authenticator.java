@@ -54,7 +54,7 @@ public class Authenticator {
             json.put("display_name", fedid + "_name");
 
             System.out.print("** AUTHENTICATE **\t");
-            System.out.println("Temporary API key acquired.");
+            System.out.println("Temporary API key acquired: " + json.getString("apikey"));
 
             System.out.print("** AUTHENTICATE **\t");
             response = postToken.call(
@@ -90,7 +90,7 @@ public class Authenticator {
      * @return String temporal API key for limited time of authentication.
      */
     public String getAPIKey() {
-        String out = null;
+        String timestamp = null;
         String sha256hex;
 
         // Set a ZoneId so we can get zone specific time, in this case "UTC"
@@ -99,13 +99,13 @@ public class Authenticator {
         try {
             // Format the date to the required pattern
             DateTimeFormatter format = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
-            out = date.format(format);
+            timestamp = date.format(format);
         } catch (DateTimeException exc) {
             throw exc;
         }
         String temp = Const.MASTER_SECRET;
 
-        temp = temp.concat(out);
+        temp = temp.concat(timestamp);
 
         sha256hex = org.apache.commons.codec.digest.DigestUtils.sha256Hex(temp);
         if (sha256hex == null) {
