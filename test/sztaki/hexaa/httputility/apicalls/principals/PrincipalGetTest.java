@@ -107,8 +107,7 @@ public class PrincipalGetTest extends CleanTest {
     public void testPrincipalsGetById() {
         Object response
                 = JSONParser.parseJSON(
-                        persistent.call(
-                                Const.Api.PRINCIPALS_ID,
+                        persistent.call(Const.Api.PRINCIPALS_ID_ID,
                                 BasicCall.REST.GET,
                                 null,
                                 1, 1));

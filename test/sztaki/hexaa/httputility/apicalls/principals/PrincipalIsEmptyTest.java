@@ -55,18 +55,7 @@ public class PrincipalIsEmptyTest extends IsEmptyTest {
         expectingNotFound(
                 Const.Api.PRINCIPALS_ASID_ATTRIBUTESPECS_ATTRIBUTEVALUEPRINCIPALS,
                 BasicCall.REST.GET);
-        expectingFedid(
-                Const.Api.PRINCIPALS_ID,
+        expectingFedid(Const.Api.PRINCIPALS_ID_ID,
                 BasicCall.REST.GET);
-    }
-    
-    /**
-     * PATCH method tests.
-     */
-    @Test
-    public void testPrincipalIsEmptyPatch() {
-        expectingNotFound(
-                Const.Api.PRINCIPALS_ID,
-                BasicCall.REST.PATCH);
     }
 }

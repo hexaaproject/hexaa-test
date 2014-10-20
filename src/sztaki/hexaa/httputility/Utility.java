@@ -1083,8 +1083,7 @@ public class Utility {
          * @param id the id of the principal to remove.
          */
         public static void principal(int id) {
-            persistent.call(
-                    Const.Api.PRINCIPALS_ID,
+            persistent.call(Const.Api.PRINCIPALS_ID_ID,
                     BasicCall.REST.DEL,
                     null,
                     id, id);

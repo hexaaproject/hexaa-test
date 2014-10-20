@@ -41,8 +41,7 @@ public class RolesPrincipalsRemoveTest extends CleanTest {
         Utility.Create.role("testRole", 1);
         principals = Utility.Create.principal("testPrincipal");
         principals.put(((JSONObject) JSONParser.parseJSON(
-                persistent.call(
-                        Const.Api.PRINCIPALS_ID,
+                persistent.call(Const.Api.PRINCIPALS_ID_ID,
                         BasicCall.REST.GET))));
         Utility.Link.memberToOrganization(1, 2);
         Utility.Link.principalToRole(1, 1);

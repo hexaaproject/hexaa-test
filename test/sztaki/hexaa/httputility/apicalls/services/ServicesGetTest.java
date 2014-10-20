@@ -103,6 +103,8 @@ public class ServicesGetTest extends CleanTest {
                                 BasicCall.REST.GET));
         try {
             assertEquals(Const.StatusLine.OK, persistent.getStatusLine());
+            assertEquals("Expected " + services.length() + " services but got " + jsonResponseArray.length(),
+                    services.length(), jsonResponseArray.length());
         } catch (AssertionError e) {
             AssertErrorHandler(e);
             return;

@@ -361,7 +361,11 @@ public class Const {
         /**
          * GET, DELETE info about, delete a principal by id.
          */
-        public static final String PRINCIPALS_ID = ("/app.php/api/principals/{id}/id");
+        public static final String PRINCIPALS_ID_ID = ("/app.php/api/principals/{id}/id");
+        /**
+         * GET, POST, PATCH, PUT info about, delete a principal by id.
+         */
+        public static final String PRINCIPALS_ID = ("/app.php/api/principals/{id}");
         /**
          * DELETE current principal.
          */

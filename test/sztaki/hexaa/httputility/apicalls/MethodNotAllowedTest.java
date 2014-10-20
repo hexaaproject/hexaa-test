@@ -216,7 +216,7 @@ public class MethodNotAllowedTest extends CleanTest {
         this.expectingNotAllowed(
                 new String[]{
                     Const.Api.PRINCIPALS_FEDID,
-                    Const.Api.PRINCIPALS_ID,},
+                    Const.Api.PRINCIPALS_ID_ID,},
                 restPostPut);
 
         this.expectingNotAllowed(
