@@ -49,7 +49,7 @@ public class AttributevalueorganizationsPost extends CleanTest {
     public void testAttributevalueorganizationsPost() {
         JSONObject json = new JSONObject();
         json.put("value", "testValueString");
-        json.put("service_ids", new JSONArray(new int[]{1}));
+        json.put("service_ids", new JSONArray(new int[]{}));
         json.put("attribute_spec_id", 1);
         json.put("organization_id", 1);
 
@@ -57,14 +57,25 @@ public class AttributevalueorganizationsPost extends CleanTest {
 
         try {
             assertEquals(Const.StatusLine.Created, Utility.persistent.getStatusLine());
-            JSONAssert.assertEquals(
-                    json,
-                    ((JSONArray) JSONParser.parseJSON(
+        } catch (AssertionError e) {
+            AssertErrorHandler(e);
+        }
+        
+        Object response = JSONParser.parseJSON(
                             persistent.call(
                                     Const.Api.ORGANIZATIONS_ID_ATTRIBUTEVALUEORGANIZATION,
                                     BasicCall.REST.GET,
                                     null,
-                                    1, 1))).getJSONObject(0),
+                                    1, 1));
+        if (response instanceof JSONObject) {
+            fail("JSONObject instead JSONArray: " + response.toString());
+        }
+        JSONObject jsonResponse = ((JSONArray) response).getJSONObject(0);
+        System.out.println(jsonResponse);
+        try {
+            JSONAssert.assertEquals(
+                    json,
+                    jsonResponse,
                     JSONCompareMode.LENIENT);
             assertEquals(Const.StatusLine.OK, persistent.getStatusLine());
         } catch (AssertionError e) {

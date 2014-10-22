@@ -483,13 +483,18 @@ public class Utility {
         public static JSONArray service(String[] names) {
             JSONArray services = new JSONArray();
             // GET the existing entityids
-            JSONArray jsonEntityArray = (JSONArray) JSONParser.parseJSON(
+            Object entityResponse = JSONParser.parseJSON(
                     persistent.call(
                             Const.Api.ENTITYIDS,
                             BasicCall.REST.GET,
                             null,
                             0,
                             0));
+            if (entityResponse instanceof JSONObject && ((JSONObject) entityResponse ).has("error")) {
+                System.err.println("No entity id was returned, got error message instead: " + entityResponse);
+                return services;
+           }
+            JSONArray jsonEntityArray = (JSONArray) entityResponse;
             for (String name : names) {
                 // Creates the json object to be POSTed on the server
                 JSONObject json = new JSONObject();

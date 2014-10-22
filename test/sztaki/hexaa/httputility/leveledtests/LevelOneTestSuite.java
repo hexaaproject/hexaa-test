@@ -2,6 +2,7 @@ package sztaki.hexaa.httputility.leveledtests;
 
 import org.junit.runner.RunWith;
 import org.junit.runners.Suite;
+import sztaki.hexaa.httputility.apicalls.BasicTestSuite;
 
 @RunWith(Suite.class)
 @Suite.SuiteClasses({
@@ -13,6 +14,6 @@ import org.junit.runners.Suite;
     sztaki.hexaa.httputility.apicalls.services.ServicesPostTest.class,
 
 })
-public class LevelOneTestSuite {
+public class LevelOneTestSuite extends BasicTestSuite{
 
 }

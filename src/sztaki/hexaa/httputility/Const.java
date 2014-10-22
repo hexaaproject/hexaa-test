@@ -474,6 +474,10 @@ public class Const {
          * HTTP/1.1 405 Method Not Allowed.
          */
         public static String MethodNotAllowed = "HTTP/1.1 405 Method Not Allowed";
+        /**
+         * HTTP/1.1 401 Unauthorized.
+         */
+        public static String Unauthorized = "HTTP/1.1 401 Unauthorized";
     }
 
     /**

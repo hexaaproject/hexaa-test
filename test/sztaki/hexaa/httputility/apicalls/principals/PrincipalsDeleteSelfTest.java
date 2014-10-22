@@ -58,7 +58,7 @@ public class PrincipalsDeleteSelfTest extends CleanTest {
         persistent.call(Const.Api.PRINCIPAL_SELF, BasicCall.REST.GET);
 
         try {
-            assertEquals(Const.StatusLine.Forbidden, persistent.getStatusLine());
+            assertEquals(Const.StatusLine.Unauthorized, persistent.getStatusLine());
         } catch (AssertionError e) {
             AssertErrorHandler(e);
         }

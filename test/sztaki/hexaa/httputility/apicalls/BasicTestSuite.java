@@ -36,21 +36,24 @@ public abstract class BasicTestSuite {
      */
     @BeforeClass
     public static void checkReachable() {
-        try {
-            InetAddress address;
-            address = InetAddress.getByName(Const.HEXAA_HOST);
-            Assume.assumeTrue(address.isReachable(5000));
-        } catch (UnknownHostException ex) {
-            Logger.getLogger(CleanTest.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (IOException ex) {
-            Logger.getLogger(CleanTest.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (AssumptionViolatedException e) {
-            CLEANUP_NEEDED = false;
-            System.out.println(
-                    "The host could not be reached, check the connection"
-                    + " and/or the sserver constants at"
-                    + " /sztaki/hexaa/httputility/Const");
-            fail("Host unreachable.");
+        new DatabaseManipulator().dropCache();
+        if (Const.HEXAA_HOST != "localhost") {
+            try {
+                InetAddress address;
+                address = InetAddress.getByName(Const.HEXAA_HOST);
+                Assume.assumeTrue(address.isReachable(5000));
+            } catch (UnknownHostException ex) {
+                Logger.getLogger(CleanTest.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (IOException ex) {
+                Logger.getLogger(CleanTest.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (AssumptionViolatedException e) {
+                CLEANUP_NEEDED = false;
+                System.out.println(
+                        "The host could not be reached, check the connection"
+                        + " and/or the sserver constants at"
+                        + " /sztaki/hexaa/httputility/Const");
+                fail("Host unreachable.");
+            }
         }
     }
 
