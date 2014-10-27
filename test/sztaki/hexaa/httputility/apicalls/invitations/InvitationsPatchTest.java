@@ -14,16 +14,16 @@ import sztaki.hexaa.httputility.Utility;
 import sztaki.hexaa.httputility.apicalls.CleanTest;
 
 /**
- * Test the PUT method on the /api/invitations/{id} call.
+ * Test the PATCH method on the /api/invitations/{id} call.
  */
-public class InvitationsPutTest extends CleanTest {
+public class InvitationsPatchTest extends CleanTest {
 
     /**
      * Print the class name on the output.
      */
     @BeforeClass
     public static void classInformation() {
-        System.out.println("***\t " + InvitationsPutTest.class.getSimpleName() + " ***");
+        System.out.println("***\t " + InvitationsPatchTest.class.getSimpleName() + " ***");
     }
 
     /**
@@ -44,18 +44,20 @@ public class InvitationsPutTest extends CleanTest {
                 0,
                 1);
     }
-    
+
     @Test
     public void testInvitationPut() {
-        invitation.put("message", "This is a changed message, it's changed by put.");
+        JSONObject json = new JSONObject();
+        json.put("message", "This is a changed message, it's changed by put.");
         
-        persistent.call(Const.Api.INVITATIONS_ID, BasicCall.REST.PUT, invitation.toString(), 1, 1);
+        persistent.call(Const.Api.INVITATIONS_ID, BasicCall.REST.PATCH, json.toString(), 1, 1);
         
         invitation.put("organization_id", invitation.remove("organization"));
+        invitation.put("message", json.getString("message"));
         
         try {
             assertEquals(Const.StatusLine.NoContent, persistent.getStatusLine());
-        } catch (AssertionError e) {
+        } catch(AssertionError e) {
             AssertErrorHandler(e);
         }
         
