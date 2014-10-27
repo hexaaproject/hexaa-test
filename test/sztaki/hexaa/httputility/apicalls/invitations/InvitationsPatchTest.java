@@ -39,7 +39,7 @@ public class InvitationsPatchTest extends CleanTest {
         Utility.Create.organization("TestOrgName1");
         invitation = Utility.Create.invitationToOrg(
                 null,
-                "http://test.something.test",
+                "http://hexaa.eduid.hu/hexaaui",
                 "This is a test invitation to organization.",
                 0,
                 1);

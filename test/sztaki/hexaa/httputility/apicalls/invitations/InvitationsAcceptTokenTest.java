@@ -1,3 +1,8 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
 package sztaki.hexaa.httputility.apicalls.invitations;
 
 import org.json.JSONArray;
@@ -5,8 +10,6 @@ import org.json.JSONObject;
 import org.junit.Test;
 import static org.junit.Assert.*;
 import org.junit.BeforeClass;
-import org.skyscreamer.jsonassert.JSONAssert;
-import org.skyscreamer.jsonassert.JSONCompareMode;
 import org.skyscreamer.jsonassert.JSONParser;
 import sztaki.hexaa.httputility.BasicCall;
 import sztaki.hexaa.httputility.Const;
@@ -14,22 +17,17 @@ import sztaki.hexaa.httputility.Utility;
 import sztaki.hexaa.httputility.apicalls.CleanTest;
 
 /**
- * Test the PUT method on the /api/invitations/{id} call.
+ * Test the GET method on the /api/invitations/{token}/accept/token call.
  */
-public class InvitationsPutTest extends CleanTest {
-
+public class InvitationsAcceptTokenTest extends CleanTest{
+    
     /**
      * Print the class name on the output.
      */
     @BeforeClass
     public static void classInformation() {
-        System.out.println("***\t " + InvitationsPutTest.class.getSimpleName() + " ***");
+        System.out.println("***\t " + InvitationsAcceptTokenTest.class.getSimpleName() + " ***");
     }
-
-    /**
-     * JSONObject to store the invitation for organization.
-     */
-    public static JSONObject invitation = new JSONObject();
 
     /**
      * Creates an invitation.
@@ -37,7 +35,7 @@ public class InvitationsPutTest extends CleanTest {
     @BeforeClass
     public static void setUpClass() {
         Utility.Create.organization("TestOrgName1");
-        invitation = Utility.Create.invitationToOrg(
+        Utility.Create.invitationToOrg(
                 null,
                 "http://hexaa.eduid.hu/hexaaui",
                 "This is a test invitation to organization.",
@@ -46,31 +44,25 @@ public class InvitationsPutTest extends CleanTest {
     }
     
     @Test
-    public void testInvitationPut() {
-        invitation.put("message", "This is a changed message, it's changed by put.");
-        
-        persistent.call(Const.Api.INVITATIONS_ID, BasicCall.REST.PUT, invitation.toString(), 1, 1);
-        
-        invitation.put("organization_id", invitation.remove("organization"));
-        
-        try {
-            assertEquals(Const.StatusLine.NoContent, persistent.getStatusLine());
-        } catch (AssertionError e) {
-            AssertErrorHandler(e);
-        }
-        
+    public void testInvitationsAcceptToken() {
         Object response = JSONParser.parseJSON(persistent.call(Const.Api.INVITATIONS_ID, BasicCall.REST.GET));
         
         if (response instanceof JSONArray) {
-            fail("Response is a JSONArray for unknown reason: " + response.toString());
+            fail("Got JSONArray for unknown reason: " + response.toString());
         }
         
         JSONObject jsonResponse = (JSONObject) response;
         
+        persistent.setToken(jsonResponse.getString("token"));
+        
+        System.out.println(persistent.call(Const.Api.INVITATIONS_TOKEN_ACCEPT_TOKEN, BasicCall.REST.GET));
+        
         try {
-            JSONAssert.assertEquals(invitation, jsonResponse, JSONCompareMode.LENIENT);
-        } catch (AssertionError e) {
+            assertEquals(Const.StatusLine.RedirectFound, persistent.getStatusLine());
+            assertEquals("http://hexaa.eduid.hu/hexaaui", persistent.getHeader("Location").getValue());
+        } catch(AssertionError e) {
             AssertErrorHandler(e);
         }
     }
+
 }

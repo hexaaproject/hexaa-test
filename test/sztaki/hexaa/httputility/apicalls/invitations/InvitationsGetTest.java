@@ -51,21 +51,21 @@ public class InvitationsGetTest extends CleanTest {
 
         invitationOrganization = Utility.Create.invitationToOrg(
                 null,
-                "http://test.something.test",
+                "http://hexaa.eduid.hu/hexaaui",
                 "This is a test invitation to organization.",
                 0,
                 1);
 
         invitationRole = Utility.Create.invitationToOrg(
                 null,
-                "http://test.something.test",
+                "http://hexaa.eduid.hu/hexaaui",
                 "This is a test invitation to role.",
                 1,
                 1);
 
         invitationService = Utility.Create.invitationToService(
                 null,
-                "http://test.something.test",
+                "http://hexaa.eduid.hu/hexaaui",
                 "This is a test invitation to service.",
                 1);
     }

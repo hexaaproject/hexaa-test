@@ -459,6 +459,10 @@ public class Const {
          */
         public static String NoContent = "HTTP/1.1 204 No Content";
         /**
+         * HTTP/1.1 302 Found.
+         */
+        public static String RedirectFound = "HTTP/1.1 302 Found";
+        /**
          * HTTP/1.1 400 Bad Request.
          */
         public static String BadRequest = "HTTP/1.1 400 Bad Request";

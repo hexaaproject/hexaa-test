@@ -5,12 +5,14 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import org.apache.http.Header;
 import sztaki.hexaa.httputility.core.HttpCoreDel;
 import sztaki.hexaa.httputility.core.HttpCoreGet;
 import sztaki.hexaa.httputility.core.HttpCorePost;
 import sztaki.hexaa.httputility.core.HttpCorePut;
 import org.apache.http.client.methods.CloseableHttpResponse;
 import org.json.JSONArray;
+import org.json.JSONException;
 import org.json.JSONObject;
 import org.skyscreamer.jsonassert.JSONParser;
 import sztaki.hexaa.httputility.core.HttpCorePatch;
@@ -28,6 +30,12 @@ public class BasicCall {
      * was made.
      */
     private String statusLine = "";
+
+    /**
+     * The headers of the last call, null before any call was made and maybe
+     * null if the call request fails.
+     */
+    private Header[] headers = null;
 
     /**
      * The relative path of the URI. Should be in /app.php/api/example format.
@@ -146,6 +154,18 @@ public class BasicCall {
     }
 
     /**
+     * Returns the header with the specified name if exists, null if not.
+     */
+    public Header getHeader(String name) {
+        for (Header h : headers) {
+            if (h.getName().contains(name)) {
+                return h;
+            }
+        }
+        return null;
+    }
+
+    /**
      * Prints all possible data for debug purposes.
      */
     public void printData() {
@@ -155,24 +175,24 @@ public class BasicCall {
         System.out.println("\t" + Integer.toString(sId));
         System.out.println("\t" + json);
     }
-    
+
     /* *** Constructor *** */
     /**
      * Constructor
      */
     public BasicCall() {
         this.id = 0;
-        
+
         this.sId = 0;
-        
+
         this.path = null;
-        
+
         this.json = "";
-        
+
         this.fedid = "fedid";
-        
+
         this.token = "token";
-        
+
         this.email = "email";
     }
 
@@ -222,7 +242,7 @@ public class BasicCall {
         this.setString(null);
         this.setId(1);
         this.setSId(1);
-        
+
         return callSwitch(restCall);
     }
 
@@ -244,7 +264,7 @@ public class BasicCall {
         this.setString(json);
         this.setId(1);
         this.setSId(1);
-        
+
         return callSwitch(restCall);
     }
 
@@ -267,7 +287,7 @@ public class BasicCall {
         this.setString(json);
         this.setId(id);
         this.setSId(sId);
-        
+
         return callSwitch(restCall);
     }
 
@@ -294,7 +314,7 @@ public class BasicCall {
         this.setId(id);
         this.setSId(sId);
         this.setFedid(fedid);
-        
+
         return callSwitch(restCall);
     }
 
@@ -305,6 +325,8 @@ public class BasicCall {
      * @return String, returns the response's content in string format.
      */
     protected String callSwitch(REST restCall) {
+        statusLine = "";
+        headers = null;
         switch (restCall) {
             case GET:
                 return this.get();
@@ -317,7 +339,7 @@ public class BasicCall {
             case PATCH:
                 return this.patch();
         }
-        
+
         return "Could not call";
     }
 
@@ -332,18 +354,22 @@ public class BasicCall {
         // The method is ready to work with path's that require id-s 
         String nPath;
         nPath = this.fixPath();
-        
+
         System.out.print("GET \t");
         System.out.println(nPath);
 
         // Getting the response from the server, this is
         // wrapped in the javahttputility.core package
         HttpCoreGet httpAction = new HttpCoreGet(nPath);
-        
+
         CloseableHttpResponse response = httpAction.get();
-        
-        return getContentString(response);
-        
+
+        if (response != null) {
+            return getContentString(response);
+        }
+        statusLine = "Request failed";
+        return "Request failed";
+
     }
 
     /**
@@ -357,7 +383,7 @@ public class BasicCall {
         // The method is ready to work with path's that require id-s 
         String nPath;
         nPath = this.fixPath();
-        
+
         System.out.print("POST \t");
         System.out.println(nPath);
 
@@ -365,10 +391,14 @@ public class BasicCall {
         // wrapped in the javahttputility.core package
         HttpCorePost httpAction = new HttpCorePost(nPath);
         httpAction.setJSon(this.json);
-        
+
         CloseableHttpResponse response = httpAction.post();
-        
-        return getContentString(response);
+
+        if (response != null) {
+            return getContentString(response);
+        }
+        statusLine = "Request failed";
+        return "Request failed";
     }
 
     /**
@@ -382,7 +412,7 @@ public class BasicCall {
         // The method is ready to work with path's that require id-s
         String nPath;
         nPath = this.fixPath();
-        
+
         System.out.print("PUT \t");
         System.out.println(nPath);
 
@@ -390,10 +420,14 @@ public class BasicCall {
         // wrapped in the javahttputility.core package
         HttpCorePut httpAction = new HttpCorePut(nPath);
         httpAction.setJSon(this.json);
-        
+
         CloseableHttpResponse response = httpAction.put();
-        
-        return getContentString(response);
+
+        if (response != null) {
+            return getContentString(response);
+        }
+        statusLine = "Request failed";
+        return "Request failed";
     }
 
     /**
@@ -406,17 +440,21 @@ public class BasicCall {
         // The method is ready to work with path's that require id-s
         String nPath;
         nPath = this.fixPath();
-        
+
         System.out.print("DEL \t");
         System.out.println(nPath);
 
         // Getting the response from the server, this is
         // wrapped in the javahttputility.core package
         HttpCoreDel httpAction = new HttpCoreDel(nPath);
-        
+
         CloseableHttpResponse response = httpAction.delete();
-        
-        return getContentString(response);
+
+        if (response != null) {
+            return getContentString(response);
+        }
+        statusLine = "Request failed";
+        return "Request failed";
     }
 
     /**
@@ -430,7 +468,7 @@ public class BasicCall {
         // The method is ready to work with path's that require id-s
         String nPath;
         nPath = this.fixPath();
-        
+
         System.out.print("PATCH \t");
         System.out.println(nPath);
 
@@ -438,12 +476,16 @@ public class BasicCall {
         // wrapped in the javahttputility.core package
         HttpCorePatch httpAction = new HttpCorePatch(nPath);
         httpAction.setJSon(this.json);
-        
+
         CloseableHttpResponse response = httpAction.patch();
-        
-        return getContentString(response);
+
+        if (response != null) {
+            return getContentString(response);
+        }
+        statusLine = "Request failed";
+        return "Request failed";
     }
-    
+
     /* *** Utility methods *** */
     /**
      * In the constans values of paths (found in {@link Const.Api}) the uris
@@ -479,7 +521,7 @@ public class BasicCall {
         if (nPath.contains("{token}")) {
             nPath = nPath.replace("{token}", token);
         }
-        
+
         return nPath.concat(".json");
     }
 
@@ -492,9 +534,17 @@ public class BasicCall {
      * String is empty (but not null)
      */
     private String getContentString(CloseableHttpResponse response) {
-        
+
         statusLine = "";
-        statusLine = response.getStatusLine().toString();
+        if (response.getStatusLine() != null) {
+            statusLine = response.getStatusLine().toString();
+        } else {
+            statusLine = "No statusline found";
+        }
+        
+        if (response.getAllHeaders() != null) {
+            headers = response.getAllHeaders();
+        }
 
         // Makes sure if there is any http entity and/or content,
         // if there is none it returns an empty string
@@ -506,11 +556,11 @@ public class BasicCall {
         } catch (IOException | IllegalStateException ex) {
             Logger.getLogger(BasicCall.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
+
         BufferedReader br = null;
-        
+
         String responseDataString = new String();
-        
+
         try {
             // Reading the JSON payload in bytes
             try {
@@ -531,7 +581,7 @@ public class BasicCall {
                     temp = br.readLine();
                 }
             }
-            
+
         } catch (IllegalStateException | IOException ex) {
             Logger.getLogger(
                     JavaHttpCoreTest.class.getName()).log(
@@ -547,7 +597,7 @@ public class BasicCall {
                 }
             }
         }
-        
+
         JSONObject jsonResponse;
         JSONArray jsonResponseArray;
         //System.out.println(responseDataString);
@@ -556,14 +606,21 @@ public class BasicCall {
                 || responseDataString.equals("")) {
             responseDataString = "";
         }
-        
+
         if (responseDataString.contains("503 Service Unavailable")) {
             return responseDataString;
         }
-        
+
         if (responseDataString.length() != 0) {
-            Object parsedResponse = JSONParser.parseJSON(responseDataString);
-            
+            Object parsedResponse = null;
+            try {
+                parsedResponse = JSONParser.parseJSON(responseDataString);
+            } catch (JSONException e) {
+                JSONObject jsonError = new JSONObject();
+                jsonError.put("error", "some JSONParser error");
+                return jsonError.toString();
+            }
+
             if (parsedResponse instanceof JSONObject) {
                 jsonResponse = ((JSONObject) parsedResponse);
                 if (jsonResponse.has("updated_at")) {
@@ -573,27 +630,27 @@ public class BasicCall {
             } else {
                 if (parsedResponse instanceof JSONArray) {
                     jsonResponseArray = (JSONArray) parsedResponse;
-                    
+
                     removeUpdate(jsonResponseArray);
-                    
+
                     return jsonResponseArray.toString();
                 }
             }
         }
-        
+
         return responseDataString;
     }
-    
+
     private void removeUpdate(JSONArray array) {
         for (int i = 0; i < array.length(); i++) {
             Object temp = array.get(i);
-            
+
             if (temp instanceof JSONObject && array.getJSONObject(i).has("updated_at")) {
                 array.getJSONObject(i).remove("updated_at");
             } else if (temp instanceof JSONArray) {
                 removeUpdate((JSONArray) temp);
             }
-            
+
         }
     }
 }

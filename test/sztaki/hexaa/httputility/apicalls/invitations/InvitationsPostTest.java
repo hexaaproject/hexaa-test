@@ -35,7 +35,7 @@ public class InvitationsPostTest extends CleanTest {
     public void testInvitationsPost() {
         Utility.Create.invitationToOrg(
                 null,
-                "http://test.something.test",
+                "http://hexaa.eduid.hu/hexaaui",
                 "This is a test invitation.",
                 0,
                 1);
