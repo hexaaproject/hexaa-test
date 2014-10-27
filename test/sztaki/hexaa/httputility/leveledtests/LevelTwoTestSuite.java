@@ -10,6 +10,7 @@ import sztaki.hexaa.httputility.apicalls.BasicTestSuite;
     sztaki.hexaa.httputility.apicalls.attributespecs.AttributespecsGetTest.class,
     sztaki.hexaa.httputility.apicalls.attributespecs.AttributespecsPutTest.class,
     sztaki.hexaa.httputility.apicalls.attributespecs.AttributespecsPatchTest.class,
+    sztaki.hexaa.httputility.apicalls.invitations.InvitationsPostTest.class,
     sztaki.hexaa.httputility.apicalls.organizations.OrganizationDeleteTest.class,
     sztaki.hexaa.httputility.apicalls.organizations.OrganizationGetTest.class,
     sztaki.hexaa.httputility.apicalls.organizations.OrganizationPutTest.class,
