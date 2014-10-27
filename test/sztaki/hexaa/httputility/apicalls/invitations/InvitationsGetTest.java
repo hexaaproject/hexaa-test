@@ -1,6 +1,7 @@
 package sztaki.hexaa.httputility.apicalls.invitations;
 
 import org.json.JSONObject;
+import static org.junit.Assert.assertEquals;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import org.skyscreamer.jsonassert.JSONAssert;
@@ -8,6 +9,7 @@ import org.skyscreamer.jsonassert.JSONCompareMode;
 import org.skyscreamer.jsonassert.JSONParser;
 import sztaki.hexaa.httputility.BasicCall;
 import sztaki.hexaa.httputility.Const;
+import sztaki.hexaa.httputility.Utility;
 import sztaki.hexaa.httputility.apicalls.CleanTest;
 
 /**
@@ -24,31 +26,55 @@ public class InvitationsGetTest extends CleanTest {
     }
 
     /**
-     * JSONObject to store single JSON Data.
+     * JSONObject to store the invitation for organization.
      */
-    public static JSONObject json = new JSONObject();
+    public static JSONObject invitationOrganization = new JSONObject();
+    /**
+     * JSONObject to store the invitation for role.
+     */
+    public static JSONObject invitationRole = new JSONObject();
+    /**
+     * JSONObject to store single the invitation for service.
+     */
+    public static JSONObject invitationService = new JSONObject();
 
     /**
-     * Creates one invitation.
+     * Creates invitations to test the organization, role and service
+     * invitations.
      */
     @BeforeClass
     public static void setUpClass() {
+        Utility.Create.organization("TestOrgName1");
+        Utility.Create.role("TestRole1", 1);
 
-        json.put("email", "testmail@testsztaki.test");
-        json.put("landing_url", "http://test.something.test");
-        json.put("message", "This is a test invitation.");
-        json.put("organization", 1);
+        Utility.Create.service("TestService1");
 
-        persistent.call(
-                Const.Api.INVITATIONS,
-                BasicCall.REST.POST);
+        invitationOrganization = Utility.Create.invitationToOrg(
+                null,
+                "http://test.something.test",
+                "This is a test invitation to organization.",
+                0,
+                1);
+
+        invitationRole = Utility.Create.invitationToOrg(
+                null,
+                "http://test.something.test",
+                "This is a test invitation to role.",
+                1,
+                1);
+
+        invitationService = Utility.Create.invitationToService(
+                null,
+                "http://test.something.test",
+                "This is a test invitation to service.",
+                1);
     }
 
     /**
-     * GET the invitation.
+     * GET the invitation for organization.
      */
     @Test
-    public void testInvitationGet() {
+    public void testInvitationGetOrganization() {
         JSONObject jsonResponse
                 = (JSONObject) JSONParser.parseJSON(
                         persistent.call(
@@ -58,8 +84,60 @@ public class InvitationsGetTest extends CleanTest {
                                 1, 1));
         System.out.println(jsonResponse.toString());
 
+        invitationOrganization.put("organization_id", invitationOrganization.remove("organization"));
+
         try {
-            JSONAssert.assertEquals(jsonResponse, json, JSONCompareMode.LENIENT);
+            assertEquals(Const.StatusLine.OK, persistent.getStatusLine());
+            JSONAssert.assertEquals(invitationOrganization, jsonResponse, JSONCompareMode.LENIENT);
+        } catch (AssertionError e) {
+            AssertErrorHandler(e);
+        }
+    }
+
+    /**
+     * GET the invitation for role.
+     */
+    @Test
+    public void testInvitationGetRole() {
+        JSONObject jsonResponse
+                = (JSONObject) JSONParser.parseJSON(
+                        persistent.call(
+                                Const.Api.INVITATIONS_ID,
+                                BasicCall.REST.GET,
+                                null,
+                                2, 2));
+        System.out.println(jsonResponse.toString());
+
+        invitationRole.put("organization_id", invitationRole.remove("organization"));
+        invitationRole.put("role_id", invitationRole.remove("role"));
+
+        try {
+            assertEquals(Const.StatusLine.OK, persistent.getStatusLine());
+            JSONAssert.assertEquals(invitationRole, jsonResponse, JSONCompareMode.LENIENT);
+        } catch (AssertionError e) {
+            AssertErrorHandler(e);
+        }
+    }
+
+    /**
+     * GET the invitation for service.
+     */
+    @Test
+    public void testInvitationGetService() {
+        JSONObject jsonResponse
+                = (JSONObject) JSONParser.parseJSON(
+                        persistent.call(
+                                Const.Api.INVITATIONS_ID,
+                                BasicCall.REST.GET,
+                                null,
+                                3, 3));
+        System.out.println(jsonResponse.toString());
+
+        invitationService.put("service_id", invitationService.remove("service"));
+
+        try {
+            assertEquals(Const.StatusLine.OK, persistent.getStatusLine());
+            JSONAssert.assertEquals(invitationService, jsonResponse, JSONCompareMode.LENIENT);
         } catch (AssertionError e) {
             AssertErrorHandler(e);
         }

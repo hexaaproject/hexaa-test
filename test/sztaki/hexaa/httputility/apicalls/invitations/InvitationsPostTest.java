@@ -1,11 +1,8 @@
 package sztaki.hexaa.httputility.apicalls.invitations;
 
-import org.json.JSONArray;
-import org.json.JSONObject;
 import static org.junit.Assert.*;
 import org.junit.BeforeClass;
 import org.junit.Test;
-import sztaki.hexaa.httputility.BasicCall;
 import sztaki.hexaa.httputility.Const;
 import sztaki.hexaa.httputility.Utility;
 import sztaki.hexaa.httputility.apicalls.CleanTest;
@@ -24,19 +21,11 @@ public class InvitationsPostTest extends CleanTest {
     }
 
     /**
-     * JSONArray to store created organizations.
-     */
-    public static JSONArray organizations = new JSONArray();
-
-    /**
-     * Creates two organizations.
+     * Creates an organizations.
      */
     @BeforeClass
     public static void setUpClass() {
-        organizations = Utility.Create.organization(
-                new String[]{
-                    "TestOrgName1",
-                    "TestOrgName2,",});
+        Utility.Create.organization("TestOrgName1");
     }
 
     /**
@@ -44,20 +33,15 @@ public class InvitationsPostTest extends CleanTest {
      */
     @Test
     public void testInvitationsPost() {
-        JSONObject json = new JSONObject();
-        json.put("email", "testmail@testsztaki.test");
-        json.put("landing_url", "http://test.something.test");
-        json.put("message", "This is a test invitation.");
-        json.put("organization", 1);
-
-        persistent.call(
-                Const.Api.INVITATIONS,
-                BasicCall.REST.POST,
-                json.toString(),
-                0, 0);
+        Utility.Create.invitationToOrg(
+                null,
+                "http://test.something.test",
+                "This is a test invitation.",
+                0,
+                1);
 
         try {
-            assertEquals(Const.StatusLine.Created, persistent.getStatusLine());
+            assertEquals(Const.StatusLine.Created, Utility.persistent.getStatusLine());
         } catch (AssertionError e) {
             AssertErrorHandler(e);
         }

@@ -1,7 +1,6 @@
 package sztaki.hexaa.httputility;
 
-import java.time.LocalDate;
-import java.time.ZoneId;
+import java.time.LocalDateTime;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import org.skyscreamer.jsonassert.JSONParser;
@@ -94,7 +93,7 @@ public class Utility {
         public static JSONArray attributevalueorganization(String value, int asid, int orgId) {
             return attributevalueorganization(new String[]{value}, asid, orgId);
         }
-        
+
         /**
          * Alternative call for
          * {@link #attributevalueorganization(String[], int, int)} for single
@@ -490,18 +489,18 @@ public class Utility {
                             null,
                             0,
                             0));
-            if (entityResponse instanceof JSONObject && ((JSONObject) entityResponse ).has("error")) {
+            if (entityResponse instanceof JSONObject && ((JSONObject) entityResponse).has("error")) {
                 System.err.println("No entity id was returned, got error message instead: " + entityResponse);
                 return services;
-           }
+            }
             JSONArray jsonEntityArray = (JSONArray) entityResponse;
             for (String name : names) {
                 // Creates the json object to be POSTed on the server
                 JSONObject json = new JSONObject();
                 json.put("name", name);
-                json.put("entityid", jsonEntityArray.getString(0));
+                json.put("entityid", jsonEntityArray.get(0).toString());
                 json.put("url", "test." + name + ".test");
-                json.put("description", "This is a test service for the " + jsonEntityArray.getString(0) + "service provider entity.");
+                json.put("description", "This is a test service for the " + jsonEntityArray.get(0).toString() + "service provider entity.");
                 // POSTs the json object
                 persistent.call(
                         Const.Api.SERVICES,
@@ -526,6 +525,65 @@ public class Utility {
         public static JSONArray service(String name) {
             return Create.service(new String[]{name});
         }
+
+        public static JSONObject invitation(String[] emails, String url,
+                boolean redirect, boolean as_manager, String message,
+                LocalDateTime start_date, LocalDateTime end_date, int limit,
+                String locale, int role, int organization, int service) {
+            JSONObject json = new JSONObject();
+            if (emails != null) {
+                json.put("emails", emails);
+            }
+            if (url != null) {
+                json.put("landing_url", url);
+            }
+            if (redirect != false) {
+                json.put("do_redirect", redirect);
+            }
+            if (as_manager != false) {
+                json.put("as_manager", as_manager);
+            }
+            if (message != null) {
+                json.put("message", message);
+            }
+            if (start_date != null) {
+                json.put("start_date", start_date);
+            }
+            if (end_date != null) {
+                json.put("end_date", end_date);
+            }
+            if (limit != 0) {
+                json.put("limit", limit);
+            }
+            if (locale != null) {
+                json.put("locale", locale);
+            }
+            if (role != 0) {
+                json.put("role", role);
+            }
+            if (organization != 0) {
+                json.put("organization", organization);
+            }
+            if (service != 0) {
+                json.put("service", service);
+            }
+
+            persistent.call(Const.Api.INVITATIONS, BasicCall.REST.POST, json.toString());
+
+            return json;
+        }
+
+        public static JSONObject invitationToOrg(String[] emails, String url, String message,
+                int role, int organization) {
+            return invitation(emails, url, false, false, message, null, null, 0, null, role, organization, 0);
+        }
+        
+        public static JSONObject invitationToService(String[] emails, String url, String message,
+                int service) {
+            return invitation(emails, url, false, false, message, null, null, 0, null, 0, 0, service);
+        }
+        
+        
     }
 
     /**
