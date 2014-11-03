@@ -34,7 +34,7 @@ public final class DatabaseManipulator {
                 proc = rt.exec(new String[]{
                     "ssh", "root@" + Const.HEXAA_HOST,
                     "-p", Integer.toString(Const.SSH_PORT),
-                    "~/databasedrop.sh", "exit"
+                    "~/databasedrop.sh"
                 });
             }
 
@@ -78,7 +78,7 @@ public final class DatabaseManipulator {
                 proc = rt.exec(new String[]{
                     "ssh", "root@" + Const.HEXAA_HOST,
                     "-p", Integer.toString(Const.SSH_PORT),
-                    "~/cachedrop.sh", "exit"
+                    "~/cachedrop.sh"
                 });
             }
 

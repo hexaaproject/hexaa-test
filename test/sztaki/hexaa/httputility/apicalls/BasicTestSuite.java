@@ -36,8 +36,9 @@ public abstract class BasicTestSuite {
      */
     @BeforeClass
     public static void checkReachable() {
+        new Authenticator().loadProperties();
         new DatabaseManipulator().dropCache();
-        if (Const.HEXAA_HOST != "localhost") {
+        if (!Const.HEXAA_HOST.equals("localhost")) {
             try {
                 InetAddress address;
                 address = InetAddress.getByName(Const.HEXAA_HOST);
