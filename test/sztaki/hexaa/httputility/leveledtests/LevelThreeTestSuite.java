@@ -4,6 +4,13 @@ import org.junit.runner.RunWith;
 import org.junit.runners.Suite;
 import sztaki.hexaa.httputility.apicalls.BasicTestSuite;
 
+/**
+ * The third level of the differentiated tests. These tests only rely on
+ * functions that are tested in the LevelTwoTestSuite and other previous suites.
+ * Failed tests in the previous test suites may cause additional fails in this
+ * suite as well. Failed test in this suite may cause tests in the later suites
+ * to fail.
+ */
 @RunWith(Suite.class)
 @Suite.SuiteClasses({
     sztaki.hexaa.httputility.apicalls.attributespecs.AttributespecsServicesGetTest.class,
@@ -35,7 +42,8 @@ import sztaki.hexaa.httputility.apicalls.BasicTestSuite;
     sztaki.hexaa.httputility.apicalls.services.attributespecs.ServicesAttributespecsRemoveTest.class,
     sztaki.hexaa.httputility.apicalls.services.entitlements.ServicesEntitlementsGetTest.class,
     sztaki.hexaa.httputility.apicalls.services.managers.ServicesManagersAddTest.class,
-    sztaki.hexaa.httputility.apicalls.services.entitlementpacks.ServicesEntitlementpacksGetTest.class,})
-public class LevelThreeTestSuite extends BasicTestSuite{
+    sztaki.hexaa.httputility.apicalls.services.entitlementpacks.ServicesEntitlementpacksGetTest.class,
+})
+public class LevelThreeTestSuite extends BasicTestSuite {
 
 }

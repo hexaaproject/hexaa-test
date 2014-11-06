@@ -75,6 +75,12 @@ public class BasicCall {
      */
     private String json = new String();
 
+    /**
+     * The format that will concated to the end of the call url. By default it
+     * is ".json".
+     */
+    private String format = new String(".json");
+
     /* *** Setter/getter methods *** */
     /**
      * Sets the path.
@@ -155,6 +161,9 @@ public class BasicCall {
 
     /**
      * Returns the header with the specified name if exists, null if not.
+     *
+     * @param name the name of the header.
+     * @return the header with the specified name.
      */
     public Header getHeader(String name) {
         for (Header h : headers) {
@@ -174,6 +183,19 @@ public class BasicCall {
         System.out.println("\t" + Integer.toString(id));
         System.out.println("\t" + Integer.toString(sId));
         System.out.println("\t" + json);
+    }
+
+    /**
+     * Set the format to the specified value. Can only be ".json" or ""(empty
+     * string) at the moment.
+     *
+     * @param f string, format type of the calls, can be ".json" or ""(empty
+     * string).
+     */
+    public void setFormat(String f) {
+        if (f.equals(".json") || f.equals("")) {
+            this.format = f;
+        }
     }
 
     /* *** Constructor *** */
@@ -522,7 +544,7 @@ public class BasicCall {
             nPath = nPath.replace("{token}", token);
         }
 
-        return nPath.concat(".json");
+        return nPath.concat(this.format);
     }
 
     /**
@@ -541,7 +563,7 @@ public class BasicCall {
         } else {
             statusLine = "No statusline found";
         }
-        
+
         if (response.getAllHeaders() != null) {
             headers = response.getAllHeaders();
         }
@@ -612,7 +634,7 @@ public class BasicCall {
         }
 
         if (responseDataString.length() != 0) {
-            Object parsedResponse = null;
+            Object parsedResponse;
             try {
                 parsedResponse = JSONParser.parseJSON(responseDataString);
             } catch (JSONException e) {
@@ -641,6 +663,14 @@ public class BasicCall {
         return responseDataString;
     }
 
+    /**
+     * Removes the update key from the JSONObjects stored in the given
+     * JSONArray. This is needed because the update value is changing whenever
+     * someone reach for the object (even with GET) and that would create
+     * unnecessary inconsistency.
+     *
+     * @param array JSONArray with JSONObjects to remove all update keys.
+     */
     private void removeUpdate(JSONArray array) {
         for (int i = 0; i < array.length(); i++) {
             Object temp = array.get(i);

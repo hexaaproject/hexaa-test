@@ -484,17 +484,17 @@ public class Utility {
             // GET the existing entityids
             // TODO if GET entityids gets fixed should bring back the entityid check.
             /*Object entityResponse = JSONParser.parseJSON(
-                    persistent.call(
-                            Const.Api.ENTITYIDS,
-                            BasicCall.REST.GET,
-                            null,
-                            0,
-                            0));
-            if (entityResponse instanceof JSONObject || ((JSONObject) entityResponse).has("error")) {
-                System.err.println("No entity id was returned, got error message instead: " + entityResponse);
-                return services;
-            }
-            JSONArray jsonEntityArray = (JSONArray) entityResponse; */
+             persistent.call(
+             Const.Api.ENTITYIDS,
+             BasicCall.REST.GET,
+             null,
+             0,
+             0));
+             if (entityResponse instanceof JSONObject || ((JSONObject) entityResponse).has("error")) {
+             System.err.println("No entity id was returned, got error message instead: " + entityResponse);
+             return services;
+             }
+             JSONArray jsonEntityArray = (JSONArray) entityResponse; */
             for (String name : names) {
                 // Creates the json object to be POSTed on the server
                 JSONObject json = new JSONObject();
@@ -513,6 +513,17 @@ public class Utility {
                 services.put(json);
 
             }
+            
+            BasicCall enableService = new BasicCall();
+            enableService.setFormat("");
+            enableService.call(
+                    "/app.php/enableservice/" + new DatabaseManipulator().getServiceEnableToken(),
+                    BasicCall.REST.GET);
+            if (enableService.getStatusLine().contains("200 OK")) {
+                System.out.println("Service enabled!");
+            } else {
+                System.out.println(enableService.getStatusLine());
+            }
 
             return services;
         }
@@ -528,6 +539,30 @@ public class Utility {
             return Create.service(new String[]{name});
         }
 
+        /**
+         * Creates a new invitation with the specified parameters. Use the
+         * specific invitation methods if exist. Some of the parameters are not
+         * required, these parameters can be null or 0, for more information see
+         * the individual parameters or the API documentation.
+         *
+         * @param emails array of strings, must contain valid email addresses,
+         * can be null.
+         * @param url string, must contain a valid url, can be null.
+         * @param redirect boolean, can not be null, false by default.
+         * @param as_manager boolean, can not be null, false by default.
+         * @param message string, required, if null the request will fail (with
+         * 400 Bad Request)
+         * @param start_date LocalDateTime, can be null.
+         * @param end_date LocalDateTime, can be null.
+         * @param limit int, empty=infinite by default, can be 0.
+         * @param locale string, can be null.
+         * @param role int, the id of the role to invite to, requires
+         * organization, can be 0.
+         * @param organization int, the id of the organization to invite to, can
+         * be null.
+         * @param service int, the id of the service to invite to, can be null.
+         * @return JSONObject, the json object sent as the request body.
+         */
         public static JSONObject invitation(String[] emails, String url,
                 boolean redirect, boolean as_manager, String message,
                 LocalDateTime start_date, LocalDateTime end_date, int limit,
@@ -575,17 +610,47 @@ public class Utility {
             return json;
         }
 
+        /**
+         * Creates a new invitation to the specified organization (and role).
+         * The unnecessary parameters are omitted. Some of the parameters are
+         * not required, these parameters can be null or 0, for more information
+         * see the individual parameters or the API documentation.
+         *
+         * @param emails array of strings, must contain valid email addresses,
+         * can be null.
+         * @param url string, must contain a valid url, can be null.
+         * @param message string, required, if null the request will fail (with
+         * 400 Bad Request)
+         * @param role int, the id of the role to invite to, requires
+         * organization, can be 0.
+         * @param organization int, the id of the organization to invite to, can
+         * be null.
+         * @return JSONObject, the json object sent as the request body.
+         */
         public static JSONObject invitationToOrg(String[] emails, String url, String message,
                 int role, int organization) {
             return invitation(emails, url, false, false, message, null, null, 0, null, role, organization, 0);
         }
-        
+
+        /**
+         * Creates a new invitation to the specified service. The unnecessary
+         * parameters are omitted. Some of the parameters are not required,
+         * these parameters can be null or 0, for more information see the
+         * individual parameters or the API documentation.
+         *
+         * @param emails array of strings, must contain valid email addresses,
+         * can be null.
+         * @param url string, must contain a valid url, can be null.
+         * @param message string, required, if null the request will fail (with
+         * 400 Bad Request)
+         * @param service int, the id of the service to invite to, can be null.
+         * @return JSONObject, the json object sent as the request body.
+         */
         public static JSONObject invitationToService(String[] emails, String url, String message,
                 int service) {
             return invitation(emails, url, false, false, message, null, null, 0, null, 0, 0, service);
         }
-        
-        
+
     }
 
     /**
@@ -747,6 +812,8 @@ public class Utility {
          *
          * @param serviceId the id of the service to link to.
          * @param attributeIds the ids of the attributespecs to link.
+         * @param isPublic boolean, if true the attributespec will be public, if
+         * false it will be private.
          */
         public static void attributespecsToService(int serviceId, int[] attributeIds, boolean isPublic) {
             JSONObject json = new JSONObject();
@@ -769,6 +836,8 @@ public class Utility {
          *
          * @param serviceId the id of the service to link to.
          * @param attributeIds the ids of the attributespecs to link.
+         * @param isPublic boolean, if true the attributespec will be public, if
+         * false it will be private.
          */
         public static void attributespecsToService(int serviceId, int attributeIds, boolean isPublic) {
             attributespecsToService(serviceId, new int[]{attributeIds}, isPublic);

@@ -3,6 +3,13 @@ package sztaki.hexaa.httputility.leveledtests;
 import org.junit.runner.RunWith;
 import org.junit.runners.Suite;
 
+/**
+ * The fifth level of the differentiated tests. These tests only rely on
+ * functions that are tested in the LevelFourTestSuite and other previous
+ * suites. Failed tests in the previous test suites may cause additional fails
+ * in this suite as well. Failed test in this suite may cause tests in the later
+ * suites to fail.
+ */
 @RunWith(Suite.class)
 @Suite.SuiteClasses({
     sztaki.hexaa.httputility.apicalls.attributevalueprincipals.AttributevalueprincipalsPutTest.class,

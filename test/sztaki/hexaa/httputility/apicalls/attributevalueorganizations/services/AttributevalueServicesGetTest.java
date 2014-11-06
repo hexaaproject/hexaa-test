@@ -51,10 +51,28 @@ public class AttributevalueServicesGetTest extends CleanTest {
     }
 
     /**
-     *
+     * GET all services for the attributevalue.
      */
     @Test
     public void testAttributevalueorganizationsGetServices() {
+        Object response
+                = JSONParser.parseJSON(
+                        persistent.call(
+                                Const.Api.ATTRIBUTEVALUEORGANIZATIONS_ID_SERVICES,
+                                BasicCall.REST.GET));
+        
+        if (response instanceof JSONObject) {
+            fail("Some error instead of an array" + response.toString());
+        }
+        JSONArray jsonResponse = (JSONArray) response;
+        System.out.println(jsonResponse.toString());
+    }
+
+    /**
+     * GET one service for the attributevalue.
+     */
+    @Test
+    public void testAttributevalueorganizationsGetServicesByID() {
         Object response
                 = JSONParser.parseJSON(
                         persistent.call(

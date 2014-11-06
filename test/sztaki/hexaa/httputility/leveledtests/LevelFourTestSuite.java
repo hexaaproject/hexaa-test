@@ -4,6 +4,13 @@ import org.junit.runner.RunWith;
 import org.junit.runners.Suite;
 import sztaki.hexaa.httputility.apicalls.BasicTestSuite;
 
+/**
+ * The fourth level of the differentiated tests. These tests only rely on
+ * functions that are tested in the LevelThirdTestSuite and other previous
+ * suites. Failed tests in the previous test suites may cause additional fails
+ * in this suite as well. Failed test in this suite may cause tests in the later
+ * suites to fail.
+ */
 @RunWith(Suite.class)
 @Suite.SuiteClasses({
     sztaki.hexaa.httputility.apicalls.attributevalueprincipals.AttributevalueprincipalsDeleteTest.class,
@@ -24,7 +31,8 @@ import sztaki.hexaa.httputility.apicalls.BasicTestSuite;
     sztaki.hexaa.httputility.apicalls.roles.principals.RolesPrincipalsGetTest.class,
     sztaki.hexaa.httputility.apicalls.services.organizations.ServicesOrganizationsGetTest.class,
     sztaki.hexaa.httputility.apicalls.services.managers.ServicesManagersRemoveTest.class,
-    sztaki.hexaa.httputility.apicalls.services.managers.ServicesManagersGetTest.class,})
+    sztaki.hexaa.httputility.apicalls.services.managers.ServicesManagersGetTest.class,
+})
 public class LevelFourTestSuite extends BasicTestSuite {
 
 }

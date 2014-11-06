@@ -4,6 +4,12 @@ import org.junit.runner.RunWith;
 import org.junit.runners.Suite;
 import sztaki.hexaa.httputility.apicalls.BasicTestSuite;
 
+/**
+ * The second level of the differentiated tests. These tests only rely on
+ * functions that are tested in the LevelOneTestSuite. Failed tests in the
+ * previous test suites may cause additional fails in this suite as well. Failed
+ * test in this suite may cause tests in the later suites to fail.
+ */
 @RunWith(Suite.class)
 @Suite.SuiteClasses({
     sztaki.hexaa.httputility.apicalls.attributespecs.AttributespecsDeleteTest.class,
@@ -29,7 +35,8 @@ import sztaki.hexaa.httputility.apicalls.BasicTestSuite;
     sztaki.hexaa.httputility.apicalls.services.ServicesPutTest.class,
     sztaki.hexaa.httputility.apicalls.services.attributespecs.ServicesAttributespecsAddTest.class,
     sztaki.hexaa.httputility.apicalls.services.entitlementpacks.ServicesEntitlementpacksPostTest.class,
-    sztaki.hexaa.httputility.apicalls.services.entitlements.ServicesEntitlementsPostTest.class,})
-public class LevelTwoTestSuite extends BasicTestSuite{
+    sztaki.hexaa.httputility.apicalls.services.entitlements.ServicesEntitlementsPostTest.class,
+})
+public class LevelTwoTestSuite extends BasicTestSuite {
 
 }
