@@ -117,7 +117,7 @@ public final class DatabaseManipulator {
             if (Const.HEXAA_HOST.equals("localhost")) {
                 // Call for server side script if it runs on the server
                 proc = rt.exec(new String[]{
-                    "~/getservicekey.sh"
+                    "/var/lib/jenkins/getservicekey.sh"
                 });
             } else {
                 // Call for server side script remotely
