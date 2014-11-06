@@ -1,6 +1,5 @@
 package sztaki.hexaa.httputility.apicalls.attributevalueprincipals;
 
-import sztaki.hexaa.httputility.apicalls.attributevalueprincipals.*;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import org.junit.Test;
@@ -40,6 +39,7 @@ public class AttributevalueprincipalsGetTest extends CleanTest {
         Utility.Create.principal("Org1");
         Utility.Create.attributespec(new String[]{"testName1"}, "user");
         attributevalues = Utility.Create.attributevalueprincipal("OrgValue1", 1);
+        System.out.println(Utility.persistent.getStatusLine());
     }
 
     /**

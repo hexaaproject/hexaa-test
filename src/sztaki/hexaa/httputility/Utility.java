@@ -512,17 +512,17 @@ public class Utility {
 
                 services.put(json);
 
-            }
-            
-            BasicCall enableService = new BasicCall();
-            enableService.setFormat("");
-            enableService.call(
-                    "/app.php/enableservice/" + new DatabaseManipulator().getServiceEnableToken(),
-                    BasicCall.REST.GET);
-            if (enableService.getStatusLine().contains("200 OK")) {
-                System.out.println("Service enabled!");
-            } else {
-                System.out.println(enableService.getStatusLine());
+                BasicCall enableService = new BasicCall();
+                enableService.setFormat("");
+                enableService.call(
+                        "/app.php/enableservice/" + new DatabaseManipulator().getServiceEnableToken(),
+                        BasicCall.REST.GET);
+                if (enableService.getStatusLine().contains("200 OK")) {
+                    System.out.println("Service enabled!");
+                } else {
+                    System.out.println(enableService.getStatusLine());
+                }
+
             }
 
             return services;

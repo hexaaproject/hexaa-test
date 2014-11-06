@@ -1,6 +1,7 @@
 package sztaki.hexaa.httputility.apicalls.services.organizations;
 
 import org.json.JSONArray;
+import org.json.JSONObject;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import static org.junit.Assert.*;
@@ -45,15 +46,17 @@ public class ServicesOrganizationsGetTest extends CleanTest {
      */
     @Test
     public void testServicesOrganizationsGet() {
+        Object jsonResponse = JSONParser.parseJSON(
+                persistent.call(
+                        Const.Api.SERVICES_ID_ORGANIZATIONS,
+                        BasicCall.REST.GET));
+        if (jsonResponse instanceof JSONObject) {
+            fail("Response is a JSONObject instead of a JSONArray: " + jsonResponse.toString());
+        }
+        JSONArray jsonArrayResponse = (JSONArray) jsonResponse;
         try {
-            assertEquals(
-                    1,
-                    ((JSONArray) JSONParser.parseJSON(
-                            persistent.call(
-                                    Const.Api.SERVICES_ID_ORGANIZATIONS,
-                                    BasicCall.REST.GET)))
-                    .getJSONObject(0)
-                    .getInt("id"));
+            assertEquals(1, jsonArrayResponse.length());
+            assertEquals(1, jsonArrayResponse.getJSONObject(0).getInt("id"));
         } catch (AssertionError e) {
             AssertErrorHandler(e);
         }
