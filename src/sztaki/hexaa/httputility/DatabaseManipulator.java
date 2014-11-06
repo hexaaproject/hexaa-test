@@ -117,7 +117,7 @@ public final class DatabaseManipulator {
             if (Const.HEXAA_HOST.equals("localhost")) {
                 // Call for server side script if it runs on the server
                 proc = rt.exec(new String[]{
-                    "mysql --user=root --password=pass hexaa -e \"SELECT enable_token FROM service;\""
+                    "~/getservicekey.sh"
                 });
             } else {
                 // Call for server side script remotely
