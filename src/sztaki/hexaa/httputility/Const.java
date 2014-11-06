@@ -149,6 +149,10 @@ public class Const {
         /**
          * GET entitlements of entitlement pack.
          */
+        public static final String ENTITLEMENTPACKS_ID_ENTITLEMENT = ("/app.php/api/entitlementpacks/{id}/entitlement");
+        /**
+         * GET entitlements of entitlement pack.
+         */
         public static final String ENTITLEMENTPACKS_ID_ENTITLEMENTS = ("/app.php/api/entitlementpacks/{id}/entitlements");
         /**
          * PUT(add),DELETE(remove) entitlement to/from entitlement pack.
@@ -158,29 +162,7 @@ public class Const {
          * GET(generate) new entitlement pack token.
          */
         public static final String ENTITLEMENTPACKS_ID_TOKEN = ("/app.php/api/entitlementpacks/{id}/token");
-
-        /* *** EntityID *** */
-        /**
-         * GET, POST(create) entityid request(s).
-         */
-        public static final String ENTITYIDREQUESTS = ("/app.php/api/entityidrequests");
-        /**
-         * GET, PATCH(edit), PUT(edit), DELETE entityid request.
-         */
-        public static final String ENTITYIDREQUESTS_ID = ("/app.php/api/entityidrequests/{id}");
-        /**
-         * GET(accept) entityid request.
-         */
-        public static final String ENTITYIDREQUESTS_ID_ACCEPT = ("/app.php/api/entityidrequests/{id}/accept");
-        /**
-         * GET(reject) entityid request.
-         */
-        public static final String ENTITYIDREQUESTS_ID_REJECT = ("/app.php/api/entityidrequests/{id}/reject");
-        /**
-         * GET(list) service entityIDs.
-         */
-        public static final String ENTITYIDS = ("/app.php/api/entityids");
-
+        
         /* *** Invitation *** */
         /**
          * POST(send) new invitation.
@@ -211,19 +193,19 @@ public class Const {
         /**
          * GET news for current user.
          */
-        public static final String PRINCIPAL_PRINCIPAL_NEWS = ("/app.php/api/principal/principal/news");
+        public static final String ORGANIZATIONS_ID_NEWS = ("/app.php/api/organizations/{id}/news");
         /**
          * GET news for specified organization.
          */
-        public static final String PRINCIPALS_ID_ORGANIZATIONS_NEWS = ("/app.php/api/principals/{id}/organizations/news");
+        public static final String PRINCIPAL_NEWS = ("/app.php/api/principal/news");
         /**
          * GET news for specified user.
          */
-        public static final String PRINCIPALS_PID_PRINCIPALS_NEWS = ("/app.php/api/principals/{pid}/principals/news");
+        public static final String PRINCIPALS_PID_NEWS = ("/app.php/api/principals/{pid}/news");
         /**
          * GET news for specified service.
          */
-        public static final String PRINCIPALS_SID_SERVICES_NEWS = ("/app.php/api/principals/{sid}/services/news");
+        public static final String SERVICES_ID_NEWS = ("/app.php/api/services/{id}/news");
 
         /* *** Organization *** */
         /**
@@ -303,6 +285,14 @@ public class Const {
          * POST(get) a token for the API (master-secret authentication).
          */
         public static final String TOKENS = ("/app.php/api/tokens");
+        /**
+         * GET the properties of the HEXAA backend.
+         */
+        public static final String PROPERTIES = ("/app.php/api/properties");
+        /**
+         * GET(list) service entityIDs.
+         */
+        public static final String ENTITYIDS = ("/app.php/api/entityids");
 
         /* *** Principals *** */
         /**
