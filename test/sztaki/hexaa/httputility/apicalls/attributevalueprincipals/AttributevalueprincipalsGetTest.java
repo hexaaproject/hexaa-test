@@ -28,7 +28,7 @@ public class AttributevalueprincipalsGetTest extends CleanTest {
      */
     @BeforeClass
     public static void classInformation() {
-        System.out.println("***\t " + AttributevalueprincipalsDeleteTest.class.getSimpleName() + " ***");
+        System.out.println("***\t " + AttributevalueprincipalsGetTest.class.getSimpleName() + " ***");
     }
 
     /**
@@ -52,21 +52,23 @@ public class AttributevalueprincipalsGetTest extends CleanTest {
                 = JSONParser.parseJSON(
                         persistent.call(
                                 Const.Api.ATTRIBUTEVALUEPRINCIPALS_ID,
-                                BasicCall.REST.GET));
+                                BasicCall.REST.GET,
+                                null,
+                                1, 1));
         if (response instanceof JSONArray) {
             fail("This is a JSONArray for some mysterious reason" + response.toString());
         }
         jsonResponse = (JSONObject) response;
-        
+
         JSONObject jsonTemp = attributevalues.getJSONObject(0);
-        jsonTemp.put("principal_id",jsonTemp.remove("principal"));
-        jsonTemp.put("attribute_spec_id",jsonTemp.remove("attribute_spec"));
-        jsonTemp.put("service_ids",jsonTemp.remove("services"));
-        
+        jsonTemp.put("principal_id", jsonTemp.remove("principal"));
+        jsonTemp.put("attribute_spec_id", jsonTemp.remove("attribute_spec"));
+        jsonTemp.put("service_ids", jsonTemp.remove("services"));
+
         try {
             assertEquals(Const.StatusLine.OK, persistent.getStatusLine());
             JSONAssert.assertEquals(jsonTemp, jsonResponse, JSONCompareMode.LENIENT);
-        } catch(AssertionError e) {
+        } catch (AssertionError e) {
             AssertErrorHandler(e);
         }
     }

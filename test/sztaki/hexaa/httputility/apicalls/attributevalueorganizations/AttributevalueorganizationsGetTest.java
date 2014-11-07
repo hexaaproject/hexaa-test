@@ -28,7 +28,7 @@ public class AttributevalueorganizationsGetTest extends CleanTest {
      */
     @BeforeClass
     public static void classInformation() {
-        System.out.println("***\t " + AttributevalueorganizationsDeleteTest.class.getSimpleName() + " ***");
+        System.out.println("***\t " + AttributevalueorganizationsGetTest.class.getSimpleName() + " ***");
     }
 
     /**
