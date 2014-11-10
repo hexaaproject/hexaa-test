@@ -393,6 +393,10 @@ public class Const {
          */
         public static final String SERVICES = ("/app.php/api/services");
         /**
+         * GET services where user is a manager. POST(create) new service.
+         */
+        public static final String SERVICES_TOKEN_ENABLE = ("/app.php/api/services/{token}/enable");
+        /**
          * GET, PATCH(edit), PUT(edit), DELETE service.
          */
         public static final String SERVICES_ID = ("/app.php/api/services/{id}");

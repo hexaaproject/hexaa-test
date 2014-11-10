@@ -3,6 +3,7 @@ package sztaki.hexaa.httputility.apicalls.attributevalueorganizations;
 import org.junit.runner.RunWith;
 import org.junit.runners.Suite;
 import sztaki.hexaa.httputility.apicalls.BasicTestSuite;
+import sztaki.hexaa.httputility.apicalls.attributevalueorganizations.services.*;
 
 /**
  * TestSuite for the Attributevalueorganizations related test cases, runs them
@@ -11,6 +12,12 @@ import sztaki.hexaa.httputility.apicalls.BasicTestSuite;
  */
 @RunWith(Suite.class)
 @Suite.SuiteClasses({
-    AttributevalueorganizationsPost.class,})
+    AttributevalueorganizationsDeleteTest.class,
+    AttributevalueorganizationsGetTest.class,
+    AttributevalueorganizationsPatchTest.class,
+    AttributevalueorganizationsPost.class,
+    AttributevalueorganizationsPutTest.class,
+    AttributevalueServicesGetTest.class,
+})
 public class AttributevalueorganizationsSuite extends BasicTestSuite {
 }

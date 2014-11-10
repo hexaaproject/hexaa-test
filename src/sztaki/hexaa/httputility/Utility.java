@@ -348,6 +348,118 @@ public class Utility {
         }
 
         /**
+         * Creates a new invitation with the specified parameters. Use the
+         * specific invitation methods if exist. Some of the parameters are not
+         * required, these parameters can be null or 0, for more information see
+         * the individual parameters or the API documentation.
+         *
+         * @param emails array of strings, must contain valid email addresses,
+         * can be null.
+         * @param url string, must contain a valid url, can be null.
+         * @param redirect boolean, can not be null, false by default.
+         * @param as_manager boolean, can not be null, false by default.
+         * @param message string, required, if null the request will fail (with
+         * 400 Bad Request)
+         * @param start_date LocalDateTime, can be null.
+         * @param end_date LocalDateTime, can be null.
+         * @param limit int, empty=infinite by default, can be 0.
+         * @param locale string, can be null.
+         * @param role int, the id of the role to invite to, requires
+         * organization, can be 0.
+         * @param organization int, the id of the organization to invite to, can
+         * be null.
+         * @param service int, the id of the service to invite to, can be null.
+         * @return JSONObject, the json object sent as the request body.
+         */
+        public static JSONObject invitation(String[] emails, String url,
+                boolean redirect, boolean as_manager, String message,
+                LocalDateTime start_date, LocalDateTime end_date, int limit,
+                String locale, int role, int organization, int service) {
+            JSONObject json = new JSONObject();
+            if (emails != null) {
+                json.put("emails", emails);
+            }
+            if (url != null) {
+                json.put("landing_url", url);
+            }
+            if (redirect != false) {
+                json.put("do_redirect", redirect);
+            }
+            if (as_manager != false) {
+                json.put("as_manager", as_manager);
+            }
+            if (message != null) {
+                json.put("message", message);
+            }
+            if (start_date != null) {
+                json.put("start_date", start_date);
+            }
+            if (end_date != null) {
+                json.put("end_date", end_date);
+            }
+            if (limit != 0) {
+                json.put("limit", limit);
+            }
+            if (locale != null) {
+                json.put("locale", locale);
+            }
+            if (role != 0) {
+                json.put("role", role);
+            }
+            if (organization != 0) {
+                json.put("organization", organization);
+            }
+            if (service != 0) {
+                json.put("service", service);
+            }
+
+            persistent.call(Const.Api.INVITATIONS, BasicCall.REST.POST, json.toString());
+
+            return json;
+        }
+
+        /**
+         * Creates a new invitation to the specified organization (and role).
+         * The unnecessary parameters are omitted. Some of the parameters are
+         * not required, these parameters can be null or 0, for more information
+         * see the individual parameters or the API documentation.
+         *
+         * @param emails array of strings, must contain valid email addresses,
+         * can be null.
+         * @param url string, must contain a valid url, can be null.
+         * @param message string, required, if null the request will fail (with
+         * 400 Bad Request)
+         * @param role int, the id of the role to invite to, requires
+         * organization, can be 0.
+         * @param organization int, the id of the organization to invite to, can
+         * be null.
+         * @return JSONObject, the json object sent as the request body.
+         */
+        public static JSONObject invitationToOrg(String[] emails, String url, String message,
+                int role, int organization) {
+            return invitation(emails, url, false, false, message, null, null, 0, null, role, organization, 0);
+        }
+
+        /**
+         * Creates a new invitation to the specified service. The unnecessary
+         * parameters are omitted. Some of the parameters are not required,
+         * these parameters can be null or 0, for more information see the
+         * individual parameters or the API documentation.
+         *
+         * @param emails array of strings, must contain valid email addresses,
+         * can be null.
+         * @param url string, must contain a valid url, can be null.
+         * @param message string, required, if null the request will fail (with
+         * 400 Bad Request)
+         * @param service int, the id of the service to invite to, can be null.
+         * @return JSONObject, the json object sent as the request body.
+         */
+        public static JSONObject invitationToService(String[] emails, String url, String message,
+                int service) {
+            return invitation(emails, url, false, false, message, null, null, 0, null, 0, 0, service);
+        }
+
+        /**
          * Creates as many organization as many name is specified in the names
          * String array. Returns them as a JSONArray. Can create organization
          * with unique names only.
@@ -513,10 +625,10 @@ public class Utility {
                 services.put(json);
 
                 BasicCall enableService = new BasicCall();
-                enableService.setFormat("");
+                enableService.setToken(new DatabaseManipulator().getServiceEnableToken());
                 enableService.call(
-                        "/app.php/enableservice/" + new DatabaseManipulator().getServiceEnableToken(),
-                        BasicCall.REST.GET);
+                        Const.Api.SERVICES_TOKEN_ENABLE,
+                        BasicCall.REST.PUT);
                 if (enableService.getStatusLine().contains("200 OK")) {
                     System.out.println("Service enabled!");
                 } else {
@@ -537,118 +649,6 @@ public class Utility {
          */
         public static JSONArray service(String name) {
             return Create.service(new String[]{name});
-        }
-
-        /**
-         * Creates a new invitation with the specified parameters. Use the
-         * specific invitation methods if exist. Some of the parameters are not
-         * required, these parameters can be null or 0, for more information see
-         * the individual parameters or the API documentation.
-         *
-         * @param emails array of strings, must contain valid email addresses,
-         * can be null.
-         * @param url string, must contain a valid url, can be null.
-         * @param redirect boolean, can not be null, false by default.
-         * @param as_manager boolean, can not be null, false by default.
-         * @param message string, required, if null the request will fail (with
-         * 400 Bad Request)
-         * @param start_date LocalDateTime, can be null.
-         * @param end_date LocalDateTime, can be null.
-         * @param limit int, empty=infinite by default, can be 0.
-         * @param locale string, can be null.
-         * @param role int, the id of the role to invite to, requires
-         * organization, can be 0.
-         * @param organization int, the id of the organization to invite to, can
-         * be null.
-         * @param service int, the id of the service to invite to, can be null.
-         * @return JSONObject, the json object sent as the request body.
-         */
-        public static JSONObject invitation(String[] emails, String url,
-                boolean redirect, boolean as_manager, String message,
-                LocalDateTime start_date, LocalDateTime end_date, int limit,
-                String locale, int role, int organization, int service) {
-            JSONObject json = new JSONObject();
-            if (emails != null) {
-                json.put("emails", emails);
-            }
-            if (url != null) {
-                json.put("landing_url", url);
-            }
-            if (redirect != false) {
-                json.put("do_redirect", redirect);
-            }
-            if (as_manager != false) {
-                json.put("as_manager", as_manager);
-            }
-            if (message != null) {
-                json.put("message", message);
-            }
-            if (start_date != null) {
-                json.put("start_date", start_date);
-            }
-            if (end_date != null) {
-                json.put("end_date", end_date);
-            }
-            if (limit != 0) {
-                json.put("limit", limit);
-            }
-            if (locale != null) {
-                json.put("locale", locale);
-            }
-            if (role != 0) {
-                json.put("role", role);
-            }
-            if (organization != 0) {
-                json.put("organization", organization);
-            }
-            if (service != 0) {
-                json.put("service", service);
-            }
-
-            persistent.call(Const.Api.INVITATIONS, BasicCall.REST.POST, json.toString());
-
-            return json;
-        }
-
-        /**
-         * Creates a new invitation to the specified organization (and role).
-         * The unnecessary parameters are omitted. Some of the parameters are
-         * not required, these parameters can be null or 0, for more information
-         * see the individual parameters or the API documentation.
-         *
-         * @param emails array of strings, must contain valid email addresses,
-         * can be null.
-         * @param url string, must contain a valid url, can be null.
-         * @param message string, required, if null the request will fail (with
-         * 400 Bad Request)
-         * @param role int, the id of the role to invite to, requires
-         * organization, can be 0.
-         * @param organization int, the id of the organization to invite to, can
-         * be null.
-         * @return JSONObject, the json object sent as the request body.
-         */
-        public static JSONObject invitationToOrg(String[] emails, String url, String message,
-                int role, int organization) {
-            return invitation(emails, url, false, false, message, null, null, 0, null, role, organization, 0);
-        }
-
-        /**
-         * Creates a new invitation to the specified service. The unnecessary
-         * parameters are omitted. Some of the parameters are not required,
-         * these parameters can be null or 0, for more information see the
-         * individual parameters or the API documentation.
-         *
-         * @param emails array of strings, must contain valid email addresses,
-         * can be null.
-         * @param url string, must contain a valid url, can be null.
-         * @param message string, required, if null the request will fail (with
-         * 400 Bad Request)
-         * @param service int, the id of the service to invite to, can be null.
-         * @return JSONObject, the json object sent as the request body.
-         */
-        public static JSONObject invitationToService(String[] emails, String url, String message,
-                int service) {
-            return invitation(emails, url, false, false, message, null, null, 0, null, 0, 0, service);
         }
 
     }
