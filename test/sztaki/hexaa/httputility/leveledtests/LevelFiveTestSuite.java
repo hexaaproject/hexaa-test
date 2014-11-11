@@ -14,8 +14,12 @@ import org.junit.runners.Suite;
 @Suite.SuiteClasses({
     sztaki.hexaa.httputility.apicalls.attributevalueprincipals.AttributevalueprincipalsPutTest.class,
     sztaki.hexaa.httputility.apicalls.attributevalueprincipals.AttributevalueprincipalsPatchTest.class,
+    sztaki.hexaa.httputility.apicalls.attributevalueprincipals.services.AttributevalueprincipalsServicesPutTest.class,
+    sztaki.hexaa.httputility.apicalls.attributevalueprincipals.services.AttributevalueprincipalsServicesDeleteTest.class,
     sztaki.hexaa.httputility.apicalls.attributevalueorganizations.AttributevalueorganizationsPutTest.class,
     sztaki.hexaa.httputility.apicalls.attributevalueorganizations.AttributevalueorganizationsPatchTest.class,
+    sztaki.hexaa.httputility.apicalls.attributevalueorganizations.services.AttributevalueorganizationsServicesPutTest.class,
+    sztaki.hexaa.httputility.apicalls.attributevalueorganizations.services.AttributevalueorganizationsServicesDeleteTest.class,
     sztaki.hexaa.httputility.apicalls.organizations.entitlementpacks.OrganizationEntitlementpacksUnlinkTest.class,
     sztaki.hexaa.httputility.apicalls.organizations.entitlementpacks.OrganizationEntitlementpacksGetTest.class,
     sztaki.hexaa.httputility.apicalls.roles.entitlements.RolesEntitlementsGetTest.class,

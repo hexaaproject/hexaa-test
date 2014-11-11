@@ -50,10 +50,10 @@ public class Utility {
 
                 attributevalues.put(json);
 
-                persistent.call(
+                System.out.println(persistent.call(
                         Const.Api.ATTRIBUTEVALUEORGANIZATIONS,
                         BasicCall.REST.POST,
-                        json.toString());
+                        json.toString()));
 
             }
             return attributevalues;
@@ -137,10 +137,10 @@ public class Utility {
                 json.put("attribute_spec", asid);
                 attributevalues.put(json);
 
-                persistent.call(
+                System.out.println(persistent.call(
                         Const.Api.ATTRIBUTEVALUEPRINCIPALS,
                         BasicCall.REST.POST,
-                        json.toString());
+                        json.toString()));
             }
             return attributevalues;
         }
@@ -593,25 +593,11 @@ public class Utility {
          */
         public static JSONArray service(String[] names) {
             JSONArray services = new JSONArray();
-            // GET the existing entityids
-            // TODO if GET entityids gets fixed should bring back the entityid check.
-            /*Object entityResponse = JSONParser.parseJSON(
-             persistent.call(
-             Const.Api.ENTITYIDS,
-             BasicCall.REST.GET,
-             null,
-             0,
-             0));
-             if (entityResponse instanceof JSONObject || ((JSONObject) entityResponse).has("error")) {
-             System.err.println("No entity id was returned, got error message instead: " + entityResponse);
-             return services;
-             }
-             JSONArray jsonEntityArray = (JSONArray) entityResponse; */
+
             for (String name : names) {
                 // Creates the json object to be POSTed on the server
                 JSONObject json = new JSONObject();
                 json.put("name", name);
-                // json.put("entityid", jsonEntityArray.get(0).toString());
                 json.put("entityid", "https://example.com/ssp");
                 json.put("url", "test." + name + ".test");
                 json.put("description", "This is a test service for the " + "https://example.com/ssp" /*jsonEntityArray.get(0).toString()*/ + "service provider entity.");
@@ -984,6 +970,35 @@ public class Utility {
             managerToOrganization(orgId, new int[]{principalId});
         }
 
+        /**
+         * Links already existing service to attributevalue.
+         *
+         * @param avid id of the attributevalue.
+         * @param sid id of the service.
+         */
+        public static void serviceToAttributevalueorganizations(int avid, int sid) {
+            persistent.call(
+                    Const.Api.ATTRIBUTEVALUEORGANIZATIONS_ID_SERVICES_SID,
+                    BasicCall.REST.PUT,
+                    null,
+                    avid, sid);
+        }
+        
+        /**
+         * Links already existing service to attributevalue.
+         *
+         * @param avid id of the attributevalue.
+         * @param sid id of the service.
+         */
+        public static void serviceToAttributevalueprincipals(int avid, int sid) {
+            persistent.call(
+                    Const.Api.ATTRIBUTEVALUEPRINCIPALS_ID_SERVICES_SID,
+                    BasicCall.REST.PUT,
+                    null,
+                    avid, sid);
+        }
+        
+        
     }
 
     /**
@@ -1477,5 +1492,32 @@ public class Utility {
             entitlementFromRole(roleID, new int[]{entitlementID});
         }
 
+        /**
+         * Removes existing service from attributevalue.
+         *
+         * @param avid id of the attributevalue.
+         * @param sid id of the service.
+         */
+        public static void serviceFromAttributevalueorganizations(int avid, int sid) {
+            persistent.call(
+                    Const.Api.ATTRIBUTEVALUEORGANIZATIONS_ID_SERVICES_SID,
+                    BasicCall.REST.DEL,
+                    null,
+                    avid, sid);
+        }
+
+        /**
+         * Removes existing service from attributevalue.
+         *
+         * @param avid id of the attributevalue.
+         * @param sid id of the service.
+         */
+        public static void serviceFromAttributevalueprincipals(int avid, int sid) {
+            persistent.call(
+                    Const.Api.ATTRIBUTEVALUEPRINCIPALS_ID_SERVICES_SID,
+                    BasicCall.REST.DEL,
+                    null,
+                    avid, sid);
+        }
     }
 }

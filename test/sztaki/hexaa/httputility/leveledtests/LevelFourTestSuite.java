@@ -15,8 +15,10 @@ import sztaki.hexaa.httputility.apicalls.BasicTestSuite;
 @Suite.SuiteClasses({
     sztaki.hexaa.httputility.apicalls.attributevalueprincipals.AttributevalueprincipalsDeleteTest.class,
     sztaki.hexaa.httputility.apicalls.attributevalueprincipals.AttributevalueprincipalsGetTest.class,
+    sztaki.hexaa.httputility.apicalls.attributevalueprincipals.services.AttributevalueprincipalsServicesGetTest.class,
     sztaki.hexaa.httputility.apicalls.attributevalueorganizations.AttributevalueorganizationsDeleteTest.class,
     sztaki.hexaa.httputility.apicalls.attributevalueorganizations.AttributevalueorganizationsGetTest.class,
+    sztaki.hexaa.httputility.apicalls.attributevalueorganizations.services.AttributevalueorganizationsServicesGetTest.class,
     sztaki.hexaa.httputility.apicalls.entitlementpacks.entitlements.EntitlementpacksGetEntitlementsTest.class,
     sztaki.hexaa.httputility.apicalls.entitlementpacks.entitlements.EntitlementpacksRemoveEntitlementsTest.class,
     sztaki.hexaa.httputility.apicalls.organizations.attributes.OrganizationsAttributesGet.class,

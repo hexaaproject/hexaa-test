@@ -340,105 +340,313 @@ public class BasicCall {
         return callSwitch(restCall);
     }
 
-//    /* *** Calls to get JSONObjects and JSONArrays already parsed *** */
-//    /**
-//     * Most basic call type, only use it for simple GET methods, as it does not
-//     * get the required json/id/sid/fedid for most of the more complex calls
-//     * like any POST/PUT methods or GET/DEL methods with required ids. These
-//     * situations see
-//     * {@link call(String path, REST restCall, String json, int id, int sId)}.
-//     *
-//     * @param path String, the relative path from the host.
-//     * @param restCall REST, the type of the call (GET,POST,PUT,DEL).
-//     * @return String, the content of the response for the call, for the Status
-//     * Line/Code see {@link getStatusLine()}.
-//     */
-//    public JSONObject getResponseJSONObject(String path, REST restCall) {
-//        this.setPath(path);
-//        this.setString(null);
-//        this.setId(1);
-//        this.setSId(1);
-//        
-//        Object serverResponse = JSONParser.parseJSON(callSwitch(restCall));
-//        if (serverResponse instanceof JSONObject) {
-//            return (JSONObject) serverResponse;
-//        } else {
-//            throw 
-//        }
-//    }
-//
-//    /**
-//     * The normal call type for creation. Does not have ids or fedid, ids are 1
-//     * for default, fedid is simply "fedid", if they are needed use
-//     * {@link call(String path, REST restCall, String json, int id, int sId)} or
-//     * {@link call(String path, REST restCall, String json, int id, int sId, String fedid)}.
-//     *
-//     * @param path String, the relative path from the host.
-//     * @param restCall REST, the type of the call (GET,POST,PUT,DEL).
-//     * @param json String, the json message for the http request's body in
-//     * string format.
-//     * @return String, the content of the response for the call, for the Status
-//     * Line/Code see {@link getStatusLine()}.
-//     */
-//    public JSONObject getResponseJSONObject(String path, REST restCall, String json) {
-//        this.setPath(path);
-//        this.setString(json);
-//        this.setId(1);
-//        this.setSId(1);
-//
-//        return callSwitch(restCall);
-//    }
-//
-//    /**
-//     * The normal call type, use this for most calls. Does not have a fedid, if
-//     * fedid is required use
-//     * {@link call(String path, REST restCall, String json, int id, int sId, String fedid)}.
-//     *
-//     * @param path String, the relative path from the host.
-//     * @param restCall REST, the type of the call (GET,POST,PUT,DEL).
-//     * @param json String, the json message for the http request's body in
-//     * string format.
-//     * @param id int, the basic {id} in the urls.
-//     * @param sId int, all the ids in the url other than {id} and {fedid}.
-//     * @return String, the content of the response for the call, for the Status
-//     * Line/Code see {@link getStatusLine()}.
-//     */
-//    public JSONObject getResponseJSONObject(String path, REST restCall, String json, int id, int sId) {
-//        this.setPath(path);
-//        this.setString(json);
-//        this.setId(id);
-//        this.setSId(sId);
-//
-//        return callSwitch(restCall);
-//    }
-//
-//    /**
-//     * Call with fedid provided. Use this only if fedid is necessary, otherwise
-//     * see
-//     * {@link call(String path, REST restCall, String json, int id, int sId)}
-//     * and {@link String call(String path, REST restCall)}.
-//     *
-//     * @param path String, the relative path from the host.
-//     * @param restCall REST, the type of the call (GET,POST,PUT,DEL).
-//     * @param json String, the json message for the http request's body in
-//     * string format.
-//     * @param id int, the basic {id} in the urls.
-//     * @param sId int, all the ids in the url other than {id} and {fedid}.
-//     * @param fedid String, a special id used only in
-//     * /api/principals/{fedid}/fedid
-//     * @return String, the content of the response for the call, for the Status
-//     * Line/Code see {@link getStatusLine()}.
-//     */
-////    public JSONObject getResponseJSONObject(String path, REST restCall, String json, int id, int sId, String fedid) {
-////        this.setPath(path);
-////        this.setString(json);
-////        this.setId(id);
-////        this.setSId(sId);
-////        this.setFedid(fedid);
-////
-////        return callSwitch(restCall);
-////    }
-    
+    /* *** Calls to get JSONObjects and JSONArrays already parsed *** */
+    /**
+     * Most basic call type, only use it for simple GET methods, as it does not
+     * get the required json/id/sid/fedid for most of the more complex calls
+     * like any POST/PUT methods or GET/DEL methods with required ids. These
+     * situations see
+     * {@link call(String path, REST restCall, String json, int id, int sId)}.
+     *
+     * @param path String, the relative path from the host.
+     * @param restCall REST, the type of the call (GET,POST,PUT,DEL).
+     * @return String, the content of the response for the call, for the Status
+     * Line/Code see {@link getStatusLine()}.
+     * @throws sztaki.hexaa.httputility.ResponseTypeMismatchException
+     */
+    public JSONObject getResponseJSONObject(String path, REST restCall) throws ResponseTypeMismatchException {
+        this.setPath(path);
+        this.setString(null);
+        this.setId(1);
+        this.setSId(1);
+
+        Object tempResponse = callSwitch(restCall);
+        Object serverResponse;
+        try {
+            serverResponse = JSONParser.parseJSON((String) tempResponse);
+        } catch (JSONException e) {
+            throw new ResponseTypeMismatchException("Non json string", "String", tempResponse.toString());
+        }
+        
+        if (serverResponse instanceof JSONObject) {
+            return (JSONObject) serverResponse;
+        } else if (serverResponse instanceof JSONArray) {
+            throw new ResponseTypeMismatchException("JSONArray instead of JSONObject", "JSONArray", serverResponse);
+        } else {
+            throw new ResponseTypeMismatchException("Non json instead of JSONObject", "String", serverResponse);
+        }
+    }
+
+    /**
+     * The normal call type for creation. Does not have ids or fedid, ids are 1
+     * for default, fedid is simply "fedid", if they are needed use
+     * {@link call(String path, REST restCall, String json, int id, int sId)} or
+     * {@link call(String path, REST restCall, String json, int id, int sId, String fedid)}.
+     *
+     * @param path String, the relative path from the host.
+     * @param restCall REST, the type of the call (GET,POST,PUT,DEL).
+     * @param json String, the json message for the http request's body in
+     * string format.
+     * @return String, the content of the response for the call, for the Status
+     * Line/Code see {@link getStatusLine()}.
+     * @throws sztaki.hexaa.httputility.ResponseTypeMismatchException
+     */
+    public JSONObject getResponseJSONObject(String path, REST restCall, String json) throws ResponseTypeMismatchException {
+        this.setPath(path);
+        this.setString(json);
+        this.setId(1);
+        this.setSId(1);
+
+        Object tempResponse = callSwitch(restCall);
+        Object serverResponse;
+        try {
+            serverResponse = JSONParser.parseJSON((String) tempResponse);
+        } catch (JSONException e) {
+            throw new ResponseTypeMismatchException("Non json string", "String", tempResponse.toString());
+        }
+        
+        if (serverResponse instanceof JSONObject) {
+            return (JSONObject) serverResponse;
+        } else if (serverResponse instanceof JSONArray) {
+            throw new ResponseTypeMismatchException("JSONArray instead of JSONObject", "JSONArray", serverResponse);
+        } else {
+            throw new ResponseTypeMismatchException("Non json instead of JSONObject", "String", serverResponse);
+        }
+    }
+
+    /**
+     * The normal call type, use this for most calls. Does not have a fedid, if
+     * fedid is required use
+     * {@link call(String path, REST restCall, String json, int id, int sId, String fedid)}.
+     *
+     * @param path String, the relative path from the host.
+     * @param restCall REST, the type of the call (GET,POST,PUT,DEL).
+     * @param json String, the json message for the http request's body in
+     * string format.
+     * @param id int, the basic {id} in the urls.
+     * @param sId int, all the ids in the url other than {id} and {fedid}.
+     * @return String, the content of the response for the call, for the Status
+     * Line/Code see {@link getStatusLine()}.
+     * @throws sztaki.hexaa.httputility.ResponseTypeMismatchException
+     */
+    public JSONObject getResponseJSONObject(String path, REST restCall, String json, int id, int sId) throws ResponseTypeMismatchException {
+        this.setPath(path);
+        this.setString(json);
+        this.setId(id);
+        this.setSId(sId);
+
+        Object tempResponse = callSwitch(restCall);
+        Object serverResponse;
+        try {
+            serverResponse = JSONParser.parseJSON((String) tempResponse);
+        } catch (JSONException e) {
+            throw new ResponseTypeMismatchException("Non json string", "String", tempResponse.toString());
+        }
+        
+        if (serverResponse instanceof JSONObject) {
+            return (JSONObject) serverResponse;
+        } else if (serverResponse instanceof JSONArray) {
+            throw new ResponseTypeMismatchException("JSONArray instead of JSONObject", "JSONArray", serverResponse);
+        } else {
+            throw new ResponseTypeMismatchException("Non json instead of JSONObject", "String", serverResponse);
+        }
+    }
+
+    /**
+     * Call with fedid provided. Use this only if fedid is necessary, otherwise
+     * see
+     * {@link call(String path, REST restCall, String json, int id, int sId)}
+     * and {@link String call(String path, REST restCall)}.
+     *
+     * @param path String, the relative path from the host.
+     * @param restCall REST, the type of the call (GET,POST,PUT,DEL).
+     * @param json String, the json message for the http request's body in
+     * string format.
+     * @param id int, the basic {id} in the urls.
+     * @param sId int, all the ids in the url other than {id} and {fedid}.
+     * @param fedid String, a special id used only in
+     * /api/principals/{fedid}/fedid
+     * @return String, the content of the response for the call, for the Status
+     * Line/Code see {@link getStatusLine()}.
+     * @throws sztaki.hexaa.httputility.ResponseTypeMismatchException
+     */
+    public JSONObject getResponseJSONObject(String path, REST restCall, String json, int id, int sId, String fedid) throws ResponseTypeMismatchException {
+        this.setPath(path);
+        this.setString(json);
+        this.setId(id);
+        this.setSId(sId);
+        this.setFedid(fedid);
+
+        Object tempResponse = callSwitch(restCall);
+        Object serverResponse;
+        try {
+            serverResponse = JSONParser.parseJSON((String) tempResponse);
+        } catch (JSONException e) {
+            throw new ResponseTypeMismatchException("Non json string", "String", tempResponse.toString());
+        }
+        
+        if (serverResponse instanceof JSONObject) {
+            return (JSONObject) serverResponse;
+        } else if (serverResponse instanceof JSONArray) {
+            throw new ResponseTypeMismatchException("JSONArray instead of JSONObject", "JSONArray", serverResponse);
+        } else {
+            throw new ResponseTypeMismatchException("Non json instead of JSONObject", "String", serverResponse);
+        }
+    }
+
+    /**
+     * Most basic call type, only use it for simple GET methods, as it does not
+     * get the required json/id/sid/fedid for most of the more complex calls
+     * like any POST/PUT methods or GET/DEL methods with required ids. These
+     * situations see
+     * {@link call(String path, REST restCall, String json, int id, int sId)}.
+     *
+     * @param path String, the relative path from the host.
+     * @param restCall REST, the type of the call (GET,POST,PUT,DEL).
+     * @return String, the content of the response for the call, for the Status
+     * Line/Code see {@link getStatusLine()}.
+     * @throws sztaki.hexaa.httputility.ResponseTypeMismatchException
+     */
+    public JSONArray getResponseJSONArray(String path, REST restCall) throws ResponseTypeMismatchException {
+        this.setPath(path);
+        this.setString(null);
+        this.setId(1);
+        this.setSId(1);
+
+        Object tempResponse = callSwitch(restCall);
+        Object serverResponse;
+        try {
+            serverResponse = JSONParser.parseJSON((String) tempResponse);
+        } catch (JSONException e) {
+            throw new ResponseTypeMismatchException("Non json string", "String", tempResponse.toString());
+        }
+        
+        if (serverResponse instanceof JSONArray) {
+            return (JSONArray) serverResponse;
+        } else if (serverResponse instanceof JSONObject) {
+            throw new ResponseTypeMismatchException("JSONObject instead of JSONArray", "JSONArray", serverResponse);
+        } else {
+            throw new ResponseTypeMismatchException("Non json instead of JSONArray", "String", serverResponse);
+        }
+    }
+
+    /**
+     * The normal call type for creation. Does not have ids or fedid, ids are 1
+     * for default, fedid is simply "fedid", if they are needed use
+     * {@link call(String path, REST restCall, String json, int id, int sId)} or
+     * {@link call(String path, REST restCall, String json, int id, int sId, String fedid)}.
+     *
+     * @param path String, the relative path from the host.
+     * @param restCall REST, the type of the call (GET,POST,PUT,DEL).
+     * @param json String, the json message for the http request's body in
+     * string format.
+     * @return String, the content of the response for the call, for the Status
+     * Line/Code see {@link getStatusLine()}.
+     * @throws sztaki.hexaa.httputility.ResponseTypeMismatchException
+     */
+    public JSONArray getResponseJSONArray(String path, REST restCall, String json) throws ResponseTypeMismatchException {
+        this.setPath(path);
+        this.setString(json);
+        this.setId(1);
+        this.setSId(1);
+
+        Object tempResponse = callSwitch(restCall);
+        Object serverResponse;
+        try {
+            serverResponse = JSONParser.parseJSON((String) tempResponse);
+        } catch (JSONException e) {
+            throw new ResponseTypeMismatchException("Non json string", "String", tempResponse.toString());
+        }
+        
+        if (serverResponse instanceof JSONArray) {
+            return (JSONArray) serverResponse;
+        } else if (serverResponse instanceof JSONObject) {
+            throw new ResponseTypeMismatchException("JSONObject instead of JSONArray", "JSONArray", serverResponse);
+        } else {
+            throw new ResponseTypeMismatchException("Non json instead of JSONArray", "String", serverResponse);
+        }
+    }
+
+    /**
+     * The normal call type, use this for most calls. Does not have a fedid, if
+     * fedid is required use
+     * {@link call(String path, REST restCall, String json, int id, int sId, String fedid)}.
+     *
+     * @param path String, the relative path from the host.
+     * @param restCall REST, the type of the call (GET,POST,PUT,DEL).
+     * @param json String, the json message for the http request's body in
+     * string format.
+     * @param id int, the basic {id} in the urls.
+     * @param sId int, all the ids in the url other than {id} and {fedid}.
+     * @return String, the content of the response for the call, for the Status
+     * Line/Code see {@link getStatusLine()}.
+     * @throws sztaki.hexaa.httputility.ResponseTypeMismatchException
+     */
+    public JSONArray getResponseJSONArray(String path, REST restCall, String json, int id, int sId) throws ResponseTypeMismatchException {
+        this.setPath(path);
+        this.setString(json);
+        this.setId(id);
+        this.setSId(sId);
+
+        Object tempResponse = callSwitch(restCall);
+        Object serverResponse;
+        try {
+            serverResponse = JSONParser.parseJSON((String) tempResponse);
+        } catch (JSONException e) {
+            throw new ResponseTypeMismatchException("Non json string", "String", tempResponse.toString());
+        }
+        
+        if (serverResponse instanceof JSONArray) {
+            return (JSONArray) serverResponse;
+        } else if (serverResponse instanceof JSONObject) {
+            throw new ResponseTypeMismatchException("JSONObject instead of JSONArray", "JSONArray", serverResponse);
+        } else {
+            throw new ResponseTypeMismatchException("Non json instead of JSONArray", "String", serverResponse);
+        }
+    }
+
+    /**
+     * Call with fedid provided. Use this only if fedid is necessary, otherwise
+     * see
+     * {@link call(String path, REST restCall, String json, int id, int sId)}
+     * and {@link String call(String path, REST restCall)}.
+     *
+     * @param path String, the relative path from the host.
+     * @param restCall REST, the type of the call (GET,POST,PUT,DEL).
+     * @param json String, the json message for the http request's body in
+     * string format.
+     * @param id int, the basic {id} in the urls.
+     * @param sId int, all the ids in the url other than {id} and {fedid}.
+     * @param fedid String, a special id used only in
+     * /api/principals/{fedid}/fedid
+     * @return String, the content of the response for the call, for the Status
+     * Line/Code see {@link getStatusLine()}.
+     * @throws sztaki.hexaa.httputility.ResponseTypeMismatchException
+     */
+    public JSONArray getResponseJSONArray(String path, REST restCall, String json, int id, int sId, String fedid) throws ResponseTypeMismatchException {
+        this.setPath(path);
+        this.setString(json);
+        this.setId(id);
+        this.setSId(sId);
+        this.setFedid(fedid);
+
+        Object tempResponse = callSwitch(restCall);
+        Object serverResponse;
+        try {
+            serverResponse = JSONParser.parseJSON((String) tempResponse);
+        } catch (JSONException e) {
+            throw new ResponseTypeMismatchException("Non json string", "String", tempResponse.toString());
+        }
+        
+        if (serverResponse instanceof JSONArray) {
+            return (JSONArray) serverResponse;
+        } else if (serverResponse instanceof JSONObject) {
+            throw new ResponseTypeMismatchException("JSONObject instead of JSONArray", "JSONArray", serverResponse);
+        } else {
+            throw new ResponseTypeMismatchException("Non json instead of JSONArray", "String", serverResponse);
+        }
+    }
+
     /* *** Http handlers *** */
     /**
      * Calls the appropriate http handler.

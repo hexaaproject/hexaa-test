@@ -17,7 +17,7 @@ import sztaki.hexaa.httputility.apicalls.attributevalueorganizations.services.*;
     AttributevalueorganizationsPatchTest.class,
     AttributevalueorganizationsPost.class,
     AttributevalueorganizationsPutTest.class,
-    AttributevalueServicesGetTest.class,
+    AttributevalueorganizationsServicesGetTest.class,
 })
 public class AttributevalueorganizationsSuite extends BasicTestSuite {
 }
