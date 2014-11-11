@@ -27,7 +27,7 @@ public class AttributevalueorganizationsPost extends CleanTest {
     }
 
     /**
-     * Creates two attributespecs.
+     * Creates the necessary objects on the server to begin the tests.
      */
     @BeforeClass
     public static void setUpClass() {

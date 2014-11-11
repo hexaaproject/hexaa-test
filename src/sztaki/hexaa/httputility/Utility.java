@@ -615,7 +615,7 @@ public class Utility {
                 enableService.call(
                         Const.Api.SERVICES_TOKEN_ENABLE,
                         BasicCall.REST.PUT);
-                if (enableService.getStatusLine().contains("200 OK")) {
+                if (enableService.getStatusLine().contains("204 No Content")) {
                     System.out.println("Service enabled!");
                 } else {
                     System.out.println(enableService.getStatusLine());
@@ -637,6 +637,45 @@ public class Utility {
             return Create.service(new String[]{name});
         }
 
+        /**
+         * 
+         * @param enable_entitlements
+         * @param enable_attribute_specs
+         * @param principal
+         * @param service
+         * @return 
+         */
+        public static JSONArray consent(boolean enable_entitlements, int[] enable_attribute_specs, int principal, int service) {
+            JSONArray consents = new JSONArray();
+            
+            JSONObject json = new JSONObject();
+            
+            json.put("enable_entitlements", enable_entitlements);
+            json.put("enabled_attribute_specs", enable_attribute_specs);
+            if (principal > 0) {
+                json.put("principal", principal);
+            }
+            json.put("service", service);
+            
+            persistent.call(
+                    Const.Api.CONSENTS,
+                    BasicCall.REST.POST,
+                    json.toString());
+            
+            json.put("enabled_attribute_spec_ids",json.remove("enabled_attribute_specs"));
+            json.put("service_id",json.remove("service"));
+            
+            consents.put(json);
+            
+            return consents;
+        }
+        
+        public static JSONArray consent(boolean enable_entitlements, int[] enable_attribute_specs, int service) {
+            return consent(enable_entitlements, enable_attribute_specs, 0, service);
+        }
+            
+            
+        
     }
 
     /**

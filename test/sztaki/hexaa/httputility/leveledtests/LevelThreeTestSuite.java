@@ -16,6 +16,7 @@ import sztaki.hexaa.httputility.apicalls.BasicTestSuite;
     sztaki.hexaa.httputility.apicalls.attributespecs.AttributespecsServicesGetTest.class,
     sztaki.hexaa.httputility.apicalls.attributevalueorganizations.AttributevalueorganizationsPost.class,
     sztaki.hexaa.httputility.apicalls.attributevalueprincipals.AttributevalueprincipalsPost.class,
+    sztaki.hexaa.httputility.apicalls.consents.ConsentsPostTest.class,
     sztaki.hexaa.httputility.apicalls.entitlementpacks.entitlements.EntitlementpacksAddEntitlementsTest.class,
     sztaki.hexaa.httputility.apicalls.entitlementpacks.EntitlementpacksDeleteTest.class,
     sztaki.hexaa.httputility.apicalls.entitlementpacks.EntitlementpacksGetTest.class,
