@@ -662,7 +662,8 @@ public class Utility {
                     BasicCall.REST.POST,
                     json.toString());
             
-            json.put("enabled_attribute_spec_ids",json.remove("enabled_attribute_specs"));
+            json.remove("enabled_attribute_specs");
+            json.put("enabled_attribute_spec_ids", new JSONArray(enable_attribute_specs));
             json.put("service_id",json.remove("service"));
             
             consents.put(json);

@@ -1,10 +1,10 @@
 package sztaki.hexaa.httputility.apicalls.consents;
 
 import org.json.JSONArray;
-import org.json.JSONException;
-import org.junit.Test;
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.fail;
 import org.junit.BeforeClass;
+import org.junit.Test;
 import org.skyscreamer.jsonassert.JSONAssert;
 import org.skyscreamer.jsonassert.JSONCompareMode;
 import sztaki.hexaa.httputility.BasicCall;
@@ -62,12 +62,8 @@ public class ConsentsGetTest extends CleanTest {
             return;
         }
 
-        System.out.println(consents);
-        System.out.println(jsonResponse);
-
         try {
             assertEquals(Const.StatusLine.OK, persistent.getStatusLine());
-            // támad a kerge jsonassert kór, ugyan elemről elemre pontosan benne van nem dob egyezést, holnap folytatom.
             JSONAssert.assertEquals(consents, jsonResponse, JSONCompareMode.LENIENT);
         } catch (AssertionError e) {
             AssertErrorHandler(e);
