@@ -2,10 +2,9 @@ package sztaki.hexaa.httputility.apicalls.consents;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.fail;
-import org.junit.BeforeClass;
 import org.junit.Test;
+import static org.junit.Assert.*;
+import org.junit.BeforeClass;
 import org.skyscreamer.jsonassert.JSONAssert;
 import org.skyscreamer.jsonassert.JSONCompareMode;
 import sztaki.hexaa.httputility.BasicCall;
@@ -15,10 +14,9 @@ import sztaki.hexaa.httputility.Utility;
 import sztaki.hexaa.httputility.apicalls.CleanTest;
 
 /**
- * Tests the GET method on the /api/consents, /api/consents/{id} and
- * /api/consents/{sid}/service calls.
+ * Tests the PUT and PATCH method on the /api/consents/{id} call.
  */
-public class ConsentsGetTest extends CleanTest {
+public class ConsentsPutPatchTest extends CleanTest {
 
     /**
      * JSONArray to store the created services.
@@ -30,7 +28,7 @@ public class ConsentsGetTest extends CleanTest {
      */
     @BeforeClass
     public static void classInformation() {
-        System.out.println("***\t " + ConsentsGetTest.class.getSimpleName() + " ***");
+        System.out.println("***\t " + ConsentsPutPatchTest.class.getSimpleName() + " ***");
     }
 
     /**
@@ -50,33 +48,29 @@ public class ConsentsGetTest extends CleanTest {
     }
 
     /**
-     * Gets all the consents and asserts them with the locally stored ones.
+     * Changes the enable_entitlements key to false and verifies it by getting
+     * the consent.
      */
     @Test
-    public void testConsentsGet() {
-        JSONArray jsonResponse;
-        try {
-            jsonResponse = persistent.getResponseJSONArray(
-                    Const.Api.CONSENTS,
-                    BasicCall.REST.GET);
-        } catch (ResponseTypeMismatchException ex) {
-            fail(ex.getFullMessage());
-            return;
-        }
+    public void testConsentsPut() {
+        JSONObject json = new JSONObject();
+        json.put("enable_entitlements", false);
+        json.put("enabled_attribute_specs", new int[]{1});
+        json.put("service", 1);
+        consents.getJSONObject(0).put("enable_entitlements", false);
+
+        persistent.call(
+                Const.Api.CONSENTS_ID,
+                BasicCall.REST.PUT,
+                json.toString(),
+                1, 1);
 
         try {
-            assertEquals(Const.StatusLine.OK, persistent.getStatusLine());
-            JSONAssert.assertEquals(consents, jsonResponse, JSONCompareMode.LENIENT);
+            assertEquals(Const.StatusLine.NoContent, persistent.getStatusLine());
         } catch (AssertionError e) {
             AssertErrorHandler(e);
         }
-    }
 
-    /**
-     * Get one consent by its id and asserts it with the locally stored one.
-     */
-    @Test
-    public void testConsentsGetById() {
         JSONObject jsonResponse;
         try {
             jsonResponse = persistent.getResponseJSONObject(
@@ -90,33 +84,50 @@ public class ConsentsGetTest extends CleanTest {
         }
 
         try {
-            assertEquals(Const.StatusLine.OK, persistent.getStatusLine());
             JSONAssert.assertEquals(consents.getJSONObject(0), jsonResponse, JSONCompareMode.LENIENT);
         } catch (AssertionError e) {
             AssertErrorHandler(e);
         }
     }
+    
+    
 
     /**
-     * Gets the consent by the id of the service enabled by it.
+     * Changes the enable_entitlements key to false and verifies it by getting
+     * the consent.
      */
     @Test
-    public void testConsentsGetByServiceId() {
+    public void testConsentsPatch() {
+        JSONObject json = new JSONObject();
+        json.put("enable_entitlements", false);
+        consents.getJSONObject(1).put("enable_entitlements", false);
+
+        persistent.call(
+                Const.Api.CONSENTS_ID,
+                BasicCall.REST.PATCH,
+                json.toString(),
+                2, 2);
+
+        try {
+            assertEquals(Const.StatusLine.NoContent, persistent.getStatusLine());
+        } catch (AssertionError e) {
+            AssertErrorHandler(e);
+        }
+
         JSONObject jsonResponse;
         try {
             jsonResponse = persistent.getResponseJSONObject(
-                    Const.Api.CONSENTS_SID_SERVICE,
+                    Const.Api.CONSENTS_ID,
                     BasicCall.REST.GET,
                     null,
-                    1, 1);
+                    2, 2);
         } catch (ResponseTypeMismatchException ex) {
             fail(ex.getFullMessage());
             return;
         }
 
         try {
-            assertEquals(Const.StatusLine.OK, persistent.getStatusLine());
-            JSONAssert.assertEquals(consents.getJSONObject(0), jsonResponse, JSONCompareMode.LENIENT);
+            JSONAssert.assertEquals(consents.getJSONObject(1), jsonResponse, JSONCompareMode.LENIENT);
         } catch (AssertionError e) {
             AssertErrorHandler(e);
         }

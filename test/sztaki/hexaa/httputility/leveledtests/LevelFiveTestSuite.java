@@ -20,6 +20,7 @@ import org.junit.runners.Suite;
     sztaki.hexaa.httputility.apicalls.attributevalueorganizations.AttributevalueorganizationsPatchTest.class,
     sztaki.hexaa.httputility.apicalls.attributevalueorganizations.services.AttributevalueorganizationsServicesPutTest.class,
     sztaki.hexaa.httputility.apicalls.attributevalueorganizations.services.AttributevalueorganizationsServicesDeleteTest.class,
+    sztaki.hexaa.httputility.apicalls.consents.ConsentsPutPatchTest.class,
     sztaki.hexaa.httputility.apicalls.organizations.entitlementpacks.OrganizationEntitlementpacksUnlinkTest.class,
     sztaki.hexaa.httputility.apicalls.organizations.entitlementpacks.OrganizationEntitlementpacksGetTest.class,
     sztaki.hexaa.httputility.apicalls.roles.entitlements.RolesEntitlementsGetTest.class,
