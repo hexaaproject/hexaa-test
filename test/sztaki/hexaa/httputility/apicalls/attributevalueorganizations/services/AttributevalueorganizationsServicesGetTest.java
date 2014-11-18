@@ -1,7 +1,7 @@
 package sztaki.hexaa.httputility.apicalls.attributevalueorganizations.services;
 
+import org.json.JSONArray;
 import org.json.JSONObject;
-import static org.junit.Assert.*;
 import static org.junit.Assert.fail;
 import org.junit.BeforeClass;
 import org.junit.Test;
@@ -67,8 +67,17 @@ public class AttributevalueorganizationsServicesGetTest extends CleanTest {
             return;
         }
 
+        System.out.println(attributevalueorganization.get("services"));
+        System.out.println(jsonResponse.get("service_ids"));
+
+        System.out.println(attributevalueorganization.get("services").getClass());
+        System.out.println(jsonResponse.get("service_ids").getClass());
+
         try {
-            assertEquals(attributevalueorganization.get("services"), jsonResponse.get("service_ids"));
+            JSONAssert.assertEquals(
+                    (JSONArray) attributevalueorganization.get("services"),
+                    (JSONArray) jsonResponse.get("service_ids"),
+                    JSONCompareMode.LENIENT);
         } catch (AssertionError e) {
             AssertErrorHandler(e);
         }

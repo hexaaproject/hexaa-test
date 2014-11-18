@@ -1,7 +1,7 @@
 package sztaki.hexaa.httputility.apicalls.attributevalueprincipals.services;
 
+import org.json.JSONArray;
 import org.json.JSONObject;
-import static org.junit.Assert.*;
 import static org.junit.Assert.fail;
 import org.junit.BeforeClass;
 import org.junit.Test;
@@ -67,11 +67,12 @@ public class AttributevalueprincipalsServicesGetTest extends CleanTest {
             fail(ex.getFullMessage());
             return;
         }
-        
-        System.out.println(attributevalueprincipal.toString());
-        System.out.println(jsonResponse.toString());
+
         try {
-            assertEquals(attributevalueprincipal.get("services"), jsonResponse.get("service_ids"));
+            JSONAssert.assertEquals(
+                    (JSONArray) attributevalueprincipal.get("services"),
+                    (JSONArray) jsonResponse.get("service_ids"),
+                    JSONCompareMode.LENIENT);
         } catch (AssertionError e) {
             AssertErrorHandler(e);
         }
@@ -105,10 +106,6 @@ public class AttributevalueprincipalsServicesGetTest extends CleanTest {
             fail(ex.getFullMessage());
             return;
         }
-        
-        System.out.println(attributevalueprincipal.toString());
-        System.out.println(jsonResponse.toString());
-        System.out.println(service.toString());
 
         try {
             JSONAssert.assertEquals(service, jsonResponse, JSONCompareMode.LENIENT);
