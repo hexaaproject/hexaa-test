@@ -2,6 +2,7 @@ package sztaki.hexaa.httputility.leveledtests;
 
 import org.junit.runner.RunWith;
 import org.junit.runners.Suite;
+import sztaki.hexaa.httputility.apicalls.BasicTestSuite;
 
 /**
  * The fifth level of the differentiated tests. These tests only rely on
@@ -26,6 +27,6 @@ import org.junit.runners.Suite;
     sztaki.hexaa.httputility.apicalls.roles.entitlements.RolesEntitlementsGetTest.class,
     sztaki.hexaa.httputility.apicalls.roles.entitlements.RolesEntitlementsRemoveTest.class,
 })
-public class LevelFiveTestSuite {
+public class LevelFiveTestSuite extends BasicTestSuite {
 
 }
