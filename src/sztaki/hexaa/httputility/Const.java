@@ -1,5 +1,8 @@
 package sztaki.hexaa.httputility;
 
+import java.util.HashSet;
+import java.util.Set;
+
 /**
  * Contains constants for the different keys, URI-s, and other server specific
  * data.
@@ -60,6 +63,13 @@ public class Const {
      * config.properties.
      */
     public static int SSH_PORT = 22;
+
+    /**
+     * Stores all the called method + uri pairs as strings, to see how many
+     * unique api calls were executed. For example: "POST
+     * /app.php/api/attributespecs.
+     */
+    public static Set<String> callHistory = new HashSet<>();
 
     /**
      * Contains the existing URL-s of the server.
@@ -162,7 +172,7 @@ public class Const {
          * GET(generate) new entitlement pack token.
          */
         public static final String ENTITLEMENTPACKS_ID_TOKEN = ("/app.php/api/entitlementpacks/{id}/token");
-        
+
         /* *** Invitation *** */
         /**
          * POST(send) new invitation.

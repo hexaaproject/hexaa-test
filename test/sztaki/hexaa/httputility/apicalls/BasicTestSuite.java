@@ -66,6 +66,7 @@ public abstract class BasicTestSuite {
      */
     @AfterClass
     public static void cleanUp() {
+        System.out.println(Const.callHistory);
         if (CLEANUP_NEEDED) {
             new Authenticator().loadProperties();
             new DatabaseManipulator().dropDatabase();

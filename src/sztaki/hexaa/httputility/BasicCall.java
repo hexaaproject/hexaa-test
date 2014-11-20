@@ -649,12 +649,13 @@ public class BasicCall {
 
     /* *** Http handlers *** */
     /**
-     * Calls the appropriate http handler.
+     * Calls the appropriate http handler. Used by all call types.
      *
      * @param restCall REST, decides between the 4 normal REST call.
      * @return String, returns the response's content in string format.
      */
     protected String callSwitch(REST restCall) {
+        Const.callHistory.add(restCall + ":" + path);
         statusLine = "";
         headers = null;
         switch (restCall) {
