@@ -66,7 +66,7 @@ public abstract class BasicTestSuite {
      */
     @AfterClass
     public static void cleanUp() {
-        System.out.println(Const.callHistory);
+        System.out.println("There were " + Const.callHistory + " api functions used.");
         if (CLEANUP_NEEDED) {
             new Authenticator().loadProperties();
             new DatabaseManipulator().dropDatabase();
