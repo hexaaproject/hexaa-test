@@ -11,4 +11,5 @@ manifest.mf
 /target/
 alternate_build.xml
 apicalllist.txt
-
+apicalllist.txt~
+apicalllist_dist.txt~

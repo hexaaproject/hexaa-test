@@ -36,12 +36,12 @@ public class CoverageChecker {
         remainingCalls = new ArrayList<>();
 
         File f = new File("apicalllist.txt");
-        OutputStream out = null;
+        System.out.println(f.exists());
 
         if (!f.exists()) {
             try {
                 f.createNewFile();
-                out = new FileOutputStream(f);
+                OutputStream out = new FileOutputStream(f);
                 Files.copy(FileSystems.getDefault().getPath("apicalllist_dist.txt"), out);
             } catch (IOException ex) {
                 Logger.getLogger(CoverageChecker.class.getName()).log(Level.SEVERE, null, ex);
@@ -67,7 +67,9 @@ public class CoverageChecker {
      * avoid the non-used return value warnings.
      */
     public static void Init() {
-        getCoverageChecker();
+        if (coverageChecker == null || remainingCalls == null) {
+            getCoverageChecker();
+        }
     }
 
     /**
@@ -91,10 +93,10 @@ public class CoverageChecker {
      * "RESTCALL(GET/POST/PUT/PATCH/DELETE) /api/..."
      */
     public static void checkout(String s) {
-        if (coverageChecker == null) {
-            Init();
-        }
+        Init();
+
         boolean rewriteNeeded = remainingCalls.remove(s);
+        System.out.println(s + " " + rewriteNeeded);
 
         if (rewriteNeeded == true) {
             File f = new File("apicalllist.txt");
@@ -102,8 +104,9 @@ public class CoverageChecker {
             try {
                 fw = new FileWriter(f, false);
                 for (String line : remainingCalls) {
-                    fw.write(line);
+                    fw.write(line + "\n");
                 }
+                fw.close();
             } catch (IOException ex) {
                 Logger.getLogger(CoverageChecker.class.getName()).log(Level.SEVERE, null, ex);
             }
@@ -115,9 +118,10 @@ public class CoverageChecker {
      * not close the class, the list will not be written to file by this.
      */
     public static void printout() {
-        if (coverageChecker == null) {
-            Init();
+        Init();
+
+        for (String s : remainingCalls) {
+            System.out.println(s);
         }
-        System.out.println(remainingCalls);
     }
 }
