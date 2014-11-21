@@ -830,8 +830,11 @@ public class BasicCall {
      */
     private String fixPath() {
         String nPath = this.path;
+        if (nPath.startsWith("/api")) {
+            nPath = "/app.php".concat(nPath);
+        }
         if (nPath.contains("{id}")) {
-            nPath = this.path.replace("{id}", Integer.toString(this.id));
+            nPath = nPath.replace("{id}", Integer.toString(this.id));
         }
         if (nPath.contains("{pid}")) {
             nPath = nPath.replace("{pid}", Integer.toString(this.sId));
