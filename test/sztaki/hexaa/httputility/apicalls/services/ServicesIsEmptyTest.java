@@ -7,9 +7,9 @@ import sztaki.hexaa.httputility.Const;
 import sztaki.hexaa.httputility.apicalls.IsEmptyTest;
 
 /**
- * Tests the GET,PUT,DEL methods on the /api/services , /api/services/{id},
- * /api/services/{id}/attributespecs, /api/services/{id}/entitlementpacks,
- * /api/services/{id}/entitlements and /api/services/{id}/managers calls.
+ * Tests the GET,PUT,DELETE methods on the /api/services , /api/services/{id},
+ /api/services/{id}/attributespecs, /api/services/{id}/entitlementpacks,
+ /api/services/{id}/entitlements and /api/services/{id}/managers calls.
  */
 public class ServicesIsEmptyTest extends IsEmptyTest {
 
@@ -82,23 +82,20 @@ public class ServicesIsEmptyTest extends IsEmptyTest {
     }
 
     /**
-     * Test the DEL calls in Services on an empty database, they are supposed to
-     * return either empty json or 404 not found error.
+     * Test the DELETE calls in Services on an empty database, they are supposed to
+ return either empty json or 404 not found error.
      */
     @Test
     public void testServicesIsEmptyDelete() {
 
-        expectingNotFound(
-                Const.Api.SERVICES_ID,
-                BasicCall.REST.DEL);
+        expectingNotFound(Const.Api.SERVICES_ID,
+                BasicCall.REST.DELETE);
 
-        expectingNotFound(
-                Const.Api.SERVICES_ID_ATTRIBUTESPECS_ASID,
-                BasicCall.REST.DEL);
+        expectingNotFound(Const.Api.SERVICES_ID_ATTRIBUTESPECS_ASID,
+                BasicCall.REST.DELETE);
 
-        expectingNotFound(
-                Const.Api.SERVICES_ID_MANAGERS_PID,
-                BasicCall.REST.DEL);
+        expectingNotFound(Const.Api.SERVICES_ID_MANAGERS_PID,
+                BasicCall.REST.DELETE);
     }
     
     /**

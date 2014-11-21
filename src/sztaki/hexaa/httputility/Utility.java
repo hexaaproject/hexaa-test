@@ -1053,9 +1053,8 @@ public class Utility {
          */
         public static void attributevalueorganization(int[] avoIDs) {
             for (int avoID : avoIDs) {
-                persistent.call(
-                        Const.Api.ATTRIBUTEVALUEORGANIZATIONS_ID,
-                        BasicCall.REST.DEL,
+                persistent.call(Const.Api.ATTRIBUTEVALUEORGANIZATIONS_ID,
+                        BasicCall.REST.DELETE,
                         null,
                         avoID, 0);
             }
@@ -1078,9 +1077,8 @@ public class Utility {
          */
         public static void attributevalueprincipal(int[] avpIDs) {
             for (int avpID : avpIDs) {
-                persistent.call(
-                        Const.Api.ATTRIBUTEVALUEPRINCIPALS_ID,
-                        BasicCall.REST.DEL,
+                persistent.call(Const.Api.ATTRIBUTEVALUEPRINCIPALS_ID,
+                        BasicCall.REST.DELETE,
                         null,
                         avpID, 0);
             }
@@ -1105,9 +1103,8 @@ public class Utility {
          */
         public static void principalFromRole(int roleId, int[] principalIds) {
             for (int pid : principalIds) {
-                persistent.call(
-                        Const.Api.ROLES_ID_PRINCIPALS_PID,
-                        BasicCall.REST.DEL,
+                persistent.call(Const.Api.ROLES_ID_PRINCIPALS_PID,
+                        BasicCall.REST.DELETE,
                         null,
                         roleId, pid);
             }
@@ -1135,9 +1132,8 @@ public class Utility {
          */
         public static void entitlementpackFromOrg(int orgId, int[] packIds) {
             for (int eid : packIds) {
-                persistent.call(
-                        Const.Api.ORGANIZATIONS_ID_ENTITLEMENTPACKS_EPID,
-                        BasicCall.REST.DEL,
+                persistent.call(Const.Api.ORGANIZATIONS_ID_ENTITLEMENTPACKS_EPID,
+                        BasicCall.REST.DELETE,
                         null,
                         orgId, eid);
             }
@@ -1162,9 +1158,8 @@ public class Utility {
          */
         public static void attributespec(int[] asIDs) {
             for (int asID : asIDs) {
-                persistent.call(
-                        Const.Api.ATTRIBUTESPECS_ID,
-                        BasicCall.REST.DEL,
+                persistent.call(Const.Api.ATTRIBUTESPECS_ID,
+                        BasicCall.REST.DELETE,
                         null,
                         asID, 0);
             }
@@ -1187,9 +1182,8 @@ public class Utility {
          * @param asID id of the attributespec to remove.
          */
         public static void attributespecFromService(int sID, int asID) {
-            persistent.call(
-                    Const.Api.SERVICES_ID_ATTRIBUTESPECS_ASID,
-                    BasicCall.REST.DEL,
+            persistent.call(Const.Api.SERVICES_ID_ATTRIBUTESPECS_ASID,
+                    BasicCall.REST.DELETE,
                     null,
                     sID, asID);
         }
@@ -1201,9 +1195,8 @@ public class Utility {
          */
         public static void organization(int[] orgIDs) {
             for (int orgID : orgIDs) {
-                persistent.call(
-                        Const.Api.ORGANIZATIONS_ID,
-                        BasicCall.REST.DEL,
+                persistent.call(Const.Api.ORGANIZATIONS_ID,
+                        BasicCall.REST.DELETE,
                         null,
                         orgID, 0);
             }
@@ -1226,9 +1219,8 @@ public class Utility {
          */
         public static void service(int[] serviceIDs) {
             for (int serviceID : serviceIDs) {
-                persistent.call(
-                        Const.Api.SERVICES_ID,
-                        BasicCall.REST.DEL,
+                persistent.call(Const.Api.SERVICES_ID,
+                        BasicCall.REST.DELETE,
                         null,
                         serviceID, 0);
             }
@@ -1248,7 +1240,7 @@ public class Utility {
          * Removes the current principal.
          */
         public static void principalSelf() {
-            persistent.call(Const.Api.PRINCIPAL, BasicCall.REST.DEL);
+            persistent.call(Const.Api.PRINCIPAL, BasicCall.REST.DELETE);
         }
 
         /**
@@ -1257,9 +1249,8 @@ public class Utility {
          * @param fedid the fedid of the principal to remove.
          */
         public static void principal(String fedid) {
-            persistent.call(
-                    Const.Api.PRINCIPALS_FEDID,
-                    BasicCall.REST.DEL,
+            persistent.call(Const.Api.PRINCIPALS_FEDID,
+                    BasicCall.REST.DELETE,
                     null,
                     0, 0,
                     "testPrincipal");
@@ -1272,7 +1263,7 @@ public class Utility {
          */
         public static void principal(int id) {
             persistent.call(Const.Api.PRINCIPALS_ID_ID,
-                    BasicCall.REST.DEL,
+                    BasicCall.REST.DELETE,
                     null,
                     id, id);
         }
@@ -1294,9 +1285,8 @@ public class Utility {
          */
         public static void entitlement(int[] ids) {
             for (int id : ids) {
-                persistent.call(
-                        Const.Api.ENTITLEMENTS_ID,
-                        BasicCall.REST.DEL,
+                persistent.call(Const.Api.ENTITLEMENTS_ID,
+                        BasicCall.REST.DELETE,
                         null,
                         id, id);
             }
@@ -1320,9 +1310,8 @@ public class Utility {
          */
         public static void entitlementpack(int[] ids) {
             for (int id : ids) {
-                persistent.call(
-                        Const.Api.ENTITLEMENTPACKS_ID,
-                        BasicCall.REST.DEL,
+                persistent.call(Const.Api.ENTITLEMENTPACKS_ID,
+                        BasicCall.REST.DELETE,
                         null,
                         id, id);
             }
@@ -1367,9 +1356,8 @@ public class Utility {
         public static void members(int[] orgIDs, int[] pIDs) {
             for (int orgID : orgIDs) {
                 for (int pID : pIDs) {
-                    persistent.call(
-                            Const.Api.ORGANIZATIONS_ID_MEMBERS_PID,
-                            BasicCall.REST.DEL,
+                    persistent.call(Const.Api.ORGANIZATIONS_ID_MEMBERS_PID,
+                            BasicCall.REST.DELETE,
                             null,
                             orgID, pID);
                 }
@@ -1415,9 +1403,8 @@ public class Utility {
         public static void managers(int[] orgIDs, int[] pIDs) {
             for (int orgID : orgIDs) {
                 for (int pID : pIDs) {
-                    persistent.call(
-                            Const.Api.ORGANIZATIONS_ID_MANAGERS_PID,
-                            BasicCall.REST.DEL,
+                    persistent.call(Const.Api.ORGANIZATIONS_ID_MANAGERS_PID,
+                            BasicCall.REST.DELETE,
                             null,
                             orgID, pID);
                 }
@@ -1440,9 +1427,8 @@ public class Utility {
          */
         public static void roles(int[] roleIDs) {
             for (int roleID : roleIDs) {
-                persistent.call(
-                        Const.Api.ROLES_ID,
-                        BasicCall.REST.DEL,
+                persistent.call(Const.Api.ROLES_ID,
+                        BasicCall.REST.DELETE,
                         null,
                         roleID, roleID);
             }
@@ -1457,9 +1443,8 @@ public class Utility {
         public static void entitlementFromPack(int[] packIDs, int[] eIDs) {
             for (int packID : packIDs) {
                 for (int eID : eIDs) {
-                    persistent.call(
-                            Const.Api.ENTITLEMENTPACKS_ID_ENTITLEMENTS_EID,
-                            BasicCall.REST.DEL,
+                    persistent.call(Const.Api.ENTITLEMENTPACKS_ID_ENTITLEMENTS_EID,
+                            BasicCall.REST.DELETE,
                             null,
                             packID, eID);
                 }
@@ -1486,9 +1471,8 @@ public class Utility {
          */
         public static void managerFromService(int serviceID, int[] pIDs) {
             for (int pID : pIDs) {
-                persistent.call(
-                        Const.Api.SERVICES_ID_MANAGERS_PID,
-                        BasicCall.REST.DEL,
+                persistent.call(Const.Api.SERVICES_ID_MANAGERS_PID,
+                        BasicCall.REST.DELETE,
                         null,
                         serviceID, pID);
             }
@@ -1513,9 +1497,8 @@ public class Utility {
          */
         public static void entitlementFromRole(int roleID, int[] entitlementIDs) {
             for (int entitlementID : entitlementIDs) {
-                persistent.call(
-                        Const.Api.ROLES_ID_ENTITLEMENTS_EID,
-                        BasicCall.REST.DEL,
+                persistent.call(Const.Api.ROLES_ID_ENTITLEMENTS_EID,
+                        BasicCall.REST.DELETE,
                         null,
                         roleID, entitlementID);
             }
@@ -1539,9 +1522,8 @@ public class Utility {
          * @param sid id of the service.
          */
         public static void serviceFromAttributevalueorganizations(int avid, int sid) {
-            persistent.call(
-                    Const.Api.ATTRIBUTEVALUEORGANIZATIONS_ID_SERVICES_SID,
-                    BasicCall.REST.DEL,
+            persistent.call(Const.Api.ATTRIBUTEVALUEORGANIZATIONS_ID_SERVICES_SID,
+                    BasicCall.REST.DELETE,
                     null,
                     avid, sid);
         }
@@ -1553,9 +1535,8 @@ public class Utility {
          * @param sid id of the service.
          */
         public static void serviceFromAttributevalueprincipals(int avid, int sid) {
-            persistent.call(
-                    Const.Api.ATTRIBUTEVALUEPRINCIPALS_ID_SERVICES_SID,
-                    BasicCall.REST.DEL,
+            persistent.call(Const.Api.ATTRIBUTEVALUEPRINCIPALS_ID_SERVICES_SID,
+                    BasicCall.REST.DELETE,
                     null,
                     avid, sid);
         }

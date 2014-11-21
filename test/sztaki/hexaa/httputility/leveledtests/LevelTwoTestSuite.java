@@ -19,7 +19,7 @@ import sztaki.hexaa.httputility.apicalls.BasicTestSuite;
     sztaki.hexaa.httputility.apicalls.invitations.InvitationsPostTest.class,
     sztaki.hexaa.httputility.apicalls.organizations.OrganizationDeleteTest.class,
     sztaki.hexaa.httputility.apicalls.organizations.OrganizationGetTest.class,
-    sztaki.hexaa.httputility.apicalls.organizations.OrganizationPutTest.class,
+    sztaki.hexaa.httputility.apicalls.organizations.OrganizationPutPatchTest.class,
     sztaki.hexaa.httputility.apicalls.organizations.principals.OrganizationsManagersAddTest.class,
     sztaki.hexaa.httputility.apicalls.organizations.principals.OrganizationsMembersAddTest.class,
     sztaki.hexaa.httputility.apicalls.principals.PrincipalGetAdmin.class,

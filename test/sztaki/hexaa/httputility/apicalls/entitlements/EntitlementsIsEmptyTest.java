@@ -45,9 +45,8 @@ public class EntitlementsIsEmptyTest extends IsEmptyTest {
      */
     @Test
     public void testEntitlementsIsEmptyDelete() {
-        expectingNotFound(
-                Const.Api.ENTITLEMENTS_ID,
-                BasicCall.REST.DEL);
+        expectingNotFound(Const.Api.ENTITLEMENTS_ID,
+                BasicCall.REST.DELETE);
     }
     
     /**

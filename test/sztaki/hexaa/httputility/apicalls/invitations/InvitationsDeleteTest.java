@@ -41,7 +41,7 @@ public class InvitationsDeleteTest extends CleanTest {
      */
     @Test
     public void testInvitationDelete() {
-        persistent.call(Const.Api.INVITATIONS_ID, BasicCall.REST.DEL);
+        persistent.call(Const.Api.INVITATIONS_ID, BasicCall.REST.DELETE);
 
         try {
             assertEquals(Const.StatusLine.NoContent, persistent.getStatusLine());

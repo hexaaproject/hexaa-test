@@ -15,7 +15,7 @@ import sztaki.hexaa.httputility.apicalls.organizations.attributes.*;
  */
 @RunWith(Suite.class)
 @Suite.SuiteClasses({
-    OrganizationPutTest.class,
+    OrganizationPutPatchTest.class,
     OrganizationDeleteTest.class,
     OrganizationPostTest.class,
     OrganizationGetTest.class,

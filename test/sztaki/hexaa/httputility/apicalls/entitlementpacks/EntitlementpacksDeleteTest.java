@@ -49,7 +49,7 @@ public class EntitlementpacksDeleteTest extends CleanTest {
         Utility.Remove.entitlementpack(1);
         
         try {
-            // Checks the status line from the DEL call for 204
+            // Checks the status line from the DELETE call for 204
             assertEquals(Const.StatusLine.NoContent, Utility.persistent.getStatusLine());
             // GETs the one that was deleted and checks the status line for 404
             persistent.call(Const.Api.ENTITLEMENTPACKS_ID, BasicCall.REST.GET, null, 1, 0);

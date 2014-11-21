@@ -54,12 +54,10 @@ public class AttributevalueprincipalIsEmptyTest extends IsEmptyTest {
      */
     @Test
     public void testAttributevalueprincipalIsEmptyDelete() {
-        expectingNotFound(
-                Const.Api.ATTRIBUTEVALUEPRINCIPALS_ID,
-                BasicCall.REST.DEL);
-        expectingNotFound(
-                Const.Api.ATTRIBUTEVALUEPRINCIPALS_ID_SERVICES_SID,
-                BasicCall.REST.DEL);
+        expectingNotFound(Const.Api.ATTRIBUTEVALUEPRINCIPALS_ID,
+                BasicCall.REST.DELETE);
+        expectingNotFound(Const.Api.ATTRIBUTEVALUEPRINCIPALS_ID_SERVICES_SID,
+                BasicCall.REST.DELETE);
     }
 
     /**

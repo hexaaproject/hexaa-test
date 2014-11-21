@@ -14,6 +14,7 @@ import org.junit.runner.RunWith;
 import org.junit.runners.Suite;
 import sztaki.hexaa.httputility.Authenticator;
 import sztaki.hexaa.httputility.Const;
+import sztaki.hexaa.httputility.CoverageChecker;
 import sztaki.hexaa.httputility.DatabaseManipulator;
 
 /**
@@ -36,6 +37,7 @@ public abstract class BasicTestSuite {
      */
     @BeforeClass
     public static void checkReachable() {
+        CoverageChecker.Init();
         new Authenticator().loadProperties();
         new DatabaseManipulator().dropCache();
         if (!Const.HEXAA_HOST.equals("localhost")) {
@@ -66,13 +68,10 @@ public abstract class BasicTestSuite {
      */
     @AfterClass
     public static void cleanUp() {
-        System.out.println("There were " + Const.callHistory.size() + " api functions used.");
-        for (String line : Const.callHistory) {
-            System.out.println(line);
-        }
         if (CLEANUP_NEEDED) {
             new Authenticator().loadProperties();
             new DatabaseManipulator().dropDatabase();
+            CoverageChecker.printout();
         }
     }
 }

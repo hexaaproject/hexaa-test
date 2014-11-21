@@ -18,17 +18,17 @@ public class MethodNotAllowedTest extends CleanTest {
      */
     @Test
     public void testMethodNotAllowed() {
-        /* *** REST(GET,POST,PUT,DEL) boundles for the   *** */
+        /* *** REST(GET,POST,PUT,DELETE) boundles for the   *** */
         /* easier use, not complete, feel free to add to it *** */
         BasicCall.REST[] restGetPostDeletePatch = {
             BasicCall.REST.GET,
             BasicCall.REST.POST,
-            BasicCall.REST.DEL,
+            BasicCall.REST.DELETE,
             BasicCall.REST.PATCH,};
         BasicCall.REST[] restGetPutDeletePatch = {
             BasicCall.REST.GET,
             BasicCall.REST.PUT,
-            BasicCall.REST.DEL,
+            BasicCall.REST.DELETE,
             BasicCall.REST.PATCH,};
         BasicCall.REST[] restGetPostPutPatch = {
             BasicCall.REST.GET,
@@ -47,7 +47,7 @@ public class MethodNotAllowedTest extends CleanTest {
         BasicCall.REST[] restPostPutDeletePatch = {
             BasicCall.REST.POST,
             BasicCall.REST.PUT,
-            BasicCall.REST.DEL,
+            BasicCall.REST.DELETE,
             BasicCall.REST.PATCH,};
         BasicCall.REST[] restPostPutPatch = {
             BasicCall.REST.POST,
@@ -55,13 +55,13 @@ public class MethodNotAllowedTest extends CleanTest {
             BasicCall.REST.PATCH,};
         BasicCall.REST[] restPutDeletePatch = {
             BasicCall.REST.PUT,
-            BasicCall.REST.DEL,
+            BasicCall.REST.DELETE,
             BasicCall.REST.PATCH,};
         BasicCall.REST[] restDelete = {
-            BasicCall.REST.DEL,};
+            BasicCall.REST.DELETE,};
         BasicCall.REST[] restPostDelete = {
             BasicCall.REST.POST,
-            BasicCall.REST.DEL,};
+            BasicCall.REST.DELETE,};
 
         /* *** Attributevalueorganization *** */
         this.expectingNotAllowed(
@@ -331,7 +331,7 @@ public class MethodNotAllowedTest extends CleanTest {
      * @param uris String[]: Strings for the uri-s to call, preferably from the
      * Const.Api constants.
      * @param calls REST[]: from the BasicCall.REST[], can be GET, POST, PUT,
-     * DEL.
+ DELETE.
      */
     public void expectingNotAllowed(String[] uris, BasicCall.REST[] calls) {
         for (String uri : uris) {

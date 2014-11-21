@@ -16,14 +16,14 @@ import sztaki.hexaa.httputility.apicalls.CleanTest;
 /**
  * Tests the PUT method on the /api/entitlements/{id} call.
  */
-public class EntitlementsPutTest extends CleanTest {
+public class EntitlementsPutPatchTest extends CleanTest {
 
     /**
      * Print the class name on the output.
      */
     @BeforeClass
     public static void classInformation() {
-        System.out.println("***\t " + EntitlementsPutTest.class.getSimpleName() + " ***");
+        System.out.println("***\t " + EntitlementsPutPatchTest.class.getSimpleName() + " ***");
     }
 
     /**
@@ -41,7 +41,7 @@ public class EntitlementsPutTest extends CleanTest {
     }
 
     /**
-     * Changes one attribute of the entitlement and verifies it by GETing the
+     * Changes one attribute of the entitlement by put and verifies it by GETing the
      * entitlement from the server.
      */
     @Test
@@ -54,6 +54,46 @@ public class EntitlementsPutTest extends CleanTest {
                 Const.Api.ENTITLEMENTS_ID,
                 BasicCall.REST.PUT,
                 json.toString(),
+                1, 0);
+
+        try {
+            assertEquals(Const.StatusLine.NoContent, persistent.getStatusLine());
+        } catch (AssertionError e) {
+            AssertErrorHandler(e);
+        }
+
+        JSONObject jsonResponse = (JSONObject) JSONParser.parseJSON(
+                persistent.call(
+                        Const.Api.ENTITLEMENTS_ID,
+                        BasicCall.REST.GET,
+                        null,
+                        1, 0));
+        try {
+            assertEquals(Const.StatusLine.OK, persistent.getStatusLine());
+            JSONAssert.assertEquals(json, jsonResponse, JSONCompareMode.LENIENT);
+            assertEquals("changedNameByPut", jsonResponse.getString("name"));
+        } catch (AssertionError e) {
+            AssertErrorHandler(e);
+        }
+    }
+
+    /**
+     * Changes one attribute of the entitlement by patch and verifies it by GETing the
+     * entitlement from the server.
+     */
+    @Test
+    public void testEntitlementsPatch() {
+        JSONObject json = entitlements.getJSONObject(0);
+
+        json.put("name", "changedNameByPut");
+        
+        JSONObject temp = new JSONObject();
+        temp.put("name", "changedNameByPut");
+
+        persistent.call(
+                Const.Api.ENTITLEMENTS_ID,
+                BasicCall.REST.PATCH,
+                temp.toString(),
                 1, 0);
 
         try {

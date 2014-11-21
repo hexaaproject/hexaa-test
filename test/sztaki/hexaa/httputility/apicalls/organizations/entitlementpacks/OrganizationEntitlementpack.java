@@ -151,9 +151,8 @@ public abstract class OrganizationEntitlementpack extends CleanTest {
      */
     protected void deleteLink(int orgId, int[] packIds) {
         for (int pack : packIds) {
-            persistent.call(
-                    Const.Api.ORGANIZATIONS_ID_ENTITLEMENTPACKS_EPID,
-                    BasicCall.REST.DEL,
+            persistent.call(Const.Api.ORGANIZATIONS_ID_ENTITLEMENTPACKS_EPID,
+                    BasicCall.REST.DELETE,
                     null,
                     orgId, pack);
         }

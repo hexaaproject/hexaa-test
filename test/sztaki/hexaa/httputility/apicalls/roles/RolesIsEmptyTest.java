@@ -57,15 +57,12 @@ public class RolesIsEmptyTest extends IsEmptyTest {
      */
     @Test
     public void testRoleIsEmptyDelete() {
-        expectingNotFound(
-                Const.Api.ROLES_ID,
-                BasicCall.REST.DEL);
-        expectingNotFound(
-                Const.Api.ROLES_ID_ENTITLEMENTS_EID,
-                BasicCall.REST.DEL);
-        expectingNotFound(
-                Const.Api.ROLES_ID_PRINCIPALS_PID,
-                BasicCall.REST.DEL);
+        expectingNotFound(Const.Api.ROLES_ID,
+                BasicCall.REST.DELETE);
+        expectingNotFound(Const.Api.ROLES_ID_ENTITLEMENTS_EID,
+                BasicCall.REST.DELETE);
+        expectingNotFound(Const.Api.ROLES_ID_PRINCIPALS_PID,
+                BasicCall.REST.DELETE);
     }
     
     /**

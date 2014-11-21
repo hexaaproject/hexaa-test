@@ -65,13 +65,6 @@ public class Const {
     public static int SSH_PORT = 22;
 
     /**
-     * Stores all the called method + uri pairs as strings, to see how many
-     * unique api calls were executed. For example: "POST
-     * /app.php/api/attributespecs.
-     */
-    public static Set<String> callHistory = new HashSet<>();
-
-    /**
      * Contains the existing URL-s of the server.
      */
     public static class Api {

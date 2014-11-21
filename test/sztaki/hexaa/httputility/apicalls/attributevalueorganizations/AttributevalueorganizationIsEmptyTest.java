@@ -54,12 +54,10 @@ public class AttributevalueorganizationIsEmptyTest extends IsEmptyTest {
      */
     @Test
     public void testAttributevalueorganizationIsEmptyDelete() {
-        expectingNotFound(
-                Const.Api.ATTRIBUTEVALUEORGANIZATIONS_ID,
-                BasicCall.REST.DEL);
-        expectingNotFound(
-                Const.Api.ATTRIBUTEVALUEORGANIZATIONS_ID_SERVICES_SID,
-                BasicCall.REST.DEL);
+        expectingNotFound(Const.Api.ATTRIBUTEVALUEORGANIZATIONS_ID,
+                BasicCall.REST.DELETE);
+        expectingNotFound(Const.Api.ATTRIBUTEVALUEORGANIZATIONS_ID_SERVICES_SID,
+                BasicCall.REST.DELETE);
     }
 
     /**

@@ -57,12 +57,10 @@ public class EntitlementpacksIsEmptyTest extends IsEmptyTest {
      */
     @Test
     public void testEntitlementpacksIsEmptyDelete() {
-        expectingNotFound(
-                Const.Api.ENTITLEMENTPACKS_ID,
-                BasicCall.REST.DEL);
-        expectingNotFound(
-                Const.Api.ENTITLEMENTPACKS_ID_ENTITLEMENTS_EID,
-                BasicCall.REST.DEL);
+        expectingNotFound(Const.Api.ENTITLEMENTPACKS_ID,
+                BasicCall.REST.DELETE);
+        expectingNotFound(Const.Api.ENTITLEMENTPACKS_ID_ENTITLEMENTS_EID,
+                BasicCall.REST.DELETE);
     }
     
     /**

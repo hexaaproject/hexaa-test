@@ -84,18 +84,14 @@ public class OrganizationIsEmptyTest extends IsEmptyTest {
      */
     @Test
     public void testOrganizationIsEmptyDelete() {
-        expectingNotFound(
-                Const.Api.ORGANIZATIONS_ID,
-                BasicCall.REST.DEL);
-        expectingNotFound(
-                Const.Api.ORGANIZATIONS_ID_ENTITLEMENTPACKS_EPID,
-                BasicCall.REST.DEL);
-        expectingNotFound(
-                Const.Api.ORGANIZATIONS_ID_MANAGERS_PID,
-                BasicCall.REST.DEL);
-        expectingNotFound(
-                Const.Api.ORGANIZATIONS_ID_MEMBERS_PID,
-                BasicCall.REST.DEL);
+        expectingNotFound(Const.Api.ORGANIZATIONS_ID,
+                BasicCall.REST.DELETE);
+        expectingNotFound(Const.Api.ORGANIZATIONS_ID_ENTITLEMENTPACKS_EPID,
+                BasicCall.REST.DELETE);
+        expectingNotFound(Const.Api.ORGANIZATIONS_ID_MANAGERS_PID,
+                BasicCall.REST.DELETE);
+        expectingNotFound(Const.Api.ORGANIZATIONS_ID_MEMBERS_PID,
+                BasicCall.REST.DELETE);
     }
     
     /**

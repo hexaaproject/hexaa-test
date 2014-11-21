@@ -48,9 +48,8 @@ public class AttributespecsIsEmptyTest extends IsEmptyTest {
      */
     @Test
     public void testAttributespecsIsEmptyDelete() {
-        expectingNotFound(
-                Const.Api.ATTRIBUTESPECS_ID,
-                BasicCall.REST.DEL);
+        expectingNotFound(Const.Api.ATTRIBUTESPECS_ID,
+                BasicCall.REST.DELETE);
     }
     
     /**

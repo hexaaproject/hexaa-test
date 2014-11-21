@@ -47,7 +47,7 @@ public class OrganizationsMembersRemoveTest extends CleanTest {
     }
 
     /**
-     * Tests the DEL method.
+     * Tests the DELETE method.
      */
     @Test
     public void testOrganizationMemberRemove() {

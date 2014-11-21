@@ -12,7 +12,7 @@ import sztaki.hexaa.httputility.apicalls.entitlementpacks.entitlements.*;
 @RunWith(Suite.class)
 @Suite.SuiteClasses({
     EntitlementpacksGetTest.class,
-    EntitlementpacksPutTest.class,
+    EntitlementpacksPutPatchTest.class,
     EntitlementpacksDeleteTest.class,
     EntitlementpacksAddEntitlementsTest.class,
     EntitlementpacksGetEntitlementsTest.class,

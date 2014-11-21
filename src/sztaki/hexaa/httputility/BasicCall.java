@@ -220,11 +220,13 @@ public class BasicCall {
 
     /**
      * Enumeration to easily differentiate between the 4 types of calls. Values:
-     * GET, POST, PUT, DEL.
+ GET, POST, PUT, DELETE.
      */
     public enum REST {
 
         /**
+         * Use it for GET methods.
+         *//**
          * Use it for GET methods.
          */
         GET,
@@ -239,7 +241,7 @@ public class BasicCall {
         /**
          * Use it for DELETE methods.
          */
-        DEL,
+        DELETE,
         /**
          * Use it for PATCH methods.
          */
@@ -249,13 +251,13 @@ public class BasicCall {
     /* *** Normal calls, returns the response json as a String *** */
     /**
      * Most basic call type, only use it for simple GET methods, as it does not
-     * get the required json/id/sid/fedid for most of the more complex calls
-     * like any POST/PUT methods or GET/DEL methods with required ids. These
+ get the required json/id/sid/fedid for most of the more complex calls
+ like any POST/PUT methods or GET/DELETE methods with required ids. These
      * situations see
      * {@link call(String path, REST restCall, String json, int id, int sId)}.
      *
      * @param path String, the relative path from the host.
-     * @param restCall REST, the type of the call (GET,POST,PUT,DEL).
+     * @param restCall REST, the type of the call (GET,POST,PUT,DELETE).
      * @return String, the content of the response for the call, for the Status
      * Line/Code see {@link getStatusLine()}.
      */
@@ -275,7 +277,7 @@ public class BasicCall {
      * {@link call(String path, REST restCall, String json, int id, int sId, String fedid)}.
      *
      * @param path String, the relative path from the host.
-     * @param restCall REST, the type of the call (GET,POST,PUT,DEL).
+     * @param restCall REST, the type of the call (GET,POST,PUT,DELETE).
      * @param json String, the json message for the http request's body in
      * string format.
      * @return String, the content of the response for the call, for the Status
@@ -296,7 +298,7 @@ public class BasicCall {
      * {@link call(String path, REST restCall, String json, int id, int sId, String fedid)}.
      *
      * @param path String, the relative path from the host.
-     * @param restCall REST, the type of the call (GET,POST,PUT,DEL).
+     * @param restCall REST, the type of the call (GET,POST,PUT,DELETE).
      * @param json String, the json message for the http request's body in
      * string format.
      * @param id int, the basic {id} in the urls.
@@ -320,7 +322,7 @@ public class BasicCall {
      * and {@link String call(String path, REST restCall)}.
      *
      * @param path String, the relative path from the host.
-     * @param restCall REST, the type of the call (GET,POST,PUT,DEL).
+     * @param restCall REST, the type of the call (GET,POST,PUT,DELETE).
      * @param json String, the json message for the http request's body in
      * string format.
      * @param id int, the basic {id} in the urls.
@@ -343,13 +345,13 @@ public class BasicCall {
     /* *** Calls to get JSONObjects and JSONArrays already parsed *** */
     /**
      * Most basic call type, only use it for simple GET methods, as it does not
-     * get the required json/id/sid/fedid for most of the more complex calls
-     * like any POST/PUT methods or GET/DEL methods with required ids. These
+ get the required json/id/sid/fedid for most of the more complex calls
+ like any POST/PUT methods or GET/DELETE methods with required ids. These
      * situations see
      * {@link call(String path, REST restCall, String json, int id, int sId)}.
      *
      * @param path String, the relative path from the host.
-     * @param restCall REST, the type of the call (GET,POST,PUT,DEL).
+     * @param restCall REST, the type of the call (GET,POST,PUT,DELETE).
      * @return String, the content of the response for the call, for the Status
      * Line/Code see {@link getStatusLine()}.
      * @throws sztaki.hexaa.httputility.ResponseTypeMismatchException
@@ -384,7 +386,7 @@ public class BasicCall {
      * {@link call(String path, REST restCall, String json, int id, int sId, String fedid)}.
      *
      * @param path String, the relative path from the host.
-     * @param restCall REST, the type of the call (GET,POST,PUT,DEL).
+     * @param restCall REST, the type of the call (GET,POST,PUT,DELETE).
      * @param json String, the json message for the http request's body in
      * string format.
      * @return String, the content of the response for the call, for the Status
@@ -420,7 +422,7 @@ public class BasicCall {
      * {@link call(String path, REST restCall, String json, int id, int sId, String fedid)}.
      *
      * @param path String, the relative path from the host.
-     * @param restCall REST, the type of the call (GET,POST,PUT,DEL).
+     * @param restCall REST, the type of the call (GET,POST,PUT,DELETE).
      * @param json String, the json message for the http request's body in
      * string format.
      * @param id int, the basic {id} in the urls.
@@ -459,7 +461,7 @@ public class BasicCall {
      * and {@link String call(String path, REST restCall)}.
      *
      * @param path String, the relative path from the host.
-     * @param restCall REST, the type of the call (GET,POST,PUT,DEL).
+     * @param restCall REST, the type of the call (GET,POST,PUT,DELETE).
      * @param json String, the json message for the http request's body in
      * string format.
      * @param id int, the basic {id} in the urls.
@@ -496,13 +498,13 @@ public class BasicCall {
 
     /**
      * Most basic call type, only use it for simple GET methods, as it does not
-     * get the required json/id/sid/fedid for most of the more complex calls
-     * like any POST/PUT methods or GET/DEL methods with required ids. These
+ get the required json/id/sid/fedid for most of the more complex calls
+ like any POST/PUT methods or GET/DELETE methods with required ids. These
      * situations see
      * {@link call(String path, REST restCall, String json, int id, int sId)}.
      *
      * @param path String, the relative path from the host.
-     * @param restCall REST, the type of the call (GET,POST,PUT,DEL).
+     * @param restCall REST, the type of the call (GET,POST,PUT,DELETE).
      * @return String, the content of the response for the call, for the Status
      * Line/Code see {@link getStatusLine()}.
      * @throws sztaki.hexaa.httputility.ResponseTypeMismatchException
@@ -537,7 +539,7 @@ public class BasicCall {
      * {@link call(String path, REST restCall, String json, int id, int sId, String fedid)}.
      *
      * @param path String, the relative path from the host.
-     * @param restCall REST, the type of the call (GET,POST,PUT,DEL).
+     * @param restCall REST, the type of the call (GET,POST,PUT,DELETE).
      * @param json String, the json message for the http request's body in
      * string format.
      * @return String, the content of the response for the call, for the Status
@@ -573,7 +575,7 @@ public class BasicCall {
      * {@link call(String path, REST restCall, String json, int id, int sId, String fedid)}.
      *
      * @param path String, the relative path from the host.
-     * @param restCall REST, the type of the call (GET,POST,PUT,DEL).
+     * @param restCall REST, the type of the call (GET,POST,PUT,DELETE).
      * @param json String, the json message for the http request's body in
      * string format.
      * @param id int, the basic {id} in the urls.
@@ -612,7 +614,7 @@ public class BasicCall {
      * and {@link String call(String path, REST restCall)}.
      *
      * @param path String, the relative path from the host.
-     * @param restCall REST, the type of the call (GET,POST,PUT,DEL).
+     * @param restCall REST, the type of the call (GET,POST,PUT,DELETE).
      * @param json String, the json message for the http request's body in
      * string format.
      * @param id int, the basic {id} in the urls.
@@ -655,7 +657,8 @@ public class BasicCall {
      * @return String, returns the response's content in string format.
      */
     protected String callSwitch(REST restCall) {
-        Const.callHistory.add(restCall + ":" + path);
+        CoverageChecker.checkout(restCall + " " + path);
+        
         statusLine = "";
         headers = null;
         switch (restCall) {
@@ -665,7 +668,7 @@ public class BasicCall {
                 return this.post();
             case PUT:
                 return this.put();
-            case DEL:
+            case DELETE:
                 return this.delete();
             case PATCH:
                 return this.patch();
@@ -761,8 +764,8 @@ public class BasicCall {
     }
 
     /**
-     * Returns the DEL request's response's JSON content in string format, if
-     * there is no content empty string will be returned.
+     * Returns the DELETE request's response's JSON content in string format, if
+ there is no content empty string will be returned.
      *
      * @return String, JSON content in string format, maybe empty, never null.
      */

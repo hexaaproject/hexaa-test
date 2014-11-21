@@ -11,7 +11,7 @@ import sztaki.hexaa.httputility.apicalls.BasicTestSuite;
 @RunWith(Suite.class)
 @Suite.SuiteClasses({
     EntitlementsGetTest.class,
-    EntitlementsPutTest.class,
+    EntitlementsPutPatchTest.class,
     EntitlementsDeleteTest.class,})
 public class EntitlementsSuite extends BasicTestSuite {
 }

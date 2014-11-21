@@ -16,14 +16,14 @@ import sztaki.hexaa.httputility.apicalls.CleanTest;
 /**
  * Tests the PUT methods on the /api/entitlementpacks/{id} uri.
  */
-public class EntitlementpacksPutTest extends CleanTest {
+public class EntitlementpacksPutPatchTest extends CleanTest {
 
     /**
      * Print the class name on the output.
      */
     @BeforeClass
     public static void classInformation() {
-        System.out.println("***\t " + EntitlementpacksPutTest.class.getSimpleName() + " ***");
+        System.out.println("***\t " + EntitlementpacksPutPatchTest.class.getSimpleName() + " ***");
     }
 
     /**
@@ -36,13 +36,13 @@ public class EntitlementpacksPutTest extends CleanTest {
      */
     @BeforeClass
     public static void setUpClass() {
-        Utility.Create.service(new String[] {"testService1"});
+        Utility.Create.service(new String[]{"testService1"});
         entitlementpacks = Utility.Create.entitlementpacks(1, new String[]{"testEntitlementpacks1", "testEntitlementpacks2"});
     }
 
     /**
-     * Changes one attribute of the entitlementpack and verifies it by GETing
-     * the entitlementpack from the server.
+     * Changes one attribute of the entitlementpack by put and verifies it by
+     * GETing the entitlementpack from the server.
      */
     @Test
     public void testEntitlementsPut() {
@@ -54,6 +54,46 @@ public class EntitlementpacksPutTest extends CleanTest {
                 Const.Api.ENTITLEMENTPACKS_ID,
                 BasicCall.REST.PUT,
                 json.toString(),
+                1, 0);
+
+        try {
+            assertEquals(Const.StatusLine.NoContent, persistent.getStatusLine());
+        } catch (AssertionError e) {
+            AssertErrorHandler(e);
+        }
+
+        JSONObject jsonResponse = (JSONObject) JSONParser.parseJSON(
+                persistent.call(
+                        Const.Api.ENTITLEMENTPACKS_ID,
+                        BasicCall.REST.GET,
+                        null,
+                        1, 0));
+        try {
+            assertEquals(Const.StatusLine.OK, persistent.getStatusLine());
+            JSONAssert.assertEquals(json, jsonResponse, JSONCompareMode.LENIENT);
+            assertEquals("changedNameByPut", jsonResponse.getString("name"));
+        } catch (AssertionError e) {
+            AssertErrorHandler(e);
+        }
+    }
+
+    /**
+     * Changes one attribute of the entitlementpack by patch and verifies it by
+     * GETing the entitlementpack from the server.
+     */
+    @Test
+    public void testEntitlementsPatch() {
+        JSONObject json = entitlementpacks.getJSONObject(0);
+
+        json.put("name", "changedNameByPut");
+        
+        JSONObject temp = new JSONObject();
+        temp.put("name", "changedNameByPut");
+
+        persistent.call(
+                Const.Api.ENTITLEMENTPACKS_ID,
+                BasicCall.REST.PATCH,
+                temp.toString(),
                 1, 0);
 
         try {

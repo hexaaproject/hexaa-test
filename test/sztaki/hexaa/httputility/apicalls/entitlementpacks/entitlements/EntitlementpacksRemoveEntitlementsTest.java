@@ -13,8 +13,8 @@ import sztaki.hexaa.httputility.Utility;
 import sztaki.hexaa.httputility.apicalls.CleanTest;
 
 /**
- * Tests the DEL methods on the /api/entitlementpacks/{id}/entitlements/{eid}
- * call.
+ * Tests the DELETE methods on the /api/entitlementpacks/{id}/entitlements/{eid}
+ call.
  */
 public class EntitlementpacksRemoveEntitlementsTest extends CleanTest {
 
