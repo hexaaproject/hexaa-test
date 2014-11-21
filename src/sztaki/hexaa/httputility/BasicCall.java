@@ -662,7 +662,11 @@ public class BasicCall {
      * @return String, returns the response's content in string format.
      */
     protected String callSwitch(REST restCall) {
-        CoverageChecker.checkout(restCall + " " + path + ".{_format} ");
+        if (path.startsWith("/app.php")) {
+            CoverageChecker.checkout(restCall + " " + path.substring(8) + ".{_format} ");
+        } else {
+            CoverageChecker.checkout(restCall + " " + path + ".{_format} ");
+        }
         
         statusLine = "";
         headers = null;
