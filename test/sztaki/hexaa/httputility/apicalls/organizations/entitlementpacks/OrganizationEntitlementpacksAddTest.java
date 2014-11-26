@@ -6,6 +6,7 @@ import org.json.JSONArray;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.fail;
 import org.junit.BeforeClass;
+import org.junit.Ignore;
 import org.junit.Test;
 import sztaki.hexaa.httputility.BasicCall;
 import sztaki.hexaa.httputility.Const;
@@ -16,7 +17,7 @@ import sztaki.hexaa.httputility.apicalls.CleanTest;
 /**
  *
  */
-public class OrganizationEntitlementpacksAddTest extends CleanTest{
+public class OrganizationEntitlementpacksAddTest extends CleanTest {
 
     /**
      * JSONArray to store the created entitlements.
@@ -43,13 +44,13 @@ public class OrganizationEntitlementpacksAddTest extends CleanTest{
     public static void setUpClass() {
         Utility.Create.service(new String[]{"testService"});
         Utility.Create.organization(new String[]{"testOrganization"});
-        entitlementpacks = Utility.Create.entitlementpacks(1, new String[]{"testEntitlementpack1"});
+        entitlementpacks = Utility.Create.entitlementpacks(1, new String[]{"testEntitlementpack1", "testEntitlementpack2"});
     }
-    
+
     @Test
     public void testOrganizationEntitlementpacksAdd() {
         Utility.Link.entitlementpackToOrg(1, 1);
-        
+
         try {
             assertEquals(Const.StatusLine.NoContent, Utility.persistent.getStatusLine());
         } catch (AssertionError e) {
@@ -72,11 +73,22 @@ public class OrganizationEntitlementpacksAddTest extends CleanTest{
         try {
             assertEquals(
                     entitlementpacks.getJSONObject(0).getInt("id"),
-                    jsonResponse.getJSONObject(0).get("organization_id"));
+                    jsonResponse.getJSONObject(jsonResponse.length()-1).get("organization_id"));
             assertEquals(
                     "accepted",
-                    jsonResponse.getJSONObject(0).get("status"));
+                    jsonResponse.getJSONObject(jsonResponse.length()-1).get("status"));
         } catch (AssertionError e) {
+            AssertErrorHandler(e);
+        }
+    }
+//    @Ignore
+    @Test
+    public void testOrganizationEntitlementpacksAddByArray() {
+        Utility.Link.entitlementpackToOrgByArray(1, new int[] {2});
+        
+        try {
+            assertEquals(Const.StatusLine.Created, Utility.persistent.getStatusLine());
+        }catch(AssertionError e) {
             AssertErrorHandler(e);
         }
     }

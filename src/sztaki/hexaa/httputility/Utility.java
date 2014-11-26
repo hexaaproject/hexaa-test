@@ -296,8 +296,7 @@ public class Utility {
 
         /**
          * Creates entitlementpacks for the names in the array with the service
-         * specified by the serviceId. For testing purposes the ones that are
-         * created with even ids are private, the ones with odd ids are public.
+         * specified by the serviceId. All entitlementpacks created is public.
          *
          * @param serviceId the id for the service.
          * @param names array of strings with the names of the objects to
@@ -315,12 +314,7 @@ public class Utility {
                 JSONObject json = new JSONObject();
                 json.put("name", name);
                 json.put("description", "This is a test entitlement, for the #" + Integer.toString(serviceId) + " service, with name " + name);
-                // The ones with even id are private, the ones with odd ids are public
-                if (i++ % 2 == 1) {
-                    json.put("type", "public");
-                } else {
-                    json.put("type", "private");
-                }
+                json.put("type", "public");
                 // Store it
                 entitlementpacks.put(json);
                 // POST it
@@ -329,9 +323,9 @@ public class Utility {
                         BasicCall.REST.POST,
                         json.toString(),
                         serviceId, 0);
-                
+
                 String[] location = persistent.getHeader("Location").getValue().split("/");
-                json.put("id", Integer.parseUnsignedInt(location[location.length-1]));
+                json.put("id", Integer.parseUnsignedInt(location[location.length - 1]));
 
             }
             return entitlementpacks;
@@ -687,7 +681,7 @@ public class Utility {
 
         public static void entitlementToPackByArray(int[] entitlements, int packId) {
             JSONObject json = new JSONObject();
-            json.put("entitlements",entitlements);
+            json.put("entitlements", entitlements);
             persistent.call(
                     Const.Api.ENTITLEMENTPACKS_ID_ENTITLEMENT,
                     BasicCall.REST.PUT,
@@ -710,15 +704,24 @@ public class Utility {
                     packId, entitlementId);
         }
 
-        
         public static void entitlementpackToOrgRequest(int orgId, int pack) {
             persistent.call(
-                        Const.Api.ORGANIZATIONS_ID_ENTITLEMENTPACKS_EPID,
-                        BasicCall.REST.PUT,
-                        null,
-                        orgId, pack);
+                    Const.Api.ORGANIZATIONS_ID_ENTITLEMENTPACKS_EPID,
+                    BasicCall.REST.PUT,
+                    null,
+                    orgId, pack);
         }
-        
+
+        public static void entitlementpackToOrgByArray(int orgId, int[] packs) {
+            JSONObject json = new JSONObject();
+            json.put("entitlement_packs", packs);
+            System.out.println(persistent.call(
+                    Const.Api.ORGANIZATIONS_ID_ENTITLEMENTPACK,
+                    BasicCall.REST.PUT,
+                    json.toString(),
+                    orgId, orgId));
+        }
+
         /**
          * Links already existing entitlementpacks specified in the packIds
          * array to the existing organization specified by the orgId.

@@ -232,6 +232,10 @@ public class Const {
         /**
          * GET entitlement packs of organization.
          */
+        public static final String ORGANIZATIONS_ID_ENTITLEMENTPACK = ("/api/organizations/{id}/entitlementpack");
+        /**
+         * GET entitlement packs of organization.
+         */
         public static final String ORGANIZATIONS_ID_ENTITLEMENTPACKS = ("/api/organizations/{id}/entitlementpacks");
         /**
          * PUT(request link) ,DELETE entitlement pack to/from organization.
