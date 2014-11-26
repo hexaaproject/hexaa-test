@@ -255,6 +255,10 @@ public class Const {
          */
         public static final String ORGANIZATIONS_ID_INVITATIONS = ("/api/organizations/{id}/invitations");
         /**
+         * GET number of managers of organization.
+         */
+        public static final String ORGANIZATIONS_ID_MANAGER_COUNT = ("/api/organizations/{id}/manager/count");
+        /**
          * GET managers of organization.
          */
         public static final String ORGANIZATIONS_ID_MANAGERS = ("/api/organizations/{id}/managers");
@@ -262,6 +266,10 @@ public class Const {
          * PUT(add), DELETE(remove) manager to/from organization.
          */
         public static final String ORGANIZATIONS_ID_MANAGERS_PID = ("/api/organizations/{id}/managers/{pid}");
+        /**
+         * GET number of members of organization.
+         */
+        public static final String ORGANIZATIONS_ID_MEMBER_COUNT = ("/api/organizations/{id}/member/count");
         /**
          * GET members of organization.
          */
