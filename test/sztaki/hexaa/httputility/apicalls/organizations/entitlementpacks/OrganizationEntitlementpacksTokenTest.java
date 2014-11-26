@@ -1,7 +1,6 @@
 package sztaki.hexaa.httputility.apicalls.organizations.entitlementpacks;
 
 import org.json.JSONArray;
-import org.json.JSONObject;
 import org.junit.Test;
 import static org.junit.Assert.*;
 import org.junit.BeforeClass;
@@ -9,12 +8,13 @@ import org.skyscreamer.jsonassert.JSONParser;
 import sztaki.hexaa.httputility.BasicCall;
 import sztaki.hexaa.httputility.Const;
 import sztaki.hexaa.httputility.Utility;
+import sztaki.hexaa.httputility.apicalls.CleanTest;
 
 /**
  * Tests the PUT method on the
  * /api/organizations/{id}/entitlementpacks/{token}/token call.
  */
-public class OrganizationEntitlementpacksTokenTest extends OrganizationEntitlementpack {
+public class OrganizationEntitlementpacksTokenTest extends CleanTest {
 
     /**
      * Print the class name on the output.
@@ -22,6 +22,16 @@ public class OrganizationEntitlementpacksTokenTest extends OrganizationEntitleme
     @BeforeClass
     public static void classInformation() {
         System.out.println("***\t " + OrganizationEntitlementpacksTokenTest.class.getSimpleName() + " ***");
+    }
+
+    /**
+     * Creates a service, an organization and entitlementpacks.
+     */
+    @BeforeClass
+    public static void setUpClass() {
+        Utility.Create.service(new String[]{"testService"});
+        Utility.Create.organization(new String[]{"testOrganization"});
+        Utility.Create.entitlementpacks(1, new String[]{"testEntitlementpack1"});
     }
 
     /**

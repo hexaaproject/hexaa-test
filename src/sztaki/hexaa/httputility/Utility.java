@@ -329,6 +329,9 @@ public class Utility {
                         BasicCall.REST.POST,
                         json.toString(),
                         serviceId, 0);
+                
+                String[] location = persistent.getHeader("Location").getValue().split("/");
+                json.put("id", Integer.parseUnsignedInt(location[location.length-1]));
 
             }
             return entitlementpacks;
@@ -707,6 +710,15 @@ public class Utility {
                     packId, entitlementId);
         }
 
+        
+        public static void entitlementpackToOrgRequest(int orgId, int pack) {
+            persistent.call(
+                        Const.Api.ORGANIZATIONS_ID_ENTITLEMENTPACKS_EPID,
+                        BasicCall.REST.PUT,
+                        null,
+                        orgId, pack);
+        }
+        
         /**
          * Links already existing entitlementpacks specified in the packIds
          * array to the existing organization specified by the orgId.

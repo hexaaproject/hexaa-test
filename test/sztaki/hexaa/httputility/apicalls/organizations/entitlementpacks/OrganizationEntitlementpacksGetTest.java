@@ -9,12 +9,23 @@ import org.skyscreamer.jsonassert.JSONCompareMode;
 import org.skyscreamer.jsonassert.JSONParser;
 import sztaki.hexaa.httputility.BasicCall;
 import sztaki.hexaa.httputility.Const;
+import sztaki.hexaa.httputility.Utility;
+import sztaki.hexaa.httputility.apicalls.CleanTest;
 
 /**
  * Tests the DELETE method on the /api/organizations/{id}/entitlementpacks and
  * /api/organizations/{id}/entitlements call.
  */
-public class OrganizationEntitlementpacksGetTest extends OrganizationEntitlementpack {
+public class OrganizationEntitlementpacksGetTest extends CleanTest {
+
+    /**
+     * JSONArray to store the created entitlements.
+     */
+    public static JSONArray entitlements = new JSONArray();
+    /**
+     * JSONArray to store the created entitlements.
+     */
+    public static JSONArray entitlementpacks = new JSONArray();
 
     /**
      * Print the class name on the output.
@@ -25,12 +36,26 @@ public class OrganizationEntitlementpacksGetTest extends OrganizationEntitlement
     }
 
     /**
-     * GETs the Entitlementpack.
+     * Creates a service, an organization, entitlements and entitlementpacks and
+     * puts them together to create full entitlementpacks.
+     */
+    @BeforeClass
+    public static void setUpClass() {
+        Utility.Create.service(new String[]{"testService"});
+        Utility.Create.organization(new String[]{"testOrganization"});
+        entitlements = Utility.Create.entitlements(1, new String[]{"testEntitlement1", "testEntitlement2"});
+        entitlementpacks = Utility.Create.entitlementpacks(1, new String[]{"testEntitlementpack1"});
+        Utility.Link.entitlementToPack(1, 1);
+        Utility.Link.entitlementToPack(2, 1);
+        
+        Utility.Link.entitlementpackToOrg(1, 1);
+    }
+
+    /**
+     * GETs the entitlementpack.
      */
     @Test
     public void testOrganizationEntitlementpacksGetPacks() {
-        createPendingLink(1, new int[]{1});
-        acceptPendingLink(1, new int[]{1});
         JSONArray jsonResponseArray
                 = (JSONArray) JSONParser.parseJSON(
                         persistent.call(
@@ -44,7 +69,6 @@ public class OrganizationEntitlementpacksGetTest extends OrganizationEntitlement
         } catch (AssertionError e) {
             AssertErrorHandler(e);
         }
-        deleteLink(1, new int[]{1});
     }
 
     /**
@@ -52,16 +76,6 @@ public class OrganizationEntitlementpacksGetTest extends OrganizationEntitlement
      */
     @Test
     public void testOrganizationEntitlementpacksGetEntitlements() {
-        createPendingLink(1, new int[]{1});
-        acceptPendingLink(1, new int[]{1});
-//
-//        System.out.println(persistent.call(
-//                Const.Api.ORGANIZATIONS_ID_ENTITLEMENTS,
-//                BasicCall.REST.GET));
-//        System.out.println(persistent.call(
-//                Const.Api.ENTITLEMENTPACKS_ID_ENTITLEMENTS,
-//                BasicCall.REST.GET));
-
         try {
             JSONAssert.assertEquals(
                     entitlements,
@@ -73,7 +87,5 @@ public class OrganizationEntitlementpacksGetTest extends OrganizationEntitlement
         } catch (AssertionError e) {
             AssertErrorHandler(e);
         }
-
-        deleteLink(1, new int[]{1});
     }
 }
