@@ -1,5 +1,7 @@
 package sztaki.hexaa.httputility.apicalls.services.managers;
 
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import org.junit.BeforeClass;
@@ -10,6 +12,7 @@ import org.skyscreamer.jsonassert.JSONCompareMode;
 import org.skyscreamer.jsonassert.JSONParser;
 import sztaki.hexaa.httputility.BasicCall;
 import sztaki.hexaa.httputility.Const;
+import sztaki.hexaa.httputility.ResponseTypeMismatchException;
 import sztaki.hexaa.httputility.Utility;
 import sztaki.hexaa.httputility.apicalls.CleanTest;
 
@@ -52,24 +55,29 @@ public class ServicesManagersRemoveTest extends CleanTest {
         // DELETE call
         Utility.Remove.managerFromService(1, 2);
         managers.remove(0);
-        
+
         try {
             assertEquals(Const.StatusLine.NoContent, Utility.persistent.getStatusLine());
+        } catch (AssertionError e) {
+            AssertErrorHandler(e);
+        }
+        JSONArray jsonResponse;
+        try {
+            jsonResponse = persistent.getResponseJSONArray(
+                    Const.Api.SERVICES_ID_MANAGERS,
+                    BasicCall.REST.GET,
+                    null,
+                    1, 1);
+        } catch (ResponseTypeMismatchException ex) {
+            Logger.getLogger(ServicesManagersRemoveTest.class.getName()).log(Level.SEVERE, null, ex);
+            fail(ex.getFullMessage());
+            return;
+        }
+
+        try {
             JSONAssert.assertEquals(
                     managers,
-                    (JSONArray) JSONParser.parseJSON(
-                            persistent.call(
-                                    Const.Api.SERVICES_ID_MANAGERS,
-                                    BasicCall.REST.GET)),
-                    JSONCompareMode.LENIENT);
-            JSONAssert.assertEquals(
-                    managers.getJSONObject(1),
-                    ((JSONArray) JSONParser.parseJSON(
-                            persistent.call(
-                                    Const.Api.SERVICES_ID_MANAGERS,
-                                    BasicCall.REST.GET,
-                                    null,
-                                    2, 2))).getJSONObject(0),
+                    jsonResponse,
                     JSONCompareMode.LENIENT);
         } catch (AssertionError e) {
             AssertErrorHandler(e);

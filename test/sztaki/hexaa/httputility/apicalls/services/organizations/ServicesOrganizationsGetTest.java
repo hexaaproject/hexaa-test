@@ -56,7 +56,7 @@ public class ServicesOrganizationsGetTest extends CleanTest {
         JSONArray jsonArrayResponse = (JSONArray) jsonResponse;
         try {
             assertEquals(1, jsonArrayResponse.length());
-            assertEquals(1, jsonArrayResponse.getJSONObject(0).getInt("id"));
+            assertEquals(1, jsonArrayResponse.getJSONObject(jsonArrayResponse.length() - 1).getInt("id"));
         } catch (AssertionError e) {
             AssertErrorHandler(e);
         }

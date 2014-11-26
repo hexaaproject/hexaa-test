@@ -73,22 +73,23 @@ public class OrganizationEntitlementpacksAddTest extends CleanTest {
         try {
             assertEquals(
                     entitlementpacks.getJSONObject(0).getInt("id"),
-                    jsonResponse.getJSONObject(jsonResponse.length()-1).get("organization_id"));
+                    jsonResponse.getJSONObject(jsonResponse.length() - 1).get("organization_id"));
             assertEquals(
                     "accepted",
-                    jsonResponse.getJSONObject(jsonResponse.length()-1).get("status"));
+                    jsonResponse.getJSONObject(jsonResponse.length() - 1).get("status"));
         } catch (AssertionError e) {
             AssertErrorHandler(e);
         }
     }
 //    @Ignore
+
     @Test
     public void testOrganizationEntitlementpacksAddByArray() {
-        Utility.Link.entitlementpackToOrgByArray(1, new int[] {2});
-        
+        Utility.Link.entitlementpackToOrgByArray(1, new int[]{2});
+
         try {
             assertEquals(Const.StatusLine.Created, Utility.persistent.getStatusLine());
-        }catch(AssertionError e) {
+        } catch (AssertionError e) {
             AssertErrorHandler(e);
         }
     }
