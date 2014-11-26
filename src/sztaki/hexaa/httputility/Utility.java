@@ -638,51 +638,59 @@ public class Utility {
         }
 
         /**
-         * 
+         *
          * @param enable_entitlements
          * @param enable_attribute_specs
          * @param principal
          * @param service
-         * @return 
+         * @return
          */
         public static JSONArray consent(boolean enable_entitlements, int[] enable_attribute_specs, int principal, int service) {
             JSONArray consents = new JSONArray();
-            
+
             JSONObject json = new JSONObject();
-            
+
             json.put("enable_entitlements", enable_entitlements);
             json.put("enabled_attribute_specs", enable_attribute_specs);
             if (principal > 0) {
                 json.put("principal", principal);
             }
             json.put("service", service);
-            
+
             persistent.call(
                     Const.Api.CONSENTS,
                     BasicCall.REST.POST,
                     json.toString());
-            
+
             json.remove("enabled_attribute_specs");
             json.put("enabled_attribute_spec_ids", new JSONArray(enable_attribute_specs));
-            json.put("service_id",json.remove("service"));
-            
+            json.put("service_id", json.remove("service"));
+
             consents.put(json);
-            
+
             return consents;
         }
-        
+
         public static JSONArray consent(boolean enable_entitlements, int[] enable_attribute_specs, int service) {
             return consent(enable_entitlements, enable_attribute_specs, 0, service);
         }
-            
-            
-        
+
     }
 
     /**
      * Utility class within Utility for linking methods.
      */
     public static class Link {
+
+        public static void entitlementToPackByArray(int[] entitlements, int packId) {
+            JSONObject json = new JSONObject();
+            json.put("entitlements",entitlements);
+            persistent.call(
+                    Const.Api.ENTITLEMENTPACKS_ID_ENTITLEMENT,
+                    BasicCall.REST.PUT,
+                    json.toString(),
+                    packId, packId);
+        }
 
         /**
          * PUTs the existing entitlement specified by the entitlementId in the
@@ -1023,7 +1031,7 @@ public class Utility {
                     null,
                     avid, sid);
         }
-        
+
         /**
          * Links already existing service to attributevalue.
          *
@@ -1037,8 +1045,7 @@ public class Utility {
                     null,
                     avid, sid);
         }
-        
-        
+
     }
 
     /**

@@ -38,18 +38,24 @@ public class EntitlementpacksAddEntitlementsTest extends CleanTest {
     }
 
     /**
-     * PUTs both entitlement in the first pack and the first entitlement to the
-     * second pack as well, and verifies this by GETs.
+     * PUTs the first entitlement to the second pack as well, and verifies this
+     * by GETs.
      */
     @Test
     public void testEntitlementpacksAddEntitlements() {
-
-        Utility.Link.entitlementToPack(1, 1);
-        Utility.Link.entitlementToPack(2, 1);
         Utility.Link.entitlementToPack(1, 2);
 
-        checkEntitlementInPacks(new int[]{1, 2}, 1);
         checkEntitlementInPacks(new int[]{1}, 2);
+    }
+
+    /**
+     * Tests the PUT method on the /api/entitlementpacks/{id}/entitlement.
+     */
+    @Test
+    public void testEntitlementpacksAddEntitlementsByArray() {
+        Utility.Link.entitlementToPackByArray(new int[]{1, 2}, 1);
+
+        checkEntitlementInPacks(new int[]{1, 2}, 1);
     }
 
     /**
@@ -88,7 +94,7 @@ public class EntitlementpacksAddEntitlementsTest extends CleanTest {
 
         try {
             assertEquals(Const.StatusLine.OK, persistent.getStatusLine());
-            JSONAssert.assertEquals(jsonResponseArray, jsonEntitlementArray, JSONCompareMode.LENIENT);
+            JSONAssert.assertEquals(jsonEntitlementArray, jsonResponseArray, JSONCompareMode.LENIENT);
         } catch (AssertionError e) {
             AssertErrorHandler(e);
         }

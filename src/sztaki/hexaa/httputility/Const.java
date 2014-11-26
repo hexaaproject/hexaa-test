@@ -139,27 +139,27 @@ public class Const {
 
         /* *** EntitlementPack *** */
         /**
-         * GET all public entitlement packages.
+         * GET all public entitlementpacks.
          */
         public static final String ENTITLEMENTPACKS_PUBLIC = ("/api/entitlementpacks/public");
         /**
-         * GET, PATCH(edit), PUT(edit), DELETE entitlement pack.
+         * GET, PATCH(edit), PUT(edit), DELETE entitlementpack.
          */
         public static final String ENTITLEMENTPACKS_ID = ("/api/entitlementpacks/{id}");
         /**
-         * GET entitlements of entitlement pack.
+         * PUT array of entitlements to entitlementpack.
          */
         public static final String ENTITLEMENTPACKS_ID_ENTITLEMENT = ("/api/entitlementpacks/{id}/entitlement");
         /**
-         * GET entitlements of entitlement pack.
+         * GET entitlements of entitlementpack.
          */
         public static final String ENTITLEMENTPACKS_ID_ENTITLEMENTS = ("/api/entitlementpacks/{id}/entitlements");
         /**
-         * PUT(add),DELETE(remove) entitlement to/from entitlement pack.
+         * PUT(add),DELETE(remove) entitlement to/from entitlementpack.
          */
         public static final String ENTITLEMENTPACKS_ID_ENTITLEMENTS_EID = ("/api/entitlementpacks/{id}/entitlements/{eid}");
         /**
-         * GET(generate) new entitlement pack token.
+         * GET(generate) new entitlementpack token.
          */
         public static final String ENTITLEMENTPACKS_ID_TOKEN = ("/api/entitlementpacks/{id}/token");
 

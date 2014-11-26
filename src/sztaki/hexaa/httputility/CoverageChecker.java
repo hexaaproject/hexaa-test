@@ -96,7 +96,7 @@ public class CoverageChecker {
         Init();
 
         boolean rewriteNeeded = remainingCalls.remove(s);
-        System.out.println(s + " " + rewriteNeeded);
+//        System.out.println(s + " " + rewriteNeeded);
 
         if (rewriteNeeded == true) {
             File f = new File("apicalllist.txt");
