@@ -10,6 +10,7 @@ import org.skyscreamer.jsonassert.JSONCompareMode;
 import org.skyscreamer.jsonassert.JSONParser;
 import sztaki.hexaa.httputility.BasicCall;
 import sztaki.hexaa.httputility.Const;
+import sztaki.hexaa.httputility.ResponseTypeMismatchException;
 import sztaki.hexaa.httputility.Utility;
 import sztaki.hexaa.httputility.apicalls.CleanTest;
 
@@ -45,16 +46,19 @@ public class EntitlementpacksPutPatchTest extends CleanTest {
      * GETing the entitlementpack from the server.
      */
     @Test
-    public void testEntitlementsPut() {
+    public void testEntitlementpacksPut() {
         JSONObject json = entitlementpacks.getJSONObject(0);
 
+        json.remove("name");
         json.put("name", "changedNameByPut");
+        json.remove("id");
 
         persistent.call(
                 Const.Api.ENTITLEMENTPACKS_ID,
                 BasicCall.REST.PUT,
                 json.toString(),
                 1, 0);
+        System.out.println(persistent.getResponse());
 
         try {
             assertEquals(Const.StatusLine.NoContent, persistent.getStatusLine());
@@ -62,12 +66,20 @@ public class EntitlementpacksPutPatchTest extends CleanTest {
             AssertErrorHandler(e);
         }
 
-        JSONObject jsonResponse = (JSONObject) JSONParser.parseJSON(
-                persistent.call(
-                        Const.Api.ENTITLEMENTPACKS_ID,
-                        BasicCall.REST.GET,
-                        null,
-                        1, 0));
+        JSONObject jsonResponse;
+        try {
+            jsonResponse
+                    = persistent.getResponseJSONObject(
+                            Const.Api.ENTITLEMENTPACKS_ID,
+                            BasicCall.REST.GET,
+                            null,
+                            1, 0);
+
+        } catch (ResponseTypeMismatchException ex) {
+            fail(ex.getFullMessage());
+            return;
+        }
+        
         try {
             assertEquals(Const.StatusLine.OK, persistent.getStatusLine());
             JSONAssert.assertEquals(json, jsonResponse, JSONCompareMode.LENIENT);
@@ -82,11 +94,12 @@ public class EntitlementpacksPutPatchTest extends CleanTest {
      * GETing the entitlementpack from the server.
      */
     @Test
-    public void testEntitlementsPatch() {
+    public void testEntitlementpacksPatch() {
         JSONObject json = entitlementpacks.getJSONObject(0);
-
-        json.put("name", "changedNameByPut");
         
+        json.remove("name");
+        json.put("name", "changedNameByPut");
+
         JSONObject temp = new JSONObject();
         temp.put("name", "changedNameByPut");
 

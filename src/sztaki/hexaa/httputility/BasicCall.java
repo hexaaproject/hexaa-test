@@ -26,6 +26,11 @@ import sztaki.hexaa.httputility.core.HttpCorePatch;
 public class BasicCall {
 
     /**
+     * The normal response of the call, can not be null, but can be an empty
+     * string.
+     */
+    private String response = "";
+    /**
      * The StatusLine of the last call, never null, maybe empty before any call
      * was made.
      */
@@ -198,7 +203,71 @@ public class BasicCall {
         }
     }
 
+    /**
+     * Returns the string representation of the call's response. Matches the
+     * return value of the respective call() method.
+     *
+     * @return string representation of the call's response
+     */
+    public String getResponse() {
+        return response;
+    }
+    
+    /**
+     * Returns the string representation of the call's response. Matches the
+     * return value of the respective call() method.
+     *
+     * @return string representation of the call's response
+     * @throws sztaki.hexaa.httputility.ResponseTypeMismatchException
+     */
+    public JSONObject getResponseJSONObject() throws ResponseTypeMismatchException {
+        Object serverResponse;
+        try {
+            serverResponse = JSONParser.parseJSON((String) response);
+        } catch (JSONException e) {
+            throw new ResponseTypeMismatchException("Non json string", "String", response.toString());
+        }
+
+        if (serverResponse instanceof JSONObject) {
+            return (JSONObject) serverResponse;
+        } else if (serverResponse instanceof JSONArray) {
+            throw new ResponseTypeMismatchException("JSONArray instead of JSONObject", "JSONArray", serverResponse);
+        } else {
+            throw new ResponseTypeMismatchException("Non json instead of JSONObject", "String", serverResponse);
+        }
+    }
+    
+    /**
+     * Returns the string representation of the call's response. Matches the
+     * return value of the respective call() method.
+     *
+     * @return string representation of the call's response
+     * @throws sztaki.hexaa.httputility.ResponseTypeMismatchException
+     */
+    public JSONArray getResponseJSONArray() throws ResponseTypeMismatchException {
+        Object serverResponse;
+        try {
+            serverResponse = JSONParser.parseJSON((String) response);
+        } catch (JSONException e) {
+            throw new ResponseTypeMismatchException("Non json string", "String", response.toString());
+        }
+
+        if (serverResponse instanceof JSONObject) {
+            return (JSONArray) serverResponse;
+        } else if (serverResponse instanceof JSONArray) {
+            throw new ResponseTypeMismatchException("JSONArray instead of JSONObject", "JSONArray", serverResponse);
+        } else {
+            throw new ResponseTypeMismatchException("Non json instead of JSONObject", "String", serverResponse);
+        }
+    }
+    
+    protected String setResponse(String r) {
+        this.response = r;
+        return response;
+    }
+    
     /* *** Constructor *** */
+
     /**
      * Constructor
      */
@@ -220,13 +289,14 @@ public class BasicCall {
 
     /**
      * Enumeration to easily differentiate between the 4 types of calls. Values:
- GET, POST, PUT, DELETE.
+     * GET, POST, PUT, DELETE.
      */
     public enum REST {
 
         /**
          * Use it for GET methods.
-         *//**
+         */
+        /**
          * Use it for GET methods.
          */
         GET,
@@ -251,8 +321,8 @@ public class BasicCall {
     /* *** Normal calls, returns the response json as a String *** */
     /**
      * Most basic call type, only use it for simple GET methods, as it does not
- get the required json/id/sid/fedid for most of the more complex calls
- like any POST/PUT methods or GET/DELETE methods with required ids. These
+     * get the required json/id/sid/fedid for most of the more complex calls
+     * like any POST/PUT methods or GET/DELETE methods with required ids. These
      * situations see
      * {@link call(String path, REST restCall, String json, int id, int sId)}.
      *
@@ -345,8 +415,8 @@ public class BasicCall {
     /* *** Calls to get JSONObjects and JSONArrays already parsed *** */
     /**
      * Most basic call type, only use it for simple GET methods, as it does not
- get the required json/id/sid/fedid for most of the more complex calls
- like any POST/PUT methods or GET/DELETE methods with required ids. These
+     * get the required json/id/sid/fedid for most of the more complex calls
+     * like any POST/PUT methods or GET/DELETE methods with required ids. These
      * situations see
      * {@link call(String path, REST restCall, String json, int id, int sId)}.
      *
@@ -369,7 +439,7 @@ public class BasicCall {
         } catch (JSONException e) {
             throw new ResponseTypeMismatchException("Non json string", "String", tempResponse.toString());
         }
-        
+
         if (serverResponse instanceof JSONObject) {
             return (JSONObject) serverResponse;
         } else if (serverResponse instanceof JSONArray) {
@@ -406,7 +476,7 @@ public class BasicCall {
         } catch (JSONException e) {
             throw new ResponseTypeMismatchException("Non json string", "String", tempResponse.toString());
         }
-        
+
         if (serverResponse instanceof JSONObject) {
             return (JSONObject) serverResponse;
         } else if (serverResponse instanceof JSONArray) {
@@ -444,7 +514,7 @@ public class BasicCall {
         } catch (JSONException e) {
             throw new ResponseTypeMismatchException("Non json string", "String", tempResponse.toString());
         }
-        
+
         if (serverResponse instanceof JSONObject) {
             return (JSONObject) serverResponse;
         } else if (serverResponse instanceof JSONArray) {
@@ -486,7 +556,7 @@ public class BasicCall {
         } catch (JSONException e) {
             throw new ResponseTypeMismatchException("Non json string", "String", tempResponse.toString());
         }
-        
+
         if (serverResponse instanceof JSONObject) {
             return (JSONObject) serverResponse;
         } else if (serverResponse instanceof JSONArray) {
@@ -498,8 +568,8 @@ public class BasicCall {
 
     /**
      * Most basic call type, only use it for simple GET methods, as it does not
- get the required json/id/sid/fedid for most of the more complex calls
- like any POST/PUT methods or GET/DELETE methods with required ids. These
+     * get the required json/id/sid/fedid for most of the more complex calls
+     * like any POST/PUT methods or GET/DELETE methods with required ids. These
      * situations see
      * {@link call(String path, REST restCall, String json, int id, int sId)}.
      *
@@ -518,16 +588,16 @@ public class BasicCall {
         System.out.println(this.path);
 
         Object tempResponse = callSwitch(restCall);
-        
+
         System.out.println(this.path);
-        
+
         Object serverResponse;
         try {
             serverResponse = JSONParser.parseJSON((String) tempResponse);
         } catch (JSONException e) {
             throw new ResponseTypeMismatchException("Non json string", "String", tempResponse.toString());
         }
-        
+
         if (serverResponse instanceof JSONArray) {
             return (JSONArray) serverResponse;
         } else if (serverResponse instanceof JSONObject) {
@@ -564,7 +634,7 @@ public class BasicCall {
         } catch (JSONException e) {
             throw new ResponseTypeMismatchException("Non json string", "String", tempResponse.toString());
         }
-        
+
         if (serverResponse instanceof JSONArray) {
             return (JSONArray) serverResponse;
         } else if (serverResponse instanceof JSONObject) {
@@ -602,7 +672,7 @@ public class BasicCall {
         } catch (JSONException e) {
             throw new ResponseTypeMismatchException("Non json string", "String", tempResponse.toString());
         }
-        
+
         if (serverResponse instanceof JSONArray) {
             return (JSONArray) serverResponse;
         } else if (serverResponse instanceof JSONObject) {
@@ -644,7 +714,7 @@ public class BasicCall {
         } catch (JSONException e) {
             throw new ResponseTypeMismatchException("Non json string", "String", tempResponse.toString());
         }
-        
+
         if (serverResponse instanceof JSONArray) {
             return (JSONArray) serverResponse;
         } else if (serverResponse instanceof JSONObject) {
@@ -667,20 +737,20 @@ public class BasicCall {
         } else {
             CoverageChecker.checkout(restCall + " " + path + ".{_format} ");
         }
-        
+
         statusLine = "";
         headers = null;
         switch (restCall) {
             case GET:
-                return this.get();
+                return this.setResponse(this.get());
             case POST:
-                return this.post();
+                return this.setResponse(this.post());
             case PUT:
-                return this.put();
+                return this.setResponse(this.put());
             case DELETE:
-                return this.delete();
+                return this.setResponse(this.delete());
             case PATCH:
-                return this.patch();
+                return this.setResponse(this.patch());
         }
 
         return "Could not call";
@@ -774,7 +844,7 @@ public class BasicCall {
 
     /**
      * Returns the DELETE request's response's JSON content in string format, if
- there is no content empty string will be returned.
+     * there is no content empty string will be returned.
      *
      * @return String, JSON content in string format, maybe empty, never null.
      */
