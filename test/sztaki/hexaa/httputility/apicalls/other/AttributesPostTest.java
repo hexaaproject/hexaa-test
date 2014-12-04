@@ -1,3 +1,5 @@
+package sztaki.hexaa.httputility.apicalls.other;
+
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import org.json.JSONArray;

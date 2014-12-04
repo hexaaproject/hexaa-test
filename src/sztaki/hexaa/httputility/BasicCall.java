@@ -2,6 +2,7 @@ package sztaki.hexaa.httputility;
 
 import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -212,7 +213,7 @@ public class BasicCall {
     public String getResponse() {
         return response;
     }
-    
+
     /**
      * Returns the string representation of the call's response. Matches the
      * return value of the respective call() method.
@@ -236,7 +237,7 @@ public class BasicCall {
             throw new ResponseTypeMismatchException("Non json instead of JSONObject", "String", serverResponse);
         }
     }
-    
+
     /**
      * Returns the string representation of the call's response. Matches the
      * return value of the respective call() method.
@@ -260,14 +261,13 @@ public class BasicCall {
             throw new ResponseTypeMismatchException("Non json instead of JSONObject", "String", serverResponse);
         }
     }
-    
+
     protected String setResponse(String r) {
         this.response = r;
         return response;
     }
-    
-    /* *** Constructor *** */
 
+    /* *** Constructor *** */
     /**
      * Constructor
      */
@@ -774,10 +774,10 @@ public class BasicCall {
         // wrapped in the javahttputility.core package
         HttpCoreGet httpAction = new HttpCoreGet(nPath);
 
-        CloseableHttpResponse response = httpAction.get();
+        CloseableHttpResponse httpResponse = httpAction.get();
 
-        if (response != null) {
-            return getContentString(response);
+        if (httpResponse != null) {
+            return getContentString(httpResponse);
         }
         statusLine = "Request failed";
         return "Request failed";
@@ -833,10 +833,10 @@ public class BasicCall {
         HttpCorePut httpAction = new HttpCorePut(nPath);
         httpAction.setJSon(this.json);
 
-        CloseableHttpResponse response = httpAction.put();
+        CloseableHttpResponse httpResponse = httpAction.put();
 
-        if (response != null) {
-            return getContentString(response);
+        if (httpResponse != null) {
+            return getContentString(httpResponse);
         }
         statusLine = "Request failed";
         return "Request failed";
@@ -860,10 +860,10 @@ public class BasicCall {
         // wrapped in the javahttputility.core package
         HttpCoreDel httpAction = new HttpCoreDel(nPath);
 
-        CloseableHttpResponse response = httpAction.delete();
+        CloseableHttpResponse httpResponse = httpAction.delete();
 
-        if (response != null) {
-            return getContentString(response);
+        if (httpResponse != null) {
+            return getContentString(httpResponse);
         }
         statusLine = "Request failed";
         return "Request failed";
@@ -889,10 +889,10 @@ public class BasicCall {
         HttpCorePatch httpAction = new HttpCorePatch(nPath);
         httpAction.setJSon(this.json);
 
-        CloseableHttpResponse response = httpAction.patch();
+        CloseableHttpResponse httpResponse = httpAction.patch();
 
-        if (response != null) {
-            return getContentString(response);
+        if (httpResponse != null) {
+            return getContentString(httpResponse);
         }
         statusLine = "Request failed";
         return "Request failed";
@@ -949,109 +949,43 @@ public class BasicCall {
      * String is empty (but not null)
      */
     private String getContentString(CloseableHttpResponse response) {
-
-        statusLine = "";
-        if (response.getStatusLine() != null) {
+        String responseDataString;
+        try {
             statusLine = response.getStatusLine().toString();
-        } else {
-            statusLine = "No statusline found";
-        }
-
-        if (response.getAllHeaders() != null) {
             headers = response.getAllHeaders();
+        } catch (NullPointerException | IllegalStateException ex) {
+//            Logger.getLogger(BasicCall.class.getName()).log(Level.SEVERE, null, ex);
+            statusLine = "";
+            return "";
         }
-
-        // Makes sure if there is any http entity and/or content,
-        // if there is none it returns an empty string
         try {
-            if (response.getEntity() == null
-                    || response.getEntity().getContent() == null) {
-                return "";
-            }
-        } catch (IOException | IllegalStateException ex) {
-            Logger.getLogger(BasicCall.class.getName()).log(Level.SEVERE, null, ex);
+            responseDataString = readContent(response.getEntity().getContent());
+        } catch (NullPointerException | IOException | IllegalStateException ex) {
+//            Logger.getLogger(BasicCall.class.getName()).log(Level.SEVERE, null, ex);
+            return "";
         }
-
-        BufferedReader br = null;
-
-        String responseDataString = new String();
-
-        try {
-            // Reading the JSON payload in bytes
-            try {
-                br = new BufferedReader(
-                        new InputStreamReader(
-                                response.getEntity().getContent()));
-            } catch (IOException | IllegalStateException ex) {
-                Logger.getLogger(
-                        JavaHttpCoreTest.class.getName()).log(
-                                Level.SEVERE, "No Content", ex);
-            }
-            // Concating the read bytes together
-            if (br != null) {
-                String temp;
-                temp = br.readLine();
-                while (temp != null) {
-                    responseDataString = responseDataString.concat(temp);
-                    temp = br.readLine();
-                }
-            }
-
-        } catch (IllegalStateException | IOException ex) {
-            Logger.getLogger(
-                    JavaHttpCoreTest.class.getName()).log(
-                            Level.SEVERE, null, ex);
-        } finally {
-            if (br != null) {
-                try {
-                    br.close();
-                } catch (IOException ex) {
-                    Logger.getLogger(
-                            BasicCall.class.getName()).log(
-                                    Level.SEVERE, null, ex);
-                }
-            }
+        
+        if (responseDataString.equalsIgnoreCase("null")) {
+            return "";
         }
-
-        JSONObject jsonResponse;
-        JSONArray jsonResponseArray;
-        //System.out.println(responseDataString);
-        if (responseDataString == null
-                || responseDataString.equalsIgnoreCase("null")
-                || responseDataString.equals("")) {
-            responseDataString = "";
-        }
-
         if (responseDataString.contains("503 Service Unavailable")) {
             return responseDataString;
         }
 
-        if (responseDataString.length() != 0) {
-            Object parsedResponse;
-            try {
-                parsedResponse = JSONParser.parseJSON(responseDataString);
-            } catch (JSONException e) {
-                JSONObject jsonError = new JSONObject();
-                jsonError.put("error", "some JSONParser error");
-                return jsonError.toString();
-            }
-
+        Object parsedResponse;
+        try {
+            parsedResponse = JSONParser.parseJSON(responseDataString);
             if (parsedResponse instanceof JSONObject) {
-                jsonResponse = ((JSONObject) parsedResponse);
-                if (jsonResponse.has("updated_at")) {
-                    jsonResponse.remove("updated_at");
-                    return jsonResponse.toString();
-                }
-            } else {
-                if (parsedResponse instanceof JSONArray) {
-                    jsonResponseArray = (JSONArray) parsedResponse;
-
-                    removeUpdate(jsonResponseArray);
-
-                    return jsonResponseArray.toString();
-                }
+                parsedResponse = removeUpdate((JSONObject) parsedResponse);
             }
+            if (parsedResponse instanceof JSONArray) {
+                parsedResponse = removeUpdate((JSONArray) parsedResponse);
+            }
+        } catch (JSONException e) {
+            return responseDataString;
         }
+
+        responseDataString = parsedResponse.toString();
 
         return responseDataString;
     }
@@ -1064,16 +998,32 @@ public class BasicCall {
      *
      * @param array JSONArray with JSONObjects to remove all update keys.
      */
-    private void removeUpdate(JSONArray array) {
+    private JSONArray removeUpdate(JSONArray array) {
         for (int i = 0; i < array.length(); i++) {
-            Object temp = array.get(i);
-
-            if (temp instanceof JSONObject && array.getJSONObject(i).has("updated_at")) {
+            if (array.get(i) instanceof JSONObject) {
                 array.getJSONObject(i).remove("updated_at");
-            } else if (temp instanceof JSONArray) {
-                removeUpdate((JSONArray) temp);
+            } else if (array.get(i) instanceof JSONArray) {
+                removeUpdate((JSONArray) array.get(i));
             }
-
         }
+        return array;
+    }
+
+    private JSONObject removeUpdate(JSONObject object) {
+        object.remove("updated_at");
+        return object;
+    }
+
+    private String readContent(InputStream content) {
+//        String data = new String();
+//        BufferedReader br;
+//        
+//        br = new BufferedReader(new InputStreamReader(content));
+//        
+        java.util.Scanner s = new java.util.Scanner(content).useDelimiter("\\A");
+        String data = s.hasNext() ? s.next() : "";
+        s.close();
+
+        return data;
     }
 }
