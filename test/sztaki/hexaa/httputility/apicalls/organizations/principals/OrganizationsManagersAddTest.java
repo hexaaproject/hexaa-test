@@ -3,13 +3,12 @@ package sztaki.hexaa.httputility.apicalls.organizations.principals;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import static org.junit.Assert.*;
-import sztaki.hexaa.httputility.BasicCall;
 import sztaki.hexaa.httputility.Const;
 import sztaki.hexaa.httputility.Utility;
 import sztaki.hexaa.httputility.apicalls.CleanTest;
 
 /**
- * Tests the PUT method on the /api/organizations/{id}/managers/{pid} call.
+ * Tests the PUT method on the /api/organizations/{id}/managers/{pid} and /api/organizations/{id}/manager calls.
  */
 public class OrganizationsManagersAddTest extends CleanTest {
 
@@ -27,7 +26,7 @@ public class OrganizationsManagersAddTest extends CleanTest {
     @BeforeClass
     public static void setUpClass() {
         Utility.Create.organization("testOrg");
-        Utility.Create.principal("testPrincipal");
+        Utility.Create.principal(new String[] {"testPrincipal1","testPrincipal2"});
     }
 
     /**
@@ -37,6 +36,34 @@ public class OrganizationsManagersAddTest extends CleanTest {
     @Test
     public void testOrganizationManagersAdd() {
         Utility.Link.managerToOrganization(1, 2);
+        System.out.println(Utility.persistent.getResponse());
+
+        try {
+            assertEquals(Const.StatusLine.Created, Utility.persistent.getStatusLine());
+        } catch (AssertionError e) {
+            AssertErrorHandler(e);
+        }
+    }
+
+    /**
+     * Tests the PUT method on the /api/organizations/{id}/manager call to link a
+     * principal given by an array.
+     */
+    @Test
+    public void testOrganizationManagerAddByArray() {
+        Utility.Link.managerToOrganizationByArray(1, new int[]{3});
+        System.out.println(Utility.persistent.getResponse());
+
+        try {
+            assertEquals(Const.StatusLine.BadRequest, Utility.persistent.getStatusLine());
+        } catch (AssertionError e) {
+            AssertErrorHandler(e);
+        }
+        
+        Utility.Link.memberToOrganization(1, new int[]{3});
+        
+        Utility.Link.managerToOrganizationByArray(1, new int[]{3});
+        System.out.println(Utility.persistent.getResponse());
 
         try {
             assertEquals(Const.StatusLine.Created, Utility.persistent.getStatusLine());

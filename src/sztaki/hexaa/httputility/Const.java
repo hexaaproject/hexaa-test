@@ -263,6 +263,10 @@ public class Const {
          */
         public static final String ORGANIZATIONS_ID_MANAGER_COUNT = ("/api/organizations/{id}/manager/count");
         /**
+         * PUT managers to organization.
+         */
+        public static final String ORGANIZATIONS_ID_MANAGER = ("/api/organizations/{id}/manager");
+        /**
          * GET managers of organization.
          */
         public static final String ORGANIZATIONS_ID_MANAGERS = ("/api/organizations/{id}/managers");
@@ -274,6 +278,10 @@ public class Const {
          * GET number of members of organization.
          */
         public static final String ORGANIZATIONS_ID_MEMBER_COUNT = ("/api/organizations/{id}/member/count");
+        /**
+         * PUT members to organization.
+         */
+        public static final String ORGANIZATIONS_ID_MEMBER = ("/api/organizations/{id}/member");
         /**
          * GET members of organization.
          */

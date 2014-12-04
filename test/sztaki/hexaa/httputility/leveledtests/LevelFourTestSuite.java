@@ -26,6 +26,8 @@ import sztaki.hexaa.httputility.apicalls.BasicTestSuite;
     sztaki.hexaa.httputility.apicalls.organizations.entitlementpacks.OrganizationEntitlementpacksLinkRequestTest.class,
     sztaki.hexaa.httputility.apicalls.organizations.entitlementpacks.OrganizationEntitlementpacksAddTest.class,
     sztaki.hexaa.httputility.apicalls.organizations.entitlementpacks.OrganizationEntitlementpacksTokenTest.class,
+    sztaki.hexaa.httputility.apicalls.organizations.principals.OrganizationsManagersGetTest.class,
+    sztaki.hexaa.httputility.apicalls.organizations.principals.OrganizationsManagersRemoveTest.class,
     sztaki.hexaa.httputility.apicalls.principals.PrincipalsAttributevaluesGetTest.class,
     sztaki.hexaa.httputility.apicalls.principals.PrincipalsRoleGetTest.class,
     sztaki.hexaa.httputility.apicalls.principals.PrincipalsAttributespecsPrivateGetTest.class,

@@ -581,8 +581,8 @@ public class Utility {
         /**
          * Creates services for all the names in the array, if there are enough
          * entityids in the system. Usage: do not use it on a database where are
-         * already existing services, as it will cause 400 Bad Requests and will
-         * fail the test class.
+         * existing services, as it will cause 400 Bad Requests and will fail
+         * the test class.
          *
          * @param names array of strings with the names of the services to
          * create.
@@ -679,6 +679,13 @@ public class Utility {
      */
     public static class Link {
 
+        /**
+         * Links the existing entitlements specified by the entitlements in the
+         * entitlementpack specified by the packId, using the array method.
+         *
+         * @param entitlements array of entitlement ids
+         * @param packId int: id of the entitlementpack
+         */
         public static void entitlementToPackByArray(int[] entitlements, int packId) {
             JSONObject json = new JSONObject();
             json.put("entitlements", entitlements);
@@ -690,7 +697,7 @@ public class Utility {
         }
 
         /**
-         * PUTs the existing entitlement specified by the entitlementId in the
+         * Links the existing entitlement specified by the entitlementId in the
          * entitlementpack specified by the packId
          *
          * @param entitlementId int: the id of the entitlement
@@ -704,6 +711,13 @@ public class Utility {
                     packId, entitlementId);
         }
 
+        /**
+         * Links an existing entitlementpack to organization, but waits for
+         * accept, so the entitlementpacks will have a "pending" status.
+         *
+         * @param orgId id of the organization to link to.
+         * @param pack id of the entitlementpack to link.
+         */
         public static void entitlementpackToOrgRequest(int orgId, int pack) {
             persistent.call(
                     Const.Api.ORGANIZATIONS_ID_ENTITLEMENTPACKS_EPID,
@@ -712,6 +726,13 @@ public class Utility {
                     orgId, pack);
         }
 
+        /**
+         * Links existing entitlementpacks specified in the packs array to the
+         * existing organization specified by the orgId, using the array method.
+         *
+         * @param orgId id of the organization to link to.
+         * @param packs id of the entitlementpack to link.
+         */
         public static void entitlementpackToOrgByArray(int orgId, int[] packs) {
             JSONObject json = new JSONObject();
             json.put("entitlement_packs", packs);
@@ -723,8 +744,8 @@ public class Utility {
         }
 
         /**
-         * Links already existing entitlementpacks specified in the packIds
-         * array to the existing organization specified by the orgId.
+         * Links existing entitlementpacks specified in the packIds array to the
+         * existing organization specified by the orgId.
          *
          * @param orgId the id of the organization to link.
          * @param packIds the ids of the entitlementpacks to link.
@@ -759,9 +780,8 @@ public class Utility {
         }
 
         /**
-         * Links already existing entitlementpacks specified in the packIds
-         * array to the existing organization specified by the orgId using the
-         * token method.
+         * Links existing entitlementpacks specified in the packIds array to the
+         * existing organization specified by the orgId using the token method.
          *
          * @param orgId the id of the organization to link.
          * @param packIds the ids of the entitlementpacks to link.
@@ -793,9 +813,8 @@ public class Utility {
         }
 
         /**
-         * Links already existing entitlementpacks specified in the packIds
-         * array to the existing organization specified by the orgId using the
-         * token method.
+         * Links existing entitlementpacks specified in the packIds array to the
+         * existing organization specified by the orgId using the token method.
          *
          * @param orgID the id of the organization to link.
          * @param tokens array of tokens of entitlementpacks.
@@ -825,8 +844,8 @@ public class Utility {
         }
 
         /**
-         * Links already existing entitlements specified in the entitlementIds
-         * array to the existing role specified by the roleId.
+         * Links existing entitlements specified in the entitlementIds array to
+         * the existing role specified by the roleId.
          *
          * @param roleId the id of the role to link to.
          * @param entitlementIds the ids of the entitlements to link.
@@ -854,10 +873,9 @@ public class Utility {
         }
 
         /**
-         * Links already existing attributespecs specified in the attributeIds
-         * array to the existing service specified by the serviceId. If the
-         * service id is odd the attributespec will be public, if even it will
-         * be private.
+         * Links existing attributespecs specified in the attributeIds array to
+         * the existing service specified by the serviceId. If the service id is
+         * odd the attributespec will be public, if even it will be private.
          *
          * @param serviceId the id of the service to link to.
          * @param attributeIds the ids of the attributespecs to link.
@@ -893,9 +911,9 @@ public class Utility {
         }
 
         /**
-         * Links already existing attributespecs specified in the attributeIds
-         * array to the existing service specified by the serviceId. The
-         * attributespecs will be public.
+         * Links existing attributespecs specified in the attributeIds array to
+         * the existing service specified by the serviceId. The attributespecs
+         * will be public.
          *
          * @param serviceId the id of the service to link to.
          * @param attributeIds the ids of the attributespecs to link.
@@ -905,9 +923,9 @@ public class Utility {
         }
 
         /**
-         * Links already existing attributespecs specified in the attributeIds
-         * array to the existing service specified by the serviceId. The
-         * attributespecs will be private.
+         * Links existing attributespecs specified in the attributeIds array to
+         * the existing service specified by the serviceId. The attributespecs
+         * will be private.
          *
          * @param serviceId the id of the service to link to.
          * @param attributeIds the ids of the attributespecs to link.
@@ -917,9 +935,8 @@ public class Utility {
         }
 
         /**
-         * Links already existing principal (as managers) specified in the
-         * attributeIds array to the existing service specified by the
-         * serviceId.
+         * Links existing principal (as managers) specified in the attributeIds
+         * array to the existing service specified by the serviceId.
          *
          * @param serviceId the id of the service to link to.
          * @param principalIds the ids of the principal to link.
@@ -946,9 +963,9 @@ public class Utility {
         }
 
         /**
-         * Links already existing principal specified in the principalIds array
-         * to the existing role specified by the roleId. The principal has to be
-         * in the organization!
+         * Links existing principal specified in the principalIds array to the
+         * existing role specified by the roleId. The principal has to be in the
+         * organization!
          *
          * @param roleId the id of the role to link.
          * @param principalIds the ids of the principal to link.
@@ -976,8 +993,26 @@ public class Utility {
         }
 
         /**
-         * Links already existing principal specified in the principalIds array
-         * to the existing organization specified by the orgId as a member.
+         * Links existing principals specified in the principalIds array to the
+         * existing organization specified by the orgId as a member, using the
+         * array method.
+         *
+         * @param orgId the id of the organization to link.
+         * @param principalIds the ids of the principal to link as an array.
+         */
+        public static void memberToOrganizationByArray(int orgId, int[] principalIds) {
+            JSONObject json = new JSONObject();
+            json.put("principals", principalIds);
+            persistent.call(
+                    Const.Api.ORGANIZATIONS_ID_MEMBER,
+                    BasicCall.REST.PUT,
+                    json.toString(),
+                    orgId, orgId);
+        }
+
+        /**
+         * Links existing principals specified in the principalIds array to the
+         * existing organization specified by the orgId as a member.
          *
          * @param orgId the id of the organization to link.
          * @param principalIds the ids of the principal to link as an array.
@@ -1005,8 +1040,26 @@ public class Utility {
         }
 
         /**
-         * Links already existing principal specified in the principalIds array
-         * to the existing organization specified by the orgId as a manager.
+         * Links existing principals specified in the principalIds array to the
+         * existing organization specified by the orgId as a manager, using the
+         * array method.
+         *
+         * @param orgId the id of the organization to link.
+         * @param principalIds the ids of the principal to link as an array.
+         */
+        public static void managerToOrganizationByArray(int orgId, int[] principalIds) {
+            JSONObject json = new JSONObject();
+            json.put("managers", principalIds);
+            persistent.call(
+                    Const.Api.ORGANIZATIONS_ID_MANAGER,
+                    BasicCall.REST.PUT,
+                    json.toString(),
+                    orgId, orgId);
+        }
+        
+        /**
+         * Links existing principal specified in the principalIds array to the
+         * existing organization specified by the orgId as a manager.
          *
          * @param orgId the id of the organization to link.
          * @param principalIds the ids of the principal to link as an array.
@@ -1034,7 +1087,7 @@ public class Utility {
         }
 
         /**
-         * Links already existing service to attributevalue.
+         * Links existing service to attributevalue.
          *
          * @param avid id of the attributevalue.
          * @param sid id of the service.
@@ -1048,7 +1101,7 @@ public class Utility {
         }
 
         /**
-         * Links already existing service to attributevalue.
+         * Links existing service to attributevalue.
          *
          * @param avid id of the attributevalue.
          * @param sid id of the service.
@@ -1117,8 +1170,8 @@ public class Utility {
         }
 
         /**
-         * Removes already existing linking of principal specified in the
-         * principalIds array to the existing role specified by the roleId.
+         * Removes existing linking of principal specified in the principalIds
+         * array to the existing role specified by the roleId.
          *
          * @param roleId the id of the role to link.
          * @param principalIds the ids of the principal to link.
@@ -1145,9 +1198,8 @@ public class Utility {
         }
 
         /**
-         * Removes already existing links between entitlementpacks specified in
-         * the packIds array to the existing organization specified by the
-         * orgId.
+         * Removes existing links between entitlementpacks specified in the
+         * packIds array to the existing organization specified by the orgId.
          *
          * @param orgId the id of the organization to link.
          * @param packIds the ids of the entitlementpacks to link.
