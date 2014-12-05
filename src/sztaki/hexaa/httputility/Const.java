@@ -356,6 +356,10 @@ public class Const {
          */
         public static final String PRINCIPAL_SELF = ("/api/principal/self");
         /**
+         * GET all related services to the current user.
+         */
+        public static final String PRINCIPAL_SERVICES_RELATED = ("/api/principal/services/related");
+        /**
          * GET, PATCH(edit), PUT(edit), POST(create) principal(s).
          */
         public static final String PRINCIPALS = ("/api/principals");
