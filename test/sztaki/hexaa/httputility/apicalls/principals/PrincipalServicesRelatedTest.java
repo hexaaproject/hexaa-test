@@ -3,11 +3,9 @@ package sztaki.hexaa.httputility.apicalls.principals;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import org.json.JSONArray;
-import org.junit.AfterClass;
 import org.junit.Test;
 import static org.junit.Assert.*;
 import org.junit.BeforeClass;
-import sztaki.hexaa.httputility.Authenticator;
 import sztaki.hexaa.httputility.BasicCall;
 import sztaki.hexaa.httputility.Const;
 import sztaki.hexaa.httputility.ResponseTypeMismatchException;
@@ -57,15 +55,11 @@ public class PrincipalServicesRelatedTest extends CleanTest {
         Utility.Link.principalToRole(1, 2);
 
         Utility.Link.entitlementsToRole(1, new int[]{1});
-
-        new Authenticator().authenticate("testPrincipal");
     }
 
-    @AfterClass
-    public static void tearDownClass() {
-        new Authenticator().authenticate(Const.HEXAA_FEDID);
-    }
-
+    /**
+     * Checks the returned id-s.
+     */
     @Test
     public void testPrincipalServicesRelated() {
         JSONArray jsonResponse;
@@ -87,5 +81,4 @@ public class PrincipalServicesRelatedTest extends CleanTest {
             AssertErrorHandler(e);
         }
     }
-
 }
