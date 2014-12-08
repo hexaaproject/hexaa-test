@@ -1,6 +1,10 @@
 package sztaki.hexaa.httputility;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import org.skyscreamer.jsonassert.JSONParser;
@@ -599,11 +603,19 @@ public class Utility {
                 json.put("url", "test." + name + ".test");
                 json.put("description", "This is a test service for the " + "https://example.com/ssp" /*jsonEntityArray.get(0).toString()*/ + "service provider entity.");
                 // POSTs the json object
-                System.out.println(persistent.call(
+                persistent.call(
                         Const.Api.SERVICES,
                         BasicCall.REST.POST,
                         json.toString(),
-                        0, 0));
+                        0, 0);
+                
+                String locHeader = persistent.getHeader("Location").getValue();
+                // System.out.println(locHeader);
+                List<Integer> id = getNumber(locHeader);
+                
+                if (id.size() == 1) {
+                    json.put("id", id.get(0));
+                }
 
                 services.put(json);
 
@@ -613,7 +625,7 @@ public class Utility {
                         Const.Api.SERVICES_TOKEN_ENABLE,
                         BasicCall.REST.PUT);
                 if (enableService.getStatusLine().contains("204 No Content")) {
-                    System.out.println("Service enabled!");
+//                    System.out.println("Service enabled!");
                 } else {
                     System.out.println(enableService.getStatusLine());
                 }
@@ -1614,5 +1626,21 @@ public class Utility {
                     null,
                     avid, sid);
         }
+    }
+    
+    public static List<Integer> getNumber(String text) {
+        text = text.replace(Const.HEXAA_HOST, "");
+        
+        List<Integer> answer = new ArrayList<>();
+        
+        Pattern number = Pattern.compile("/\\d+[^\\.]*");
+        Matcher match = number.matcher(text);
+        
+        while(match.find()){
+            String temp = match.group();
+            answer.add(Integer.parseInt(temp.substring(1)));
+        }
+        
+        return answer;
     }
 }

@@ -142,14 +142,14 @@ public final class DatabaseManipulator {
                     if (line.contains("-")) {
                         output = line;
                     }
-                    System.out.println("SQL " + ">" + line);
+//                    System.out.println("SQL " + ">" + line);
                 }
             } catch (IOException ioe) {
             }
 
             // any error???
             int exitVal = proc.waitFor();
-            System.out.println("ExitValue: " + exitVal);
+//            System.out.println("ExitValue: " + exitVal);
 
         } catch (IOException | InterruptedException ex) {
             Logger.getLogger(DatabaseManipulator.class.getName()).log(Level.SEVERE, null, ex);

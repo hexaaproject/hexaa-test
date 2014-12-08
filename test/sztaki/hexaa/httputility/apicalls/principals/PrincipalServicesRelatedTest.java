@@ -3,10 +3,11 @@ package sztaki.hexaa.httputility.apicalls.principals;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import org.json.JSONArray;
-import org.json.JSONObject;
+import org.junit.AfterClass;
 import org.junit.Test;
 import static org.junit.Assert.*;
 import org.junit.BeforeClass;
+import sztaki.hexaa.httputility.Authenticator;
 import sztaki.hexaa.httputility.BasicCall;
 import sztaki.hexaa.httputility.Const;
 import sztaki.hexaa.httputility.ResponseTypeMismatchException;
@@ -48,12 +49,21 @@ public class PrincipalServicesRelatedTest extends CleanTest {
         Utility.Create.entitlementpacks(2, new String[]{"testPack2"});
         Utility.Create.entitlements(2, new String[]{"testEntitlement2"});
         Utility.Link.entitlementToPack(2, 2);
-//        Utility.Link.entitlementpackToOrg(1, 2);
-        
+        Utility.Link.entitlementpackToOrg(1, 2);
+
         Utility.Create.role("testRole", 1);
-        Utility.Link.principalToRole(1, 1);
+        Utility.Create.principal("testPrincipal");
+        Utility.Link.memberToOrganization(1, 2);
+        Utility.Link.principalToRole(1, 2);
 
         Utility.Link.entitlementsToRole(1, new int[]{1});
+
+        new Authenticator().authenticate("testPrincipal");
+    }
+
+    @AfterClass
+    public static void tearDownClass() {
+        new Authenticator().authenticate(Const.HEXAA_FEDID);
     }
 
     @Test
@@ -67,11 +77,12 @@ public class PrincipalServicesRelatedTest extends CleanTest {
             return;
         }
 
-        System.out.println(jsonResponse);
-
         try {
             assertEquals(Const.StatusLine.OK, persistent.getStatusLine());
-            assertEquals(services, jsonResponse);
+            assertEquals(services.length(), jsonResponse.length());
+            for (int i = 0; i < services.length(); i++) {
+                assertEquals(services.getJSONObject(i).get("id"), jsonResponse.getJSONObject(i).get("id"));
+            }
         } catch (AssertionError e) {
             AssertErrorHandler(e);
         }
