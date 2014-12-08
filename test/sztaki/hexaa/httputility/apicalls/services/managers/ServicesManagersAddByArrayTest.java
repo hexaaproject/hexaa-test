@@ -19,14 +19,14 @@ import sztaki.hexaa.httputility.apicalls.CleanTest;
 /**
  * Tests the PUT method on the /api/services/{id}/managers/{pid} call.
  */
-public class ServicesManagersAddTest extends CleanTest {
+public class ServicesManagersAddByArrayTest extends CleanTest {
 
     /**
      * Print the class name on the output.
      */
     @BeforeClass
     public static void classInformation() {
-        System.out.println("***\t " + ServicesManagersAddTest.class.getSimpleName() + " ***");
+        System.out.println("***\t " + ServicesManagersAddByArrayTest.class.getSimpleName() + " ***");
     }
 
     /**
@@ -48,18 +48,9 @@ public class ServicesManagersAddTest extends CleanTest {
      * ADD two managers to the service and check them by GET.
      */
     @Test
-    public void testServicesManagersAdd() {
+    public void testServicesManagersAddByArray() {
         // PUT the first manager.
-        Utility.Link.managersToService(1, 2);
-
-        try {
-            assertEquals(Const.StatusLine.Created, Utility.persistent.getStatusLine());
-        } catch (AssertionError e) {
-            AssertErrorHandler(e);
-        }
-
-        // PUT the second manager
-        Utility.Link.managersToService(1, 3);
+        Utility.Link.managersToServiceByArray(1, new int[]{1,2,3});
 
         try {
             assertEquals(Const.StatusLine.Created, Utility.persistent.getStatusLine());
@@ -80,7 +71,7 @@ public class ServicesManagersAddTest extends CleanTest {
         }
         System.out.println(managers);
         System.out.println(jsonResponseArray);
-
+        
         try {
             JSONAssert.assertEquals(managers, jsonResponseArray, JSONCompareMode.LENIENT);
         } catch (AssertionError e) {

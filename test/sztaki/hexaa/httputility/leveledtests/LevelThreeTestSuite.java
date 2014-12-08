@@ -44,6 +44,7 @@ import sztaki.hexaa.httputility.apicalls.BasicTestSuite;
     sztaki.hexaa.httputility.apicalls.services.attributespecs.ServicesAttributespecsRemoveTest.class,
     sztaki.hexaa.httputility.apicalls.services.entitlements.ServicesEntitlementsGetTest.class,
     sztaki.hexaa.httputility.apicalls.services.managers.ServicesManagersAddTest.class,
+    sztaki.hexaa.httputility.apicalls.services.managers.ServicesManagersAddByArrayTest.class,
     sztaki.hexaa.httputility.apicalls.services.entitlementpacks.ServicesEntitlementpacksGetTest.class,
 })
 public class LevelThreeTestSuite extends BasicTestSuite {

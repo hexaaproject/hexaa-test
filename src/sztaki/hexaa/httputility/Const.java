@@ -447,6 +447,10 @@ public class Const {
         /**
          * GET managers of the service.
          */
+        public static final String SERVICES_ID_MANAGER = ("/api/services/{id}/manager");
+        /**
+         * GET managers of the service.
+         */
         public static final String SERVICES_ID_MANAGERS = ("/api/services/{id}/managers");
         /**
          * PUT(add), DELETE(remove) manager to/from service.

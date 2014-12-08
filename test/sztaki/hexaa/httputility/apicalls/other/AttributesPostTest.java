@@ -58,5 +58,7 @@ public class AttributesPostTest extends CleanTest{
         } catch (AssertionError e) {
             fail(e.getLocalizedMessage());
         }
+        
+        fail("Missing assertions, only the StatusLine is checked");
     }
 }

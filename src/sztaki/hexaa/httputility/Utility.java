@@ -521,6 +521,15 @@ public class Utility {
                         Const.Api.PRINCIPALS,
                         BasicCall.REST.POST,
                         json.toString());
+                
+//                String locHeader = persistent.getHeader("Location").getValue();
+//                // System.out.println(locHeader);
+//                List<Integer> id = getNumber(locHeader);
+//                
+//                if (id.size() == 1) {
+//                    json.put("id", id.get(0));
+//                }
+                
                 if (persistent.getStatusLine().contains("201")) {
                     response.put(json);
                 }
@@ -748,11 +757,11 @@ public class Utility {
         public static void entitlementpackToOrgByArray(int orgId, int[] packs) {
             JSONObject json = new JSONObject();
             json.put("entitlement_packs", packs);
-            System.out.println(persistent.call(
+            persistent.call(
                     Const.Api.ORGANIZATIONS_ID_ENTITLEMENTPACK,
                     BasicCall.REST.PUT,
                     json.toString(),
-                    orgId, orgId));
+                    orgId, orgId);
         }
 
         /**
@@ -972,6 +981,16 @@ public class Utility {
          */
         public static void managersToService(int serviceID, int principalID) {
             managersToService(serviceID, new int[]{principalID});
+        }
+        
+        public static void managersToServiceByArray(int serviceID, int[] principalID) {
+            JSONObject json = new JSONObject();
+            json.put("managers", principalID);
+                    persistent.call(
+                            Const.Api.SERVICES_ID_MANAGER,
+                            BasicCall.REST.PUT,
+                            json.toString(),
+                            serviceID, serviceID);
         }
 
         /**
