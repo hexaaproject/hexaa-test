@@ -360,7 +360,7 @@ public class Const {
          */
         public static final String PRINCIPAL_SERVICES_RELATED = ("/api/principal/services/related");
         /**
-         * GET, PATCH(edit), PUT(edit), POST(create) principal(s).
+         * GET, POST(create) principal(s).
          */
         public static final String PRINCIPALS = ("/api/principals");
         /**
@@ -377,7 +377,7 @@ public class Const {
          */
         public static final String PRINCIPALS_ID_ID = ("/api/principals/{id}/id");
         /**
-         * GET, POST, PATCH, PUT info about, delete a principal by id.
+         * PATCH, PUT a principal by id.
          */
         public static final String PRINCIPALS_ID = ("/api/principals/{id}");
         /**

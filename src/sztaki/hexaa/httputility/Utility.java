@@ -618,13 +618,13 @@ public class Utility {
                         json.toString(),
                         0, 0);
                 
-                String locHeader = persistent.getHeader("Location").getValue();
-                // System.out.println(locHeader);
-                List<Integer> id = getNumber(locHeader);
-                
-                if (id.size() == 1) {
-                    json.put("id", id.get(0));
-                }
+//                String locHeader = persistent.getHeader("Location").getValue();
+//                // System.out.println(locHeader);
+//                List<Integer> id = getNumber(locHeader);
+//                
+//                if (id.size() == 1) {
+//                    json.put("id", id.get(0));
+//                }
 
                 services.put(json);
 
@@ -1648,15 +1648,18 @@ public class Utility {
     }
     
     public static List<Integer> getNumber(String text) {
+//        System.out.println(text);
         text = text.replace(Const.HEXAA_HOST, "");
+//        System.out.println(text);
         
         List<Integer> answer = new ArrayList<>();
         
-        Pattern number = Pattern.compile("/\\d+[^\\.]*");
+        Pattern number = Pattern.compile("/\\d+[^\\./]*");
         Matcher match = number.matcher(text);
         
         while(match.find()){
             String temp = match.group();
+//            System.out.println(temp);
             answer.add(Integer.parseInt(temp.substring(1)));
         }
         

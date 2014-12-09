@@ -31,7 +31,7 @@ public class PrincipalsDeleteTest extends CleanTest {
      * Creates one principal before each method.
      */
     @Before
-    public void setUpMethod() {
+    public void setUpClass() {
         Utility.Create.principal("testPrincipal");
     }
 
