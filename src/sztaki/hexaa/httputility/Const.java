@@ -425,6 +425,10 @@ public class Const {
          */
         public static final String SERVICES_ID = ("/api/services/{id}");
         /**
+         * PUT(link) attributespecs to service by array.
+         */
+        public static final String SERVICES_ID_ATTRIBUTESPEC = ("/api/services/{id}/attributespec");
+        /**
          * GET attribute specifications linked to the service.
          */
         public static final String SERVICES_ID_ATTRIBUTESPECS = ("/api/services/{id}/attributespecs");

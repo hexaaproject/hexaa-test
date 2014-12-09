@@ -892,6 +892,20 @@ public class Utility {
         public static void entitlementsToRole(int roleId, int entitlementId) {
             entitlementsToRole(roleId, new int[]{entitlementId});
         }
+        
+        public static void attributespecsToServiceByArray (int serviceId, int[] attributeIds, boolean[] isPublics) {
+            JSONObject json = new JSONObject();
+
+            json.put("attribute_spec", attributeIds);
+            json.put("is_public", isPublics);
+            
+            System.out.println( persistent.call(
+                    Const.Api.SERVICES_ID_ATTRIBUTESPEC,
+                    BasicCall.REST.PUT,
+                    json.toString(),
+//                    null,
+                    serviceId, serviceId));
+        }
 
         /**
          * Links existing attributespecs specified in the attributeIds array to
