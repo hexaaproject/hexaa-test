@@ -433,6 +433,10 @@ public class Const {
          */
         public static final String SERVICES_ID_ATTRIBUTESPECS_ASID = ("/api/services/{id}/attributespecs/{asid}");
         /**
+         * GET entitlementpack -organization relations.
+         */
+        public static final String SERVICES_ID_ENTITLEMENTPACKS_REQUESTS = ("/api/services/{id}/entitlementpack/requests");
+        /**
          * GET entitlementpacks of the service.
          */
         public static final String SERVICES_ID_ENTITLEMENTPACKS = ("/api/services/{id}/entitlementpacks");

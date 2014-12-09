@@ -14,7 +14,7 @@ import sztaki.hexaa.httputility.Utility;
 import sztaki.hexaa.httputility.apicalls.CleanTest;
 
 /**
- *
+ * Tests the PUT and PATCH methods on /api/principals/{id}/id calls.
  */
 public class PrincipalsPutPatchTest extends CleanTest {
 
@@ -39,6 +39,9 @@ public class PrincipalsPutPatchTest extends CleanTest {
         principals = Utility.Create.principal("testToPutPatch");
     }
 
+    /**
+     * Changes the test principals fedid by PUT.
+     */
     @Test
     public void testPrincipalsPut() {
         principals.getJSONObject(0).put("fedid", "modifiedByPut");
@@ -70,6 +73,9 @@ public class PrincipalsPutPatchTest extends CleanTest {
         }
     }
 
+    /**
+     * Changes the test principals fedid by PATCH.
+     */
     @Test
     public void testPrincipalsPatch() {
         JSONObject json = new JSONObject();

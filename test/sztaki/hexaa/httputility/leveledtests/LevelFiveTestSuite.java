@@ -27,6 +27,7 @@ import sztaki.hexaa.httputility.apicalls.BasicTestSuite;
     sztaki.hexaa.httputility.apicalls.roles.entitlements.RolesEntitlementsGetTest.class,
     sztaki.hexaa.httputility.apicalls.roles.entitlements.RolesEntitlementsRemoveTest.class,
     sztaki.hexaa.httputility.apicalls.principals.PrincipalServicesRelatedTest.class,
+    sztaki.hexaa.httputility.apicalls.services.entitlementpacks.ServicesEntitlementpacksRequestTest.class,
 })
 public class LevelFiveTestSuite extends BasicTestSuite {
 
