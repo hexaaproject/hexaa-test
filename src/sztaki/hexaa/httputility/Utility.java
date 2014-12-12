@@ -618,13 +618,13 @@ public class Utility {
                         json.toString(),
                         0, 0);
                 
-//                String locHeader = persistent.getHeader("Location").getValue();
-//                // System.out.println(locHeader);
-//                List<Integer> id = getNumber(locHeader);
-//                
-//                if (id.size() == 1) {
-//                    json.put("id", id.get(0));
-//                }
+                String locHeader = persistent.getHeader("Location").getValue();
+                // System.out.println(locHeader);
+                List<Integer> id = getNumber(locHeader);
+                
+                if (id.size() == 1) {
+                    json.put("id", id.get(0));
+                }
 
                 services.put(json);
 
