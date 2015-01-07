@@ -81,7 +81,7 @@ public class OrganizationEntitlementpacksAddTest extends CleanTest {
 //            AssertErrorHandler(e);
 //        }
     }
-
+    @Ignore
     @Test
     public void testOrganizationEntitlementpacksAddByArray() {
         Utility.Link.entitlementpackToOrgByArray(1, new int[]{2});
