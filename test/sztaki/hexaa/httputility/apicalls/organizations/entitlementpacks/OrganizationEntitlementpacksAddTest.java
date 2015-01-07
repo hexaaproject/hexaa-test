@@ -56,65 +56,16 @@ public class OrganizationEntitlementpacksAddTest extends CleanTest {
         } catch (AssertionError e) {
             AssertErrorHandler(e);
         }
-// This is not advised with the introduction of the leveled tests, as the GET method used below is not yet tested at this point!
-//        JSONArray jsonResponse;
-//        try {
-//            jsonResponse = persistent.getResponseJSONArray(
-//                    Const.Api.ORGANIZATIONS_ID_ENTITLEMENTPACKS,
-//                    BasicCall.REST.GET,
-//                    null,
-//                    1, 1);
-//        } catch (ResponseTypeMismatchException ex) {
-//            Logger.getLogger(OrganizationEntitlementpacksLinkRequestTest.class.getName()).log(Level.SEVERE, null, ex);
-//            fail(ex.getFullMessage());
-//            return;
-//        }
-//
-//        try {
-//            assertEquals(
-//                    entitlementpacks.getJSONObject(0).getInt("id"),
-//                    jsonResponse.getJSONObject(jsonResponse.length() - 1).get("entitlement_pack_id"));
-//            assertEquals(
-//                    "accepted",
-//                    jsonResponse.getJSONObject(jsonResponse.length() - 1).get("status"));
-//        } catch (AssertionError e) {
-//            AssertErrorHandler(e);
-//        }
     }
-    @Ignore
+    
     @Test
     public void testOrganizationEntitlementpacksAddByArray() {
         Utility.Link.entitlementpackToOrgByArray(1, new int[]{2});
 
         try {
-            assertEquals(Const.StatusLine.Created, Utility.persistent.getStatusLine());
+            assertEquals(Const.StatusLine.NoContent, Utility.persistent.getStatusLine());
         } catch (AssertionError e) {
             AssertErrorHandler(e);
         }
-// This is not advised with the introduction of the leveled tests, as the GET method used below is not yet tested at this point!
-//        JSONArray jsonResponse;
-//        try {
-//            jsonResponse = persistent.getResponseJSONArray(
-//                    Const.Api.ORGANIZATIONS_ID_ENTITLEMENTPACKS,
-//                    BasicCall.REST.GET,
-//                    null,
-//                    1, 1);
-//        } catch (ResponseTypeMismatchException ex) {
-//            Logger.getLogger(OrganizationEntitlementpacksLinkRequestTest.class.getName()).log(Level.SEVERE, null, ex);
-//            fail(ex.getFullMessage());
-//            return;
-//        }
-//        System.out.println(jsonResponse);
-//
-//        try {
-//            assertEquals(
-//                    entitlementpacks.getJSONObject(1).getInt("id"),
-//                    jsonResponse.getJSONObject(jsonResponse.length() - 1).get("entitlement_pack_id"));
-//            assertEquals(
-//                    "pending",
-//                    jsonResponse.getJSONObject(jsonResponse.length() - 1).get("status"));
-//        } catch (AssertionError e) {
-//            AssertErrorHandler(e);
-//        }
     }
 }
