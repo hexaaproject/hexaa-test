@@ -1,6 +1,7 @@
 package sztaki.hexaa.httputility.apicalls.services;
 
 import org.json.JSONArray;
+import org.json.JSONObject;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import static org.junit.Assert.*;
@@ -45,12 +46,16 @@ public class ServicesPutTest extends CleanTest {
     @Test
     public void testServicesPut() {
         // Modify the first role
-        services.getJSONObject(0).put("name", "modifiedByPut1");
+        JSONObject json;
+        json = services.getJSONObject(0);
+        json.put("name", "modifiedByPut1");
+        json.remove("id");
+        
 
         persistent.call(
                 Const.Api.SERVICES_ID,
                 BasicCall.REST.PUT,
-                services.getJSONObject(0).toString());
+                json.toString());
 
         try {
             assertEquals(Const.StatusLine.NoContent, persistent.getStatusLine());
