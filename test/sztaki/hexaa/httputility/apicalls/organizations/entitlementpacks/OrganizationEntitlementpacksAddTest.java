@@ -60,7 +60,7 @@ public class OrganizationEntitlementpacksAddTest extends CleanTest {
     
     @Test
     public void testOrganizationEntitlementpacksAddByArray() {
-        Utility.Link.entitlementpackToOrgByArray(1, new int[]{2});
+        Utility.Link.entitlementpackToOrgByArray(1, new int[]{1,2});
 
         try {
             assertEquals(Const.StatusLine.NoContent, Utility.persistent.getStatusLine());
