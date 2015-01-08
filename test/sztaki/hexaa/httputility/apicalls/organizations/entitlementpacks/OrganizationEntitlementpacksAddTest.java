@@ -1,16 +1,10 @@
 package sztaki.hexaa.httputility.apicalls.organizations.entitlementpacks;
 
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import org.json.JSONArray;
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.fail;
 import org.junit.BeforeClass;
-import org.junit.Ignore;
 import org.junit.Test;
-import sztaki.hexaa.httputility.BasicCall;
 import sztaki.hexaa.httputility.Const;
-import sztaki.hexaa.httputility.ResponseTypeMismatchException;
 import sztaki.hexaa.httputility.Utility;
 import sztaki.hexaa.httputility.apicalls.CleanTest;
 
