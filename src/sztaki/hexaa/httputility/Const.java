@@ -230,7 +230,7 @@ public class Const {
          */
         public static final String ORGANIZATIONS_ID_ATTRIBUTEVALUEORGANIZATION = ("/api/organizations/{id}/attributevalueorganization");
         /**
-         * GET entitlement packs of organization.
+         * PUT(set) entitlement packs of organization.
          */
         public static final String ORGANIZATIONS_ID_ENTITLEMENTPACK = ("/api/organizations/{id}/entitlementpack");
         /**

@@ -11,10 +11,13 @@ import sztaki.hexaa.httputility.ResponseTypeMismatchException;
 import sztaki.hexaa.httputility.apicalls.CleanTest;
 
 /**
- *
+ * Tests the GET method on the /api/properties call.
  */
 public class PropertiesGetTest extends CleanTest {
     
+    /**
+     * GET the properties and checks that the basic informations are present.
+     */
     @Test
     public void testPropertiesGet() {
         JSONObject jsonResponse;
