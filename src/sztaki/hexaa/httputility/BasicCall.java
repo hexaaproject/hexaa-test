@@ -584,12 +584,12 @@ public class BasicCall {
         this.setString(null);
         this.setId(1);
         this.setSId(1);
-        System.out.println(path);
-        System.out.println(this.path);
+        //System.out.println(path);
+        //System.out.println(this.path);
 
         Object tempResponse = callSwitch(restCall);
 
-        System.out.println(this.path);
+        //System.out.println(this.path);
 
         Object serverResponse;
         try {

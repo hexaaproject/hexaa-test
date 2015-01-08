@@ -10,7 +10,7 @@ import sztaki.hexaa.httputility.apicalls.BasicTestSuite;
  */
 @RunWith(Suite.class)
 @Suite.SuiteClasses({
-    PrincipalGetAdmin.class,
+    PrincipalGetAdminTest.class,
     PrincipalGetTest.class,
     PrincipalsAttributespecsPrivateGetTest.class,
     PrincipalsAttributespecsPublicGetTest.class,

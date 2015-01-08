@@ -14,14 +14,14 @@ import sztaki.hexaa.httputility.apicalls.CleanTest;
 /**
  * Test the GET method on the /api/principal/isadmin call.
  */
-public class PrincipalGetAdmin extends CleanTest {
+public class PrincipalGetAdminTest extends CleanTest {
 
     /**
      * Print the class name on the output.
      */
     @BeforeClass
     public static void classInformation() {
-        System.out.println("***\t " + PrincipalGetAdmin.class.getSimpleName() + " ***");
+        System.out.println("***\t " + PrincipalGetAdminTest.class.getSimpleName() + " ***");
     }
 
     /**
