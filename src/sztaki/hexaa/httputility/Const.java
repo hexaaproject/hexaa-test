@@ -393,7 +393,7 @@ public class Const {
         /**
          * PUT(set) principal to role.
          */
-        public static final String ROLES_ID_PRINCIPAL = ("/api/roles/{id}");
+        public static final String ROLES_ID_PRINCIPAL = ("/api/roles/{id}/principal");
         /**
          * PUT(set) entitlements to role.
          */

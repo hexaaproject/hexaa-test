@@ -49,7 +49,7 @@ public class RolesPrincipalsSetTest extends CleanTest {
      * PUT the principal to a role as an array.
      */
     @Test
-    public void testRolesPrincipalsPut() {
+    public void testRolesPrincipalsSet() {
         Utility.Link.principalToRoleByArray(1, new int[] {2,3});
         
         try {
@@ -57,7 +57,7 @@ public class RolesPrincipalsSetTest extends CleanTest {
         } catch(AssertionError e) {
             AssertErrorHandler(e);
         }
-        //System.out.println(Utility.persistent.getResponse());
+        System.out.println(Utility.persistent.getResponse());
         
         JSONArray jsonResponse;
 
@@ -78,7 +78,7 @@ public class RolesPrincipalsSetTest extends CleanTest {
             jsonTemp.put((JSONObject) jsonResponse.getJSONObject(i).get("principal"));
         }
 
-        //System.out.println(jsonResponse);
+        System.out.println(jsonResponse);
 
         try {
             assertEquals(Const.StatusLine.OK, persistent.getStatusLine());

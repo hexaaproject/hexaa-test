@@ -1,8 +1,9 @@
-package sztaki.hexaa.httputility.apicalls.roles.entitlements;
+package sztaki.hexaa.httputility.apicalls.services.attributespecs;
 
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import org.json.JSONArray;
+import org.json.JSONObject;
 import org.junit.Test;
 import static org.junit.Assert.*;
 import org.junit.BeforeClass;
@@ -15,71 +16,62 @@ import sztaki.hexaa.httputility.Utility;
 import sztaki.hexaa.httputility.apicalls.CleanTest;
 
 /**
- * Tests the PUT method on the /api/roles/{id}/entitlement call.
+ *
  */
-public class RolesEntitlementsSetTest extends CleanTest {
+public class ServicesAttributespecsSetTest extends CleanTest {
 
     /**
-     * JSONArray to store the created entitlements.
+     * JSONArray to store the created attributespecs.
      */
-    public static JSONArray entitlements = new JSONArray();
+    public static JSONArray attributespecs = new JSONArray();
 
     /**
      * Print the class name on the output.
      */
     @BeforeClass
     public static void classInformation() {
-        System.out.println("***\t " + RolesEntitlementsSetTest.class.getSimpleName() + " ***");
+        System.out.println("***\t " + ServicesAttributespecsSetTest.class.getSimpleName() + " ***");
     }
 
     /**
-     * Creates necessary objects on the server.
+     * Creates an organization, two role, a service and a principal.
      */
     @BeforeClass
     public static void setUpClass() {
-        Utility.Create.organization(new String[]{"testOrg1"});
-        Utility.Create.role(new String[]{"testRole1", "testRole2"}, 1);
         Utility.Create.service(new String[]{"testService1"});
-        Utility.Create.entitlementpacks(1, "entitlementPack");
-        entitlements = Utility.Create.entitlements(1, new String[]{"entitlement1", "entitlement2"});
-        Utility.Link.entitlementToPack(1, 1);
-        Utility.Link.entitlementToPack(2, 1);
-        Utility.Link.entitlementpackToOrg(1, 1);
+        attributespecs = Utility.Create.attributespec(new String[]{"1", "2"}, "manager");
     }
 
     /**
-     * PUT the entitlement to a role as an array.
+     * PUT the attributespecs to a service as an array.
      */
     @Test
-    public void testRolesEntitlementsSet() {
-        Utility.Link.entitlementsToRoleByArray(1, new int[]{1, 2});
+    public void testServicesAttributespecsSet() {
+        Utility.Link.attributespecsToServiceByArray(1, new int[]{1, 2}, new boolean[]{true, true});
 
         try {
             assertEquals(Const.StatusLine.Created, Utility.persistent.getStatusLine());
         } catch (AssertionError e) {
             AssertErrorHandler(e);
         }
+        System.out.println(Utility.persistent.getResponse());
 
         JSONArray jsonResponse;
 
         try {
             jsonResponse = persistent.getResponseJSONArray(
-                    Const.Api.ROLES_ID_ENTITLEMENTS,
+                    Const.Api.SERVICES_ID_ATTRIBUTESPECS,
                     BasicCall.REST.GET,
                     null,
                     1, 1);
         } catch (ResponseTypeMismatchException ex) {
-            Logger.getLogger(RolesEntitlementsSetTest.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(ServicesAttributespecsSetTest.class.getName()).log(Level.SEVERE, null, ex);
             fail(ex.getFullMessage());
             return;
         }
 
         try {
-            assertEquals(Const.StatusLine.OK, persistent.getStatusLine());
-            JSONAssert.assertEquals(
-                    entitlements,
-                    jsonResponse,
-                    JSONCompareMode.LENIENT);
+            JSONAssert.assertEquals(attributespecs, jsonResponse, JSONCompareMode.LENIENT);
         } catch (AssertionError e) {
             AssertErrorHandler(e);
         }

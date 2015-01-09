@@ -72,49 +72,5 @@ public class ServicesAttributespecsAddTest extends CleanTest {
         } catch (AssertionError e) {
             AssertErrorHandler(e);
         }
-
-//        // PUT the second attributespec to the first service as well.
-//        Utility.Link.attributespecsToService(1, 2, true);
-//
-//        try {
-//            assertEquals(Const.StatusLine.Created, Utility.persistent.getStatusLine());
-//            assertEquals(
-//                    1,
-//                    ((JSONArray) JSONParser.parseJSON(
-//                            persistent.call(
-//                                    Const.Api.SERVICES_ID_ATTRIBUTESPECS,
-//                                    BasicCall.REST.GET,
-//                                    null,
-//                                    1, 1)))
-//                    .getJSONObject(0).getInt("attribute_spec_id"));
-//            assertEquals(Const.StatusLine.OK, persistent.getStatusLine());
-//            assertEquals(
-//                    2,
-//                    ((JSONArray) JSONParser.parseJSON(
-//                            persistent.call(
-//                                    Const.Api.SERVICES_ID_ATTRIBUTESPECS,
-//                                    BasicCall.REST.GET,
-//                                    null,
-//                                    1, 1)))
-//                    .getJSONObject(1).getInt("attribute_spec_id"));
-//            assertEquals(Const.StatusLine.OK, persistent.getStatusLine());
-//            assertEquals(
-//                    "[]",
-//                    persistent.call(
-//                            Const.Api.SERVICES_ID_ATTRIBUTESPECS,
-//                            BasicCall.REST.GET,
-//                            null,
-//                            2, 1));
-//            assertEquals(Const.StatusLine.OK, persistent.getStatusLine());
-//        } catch (AssertionError e) {
-//            AssertErrorHandler(e);
-//        }
     }
-    
-//    @Test
-//    public void testServicesAttributespecsAddByArray() {
-//        Utility.Link.attributespecsToServiceByArray(1, new int[]{2}, new boolean[]{true});
-//        
-//        System.out.println(Utility.persistent.getStatusLine());
-//    }
 }

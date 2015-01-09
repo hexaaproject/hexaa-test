@@ -920,7 +920,7 @@ public class Utility {
         public static void attributespecsToServiceByArray(int serviceId, int[] attributeIds, boolean[] isPublics) {
             JSONObject json = new JSONObject();
 
-            json.put("attribute_spec", attributeIds);
+            json.put("attribute_specs", attributeIds);
             json.put("is_public", isPublics);
 
             System.out.println(persistent.call(
@@ -1070,7 +1070,7 @@ public class Utility {
          */
         public static void principalToRoleByArray(int roleId, int[] principalIds) {
             JSONObject json = new JSONObject();
-            json.put("name", principalIds);
+            json.put("principals", principalIds);
             persistent.call(
                     Const.Api.ROLES_ID_PRINCIPAL,
                     BasicCall.REST.PUT,

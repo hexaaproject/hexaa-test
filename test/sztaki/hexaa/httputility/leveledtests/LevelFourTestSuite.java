@@ -35,6 +35,7 @@ import sztaki.hexaa.httputility.apicalls.BasicTestSuite;
     sztaki.hexaa.httputility.apicalls.roles.entitlements.RolesEntitlementsAddTest.class,
     sztaki.hexaa.httputility.apicalls.roles.principals.RolesPrincipalsRemoveTest.class,
     sztaki.hexaa.httputility.apicalls.roles.principals.RolesPrincipalsGetTest.class,
+    sztaki.hexaa.httputility.apicalls.services.attributespecs.ServicesAttributespecsSetTest.class,
     sztaki.hexaa.httputility.apicalls.services.organizations.ServicesOrganizationsGetTest.class,
     sztaki.hexaa.httputility.apicalls.services.managers.ServicesManagersRemoveTest.class,
     sztaki.hexaa.httputility.apicalls.services.managers.ServicesManagersGetTest.class,
