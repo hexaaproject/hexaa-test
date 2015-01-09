@@ -521,7 +521,7 @@ public class Utility {
                         Const.Api.PRINCIPALS,
                         BasicCall.REST.POST,
                         json.toString());
-                
+
 //                String locHeader = persistent.getHeader("Location").getValue();
 //                // System.out.println(locHeader);
 //                List<Integer> id = getNumber(locHeader);
@@ -529,7 +529,6 @@ public class Utility {
 //                if (id.size() == 1) {
 //                    json.put("id", id.get(0));
 //                }
-                
                 if (persistent.getStatusLine().contains("201")) {
                     response.put(json);
                 }
@@ -617,11 +616,11 @@ public class Utility {
                         BasicCall.REST.POST,
                         json.toString(),
                         0, 0);
-                
+
                 String locHeader = persistent.getHeader("Location").getValue();
                 // System.out.println(locHeader);
                 List<Integer> id = getNumber(locHeader);
-                
+
                 if (id.size() == 1) {
                     json.put("id", id.get(0));
                 }
@@ -892,18 +891,43 @@ public class Utility {
         public static void entitlementsToRole(int roleId, int entitlementId) {
             entitlementsToRole(roleId, new int[]{entitlementId});
         }
-        
-        public static void attributespecsToServiceByArray (int serviceId, int[] attributeIds, boolean[] isPublics) {
+
+        /**
+         * Links existing entitlements specified in the entitlementIds array to
+         * the existing role specified by the roleId, using the array method.
+         *
+         * @param roleId id of the role to link to.
+         * @param entitlementIds id of the entitlements to link.
+         */
+        public static void entitlementsToRoleByArray(int roleId, int[] entitlementIds) {
+            JSONObject json = new JSONObject();
+            json.put("entitlements", entitlementIds);
+            persistent.call(Const.Api.ROLES_ID_ENTITLEMENT,
+                    BasicCall.REST.PUT,
+                    json.toString(),
+                    roleId, roleId);
+        }
+
+        /**
+         * Links existing attributes specified in the attributeIds array to the
+         * existing service specified by the serviceId, using the array method.
+         *
+         * @param serviceId id of the service to link to.
+         * @param attributeIds id of the attributes to link.
+         * @param isPublics array of public(true) or private(false) booleans.
+         * Have to be the same size as attributeIds.
+         */
+        public static void attributespecsToServiceByArray(int serviceId, int[] attributeIds, boolean[] isPublics) {
             JSONObject json = new JSONObject();
 
             json.put("attribute_spec", attributeIds);
             json.put("is_public", isPublics);
-            
-            System.out.println( persistent.call(
+
+            System.out.println(persistent.call(
                     Const.Api.SERVICES_ID_ATTRIBUTESPEC,
                     BasicCall.REST.PUT,
                     json.toString(),
-//                    null,
+                    //                    null,
                     serviceId, serviceId));
         }
 
@@ -996,15 +1020,15 @@ public class Utility {
         public static void managersToService(int serviceID, int principalID) {
             managersToService(serviceID, new int[]{principalID});
         }
-        
+
         public static void managersToServiceByArray(int serviceID, int[] principalID) {
             JSONObject json = new JSONObject();
             json.put("managers", principalID);
-                    persistent.call(
-                            Const.Api.SERVICES_ID_MANAGER,
-                            BasicCall.REST.PUT,
-                            json.toString(),
-                            serviceID, serviceID);
+            persistent.call(
+                    Const.Api.SERVICES_ID_MANAGER,
+                    BasicCall.REST.PUT,
+                    json.toString(),
+                    serviceID, serviceID);
         }
 
         /**
@@ -1035,6 +1059,23 @@ public class Utility {
          */
         public static void principalToRole(int roleId, int principalId) {
             principalToRole(roleId, new int[]{principalId});
+        }
+
+        /**
+         * Links existing principals specified in the principalIds array to the
+         * existing role specified by the roleId, using the array method.
+         *
+         * @param roleId the id of the role to link.
+         * @param principalIds the ids of the principal to link as an array.
+         */
+        public static void principalToRoleByArray(int roleId, int[] principalIds) {
+            JSONObject json = new JSONObject();
+            json.put("name", principalIds);
+            persistent.call(
+                    Const.Api.ROLES_ID_PRINCIPAL,
+                    BasicCall.REST.PUT,
+                    json.toString(),
+                    roleId, roleId);
         }
 
         /**
@@ -1101,7 +1142,7 @@ public class Utility {
                     json.toString(),
                     orgId, orgId);
         }
-        
+
         /**
          * Links existing principal specified in the principalIds array to the
          * existing organization specified by the orgId as a manager.
@@ -1660,23 +1701,23 @@ public class Utility {
                     avid, sid);
         }
     }
-    
+
     public static List<Integer> getNumber(String text) {
 //        System.out.println(text);
         text = text.replace(Const.HEXAA_HOST, "");
 //        System.out.println(text);
-        
+
         List<Integer> answer = new ArrayList<>();
-        
+
         Pattern number = Pattern.compile("/\\d+[^\\./]*");
         Matcher match = number.matcher(text);
-        
-        while(match.find()){
+
+        while (match.find()) {
             String temp = match.group();
 //            System.out.println(temp);
             answer.add(Integer.parseInt(temp.substring(1)));
         }
-        
+
         return answer;
     }
 }
