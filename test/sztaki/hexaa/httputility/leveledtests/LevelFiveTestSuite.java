@@ -30,6 +30,9 @@ import sztaki.hexaa.httputility.apicalls.BasicTestSuite;
     sztaki.hexaa.httputility.apicalls.roles.principals.RolesPrincipalsSetTest.class,
     sztaki.hexaa.httputility.apicalls.principals.PrincipalServicesRelatedTest.class,
     sztaki.hexaa.httputility.apicalls.services.entitlementpacks.ServicesEntitlementpacksRequestTest.class,
+    
+    sztaki.hexaa.httputility.apicalls.news.OrganizationsNewsTest.class,
+    sztaki.hexaa.httputility.apicalls.news.ServicesNewsTest.class,
 })
 public class LevelFiveTestSuite extends BasicTestSuite {
 
