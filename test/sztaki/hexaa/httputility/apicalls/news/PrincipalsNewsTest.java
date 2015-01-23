@@ -41,7 +41,10 @@ public class PrincipalsNewsTest  extends CleanTest {
         Utility.Link.entitlementpackToOrg(1, 1);
         Utility.Create.role("randomRole", 1);
         Utility.Create.principal("testForNewsP");
+        Utility.Create.invitationToOrg(new String[] {"tesztAdmin@sztaki.hu"}, null, "random invite message", 1, 1);
+        Utility.Create.invitationToOrg(new String[] {"testForNewsP@sztaki.hu"}, null, "random invite message", 1, 1);
         Utility.Link.principalToRole(1, 2);
+        Utility.Remove.organization(1);
     }
 
     @Test
@@ -49,7 +52,7 @@ public class PrincipalsNewsTest  extends CleanTest {
         JSONArray jsonResponse_id;
 
         try {
-            jsonResponse_id = persistent.getResponseJSONArray(Const.Api.PRINCIPALS_PID_NEWS, BasicCall.REST.GET, null, 2, 2);
+            jsonResponse_id = persistent.getResponseJSONArray(Const.Api.PRINCIPALS_PID_NEWS, BasicCall.REST.GET, null, 1, 1);
         } catch (ResponseTypeMismatchException ex) {
             Logger.getLogger(OrganizationsNewsTest.class.getName()).log(Level.SEVERE, null, ex);
             fail(ex.getFullMessage());
@@ -57,8 +60,6 @@ public class PrincipalsNewsTest  extends CleanTest {
         }
 
         System.out.println(jsonResponse_id);
-        
-        new Authenticator().authenticate("testForNewsP");
 
         JSONArray jsonResponse_noid;
 
@@ -71,6 +72,36 @@ public class PrincipalsNewsTest  extends CleanTest {
         }
 
         System.out.println(jsonResponse_noid);
+        
+        //JSONArray jsonResponse_id;
+
+        try {
+            jsonResponse_id = persistent.getResponseJSONArray(Const.Api.PRINCIPALS_PID_NEWS, BasicCall.REST.GET, null, 2, 2);
+        } catch (ResponseTypeMismatchException ex) {
+            Logger.getLogger(OrganizationsNewsTest.class.getName()).log(Level.SEVERE, null, ex);
+            fail(ex.getFullMessage());
+            return;
+        }
+
+        System.out.println(jsonResponse_id);
+        
+        new Authenticator().authenticate("testForNewsP");
+        Utility.Create.service("testService2");
+
+        //JSONArray jsonResponse_noid;
+
+        try {
+            jsonResponse_noid = persistent.getResponseJSONArray(Const.Api.PRINCIPAL_NEWS, BasicCall.REST.GET);
+        } catch (ResponseTypeMismatchException ex) {
+            Logger.getLogger(OrganizationsNewsTest.class.getName()).log(Level.SEVERE, null, ex);
+            fail(ex.getFullMessage());
+            return;
+        }
+
+        System.out.println(jsonResponse_noid);
+        
+        
+        new Authenticator().authenticate(Const.HEXAA_FEDID);
 
         
 //        try {
