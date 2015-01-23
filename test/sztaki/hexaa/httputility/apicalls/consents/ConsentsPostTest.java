@@ -3,8 +3,8 @@ package sztaki.hexaa.httputility.apicalls.consents;
 import org.junit.Test;
 import static org.junit.Assert.*;
 import org.junit.BeforeClass;
-import sztaki.hexaa.httputility.Const;
-import sztaki.hexaa.httputility.Utility;
+import sztaki.hexaa.Const;
+import sztaki.hexaa.Utility;
 import sztaki.hexaa.httputility.apicalls.CleanTest;
 
 /**

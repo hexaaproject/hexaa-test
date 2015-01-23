@@ -2,8 +2,8 @@ package sztaki.hexaa.httputility.apicalls;
 
 import static org.junit.Assert.*;
 import org.junit.Test;
-import sztaki.hexaa.httputility.BasicCall;
-import sztaki.hexaa.httputility.Const;
+import sztaki.hexaa.BasicCall;
+import sztaki.hexaa.Const;
 
 /**
  * Tests all the possible uri-s for the not existing methods to check that there

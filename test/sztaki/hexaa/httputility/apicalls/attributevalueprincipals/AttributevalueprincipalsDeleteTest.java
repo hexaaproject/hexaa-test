@@ -3,9 +3,9 @@ package sztaki.hexaa.httputility.apicalls.attributevalueprincipals;
 import static org.junit.Assert.*;
 import org.junit.BeforeClass;
 import org.junit.Test;
-import sztaki.hexaa.httputility.BasicCall;
-import sztaki.hexaa.httputility.Const;
-import sztaki.hexaa.httputility.Utility;
+import sztaki.hexaa.BasicCall;
+import sztaki.hexaa.Const;
+import sztaki.hexaa.Utility;
 import sztaki.hexaa.httputility.apicalls.CleanTest;
 
 /**

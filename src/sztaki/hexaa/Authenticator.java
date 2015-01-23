@@ -1,4 +1,4 @@
-package sztaki.hexaa.httputility;
+package sztaki.hexaa;
 
 import java.io.FileInputStream;
 import java.io.IOException;
@@ -10,7 +10,7 @@ import java.time.format.DateTimeFormatter;
 import java.util.Properties;
 import org.json.JSONObject;
 import org.skyscreamer.jsonassert.JSONParser;
-import sztaki.hexaa.httputility.BasicCall.REST;
+import sztaki.hexaa.BasicCall.REST;
 
 /**
  * Provides authentication via Master Secret Authentication. Use the public

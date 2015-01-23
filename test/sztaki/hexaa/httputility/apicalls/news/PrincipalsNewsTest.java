@@ -6,11 +6,11 @@ import org.json.JSONArray;
 import org.junit.Test;
 import static org.junit.Assert.*;
 import org.junit.BeforeClass;
-import sztaki.hexaa.httputility.Authenticator;
-import sztaki.hexaa.httputility.BasicCall;
-import sztaki.hexaa.httputility.Const;
-import sztaki.hexaa.httputility.ResponseTypeMismatchException;
-import sztaki.hexaa.httputility.Utility;
+import sztaki.hexaa.Authenticator;
+import sztaki.hexaa.BasicCall;
+import sztaki.hexaa.Const;
+import sztaki.hexaa.ResponseTypeMismatchException;
+import sztaki.hexaa.Utility;
 import sztaki.hexaa.httputility.apicalls.CleanTest;
 
 // ToDo: még nem tudom mi az aminek meg kellene jelennie

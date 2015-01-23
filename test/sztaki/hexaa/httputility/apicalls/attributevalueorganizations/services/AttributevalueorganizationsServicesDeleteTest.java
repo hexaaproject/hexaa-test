@@ -5,10 +5,10 @@ import static org.junit.Assert.*;
 import static org.junit.Assert.fail;
 import org.junit.BeforeClass;
 import org.junit.Test;
-import sztaki.hexaa.httputility.BasicCall;
-import sztaki.hexaa.httputility.Const;
-import sztaki.hexaa.httputility.ResponseTypeMismatchException;
-import sztaki.hexaa.httputility.Utility;
+import sztaki.hexaa.BasicCall;
+import sztaki.hexaa.Const;
+import sztaki.hexaa.ResponseTypeMismatchException;
+import sztaki.hexaa.Utility;
 import sztaki.hexaa.httputility.apicalls.CleanTest;
 
 /**

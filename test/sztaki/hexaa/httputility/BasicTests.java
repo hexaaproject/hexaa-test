@@ -1,5 +1,7 @@
 package sztaki.hexaa.httputility;
 
+import sztaki.hexaa.Authenticator;
+import sztaki.hexaa.DatabaseManipulator;
 import org.junit.BeforeClass;
 import org.junit.runner.RunWith;
 import org.junit.runners.Suite;

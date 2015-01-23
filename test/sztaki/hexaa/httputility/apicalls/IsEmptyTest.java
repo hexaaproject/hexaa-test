@@ -4,8 +4,8 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 import static org.junit.Assert.*;
 import org.skyscreamer.jsonassert.JSONParser;
-import sztaki.hexaa.httputility.BasicCall.REST;
-import sztaki.hexaa.httputility.Const;
+import sztaki.hexaa.BasicCall.REST;
+import sztaki.hexaa.Const;
 import static sztaki.hexaa.httputility.apicalls.CleanTest.persistent;
 
 /**

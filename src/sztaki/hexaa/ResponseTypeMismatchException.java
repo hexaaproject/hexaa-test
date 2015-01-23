@@ -1,4 +1,4 @@
-package sztaki.hexaa.httputility;
+package sztaki.hexaa;
 
 /**
  * Exception to throw if the server response is in a different than expected

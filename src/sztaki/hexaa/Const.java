@@ -1,4 +1,4 @@
-package sztaki.hexaa.httputility;
+package sztaki.hexaa;
 
 /**
  * Contains constants for the different keys, URI-s, and other server specific

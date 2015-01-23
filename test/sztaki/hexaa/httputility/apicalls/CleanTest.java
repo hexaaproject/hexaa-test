@@ -5,10 +5,10 @@ import org.junit.BeforeClass;
 import org.junit.Rule;
 import org.junit.rules.ErrorCollector;
 import org.junit.runners.model.MultipleFailureException;
-import sztaki.hexaa.httputility.Authenticator;
-import sztaki.hexaa.httputility.BasicCall;
-import sztaki.hexaa.httputility.Const;
-import sztaki.hexaa.httputility.DatabaseManipulator;
+import sztaki.hexaa.Authenticator;
+import sztaki.hexaa.BasicCall;
+import sztaki.hexaa.Const;
+import sztaki.hexaa.DatabaseManipulator;
 
 /**
  * Parent class for all TestClasses for unified use of @BeforeClass, BasicCall,

@@ -12,10 +12,10 @@ import org.junit.BeforeClass;
 import org.junit.internal.AssumptionViolatedException;
 import org.junit.runner.RunWith;
 import org.junit.runners.Suite;
-import sztaki.hexaa.httputility.Authenticator;
-import sztaki.hexaa.httputility.Const;
-import sztaki.hexaa.httputility.CoverageChecker;
-import sztaki.hexaa.httputility.DatabaseManipulator;
+import sztaki.hexaa.Authenticator;
+import sztaki.hexaa.Const;
+import sztaki.hexaa.CoverageChecker;
+import sztaki.hexaa.DatabaseManipulator;
 
 /**
  * Abstract class for the TestSuites to inherit from, it implements the

@@ -1,4 +1,4 @@
-package sztaki.hexaa.httputility.core;
+package sztaki.hexaa.core;
 
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
@@ -7,10 +7,10 @@ import java.net.URISyntaxException;
 import java.nio.charset.StandardCharsets;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import sztaki.hexaa.httputility.Const;
+import sztaki.hexaa.Const;
 import org.apache.http.Header;
 import org.apache.http.client.methods.CloseableHttpResponse;
-import org.apache.http.client.methods.HttpPatch;
+import org.apache.http.client.methods.HttpPut;
 import org.apache.http.client.utils.URIBuilder;
 import org.apache.http.entity.BasicHttpEntity;
 import org.apache.http.impl.client.CloseableHttpClient;
@@ -18,20 +18,20 @@ import org.apache.http.impl.client.HttpClients;
 import org.apache.http.message.BasicHeader;
 
 /**
- * Basic wrapper class for PATCH functions using the org.apache.http.client.
+ * Basic wrapper class for PUT functions using the org.apache.http.client.
  */
-public class HttpCorePatch {
+public class HttpCorePut {
 
-    private HttpPatch httpAction = null;
+    private HttpPut httpAction = null;
 
     /**
-     * Builds a new URI with the given path and creates a HttpPatch action with
+     * Builds a new URI with the given path and creates a HttpPut action with
      * it, also sets the required headers (X-HEXAA-AUTH nad Content-type)
      *
      * @param path String that represents the URI path of the call. must be a
      * complete path (with ids injected and .json at the end)
      */
-    public HttpCorePatch(String path) {
+    public HttpCorePut(String path) {
 
         URI uri = null;
         try {
@@ -45,7 +45,7 @@ public class HttpCorePatch {
             Logger.getLogger(HttpCorePost.class.getName()).log(Level.SEVERE, null, ex);
         }
         if (uri != null) {
-            httpAction = new HttpPatch(uri);
+            httpAction = new HttpPut(uri);
             Header hexaa_auth = new BasicHeader(Const.HEXAA_HEADER, Const.HEXAA_AUTH);
             httpAction.addHeader(hexaa_auth);
             httpAction.setHeader("Content-type", "application/json");
@@ -54,11 +54,11 @@ public class HttpCorePatch {
     }
 
     /**
-     * Executes the PATCH action on the path given in the constructor.
+     * Executes the PUT action on the path given in the constructor.
      *
      * @return returns a CloseableHttpResponse
      */
-    public CloseableHttpResponse patch() {
+    public CloseableHttpResponse put() {
         CloseableHttpResponse response = null;
         CloseableHttpClient httpClient = HttpClients.createDefault();
 

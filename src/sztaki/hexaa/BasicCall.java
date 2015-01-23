@@ -1,4 +1,4 @@
-package sztaki.hexaa.httputility;
+package sztaki.hexaa;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -7,16 +7,16 @@ import java.io.InputStreamReader;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import org.apache.http.Header;
-import sztaki.hexaa.httputility.core.HttpCoreDel;
-import sztaki.hexaa.httputility.core.HttpCoreGet;
-import sztaki.hexaa.httputility.core.HttpCorePost;
-import sztaki.hexaa.httputility.core.HttpCorePut;
+import sztaki.hexaa.core.HttpCoreDel;
+import sztaki.hexaa.core.HttpCoreGet;
+import sztaki.hexaa.core.HttpCorePost;
+import sztaki.hexaa.core.HttpCorePut;
 import org.apache.http.client.methods.CloseableHttpResponse;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.skyscreamer.jsonassert.JSONParser;
-import sztaki.hexaa.httputility.core.HttpCorePatch;
+import sztaki.hexaa.core.HttpCorePatch;
 
 /**
  * Support class that implements the 4 RESTful API calls. Can easily be expanded
@@ -219,7 +219,7 @@ public class BasicCall {
      * return value of the respective call() method.
      *
      * @return string representation of the call's response
-     * @throws sztaki.hexaa.httputility.ResponseTypeMismatchException
+     * @throws sztaki.hexaa.ResponseTypeMismatchException
      */
     public JSONObject getResponseJSONObject() throws ResponseTypeMismatchException {
         Object serverResponse;
@@ -243,7 +243,7 @@ public class BasicCall {
      * return value of the respective call() method.
      *
      * @return string representation of the call's response
-     * @throws sztaki.hexaa.httputility.ResponseTypeMismatchException
+     * @throws sztaki.hexaa.ResponseTypeMismatchException
      */
     public JSONArray getResponseJSONArray() throws ResponseTypeMismatchException {
         Object serverResponse;
@@ -424,7 +424,7 @@ public class BasicCall {
      * @param restCall REST, the type of the call (GET,POST,PUT,DELETE).
      * @return String, the content of the response for the call, for the Status
      * Line/Code see {@link getStatusLine()}.
-     * @throws sztaki.hexaa.httputility.ResponseTypeMismatchException
+     * @throws sztaki.hexaa.ResponseTypeMismatchException
      */
     public JSONObject getResponseJSONObject(String path, REST restCall) throws ResponseTypeMismatchException {
         this.setPath(path);
@@ -461,7 +461,7 @@ public class BasicCall {
      * string format.
      * @return String, the content of the response for the call, for the Status
      * Line/Code see {@link getStatusLine()}.
-     * @throws sztaki.hexaa.httputility.ResponseTypeMismatchException
+     * @throws sztaki.hexaa.ResponseTypeMismatchException
      */
     public JSONObject getResponseJSONObject(String path, REST restCall, String json) throws ResponseTypeMismatchException {
         this.setPath(path);
@@ -499,7 +499,7 @@ public class BasicCall {
      * @param sId int, all the ids in the url other than {id} and {fedid}.
      * @return String, the content of the response for the call, for the Status
      * Line/Code see {@link getStatusLine()}.
-     * @throws sztaki.hexaa.httputility.ResponseTypeMismatchException
+     * @throws sztaki.hexaa.ResponseTypeMismatchException
      */
     public JSONObject getResponseJSONObject(String path, REST restCall, String json, int id, int sId) throws ResponseTypeMismatchException {
         this.setPath(path);
@@ -540,7 +540,7 @@ public class BasicCall {
      * /api/principals/{fedid}/fedid
      * @return String, the content of the response for the call, for the Status
      * Line/Code see {@link getStatusLine()}.
-     * @throws sztaki.hexaa.httputility.ResponseTypeMismatchException
+     * @throws sztaki.hexaa.ResponseTypeMismatchException
      */
     public JSONObject getResponseJSONObject(String path, REST restCall, String json, int id, int sId, String fedid) throws ResponseTypeMismatchException {
         this.setPath(path);
@@ -577,7 +577,7 @@ public class BasicCall {
      * @param restCall REST, the type of the call (GET,POST,PUT,DELETE).
      * @return String, the content of the response for the call, for the Status
      * Line/Code see {@link getStatusLine()}.
-     * @throws sztaki.hexaa.httputility.ResponseTypeMismatchException
+     * @throws sztaki.hexaa.ResponseTypeMismatchException
      */
     public JSONArray getResponseJSONArray(String path, REST restCall) throws ResponseTypeMismatchException {
         this.setPath(path);
@@ -619,7 +619,7 @@ public class BasicCall {
      * string format.
      * @return String, the content of the response for the call, for the Status
      * Line/Code see {@link getStatusLine()}.
-     * @throws sztaki.hexaa.httputility.ResponseTypeMismatchException
+     * @throws sztaki.hexaa.ResponseTypeMismatchException
      */
     public JSONArray getResponseJSONArray(String path, REST restCall, String json) throws ResponseTypeMismatchException {
         this.setPath(path);
@@ -657,7 +657,7 @@ public class BasicCall {
      * @param sId int, all the ids in the url other than {id} and {fedid}.
      * @return String, the content of the response for the call, for the Status
      * Line/Code see {@link getStatusLine()}.
-     * @throws sztaki.hexaa.httputility.ResponseTypeMismatchException
+     * @throws sztaki.hexaa.ResponseTypeMismatchException
      */
     public JSONArray getResponseJSONArray(String path, REST restCall, String json, int id, int sId) throws ResponseTypeMismatchException {
         this.setPath(path);
@@ -698,7 +698,7 @@ public class BasicCall {
      * /api/principals/{fedid}/fedid
      * @return String, the content of the response for the call, for the Status
      * Line/Code see {@link getStatusLine()}.
-     * @throws sztaki.hexaa.httputility.ResponseTypeMismatchException
+     * @throws sztaki.hexaa.ResponseTypeMismatchException
      */
     public JSONArray getResponseJSONArray(String path, REST restCall, String json, int id, int sId, String fedid) throws ResponseTypeMismatchException {
         this.setPath(path);

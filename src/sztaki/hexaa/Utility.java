@@ -1,4 +1,4 @@
-package sztaki.hexaa.httputility;
+package sztaki.hexaa;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;

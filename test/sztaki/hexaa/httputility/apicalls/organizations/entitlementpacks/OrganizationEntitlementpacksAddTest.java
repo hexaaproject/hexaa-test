@@ -4,8 +4,8 @@ import org.json.JSONArray;
 import static org.junit.Assert.assertEquals;
 import org.junit.BeforeClass;
 import org.junit.Test;
-import sztaki.hexaa.httputility.Const;
-import sztaki.hexaa.httputility.Utility;
+import sztaki.hexaa.Const;
+import sztaki.hexaa.Utility;
 import sztaki.hexaa.httputility.apicalls.CleanTest;
 
 /**

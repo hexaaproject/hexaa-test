@@ -1,4 +1,4 @@
-package sztaki.hexaa.httputility.core;
+package sztaki.hexaa.core;
 
 import java.io.IOException;
 import java.net.URI;
@@ -12,7 +12,7 @@ import org.apache.http.client.utils.URIBuilder;
 import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClients;
 import org.apache.http.message.BasicHeader;
-import sztaki.hexaa.httputility.Const;
+import sztaki.hexaa.Const;
 
 /**
  * Basic wrapper class for GET functions using the org.apache.http.client.
