@@ -1,5 +1,7 @@
 package sztaki.hexaa.apicalls.attributespecs;
 
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import static org.junit.Assert.*;
@@ -10,6 +12,7 @@ import sztaki.hexaa.BasicCall;
 import sztaki.hexaa.Const;
 import sztaki.hexaa.Utility;
 import sztaki.hexaa.CleanTest;
+import sztaki.hexaa.ResponseTypeMismatchException;
 
 /**
  * Tests the PUT method on the /api/attributespecs/{id} call.
@@ -43,15 +46,17 @@ public class AttributespecsPutTest extends CleanTest {
     @Test
     public void testAttributespecsPut() {
         // Change and PUT
-        attributespecs.getJSONObject(0).put("oid", "oidByPut");
-        attributespecs.getJSONObject(0).put("friendly_name", "nameByPut");
+        JSONObject jsonTemp = attributespecs.getJSONObject(0);
+        jsonTemp.put("oid", "oidByPut");
+        jsonTemp.put("friendly_name", "nameByPut");
+        jsonTemp.remove("id");
 
         persistent.call(
                 Const.Api.ATTRIBUTESPECS_ID,
                 BasicCall.REST.PUT,
                 ((JSONObject) attributespecs.get(0)).toString(),
                 1, 0);
-
+        System.out.println(persistent.getResponse());
         try {
             assertEquals(Const.StatusLine.NoContent, persistent.getStatusLine());
         } catch (AssertionError e) {
@@ -59,13 +64,19 @@ public class AttributespecsPutTest extends CleanTest {
         }
 
         // Verify
-        JSONObject jsonResponse
-                = (JSONObject) JSONParser.parseJSON(
-                        persistent.call(
-                                Const.Api.ATTRIBUTESPECS_ID,
-                                BasicCall.REST.GET,
-                                null,
-                                1, 0));
+        JSONObject jsonResponse;
+        
+        try {
+            jsonResponse = persistent.getResponseJSONObject(
+                    Const.Api.ATTRIBUTESPECS_ID,
+                    BasicCall.REST.GET,
+                    null,
+                    1, 0);
+        } catch (ResponseTypeMismatchException ex) {
+            Logger.getLogger(AttributespecsPutTest.class.getName()).log(Level.SEVERE, null, ex);
+            fail(ex.getFullMessage());
+            return;
+        }
 
         try {
             assertEquals(Const.StatusLine.OK, persistent.getStatusLine());
@@ -74,5 +85,4 @@ public class AttributespecsPutTest extends CleanTest {
             AssertErrorHandler(e);
         }
     }
-
 }
