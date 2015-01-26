@@ -1,5 +1,5 @@
 <?xml version="1.0"?>
-<project name="JavaCoreTest" default="leveledtests">
+<project name="JavaCoreTest" default="maintar">
 
   <property name="project.name" value="JavaCoreTest"/>
   <property name="src.dir" value="src"/>
@@ -11,13 +11,13 @@
   <property name="junit.out.dir"  value="${hexaa.web.dir}/xml/"/>
   <property name="junit.out.dir.html" value="${hexaa.web.dir}/report"/>
 
-  <echo>Make required directories...</echo>
   <target name="makedir" description="Recreate required directories">
     <delete dir="${classes.dir}"/>
-    <mkdir dir="${classes.dir}"/>
+    <mkdir  dir="${classes.dir}"/>
+    <mkdir  dir="${junit.out.dir}"/>
+    <mkdir  dir="${junit.out.dir.html}" />
   </target>
 
-  <echo>Compile</echo>
   <target name="compile" depends="makedir" description="Compile java code.">
     <javac includeantruntime="false" debug="true" destdir="${classes.dir}">
       <src path="${src.dir}"/>
@@ -35,13 +35,20 @@
       <path location="${classes.dir}"/>
     </path>
 
-  <echo>Running junit level one TestSuite...</echo>
-  <target name="testlevelone" depends="compile" description="Running Level one Test Suite">
+  <target name="report" description="creates a report from the test outputs">
+    <mkdir dir="${junit.out.dir.html}" />
+    <junitreport todir="${junit.out.dir.html}">
+      <fileset dir="${junit.out.dir}">
+        <include name="TEST*.xml" />
+      </fileset>
+      <report todir="${junit.out.dir.html}" />
+    </junitreport>
+  </target>
+
+  <target name="testlevelone" description="runs the first test suite">
     <tstamp>
       <format property="current.time" pattern="MM/dd hh:mm:ss aa" />
     </tstamp>
-    <delete dir="${junit.out.dir}"/>
-    <mkdir  dir="${junit.out.dir}"/>
     <junit printsummary="yes" haltonfailure="no" fork="no" maxmemory="512m">
       <classpath refid="classpath.test"/>
       <sysproperty key="ant.home" value="${ant.home}"/>
@@ -52,9 +59,7 @@
       </batchtest>
     </junit>
   </target>
-  <echo>Level one TestSuite finished running</echo>
 
-  <echo>Running junit level two TestSuite...</echo>
   <target name="testleveltwo" description="Running Level two Test Suite">
     <tstamp>
       <format property="current.time" pattern="MM/dd hh:mm:ss aa" />
@@ -69,9 +74,7 @@
       </batchtest>
     </junit>
   </target>
-  <echo>Level two TestSuite finished running</echo>
 
-  <echo>Running junit level three TestSuite...</echo>
   <target name="testlevelthree" description="Running Level three Test Suite">
     <tstamp>
       <format property="current.time" pattern="MM/dd hh:mm:ss aa" />
@@ -86,9 +89,7 @@
       </batchtest>
     </junit>
   </target>
-  <echo>Level three TestSuite finished running</echo>
 
-  <echo>Running junit level four TestSuite...</echo>
   <target name="testlevelfour" description="Running Level four Test Suite">
     <tstamp>
       <format property="current.time" pattern="MM/dd hh:mm:ss aa" />
@@ -103,9 +104,7 @@
       </batchtest>
     </junit>
   </target>
-  <echo>Level four TestSuite finished running</echo>
 
-  <echo>Running junit level five TestSuite...</echo>
   <target name="testlevelfive" description="Running Level five Test Suite">
     <tstamp>
       <format property="current.time" pattern="MM/dd hh:mm:ss aa" />
@@ -120,22 +119,18 @@
       </batchtest>
     </junit>
   </target>
-  <echo>Level five TestSuite finished running</echo>
 
-
-  <target name="report" depends="compile">
-  <echo>Creating HTML report...</echo>
-    <mkdir dir="${junit.out.dir.html}" />
-    <junitreport todir="${junit.out.dir.html}">
-      <fileset dir="${junit.out.dir}">
-        <include name="TEST*.xml" />
-      </fileset>
-      <report todir="${junit.out.dir.html}" />
-    </junitreport>
-  <echo>HTML report created</echo>
+  <target name="maintar" depends="compile" description="">
+    <antcall target="testlevelone" />
+    <antcall target="report" />
+    <antcall target="testleveltwo" />
+    <antcall target="report" />
+    <antcall target="testlevelthree" />
+    <antcall target="report" />
+    <antcall target="testlevelfour" />
+    <antcall target="report" />
+    <antcall target="testlevelfive" />
+    <antcall target="report" />
   </target>
 
-
-  <target name="leveledtests" depends="testlevelone, testleveltwo, testlevelthree, testlevelfour, testlevelfive, report">
-  </target>
 </project>
