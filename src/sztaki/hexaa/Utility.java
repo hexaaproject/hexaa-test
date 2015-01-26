@@ -1702,19 +1702,23 @@ public class Utility {
         }
     }
 
-    public static List<Integer> getNumber(String text) {
-//        System.out.println(text);
-        text = text.replace(Const.HEXAA_HOST, "");
-//        System.out.println(text);
+    /**
+     * Finds the numbers in the given string that match the /numbers{/.}
+     * pattern. Always returns a List, can't be null, but may be empty.
+     *
+     * @param string string containing numbers.
+     * @return list containing the numbers in the given string.
+     */
+    public static List<Integer> getNumber(String string) {
+        string = string.replace(Const.HEXAA_HOST, "");
 
         List<Integer> answer = new ArrayList<>();
 
         Pattern number = Pattern.compile("/\\d+[^\\./]*");
-        Matcher match = number.matcher(text);
+        Matcher match = number.matcher(string);
 
         while (match.find()) {
             String temp = match.group();
-//            System.out.println(temp);
             answer.add(Integer.parseInt(temp.substring(1)));
         }
 
