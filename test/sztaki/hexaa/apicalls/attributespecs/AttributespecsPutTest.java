@@ -56,7 +56,7 @@ public class AttributespecsPutTest extends CleanTest {
                 BasicCall.REST.PUT,
                 ((JSONObject) attributespecs.get(0)).toString(),
                 1, 0);
-        System.out.println(persistent.getResponse());
+        
         try {
             assertEquals(Const.StatusLine.NoContent, persistent.getStatusLine());
         } catch (AssertionError e) {
