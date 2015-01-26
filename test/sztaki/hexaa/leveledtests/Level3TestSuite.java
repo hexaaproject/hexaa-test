@@ -50,6 +50,6 @@ import sztaki.hexaa.BasicTestSuite;
     sztaki.hexaa.apicalls.services.managers.ServicesManagersAddByArrayTest.class,
     sztaki.hexaa.apicalls.services.entitlementpacks.ServicesEntitlementpacksGetTest.class,
 })
-public class LevelThreeTestSuite extends BasicTestSuite {
+public class Level3TestSuite extends BasicTestSuite {
 
 }

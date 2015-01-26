@@ -35,6 +35,6 @@ import sztaki.hexaa.BasicTestSuite;
     sztaki.hexaa.apicalls.services.entitlementpacks.ServicesEntitlementpacksPostTest.class,
     sztaki.hexaa.apicalls.services.entitlements.ServicesEntitlementsPostTest.class,
 })
-public class LevelTwoTestSuite extends BasicTestSuite {
+public class Level2TestSuite extends BasicTestSuite {
 
 }

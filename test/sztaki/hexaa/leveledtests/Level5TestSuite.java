@@ -34,6 +34,6 @@ import sztaki.hexaa.BasicTestSuite;
     sztaki.hexaa.apicalls.news.OrganizationsNewsTest.class,
     sztaki.hexaa.apicalls.news.ServicesNewsTest.class,
 })
-public class LevelFiveTestSuite extends BasicTestSuite {
+public class Level5TestSuite extends BasicTestSuite {
 
 }

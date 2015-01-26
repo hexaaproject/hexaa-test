@@ -8,11 +8,11 @@ import org.junit.runners.Suite;
  */
 @RunWith(Suite.class)
 @Suite.SuiteClasses({
-    sztaki.hexaa.leveledtests.LevelOneTestSuite.class,
-    sztaki.hexaa.leveledtests.LevelTwoTestSuite.class,
-    sztaki.hexaa.leveledtests.LevelThreeTestSuite.class,
-    sztaki.hexaa.leveledtests.LevelFourTestSuite.class,
-    sztaki.hexaa.leveledtests.LevelFiveTestSuite.class,
+    sztaki.hexaa.leveledtests.Level1TestSuite.class,
+    sztaki.hexaa.leveledtests.Level2TestSuite.class,
+    sztaki.hexaa.leveledtests.Level3TestSuite.class,
+    sztaki.hexaa.leveledtests.Level4TestSuite.class,
+    sztaki.hexaa.leveledtests.Level5TestSuite.class,
 })
 public class AllLevels {
     
