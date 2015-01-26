@@ -52,11 +52,11 @@ public class OrganizationEntitlementpacksAddTest extends CleanTest {
      * Tests the PUT method to set the entitlementpacks of the organization.
      */
     @Test
-    public void testOrganizationEntitlementpacksAddByArray() {
+    public void testOrganizationEntitlementpacksSetByArray() {
         Utility.Link.entitlementpackToOrgByArray(1, new int[]{1, 2});
 
         try {
-            assertEquals(Const.StatusLine.NoContent, Utility.persistent.getStatusLine());
+            assertEquals(Const.StatusLine.Created, Utility.persistent.getStatusLine());
         } catch (AssertionError e) {
             AssertErrorHandler(e);
         }

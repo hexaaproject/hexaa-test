@@ -54,7 +54,6 @@ public class ServicesAttributespecsSetTest extends CleanTest {
         } catch (AssertionError e) {
             AssertErrorHandler(e);
         }
-        System.out.println(Utility.persistent.getResponse());
 
         JSONArray jsonResponse;
 
@@ -71,8 +70,11 @@ public class ServicesAttributespecsSetTest extends CleanTest {
         }
 
         try {
-            JSONAssert.assertEquals(attributespecs, jsonResponse, JSONCompareMode.LENIENT);
+            for (int i = 0; i< jsonResponse.length() && i < attributespecs.length();i++) {
+                assertEquals(attributespecs.getJSONObject(i).getInt("id"), jsonResponse.getJSONObject(i).getInt("attribute_spec_id"));
+            }
         } catch (AssertionError e) {
+            System.out.println("expected: " + attributespecs + "\n" + "actual:   " + jsonResponse);
             AssertErrorHandler(e);
         }
     }

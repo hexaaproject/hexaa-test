@@ -232,6 +232,14 @@ public class Utility {
                         Const.Api.ATTRIBUTESPECS,
                         BasicCall.REST.POST,
                         json.toString());
+
+                String locHeader = persistent.getHeader("Location").getValue();
+                // System.out.println(locHeader);
+                List<Integer> id = getNumber(locHeader);
+
+                if (id.size() == 1) {
+                    json.put("id", id.get(0));
+                }
             }
             return attributespecs;
         }
@@ -923,12 +931,12 @@ public class Utility {
             json.put("attribute_specs", attributeIds);
             json.put("is_public", isPublics);
 
-            System.out.println(persistent.call(
+            persistent.call(
                     Const.Api.SERVICES_ID_ATTRIBUTESPEC,
                     BasicCall.REST.PUT,
                     json.toString(),
                     //                    null,
-                    serviceId, serviceId));
+                    serviceId, serviceId);
         }
 
         /**
