@@ -55,7 +55,7 @@
       <formatter type="xml"/>
       <formatter type="plain"/>
       <batchtest fork="yes" todir="${junit.out.dir}">
-        <fileset dir="${classes.dir}" includes="**/leveledtests/LevelOneTestSuite.class"/>
+        <fileset dir="${classes.dir}" includes="**/leveledtests/Level1TestSuite.class"/>
       </batchtest>
     </junit>
   </target>
@@ -70,7 +70,7 @@
       <formatter type="xml"/>
       <formatter type="plain"/>
       <batchtest fork="yes" todir="${junit.out.dir}">
-        <fileset dir="${classes.dir}" includes="**/leveledtests/LevelTwoTestSuite.class"/>
+        <fileset dir="${classes.dir}" includes="**/leveledtests/Level2TestSuite.class"/>
       </batchtest>
     </junit>
   </target>
@@ -85,7 +85,7 @@
       <formatter type="xml"/>
       <formatter type="plain"/>
       <batchtest fork="yes" todir="${junit.out.dir}">
-        <fileset dir="${classes.dir}" includes="**/leveledtests/LevelThreeTestSuite.class"/>
+        <fileset dir="${classes.dir}" includes="**/leveledtests/Level3TestSuite.class"/>
       </batchtest>
     </junit>
   </target>
@@ -100,7 +100,7 @@
       <formatter type="xml"/>
       <formatter type="plain"/>
       <batchtest fork="yes" todir="${junit.out.dir}">
-        <fileset dir="${classes.dir}" includes="**/leveledtests/LevelFourTestSuite.class"/>
+        <fileset dir="${classes.dir}" includes="**/leveledtests/Level4TestSuite.class"/>
       </batchtest>
     </junit>
   </target>
@@ -115,7 +115,7 @@
       <formatter type="xml"/>
       <formatter type="plain"/>
       <batchtest fork="yes" todir="${junit.out.dir}">
-        <fileset dir="${classes.dir}" includes="**/leveledtests/LevelFiveTestSuite.class"/>
+        <fileset dir="${classes.dir}" includes="**/leveledtests/Level5TestSuite.class"/>
       </batchtest>
     </junit>
   </target>
