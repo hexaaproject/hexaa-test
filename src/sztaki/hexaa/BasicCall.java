@@ -1,11 +1,7 @@
 package sztaki.hexaa;
 
-import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import org.apache.http.Header;
 import sztaki.hexaa.core.HttpCoreDel;
 import sztaki.hexaa.core.HttpCoreGet;
@@ -590,7 +586,6 @@ public class BasicCall {
         Object tempResponse = callSwitch(restCall);
 
         //System.out.println(this.path);
-        
         Object serverResponse;
         try {
             serverResponse = JSONParser.parseJSON((String) tempResponse);
@@ -768,7 +763,7 @@ public class BasicCall {
         nPath = this.fixPath();
 
         System.out.print("GET \t");
-        System.out.println(nPath);
+        System.out.print(nPath);
 
         // Getting the response from the server, this is
         // wrapped in the javahttputility.core package
@@ -797,7 +792,7 @@ public class BasicCall {
         nPath = this.fixPath();
 
         System.out.print("POST \t");
-        System.out.println(nPath);
+        System.out.print(nPath);
 
         // Getting the response from the server, this is
         // wrapped in the javahttputility.core package
@@ -826,7 +821,7 @@ public class BasicCall {
         nPath = this.fixPath();
 
         System.out.print("PUT \t");
-        System.out.println(nPath);
+        System.out.print(nPath);
 
         // Getting the response from the server, this is
         // wrapped in the javahttputility.core package
@@ -854,7 +849,7 @@ public class BasicCall {
         nPath = this.fixPath();
 
         System.out.print("DEL \t");
-        System.out.println(nPath);
+        System.out.print(nPath);
 
         // Getting the response from the server, this is
         // wrapped in the javahttputility.core package
@@ -882,7 +877,7 @@ public class BasicCall {
         nPath = this.fixPath();
 
         System.out.print("PATCH \t");
-        System.out.println(nPath);
+        System.out.print(nPath);
 
         // Getting the response from the server, this is
         // wrapped in the javahttputility.core package
@@ -956,19 +951,23 @@ public class BasicCall {
         } catch (NullPointerException | IllegalStateException ex) {
 //            Logger.getLogger(BasicCall.class.getName()).log(Level.SEVERE, null, ex);
             statusLine = "";
+            System.out.println("  *  ");
             return "";
         }
         try {
             responseDataString = readContent(response.getEntity().getContent());
         } catch (NullPointerException | IOException | IllegalStateException ex) {
 //            Logger.getLogger(BasicCall.class.getName()).log(Level.SEVERE, null, ex);
+            System.out.println("  *  " + statusLine + "  *  ");
             return "";
         }
-        
+
         if (responseDataString.equalsIgnoreCase("null")) {
+            System.out.println("  *  " + statusLine + "  *  ");
             return "";
         }
         if (responseDataString.contains("503 Service Unavailable")) {
+            System.out.println("  *  " + statusLine + "  *  " + responseDataString);
             return responseDataString;
         }
 
@@ -982,11 +981,13 @@ public class BasicCall {
                 parsedResponse = removeUpdate((JSONArray) parsedResponse);
             }
         } catch (JSONException e) {
+            System.out.println("  *  " + statusLine + "  *   " + responseDataString);
             return responseDataString;
         }
 
         responseDataString = parsedResponse.toString();
 
+        System.out.println("  *  " + statusLine + "  *   " + responseDataString);
         return responseDataString;
     }
 
