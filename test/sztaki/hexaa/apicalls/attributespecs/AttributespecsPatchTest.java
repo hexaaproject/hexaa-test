@@ -1,5 +1,7 @@
 package sztaki.hexaa.apicalls.attributespecs;
 
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import static org.junit.Assert.*;
@@ -10,6 +12,7 @@ import sztaki.hexaa.BasicCall;
 import sztaki.hexaa.Const;
 import sztaki.hexaa.Utility;
 import sztaki.hexaa.CleanTest;
+import sztaki.hexaa.ResponseTypeMismatchException;
 
 /**
  * Tests the PATCH method on the /api/attributespecs/{id} call.
@@ -61,13 +64,18 @@ public class AttributespecsPatchTest extends CleanTest {
         }
 
         // Verify
-        JSONObject jsonResponse
-                = (JSONObject) JSONParser.parseJSON(
-                        persistent.call(
-                                Const.Api.ATTRIBUTESPECS_ID,
-                                BasicCall.REST.GET,
-                                null,
-                                1, 0));
+        JSONObject jsonResponse;
+        try {
+            jsonResponse = persistent.getResponseJSONObject(
+                    Const.Api.ATTRIBUTESPECS_ID,
+                    BasicCall.REST.GET,
+                    null,
+                    1, 0);
+        } catch (ResponseTypeMismatchException ex) {
+            Logger.getLogger(AttributespecsPatchTest.class.getName()).log(Level.SEVERE, null, ex);
+            fail(ex.getFullMessage());
+            return;
+        }
 
         try {
             assertEquals(Const.StatusLine.OK, persistent.getStatusLine());

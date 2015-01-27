@@ -1,5 +1,7 @@
 package sztaki.hexaa.apicalls;
 
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import sztaki.hexaa.CleanTest;
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -7,6 +9,7 @@ import static org.junit.Assert.*;
 import org.skyscreamer.jsonassert.JSONParser;
 import sztaki.hexaa.BasicCall.REST;
 import sztaki.hexaa.Const;
+import sztaki.hexaa.ResponseTypeMismatchException;
 
 /**
  * Utility class to be inherited by the IsEmpty test classes. Implements
@@ -62,32 +65,65 @@ public abstract class IsEmptyTest extends CleanTest {
      * @param rest a REST call to be called.
      */
     public void expectingFedid(String constApi, REST rest) {
-        Object object = JSONParser.parseJSON(
-                persistent.call(
+        if (JSONParser.parseJSON(persistent.call(constApi, rest)) instanceof JSONObject) {
+            JSONObject jsonResponse;
+            try {
+                jsonResponse = persistent.getResponseJSONObject(
                         constApi,
-                        rest));
-        if (object instanceof JSONArray) {
-            JSONArray jsonResponse = (JSONArray) object;
+                        rest);
+                try {
+                    assertEquals(Const.StatusLine.OK, persistent.getStatusLine());
+                    assertEquals(
+                            Const.HEXAA_FEDID,
+                            jsonResponse.getString("fedid"));
+                } catch (AssertionError e) {
+                    AssertErrorHandler(e);
+                }
+                return;
+            } catch (ResponseTypeMismatchException ex) {
+                Logger.getLogger(IsEmptyTest.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        } else {
+            JSONArray jsonArrayResponse;
             try {
-                assertEquals(Const.StatusLine.OK, persistent.getStatusLine());
-                assertEquals(
-                        Const.HEXAA_FEDID,
-                        jsonResponse.getJSONObject(0).getString("fedid"));
-            } catch (AssertionError e) {
-                AssertErrorHandler(e);
+                jsonArrayResponse = persistent.getResponseJSONArray(
+                        constApi,
+                        rest);
+                try {
+                    assertEquals(Const.StatusLine.OK, persistent.getStatusLine());
+                    assertEquals(
+                            Const.HEXAA_FEDID,
+                            jsonArrayResponse.getJSONObject(0).getString("fedid"));
+                } catch (AssertionError e) {
+                    AssertErrorHandler(e);
+                }
+                return;
+            } catch (ResponseTypeMismatchException ex) {
+                Logger.getLogger(IsEmptyTest.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
-
-        if (object instanceof JSONObject) {
-            JSONObject jsonResponse = (JSONObject) object;
-            try {
-                assertEquals(Const.StatusLine.OK, persistent.getStatusLine());
-                assertEquals(
-                        Const.HEXAA_FEDID,
-                        jsonResponse.getString("fedid"));
-            } catch (AssertionError e) {
-                AssertErrorHandler(e);
-            }
-        }
+//        if (object instanceof JSONArray) {
+//            JSONArray jsonResponse = (JSONArray) object;
+//            try {
+//                assertEquals(Const.StatusLine.OK, persistent.getStatusLine());
+//                assertEquals(
+//                        Const.HEXAA_FEDID,
+//                        jsonResponse.getJSONObject(0).getString("fedid"));
+//            } catch (AssertionError e) {
+//                AssertErrorHandler(e);
+//            }
+//        }
+//
+//        if (object instanceof JSONObject) {
+//            JSONObject jsonResponse = (JSONObject) object;
+//            try {
+//                assertEquals(Const.StatusLine.OK, persistent.getStatusLine());
+//                assertEquals(
+//                        Const.HEXAA_FEDID,
+//                        jsonResponse.getString("fedid"));
+//            } catch (AssertionError e) {
+//                AssertErrorHandler(e);
+//            }
+//        }
     }
 }
