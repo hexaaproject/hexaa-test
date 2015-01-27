@@ -1,5 +1,7 @@
 package sztaki.hexaa.apicalls.attributevalueprincipals;
 
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import static org.junit.Assert.*;
@@ -7,11 +9,11 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 import org.skyscreamer.jsonassert.JSONAssert;
 import org.skyscreamer.jsonassert.JSONCompareMode;
-import org.skyscreamer.jsonassert.JSONParser;
 import sztaki.hexaa.BasicCall;
 import sztaki.hexaa.Const;
 import sztaki.hexaa.Utility;
 import sztaki.hexaa.CleanTest;
+import sztaki.hexaa.ResponseTypeMismatchException;
 
 /**
  * Tests the POST method on the /api/attributevalueprincipals/{asid} call.
@@ -59,16 +61,17 @@ public class AttributevalueprincipalsPost extends CleanTest {
             AssertErrorHandler(e);
         }
 
-        Object jsonResponse = JSONParser.parseJSON(
-                persistent.call(
-                        Const.Api.PRINCIPAL_ATTRIBUTEVALUEPRINCIPAL,
-                        BasicCall.REST.GET));
-
-        if (jsonResponse instanceof JSONObject) {
-            fail("Got JSONObject not JSONArray, most likely an error: " + jsonResponse.toString());
+        JSONArray jsonArrayResponse;
+        try {
+            jsonArrayResponse = persistent.getResponseJSONArray(
+                    Const.Api.PRINCIPAL_ATTRIBUTEVALUEPRINCIPAL,
+                    BasicCall.REST.GET);
+        } catch (ResponseTypeMismatchException ex) {
+            Logger.getLogger(AttributevalueprincipalsPost.class.getName()).log(Level.SEVERE, null, ex);
+            fail(ex.getFullMessage());
+            return;
         }
-        JSONArray jsonArrayResponse = (JSONArray) jsonResponse;
-        
+
         int in = 0;
         for (int i = 0; i < jsonArrayResponse.length(); i++) {
             if (jsonArrayResponse.getJSONObject(i).getInt("attribute_spec_id") == 1) {
@@ -106,16 +109,17 @@ public class AttributevalueprincipalsPost extends CleanTest {
             AssertErrorHandler(e);
         }
 
-        Object jsonResponse = JSONParser.parseJSON(
-                persistent.call(
-                        Const.Api.PRINCIPAL_ATTRIBUTEVALUEPRINCIPAL,
-                        BasicCall.REST.GET));
-
-        if (jsonResponse instanceof JSONObject) {
-            fail("Got JSONObject not JSONArray, most likely an error: " + jsonResponse.toString());
+        JSONArray jsonArrayResponse;
+        try {
+            jsonArrayResponse = persistent.getResponseJSONArray(
+                    Const.Api.PRINCIPAL_ATTRIBUTEVALUEPRINCIPAL,
+                    BasicCall.REST.GET);
+        } catch (ResponseTypeMismatchException ex) {
+            Logger.getLogger(AttributevalueprincipalsPost.class.getName()).log(Level.SEVERE, null, ex);
+            fail(ex.getFullMessage());
+            return;
         }
-        JSONArray jsonArrayResponse = (JSONArray) jsonResponse;
-        
+
         int in = 0;
         for (int i = 0; i < jsonArrayResponse.length(); i++) {
             if (jsonArrayResponse.getJSONObject(i).getInt("attribute_spec_id") == 2) {

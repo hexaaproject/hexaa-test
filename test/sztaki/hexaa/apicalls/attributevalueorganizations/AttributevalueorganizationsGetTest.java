@@ -1,5 +1,7 @@
 package sztaki.hexaa.apicalls.attributevalueorganizations;
 
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import org.junit.Test;
@@ -7,11 +9,11 @@ import static org.junit.Assert.*;
 import org.junit.BeforeClass;
 import org.skyscreamer.jsonassert.JSONAssert;
 import org.skyscreamer.jsonassert.JSONCompareMode;
-import org.skyscreamer.jsonassert.JSONParser;
 import sztaki.hexaa.BasicCall;
 import sztaki.hexaa.Const;
 import sztaki.hexaa.Utility;
 import sztaki.hexaa.CleanTest;
+import sztaki.hexaa.ResponseTypeMismatchException;
 
 /**
  * Tests the GET method on the /api/attributevalueorganizations/{id} call.
@@ -47,15 +49,15 @@ public class AttributevalueorganizationsGetTest extends CleanTest {
     @Test
     public void testAttributevalueorganizationGet() {
         JSONObject jsonResponse;
-        Object response
-                = JSONParser.parseJSON(
-                        persistent.call(
-                                Const.Api.ATTRIBUTEVALUEORGANIZATIONS_ID,
-                                BasicCall.REST.GET));
-        if (response instanceof JSONArray) {
-            fail("This is a JSONArray for some mysterious reason" + response.toString());
+        try {
+            jsonResponse = persistent.getResponseJSONObject(
+                    Const.Api.ATTRIBUTEVALUEORGANIZATIONS_ID,
+                    BasicCall.REST.GET);
+        } catch (ResponseTypeMismatchException ex) {
+            Logger.getLogger(AttributevalueorganizationsGetTest.class.getName()).log(Level.SEVERE, null, ex);
+            fail(ex.getFullMessage());
+            return;
         }
-        jsonResponse = (JSONObject) response;
         
         JSONObject jsonTemp = attributevalues.getJSONObject(0);
         jsonTemp.put("organization_id",jsonTemp.remove("organization"));

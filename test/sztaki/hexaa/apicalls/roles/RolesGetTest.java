@@ -1,5 +1,7 @@
 package sztaki.hexaa.apicalls.roles;
 
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import org.junit.BeforeClass;
@@ -7,11 +9,11 @@ import org.junit.Test;
 import static org.junit.Assert.*;
 import org.skyscreamer.jsonassert.JSONAssert;
 import org.skyscreamer.jsonassert.JSONCompareMode;
-import org.skyscreamer.jsonassert.JSONParser;
 import sztaki.hexaa.BasicCall;
 import sztaki.hexaa.Const;
 import sztaki.hexaa.Utility;
 import sztaki.hexaa.CleanTest;
+import sztaki.hexaa.ResponseTypeMismatchException;
 
 /**
  * Tests the GET method on the /api/organizations/{id}/role and /api/roles/{id}
@@ -46,21 +48,42 @@ public class RolesGetTest extends CleanTest {
      */
     @Test
     public void testRolesGet() {
+        JSONArray jsonResponse;
         try {
-            JSONAssert.assertEquals(
-                    roles,
-                    (JSONArray) JSONParser.parseJSON(
-                            persistent.call(
-                                    Const.Api.ORGANIZATIONS_ID_ROLES,
-                                    BasicCall.REST.GET)),
-                    JSONCompareMode.LENIENT);
+            jsonResponse = persistent.getResponseJSONArray(
+                    Const.Api.ORGANIZATIONS_ID_ROLES,
+                    BasicCall.REST.GET);
+        } catch (ResponseTypeMismatchException ex) {
+            Logger.getLogger(RolesGetTest.class.getName()).log(Level.SEVERE, null, ex);
+            fail(ex.getFullMessage());
+            return;
+        }
+
+        try {
             assertEquals(Const.StatusLine.OK, persistent.getStatusLine());
             JSONAssert.assertEquals(
+                    roles,
+                    jsonResponse,
+                    JSONCompareMode.LENIENT);
+        } catch (AssertionError e) {
+            AssertErrorHandler(e);
+        }
+
+        JSONObject jsonObjectResponse;
+        try {
+            jsonObjectResponse = persistent.getResponseJSONObject(
+                    Const.Api.ROLES_ID,
+                    BasicCall.REST.GET);
+        } catch (ResponseTypeMismatchException ex) {
+            Logger.getLogger(RolesGetTest.class.getName()).log(Level.SEVERE, null, ex);
+            fail(ex.getFullMessage());
+            return;
+        }
+
+        try {
+            JSONAssert.assertEquals(
                     roles.getJSONObject(0),
-                    (JSONObject) JSONParser.parseJSON(
-                            persistent.call(
-                                    Const.Api.ROLES_ID,
-                                    BasicCall.REST.GET)),
+                    jsonObjectResponse,
                     JSONCompareMode.LENIENT);
             assertEquals(Const.StatusLine.OK, persistent.getStatusLine());
         } catch (AssertionError e) {

@@ -1,17 +1,18 @@
 package sztaki.hexaa.apicalls.services;
 
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import org.json.JSONArray;
-import org.json.JSONObject;
 import static org.junit.Assert.*;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import org.skyscreamer.jsonassert.JSONAssert;
 import org.skyscreamer.jsonassert.JSONCompareMode;
-import org.skyscreamer.jsonassert.JSONParser;
 import sztaki.hexaa.BasicCall;
 import sztaki.hexaa.Const;
 import sztaki.hexaa.Utility;
 import sztaki.hexaa.CleanTest;
+import sztaki.hexaa.ResponseTypeMismatchException;
 
 /**
  * Tests the POST methods on the /api/services.
@@ -43,16 +44,18 @@ public class ServicesPostTest extends CleanTest {
         }
 
         // GETs the service by id for verification
-        Object response
-                = JSONParser.parseJSON(persistent.call(
-                                Const.Api.SERVICES,
-                                BasicCall.REST.GET,
-                                null,
-                                1, 0));
-        if (response instanceof JSONObject) {
-            fail(((JSONObject) response).toString());
+        JSONArray jsonResponse;
+        try {
+            jsonResponse = persistent.getResponseJSONArray(
+                    Const.Api.SERVICES,
+                    BasicCall.REST.GET,
+                    null,
+                    1, 0);
+        } catch (ResponseTypeMismatchException ex) {
+            Logger.getLogger(ServicesPostTest.class.getName()).log(Level.SEVERE, null, ex);
+            fail(ex.getFullMessage());
+            return;
         }
-        JSONArray jsonResponse = (JSONArray) response;
         // Checks the service by StatusLine and id as well
         try {
             assertEquals(Const.StatusLine.OK, persistent.getStatusLine());

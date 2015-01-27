@@ -1,17 +1,18 @@
 package sztaki.hexaa.apicalls.services.entitlements;
 
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import org.json.JSONArray;
-import org.json.JSONObject;
 import static org.junit.Assert.*;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import org.skyscreamer.jsonassert.JSONAssert;
 import org.skyscreamer.jsonassert.JSONCompareMode;
-import org.skyscreamer.jsonassert.JSONParser;
 import sztaki.hexaa.BasicCall;
 import sztaki.hexaa.Const;
 import sztaki.hexaa.Utility;
 import sztaki.hexaa.CleanTest;
+import sztaki.hexaa.ResponseTypeMismatchException;
 
 /**
  * Test for the POST /app.php/api/services/{id}/entitlements call.
@@ -64,16 +65,18 @@ public class ServicesEntitlementsPostTest extends CleanTest {
         }
 
         // GETs the entitlements from the server
-        Object response = JSONParser.parseJSON(
-                persistent.call(
-                        Const.Api.SERVICES_ID_ENTITLEMENTS,
-                        BasicCall.REST.GET,
-                        null,
-                        1, 0));
-        if (response instanceof JSONObject) {
-            fail("Got error obejct instead of array response: " + response.toString());
+        JSONArray jsonResponse;
+        try {
+            jsonResponse = persistent.getResponseJSONArray(
+                    Const.Api.SERVICES_ID_ENTITLEMENTS,
+                    BasicCall.REST.GET,
+                    null,
+                    1, 0);
+        } catch (ResponseTypeMismatchException ex) {
+            Logger.getLogger(ServicesEntitlementsPostTest.class.getName()).log(Level.SEVERE, null, ex);
+            fail(ex.getFullMessage());
+            return;
         }
-        JSONArray jsonResponse = (JSONArray) response;
 
         try {
             assertEquals(Const.StatusLine.OK, persistent.getStatusLine());

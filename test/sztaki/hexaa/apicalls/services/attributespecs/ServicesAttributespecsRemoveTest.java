@@ -1,14 +1,16 @@
 package sztaki.hexaa.apicalls.services.attributespecs;
 
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import org.json.JSONArray;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import static org.junit.Assert.*;
-import org.skyscreamer.jsonassert.JSONParser;
 import sztaki.hexaa.BasicCall;
 import sztaki.hexaa.Const;
 import sztaki.hexaa.Utility;
 import sztaki.hexaa.CleanTest;
+import sztaki.hexaa.ResponseTypeMismatchException;
 
 /**
  * Tests the DELETE method on the /api/services/{id}/attributespecs/{asid} call.
@@ -43,24 +45,47 @@ public class ServicesAttributespecsRemoveTest extends CleanTest {
 
         try {
             assertEquals(Const.StatusLine.NoContent, Utility.persistent.getStatusLine());
+        } catch (AssertionError e) {
+            AssertErrorHandler(e);
+        }
+
+        JSONArray jsonResponse;
+        try {
+            jsonResponse = persistent.getResponseJSONArray(
+                    Const.Api.SERVICES_ID_ATTRIBUTESPECS,
+                    BasicCall.REST.GET,
+                    null,
+                    1, 1);
+        } catch (ResponseTypeMismatchException ex) {
+            Logger.getLogger(ServicesAttributespecsRemoveTest.class.getName()).log(Level.SEVERE, null, ex);
+            fail(ex.getFullMessage());
+            return;
+        }
+        try {
+            assertEquals(Const.StatusLine.OK, persistent.getStatusLine());
             assertEquals(
                     2,
-                    ((JSONArray) JSONParser.parseJSON(
-                            persistent.call(
-                                    Const.Api.SERVICES_ID_ATTRIBUTESPECS,
-                                    BasicCall.REST.GET,
-                                    null,
-                                    1, 1)))
-                    .getJSONObject(0).getInt("attribute_spec_id"));
+                    jsonResponse.getJSONObject(0).getInt("attribute_spec_id"));
+        } catch (AssertionError e) {
+            AssertErrorHandler(e);
+        }
+
+        try {
+            jsonResponse = persistent.getResponseJSONArray(
+                    Const.Api.SERVICES_ID_ATTRIBUTESPECS,
+                    BasicCall.REST.GET,
+                    null,
+                    2, 1);
+        } catch (ResponseTypeMismatchException ex) {
+            Logger.getLogger(ServicesAttributespecsRemoveTest.class.getName()).log(Level.SEVERE, null, ex);
+            fail(ex.getFullMessage());
+            return;
+        }
+        try {
             assertEquals(Const.StatusLine.OK, persistent.getStatusLine());
             assertEquals(
-                    "[]",
-                    persistent.call(
-                            Const.Api.SERVICES_ID_ATTRIBUTESPECS,
-                            BasicCall.REST.GET,
-                            null,
-                            2, 1));
-            assertEquals(Const.StatusLine.OK, persistent.getStatusLine());
+                    0,
+                    jsonResponse.length());
         } catch (AssertionError e) {
             AssertErrorHandler(e);
         }

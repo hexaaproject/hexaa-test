@@ -1,16 +1,18 @@
 package sztaki.hexaa.apicalls.services;
 
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import org.json.JSONArray;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import static org.junit.Assert.*;
 import org.skyscreamer.jsonassert.JSONAssert;
 import org.skyscreamer.jsonassert.JSONCompareMode;
-import org.skyscreamer.jsonassert.JSONParser;
 import sztaki.hexaa.BasicCall;
 import sztaki.hexaa.Const;
 import sztaki.hexaa.Utility;
 import sztaki.hexaa.CleanTest;
+import sztaki.hexaa.ResponseTypeMismatchException;
 
 /**
  * Tests the DELETE method on the /api/services/{id} call.
@@ -48,12 +50,25 @@ public class ServicesDeleteTest extends CleanTest {
 
         try {
             assertEquals(Const.StatusLine.NoContent, Utility.persistent.getStatusLine());
+        } catch (AssertionError e) {
+            AssertErrorHandler(e);
+        }
+
+        JSONArray jsonResponse;
+        try {
+            jsonResponse = persistent.getResponseJSONArray(
+                    Const.Api.SERVICES,
+                    BasicCall.REST.GET);
+        } catch (ResponseTypeMismatchException ex) {
+            Logger.getLogger(ServicesDeleteTest.class.getName()).log(Level.SEVERE, null, ex);
+            fail(ex.getFullMessage());
+            return;
+        }
+
+        try {
             JSONAssert.assertEquals(
                     services.getJSONObject(1),
-                    ((JSONArray) JSONParser.parseJSON(
-                            persistent.call(
-                                    Const.Api.SERVICES,
-                                    BasicCall.REST.GET))).getJSONObject(0),
+                    jsonResponse.getJSONObject(0),
                     JSONCompareMode.LENIENT);
         } catch (AssertionError e) {
             AssertErrorHandler(e);

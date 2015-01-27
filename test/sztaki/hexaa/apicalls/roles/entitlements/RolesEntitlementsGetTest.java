@@ -1,15 +1,18 @@
 package sztaki.hexaa.apicalls.roles.entitlements;
 
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import org.json.JSONArray;
+import static org.junit.Assert.fail;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import org.skyscreamer.jsonassert.JSONAssert;
 import org.skyscreamer.jsonassert.JSONCompareMode;
-import org.skyscreamer.jsonassert.JSONParser;
 import sztaki.hexaa.BasicCall;
 import sztaki.hexaa.Const;
 import sztaki.hexaa.Utility;
 import sztaki.hexaa.CleanTest;
+import sztaki.hexaa.ResponseTypeMismatchException;
 
 /**
  * Tests the GET method on the /api/role/{id}/entitlements call.
@@ -54,11 +57,16 @@ public class RolesEntitlementsGetTest extends CleanTest {
     @Test
     public void testRolesEntitlementsGet() {
 
-        JSONArray jsonResponseArray
-                = (JSONArray) JSONParser.parseJSON(
-                        persistent.call(
-                                Const.Api.ROLES_ID_ENTITLEMENTS,
-                                BasicCall.REST.GET));
+        JSONArray jsonResponseArray;
+        try {
+            jsonResponseArray = persistent.getResponseJSONArray(
+                    Const.Api.ROLES_ID_ENTITLEMENTS,
+                    BasicCall.REST.GET);
+        } catch (ResponseTypeMismatchException ex) {
+            Logger.getLogger(RolesEntitlementsGetTest.class.getName()).log(Level.SEVERE, null, ex);
+            fail(ex.getFullMessage());
+            return;
+        }
 
         try {
             JSONAssert.assertEquals(

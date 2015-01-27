@@ -1,17 +1,18 @@
 package sztaki.hexaa.apicalls.roles.principals;
 
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import org.json.JSONArray;
-import org.json.JSONObject;
 import static org.junit.Assert.*;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import org.skyscreamer.jsonassert.JSONAssert;
 import org.skyscreamer.jsonassert.JSONCompareMode;
-import org.skyscreamer.jsonassert.JSONParser;
 import sztaki.hexaa.BasicCall;
 import sztaki.hexaa.Const;
 import sztaki.hexaa.Utility;
 import sztaki.hexaa.CleanTest;
+import sztaki.hexaa.ResponseTypeMismatchException;
 
 /**
  * Tests the GET method on the /api/roles/{id}/principals call.
@@ -39,10 +40,10 @@ public class RolesPrincipalsGetTest extends CleanTest {
     public static void setUpClass() {
         Utility.Create.organization("testOrg");
         Utility.Create.role("testRole", 1);
-        
+
         principals = Utility.Create.principal("testPrincipal");
         Utility.Link.memberToOrganization(1, 2);
-        
+
         Utility.Link.principalToRole(1, 2);
     }
 
@@ -51,17 +52,17 @@ public class RolesPrincipalsGetTest extends CleanTest {
      */
     @Test
     public void testRolesPrincipalGet() {
-        Object response
-                = JSONParser.parseJSON(
-                        persistent.call(
-                                Const.Api.ROLES_ID_PRINCIPALS,
-                                BasicCall.REST.GET));
-
-        if (response instanceof JSONObject) {
-            fail(response.toString());
+        JSONArray jsonResponse;
+        try {
+            jsonResponse = persistent.getResponseJSONArray(
+                    Const.Api.ROLES_ID_PRINCIPALS,
+                    BasicCall.REST.GET);
+        } catch (ResponseTypeMismatchException ex) {
+            Logger.getLogger(RolesPrincipalsGetTest.class.getName()).log(Level.SEVERE, null, ex);
+            fail(ex.getFullMessage());
+            return;
         }
-        JSONArray jsonResponse = (JSONArray) response;
-        System.out.println(response);
+
         if (jsonResponse.length() < 1) {
             fail(jsonResponse.toString());
         }

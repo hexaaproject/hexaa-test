@@ -1,17 +1,18 @@
 package sztaki.hexaa.apicalls.roles.principals;
 
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import org.json.JSONArray;
-import org.json.JSONObject;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import static org.junit.Assert.*;
 import org.skyscreamer.jsonassert.JSONAssert;
 import org.skyscreamer.jsonassert.JSONCompareMode;
-import org.skyscreamer.jsonassert.JSONParser;
 import sztaki.hexaa.BasicCall;
 import sztaki.hexaa.Const;
 import sztaki.hexaa.Utility;
 import sztaki.hexaa.CleanTest;
+import sztaki.hexaa.ResponseTypeMismatchException;
 
 /**
  * Tests the DELETE method on the /api/role/{id}/principals/{eid} call.
@@ -40,9 +41,13 @@ public class RolesPrincipalsRemoveTest extends CleanTest {
         Utility.Create.organization("testOrg");
         Utility.Create.role("testRole", 1);
         principals = Utility.Create.principal("testPrincipal");
-        principals.put(((JSONObject) JSONParser.parseJSON(
-                persistent.call(Const.Api.PRINCIPALS_ID_ID,
-                        BasicCall.REST.GET))));
+        try {
+            principals.put(persistent.getResponseJSONObject(Const.Api.PRINCIPALS_ID_ID,
+                    BasicCall.REST.GET));
+        } catch (ResponseTypeMismatchException ex) {
+            Logger.getLogger(RolesPrincipalsRemoveTest.class.getName()).log(Level.SEVERE, null, ex);
+            System.out.println("principals = Utility.Create.principal(\"testPrincipal\") failed");
+        }
         Utility.Link.memberToOrganization(1, 2);
         Utility.Link.principalToRole(1, 1);
         Utility.Link.principalToRole(1, 2);
@@ -54,25 +59,26 @@ public class RolesPrincipalsRemoveTest extends CleanTest {
     @Test
     public void testRolesPrincipalRemove() {
         principals.remove(1);
-        
+
         Utility.Remove.principalFromRole(1, 1);
-        
+
         try {
             assertEquals(Const.StatusLine.NoContent, Utility.persistent.getStatusLine());
         } catch (AssertionError e) {
             AssertErrorHandler(e);
         }
 
-        Object response
-                = JSONParser.parseJSON(
-                        persistent.call(
-                                Const.Api.ROLES_ID_PRINCIPALS,
-                                BasicCall.REST.GET));
-
-        if (response instanceof JSONObject) {
-            fail(response.toString());
+        JSONArray jsonResponse;
+        try {
+            jsonResponse = persistent.getResponseJSONArray(
+                    Const.Api.ROLES_ID_PRINCIPALS,
+                    BasicCall.REST.GET);
+        } catch (ResponseTypeMismatchException ex) {
+            Logger.getLogger(RolesPrincipalsRemoveTest.class.getName()).log(Level.SEVERE, null, ex);
+            fail(ex.getFullMessage());
+            return;
         }
-        JSONArray jsonResponse = (JSONArray) response;
+
         if (jsonResponse.length() < 1) {
             fail(jsonResponse.toString());
         }

@@ -1,15 +1,16 @@
 package sztaki.hexaa.apicalls.services.organizations;
 
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import org.json.JSONArray;
-import org.json.JSONObject;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import static org.junit.Assert.*;
-import org.skyscreamer.jsonassert.JSONParser;
 import sztaki.hexaa.BasicCall;
 import sztaki.hexaa.Const;
 import sztaki.hexaa.Utility;
 import sztaki.hexaa.CleanTest;
+import sztaki.hexaa.ResponseTypeMismatchException;
 
 /**
  * Tests the GET method on the /api/services/{id}/organization call.
@@ -46,14 +47,17 @@ public class ServicesOrganizationsGetTest extends CleanTest {
      */
     @Test
     public void testServicesOrganizationsGet() {
-        Object jsonResponse = JSONParser.parseJSON(
-                persistent.call(
-                        Const.Api.SERVICES_ID_ORGANIZATIONS,
-                        BasicCall.REST.GET));
-        if (jsonResponse instanceof JSONObject) {
-            fail("Response is a JSONObject instead of a JSONArray: " + jsonResponse.toString());
+        JSONArray jsonArrayResponse;
+        try {
+            jsonArrayResponse = persistent.getResponseJSONArray(
+                    Const.Api.SERVICES_ID_ORGANIZATIONS,
+                    BasicCall.REST.GET);
+        } catch (ResponseTypeMismatchException ex) {
+            Logger.getLogger(ServicesOrganizationsGetTest.class.getName()).log(Level.SEVERE, null, ex);
+            fail(ex.getFullMessage());
+            return;
         }
-        JSONArray jsonArrayResponse = (JSONArray) jsonResponse;
+        
         try {
             assertEquals(1, jsonArrayResponse.length());
             assertEquals(1, jsonArrayResponse.getJSONObject(jsonArrayResponse.length() - 1).getInt("id"));

@@ -1,5 +1,7 @@
 package sztaki.hexaa.apicalls.attributevalueorganizations;
 
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import org.junit.BeforeClass;
@@ -7,11 +9,11 @@ import org.junit.Test;
 import static org.junit.Assert.*;
 import org.skyscreamer.jsonassert.JSONAssert;
 import org.skyscreamer.jsonassert.JSONCompareMode;
-import org.skyscreamer.jsonassert.JSONParser;
 import sztaki.hexaa.BasicCall;
 import sztaki.hexaa.Const;
 import sztaki.hexaa.Utility;
 import sztaki.hexaa.CleanTest;
+import sztaki.hexaa.ResponseTypeMismatchException;
 
 /**
  * Tests the POST method on the /api/attributevalueorganizations/{asid} call.
@@ -60,17 +62,21 @@ public class AttributevalueorganizationsPost extends CleanTest {
         } catch (AssertionError e) {
             AssertErrorHandler(e);
         }
-        
-        Object response = JSONParser.parseJSON(
-                            persistent.call(
-                                    Const.Api.ORGANIZATIONS_ID_ATTRIBUTEVALUEORGANIZATION,
-                                    BasicCall.REST.GET,
-                                    null,
-                                    1, 1));
-        if (response instanceof JSONObject) {
-            fail("JSONObject instead JSONArray: " + response.toString());
+
+        JSONArray jsonArrayResponse;
+        try {
+            jsonArrayResponse = persistent.getResponseJSONArray(
+                    Const.Api.ORGANIZATIONS_ID_ATTRIBUTEVALUEORGANIZATION,
+                    BasicCall.REST.GET,
+                    null,
+                    1, 1);
+        } catch (ResponseTypeMismatchException ex) {
+            Logger.getLogger(AttributevalueorganizationsPost.class.getName()).log(Level.SEVERE, null, ex);
+            fail(ex.getFullMessage());
+            return;
         }
-        JSONObject jsonResponse = ((JSONArray) response).getJSONObject(0);
+
+        JSONObject jsonResponse = jsonArrayResponse.getJSONObject(0);
         System.out.println(jsonResponse);
         try {
             JSONAssert.assertEquals(

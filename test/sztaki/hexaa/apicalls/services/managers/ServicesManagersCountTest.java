@@ -7,9 +7,6 @@ import org.json.JSONObject;
 import org.junit.Test;
 import static org.junit.Assert.*;
 import org.junit.BeforeClass;
-import org.skyscreamer.jsonassert.JSONAssert;
-import org.skyscreamer.jsonassert.JSONCompareMode;
-import org.skyscreamer.jsonassert.JSONParser;
 import sztaki.hexaa.BasicCall;
 import sztaki.hexaa.Const;
 import sztaki.hexaa.ResponseTypeMismatchException;
@@ -41,7 +38,11 @@ public class ServicesManagersCountTest extends CleanTest {
     public static void setUpClass() {
         Utility.Create.service(new String[]{"testService1", "testService2"});
         managers = Utility.Create.principal(new String[]{"principalTest1", "principalTest2"});
-        managers.put((JSONObject) JSONParser.parseJSON(persistent.call(Const.Api.PRINCIPAL_SELF, BasicCall.REST.GET)));
+        try {
+            managers.put(persistent.getResponseJSONObject(Const.Api.PRINCIPAL_SELF, BasicCall.REST.GET));
+        } catch (ResponseTypeMismatchException ex) {
+            Logger.getLogger(ServicesManagersCountTest.class.getName()).log(Level.SEVERE, null, ex);
+        }
         Utility.Link.managersToServiceByArray(1, new int[]{1, 2, 3});
     }
 

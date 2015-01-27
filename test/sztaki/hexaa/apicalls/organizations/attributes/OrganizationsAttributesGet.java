@@ -136,7 +136,6 @@ public class OrganizationsAttributesGet extends CleanTest {
                                 Const.Api.ORGANIZATIONS_ID_ATTRIBUTEVALUEORGANIZATION,
                                 BasicCall.REST.GET));
 
-        // TODO
         JSONArray jsonExpected = new JSONArray();
         for (int i = 0; i < attributevalue.length(); i++) {
 

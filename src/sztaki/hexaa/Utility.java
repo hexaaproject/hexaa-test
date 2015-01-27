@@ -3,6 +3,8 @@ package sztaki.hexaa;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import org.json.JSONArray;
@@ -741,7 +743,7 @@ public class Utility {
 
         /**
          * Links an existing entitlementpack to organization, but waits for
-         * accept, so the entitlementpacks will have a "pending" status.
+         * accept, so the entitlementpacks will have a pending status.
          *
          * @param orgId id of the organization to link to.
          * @param pack id of the entitlementpack to link.
@@ -816,12 +818,21 @@ public class Utility {
          */
         public static void entitlementpackToOrgByToken(int orgId, int[] packIds) {
             for (int pack : packIds) {
-                JSONObject json
-                        = (JSONObject) JSONParser.parseJSON(persistent.call(
-                                        Const.Api.ENTITLEMENTPACKS_ID_TOKEN,
-                                        BasicCall.REST.GET,
-                                        null,
-                                        pack, pack));
+                JSONObject json;
+                try {
+                    json = persistent.getResponseJSONObject(
+                            Const.Api.ENTITLEMENTPACKS_ID_TOKEN,
+                            BasicCall.REST.GET,
+                            null,
+                            pack, pack);
+                } catch (ResponseTypeMismatchException ex) {
+                    Logger.getLogger(Utility.class.getName()).log(Level.SEVERE, null, ex);
+                    System.out.println("The call: getResponseJSONObject"
+                            + "(Const.Api.ENTITLEMENTPACKS_ID_TOKEN,"
+                            + " BasicCall.REST.GET, on the id of "
+                            + pack + " failed");
+                    return;
+                }
                 // GET the token.
                 persistent.setToken(json.getString("token"));
 

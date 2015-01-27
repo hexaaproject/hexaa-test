@@ -1,16 +1,18 @@
 package sztaki.hexaa.apicalls.roles;
 
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import org.json.JSONArray;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import static org.junit.Assert.*;
 import org.skyscreamer.jsonassert.JSONAssert;
 import org.skyscreamer.jsonassert.JSONCompareMode;
-import org.skyscreamer.jsonassert.JSONParser;
 import sztaki.hexaa.BasicCall;
 import sztaki.hexaa.Const;
 import sztaki.hexaa.Utility;
 import sztaki.hexaa.CleanTest;
+import sztaki.hexaa.ResponseTypeMismatchException;
 
 /**
  * Tests the PUT method on the /api/role/{id} call.
@@ -55,12 +57,25 @@ public class RolesPutTest extends CleanTest {
 
         try {
             assertEquals(Const.StatusLine.NoContent, persistent.getStatusLine());
+        } catch (AssertionError e) {
+            AssertErrorHandler(e);
+        }
+
+        JSONArray jsonResponse;
+        try {
+            jsonResponse = persistent.getResponseJSONArray(
+                    Const.Api.ORGANIZATIONS_ID_ROLES,
+                    BasicCall.REST.GET);
+        } catch (ResponseTypeMismatchException ex) {
+            Logger.getLogger(RolesPutTest.class.getName()).log(Level.SEVERE, null, ex);
+            fail(ex.getFullMessage());
+            return;
+        }
+
+        try {
             JSONAssert.assertEquals(
                     roles,
-                    (JSONArray) JSONParser.parseJSON(
-                            persistent.call(
-                                    Const.Api.ORGANIZATIONS_ID_ROLES,
-                                    BasicCall.REST.GET)),
+                    jsonResponse,
                     JSONCompareMode.LENIENT);
         } catch (AssertionError e) {
             AssertErrorHandler(e);

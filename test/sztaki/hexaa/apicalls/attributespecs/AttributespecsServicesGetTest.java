@@ -1,14 +1,16 @@
 package sztaki.hexaa.apicalls.attributespecs;
 
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import org.json.JSONArray;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import static org.junit.Assert.*;
-import org.skyscreamer.jsonassert.JSONParser;
 import sztaki.hexaa.BasicCall;
 import sztaki.hexaa.Const;
 import sztaki.hexaa.Utility;
 import sztaki.hexaa.CleanTest;
+import sztaki.hexaa.ResponseTypeMismatchException;
 
 /**
  * Tests the GET method on the /api/attributespecs/{id}/services call.
@@ -39,11 +41,16 @@ public class AttributespecsServicesGetTest extends CleanTest {
      */
     @Test
     public void testAttributespecsServicesGet() {
-        JSONArray jsonResponse
-                = (JSONArray) JSONParser.parseJSON(
-                        persistent.call(
-                                Const.Api.ATTRIBUTESPECS_ID_SERVICES,
-                                BasicCall.REST.GET));
+        JSONArray jsonResponse;
+        try {
+            jsonResponse = persistent.getResponseJSONArray(
+                    Const.Api.ATTRIBUTESPECS_ID_SERVICES,
+                    BasicCall.REST.GET);
+        } catch (ResponseTypeMismatchException ex) {
+            Logger.getLogger(AttributespecsServicesGetTest.class.getName()).log(Level.SEVERE, null, ex);
+            fail(ex.getFullMessage());
+            return;
+        }
 
         try {
             assertEquals(Const.StatusLine.OK, persistent.getStatusLine());

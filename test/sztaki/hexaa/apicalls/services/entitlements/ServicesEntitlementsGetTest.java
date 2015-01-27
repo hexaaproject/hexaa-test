@@ -1,15 +1,17 @@
 package sztaki.hexaa.apicalls.services.entitlements;
 
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import org.json.JSONArray;
 import static org.junit.Assert.*;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import org.skyscreamer.jsonassert.JSONAssert;
-import org.skyscreamer.jsonassert.JSONParser;
 import sztaki.hexaa.BasicCall;
 import sztaki.hexaa.Const;
 import sztaki.hexaa.Utility;
 import sztaki.hexaa.CleanTest;
+import sztaki.hexaa.ResponseTypeMismatchException;
 
 /**
  * Tests the GET method on the /api/services/{id}/entitlements call.
@@ -46,13 +48,19 @@ public class ServicesEntitlementsGetTest extends CleanTest {
     @Test
     public void testServicesEntitlementsGet() {
         // GETs the first services entitlements
-        JSONArray jsonResponse = (JSONArray) JSONParser.parseJSON(
-                persistent.call(
-                        Const.Api.SERVICES_ID_ENTITLEMENTS,
-                        BasicCall.REST.GET,
-                        null,
-                        1, 0));
-        
+        JSONArray jsonResponse;
+        try {
+            jsonResponse = persistent.getResponseJSONArray(
+                    Const.Api.SERVICES_ID_ENTITLEMENTS,
+                    BasicCall.REST.GET,
+                    null,
+                    1, 0);
+        } catch (ResponseTypeMismatchException ex) {
+            Logger.getLogger(ServicesEntitlementsGetTest.class.getName()).log(Level.SEVERE, null, ex);
+            fail(ex.getFullMessage());
+            return;
+        }
+
         JSONArray jsonTemp = new JSONArray();
         jsonTemp.put(entitlements.getJSONObject(0));
         jsonTemp.put(entitlements.getJSONObject(1));
@@ -63,14 +71,19 @@ public class ServicesEntitlementsGetTest extends CleanTest {
         } catch (AssertionError e) {
             AssertErrorHandler(e);
         }
-        // GETs the second services entitlement
-        jsonResponse = (JSONArray) JSONParser.parseJSON(
-                persistent.call(
-                        Const.Api.SERVICES_ID_ENTITLEMENTS,
-                        BasicCall.REST.GET,
-                        null,
-                        2, 0));
-        
+        try {
+            // GETs the second services entitlement
+            jsonResponse = persistent.getResponseJSONArray(
+                    Const.Api.SERVICES_ID_ENTITLEMENTS,
+                    BasicCall.REST.GET,
+                    null,
+                    2, 0);
+        } catch (ResponseTypeMismatchException ex) {
+            Logger.getLogger(ServicesEntitlementsGetTest.class.getName()).log(Level.SEVERE, null, ex);
+            fail(ex.getFullMessage());
+            return;
+        }
+
         jsonTemp = new JSONArray();
         jsonTemp.put(entitlements.getJSONObject(2));
 
