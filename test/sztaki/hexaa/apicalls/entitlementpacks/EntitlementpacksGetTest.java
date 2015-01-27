@@ -1,5 +1,7 @@
 package sztaki.hexaa.apicalls.entitlementpacks;
 
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import static org.junit.Assert.*;
@@ -12,6 +14,7 @@ import sztaki.hexaa.BasicCall;
 import sztaki.hexaa.Const;
 import sztaki.hexaa.Utility;
 import sztaki.hexaa.CleanTest;
+import sztaki.hexaa.ResponseTypeMismatchException;
 
 /**
  * Tests the GET methods on the /api/entitlementpacks/public and
@@ -56,11 +59,17 @@ public class EntitlementpacksGetTest extends CleanTest {
     @Test
     public void testEntitlementpacksPublicGet() {
         // GET call and JSON parsing
-        JSONArray jsonResponseArray
-                = (JSONArray) JSONParser.parseJSON(
-                        persistent.call(
-                                Const.Api.ENTITLEMENTPACKS_PUBLIC,
-                                BasicCall.REST.GET));
+        JSONArray jsonResponseArray;
+        try {
+            jsonResponseArray = persistent.getResponseJSONArray(
+                    Const.Api.ENTITLEMENTPACKS_PUBLIC,
+                    BasicCall.REST.GET);
+        } catch (ResponseTypeMismatchException ex) {
+            Logger.getLogger(EntitlementpacksGetTest.class.getName()).log(Level.SEVERE, null, ex);
+            fail(ex.getFullMessage());
+            return;
+        }
+        
         try {
             // Asserting on the statusline for 200
             assertEquals(Const.StatusLine.OK, persistent.getStatusLine());

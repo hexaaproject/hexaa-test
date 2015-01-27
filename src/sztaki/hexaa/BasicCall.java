@@ -590,7 +590,7 @@ public class BasicCall {
         Object tempResponse = callSwitch(restCall);
 
         //System.out.println(this.path);
-
+        
         Object serverResponse;
         try {
             serverResponse = JSONParser.parseJSON((String) tempResponse);
@@ -601,7 +601,7 @@ public class BasicCall {
         if (serverResponse instanceof JSONArray) {
             return (JSONArray) serverResponse;
         } else if (serverResponse instanceof JSONObject) {
-            throw new ResponseTypeMismatchException("JSONObject instead of JSONArray", "JSONArray", serverResponse);
+            throw new ResponseTypeMismatchException("JSONObject instead of JSONArray", "JSONObject", serverResponse);
         } else {
             throw new ResponseTypeMismatchException("Non json instead of JSONArray", "String", serverResponse);
         }
@@ -638,7 +638,7 @@ public class BasicCall {
         if (serverResponse instanceof JSONArray) {
             return (JSONArray) serverResponse;
         } else if (serverResponse instanceof JSONObject) {
-            throw new ResponseTypeMismatchException("JSONObject instead of JSONArray", "JSONArray", serverResponse);
+            throw new ResponseTypeMismatchException("JSONObject instead of JSONArray", "JSONObject", serverResponse);
         } else {
             throw new ResponseTypeMismatchException("Non json instead of JSONArray", "String", serverResponse);
         }
@@ -676,7 +676,7 @@ public class BasicCall {
         if (serverResponse instanceof JSONArray) {
             return (JSONArray) serverResponse;
         } else if (serverResponse instanceof JSONObject) {
-            throw new ResponseTypeMismatchException("JSONObject instead of JSONArray", "JSONArray", serverResponse);
+            throw new ResponseTypeMismatchException("JSONObject instead of JSONArray", "JSONObject", serverResponse);
         } else {
             throw new ResponseTypeMismatchException("Non json instead of JSONArray", "String", serverResponse);
         }
@@ -718,7 +718,7 @@ public class BasicCall {
         if (serverResponse instanceof JSONArray) {
             return (JSONArray) serverResponse;
         } else if (serverResponse instanceof JSONObject) {
-            throw new ResponseTypeMismatchException("JSONObject instead of JSONArray", "JSONArray", serverResponse);
+            throw new ResponseTypeMismatchException("JSONObject instead of JSONArray", "JSONObject", serverResponse);
         } else {
             throw new ResponseTypeMismatchException("Non json instead of JSONArray", "String", serverResponse);
         }
