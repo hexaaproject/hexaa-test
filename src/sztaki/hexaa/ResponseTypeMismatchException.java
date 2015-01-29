@@ -7,6 +7,11 @@ package sztaki.hexaa;
 public class ResponseTypeMismatchException extends Exception {
 
 	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 8950204955399194961L;
+
+	/**
 	 * The type of the response.
 	 */
 	private String type;

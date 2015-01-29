@@ -75,7 +75,7 @@ public class AttributevalueorganizationsServicesDeleteTest extends CleanTest {
 			fail(ex.getFullMessage());
 			return;
 		}
-
+		System.out.println(jsonResponse.toString());
 		try {
 			// TODO complete after correction or other to the null response body
 			// problem of the

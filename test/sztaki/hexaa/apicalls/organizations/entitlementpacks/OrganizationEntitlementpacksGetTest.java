@@ -2,13 +2,17 @@ package sztaki.hexaa.apicalls.organizations.entitlementpacks;
 
 import org.json.JSONArray;
 import org.junit.Test;
+
 import static org.junit.Assert.*;
+
 import org.junit.BeforeClass;
 import org.skyscreamer.jsonassert.JSONAssert;
 import org.skyscreamer.jsonassert.JSONCompareMode;
 import org.skyscreamer.jsonassert.JSONParser;
+
 import sztaki.hexaa.BasicCall;
 import sztaki.hexaa.Const;
+import sztaki.hexaa.ResponseTypeMismatchException;
 import sztaki.hexaa.Utility;
 import sztaki.hexaa.CleanTest;
 
@@ -80,11 +84,17 @@ public class OrganizationEntitlementpacksGetTest extends CleanTest {
 	 */
 	@Test
 	public void testOrganizationEntitlementpacksGetEntitlements() {
+		JSONArray jsonResponse;
 		try {
-			JSONAssert.assertEquals(entitlements, (JSONArray) JSONParser
-					.parseJSON(persistent.call(
-							Const.Api.ORGANIZATIONS_ID_ENTITLEMENTS,
-							BasicCall.REST.GET)), JSONCompareMode.LENIENT);
+			jsonResponse = persistent.getResponseJSONArray(
+					Const.Api.ORGANIZATIONS_ID_ENTITLEMENTS,
+					BasicCall.REST.GET);
+		} catch (ResponseTypeMismatchException ex) {
+			fail(ex.getFullMessage());
+			return;
+		}
+		try {
+			JSONAssert.assertEquals(entitlements, jsonResponse, JSONCompareMode.LENIENT);
 		} catch (AssertionError e) {
 			AssertErrorHandler(e);
 		}
