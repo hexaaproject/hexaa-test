@@ -1,12 +1,8 @@
 package sztaki.hexaa.apicalls.roles;
 
-import java.time.LocalDate;
-import java.time.ZoneId;
-import org.json.JSONObject;
 import static org.junit.Assert.*;
 import org.junit.BeforeClass;
 import org.junit.Test;
-import sztaki.hexaa.BasicCall;
 import sztaki.hexaa.Const;
 import sztaki.hexaa.Utility;
 import sztaki.hexaa.CleanTest;

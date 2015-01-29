@@ -3,7 +3,6 @@ package sztaki.hexaa.apicalls.principals;
 import org.json.JSONObject;
 import static org.junit.Assert.*;
 import org.junit.BeforeClass;
-import org.junit.Ignore;
 import org.junit.Test;
 import org.skyscreamer.jsonassert.JSONParser;
 import sztaki.hexaa.Authenticator;

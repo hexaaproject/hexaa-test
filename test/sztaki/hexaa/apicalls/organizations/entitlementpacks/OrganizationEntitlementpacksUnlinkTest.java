@@ -8,7 +8,6 @@ import static org.junit.Assert.*;
 import org.junit.BeforeClass;
 import org.skyscreamer.jsonassert.JSONAssert;
 import org.skyscreamer.jsonassert.JSONCompareMode;
-import org.skyscreamer.jsonassert.JSONParser;
 import sztaki.hexaa.BasicCall;
 import sztaki.hexaa.Const;
 import sztaki.hexaa.ResponseTypeMismatchException;

@@ -9,7 +9,6 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import org.json.JSONArray;
 import org.json.JSONObject;
-import org.skyscreamer.jsonassert.JSONParser;
 
 /**
  * Utility class for various tasks through the API. Use it with caution, may

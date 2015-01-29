@@ -2,16 +2,20 @@ package sztaki.hexaa;
 
 import java.io.IOException;
 import java.io.InputStream;
+
 import org.apache.http.Header;
+
 import sztaki.hexaa.core.HttpCoreDel;
 import sztaki.hexaa.core.HttpCoreGet;
 import sztaki.hexaa.core.HttpCorePost;
 import sztaki.hexaa.core.HttpCorePut;
+
 import org.apache.http.client.methods.CloseableHttpResponse;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.skyscreamer.jsonassert.JSONParser;
+
 import sztaki.hexaa.core.HttpCorePatch;
 
 /**
@@ -58,7 +62,8 @@ public class BasicCall {
     /**
      * The email required by a few calls in the url.
      */
-    private String email;
+    @SuppressWarnings("unused")
+	private String email;
 
     /**
      * The requested ID, always inserted into the {id} part of the url.
@@ -1021,8 +1026,9 @@ public class BasicCall {
 //        
 //        br = new BufferedReader(new InputStreamReader(content));
 //        
-        java.util.Scanner s = new java.util.Scanner(content).useDelimiter("\\A");
-        String data = s.hasNext() ? s.next() : "";
+    	java.util.Scanner s = new java.util.Scanner(content);
+        java.util.Scanner scanner = s.useDelimiter("\\A");
+        String data = scanner.hasNext() ? scanner.next() : "";
         s.close();
 
         return data;

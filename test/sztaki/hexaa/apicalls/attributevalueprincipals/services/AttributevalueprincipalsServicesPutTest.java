@@ -2,7 +2,6 @@ package sztaki.hexaa.apicalls.attributevalueprincipals.services;
 
 import org.json.JSONObject;
 import static org.junit.Assert.*;
-import static org.junit.Assert.fail;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import org.skyscreamer.jsonassert.JSONAssert;

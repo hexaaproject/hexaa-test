@@ -337,10 +337,9 @@ public class MethodNotAllowedTest extends CleanTest {
     public void expectingNotAllowed(String[] uris, BasicCall.REST[] calls) {
         for (String uri : uris) {
             for (BasicCall.REST method : calls) {
-                String responseString
-                        = persistent.call(
-                                uri,
-                                method);
+            	persistent.call(
+            			uri,
+                        method);
                 try {
                     assertEquals(Const.StatusLine.MethodNotAllowed, persistent.getStatusLine());
                 } catch (AssertionError e) {
