@@ -12,50 +12,44 @@ import sztaki.hexaa.apicalls.IsEmptyTest;
  */
 public class EntitlementsIsEmptyTest extends IsEmptyTest {
 
-    /**
-     * Print the class name on the output.
-     */
-    @BeforeClass
-    public static void classInformation() {
-        System.out.println("***\t " + EntitlementsIsEmptyTest.class.getSimpleName() + " ***");
-    }
+	/**
+	 * Print the class name on the output.
+	 */
+	@BeforeClass
+	public static void classInformation() {
+		System.out.println("***\t "
+				+ EntitlementsIsEmptyTest.class.getSimpleName() + " ***");
+	}
 
-    /**
-     * GET method tests.
-     */
-    @Test
-    public void testEntitlementsIsEmptyGet() {
-        expectingNotFound(
-                Const.Api.ENTITLEMENTS_ID,
-                BasicCall.REST.GET);
-    }
+	/**
+	 * GET method tests.
+	 */
+	@Test
+	public void testEntitlementsIsEmptyGet() {
+		expectingNotFound(Const.Api.ENTITLEMENTS_ID, BasicCall.REST.GET);
+	}
 
-    /**
-     * PUT method tests.
-     */
-    @Test
-    public void testEntitlementsIsEmptyPut() {
-        expectingNotFound(
-                Const.Api.ENTITLEMENTS_ID,
-                BasicCall.REST.PUT);
-    }
+	/**
+	 * PUT method tests.
+	 */
+	@Test
+	public void testEntitlementsIsEmptyPut() {
+		expectingNotFound(Const.Api.ENTITLEMENTS_ID, BasicCall.REST.PUT);
+	}
 
-    /**
-     * DELETE method tests.
-     */
-    @Test
-    public void testEntitlementsIsEmptyDelete() {
-        expectingNotFound(Const.Api.ENTITLEMENTS_ID,
-                BasicCall.REST.DELETE);
-    }
-    
-    /**
-     * PATCH method tests.
-     */
-    @Test
-    public void testEntitlementsIsEmptyPatch() {
-        expectingNotFound(
-                Const.Api.ENTITLEMENTS_ID,
-                BasicCall.REST.PATCH);
-    }
+	/**
+	 * DELETE method tests.
+	 */
+	@Test
+	public void testEntitlementsIsEmptyDelete() {
+		expectingNotFound(Const.Api.ENTITLEMENTS_ID, BasicCall.REST.DELETE);
+	}
+
+	/**
+	 * PATCH method tests.
+	 */
+	@Test
+	public void testEntitlementsIsEmptyPatch() {
+		expectingNotFound(Const.Api.ENTITLEMENTS_ID, BasicCall.REST.PATCH);
+	}
 }

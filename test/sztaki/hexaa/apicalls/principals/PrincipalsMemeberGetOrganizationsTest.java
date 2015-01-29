@@ -17,43 +17,44 @@ import sztaki.hexaa.CleanTest;
  */
 public class PrincipalsMemeberGetOrganizationsTest extends CleanTest {
 
-    /**
-     * Print the class name on the output.
-     */
-    @BeforeClass
-    public static void classInformation() {
-        System.out.println("***\t " + PrincipalsMemeberGetOrganizationsTest.class.getSimpleName() + " ***");
-    }
+	/**
+	 * Print the class name on the output.
+	 */
+	@BeforeClass
+	public static void classInformation() {
+		System.out.println("***\t "
+				+ PrincipalsMemeberGetOrganizationsTest.class.getSimpleName()
+				+ " ***");
+	}
 
-    /**
-     * JSONArray to store the created organizations.
-     */
-    private static JSONArray organizations = new JSONArray();
+	/**
+	 * JSONArray to store the created organizations.
+	 */
+	private static JSONArray organizations = new JSONArray();
 
-    /**
-     * Creates one organization.
-     */
-    @BeforeClass
-    public static void setUpClass() {
-        organizations = Utility.Create.organization(new String[]{"testOrgForPrincGet"});
-    }
+	/**
+	 * Creates one organization.
+	 */
+	@BeforeClass
+	public static void setUpClass() {
+		organizations = Utility.Create
+				.organization(new String[] { "testOrgForPrincGet" });
+	}
 
-    /**
-     * GET the list of organizations where the user is a member.
-     */
-    @Test
-    public void testPrincipalGetMemberOrg() {
-        JSONArray jsonResponse
-                = (JSONArray) JSONParser.parseJSON(
-                        persistent.call(
-                                Const.Api.MEMBER_ORGANIZATIONS,
-                                BasicCall.REST.GET));
+	/**
+	 * GET the list of organizations where the user is a member.
+	 */
+	@Test
+	public void testPrincipalGetMemberOrg() {
+		JSONArray jsonResponse = (JSONArray) JSONParser.parseJSON(persistent
+				.call(Const.Api.MEMBER_ORGANIZATIONS, BasicCall.REST.GET));
 
-        try {
-            assertEquals(Const.StatusLine.OK, persistent.getStatusLine());
-            JSONAssert.assertEquals(organizations, jsonResponse, JSONCompareMode.LENIENT);
-        } catch (AssertionError e) {
-            AssertErrorHandler(e);
-        }
-    }
+		try {
+			assertEquals(Const.StatusLine.OK, persistent.getStatusLine());
+			JSONAssert.assertEquals(organizations, jsonResponse,
+					JSONCompareMode.LENIENT);
+		} catch (AssertionError e) {
+			AssertErrorHandler(e);
+		}
+	}
 }

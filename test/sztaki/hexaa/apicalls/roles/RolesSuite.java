@@ -11,16 +11,10 @@ import sztaki.hexaa.apicalls.roles.principals.*;
  * starting and finishing utility jobs inherited from BasicTestSuite.
  */
 @RunWith(Suite.class)
-@Suite.SuiteClasses({
-    RolesPostTest.class,
-    RolesDeleteTest.class,
-    RolesPutTest.class,
-    RolesGetTest.class,
-    RolesEntitlementsAddTest.class,
-    RolesEntitlementsGetTest.class,
-    RolesEntitlementsRemoveTest.class,
-    RolesPrincipalsAddTest.class,
-    RolesPrincipalsGetTest.class,
-    RolesPrincipalsRemoveTest.class,})
+@Suite.SuiteClasses({ RolesPostTest.class, RolesDeleteTest.class,
+		RolesPutTest.class, RolesGetTest.class, RolesEntitlementsAddTest.class,
+		RolesEntitlementsGetTest.class, RolesEntitlementsRemoveTest.class,
+		RolesPrincipalsAddTest.class, RolesPrincipalsGetTest.class,
+		RolesPrincipalsRemoveTest.class, })
 public class RolesSuite extends BasicTestSuite {
 }

@@ -17,113 +17,114 @@ import sztaki.hexaa.ResponseTypeMismatchException;
  */
 public abstract class IsEmptyTest extends CleanTest {
 
-    /**
-     * Calls the rest method on the constApi uri and expects an empty JSON
-     * response and 200 OK.
-     *
-     * @param constApi an URI on the host.
-     * @param rest a REST call to be called.
-     */
-    public void expectingEmpty(String constApi, REST rest) {
-        String stringResponse
-                = persistent.call(
-                        constApi,
-                        rest);
-        try {
-            assertEquals(Const.StatusLine.OK, persistent.getStatusLine());
-            assertEquals("[]", stringResponse);
-        } catch (AssertionError e) {
-            AssertErrorHandler(e);
-        }
-    }
+	/**
+	 * Calls the rest method on the constApi uri and expects an empty JSON
+	 * response and 200 OK.
+	 *
+	 * @param constApi
+	 *            an URI on the host.
+	 * @param rest
+	 *            a REST call to be called.
+	 */
+	public void expectingEmpty(String constApi, REST rest) {
+		String stringResponse = persistent.call(constApi, rest);
+		try {
+			assertEquals(Const.StatusLine.OK, persistent.getStatusLine());
+			assertEquals("[]", stringResponse);
+		} catch (AssertionError e) {
+			AssertErrorHandler(e);
+		}
+	}
 
-    /**
-     * Calls the rest method on the constApi uri and expects an error code
-     * response and 404 Not Found.
-     *
-     * @param constApi an URI on the host.
-     * @param rest a REST call to be called.
-     */
-    public void expectingNotFound(String constApi, REST rest) {
-        String stringResponse
-                = persistent.call(
-                        constApi,
-                        rest);
-        try {
-            assertEquals(Const.StatusLine.NotFound, persistent.getStatusLine());
-            assertEquals("{\"code\":404,\"message\":\"Not Found\",\"errors\":null}", stringResponse);
-        } catch (AssertionError e) {
-            AssertErrorHandler(e);
-        }
-    }
+	/**
+	 * Calls the rest method on the constApi uri and expects an error code
+	 * response and 404 Not Found.
+	 *
+	 * @param constApi
+	 *            an URI on the host.
+	 * @param rest
+	 *            a REST call to be called.
+	 */
+	public void expectingNotFound(String constApi, REST rest) {
+		String stringResponse = persistent.call(constApi, rest);
+		try {
+			assertEquals(Const.StatusLine.NotFound, persistent.getStatusLine());
+			assertEquals(
+					"{\"code\":404,\"message\":\"Not Found\",\"errors\":null}",
+					stringResponse);
+		} catch (AssertionError e) {
+			AssertErrorHandler(e);
+		}
+	}
 
-    /**
-     * Calls the rest method on the constApi uri and expects a fedid response
-     * and 200 OK. Can handle JSON Arrays and Objects as response as well.
-     *
-     * @param constApi an URI on the host.
-     * @param rest a REST call to be called.
-     */
-    public void expectingFedid(String constApi, REST rest) {
-        if (JSONParser.parseJSON(persistent.call(constApi, rest)) instanceof JSONObject) {
-            JSONObject jsonResponse;
-            try {
-                jsonResponse = persistent.getResponseJSONObject(
-                        constApi,
-                        rest);
-                try {
-                    assertEquals(Const.StatusLine.OK, persistent.getStatusLine());
-                    assertEquals(
-                            Const.HEXAA_FEDID,
-                            jsonResponse.getString("fedid"));
-                } catch (AssertionError e) {
-                    AssertErrorHandler(e);
-                }
-                return;
-            } catch (ResponseTypeMismatchException ex) {
-                Logger.getLogger(IsEmptyTest.class.getName()).log(Level.SEVERE, null, ex);
-            }
-        } else {
-            JSONArray jsonArrayResponse;
-            try {
-                jsonArrayResponse = persistent.getResponseJSONArray(
-                        constApi,
-                        rest);
-                try {
-                    assertEquals(Const.StatusLine.OK, persistent.getStatusLine());
-                    assertEquals(
-                            Const.HEXAA_FEDID,
-                            jsonArrayResponse.getJSONObject(0).getString("fedid"));
-                } catch (AssertionError e) {
-                    AssertErrorHandler(e);
-                }
-                return;
-            } catch (ResponseTypeMismatchException ex) {
-                Logger.getLogger(IsEmptyTest.class.getName()).log(Level.SEVERE, null, ex);
-            }
-        }
-//        if (object instanceof JSONArray) {
-//            JSONArray jsonResponse = (JSONArray) object;
-//            try {
-//                assertEquals(Const.StatusLine.OK, persistent.getStatusLine());
-//                assertEquals(
-//                        Const.HEXAA_FEDID,
-//                        jsonResponse.getJSONObject(0).getString("fedid"));
-//            } catch (AssertionError e) {
-//                AssertErrorHandler(e);
-//            }
-//        }
-//
-//        if (object instanceof JSONObject) {
-//            JSONObject jsonResponse = (JSONObject) object;
-//            try {
-//                assertEquals(Const.StatusLine.OK, persistent.getStatusLine());
-//                assertEquals(
-//                        Const.HEXAA_FEDID,
-//                        jsonResponse.getString("fedid"));
-//            } catch (AssertionError e) {
-//                AssertErrorHandler(e);
-//            }
-//        }
-    }
+	/**
+	 * Calls the rest method on the constApi uri and expects a fedid response
+	 * and 200 OK. Can handle JSON Arrays and Objects as response as well.
+	 *
+	 * @param constApi
+	 *            an URI on the host.
+	 * @param rest
+	 *            a REST call to be called.
+	 */
+	public void expectingFedid(String constApi, REST rest) {
+		if (JSONParser.parseJSON(persistent.call(constApi, rest)) instanceof JSONObject) {
+			JSONObject jsonResponse;
+			try {
+				jsonResponse = persistent.getResponseJSONObject(constApi, rest);
+				try {
+					assertEquals(Const.StatusLine.OK,
+							persistent.getStatusLine());
+					assertEquals(Const.HEXAA_FEDID,
+							jsonResponse.getString("fedid"));
+				} catch (AssertionError e) {
+					AssertErrorHandler(e);
+				}
+				return;
+			} catch (ResponseTypeMismatchException ex) {
+				Logger.getLogger(IsEmptyTest.class.getName()).log(Level.SEVERE,
+						null, ex);
+			}
+		} else {
+			JSONArray jsonArrayResponse;
+			try {
+				jsonArrayResponse = persistent.getResponseJSONArray(constApi,
+						rest);
+				try {
+					assertEquals(Const.StatusLine.OK,
+							persistent.getStatusLine());
+					assertEquals(Const.HEXAA_FEDID, jsonArrayResponse
+							.getJSONObject(0).getString("fedid"));
+				} catch (AssertionError e) {
+					AssertErrorHandler(e);
+				}
+				return;
+			} catch (ResponseTypeMismatchException ex) {
+				Logger.getLogger(IsEmptyTest.class.getName()).log(Level.SEVERE,
+						null, ex);
+			}
+		}
+		// if (object instanceof JSONArray) {
+		// JSONArray jsonResponse = (JSONArray) object;
+		// try {
+		// assertEquals(Const.StatusLine.OK, persistent.getStatusLine());
+		// assertEquals(
+		// Const.HEXAA_FEDID,
+		// jsonResponse.getJSONObject(0).getString("fedid"));
+		// } catch (AssertionError e) {
+		// AssertErrorHandler(e);
+		// }
+		// }
+		//
+		// if (object instanceof JSONObject) {
+		// JSONObject jsonResponse = (JSONObject) object;
+		// try {
+		// assertEquals(Const.StatusLine.OK, persistent.getStatusLine());
+		// assertEquals(
+		// Const.HEXAA_FEDID,
+		// jsonResponse.getString("fedid"));
+		// } catch (AssertionError e) {
+		// AssertErrorHandler(e);
+		// }
+		// }
+	}
 }

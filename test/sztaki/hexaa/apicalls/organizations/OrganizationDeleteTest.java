@@ -18,58 +18,51 @@ import sztaki.hexaa.CleanTest;
  */
 public class OrganizationDeleteTest extends CleanTest {
 
-    /**
-     * Print the class name on the output.
-     */
-    @BeforeClass
-    public static void classInformation() {
-        System.out.println("***\t " + OrganizationDeleteTest.class.getSimpleName() + " ***");
-    }
+	/**
+	 * Print the class name on the output.
+	 */
+	@BeforeClass
+	public static void classInformation() {
+		System.out.println("***\t "
+				+ OrganizationDeleteTest.class.getSimpleName() + " ***");
+	}
 
-    /**
-     * JSONArray to store the created organization.
-     */
-    public static JSONArray organizations = new JSONArray();
+	/**
+	 * JSONArray to store the created organization.
+	 */
+	public static JSONArray organizations = new JSONArray();
 
-    /**
-     * Creates 2 organization.
-     */
-    @BeforeClass
-    public static void setUpClass() {
-        organizations = Utility.Create.organization(
-                new String[]{
-                    "TestOrgName1",
-                    "TestOrgName2,",});
-    }
+	/**
+	 * Creates 2 organization.
+	 */
+	@BeforeClass
+	public static void setUpClass() {
+		organizations = Utility.Create.organization(new String[] {
+				"TestOrgName1", "TestOrgName2,", });
+	}
 
-    /**
-     * DELETEs the first organization and checks both.
-     */
-    @Test
-    public void testOrganizationDelete() {
-        // The DELETE call.
-        Utility.Remove.organization(1);
+	/**
+	 * DELETEs the first organization and checks both.
+	 */
+	@Test
+	public void testOrganizationDelete() {
+		// The DELETE call.
+		Utility.Remove.organization(1);
 
-        try {
-            assertEquals(Const.StatusLine.NoContent, Utility.persistent.getStatusLine());
-            // GET the first one (the DELETEd one).
-            persistent.call(
-                    Const.Api.ORGANIZATIONS_ID,
-                    BasicCall.REST.GET);
-            assertEquals(Const.StatusLine.NotFound, persistent.getStatusLine());
-            // GET the second one.
-            JSONAssert.assertEquals(
-                    organizations.getJSONObject(1),
-                    (JSONObject) JSONParser.parseJSON(
-                            persistent.call(
-                                    Const.Api.ORGANIZATIONS_ID,
-                                    BasicCall.REST.GET,
-                                    null,
-                                    2, 2)),
-                    JSONCompareMode.LENIENT);
-            assertEquals(Const.StatusLine.OK, persistent.getStatusLine());
-        } catch (AssertionError e) {
-            AssertErrorHandler(e);
-        }
-    }
+		try {
+			assertEquals(Const.StatusLine.NoContent,
+					Utility.persistent.getStatusLine());
+			// GET the first one (the DELETEd one).
+			persistent.call(Const.Api.ORGANIZATIONS_ID, BasicCall.REST.GET);
+			assertEquals(Const.StatusLine.NotFound, persistent.getStatusLine());
+			// GET the second one.
+			JSONAssert.assertEquals(organizations.getJSONObject(1),
+					(JSONObject) JSONParser.parseJSON(persistent.call(
+							Const.Api.ORGANIZATIONS_ID, BasicCall.REST.GET,
+							null, 2, 2)), JSONCompareMode.LENIENT);
+			assertEquals(Const.StatusLine.OK, persistent.getStatusLine());
+		} catch (AssertionError e) {
+			AssertErrorHandler(e);
+		}
+	}
 }

@@ -20,75 +20,78 @@ import sztaki.hexaa.CleanTest;
  */
 public class OrganizationEntitlementpacksUnlinkTest extends CleanTest {
 
-    /**
-     * JSONArray to store the created entitlements.
-     */
-    public static JSONArray entitlements = new JSONArray();
-    /**
-     * JSONArray to store the created entitlements.
-     */
-    public static JSONArray entitlementpacks = new JSONArray();
+	/**
+	 * JSONArray to store the created entitlements.
+	 */
+	public static JSONArray entitlements = new JSONArray();
+	/**
+	 * JSONArray to store the created entitlements.
+	 */
+	public static JSONArray entitlementpacks = new JSONArray();
 
-    /**
-     * Print the class name on the output.
-     */
-    @BeforeClass
-    public static void classInformation() {
-        System.out.println("***\t " + OrganizationEntitlementpacksUnlinkTest.class.getSimpleName() + " ***");
-    }
+	/**
+	 * Print the class name on the output.
+	 */
+	@BeforeClass
+	public static void classInformation() {
+		System.out.println("***\t "
+				+ OrganizationEntitlementpacksUnlinkTest.class.getSimpleName()
+				+ " ***");
+	}
 
-    /**
-     * Creates a service, an organization, entitlements and entitlementpacks and
-     * puts them together to create full entitlementpacks.
-     */
-    @BeforeClass
-    public static void setUpClass() {
-        Utility.Create.service(new String[]{"testService"});
-        Utility.Create.organization(new String[]{"testOrganization"});
-        entitlementpacks = Utility.Create.entitlementpacks(1, new String[]{"testEntitlementpack1"});
-    }
+	/**
+	 * Creates a service, an organization, entitlements and entitlementpacks and
+	 * puts them together to create full entitlementpacks.
+	 */
+	@BeforeClass
+	public static void setUpClass() {
+		Utility.Create.service(new String[] { "testService" });
+		Utility.Create.organization(new String[] { "testOrganization" });
+		entitlementpacks = Utility.Create.entitlementpacks(1,
+				new String[] { "testEntitlementpack1" });
+	}
 
-    /**
-     * Creates a pending link and deletes it than creates an accepted link and
-     * deletes that also, than asserts it for an empty array on GET
-     * .../entitlementpacks to verify.
-     */
-    @Test
-    public void testOrganizationEntitlementpacksDelete() {
-        Utility.Link.entitlementpackToOrgRequest(1, 1);
+	/**
+	 * Creates a pending link and deletes it than creates an accepted link and
+	 * deletes that also, than asserts it for an empty array on GET
+	 * .../entitlementpacks to verify.
+	 */
+	@Test
+	public void testOrganizationEntitlementpacksDelete() {
+		Utility.Link.entitlementpackToOrgRequest(1, 1);
 
-        // Delete a pending link
-        Utility.Remove.entitlementpackFromOrg(1, 1);
+		// Delete a pending link
+		Utility.Remove.entitlementpackFromOrg(1, 1);
 
-        try {
-            assertEquals(Const.StatusLine.NoContent, Utility.persistent.getStatusLine());
-        } catch (AssertionError e) {
-            AssertErrorHandler(e);
-        }
-        
-        Utility.Link.entitlementpackToOrg(1, 1);
+		try {
+			assertEquals(Const.StatusLine.NoContent,
+					Utility.persistent.getStatusLine());
+		} catch (AssertionError e) {
+			AssertErrorHandler(e);
+		}
 
-        // Delete an accepted link
-        Utility.Remove.entitlementpackFromOrg(1, 1);
+		Utility.Link.entitlementpackToOrg(1, 1);
 
-        try {
-            assertEquals(Const.StatusLine.NoContent, Utility.persistent.getStatusLine());
-            JSONAssert.assertEquals(
-                    new JSONArray(),
-                    
-                            persistent.getResponseJSONArray(
-                                    Const.Api.ORGANIZATIONS_ID_ENTITLEMENTPACKS,
-                                    BasicCall.REST.GET,
-                                    null,
-                                    1, 1),
-                    JSONCompareMode.LENIENT);
-            assertEquals(Const.StatusLine.OK, persistent.getStatusLine());
-        } catch (AssertionError e) {
-            AssertErrorHandler(e);
-        } catch (ResponseTypeMismatchException ex) {
-            Logger.getLogger(OrganizationEntitlementpacksUnlinkTest.class.getName()).log(Level.SEVERE, null, ex);
-            fail(ex.getFullMessage());
-            return;
-        }
-    }
+		// Delete an accepted link
+		Utility.Remove.entitlementpackFromOrg(1, 1);
+
+		try {
+			assertEquals(Const.StatusLine.NoContent,
+					Utility.persistent.getStatusLine());
+			JSONAssert.assertEquals(new JSONArray(),
+
+			persistent.getResponseJSONArray(
+					Const.Api.ORGANIZATIONS_ID_ENTITLEMENTPACKS,
+					BasicCall.REST.GET, null, 1, 1), JSONCompareMode.LENIENT);
+			assertEquals(Const.StatusLine.OK, persistent.getStatusLine());
+		} catch (AssertionError e) {
+			AssertErrorHandler(e);
+		} catch (ResponseTypeMismatchException ex) {
+			Logger.getLogger(
+					OrganizationEntitlementpacksUnlinkTest.class.getName())
+					.log(Level.SEVERE, null, ex);
+			fail(ex.getFullMessage());
+			return;
+		}
+	}
 }

@@ -20,68 +20,75 @@ import sztaki.hexaa.ResponseTypeMismatchException;
  */
 public class AttributevalueorganizationsPatchTest extends CleanTest {
 
-    /**
-     * JSONArray to store the created attributevalues.
-     */
-    public static JSONArray attributevalues = new JSONArray();
+	/**
+	 * JSONArray to store the created attributevalues.
+	 */
+	public static JSONArray attributevalues = new JSONArray();
 
-    /**
-     * Print the class name on the output.
-     */
-    @BeforeClass
-    public static void classInformation() {
-        System.out.println("***\t " + AttributevalueorganizationsPatchTest.class.getSimpleName() + " ***");
-    }
+	/**
+	 * Print the class name on the output.
+	 */
+	@BeforeClass
+	public static void classInformation() {
+		System.out.println("***\t "
+				+ AttributevalueorganizationsPatchTest.class.getSimpleName()
+				+ " ***");
+	}
 
-    /**
-     * Creates one attributespecs.
-     */
-    @BeforeClass
-    public static void setUpClass() {
-        Utility.Create.organization("Org1");
-        Utility.Create.attributespec(new String[]{"testName1"}, "user");
-        attributevalues = Utility.Create.attributevalueorganization("OrgValue1", 1, 1);
-    }
+	/**
+	 * Creates one attributespecs.
+	 */
+	@BeforeClass
+	public static void setUpClass() {
+		Utility.Create.organization("Org1");
+		Utility.Create.attributespec(new String[] { "testName1" }, "user");
+		attributevalues = Utility.Create.attributevalueorganization(
+				"OrgValue1", 1, 1);
+	}
 
-    /**
-     * Puts the attributevalue than checks it.
-     */
-    @Test
-    public void testAttributevalueorganizationPatch() {
-        JSONObject jsonTemp = new JSONObject();
-        jsonTemp.put("services", new JSONArray());
-        jsonTemp.put("value", "OrgValueChanged");
+	/**
+	 * Puts the attributevalue than checks it.
+	 */
+	@Test
+	public void testAttributevalueorganizationPatch() {
+		JSONObject jsonTemp = new JSONObject();
+		jsonTemp.put("services", new JSONArray());
+		jsonTemp.put("value", "OrgValueChanged");
 
-        persistent.call(Const.Api.ATTRIBUTEVALUEORGANIZATIONS_ID, BasicCall.REST.PATCH, jsonTemp.toString());
+		persistent.call(Const.Api.ATTRIBUTEVALUEORGANIZATIONS_ID,
+				BasicCall.REST.PATCH, jsonTemp.toString());
 
-        try {
-            assertEquals(Const.StatusLine.NoContent, persistent.getStatusLine());
-        } catch (AssertionError e) {
-            AssertErrorHandler(e);
-        }
+		try {
+			assertEquals(Const.StatusLine.NoContent, persistent.getStatusLine());
+		} catch (AssertionError e) {
+			AssertErrorHandler(e);
+		}
 
-        JSONObject jsonResponse;
+		JSONObject jsonResponse;
 
-        try {
-            jsonResponse = persistent.getResponseJSONObject(
-                    Const.Api.ATTRIBUTEVALUEORGANIZATIONS_ID,
-                    BasicCall.REST.GET);
-        } catch (ResponseTypeMismatchException ex) {
-            Logger.getLogger(AttributevalueorganizationsPatchTest.class.getName()).log(Level.SEVERE, null, ex);
-            fail(ex.getFullMessage());
-            return;
-        }
+		try {
+			jsonResponse = persistent.getResponseJSONObject(
+					Const.Api.ATTRIBUTEVALUEORGANIZATIONS_ID,
+					BasicCall.REST.GET);
+		} catch (ResponseTypeMismatchException ex) {
+			Logger.getLogger(
+					AttributevalueorganizationsPatchTest.class.getName()).log(
+					Level.SEVERE, null, ex);
+			fail(ex.getFullMessage());
+			return;
+		}
 
-        jsonTemp.put("organization_id", jsonTemp.remove("organization"));
-        jsonTemp.put("attribute_spec_id", jsonTemp.remove("attribute_spec"));
-        jsonTemp.put("service_ids", jsonTemp.remove("services"));
-        jsonTemp.put("organization_id", jsonTemp.remove("organization"));
+		jsonTemp.put("organization_id", jsonTemp.remove("organization"));
+		jsonTemp.put("attribute_spec_id", jsonTemp.remove("attribute_spec"));
+		jsonTemp.put("service_ids", jsonTemp.remove("services"));
+		jsonTemp.put("organization_id", jsonTemp.remove("organization"));
 
-        try {
-            assertEquals(Const.StatusLine.OK, persistent.getStatusLine());
-            JSONAssert.assertEquals(jsonTemp, jsonResponse, JSONCompareMode.LENIENT);
-        } catch (AssertionError e) {
-            AssertErrorHandler(e);
-        }
-    }
+		try {
+			assertEquals(Const.StatusLine.OK, persistent.getStatusLine());
+			JSONAssert.assertEquals(jsonTemp, jsonResponse,
+					JSONCompareMode.LENIENT);
+		} catch (AssertionError e) {
+			AssertErrorHandler(e);
+		}
+	}
 }

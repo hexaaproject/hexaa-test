@@ -14,21 +14,15 @@ import sztaki.hexaa.apicalls.services.organizations.ServicesOrganizationsGetTest
  * starting and finishing utility jobs inherited from BasicTestSuite.
  */
 @RunWith(Suite.class)
-@Suite.SuiteClasses({
-    ServicesPostTest.class,
-    ServicesGetTest.class,
-    ServicesDeleteTest.class,
-    ServicesPutTest.class,
-    ServicesAttributespecsAddTest.class,
-    ServicesAttributespecsGetTest.class,
-    ServicesAttributespecsRemoveTest.class,
-    ServicesEntitlementpacksPostTest.class,
-    ServicesEntitlementpacksGetTest.class,
-    ServicesEntitlementsPostTest.class,
-    ServicesEntitlementsGetTest.class,
-    ServicesManagersAddTest.class,
-    ServicesManagersGetTest.class,
-    ServicesManagersRemoveTest.class,
-    ServicesOrganizationsGetTest.class,})
+@Suite.SuiteClasses({ ServicesPostTest.class, ServicesGetTest.class,
+		ServicesDeleteTest.class, ServicesPutTest.class,
+		ServicesAttributespecsAddTest.class,
+		ServicesAttributespecsGetTest.class,
+		ServicesAttributespecsRemoveTest.class,
+		ServicesEntitlementpacksPostTest.class,
+		ServicesEntitlementpacksGetTest.class,
+		ServicesEntitlementsPostTest.class, ServicesEntitlementsGetTest.class,
+		ServicesManagersAddTest.class, ServicesManagersGetTest.class,
+		ServicesManagersRemoveTest.class, ServicesOrganizationsGetTest.class, })
 public class ServicesSuite extends BasicTestSuite {
 }

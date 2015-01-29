@@ -19,114 +19,106 @@ import sztaki.hexaa.CleanTest;
  */
 public class EntitlementpacksPutPatchTest extends CleanTest {
 
-    /**
-     * Print the class name on the output.
-     */
-    @BeforeClass
-    public static void classInformation() {
-        System.out.println("***\t " + EntitlementpacksPutPatchTest.class.getSimpleName() + " ***");
-    }
+	/**
+	 * Print the class name on the output.
+	 */
+	@BeforeClass
+	public static void classInformation() {
+		System.out.println("***\t "
+				+ EntitlementpacksPutPatchTest.class.getSimpleName() + " ***");
+	}
 
-    /**
-     * JSONArray to store the created entitlementpacks.
-     */
-    private static JSONArray entitlementpacks = new JSONArray();
+	/**
+	 * JSONArray to store the created entitlementpacks.
+	 */
+	private static JSONArray entitlementpacks = new JSONArray();
 
-    /**
-     * Creates one service and two entitlementpacks.
-     */
-    @BeforeClass
-    public static void setUpClass() {
-        Utility.Create.service(new String[]{"testService1"});
-        entitlementpacks = Utility.Create.entitlementpacks(1, new String[]{"testEntitlementpacks1", "testEntitlementpacks2"});
-    }
+	/**
+	 * Creates one service and two entitlementpacks.
+	 */
+	@BeforeClass
+	public static void setUpClass() {
+		Utility.Create.service(new String[] { "testService1" });
+		entitlementpacks = Utility.Create.entitlementpacks(1, new String[] {
+				"testEntitlementpacks1", "testEntitlementpacks2" });
+	}
 
-    /**
-     * Changes one attribute of the entitlementpack by put and verifies it by
-     * GETing the entitlementpack from the server.
-     */
-    @Test
-    public void testEntitlementpacksPut() {
-        JSONObject json = entitlementpacks.getJSONObject(0);
+	/**
+	 * Changes one attribute of the entitlementpack by put and verifies it by
+	 * GETing the entitlementpack from the server.
+	 */
+	@Test
+	public void testEntitlementpacksPut() {
+		JSONObject json = entitlementpacks.getJSONObject(0);
 
-        json.remove("name");
-        json.put("name", "changedNameByPut");
-        json.remove("id");
+		json.remove("name");
+		json.put("name", "changedNameByPut");
+		json.remove("id");
 
-        persistent.call(
-                Const.Api.ENTITLEMENTPACKS_ID,
-                BasicCall.REST.PUT,
-                json.toString(),
-                1, 0);
-        System.out.println(persistent.getResponse());
+		persistent.call(Const.Api.ENTITLEMENTPACKS_ID, BasicCall.REST.PUT,
+				json.toString(), 1, 0);
+		System.out.println(persistent.getResponse());
 
-        try {
-            assertEquals(Const.StatusLine.NoContent, persistent.getStatusLine());
-        } catch (AssertionError e) {
-            AssertErrorHandler(e);
-        }
+		try {
+			assertEquals(Const.StatusLine.NoContent, persistent.getStatusLine());
+		} catch (AssertionError e) {
+			AssertErrorHandler(e);
+		}
 
-        JSONObject jsonResponse;
-        try {
-            jsonResponse
-                    = persistent.getResponseJSONObject(
-                            Const.Api.ENTITLEMENTPACKS_ID,
-                            BasicCall.REST.GET,
-                            null,
-                            1, 0);
+		JSONObject jsonResponse;
+		try {
+			jsonResponse = persistent.getResponseJSONObject(
+					Const.Api.ENTITLEMENTPACKS_ID, BasicCall.REST.GET, null, 1,
+					0);
 
-        } catch (ResponseTypeMismatchException ex) {
-            fail(ex.getFullMessage());
-            return;
-        }
-        
-        try {
-            assertEquals(Const.StatusLine.OK, persistent.getStatusLine());
-            JSONAssert.assertEquals(json, jsonResponse, JSONCompareMode.LENIENT);
-            assertEquals("changedNameByPut", jsonResponse.getString("name"));
-        } catch (AssertionError e) {
-            AssertErrorHandler(e);
-        }
-    }
+		} catch (ResponseTypeMismatchException ex) {
+			fail(ex.getFullMessage());
+			return;
+		}
 
-    /**
-     * Changes one attribute of the entitlementpack by patch and verifies it by
-     * GETing the entitlementpack from the server.
-     */
-    @Test
-    public void testEntitlementpacksPatch() {
-        JSONObject json = entitlementpacks.getJSONObject(0);
-        
-        json.remove("name");
-        json.put("name", "changedNameByPut");
+		try {
+			assertEquals(Const.StatusLine.OK, persistent.getStatusLine());
+			JSONAssert
+					.assertEquals(json, jsonResponse, JSONCompareMode.LENIENT);
+			assertEquals("changedNameByPut", jsonResponse.getString("name"));
+		} catch (AssertionError e) {
+			AssertErrorHandler(e);
+		}
+	}
 
-        JSONObject temp = new JSONObject();
-        temp.put("name", "changedNameByPut");
+	/**
+	 * Changes one attribute of the entitlementpack by patch and verifies it by
+	 * GETing the entitlementpack from the server.
+	 */
+	@Test
+	public void testEntitlementpacksPatch() {
+		JSONObject json = entitlementpacks.getJSONObject(0);
 
-        persistent.call(
-                Const.Api.ENTITLEMENTPACKS_ID,
-                BasicCall.REST.PATCH,
-                temp.toString(),
-                1, 0);
+		json.remove("name");
+		json.put("name", "changedNameByPut");
 
-        try {
-            assertEquals(Const.StatusLine.NoContent, persistent.getStatusLine());
-        } catch (AssertionError e) {
-            AssertErrorHandler(e);
-        }
+		JSONObject temp = new JSONObject();
+		temp.put("name", "changedNameByPut");
 
-        JSONObject jsonResponse = (JSONObject) JSONParser.parseJSON(
-                persistent.call(
-                        Const.Api.ENTITLEMENTPACKS_ID,
-                        BasicCall.REST.GET,
-                        null,
-                        1, 0));
-        try {
-            assertEquals(Const.StatusLine.OK, persistent.getStatusLine());
-            JSONAssert.assertEquals(json, jsonResponse, JSONCompareMode.LENIENT);
-            assertEquals("changedNameByPut", jsonResponse.getString("name"));
-        } catch (AssertionError e) {
-            AssertErrorHandler(e);
-        }
-    }
+		persistent.call(Const.Api.ENTITLEMENTPACKS_ID, BasicCall.REST.PATCH,
+				temp.toString(), 1, 0);
+
+		try {
+			assertEquals(Const.StatusLine.NoContent, persistent.getStatusLine());
+		} catch (AssertionError e) {
+			AssertErrorHandler(e);
+		}
+
+		JSONObject jsonResponse = (JSONObject) JSONParser.parseJSON(persistent
+				.call(Const.Api.ENTITLEMENTPACKS_ID, BasicCall.REST.GET, null,
+						1, 0));
+		try {
+			assertEquals(Const.StatusLine.OK, persistent.getStatusLine());
+			JSONAssert
+					.assertEquals(json, jsonResponse, JSONCompareMode.LENIENT);
+			assertEquals("changedNameByPut", jsonResponse.getString("name"));
+		} catch (AssertionError e) {
+			AssertErrorHandler(e);
+		}
+	}
 }

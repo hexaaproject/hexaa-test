@@ -19,109 +19,115 @@ import java.util.logging.Logger;
  */
 public class CoverageChecker {
 
-    /**
-     * Self reference for singleton usage.
-     */
-    private static CoverageChecker coverageChecker = null;
+	/**
+	 * Self reference for singleton usage.
+	 */
+	private static CoverageChecker coverageChecker = null;
 
-    /**
-     * Storing the strings for faster processing.
-     */
-    private static ArrayList<String> remainingCalls = null;
+	/**
+	 * Storing the strings for faster processing.
+	 */
+	private static ArrayList<String> remainingCalls = null;
 
-    /**
-     * Default constructor, can not be called from the outside.
-     */
-    protected CoverageChecker() {
-        remainingCalls = new ArrayList<>();
+	/**
+	 * Default constructor, can not be called from the outside.
+	 */
+	protected CoverageChecker() {
+		remainingCalls = new ArrayList<>();
 
-        File f = new File("apicalllist.txt");
-        System.out.println(f.exists());
+		File f = new File("apicalllist.txt");
+		System.out.println(f.exists());
 
-        if (!f.exists()) {
-            try {
-                f.createNewFile();
-                OutputStream out = new FileOutputStream(f);
-                Files.copy(FileSystems.getDefault().getPath("apicalllist_dist.txt"), out);
-            } catch (IOException ex) {
-                Logger.getLogger(CoverageChecker.class.getName()).log(Level.SEVERE, null, ex);
-                return;
-            }
-        }
+		if (!f.exists()) {
+			try {
+				f.createNewFile();
+				OutputStream out = new FileOutputStream(f);
+				Files.copy(
+						FileSystems.getDefault()
+								.getPath("apicalllist_dist.txt"), out);
+			} catch (IOException ex) {
+				Logger.getLogger(CoverageChecker.class.getName()).log(
+						Level.SEVERE, null, ex);
+				return;
+			}
+		}
 
-        Scanner s;
-        try {
-            s = new Scanner(f);
-            while (s.hasNextLine()) {
-                remainingCalls.add(s.nextLine());
-            }
-            s.close();
-        } catch (FileNotFoundException ex) {
-            Logger.getLogger(CoverageChecker.class.getName()).log(Level.SEVERE, null, ex);
-        }
-    }
+		Scanner s;
+		try {
+			s = new Scanner(f);
+			while (s.hasNextLine()) {
+				remainingCalls.add(s.nextLine());
+			}
+			s.close();
+		} catch (FileNotFoundException ex) {
+			Logger.getLogger(CoverageChecker.class.getName()).log(Level.SEVERE,
+					null, ex);
+		}
+	}
 
-    /**
-     * Initialize the class if needed, does nothing if it is already
-     * initialized. Calls the getCoverageChecker() method, this is here just to
-     * avoid the non-used return value warnings.
-     */
-    public static void Init() {
-        if (coverageChecker == null || remainingCalls == null) {
-            getCoverageChecker();
-        }
-    }
+	/**
+	 * Initialize the class if needed, does nothing if it is already
+	 * initialized. Calls the getCoverageChecker() method, this is here just to
+	 * avoid the non-used return value warnings.
+	 */
+	public static void Init() {
+		if (coverageChecker == null || remainingCalls == null) {
+			getCoverageChecker();
+		}
+	}
 
-    /**
-     * Returns the object of the singleton class, if needed it initialize the
-     * class.
-     *
-     * @return the object of the CoverageChecker class.
-     */
-    public static CoverageChecker getCoverageChecker() {
-        if (coverageChecker == null) {
-            coverageChecker = new CoverageChecker();
-        }
-        return coverageChecker;
-    }
+	/**
+	 * Returns the object of the singleton class, if needed it initialize the
+	 * class.
+	 *
+	 * @return the object of the CoverageChecker class.
+	 */
+	public static CoverageChecker getCoverageChecker() {
+		if (coverageChecker == null) {
+			coverageChecker = new CoverageChecker();
+		}
+		return coverageChecker;
+	}
 
-    /**
-     * Checks for the given string in the remainingCalls list, if it is there it
-     * removes it and rewrites the apicalllist.txt file as well.
-     *
-     * @param s String expected in the format of
-     * "RESTCALL(GET/POST/PUT/PATCH/DELETE) /api/..."
-     */
-    public static void checkout(String s) {
-        Init();
+	/**
+	 * Checks for the given string in the remainingCalls list, if it is there it
+	 * removes it and rewrites the apicalllist.txt file as well.
+	 *
+	 * @param s
+	 *            String expected in the format of
+	 *            "RESTCALL(GET/POST/PUT/PATCH/DELETE) /api/..."
+	 */
+	public static void checkout(String s) {
+		Init();
 
-        boolean rewriteNeeded = remainingCalls.remove(s);
-//        System.out.println(s + " " + rewriteNeeded);
+		boolean rewriteNeeded = remainingCalls.remove(s);
+		// System.out.println(s + " " + rewriteNeeded);
 
-        if (rewriteNeeded == true) {
-            File f = new File("apicalllist.txt");
-            FileWriter fw = null;
-            try {
-                fw = new FileWriter(f, false);
-                for (String line : remainingCalls) {
-                    fw.write(line + "\n");
-                }
-                fw.close();
-            } catch (IOException ex) {
-                Logger.getLogger(CoverageChecker.class.getName()).log(Level.SEVERE, null, ex);
-            }
-        }
-    }
+		if (rewriteNeeded == true) {
+			File f = new File("apicalllist.txt");
+			FileWriter fw = null;
+			try {
+				fw = new FileWriter(f, false);
+				for (String line : remainingCalls) {
+					fw.write(line + "\n");
+				}
+				fw.close();
+			} catch (IOException ex) {
+				Logger.getLogger(CoverageChecker.class.getName()).log(
+						Level.SEVERE, null, ex);
+			}
+		}
+	}
 
-    /**
-     * Prints the current not yet used calls to the screen. IMPORTANT this does
-     * not close the class, the list will not be written to file by this.
-     */
-    public static void printout() {
-        Init();
+	/**
+	 * Prints the current not yet used calls to the screen. IMPORTANT this does
+	 * not close the class, the list will not be written to file by this.
+	 */
+	public static void printout() {
+		Init();
 
-        for (String s : remainingCalls) {
-            System.out.println(s);
-        }
-    }
+		for (String s : remainingCalls) {
+			System.out.println(s);
+		}
+	}
 }

@@ -17,47 +17,48 @@ import sztaki.hexaa.CleanTest;
  */
 public class RolesDeleteTest extends CleanTest {
 
-    /**
-     * Print the class name on the output.
-     */
-    @BeforeClass
-    public static void classInformation() {
-        System.out.println("***\t " + RolesDeleteTest.class.getSimpleName() + " ***");
-    }
+	/**
+	 * Print the class name on the output.
+	 */
+	@BeforeClass
+	public static void classInformation() {
+		System.out.println("***\t " + RolesDeleteTest.class.getSimpleName()
+				+ " ***");
+	}
 
-    /**
-     * JSONArray to store the created role.
-     */
-    public static JSONArray roles = new JSONArray();
+	/**
+	 * JSONArray to store the created role.
+	 */
+	public static JSONArray roles = new JSONArray();
 
-    /**
-     * Creates one organization and two role.
-     */
-    @BeforeClass
-    public static void setUpClass() {
-        Utility.Create.organization(new String[]{"testOrgForRoleDel"});
-        roles = Utility.Create.role(new String[]{"testRole1", "testRole2"}, 1);
-    }
+	/**
+	 * Creates one organization and two role.
+	 */
+	@BeforeClass
+	public static void setUpClass() {
+		Utility.Create.organization(new String[] { "testOrgForRoleDel" });
+		roles = Utility.Create.role(new String[] { "testRole1", "testRole2" },
+				1);
+	}
 
-    /**
-     * DELETEs the first role and checks that only the second one exists.
-     */
-    @Test
-    public void testRolesDelete() {
-        // The DELETE call.
-        Utility.Remove.roles(1);
+	/**
+	 * DELETEs the first role and checks that only the second one exists.
+	 */
+	@Test
+	public void testRolesDelete() {
+		// The DELETE call.
+		Utility.Remove.roles(1);
 
-        try {
-            assertEquals(Const.StatusLine.NoContent, Utility.persistent.getStatusLine());
-            JSONAssert.assertEquals(
-                    roles.getJSONObject(1),
-                    ((JSONArray) JSONParser.parseJSON(
-                            persistent.call(
-                                    Const.Api.ORGANIZATIONS_ID_ROLES,
-                                    BasicCall.REST.GET))).getJSONObject(0),
-                    JSONCompareMode.LENIENT);
-        } catch (AssertionError e) {
-            AssertErrorHandler(e);
-        }
-    }
+		try {
+			assertEquals(Const.StatusLine.NoContent,
+					Utility.persistent.getStatusLine());
+			JSONAssert.assertEquals(roles.getJSONObject(1),
+					((JSONArray) JSONParser.parseJSON(persistent.call(
+							Const.Api.ORGANIZATIONS_ID_ROLES,
+							BasicCall.REST.GET))).getJSONObject(0),
+					JSONCompareMode.LENIENT);
+		} catch (AssertionError e) {
+			AssertErrorHandler(e);
+		}
+	}
 }

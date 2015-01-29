@@ -19,71 +19,73 @@ import sztaki.hexaa.ResponseTypeMismatchException;
  */
 public class RolesEntitlementsRemoveTest extends CleanTest {
 
-    /**
-     * Print the class name on the output.
-     */
-    @BeforeClass
-    public static void classInformation() {
-        System.out.println("***\t " + RolesEntitlementsRemoveTest.class.getSimpleName() + " ***");
-    }
+	/**
+	 * Print the class name on the output.
+	 */
+	@BeforeClass
+	public static void classInformation() {
+		System.out.println("***\t "
+				+ RolesEntitlementsRemoveTest.class.getSimpleName() + " ***");
+	}
 
-    /**
-     * JSONArray to store the created entitlements.
-     */
-    public static JSONArray entitlements = new JSONArray();
+	/**
+	 * JSONArray to store the created entitlements.
+	 */
+	public static JSONArray entitlements = new JSONArray();
 
-    /**
-     * Creates an organization, a role, a service, two entitlements and an
-     * entitlementpack, and links them together.
-     */
-    @BeforeClass
-    public static void setUpClass() {
-        Utility.Create.organization(new String[]{"testOrg1"});
-        Utility.Create.role(new String[]{"testRole1"}, 1);
-        Utility.Create.service(new String[]{"testService1"});
-        entitlements = Utility.Create.entitlements(1, new String[]{"testEntitlement1", "testEntitlement2"});
-        Utility.Create.entitlementpacks(1, new String[]{"testEntitlementpack1"});
+	/**
+	 * Creates an organization, a role, a service, two entitlements and an
+	 * entitlementpack, and links them together.
+	 */
+	@BeforeClass
+	public static void setUpClass() {
+		Utility.Create.organization(new String[] { "testOrg1" });
+		Utility.Create.role(new String[] { "testRole1" }, 1);
+		Utility.Create.service(new String[] { "testService1" });
+		entitlements = Utility.Create.entitlements(1, new String[] {
+				"testEntitlement1", "testEntitlement2" });
+		Utility.Create.entitlementpacks(1,
+				new String[] { "testEntitlementpack1" });
 
-        Utility.Link.entitlementToPack(1, 1);
-        Utility.Link.entitlementToPack(2, 1);
-        Utility.Link.entitlementpackToOrg(1, new int[]{1});
+		Utility.Link.entitlementToPack(1, 1);
+		Utility.Link.entitlementToPack(2, 1);
+		Utility.Link.entitlementpackToOrg(1, new int[] { 1 });
 
-        Utility.Link.entitlementsToRole(1, new int[]{1, 2});
-    }
+		Utility.Link.entitlementsToRole(1, new int[] { 1, 2 });
+	}
 
-    /**
-     * DELETE the entitlements of the role.
-     */
-    @Test
-    public void testRolesEntitlementsDelete() {
-        entitlements.remove(0);
+	/**
+	 * DELETE the entitlements of the role.
+	 */
+	@Test
+	public void testRolesEntitlementsDelete() {
+		entitlements.remove(0);
 
-        Utility.Remove.entitlementFromRole(1, 1);
+		Utility.Remove.entitlementFromRole(1, 1);
 
-        try {
-            assertEquals(Const.StatusLine.NoContent, Utility.persistent.getStatusLine());
-        } catch (AssertionError e) {
-            AssertErrorHandler(e);
-        }
+		try {
+			assertEquals(Const.StatusLine.NoContent,
+					Utility.persistent.getStatusLine());
+		} catch (AssertionError e) {
+			AssertErrorHandler(e);
+		}
 
-        JSONArray jsonResponse;
-        try {
-            jsonResponse = persistent.getResponseJSONArray(
-                    Const.Api.ROLES_ID_ENTITLEMENTS,
-                    BasicCall.REST.GET);
-        } catch (ResponseTypeMismatchException ex) {
-            Logger.getLogger(RolesEntitlementsRemoveTest.class.getName()).log(Level.SEVERE, null, ex);
-            fail(ex.getFullMessage());
-            return;
-        }
+		JSONArray jsonResponse;
+		try {
+			jsonResponse = persistent.getResponseJSONArray(
+					Const.Api.ROLES_ID_ENTITLEMENTS, BasicCall.REST.GET);
+		} catch (ResponseTypeMismatchException ex) {
+			Logger.getLogger(RolesEntitlementsRemoveTest.class.getName()).log(
+					Level.SEVERE, null, ex);
+			fail(ex.getFullMessage());
+			return;
+		}
 
-        try {
-            JSONAssert.assertEquals(
-                    entitlements,
-                    jsonResponse,
-                    JSONCompareMode.LENIENT);
-        } catch (AssertionError e) {
-            AssertErrorHandler(e);
-        }
-    }
+		try {
+			JSONAssert.assertEquals(entitlements, jsonResponse,
+					JSONCompareMode.LENIENT);
+		} catch (AssertionError e) {
+			AssertErrorHandler(e);
+		}
+	}
 }

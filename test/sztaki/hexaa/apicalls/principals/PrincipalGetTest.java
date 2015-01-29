@@ -15,110 +15,98 @@ import sztaki.hexaa.CleanTest;
  */
 public class PrincipalGetTest extends CleanTest {
 
-    /**
-     * Print the class name on the output.
-     */
-    @BeforeClass
-    public static void classInformation() {
-        System.out.println("***\t " + PrincipalGetTest.class.getSimpleName() + " ***");
-    }
+	/**
+	 * Print the class name on the output.
+	 */
+	@BeforeClass
+	public static void classInformation() {
+		System.out.println("***\t " + PrincipalGetTest.class.getSimpleName()
+				+ " ***");
+	}
 
-    /**
-     * Creates all the necessary objects for the tests.
-     */
-    @BeforeClass
-    public static void setUpClass() {
-    }
+	/**
+	 * Creates all the necessary objects for the tests.
+	 */
+	@BeforeClass
+	public static void setUpClass() {
+	}
 
-    /**
-     * GET info about the current principal.
-     */
-    @Test
-    public void testPrincipalSelfGet() {
-        Object response
-                = JSONParser.parseJSON(
-                        persistent.call(
-                                Const.Api.PRINCIPAL_SELF,
-                                BasicCall.REST.GET));
+	/**
+	 * GET info about the current principal.
+	 */
+	@Test
+	public void testPrincipalSelfGet() {
+		Object response = JSONParser.parseJSON(persistent.call(
+				Const.Api.PRINCIPAL_SELF, BasicCall.REST.GET));
 
-        JSONObject jsonResponse = (JSONObject) response;
+		JSONObject jsonResponse = (JSONObject) response;
 
-        try {
-            assertEquals(Const.StatusLine.OK, persistent.getStatusLine());
-            assertEquals(Const.HEXAA_FEDID, jsonResponse.getString("fedid"));
-        } catch (AssertionError e) {
-            AssertErrorHandler(e);
-        }
-    }
+		try {
+			assertEquals(Const.StatusLine.OK, persistent.getStatusLine());
+			assertEquals(Const.HEXAA_FEDID, jsonResponse.getString("fedid"));
+		} catch (AssertionError e) {
+			AssertErrorHandler(e);
+		}
+	}
 
-    /**
-     * GET all the principals and search for the admin.
-     */
-    @Test
-    public void testPrincipalsGet() {
-        Object response
-                = JSONParser.parseJSON(
-                        persistent.call(
-                                Const.Api.PRINCIPALS,
-                                BasicCall.REST.GET));
+	/**
+	 * GET all the principals and search for the admin.
+	 */
+	@Test
+	public void testPrincipalsGet() {
+		Object response = JSONParser.parseJSON(persistent.call(
+				Const.Api.PRINCIPALS, BasicCall.REST.GET));
 
-        if (response instanceof JSONObject) {
-            fail("Not a JSONArray but a JSONObject: " + ((JSONObject) response).toString());
-        }
-        JSONArray jsonResponse = (JSONArray) response;
+		if (response instanceof JSONObject) {
+			fail("Not a JSONArray but a JSONObject: "
+					+ ((JSONObject) response).toString());
+		}
+		JSONArray jsonResponse = (JSONArray) response;
 
-        for (int i = 0; i < jsonResponse.length(); i++) {
-            try {
-                assertEquals(Const.HEXAA_FEDID, jsonResponse.getJSONObject(i).get("fedid"));
-            } catch (AssertionError e) {
-                AssertErrorHandler(e);
-            }
-        }
-    }
+		for (int i = 0; i < jsonResponse.length(); i++) {
+			try {
+				assertEquals(Const.HEXAA_FEDID, jsonResponse.getJSONObject(i)
+						.get("fedid"));
+			} catch (AssertionError e) {
+				AssertErrorHandler(e);
+			}
+		}
+	}
 
-    /**
-     * GET the principal by fedid.
-     */
-    @Test
-    public void testPrincipalsGetByFedid() {
-        Object response
-                = JSONParser.parseJSON(
-                        persistent.call(
-                                Const.Api.PRINCIPALS_FEDID,
-                                BasicCall.REST.GET,
-                                null,
-                                1, 1,
-                                Const.HEXAA_FEDID));
+	/**
+	 * GET the principal by fedid.
+	 */
+	@Test
+	public void testPrincipalsGetByFedid() {
+		Object response = JSONParser.parseJSON(persistent.call(
+				Const.Api.PRINCIPALS_FEDID, BasicCall.REST.GET, null, 1, 1,
+				Const.HEXAA_FEDID));
 
-        JSONObject jsonResponse = (JSONObject) response;
+		JSONObject jsonResponse = (JSONObject) response;
 
-        try {
-            assertEquals(Const.StatusLine.OK, persistent.getStatusLine());
-            assertEquals(Const.HEXAA_FEDID, jsonResponse.getString("fedid"));
-        } catch (AssertionError e) {
-            AssertErrorHandler(e);
-        }
-    }
+		try {
+			assertEquals(Const.StatusLine.OK, persistent.getStatusLine());
+			assertEquals(Const.HEXAA_FEDID, jsonResponse.getString("fedid"));
+		} catch (AssertionError e) {
+			AssertErrorHandler(e);
+		}
+	}
 
-    /**
-     * GET the principal by id.
-     */
-    @Test
-    public void testPrincipalsGetById() {
-        Object response
-                = JSONParser.parseJSON(
-                        persistent.call(Const.Api.PRINCIPALS_ID_ID,
-                                BasicCall.REST.GET,
-                                null,
-                                1, 1));
+	/**
+	 * GET the principal by id.
+	 */
+	@Test
+	public void testPrincipalsGetById() {
+		Object response = JSONParser.parseJSON(persistent.call(
+				Const.Api.PRINCIPALS_ID_ID, BasicCall.REST.GET, null, 1, 1));
 
-        JSONObject jsonResponse = (JSONObject) response;
+		JSONObject jsonResponse = (JSONObject) response;
 
-        try {
-            assertEquals(Const.StatusLine.OK, persistent.getStatusLine());
-            assertEquals(Const.HEXAA_FEDID, jsonResponse.getString("fedid"));
-        } catch (AssertionError e) {
-            AssertErrorHandler(e);
-        }
-    }
+		try {
+			assertEquals(Const.StatusLine.OK, persistent.getStatusLine());
+			assertEquals(Const.HEXAA_FEDID, jsonResponse.getString("fedid"));
+		} catch (AssertionError e) {
+			AssertErrorHandler(e);
+		}
+	}
 }

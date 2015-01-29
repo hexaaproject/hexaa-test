@@ -17,78 +17,74 @@ import sztaki.hexaa.ResponseTypeMismatchException;
  */
 public class ServicesAttributespecsGetTest extends CleanTest {
 
-    /**
-     * Print the class name on the output.
-     */
-    @BeforeClass
-    public static void classInformation() {
-        System.out.println("***\t " + ServicesAttributespecsGetTest.class.getSimpleName() + " ***");
-    }
+	/**
+	 * Print the class name on the output.
+	 */
+	@BeforeClass
+	public static void classInformation() {
+		System.out.println("***\t "
+				+ ServicesAttributespecsGetTest.class.getSimpleName() + " ***");
+	}
 
-    /**
-     * Creates two services, two attributespecs and links them together.
-     */
-    @BeforeClass
-    public static void setUpClass() {
-        Utility.Create.service(new String[]{"testService1", "testService2"});
-        Utility.Create.attributespec(new String[]{"asTest1", "asTest2"}, "user");
-        Utility.Link.attributespecsToService(1, new int[]{1, 2}, true);
-    }
+	/**
+	 * Creates two services, two attributespecs and links them together.
+	 */
+	@BeforeClass
+	public static void setUpClass() {
+		Utility.Create.service(new String[] { "testService1", "testService2" });
+		Utility.Create.attributespec(new String[] { "asTest1", "asTest2" },
+				"user");
+		Utility.Link.attributespecsToService(1, new int[] { 1, 2 }, true);
+	}
 
-    /**
-     * GET the 2 services attributespecs and checks if they are with the correct
-     * id.
-     */
-    @Test
-    public void testServicesAttributespecsGet() {
-        JSONArray jsonResponse;
-        try {
-            jsonResponse = persistent.getResponseJSONArray(
-                    Const.Api.SERVICES_ID_ATTRIBUTESPECS,
-                    BasicCall.REST.GET,
-                    null,
-                    1, 1);
-        } catch (ResponseTypeMismatchException ex) {
-            Logger.getLogger(ServicesAttributespecsGetTest.class.getName()).log(Level.SEVERE, null, ex);
-            fail(ex.getFullMessage());
-            return;
-        }
-        try {
-            assertEquals(Const.StatusLine.OK, persistent.getStatusLine());
-            assertEquals(
-                    1,
-                    jsonResponse.getJSONObject(0).getInt("attribute_spec_id"));
-        } catch (AssertionError e) {
-            AssertErrorHandler(e);
-        }
+	/**
+	 * GET the 2 services attributespecs and checks if they are with the correct
+	 * id.
+	 */
+	@Test
+	public void testServicesAttributespecsGet() {
+		JSONArray jsonResponse;
+		try {
+			jsonResponse = persistent.getResponseJSONArray(
+					Const.Api.SERVICES_ID_ATTRIBUTESPECS, BasicCall.REST.GET,
+					null, 1, 1);
+		} catch (ResponseTypeMismatchException ex) {
+			Logger.getLogger(ServicesAttributespecsGetTest.class.getName())
+					.log(Level.SEVERE, null, ex);
+			fail(ex.getFullMessage());
+			return;
+		}
+		try {
+			assertEquals(Const.StatusLine.OK, persistent.getStatusLine());
+			assertEquals(1,
+					jsonResponse.getJSONObject(0).getInt("attribute_spec_id"));
+		} catch (AssertionError e) {
+			AssertErrorHandler(e);
+		}
 
-        try {
-            assertEquals(Const.StatusLine.OK, persistent.getStatusLine());
-            assertEquals(
-                    2,
-                    jsonResponse.getJSONObject(1).getInt("attribute_spec_id"));
-        } catch (AssertionError e) {
-            AssertErrorHandler(e);
-        }
+		try {
+			assertEquals(Const.StatusLine.OK, persistent.getStatusLine());
+			assertEquals(2,
+					jsonResponse.getJSONObject(1).getInt("attribute_spec_id"));
+		} catch (AssertionError e) {
+			AssertErrorHandler(e);
+		}
 
-        try {
-            jsonResponse = persistent.getResponseJSONArray(
-                    Const.Api.SERVICES_ID_ATTRIBUTESPECS,
-                    BasicCall.REST.GET,
-                    null,
-                    2, 1);
-        } catch (ResponseTypeMismatchException ex) {
-            Logger.getLogger(ServicesAttributespecsGetTest.class.getName()).log(Level.SEVERE, null, ex);
-            fail(ex.getFullMessage());
-            return;
-        }
-        try {
-            assertEquals(
-                    0,
-                    jsonResponse.length());
-            assertEquals(Const.StatusLine.OK, persistent.getStatusLine());
-        } catch (AssertionError e) {
-            AssertErrorHandler(e);
-        }
-    }
+		try {
+			jsonResponse = persistent.getResponseJSONArray(
+					Const.Api.SERVICES_ID_ATTRIBUTESPECS, BasicCall.REST.GET,
+					null, 2, 1);
+		} catch (ResponseTypeMismatchException ex) {
+			Logger.getLogger(ServicesAttributespecsGetTest.class.getName())
+					.log(Level.SEVERE, null, ex);
+			fail(ex.getFullMessage());
+			return;
+		}
+		try {
+			assertEquals(0, jsonResponse.length());
+			assertEquals(Const.StatusLine.OK, persistent.getStatusLine());
+		} catch (AssertionError e) {
+			AssertErrorHandler(e);
+		}
+	}
 }

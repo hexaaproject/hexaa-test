@@ -18,41 +18,38 @@ import sztaki.hexaa.CleanTest;
  */
 public class PrincipalsPostTest extends CleanTest {
 
-    /**
-     * Print the class name on the output.
-     */
-    @BeforeClass
-    public static void classInformation() {
-        System.out.println("***\t " + PrincipalsPostTest.class.getSimpleName() + " ***");
-    }
+	/**
+	 * Print the class name on the output.
+	 */
+	@BeforeClass
+	public static void classInformation() {
+		System.out.println("***\t " + PrincipalsPostTest.class.getSimpleName()
+				+ " ***");
+	}
 
-    /**
-     * POST a new principal and verify it.
-     */
-    @Test
-    public void testPrincipalsPost() {
-        JSONObject json = new JSONObject();
-        json.put("fedid", "testFedid1");
-        json.put("email", "testFedid1@email.something");
-        json.put("display_name", "testFedid1_name");
+	/**
+	 * POST a new principal and verify it.
+	 */
+	@Test
+	public void testPrincipalsPost() {
+		JSONObject json = new JSONObject();
+		json.put("fedid", "testFedid1");
+		json.put("email", "testFedid1@email.something");
+		json.put("display_name", "testFedid1_name");
 
-        Utility.Create.principal(json.getString("fedid"));
-        
-        try {
-            assertEquals(Const.StatusLine.Created, Utility.persistent.getStatusLine());
-            JSONAssert.assertEquals(
-                    json,
-                    ((JSONArray) JSONParser.parseJSON(
-                            persistent.call(
-                                    Const.Api.PRINCIPALS,
-                                    BasicCall.REST.GET)))
-                    .getJSONObject(0),
-                    JSONCompareMode.LENIENT);
-        } catch (AssertionError e) {
-            AssertErrorHandler(e);
-        }
-        System.out.println(persistent.call(
-                                    Const.Api.PRINCIPALS,
-                                    BasicCall.REST.GET));
-    }
+		Utility.Create.principal(json.getString("fedid"));
+
+		try {
+			assertEquals(Const.StatusLine.Created,
+					Utility.persistent.getStatusLine());
+			JSONAssert.assertEquals(json, ((JSONArray) JSONParser
+					.parseJSON(persistent.call(Const.Api.PRINCIPALS,
+							BasicCall.REST.GET))).getJSONObject(0),
+					JSONCompareMode.LENIENT);
+		} catch (AssertionError e) {
+			AssertErrorHandler(e);
+		}
+		System.out.println(persistent.call(Const.Api.PRINCIPALS,
+				BasicCall.REST.GET));
+	}
 }

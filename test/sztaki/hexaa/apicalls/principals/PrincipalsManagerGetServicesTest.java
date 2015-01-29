@@ -17,43 +17,44 @@ import sztaki.hexaa.CleanTest;
  */
 public class PrincipalsManagerGetServicesTest extends CleanTest {
 
-    /**
-     * Print the class name on the output.
-     */
-    @BeforeClass
-    public static void classInformation() {
-        System.out.println("***\t " + PrincipalsManagerGetServicesTest.class.getSimpleName() + " ***");
-    }
+	/**
+	 * Print the class name on the output.
+	 */
+	@BeforeClass
+	public static void classInformation() {
+		System.out.println("***\t "
+				+ PrincipalsManagerGetServicesTest.class.getSimpleName()
+				+ " ***");
+	}
 
-    /**
-     * JSONArray to store the created services.
-     */
-    private static JSONArray services = new JSONArray();
+	/**
+	 * JSONArray to store the created services.
+	 */
+	private static JSONArray services = new JSONArray();
 
-    /**
-     * Creates one service.
-     */
-    @BeforeClass
-    public static void setUpClass() {
-        services = Utility.Create.service(new String[]{"testServForPrincGet"});
-    }
+	/**
+	 * Creates one service.
+	 */
+	@BeforeClass
+	public static void setUpClass() {
+		services = Utility.Create
+				.service(new String[] { "testServForPrincGet" });
+	}
 
-    /**
-     * GET the list of services where the user is manager.
-     */
-    @Test
-    public void testPrincipalGetManagerService() {
-        JSONArray jsonResponse
-                = (JSONArray) JSONParser.parseJSON(
-                        persistent.call(
-                                Const.Api.MANAGER_SERVICES,
-                                BasicCall.REST.GET));
+	/**
+	 * GET the list of services where the user is manager.
+	 */
+	@Test
+	public void testPrincipalGetManagerService() {
+		JSONArray jsonResponse = (JSONArray) JSONParser.parseJSON(persistent
+				.call(Const.Api.MANAGER_SERVICES, BasicCall.REST.GET));
 
-        try {
-            assertEquals(Const.StatusLine.OK, persistent.getStatusLine());
-            JSONAssert.assertEquals(services, jsonResponse, JSONCompareMode.LENIENT);
-        } catch (AssertionError e) {
-            AssertErrorHandler(e);
-        }
-    }
+		try {
+			assertEquals(Const.StatusLine.OK, persistent.getStatusLine());
+			JSONAssert.assertEquals(services, jsonResponse,
+					JSONCompareMode.LENIENT);
+		} catch (AssertionError e) {
+			AssertErrorHandler(e);
+		}
+	}
 }

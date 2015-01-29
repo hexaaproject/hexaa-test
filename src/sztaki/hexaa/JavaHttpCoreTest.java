@@ -11,55 +11,58 @@ import java.util.Properties;
  */
 public class JavaHttpCoreTest {
 
-    /**
-     * Main program starting point.
-     *
-     * @param args
-     */
-    public static void main(String[] args) {
-        new Authenticator().authenticate(Const.HEXAA_FEDID);
-        
-        new JavaHttpCoreTest().properties();
-    }
+	/**
+	 * Main program starting point.
+	 *
+	 * @param args
+	 */
+	public static void main(String[] args) {
+		// new Authenticator().authenticate(Const.HEXAA_FEDID);
 
-    private void properties() {
-        Properties prop = new Properties();
-        OutputStream output = null;
+		new JavaHttpCoreTest().properties();
+	}
 
-        File f = new File(Const.PROPERTIES);
-        if (f.exists()) {
-            return;
-        } else {
-            System.out.println("The file config.properties does not exists,"
-                    + " creating it with default attributes.");
-            System.err.println("The file config.properties does not exists, no"
-                    + " properties can be read, if your setup does not match the"
-                    + " default this may cause inconsitent tests (mostly failed"
-                    + " tests and errors).");
-        }
+	private void properties() {
+		Properties prop = new Properties();
+		OutputStream output = null;
 
-        try {
+		File f = new File(Const.PROPERTIES);
+		if (f.exists()) {
+			return;
+		} else {
+			System.out.println("The file config.properties does not exists,"
+					+ " creating it with default attributes.");
+			System.err
+					.println("The file config.properties does not exists, no"
+							+ " properties can be read, if your setup does not match the"
+							+ " default this may cause inconsitent tests (mostly failed"
+							+ " tests and errors).");
+		}
 
-            output = new FileOutputStream(Const.PROPERTIES);
+		try {
 
-            // set the properties value
-            prop.setProperty("port", "80");
-            prop.setProperty("host", "localhost");
-            prop.setProperty("fedid", "tesztAdmin@sztaki.hu");
-            prop.setProperty("master_secret", "7lrfjlpu5br2vpv1jcaogdz481b28xf7lz85wqmv");
+			output = new FileOutputStream(Const.PROPERTIES);
 
-            // save properties to project root folder
-            prop.store(output, null);
+			// set the properties value
+			prop.setProperty("port", "80");
+			prop.setProperty("ssh", "20");
+			prop.setProperty("host", "localhost");
+			prop.setProperty("fedid", "tesztAdmin@sztaki.hu");
+			prop.setProperty("master_secret",
+					"7lrfjlpu5br2vpv1jcaogdz481b28xf7lz85wqmv");
 
-        } catch (IOException io) {
-        } finally {
-            if (output != null) {
-                try {
-                    output.close();
-                } catch (IOException e) {
-                }
-            }
+			// save properties to project root folder
+			prop.store(output, null);
 
-        }
-    }
+		} catch (IOException io) {
+		} finally {
+			if (output != null) {
+				try {
+					output.close();
+				} catch (IOException e) {
+				}
+			}
+
+		}
+	}
 }

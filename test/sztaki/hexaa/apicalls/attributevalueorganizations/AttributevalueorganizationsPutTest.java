@@ -18,71 +18,77 @@ import sztaki.hexaa.ResponseTypeMismatchException;
 /**
  * Tests the PUT method on the /api/attributevalueorganizations/{id} call.
  */
-public class AttributevalueorganizationsPutTest extends CleanTest{
-    
-    /**
-     * JSONArray to store the created attributevalues.
-     */
-    public static JSONArray attributevalues = new JSONArray();
+public class AttributevalueorganizationsPutTest extends CleanTest {
 
-    /**
-     * Print the class name on the output.
-     */
-    @BeforeClass
-    public static void classInformation() {
-        System.out.println("***\t " + AttributevalueorganizationsPutTest.class.getSimpleName() + " ***");
-    }
+	/**
+	 * JSONArray to store the created attributevalues.
+	 */
+	public static JSONArray attributevalues = new JSONArray();
 
-    /**
-     * Creates one attributespecs.
-     */
-    @BeforeClass
-    public static void setUpClass() {
-        Utility.Create.organization("Org1");
-        Utility.Create.attributespec(new String[]{"testName1"}, "user");
-        attributevalues = Utility.Create.attributevalueorganization("OrgValue1", 1, 1);
-    }
-    
-    /**
-     * Puts the attributevalue than checks it.
-     */
-    @Test
-    public void testAttributevalueorganizationPut() {
-        JSONObject jsonTemp = new JSONObject();
-        jsonTemp.put("services", new JSONArray());
-        jsonTemp.put("value", "OrgValueChanged");
-        jsonTemp.put("attribute_spec", 1);
-        jsonTemp.put("organization", 1);
+	/**
+	 * Print the class name on the output.
+	 */
+	@BeforeClass
+	public static void classInformation() {
+		System.out.println("***\t "
+				+ AttributevalueorganizationsPutTest.class.getSimpleName()
+				+ " ***");
+	}
 
-        persistent.call(Const.Api.ATTRIBUTEVALUEORGANIZATIONS_ID, BasicCall.REST.PUT, jsonTemp.toString());
-        
-        try {
-            assertEquals(Const.StatusLine.NoContent, persistent.getStatusLine());
-        } catch (AssertionError e) {
-            AssertErrorHandler(e);
-        }
+	/**
+	 * Creates one attributespecs.
+	 */
+	@BeforeClass
+	public static void setUpClass() {
+		Utility.Create.organization("Org1");
+		Utility.Create.attributespec(new String[] { "testName1" }, "user");
+		attributevalues = Utility.Create.attributevalueorganization(
+				"OrgValue1", 1, 1);
+	}
 
-        JSONObject jsonResponse;
-        try {
-            jsonResponse = persistent.getResponseJSONObject(
-                    Const.Api.ATTRIBUTEVALUEORGANIZATIONS_ID,
-                    BasicCall.REST.GET);
-        } catch (ResponseTypeMismatchException ex) {
-            Logger.getLogger(AttributevalueorganizationsPutTest.class.getName()).log(Level.SEVERE, null, ex);
-            fail(ex.getFullMessage());
-            return;
-        }
+	/**
+	 * Puts the attributevalue than checks it.
+	 */
+	@Test
+	public void testAttributevalueorganizationPut() {
+		JSONObject jsonTemp = new JSONObject();
+		jsonTemp.put("services", new JSONArray());
+		jsonTemp.put("value", "OrgValueChanged");
+		jsonTemp.put("attribute_spec", 1);
+		jsonTemp.put("organization", 1);
 
-        jsonTemp.put("organization_id", jsonTemp.remove("organization"));
-        jsonTemp.put("attribute_spec_id", jsonTemp.remove("attribute_spec"));
-        jsonTemp.put("service_ids", jsonTemp.remove("services"));
-        jsonTemp.put("organization_id", jsonTemp.remove("organization"));
+		persistent.call(Const.Api.ATTRIBUTEVALUEORGANIZATIONS_ID,
+				BasicCall.REST.PUT, jsonTemp.toString());
 
-        try {
-            assertEquals(Const.StatusLine.OK, persistent.getStatusLine());
-            JSONAssert.assertEquals(jsonTemp, jsonResponse, JSONCompareMode.LENIENT);
-        } catch (AssertionError e) {
-            AssertErrorHandler(e);
-        }
-    }
+		try {
+			assertEquals(Const.StatusLine.NoContent, persistent.getStatusLine());
+		} catch (AssertionError e) {
+			AssertErrorHandler(e);
+		}
+
+		JSONObject jsonResponse;
+		try {
+			jsonResponse = persistent.getResponseJSONObject(
+					Const.Api.ATTRIBUTEVALUEORGANIZATIONS_ID,
+					BasicCall.REST.GET);
+		} catch (ResponseTypeMismatchException ex) {
+			Logger.getLogger(AttributevalueorganizationsPutTest.class.getName())
+					.log(Level.SEVERE, null, ex);
+			fail(ex.getFullMessage());
+			return;
+		}
+
+		jsonTemp.put("organization_id", jsonTemp.remove("organization"));
+		jsonTemp.put("attribute_spec_id", jsonTemp.remove("attribute_spec"));
+		jsonTemp.put("service_ids", jsonTemp.remove("services"));
+		jsonTemp.put("organization_id", jsonTemp.remove("organization"));
+
+		try {
+			assertEquals(Const.StatusLine.OK, persistent.getStatusLine());
+			JSONAssert.assertEquals(jsonTemp, jsonResponse,
+					JSONCompareMode.LENIENT);
+		} catch (AssertionError e) {
+			AssertErrorHandler(e);
+		}
+	}
 }

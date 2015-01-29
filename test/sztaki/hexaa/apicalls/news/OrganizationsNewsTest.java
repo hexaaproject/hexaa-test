@@ -17,46 +17,50 @@ import sztaki.hexaa.CleanTest;
  */
 public class OrganizationsNewsTest extends CleanTest {
 
-    /**
-     * Print the class name on the output.
-     */
-    @BeforeClass
-    public static void classInformation() {
-        System.out.println("***\t " + OrganizationsNewsTest.class.getSimpleName() + " ***");
-    }
+	/**
+	 * Print the class name on the output.
+	 */
+	@BeforeClass
+	public static void classInformation() {
+		System.out.println("***\t "
+				+ OrganizationsNewsTest.class.getSimpleName() + " ***");
+	}
 
-    /**
-     * Creates the necessary objects.
-     */
-    @BeforeClass
-    public static void setUpClass() {
-        Utility.Create.organization("testOrg");
-        Utility.Create.service("testService");
-        Utility.Create.entitlementpacks(1, "testPack");
-        Utility.Link.entitlementpackToOrg(1, 1);
-    }
+	/**
+	 * Creates the necessary objects.
+	 */
+	@BeforeClass
+	public static void setUpClass() {
+		Utility.Create.organization("testOrg");
+		Utility.Create.service("testService");
+		Utility.Create.entitlementpacks(1, "testPack");
+		Utility.Link.entitlementpackToOrg(1, 1);
+	}
 
-    /**
-     * Test the method.
-     */
-    @Test
-    public void testOrganizationNews() {
-        JSONArray jsonResponse;
+	/**
+	 * Test the method.
+	 */
+	@Test
+	public void testOrganizationNews() {
+		JSONArray jsonResponse;
 
-        try {
-            jsonResponse = persistent.getResponseJSONArray(Const.Api.ORGANIZATIONS_ID_NEWS, BasicCall.REST.GET, null, 1, 1);
-        } catch (ResponseTypeMismatchException ex) {
-            Logger.getLogger(OrganizationsNewsTest.class.getName()).log(Level.SEVERE, null, ex);
-            fail(ex.getFullMessage());
-            return;
-        }
+		try {
+			jsonResponse = persistent.getResponseJSONArray(
+					Const.Api.ORGANIZATIONS_ID_NEWS, BasicCall.REST.GET, null,
+					1, 1);
+		} catch (ResponseTypeMismatchException ex) {
+			Logger.getLogger(OrganizationsNewsTest.class.getName()).log(
+					Level.SEVERE, null, ex);
+			fail(ex.getFullMessage());
+			return;
+		}
 
-        System.out.println(jsonResponse);
+		System.out.println(jsonResponse);
 
-        try {
-            assertEquals(3, jsonResponse.length());
-        } catch (AssertionError e) {
-            AssertErrorHandler(e);
-        }
-    }
+		try {
+			assertEquals(3, jsonResponse.length());
+		} catch (AssertionError e) {
+			AssertErrorHandler(e);
+		}
+	}
 }

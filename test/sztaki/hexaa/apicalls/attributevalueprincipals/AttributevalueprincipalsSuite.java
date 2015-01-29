@@ -10,7 +10,6 @@ import sztaki.hexaa.BasicTestSuite;
  * BasicTestSuite.
  */
 @RunWith(Suite.class)
-@Suite.SuiteClasses({
-    AttributevalueprincipalsPost.class,})
+@Suite.SuiteClasses({ AttributevalueprincipalsPost.class, })
 public class AttributevalueprincipalsSuite extends BasicTestSuite {
 }

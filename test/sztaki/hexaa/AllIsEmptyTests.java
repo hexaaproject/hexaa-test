@@ -9,14 +9,14 @@ import org.junit.runners.Suite;
  */
 @RunWith(Suite.class)
 @Suite.SuiteClasses({
-    sztaki.hexaa.apicalls.attributevalueorganizations.AttributevalueorganizationIsEmptyTest.class,
-    sztaki.hexaa.apicalls.attributevalueprincipals.AttributevalueprincipalIsEmptyTest.class,
-    sztaki.hexaa.apicalls.attributespecs.AttributespecsIsEmptyTest.class,
-    sztaki.hexaa.apicalls.entitlementpacks.EntitlementpacksIsEmptyTest.class,
-    sztaki.hexaa.apicalls.entitlements.EntitlementsIsEmptyTest.class,
-    sztaki.hexaa.apicalls.organizations.OrganizationIsEmptyTest.class,
-    sztaki.hexaa.apicalls.principals.PrincipalIsEmptyTest.class,
-    sztaki.hexaa.apicalls.roles.RolesIsEmptyTest.class,
-    sztaki.hexaa.apicalls.services.ServicesIsEmptyTest.class,})
+		sztaki.hexaa.apicalls.attributevalueorganizations.AttributevalueorganizationIsEmptyTest.class,
+		sztaki.hexaa.apicalls.attributevalueprincipals.AttributevalueprincipalIsEmptyTest.class,
+		sztaki.hexaa.apicalls.attributespecs.AttributespecsIsEmptyTest.class,
+		sztaki.hexaa.apicalls.entitlementpacks.EntitlementpacksIsEmptyTest.class,
+		sztaki.hexaa.apicalls.entitlements.EntitlementsIsEmptyTest.class,
+		sztaki.hexaa.apicalls.organizations.OrganizationIsEmptyTest.class,
+		sztaki.hexaa.apicalls.principals.PrincipalIsEmptyTest.class,
+		sztaki.hexaa.apicalls.roles.RolesIsEmptyTest.class,
+		sztaki.hexaa.apicalls.services.ServicesIsEmptyTest.class, })
 public class AllIsEmptyTests extends BasicTestSuite {
 }

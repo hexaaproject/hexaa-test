@@ -9,9 +9,7 @@ import sztaki.hexaa.BasicTestSuite;
  * starting and finishing utility jobs inherited from BasicTestSuite.
  */
 @RunWith(Suite.class)
-@Suite.SuiteClasses({
-    EntitlementsGetTest.class,
-    EntitlementsPutPatchTest.class,
-    EntitlementsDeleteTest.class,})
+@Suite.SuiteClasses({ EntitlementsGetTest.class,
+		EntitlementsPutPatchTest.class, EntitlementsDeleteTest.class, })
 public class EntitlementsSuite extends BasicTestSuite {
 }

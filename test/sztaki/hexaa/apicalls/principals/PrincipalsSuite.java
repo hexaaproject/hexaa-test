@@ -9,19 +9,14 @@ import sztaki.hexaa.BasicTestSuite;
  * starting and finishing utility jobs inherited from BasicTestSuite.
  */
 @RunWith(Suite.class)
-@Suite.SuiteClasses({
-    PrincipalGetAdminTest.class,
-    PrincipalGetTest.class,
-    PrincipalsAttributespecsPrivateGetTest.class,
-    PrincipalsAttributespecsPublicGetTest.class,
-    PrincipalsAttributevaluesGetTest.class,
-    PrincipalsDeleteSelfTest.class,
-    PrincipalsDeleteTest.class,
-    PrincipalsEntitlementsGetTest.class,
-    PrincipalsManagerGetOrganizationsTest.class,
-    PrincipalsManagerGetServicesTest.class,
-    PrincipalsMemeberGetOrganizationsTest.class,
-    PrincipalsPostTest.class,
-    PrincipalsRoleGetTest.class,})
+@Suite.SuiteClasses({ PrincipalGetAdminTest.class, PrincipalGetTest.class,
+		PrincipalsAttributespecsPrivateGetTest.class,
+		PrincipalsAttributespecsPublicGetTest.class,
+		PrincipalsAttributevaluesGetTest.class, PrincipalsDeleteSelfTest.class,
+		PrincipalsDeleteTest.class, PrincipalsEntitlementsGetTest.class,
+		PrincipalsManagerGetOrganizationsTest.class,
+		PrincipalsManagerGetServicesTest.class,
+		PrincipalsMemeberGetOrganizationsTest.class, PrincipalsPostTest.class,
+		PrincipalsRoleGetTest.class, })
 public class PrincipalsSuite extends BasicTestSuite {
 }
