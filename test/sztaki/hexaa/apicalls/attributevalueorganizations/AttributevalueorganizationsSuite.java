@@ -14,7 +14,7 @@ import sztaki.hexaa.apicalls.attributevalueorganizations.services.Attributevalue
 @Suite.SuiteClasses({ AttributevalueorganizationsDeleteTest.class,
 		AttributevalueorganizationsGetTest.class,
 		AttributevalueorganizationsPatchTest.class,
-		AttributevalueorganizationsPost.class,
+		AttributevalueorganizationsPostTest.class,
 		AttributevalueorganizationsPutTest.class,
 		AttributevalueorganizationsServicesGetTest.class, })
 public class AttributevalueorganizationsSuite extends BasicTestSuite {

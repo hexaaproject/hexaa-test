@@ -14,8 +14,8 @@ import sztaki.hexaa.BasicTestSuite;
 @RunWith(Suite.class)
 @Suite.SuiteClasses({
 		sztaki.hexaa.apicalls.attributespecs.AttributespecsServicesGetTest.class,
-		sztaki.hexaa.apicalls.attributevalueorganizations.AttributevalueorganizationsPost.class,
-		sztaki.hexaa.apicalls.attributevalueprincipals.AttributevalueprincipalsPost.class,
+		sztaki.hexaa.apicalls.attributevalueorganizations.AttributevalueorganizationsPostTest.class,
+		sztaki.hexaa.apicalls.attributevalueprincipals.AttributevalueprincipalsPostTest.class,
 		sztaki.hexaa.apicalls.consents.ConsentsPostTest.class,
 		sztaki.hexaa.apicalls.entitlementpacks.entitlements.EntitlementpacksAddEntitlementsTest.class,
 		sztaki.hexaa.apicalls.entitlementpacks.EntitlementpacksDeleteTest.class,

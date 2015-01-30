@@ -151,10 +151,7 @@ public class Utility {
 		 */
 		public static JSONArray attributevalueprincipal(String[] values,
 				int asid, int[] services) {
-			// Array for the return value
 			JSONArray attributevalues = new JSONArray();
-			// For every value it creates a json object and calls the
-			// /api/attributevalueprincipals/{asid}
 			for (String value : values) {
 				JSONObject json = new JSONObject();
 				json.put("value", value);
@@ -242,11 +239,11 @@ public class Utility {
 		public static JSONArray attributespec(String[] uri, String maintainer) {
 			JSONArray attributespecs = new JSONArray();
 
-//			for (int i = 0; i < oids.length; i++) {
-//				if (oids[i].length() <= 3) {
-//					oids[i] = "oid".concat(oids[i]);
-//				}
-//			}
+			// for (int i = 0; i < oids.length; i++) {
+			// if (oids[i].length() <= 3) {
+			// oids[i] = "oid".concat(oids[i]);
+			// }
+			// }
 
 			for (String oid : uri) {
 				JSONObject json = new JSONObject();
@@ -546,10 +543,22 @@ public class Utility {
 			for (String name : names) {
 				JSONObject json = new JSONObject();
 				json.put("name", name);
-				organizations.put(json);
 
 				persistent.call(Const.Api.ORGANIZATIONS, BasicCall.REST.POST,
 						json.toString(), 1, 1);
+
+				if (persistent.getHeader("Location") != null) {
+					String locHeader = persistent.getHeader("Location")
+							.getValue();
+					// System.out.println(locHeader);
+					List<Integer> id = getNumber(locHeader);
+					System.out.println(locHeader);
+					if (id.size() == 1) {
+						json.put("id", id.get(0));
+					}
+
+					organizations.put(json);
+				}
 
 			}
 			return organizations;
