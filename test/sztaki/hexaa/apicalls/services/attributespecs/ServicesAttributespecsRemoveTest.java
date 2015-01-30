@@ -1,21 +1,26 @@
 package sztaki.hexaa.apicalls.services.attributespecs;
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.fail;
+
 import java.util.logging.Level;
 import java.util.logging.Logger;
+
 import org.json.JSONArray;
+import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.Test;
-import static org.junit.Assert.*;
+
 import sztaki.hexaa.BasicCall;
 import sztaki.hexaa.Const;
-import sztaki.hexaa.Utility;
-import sztaki.hexaa.CleanTest;
+import sztaki.hexaa.NormalTest;
 import sztaki.hexaa.ResponseTypeMismatchException;
+import sztaki.hexaa.Utility;
 
 /**
  * Tests the DELETE method on the /api/services/{id}/attributespecs/{asid} call.
  */
-public class ServicesAttributespecsRemoveTest extends CleanTest {
+public class ServicesAttributespecsRemoveTest extends NormalTest {
 
 	/**
 	 * Print the class name on the output.
@@ -28,14 +33,51 @@ public class ServicesAttributespecsRemoveTest extends CleanTest {
 	}
 
 	/**
+	 * JSONArray to store the created attributespecs.
+	 */
+	private static JSONArray attributespecs = new JSONArray();
+	/**
+	 * JSONArray to store the created services.
+	 */
+	private static JSONArray services = new JSONArray();
+
+	/**
 	 * Creates two services, two attributespecs and links them together.
 	 */
 	@BeforeClass
 	public static void setUpClass() {
-		Utility.Create.service(new String[] { "testService1", "testService2" });
-		Utility.Create.attributespec(new String[] { "asTest1", "asTest2" },
-				"user");
-		Utility.Link.attributespecsToService(1, new int[] { 1, 2 }, true);
+		services = Utility.Create.service(new String[] {
+				"ServicesAttributespecsRemoveTest_service1",
+				"ServicesAttributespecsRemoveTest_service2" });
+		if (services.length() < 2) {
+			fail("Utility.Create.service(new String[] {\"ServicesAttributespecsRemoveTest_service1\", \"ServicesAttributespecsRemoveTest_service2\" }); did not succeed");
+		}
+		attributespecs = Utility.Create.attributespec(new String[] {
+				"ServicesAttributespecsRemoveTest_as1",
+				"ServicesAttributespecsRemoveTest_as2" }, "user");
+		if (attributespecs.length() < 2) {
+			fail("Utility.Create.attributespec(new String[] {\"ServicesAttributespecsRemoveTest_as1\", \"ServicesAttributespecsRemoveTest_as2\" }, \"user\"); did not succeed");
+		}
+		Utility.Link.attributespecsToService(
+				services.getJSONObject(0).getInt("id"), new int[] {
+						attributespecs.getJSONObject(0).getInt("id"),
+						attributespecs.getJSONObject(1).getInt("id") }, true);
+	}
+
+	/**
+	 * Reverses the setUpClass and the creations during the test.
+	 */
+	@AfterClass
+	public static void tearDownClass() {
+		System.out.println("TearDownClass: "
+				+ ServicesAttributespecsRemoveTest.class.getSimpleName());
+		for (int i = 0; i < attributespecs.length(); i++) {
+			Utility.Remove.attributespec(attributespecs.getJSONObject(i)
+					.getInt("id"));
+		}
+		for (int i = 0; i < services.length(); i++) {
+			Utility.Remove.service(services.getJSONObject(i).getInt("id"));
+		}
 	}
 
 	/**
@@ -44,7 +86,8 @@ public class ServicesAttributespecsRemoveTest extends CleanTest {
 	 */
 	@Test
 	public void testServicesAttributespecsRemove() {
-		Utility.Remove.attributespecFromService(1, 1);
+		Utility.Remove.attributespecFromService(services.getJSONObject(0)
+				.getInt("id"), attributespecs.getJSONObject(0).getInt("id"));
 
 		try {
 			assertEquals(Const.StatusLine.NoContent,
@@ -54,10 +97,11 @@ public class ServicesAttributespecsRemoveTest extends CleanTest {
 		}
 
 		JSONArray jsonResponse;
+		// Get the service with the 2nd as.
 		try {
 			jsonResponse = persistent.getResponseJSONArray(
 					Const.Api.SERVICES_ID_ATTRIBUTESPECS, BasicCall.REST.GET,
-					null, 1, 1);
+					null, services.getJSONObject(0).getInt("id"), 1);
 		} catch (ResponseTypeMismatchException ex) {
 			Logger.getLogger(ServicesAttributespecsRemoveTest.class.getName())
 					.log(Level.SEVERE, null, ex);
@@ -66,16 +110,17 @@ public class ServicesAttributespecsRemoveTest extends CleanTest {
 		}
 		try {
 			assertEquals(Const.StatusLine.OK, persistent.getStatusLine());
-			assertEquals(2,
+			assertEquals(attributespecs.getJSONObject(1).getInt("id"),
 					jsonResponse.getJSONObject(0).getInt("attribute_spec_id"));
 		} catch (AssertionError e) {
 			AssertErrorHandler(e);
 		}
 
+		// Get the service with no as.
 		try {
 			jsonResponse = persistent.getResponseJSONArray(
 					Const.Api.SERVICES_ID_ATTRIBUTESPECS, BasicCall.REST.GET,
-					null, 2, 1);
+					null, services.getJSONObject(1).getInt("id"), 1);
 		} catch (ResponseTypeMismatchException ex) {
 			Logger.getLogger(ServicesAttributespecsRemoveTest.class.getName())
 					.log(Level.SEVERE, null, ex);
