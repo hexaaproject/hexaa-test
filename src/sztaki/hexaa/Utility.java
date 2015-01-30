@@ -257,17 +257,20 @@ public class Utility {
 				json.put("is_multivalue", true);
 				json.put("maintainer", maintainer);
 
-				attributespecs.put(json);
-
 				persistent.call(Const.Api.ATTRIBUTESPECS, BasicCall.REST.POST,
 						json.toString());
 
-				String locHeader = persistent.getHeader("Location").getValue();
-				// System.out.println(locHeader);
-				List<Integer> id = getNumber(locHeader);
+				if (persistent.getHeader("Location") != null) {
+					String locHeader = persistent.getHeader("Location")
+							.getValue();
+					// System.out.println(locHeader);
+					List<Integer> id = getNumber(locHeader);
 
-				if (id.size() == 1) {
-					json.put("id", id.get(0));
+					if (id.size() == 1) {
+						json.put("id", id.get(0));
+					}
+
+					attributespecs.put(json);
 				}
 			}
 			return attributespecs;
@@ -362,16 +365,20 @@ public class Utility {
 						+ Integer.toString(serviceId) + " service, with name "
 						+ name);
 				json.put("type", "public");
-				// Store it
-				entitlementpacks.put(json);
+
 				// POST it
 				persistent.call(Const.Api.SERVICES_ID_ENTITLEMENTPACKS,
 						BasicCall.REST.POST, json.toString(), serviceId, 0);
 
-				List<Integer> numbers = getNumber(persistent.getHeader(
-						"Location").getValue());
-				json.put("id", numbers.get(numbers.size() - 1));
+				if (persistent.getHeader("Location") != null) {
 
+					List<Integer> numbers = getNumber(persistent.getHeader(
+							"Location").getValue());
+					json.put("id", numbers.get(numbers.size() - 1));
+
+					// Store it
+					entitlementpacks.put(json);
+				}
 			}
 			return entitlementpacks;
 		}
@@ -683,28 +690,30 @@ public class Utility {
 				persistent.call(Const.Api.SERVICES, BasicCall.REST.POST,
 						json.toString(), 0, 0);
 
-				String locHeader = persistent.getHeader("Location").getValue();
-				// System.out.println(locHeader);
-				List<Integer> id = getNumber(locHeader);
-				System.out.println(locHeader);
-				if (id.size() == 1) {
-					json.put("id", id.get(0));
+				if (persistent.getHeader("Location") != null) {
+					String locHeader = persistent.getHeader("Location")
+							.getValue();
+					// System.out.println(locHeader);
+					List<Integer> id = getNumber(locHeader);
+					System.out.println(locHeader);
+					if (id.size() == 1) {
+						json.put("id", id.get(0));
+					}
+
+					services.put(json);
+
+					BasicCall enableService = new BasicCall();
+					enableService.setToken(new DatabaseManipulator()
+							.getServiceEnableToken());
+					enableService.call(Const.Api.SERVICES_TOKEN_ENABLE,
+							BasicCall.REST.PUT);
+					if (enableService.getStatusLine().contains(
+							Const.StatusLine.Created)) {
+						// System.out.println("Service enabled!");
+					} else {
+						System.out.println(enableService.getStatusLine());
+					}
 				}
-
-				services.put(json);
-
-				BasicCall enableService = new BasicCall();
-				enableService.setToken(new DatabaseManipulator()
-						.getServiceEnableToken());
-				enableService.call(Const.Api.SERVICES_TOKEN_ENABLE,
-						BasicCall.REST.PUT);
-				if (enableService.getStatusLine().contains(
-						Const.StatusLine.Created)) {
-					// System.out.println("Service enabled!");
-				} else {
-					System.out.println(enableService.getStatusLine());
-				}
-
 			}
 
 			return services;
