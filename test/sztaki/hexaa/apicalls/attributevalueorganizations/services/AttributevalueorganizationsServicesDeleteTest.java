@@ -7,6 +7,7 @@ import static org.junit.Assert.*;
 
 import org.junit.BeforeClass;
 import org.junit.Test;
+import org.skyscreamer.jsonassert.JSONAssert;
 
 import sztaki.hexaa.BasicCall;
 import sztaki.hexaa.Const;
@@ -79,11 +80,12 @@ public class AttributevalueorganizationsServicesDeleteTest extends CleanTest {
 			fail(ex.getFullMessage());
 			return;
 		}
-		System.out.println(jsonResponse.toString());
 		try {
-			// TODO complete after correction or other to the null response body
-			// problem of the
-			// /api/attributevalueorganizations/{id}/services/{asid}
+			for (int i = 0; i < attributevalueorganization.length(); i++) {
+				JSONAssert.assertNotEquals(
+						attributevalueorganization.getJSONObject(i), jsonResponse,
+						false);
+			}
 		} catch (AssertionError e) {
 			AssertErrorHandler(e);
 		}

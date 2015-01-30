@@ -4,13 +4,12 @@ import org.junit.BeforeClass;
 import sztaki.hexaa.Authenticator;
 import sztaki.hexaa.BasicCall;
 import sztaki.hexaa.Const;
-import sztaki.hexaa.DatabaseManipulator;
 
 /**
  * Parent class for all TestClasses for unified use of @BeforeClass, BasicCall,
  * TestErrorCollector and AssertErrorHandler.
  */
-public class CleanTest {
+public class NormalTest {
 
 	/**
 	 * BasicCall to be used to easily make a call(...) method without creating
@@ -34,9 +33,8 @@ public class CleanTest {
 	 */
 	@BeforeClass
 	public static void cleanDB() {
-		System.out.println("BeforeClass @ CleanTest");
+		System.out.println("BeforeClass @ NormalTest");
 		new Authenticator().loadProperties();
-		new DatabaseManipulator().dropDatabase();
 		new Authenticator().authenticate(Const.HEXAA_FEDID);
 	}
 

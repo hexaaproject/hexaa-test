@@ -1,19 +1,21 @@
 package sztaki.hexaa.apicalls.attributespecs;
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.fail;
+
 import org.json.JSONArray;
-import static org.junit.Assert.*;
 import org.junit.BeforeClass;
 import org.junit.Test;
+
 import sztaki.hexaa.BasicCall;
 import sztaki.hexaa.Const;
+import sztaki.hexaa.NormalTest;
 import sztaki.hexaa.Utility;
-import sztaki.hexaa.CleanTest;
 
-// TODO: UNECCESSARY CleanTest
 /**
  * Tests the DELETE method on the /api/attributespecs/{id} call.
  */
-public class AttributespecsDeleteTest extends CleanTest {
+public class AttributespecsDeleteTest extends NormalTest	 {
 
 	/**
 	 * Print the class name on the output.
@@ -35,7 +37,7 @@ public class AttributespecsDeleteTest extends CleanTest {
 	@BeforeClass
 	public static void setUpClass() {
 		attributespecs = Utility.Create.attributespec(
-				new String[] { "testName1" }, "user");
+				new String[] { "AttributespecsDeleteTest_spec1" }, "user");
 	}
 
 	/**
@@ -44,7 +46,7 @@ public class AttributespecsDeleteTest extends CleanTest {
 	@Test
 	public void testAttributespecsDelete() {
 		if (attributespecs.length() < 1) {
-			fail("Utility.Create.attributespec(new String[]{\"testName1\"}, \"user\") did not succeed");
+			fail("Utility.Create.attributespec(new String[]{\"AttributespecsDeleteTest_spec1\"}, \"user\") did not succeed");
 		}
 		// The DELETE call.
 		Utility.Remove.attributespec(attributespecs.getJSONObject(0).getInt(
