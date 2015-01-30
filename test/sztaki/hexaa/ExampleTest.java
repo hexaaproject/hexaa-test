@@ -1,10 +1,7 @@
-package sztaki.hexaa.apicalls.attributespecs;
+package sztaki.hexaa;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.fail;
-
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -14,19 +11,16 @@ import org.junit.Test;
 import org.skyscreamer.jsonassert.JSONAssert;
 import org.skyscreamer.jsonassert.JSONCompareMode;
 
-import sztaki.hexaa.BasicCall;
-import sztaki.hexaa.Const;
-import sztaki.hexaa.NormalTest;
-import sztaki.hexaa.ResponseTypeMismatchException;
-import sztaki.hexaa.Utility;
+import sztaki.hexaa.apicalls.attributespecs.AttributespecsGetTest;
 
-//// TODO: UNECCESSARY CleanTest
 /**
- * Tests the GET method on the /api/attributespecs and /api/attributespecs/{id}
- * calls.
+ * This class is an example for best practices using the hexaa-test libraries
+ * and test cases.
  */
-public class AttributespecsGetTest extends NormalTest {
+public class ExampleTest extends NormalTest {
 
+	// / Be sure to use a class information @BeforeClass method to display the
+	// starting test case.
 	/**
 	 * Print the class name on the output.
 	 */
@@ -36,11 +30,19 @@ public class AttributespecsGetTest extends NormalTest {
 				+ AttributespecsGetTest.class.getSimpleName() + " ***");
 	}
 
+	// / Save all the possible changes to one or more array if the test case
+	// requires it, or the test case is not too complicated to be reversible
 	/**
 	 * JSONArray to store the created attributespecs.
 	 */
 	private static JSONArray attributespecs = new JSONArray();
 
+	// / Create everything that's only impact on the specific test case is if it
+	// fails. Generally use the Utility methods if possible. Whenever you can
+	// make
+	// sure that you fail the test cases in this phase, it's mostly possible by
+	// checking the result of the return values, but do not use assertions in
+	// this method.
 	/**
 	 * Creates two attributespecs.
 	 */
@@ -54,6 +56,8 @@ public class AttributespecsGetTest extends NormalTest {
 		}
 	}
 
+	// / Reverse the effects of the test case if possible, this is necessary for
+	// the test to be NormalTest.
 	/**
 	 * Reverses the setUpClass and the creations during the test.
 	 */
@@ -67,25 +71,33 @@ public class AttributespecsGetTest extends NormalTest {
 		}
 	}
 
+	// / Use simple test cases for unit tests.
 	/**
 	 * GET the attributespec object with call /api/attributespecs/{id}.
 	 */
 	@Test
 	public void testAttributespecsGetByID() {
 		int testedID = 1;
-		// Get the attributespec.
+		// / make sure not to use json parsers in test cases, as they can
+		// produce many errors, use the implemented getResponseJSONObject and
+		// getResponseJSONArray methods whenever its possible
 		JSONObject jsonResponse;
 		try {
 			jsonResponse = persistent.getResponseJSONObject(
 					Const.Api.ATTRIBUTESPECS_ID, BasicCall.REST.GET, null,
 					attributespecs.getJSONObject(testedID).getInt("id"), 0);
+			// / make sure to catch the ResponseTypeMismatchException
+			// exceptions, as these are clear fails. You can generate an easy to
+			// read fail message from the exception.getFullMessage. You should
+			// stop the run of the test method with return as well.
 		} catch (ResponseTypeMismatchException ex) {
-			Logger.getLogger(AttributespecsGetTest.class.getName()).log(
-					Level.SEVERE, null, ex);
 			fail(ex.getFullMessage());
 			return;
 		}
-
+		// / Use the proper JSONAssert methods in JSONCompareMode.LENIENT as the
+		// server may return additional information. Only use the strict methods
+		// if you are sure of the servers response. Also check for status lines,
+		// as these can also indicate fails easier than the jsonasserts.
 		try {
 			assertEquals(Const.StatusLine.OK, persistent.getStatusLine());
 			JSONAssert.assertEquals(attributespecs.getJSONObject(testedID),
@@ -95,29 +107,4 @@ public class AttributespecsGetTest extends NormalTest {
 		}
 	}
 
-	/**
-	 * GET the attributespecs array with call /app.php/api/attributespecs.
-	 */
-	@Test
-	public void testAttributespecsArray() {
-		// GET the array.
-		JSONArray jsonResponse;
-		try {
-			jsonResponse = persistent.getResponseJSONArray(
-					Const.Api.ATTRIBUTESPECS, BasicCall.REST.GET);
-		} catch (ResponseTypeMismatchException ex) {
-			Logger.getLogger(AttributespecsGetTest.class.getName()).log(
-					Level.SEVERE, null, ex);
-			fail(ex.getFullMessage());
-			return;
-		}
-
-		try {
-			JSONAssert.assertEquals(attributespecs, jsonResponse,
-					JSONCompareMode.LENIENT);
-			assertEquals(Const.StatusLine.OK, persistent.getStatusLine());
-		} catch (AssertionError e) {
-			AssertErrorHandler(e);
-		}
-	}
 }
