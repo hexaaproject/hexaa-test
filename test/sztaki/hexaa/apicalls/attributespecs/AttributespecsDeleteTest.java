@@ -38,6 +38,9 @@ public class AttributespecsDeleteTest extends NormalTest	 {
 	public static void setUpClass() {
 		attributespecs = Utility.Create.attributespec(
 				new String[] { "AttributespecsDeleteTest_spec1" }, "user");
+		if (attributespecs.length() < 1) {
+			fail("Utility.Create.attributespec(new String[]{\"AttributespecsDeleteTest_spec1\"}, \"user\") did not succeed");
+		}
 	}
 
 	/**
@@ -45,9 +48,6 @@ public class AttributespecsDeleteTest extends NormalTest	 {
 	 */
 	@Test
 	public void testAttributespecsDelete() {
-		if (attributespecs.length() < 1) {
-			fail("Utility.Create.attributespec(new String[]{\"AttributespecsDeleteTest_spec1\"}, \"user\") did not succeed");
-		}
 		// The DELETE call.
 		Utility.Remove.attributespec(attributespecs.getJSONObject(0).getInt(
 				"id"));

@@ -230,29 +230,28 @@ public class Utility {
 		 * String array. Returns them as a JSONArray. Can create attributespecs
 		 * with unique oids only.
 		 *
-		 * @param oids
+		 * @param uri
 		 *            a String array representation of the names to create
-		 *            attributespecs with. If these are less than 3 character
-		 *            "oid" will be concatenated to the beginning of the string.
+		 *            attributespecs with.
 		 * @param maintainer
 		 *            String should be user or manager according to the usage:
 		 *            use the user if it is used by a principal, use manager if
 		 *            it is used by an organization.
 		 * @return JSONArray with all the created attributespecs in it.
 		 */
-		public static JSONArray attributespec(String[] oids, String maintainer) {
+		public static JSONArray attributespec(String[] uri, String maintainer) {
 			JSONArray attributespecs = new JSONArray();
 
-			for (int i = 0; i < oids.length; i++) {
-				if (oids[i].length() <= 3) {
-					oids[i] = "oid".concat(oids[i]);
-				}
-			}
+//			for (int i = 0; i < oids.length; i++) {
+//				if (oids[i].length() <= 3) {
+//					oids[i] = "oid".concat(oids[i]);
+//				}
+//			}
 
-			for (String oid : oids) {
+			for (String oid : uri) {
 				JSONObject json = new JSONObject();
-				json.put("oid", oid);
-				json.put("friendly_name", "testFriendlyName" + oid);
+				json.put("uri", oid);
+				json.put("name", "testFriendlyName" + oid);
 				json.put("syntax", "syntaxTest");
 				json.put("is_multivalue", true);
 				json.put("maintainer", maintainer);

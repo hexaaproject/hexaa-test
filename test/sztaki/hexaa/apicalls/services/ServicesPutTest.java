@@ -52,9 +52,9 @@ public class ServicesPutTest extends CleanTest {
 	@AfterClass
 	public static void tearDownClass() {
 		System.out.println("TearDownClass: " + ServicesPutTest.class.getSimpleName());
-		Utility.Remove.service(new int[] {
-				services.getJSONObject(0).getInt("id"),
-				services.getJSONObject(1).getInt("id") });
+		for (int i = 0; i < services.length(); i++) {
+			Utility.Remove.service(services.getJSONObject(i).getInt("id"));
+		}
 	}
 
 	/**

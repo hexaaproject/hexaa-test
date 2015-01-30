@@ -2,13 +2,17 @@ package sztaki.hexaa.apicalls.attributespecs;
 
 import java.util.logging.Level;
 import java.util.logging.Logger;
+
 import org.json.JSONArray;
 import org.json.JSONObject;
+
 import static org.junit.Assert.*;
+
 import org.junit.BeforeClass;
 import org.junit.Test;
 import org.skyscreamer.jsonassert.JSONAssert;
 import org.skyscreamer.jsonassert.JSONCompareMode;
+
 import sztaki.hexaa.BasicCall;
 import sztaki.hexaa.Const;
 import sztaki.hexaa.Utility;
@@ -42,7 +46,10 @@ public class AttributespecsGetTest extends CleanTest {
 	@BeforeClass
 	public static void setUpClass() {
 		attributespecs = Utility.Create.attributespec(new String[] {
-				"testName1", "differentTestName1" }, "user");
+				"AttributespecsGetTest_as1", "AttributespecsGetTest_as2" }, "user");
+		if (attributespecs.length() < 2) {
+			fail("Utility.Create.attributespec(new String[] {\"testName1\", \"differentTestName1\" }, \"user\"); did not succeed");
+		}
 	}
 
 	/**
