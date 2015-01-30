@@ -43,6 +43,9 @@ public class ExampleTest extends NormalTest {
 	// sure that you fail the test cases in this phase, it's mostly possible by
 	// checking the result of the return values, but do not use assertions in
 	// this method.
+	// It's advised to give the methods a "unique" name (at least within test
+	// suite) in case of other tests following without a db reset to work
+	// properly.
 	/**
 	 * Creates two attributespecs.
 	 */

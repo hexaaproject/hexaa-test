@@ -1,22 +1,27 @@
 package sztaki.hexaa.apicalls.attributespecs;
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.fail;
+
 import java.util.logging.Level;
 import java.util.logging.Logger;
+
 import org.json.JSONArray;
 import org.json.JSONObject;
-import static org.junit.Assert.*;
+import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.Test;
+
 import sztaki.hexaa.BasicCall;
 import sztaki.hexaa.Const;
-import sztaki.hexaa.Utility;
-import sztaki.hexaa.CleanTest;
+import sztaki.hexaa.NormalTest;
 import sztaki.hexaa.ResponseTypeMismatchException;
+import sztaki.hexaa.Utility;
 
 /**
  * Tests the PUT method on the /api/attributespecs/{id} call.
  */
-public class AttributespecsPutTest extends CleanTest {
+public class AttributespecsPutTest extends NormalTest {
 
 	/**
 	 * Print the class name on the output.
@@ -38,7 +43,23 @@ public class AttributespecsPutTest extends CleanTest {
 	@BeforeClass
 	public static void setUpClass() {
 		attributespecs = Utility.Create.attributespec(
-				new String[] { "testName1" }, "user");
+				new String[] { "AttributespecsPutTest_as1" }, "user");
+		if (attributespecs.length() < 1) {
+			fail("Utility.Create.attributespec(new String[] {\"AttributespecsGetTest_as1\" }, \"user\"); did not succeed");
+		}
+	}
+	
+	/**
+	 * Reverses the setUpClass and the creations during the test.
+	 */
+	@AfterClass
+	public static void tearDownClass() {
+		System.out.println("TearDownClass: "
+				+ AttributespecsGetTest.class.getSimpleName());
+		for (int i = 0; i < attributespecs.length(); i++) {
+			Utility.Remove.attributespec(attributespecs.getJSONObject(i)
+					.getInt("id"));
+		}
 	}
 
 	/**
