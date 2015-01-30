@@ -686,7 +686,7 @@ public class Utility {
 				String locHeader = persistent.getHeader("Location").getValue();
 				// System.out.println(locHeader);
 				List<Integer> id = getNumber(locHeader);
-
+				System.out.println(locHeader);
 				if (id.size() == 1) {
 					json.put("id", id.get(0));
 				}

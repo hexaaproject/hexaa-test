@@ -50,6 +50,7 @@ public class ServicesDeleteTest extends NormalTest {
 
 	@AfterClass
 	public static void tearDownClass() {
+		System.out.println("TearDownClass: " + ServicesDeleteTest.class.getSimpleName());
 		Utility.Remove.service(new int[] {
 				services.getJSONObject(0).getInt("id"),
 				services.getJSONObject(1).getInt("id") });

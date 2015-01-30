@@ -1,19 +1,24 @@
 package sztaki.hexaa.apicalls.services;
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.fail;
+
 import java.util.logging.Level;
 import java.util.logging.Logger;
+
 import org.json.JSONArray;
 import org.json.JSONObject;
+import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.Test;
-import static org.junit.Assert.*;
 import org.skyscreamer.jsonassert.JSONAssert;
 import org.skyscreamer.jsonassert.JSONCompareMode;
+
 import sztaki.hexaa.BasicCall;
-import sztaki.hexaa.Const;
-import sztaki.hexaa.Utility;
 import sztaki.hexaa.CleanTest;
+import sztaki.hexaa.Const;
 import sztaki.hexaa.ResponseTypeMismatchException;
+import sztaki.hexaa.Utility;
 
 /**
  * Tests the PUT method on the /api/services/{id} call.
@@ -39,8 +44,17 @@ public class ServicesPutTest extends CleanTest {
 	 */
 	@BeforeClass
 	public static void setUpClass() {
-		services = Utility.Create.service(new String[] { "testService1",
-				"testService2" });
+		services = Utility.Create.service(new String[] {
+				"ServicesPutTest_service1", "ServicesPutTest_service2" });
+		System.out.println(services.toString());
+	}
+
+	@AfterClass
+	public static void tearDownClass() {
+		System.out.println("TearDownClass: " + ServicesPutTest.class.getSimpleName());
+		Utility.Remove.service(new int[] {
+				services.getJSONObject(0).getInt("id"),
+				services.getJSONObject(1).getInt("id") });
 	}
 
 	/**
@@ -50,13 +64,14 @@ public class ServicesPutTest extends CleanTest {
 	@Test
 	public void testServicesPut() {
 		// Modify the first role
-		JSONObject json;
-		json = services.getJSONObject(0);
-		json.put("name", "modifiedByPut1");
-		json.remove("id");
+		JSONObject json = new JSONObject();
+		json.put("entityid", services.getJSONObject(0).get("entityid"));
+		json.put("name", "ServicesPutTest_service1_modified");
+		json.put("url", services.getJSONObject(0).get("url"));
+		json.put("description", services.getJSONObject(0).get("description"));
 
 		persistent.call(Const.Api.SERVICES_ID, BasicCall.REST.PUT,
-				json.toString());
+				json.toString(), services.getJSONObject(0).getInt("id"), 0);
 
 		try {
 			assertEquals(Const.StatusLine.NoContent, persistent.getStatusLine());
@@ -64,10 +79,15 @@ public class ServicesPutTest extends CleanTest {
 			AssertErrorHandler(e);
 		}
 
-		JSONArray jsonResponse;
+		JSONObject jsonFirstResponse;
+		JSONObject jsonSecondResponse;
 		try {
-			jsonResponse = persistent.getResponseJSONArray(Const.Api.SERVICES,
-					BasicCall.REST.GET);
+			jsonFirstResponse = persistent.getResponseJSONObject(
+					Const.Api.SERVICES_ID, BasicCall.REST.GET, null, services
+							.getJSONObject(0).getInt("id"), 0);
+			jsonSecondResponse = persistent.getResponseJSONObject(
+					Const.Api.SERVICES_ID, BasicCall.REST.GET, null, services
+							.getJSONObject(1).getInt("id"), 0);
 		} catch (ResponseTypeMismatchException ex) {
 			Logger.getLogger(ServicesPutTest.class.getName()).log(Level.SEVERE,
 					null, ex);
@@ -75,8 +95,10 @@ public class ServicesPutTest extends CleanTest {
 			return;
 		}
 		try {
-			JSONAssert.assertEquals(services, jsonResponse,
-					JSONCompareMode.LENIENT);
+			JSONAssert.assertEquals(json,
+					jsonFirstResponse, JSONCompareMode.LENIENT);
+			JSONAssert.assertEquals(services.getJSONObject(1),
+					jsonSecondResponse, JSONCompareMode.LENIENT);
 		} catch (AssertionError e) {
 			AssertErrorHandler(e);
 		}

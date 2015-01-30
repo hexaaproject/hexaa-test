@@ -32,6 +32,7 @@ public class ServicesPostTest extends NormalTest {
 	
 	@AfterClass
 	public static void tearDownClass() {
+		System.out.println("TearDownClass: " + ServicesPostTest.class.getSimpleName());
 		Utility.Remove.service(services.getJSONObject(0).getInt("id"));
 	}
 
