@@ -46,8 +46,14 @@ public class ServicesDeleteTest extends NormalTest {
 	public static void setUpClass() {
 		services = Utility.Create.service(new String[] {
 				"ServicesDeleteTest_service1", "ServicesDeleteTest_service2" });
+		if (services.length() < 2) {
+			fail("Utility.Create.service(new String[] {\"ServicesDeleteTest_service1\", \"ServicesDeleteTest_service2\" }); did not succeed");
+		}
 	}
 
+	/**
+	 * Reverses the setUpClass and the creations during the test.
+	 */
 	@AfterClass
 	public static void tearDownClass() {
 		System.out.println("TearDownClass: "

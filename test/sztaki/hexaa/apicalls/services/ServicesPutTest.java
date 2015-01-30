@@ -46,12 +46,18 @@ public class ServicesPutTest extends CleanTest {
 	public static void setUpClass() {
 		services = Utility.Create.service(new String[] {
 				"ServicesPutTest_service1", "ServicesPutTest_service2" });
-		System.out.println(services.toString());
+		if (services.length() < 2) {
+			fail("Utility.Create.service(new String[] {\"ServicesPutTest_service1\", \"ServicesPutTest_service2\" }); did not succeed");
+		}
 	}
 
+	/**
+	 * Reverses the setUpClass and the creations during the test.
+	 */
 	@AfterClass
 	public static void tearDownClass() {
-		System.out.println("TearDownClass: " + ServicesPutTest.class.getSimpleName());
+		System.out.println("TearDownClass: "
+				+ ServicesPutTest.class.getSimpleName());
 		for (int i = 0; i < services.length(); i++) {
 			Utility.Remove.service(services.getJSONObject(i).getInt("id"));
 		}
@@ -95,8 +101,8 @@ public class ServicesPutTest extends CleanTest {
 			return;
 		}
 		try {
-			JSONAssert.assertEquals(json,
-					jsonFirstResponse, JSONCompareMode.LENIENT);
+			JSONAssert.assertEquals(json, jsonFirstResponse,
+					JSONCompareMode.LENIENT);
 			JSONAssert.assertEquals(services.getJSONObject(1),
 					jsonSecondResponse, JSONCompareMode.LENIENT);
 		} catch (AssertionError e) {

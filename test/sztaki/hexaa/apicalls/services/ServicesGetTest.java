@@ -50,6 +50,9 @@ public class ServicesGetTest extends NormalTest {
 		}
 	}
 
+	/**
+	 * Reverses the setUpClass and the creations during the test.
+	 */
 	@AfterClass
 	public static void tearDownClass() {
 		System.out.println("TearDownClass: "

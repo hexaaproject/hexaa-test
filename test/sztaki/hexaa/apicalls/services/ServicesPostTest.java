@@ -29,7 +29,11 @@ public class ServicesPostTest extends NormalTest {
 	 * JSONArray to store the created services.
 	 */
 	public static JSONArray services = new JSONArray();
-	
+
+
+	/**
+	 * Reverses the setUpClass and the creations during the test.
+	 */
 	@AfterClass
 	public static void tearDownClass() {
 		System.out.println("TearDownClass: " + ServicesPostTest.class.getSimpleName());
