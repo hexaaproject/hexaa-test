@@ -1,9 +1,14 @@
 package sztaki.hexaa.apicalls.attributevalueprincipals.services;
 
+import org.json.JSONArray;
 import org.json.JSONObject;
+
 import static org.junit.Assert.*;
+
 import org.junit.BeforeClass;
 import org.junit.Test;
+import org.skyscreamer.jsonassert.JSONAssert;
+
 import sztaki.hexaa.BasicCall;
 import sztaki.hexaa.Const;
 import sztaki.hexaa.ResponseTypeMismatchException;
@@ -19,7 +24,7 @@ public class AttributevalueprincipalsServicesDeleteTest extends CleanTest {
 	/**
 	 * JSONArray to store the created attributevalues.
 	 */
-	public static JSONObject attributevalueprincipal = new JSONObject();
+	public static JSONArray attributevalueprincipal = new JSONArray();
 
 	/**
 	 * Print the class name on the output.
@@ -44,10 +49,10 @@ public class AttributevalueprincipalsServicesDeleteTest extends CleanTest {
 		Utility.Link.entitlementpackToOrg(1, new int[] { 1, 2 });
 
 		Utility.Create.attributespec(new String[] { "testName1" }, "user");
-		Utility.Link.attributespecsToService(1, new int[] { 1, 2 }, true);
-		Utility.Link.attributespecsToService(2, new int[] { 1, 2 }, true);
+		Utility.Link.attributespecsToService(1, new int[] { 1 }, true);
+		Utility.Link.attributespecsToService(2, new int[] { 1 }, true);
 		attributevalueprincipal = Utility.Create.attributevalueprincipal(
-				"OrgValue1", 1, new int[] { 1, 2 }).getJSONObject(0);
+				"OrgValue1", 1, new int[] { 1, 2 });
 	}
 
 	/**
@@ -77,8 +82,11 @@ public class AttributevalueprincipalsServicesDeleteTest extends CleanTest {
 		}
 
 		try {
-			// TODO complete after correction or other to the null response body
-			// problem of the /api/attributevalueprincipals/{id}/services/{asid}
+			for (int i = 0; i < attributevalueprincipal.length(); i++) {
+				JSONAssert.assertNotEquals(
+						attributevalueprincipal.getJSONObject(i), jsonResponse,
+						false);
+			}
 		} catch (AssertionError e) {
 			AssertErrorHandler(e);
 		}

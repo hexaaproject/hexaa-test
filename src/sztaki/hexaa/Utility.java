@@ -162,9 +162,9 @@ public class Utility {
 				json.put("attribute_spec", asid);
 				attributevalues.put(json);
 
-				System.out.println(persistent.call(
+				persistent.call(
 						Const.Api.ATTRIBUTEVALUEPRINCIPALS,
-						BasicCall.REST.POST, json.toString()));
+						BasicCall.REST.POST, json.toString());
 			}
 			return attributevalues;
 		}
@@ -678,10 +678,7 @@ public class Utility {
 				json.put("entityid", "https://example.com/ssp");
 				json.put("url", "test." + name + ".test");
 				json.put("description", "This is a test service for the "
-						+ "https://example.com/ssp" /*
-													 * jsonEntityArray.get(0).
-													 * toString()
-													 */
+						+ "https://example.com/ssp"
 						+ "service provider entity.");
 				// POSTs the json object
 				persistent.call(Const.Api.SERVICES, BasicCall.REST.POST,
@@ -702,7 +699,7 @@ public class Utility {
 						.getServiceEnableToken());
 				enableService.call(Const.Api.SERVICES_TOKEN_ENABLE,
 						BasicCall.REST.PUT);
-				if (enableService.getStatusLine().contains("204 No Content")) {
+				if (enableService.getStatusLine().contains(Const.StatusLine.Created)) {
 					// System.out.println("Service enabled!");
 				} else {
 					System.out.println(enableService.getStatusLine());

@@ -1,9 +1,13 @@
 package sztaki.hexaa.apicalls.attributevalueorganizations.services;
 
+import org.json.JSONArray;
 import org.json.JSONObject;
+
 import static org.junit.Assert.*;
+
 import org.junit.BeforeClass;
 import org.junit.Test;
+
 import sztaki.hexaa.BasicCall;
 import sztaki.hexaa.Const;
 import sztaki.hexaa.ResponseTypeMismatchException;
@@ -19,7 +23,7 @@ public class AttributevalueorganizationsServicesDeleteTest extends CleanTest {
 	/**
 	 * JSONArray to store the created attributevalues.
 	 */
-	public static JSONObject attributevalueorganization = new JSONObject();
+	public static JSONArray attributevalueorganization = new JSONArray();
 
 	/**
 	 * Print the class name on the output.
@@ -47,7 +51,7 @@ public class AttributevalueorganizationsServicesDeleteTest extends CleanTest {
 		Utility.Link.attributespecsToService(1, new int[] { 1, 2 }, true);
 		Utility.Link.attributespecsToService(2, new int[] { 1, 2 }, true);
 		attributevalueorganization = Utility.Create.attributevalueorganization(
-				"OrgValue1", 1, 1, new int[] { 1, 2 }).getJSONObject(0);
+				"OrgValue1", 1, 1, new int[] { 1, 2 });
 	}
 
 	/**
