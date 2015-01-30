@@ -162,8 +162,7 @@ public class Utility {
 				json.put("attribute_spec", asid);
 				attributevalues.put(json);
 
-				persistent.call(
-						Const.Api.ATTRIBUTEVALUEPRINCIPALS,
+				persistent.call(Const.Api.ATTRIBUTEVALUEPRINCIPALS,
 						BasicCall.REST.POST, json.toString());
 			}
 			return attributevalues;
@@ -699,7 +698,8 @@ public class Utility {
 						.getServiceEnableToken());
 				enableService.call(Const.Api.SERVICES_TOKEN_ENABLE,
 						BasicCall.REST.PUT);
-				if (enableService.getStatusLine().contains(Const.StatusLine.Created)) {
+				if (enableService.getStatusLine().contains(
+						Const.StatusLine.Created)) {
 					// System.out.println("Service enabled!");
 				} else {
 					System.out.println(enableService.getStatusLine());
