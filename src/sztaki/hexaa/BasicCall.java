@@ -1049,7 +1049,7 @@ public class BasicCall {
 		}
 		
 		if (isAdmin == true) {
-			nPath.concat("?admin=true");
+			nPath = nPath.concat("?admin=true");
 			isAdmin = false;
 		}
 		return nPath;

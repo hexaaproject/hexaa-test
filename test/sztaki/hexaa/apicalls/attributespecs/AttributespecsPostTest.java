@@ -48,6 +48,7 @@ public class AttributespecsPostTest extends NormalTest {
 	 */
 	@Test
 	public void testAttributespecsPost() {
+		//Utility.nonAdmin();
 		attributespecs = Utility.Create.attributespec("1", "user");
 		try {
 			assertEquals(Const.StatusLine.Created,
