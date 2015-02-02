@@ -23,6 +23,25 @@ public class Utility {
 	static public BasicCall persistent = new BasicCall();
 
 	/**
+	 * 
+	 */
+	static private boolean isAdmin = true;
+
+	/**
+	 * Disables the auto admin feature for the next call.
+	 */
+	public static void nonAdmin() {
+		isAdmin = false;
+	}
+
+	/**
+	 * Re-enables the auto admin feature.
+	 */
+	public static void isAdmin() {
+		isAdmin = true;
+	}
+
+	/**
 	 * Utility class within Utility for creation methods.
 	 */
 	public static class Create {
@@ -253,6 +272,9 @@ public class Utility {
 				json.put("is_multivalue", true);
 				json.put("maintainer", maintainer);
 
+				if (isAdmin == true) {
+					persistent.isAdmin = true;
+				}
 				persistent.call(Const.Api.ATTRIBUTESPECS, BasicCall.REST.POST,
 						json.toString());
 
@@ -1029,6 +1051,9 @@ public class Utility {
 			json.put("attribute_specs", attributeIds);
 			json.put("is_public", isPublics);
 
+			if (isAdmin == true) {
+					persistent.isAdmin = true;
+				}
 			persistent.call(Const.Api.SERVICES_ID_ATTRIBUTESPEC,
 					BasicCall.REST.PUT, json.toString(),
 					// null,
@@ -1055,6 +1080,9 @@ public class Utility {
 			json.put("is_public", isPublic);
 
 			for (int asid : attributeIds) {
+				if (isAdmin == true) {
+					persistent.isAdmin = true;
+				}
 				persistent.call(Const.Api.SERVICES_ID_ATTRIBUTESPECS_ASID,
 						BasicCall.REST.PUT, json.toString(), serviceId, asid);
 			}
@@ -1435,6 +1463,9 @@ public class Utility {
 		 */
 		public static void attributespec(int[] asIDs) {
 			for (int asID : asIDs) {
+				if (isAdmin == true) {
+					persistent.isAdmin = true;
+				}
 				persistent.call(Const.Api.ATTRIBUTESPECS_ID,
 						BasicCall.REST.DELETE, null, asID, 0);
 			}
@@ -1460,6 +1491,9 @@ public class Utility {
 		 *            id of the attributespec to remove.
 		 */
 		public static void attributespecFromService(int sID, int asID) {
+			if (isAdmin == true) {
+					persistent.isAdmin = true;
+				}
 			persistent.call(Const.Api.SERVICES_ID_ATTRIBUTESPECS_ASID,
 					BasicCall.REST.DELETE, null, sID, asID);
 		}

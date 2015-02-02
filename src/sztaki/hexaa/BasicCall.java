@@ -26,6 +26,8 @@ import sztaki.hexaa.core.HttpCorePatch;
  */
 public class BasicCall {
 
+	public boolean isAdmin = false;
+	
 	/**
 	 * The normal response of the call, can not be null, but can be an empty
 	 * string.
@@ -840,7 +842,7 @@ public class BasicCall {
 			CoverageChecker.checkout(restCall + " " + path.substring(8)
 					+ ".{_format} ");
 		} else {
-			CoverageChecker.checkout(restCall + " " + path + ".{_format} ");
+			CoverageChecker.checkout(restCall + " " + path);
 		}
 
 		statusLine = "";
@@ -1041,8 +1043,16 @@ public class BasicCall {
 		if (nPath.contains("{token}")) {
 			nPath = nPath.replace("{token}", token);
 		}
-
-		return nPath.concat(this.format);
+		
+		if (nPath.contains(".{_format}")) {
+			nPath = nPath.replace(".{_format}", this.format);
+		}
+		
+		if (isAdmin == true) {
+			nPath.concat("?admin=true");
+			isAdmin = false;
+		}
+		return nPath;
 	}
 
 	/**
