@@ -68,11 +68,14 @@ public class AttributespecsPutTest extends NormalTest {
 	@Test
 	public void testAttributespecsPut() {
 		// Change and PUT
-		JSONObject jsonTemp = attributespecs.getJSONObject(0);
-		jsonTemp.put("oid", "oidByPut");
-		jsonTemp.put("friendly_name", "nameByPut");
-		jsonTemp.remove("id");
+		JSONObject jsonTemp = new JSONObject();
+		jsonTemp.put("uri", "AttributespecsPutTest_changed_uri1");
+		jsonTemp.put("name", "AttributespecsPutTest_name1");
+		jsonTemp.put("syntax", "string");
+		jsonTemp.put("is_multivalue", true);
+		jsonTemp.put("maintainer", "user");
 
+		persistent.isAdmin = true;
 		persistent.call(Const.Api.ATTRIBUTESPECS_ID, BasicCall.REST.PUT,
 				((JSONObject) attributespecs.get(0)).toString(), 1, 0);
 
@@ -86,6 +89,7 @@ public class AttributespecsPutTest extends NormalTest {
 		JSONObject jsonResponse;
 
 		try {
+			persistent.isAdmin = true;
 			jsonResponse = persistent
 					.getResponseJSONObject(Const.Api.ATTRIBUTESPECS_ID,
 							BasicCall.REST.GET, null, 1, 0);

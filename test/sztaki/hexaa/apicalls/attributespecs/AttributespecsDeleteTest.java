@@ -15,7 +15,7 @@ import sztaki.hexaa.Utility;
 /**
  * Tests the DELETE method on the /api/attributespecs/{id} call.
  */
-public class AttributespecsDeleteTest extends NormalTest	 {
+public class AttributespecsDeleteTest extends NormalTest {
 
 	/**
 	 * Print the class name on the output.

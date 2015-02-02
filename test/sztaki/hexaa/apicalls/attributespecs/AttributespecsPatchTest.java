@@ -48,7 +48,7 @@ public class AttributespecsPatchTest extends NormalTest {
 			fail("Utility.Create.attributespec(new String[] {\"AttributespecsPatchTest_as1\" }, \"user\"); did not succeed");
 		}
 	}
-	
+
 	/**
 	 * Reverses the setUpClass and the creations during the test.
 	 */
@@ -69,11 +69,13 @@ public class AttributespecsPatchTest extends NormalTest {
 	public void testAttributespecsPatch() {
 		// Change and PUT
 		JSONObject json = new JSONObject();
-		json.put("oid", "oidByPut");
-		attributespecs.getJSONObject(0).put("oid", "oidByPut");
+		json.put("uri", "oidByPut");
+		attributespecs.getJSONObject(0).put("uri", "oidByPut");
 
+		persistent.isAdmin = true;
 		persistent.call(Const.Api.ATTRIBUTESPECS_ID, BasicCall.REST.PATCH,
-				json.toString(), 1, 0);
+				json.toString(), attributespecs.getJSONObject(0).getInt("id"),
+				0);
 
 		try {
 			assertEquals(Const.StatusLine.NoContent, persistent.getStatusLine());
@@ -84,9 +86,10 @@ public class AttributespecsPatchTest extends NormalTest {
 		// Verify
 		JSONObject jsonResponse;
 		try {
-			jsonResponse = persistent
-					.getResponseJSONObject(Const.Api.ATTRIBUTESPECS_ID,
-							BasicCall.REST.GET, null, 1, 0);
+			persistent.isAdmin = true;
+			jsonResponse = persistent.getResponseJSONObject(
+					Const.Api.ATTRIBUTESPECS_ID, BasicCall.REST.GET, null,
+					attributespecs.getJSONObject(0).getInt("id"), 0);
 		} catch (ResponseTypeMismatchException ex) {
 			Logger.getLogger(AttributespecsPatchTest.class.getName()).log(
 					Level.SEVERE, null, ex);
@@ -96,7 +99,7 @@ public class AttributespecsPatchTest extends NormalTest {
 
 		try {
 			assertEquals(Const.StatusLine.OK, persistent.getStatusLine());
-			assertEquals("oidByPut", jsonResponse.get("oid"));
+			assertEquals("oidByPut", jsonResponse.get("uri"));
 		} catch (AssertionError e) {
 			AssertErrorHandler(e);
 		}

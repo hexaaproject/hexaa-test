@@ -18,8 +18,9 @@ public class JavaHttpCoreTest {
 	 */
 	public static void main(String[] args) {
 		// new Authenticator().authenticate(Const.HEXAA_FEDID);
-
 		new JavaHttpCoreTest().properties();
+		new Authenticator().loadProperties();
+		new DatabaseManipulator().dropDatabase();
 	}
 
 	private void properties() {
