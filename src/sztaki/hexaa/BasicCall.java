@@ -1,22 +1,30 @@
 package sztaki.hexaa;
 
+import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.net.URI;
+import java.net.URISyntaxException;
+import java.nio.charset.StandardCharsets;
 
 import org.apache.http.Header;
-
-import sztaki.hexaa.core.HttpCoreDel;
-import sztaki.hexaa.core.HttpCoreGet;
-import sztaki.hexaa.core.HttpCorePost;
-import sztaki.hexaa.core.HttpCorePut;
-
+import org.apache.http.HttpMessage;
 import org.apache.http.client.methods.CloseableHttpResponse;
+import org.apache.http.client.methods.HttpDelete;
+import org.apache.http.client.methods.HttpGet;
+import org.apache.http.client.methods.HttpPatch;
+import org.apache.http.client.methods.HttpPost;
+import org.apache.http.client.methods.HttpPut;
+import org.apache.http.client.methods.HttpUriRequest;
+import org.apache.http.client.utils.URIBuilder;
+import org.apache.http.entity.BasicHttpEntity;
+import org.apache.http.impl.client.CloseableHttpClient;
+import org.apache.http.impl.client.HttpClients;
+import org.apache.http.message.BasicHeader;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.skyscreamer.jsonassert.JSONParser;
-
-import sztaki.hexaa.core.HttpCorePatch;
 
 /**
  * Support class that implements the 4 RESTful API calls. Can easily be expanded
@@ -27,7 +35,7 @@ import sztaki.hexaa.core.HttpCorePatch;
 public class BasicCall {
 
 	public boolean isAdmin = false;
-	
+
 	/**
 	 * The normal response of the call, can not be null, but can be an empty
 	 * string.
@@ -307,10 +315,6 @@ public class BasicCall {
 	 * GET, POST, PUT, DELETE.
 	 */
 	public enum REST {
-
-		/**
-		 * Use it for GET methods.
-		 */
 		/**
 		 * Use it for GET methods.
 		 */
@@ -829,7 +833,7 @@ public class BasicCall {
 		}
 	}
 
-	/* *** Http handlers *** */
+	/* *** HTTP handlers *** */
 	/**
 	 * Calls the appropriate http handler. Used by all call types.
 	 *
@@ -838,6 +842,8 @@ public class BasicCall {
 	 * @return String, returns the response's content in string format.
 	 */
 	protected String callSwitch(REST restCall) {
+		// Checks the path to make sure it's correct, and registers it in
+		// CoverageChecker
 		if (path.startsWith("/app.php")) {
 			CoverageChecker.checkout(restCall + " " + path.substring(8)
 					+ ".{_format} ");
@@ -845,19 +851,28 @@ public class BasicCall {
 			CoverageChecker.checkout(restCall + " " + path);
 		}
 
+		// Resets the local variables in case the class is used in a static
+		// instance
 		statusLine = "";
 		headers = null;
+
+		// Decides which method should be used
 		switch (restCall) {
 		case GET:
-			return this.setResponse(this.get());
+			return this.setResponse(this.get(buildHexaaURI(this
+					.fixPath(this.path))));
 		case POST:
-			return this.setResponse(this.post());
+			return this.setResponse(this.post(buildHexaaURI(this
+					.fixPath(this.path))));
 		case PUT:
-			return this.setResponse(this.put());
+			return this.setResponse(this.put(buildHexaaURI(this
+					.fixPath(this.path))));
 		case DELETE:
-			return this.setResponse(this.delete());
+			return this.setResponse(this.delete(buildHexaaURI(this
+					.fixPath(this.path))));
 		case PATCH:
-			return this.setResponse(this.patch());
+			return this.setResponse(this.patch(buildHexaaURI(this
+					.fixPath(this.path))));
 		}
 
 		return "Could not call";
@@ -869,19 +884,17 @@ public class BasicCall {
 	 *
 	 * @return String, JSON content in string format, maybe empty, never null.
 	 */
-	private String get() {
-		// The method is ready to work with path's that require id-s
-		String nPath;
-		nPath = this.fixPath();
+	private String get(URI uri) {
 
 		System.out.print("GET \t");
-		System.out.print(nPath);
+		System.out.print(uri);
 
 		// Getting the response from the server, this is
 		// wrapped in the javahttputility.core package
-		HttpCoreGet httpAction = new HttpCoreGet(nPath);
+		HttpGet httpAction = new HttpGet(uri);
+		httpAction = (HttpGet) createAction(httpAction, uri);
 
-		CloseableHttpResponse httpResponse = httpAction.get();
+		CloseableHttpResponse httpResponse = execute(httpAction);
 
 		if (httpResponse != null) {
 			return getContentString(httpResponse);
@@ -898,23 +911,23 @@ public class BasicCall {
 	 *
 	 * @return String, JSON content in string format, maybe empty, never null.
 	 */
-	private String post() {
-		// The method is ready to work with path's that require id-s
-		String nPath;
-		nPath = this.fixPath();
+	private String post(URI uri) {
 
 		System.out.print("POST \t");
-		System.out.print(nPath);
+		System.out.print(uri);
 
 		// Getting the response from the server, this is
 		// wrapped in the javahttputility.core package
-		HttpCorePost httpAction = new HttpCorePost(nPath);
-		httpAction.setJSon(this.json);
+		HttpPost httpAction = new HttpPost(uri);
+		httpAction = (HttpPost) createAction(httpAction, uri);
+		if (json != null) {
+			httpAction.setEntity(createEntity(this.json));
+		}
 
-		CloseableHttpResponse response = httpAction.post();
+		CloseableHttpResponse httpResponse = execute(httpAction);
 
-		if (response != null) {
-			return getContentString(response);
+		if (httpResponse != null) {
+			return getContentString(httpResponse);
 		}
 		statusLine = "Request failed";
 		return "Request failed";
@@ -927,20 +940,20 @@ public class BasicCall {
 	 *
 	 * @return String, JSON content in string format, maybe empty, never null.
 	 */
-	private String put() {
-		// The method is ready to work with path's that require id-s
-		String nPath;
-		nPath = this.fixPath();
+	private String put(URI uri) {
 
 		System.out.print("PUT \t");
-		System.out.print(nPath);
+		System.out.print(uri);
 
 		// Getting the response from the server, this is
 		// wrapped in the javahttputility.core package
-		HttpCorePut httpAction = new HttpCorePut(nPath);
-		httpAction.setJSon(this.json);
+		HttpPut httpAction = new HttpPut(uri);
+		httpAction = (HttpPut) createAction(httpAction, uri);
+		if (json != null) {
+			httpAction.setEntity(createEntity(this.json));
+		}
 
-		CloseableHttpResponse httpResponse = httpAction.put();
+		CloseableHttpResponse httpResponse = execute(httpAction);
 
 		if (httpResponse != null) {
 			return getContentString(httpResponse);
@@ -955,19 +968,17 @@ public class BasicCall {
 	 *
 	 * @return String, JSON content in string format, maybe empty, never null.
 	 */
-	private String delete() {
-		// The method is ready to work with path's that require id-s
-		String nPath;
-		nPath = this.fixPath();
+	private String delete(URI uri) {
 
-		System.out.print("DEL \t");
-		System.out.print(nPath);
+		System.out.print("DELETE \t");
+		System.out.print(uri);
 
 		// Getting the response from the server, this is
 		// wrapped in the javahttputility.core package
-		HttpCoreDel httpAction = new HttpCoreDel(nPath);
+		HttpDelete httpAction = new HttpDelete(uri);
+		httpAction = (HttpDelete) createAction(httpAction, uri);
 
-		CloseableHttpResponse httpResponse = httpAction.delete();
+		CloseableHttpResponse httpResponse = execute(httpAction);
 
 		if (httpResponse != null) {
 			return getContentString(httpResponse);
@@ -983,20 +994,20 @@ public class BasicCall {
 	 *
 	 * @return String, JSON content in string format, maybe empty, never null.
 	 */
-	private String patch() {
-		// The method is ready to work with path's that require id-s
-		String nPath;
-		nPath = this.fixPath();
+	private String patch(URI uri) {
 
 		System.out.print("PATCH \t");
-		System.out.print(nPath);
+		System.out.print(uri);
 
 		// Getting the response from the server, this is
 		// wrapped in the javahttputility.core package
-		HttpCorePatch httpAction = new HttpCorePatch(nPath);
-		httpAction.setJSon(this.json);
+		HttpPatch httpAction = new HttpPatch(uri);
+		httpAction = (HttpPatch) createAction(httpAction, uri);
+		if (json != null) {
+			httpAction.setEntity(createEntity(this.json));
+		}
 
-		CloseableHttpResponse httpResponse = httpAction.patch();
+		CloseableHttpResponse httpResponse = execute(httpAction);
 
 		if (httpResponse != null) {
 			return getContentString(httpResponse);
@@ -1014,45 +1025,40 @@ public class BasicCall {
 	 *
 	 * @return
 	 */
-	private String fixPath() {
-		String nPath = this.path;
-		if (nPath.startsWith("/api")) {
-			nPath = "/app.php".concat(nPath);
+	private String fixPath(String path) {
+		if (path.startsWith("/api")) {
+			path = "/app.php".concat(path);
 		}
-		if (nPath.contains("{id}")) {
-			nPath = nPath.replace("{id}", Integer.toString(this.id));
+		if (path.contains("{id}")) {
+			path = path.replace("{id}", Integer.toString(this.id));
 		}
-		if (nPath.contains("{pid}")) {
-			nPath = nPath.replace("{pid}", Integer.toString(this.sId));
+		if (path.contains("{pid}")) {
+			path = path.replace("{pid}", Integer.toString(this.sId));
 		}
-		if (nPath.contains("{sid}")) {
-			nPath = nPath.replace("{sid}", Integer.toString(this.sId));
+		if (path.contains("{sid}")) {
+			path = path.replace("{sid}", Integer.toString(this.sId));
 		}
-		if (nPath.contains("{asid}")) {
-			nPath = nPath.replace("{asid}", Integer.toString(this.sId));
+		if (path.contains("{asid}")) {
+			path = path.replace("{asid}", Integer.toString(this.sId));
 		}
-		if (nPath.contains("{eid}")) {
-			nPath = nPath.replace("{eid}", Integer.toString(this.sId));
+		if (path.contains("{eid}")) {
+			path = path.replace("{eid}", Integer.toString(this.sId));
 		}
-		if (nPath.contains("{epid}")) {
-			nPath = nPath.replace("{epid}", Integer.toString(this.sId));
+		if (path.contains("{epid}")) {
+			path = path.replace("{epid}", Integer.toString(this.sId));
 		}
-		if (nPath.contains("{fedid}")) {
-			nPath = nPath.replace("{fedid}", fedid);
+		if (path.contains("{fedid}")) {
+			path = path.replace("{fedid}", fedid);
 		}
-		if (nPath.contains("{token}")) {
-			nPath = nPath.replace("{token}", token);
+		if (path.contains("{token}")) {
+			path = path.replace("{token}", token);
 		}
-		
-		if (nPath.contains(".{_format}")) {
-			nPath = nPath.replace(".{_format}", this.format);
+
+		if (path.contains(".{_format}")) {
+			path = path.replace(".{_format}", this.format);
 		}
-		
-		if (isAdmin == true) {
-			nPath = nPath.concat("?admin=true");
-			isAdmin = false;
-		}
-		return nPath;
+
+		return path;
 	}
 
 	/**
@@ -1070,8 +1076,6 @@ public class BasicCall {
 			statusLine = response.getStatusLine().toString();
 			headers = response.getAllHeaders();
 		} catch (NullPointerException | IllegalStateException ex) {
-			// Logger.getLogger(BasicCall.class.getName()).log(Level.SEVERE,
-			// null, ex);
 			statusLine = "";
 			System.out.println("  *  ");
 			return "";
@@ -1079,8 +1083,6 @@ public class BasicCall {
 		try {
 			responseDataString = readContent(response.getEntity().getContent());
 		} catch (NullPointerException | IOException | IllegalStateException ex) {
-			// Logger.getLogger(BasicCall.class.getName()).log(Level.SEVERE,
-			// null, ex);
 			System.out.println("  *  " + statusLine + "  *  ");
 			return "";
 		}
@@ -1121,10 +1123,11 @@ public class BasicCall {
 	 * Removes the update key from the JSONObjects stored in the given
 	 * JSONArray. This is needed because the update value is changing whenever
 	 * someone reach for the object (even with GET) and that would create
-	 * unnecessary inconsistency.
+	 * unnecessary inconsistency in the tests.
 	 *
 	 * @param array
 	 *            JSONArray with JSONObjects to remove all update keys.
+	 * @return JSONArray with no update_at parameters
 	 */
 	private JSONArray removeUpdate(JSONArray array) {
 		for (int i = 0; i < array.length(); i++) {
@@ -1143,16 +1146,89 @@ public class BasicCall {
 	}
 
 	private String readContent(InputStream content) {
-		// String data = new String();
-		// BufferedReader br;
-		//
-		// br = new BufferedReader(new InputStreamReader(content));
-		//
 		java.util.Scanner s = new java.util.Scanner(content);
 		java.util.Scanner scanner = s.useDelimiter("\\A");
 		String data = scanner.hasNext() ? scanner.next() : "";
 		s.close();
 
 		return data;
+	}
+
+	/**
+	 * Imported methods from the depecrated classes of the sztaki.hexaa.core
+	 * package.
+	 */
+
+	/**
+	 * Executes the PUT action on the path given in the constructor.
+	 *
+	 * @return returns a CloseableHttpResponse
+	 */
+	private CloseableHttpResponse execute(HttpMessage httpAction) {
+		CloseableHttpResponse response = null;
+		CloseableHttpClient httpClient = HttpClients.createDefault();
+
+		try {
+			response = httpClient.execute((HttpUriRequest) httpAction);
+		} catch (IOException ex) {
+		}
+
+		return response;
+	}
+
+	/**
+	 * Builds the proper uri for the call.
+	 * 
+	 * @param path
+	 *            path of the required uri
+	 * @return the full uri.
+	 */
+	private URI buildHexaaURI(String path) {
+		URI uri = null;
+		try {
+			if (isAdmin) {
+				uri = new URIBuilder().setScheme(Const.HEXAA_SCHEME)
+						.setHost(Const.HEXAA_HOST).setPort(Const.HEXAA_PORT)
+						.setPath(path).addParameter("admin", "true").build();
+			} else {
+				uri = new URIBuilder().setScheme(Const.HEXAA_SCHEME)
+						.setHost(Const.HEXAA_HOST).setPort(Const.HEXAA_PORT)
+						.setPath(path).build();
+			}
+		} catch (URISyntaxException ex) {
+		}
+		return uri;
+	}
+
+	/**
+	 * Sets the required headers of the action (X-HEXAA-AUTH nad Content-type).
+	 *
+	 * @param httpAction
+	 *            a HttpMessage, will be returned with set headers.
+	 * @param uri
+	 *            the uri of the HttpMessage to be built with.
+	 */
+	private HttpMessage createAction(HttpMessage httpAction, URI uri) {
+		if (uri != null) {
+			Header hexaa_auth = new BasicHeader(Const.HEXAA_HEADER,
+					Const.HEXAA_AUTH);
+			httpAction.addHeader(hexaa_auth);
+			httpAction.setHeader("Content-type", "application/json");
+			httpAction.setHeader("Accept", "application/json");
+		}
+		return httpAction;
+	}
+
+	private BasicHttpEntity createEntity(String json) {
+		if (json == null) {
+			json = new String();
+		}
+
+		BasicHttpEntity entity = new BasicHttpEntity();
+		entity.setContent(new ByteArrayInputStream(json
+				.getBytes(StandardCharsets.UTF_8)));
+		entity.setContentLength(json.length());
+
+		return entity;
 	}
 }

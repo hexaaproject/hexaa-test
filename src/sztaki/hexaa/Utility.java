@@ -268,7 +268,7 @@ public class Utility {
 				JSONObject json = new JSONObject();
 				json.put("uri", oid);
 				json.put("name", "testFriendlyName" + oid);
-				json.put("syntax", "syntaxTest");
+				json.put("syntax", "string");
 				json.put("is_multivalue", true);
 				json.put("maintainer", maintainer);
 

@@ -20,6 +20,7 @@ import org.apache.http.message.BasicHeader;
 /**
  * Basic wrapper class for PATCH functions using the org.apache.http.client.
  */
+@Deprecated
 public class HttpCorePatch {
 
 	private HttpPatch httpAction = null;

@@ -17,6 +17,7 @@ import sztaki.hexaa.Const;
 /**
  * Basic wrapper class for GET functions using the org.apache.http.client.
  */
+@Deprecated
 public class HttpCoreGet {
 
 	private HttpGet httpAction = null;

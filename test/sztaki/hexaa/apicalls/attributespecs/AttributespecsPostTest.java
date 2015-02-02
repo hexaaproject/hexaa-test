@@ -49,7 +49,7 @@ public class AttributespecsPostTest extends NormalTest {
 	@Test
 	public void testAttributespecsPost() {
 		//Utility.nonAdmin();
-		attributespecs = Utility.Create.attributespec("1", "user");
+		attributespecs = Utility.Create.attributespec("AttributespecsPostTest_as1", "user");
 		try {
 			assertEquals(Const.StatusLine.Created,
 					Utility.persistent.getStatusLine());

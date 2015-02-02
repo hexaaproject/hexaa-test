@@ -7,7 +7,9 @@ import java.net.URISyntaxException;
 import java.nio.charset.StandardCharsets;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+
 import sztaki.hexaa.Const;
+
 import org.apache.http.Header;
 import org.apache.http.client.methods.CloseableHttpResponse;
 import org.apache.http.client.methods.HttpPost;
@@ -20,6 +22,7 @@ import org.apache.http.message.BasicHeader;
 /**
  * Basic wrapper class for POST functions using the org.apache.http.client.
  */
+@Deprecated
 public class HttpCorePost {
 
 	private HttpPost httpAction = null;
