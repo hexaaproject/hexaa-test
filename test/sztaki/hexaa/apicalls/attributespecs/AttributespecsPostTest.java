@@ -1,16 +1,20 @@
 package sztaki.hexaa.apicalls.attributespecs;
 
-import static org.junit.Assert.*;
-import org.junit.Test;
+import static org.junit.Assert.assertEquals;
+
+import org.json.JSONArray;
+import org.junit.AfterClass;
 import org.junit.BeforeClass;
+import org.junit.Test;
+
 import sztaki.hexaa.Const;
+import sztaki.hexaa.NormalTest;
 import sztaki.hexaa.Utility;
-import sztaki.hexaa.CleanTest;
 
 /**
  * Tests the POST method on the /api/attributespecs call.
  */
-public class AttributespecsPostTest extends CleanTest {
+public class AttributespecsPostTest extends NormalTest {
 
 	/**
 	 * Print the class name on the output.
@@ -22,19 +26,29 @@ public class AttributespecsPostTest extends CleanTest {
 	}
 
 	/**
-	 * POST 2 different attributespecs.
+	 * JSONArray to store the created attributespecs.
+	 */
+	private static JSONArray attributespecs = new JSONArray();
+
+	/**
+	 * Reverses the setUpClass and the creations during the test.
+	 */
+	@AfterClass
+	public static void tearDownClass() {
+		System.out.println("TearDownClass: "
+				+ AttributespecsGetTest.class.getSimpleName());
+		for (int i = 0; i < attributespecs.length(); i++) {
+			Utility.Remove.attributespec(attributespecs.getJSONObject(i)
+					.getInt("id"));
+		}
+	}
+
+	/**
+	 * POST attributespecs.
 	 */
 	@Test
 	public void testAttributespecsPost() {
-		Utility.Create.attributespec("1", "user");
-		try {
-			assertEquals(Const.StatusLine.Created,
-					Utility.persistent.getStatusLine());
-		} catch (AssertionError e) {
-			AssertErrorHandler(e);
-		}
-
-		Utility.Create.attributespec("2", "user");
+		attributespecs = Utility.Create.attributespec("1", "user");
 		try {
 			assertEquals(Const.StatusLine.Created,
 					Utility.persistent.getStatusLine());
