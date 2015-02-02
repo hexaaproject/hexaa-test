@@ -77,7 +77,7 @@ public class AttributespecsPutTest extends NormalTest {
 
 		persistent.isAdmin = true;
 		persistent.call(Const.Api.ATTRIBUTESPECS_ID, BasicCall.REST.PUT,
-				((JSONObject) attributespecs.get(0)).toString(), 1, 0);
+				jsonTemp.toString(), attributespecs.getJSONObject(0).getInt("id"), 0);
 
 		try {
 			assertEquals(Const.StatusLine.NoContent, persistent.getStatusLine());
@@ -92,7 +92,7 @@ public class AttributespecsPutTest extends NormalTest {
 			persistent.isAdmin = true;
 			jsonResponse = persistent
 					.getResponseJSONObject(Const.Api.ATTRIBUTESPECS_ID,
-							BasicCall.REST.GET, null, 1, 0);
+							BasicCall.REST.GET, null, attributespecs.getJSONObject(0).getInt("id"), 0);
 		} catch (ResponseTypeMismatchException ex) {
 			Logger.getLogger(AttributespecsPutTest.class.getName()).log(
 					Level.SEVERE, null, ex);
@@ -102,7 +102,7 @@ public class AttributespecsPutTest extends NormalTest {
 
 		try {
 			assertEquals(Const.StatusLine.OK, persistent.getStatusLine());
-			assertEquals("oidByPut", jsonResponse.get("oid"));
+			assertEquals(jsonTemp.getString("uri"), jsonResponse.get("uri"));
 		} catch (AssertionError e) {
 			AssertErrorHandler(e);
 		}
