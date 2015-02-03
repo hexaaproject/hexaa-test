@@ -77,11 +77,20 @@ public class Utility {
 				json.put("attribute_spec", asid);
 				json.put("organization", orgId);
 
-				attributevalues.put(json);
-
-				System.out.println(persistent.call(
+				persistent.call(
 						Const.Api.ATTRIBUTEVALUEORGANIZATIONS,
-						BasicCall.REST.POST, json.toString()));
+						BasicCall.REST.POST, json.toString());
+
+				if (persistent.getHeader("Location") != null) {
+					List<Integer> id = getNumber(persistent.getHeader("Location")
+							.getValue());
+
+					if (id.size() == 1) {
+						json.put("id", id.get(0));
+					}
+
+					attributevalues.put(json);
+				}
 
 			}
 			return attributevalues;
@@ -176,10 +185,20 @@ public class Utility {
 				json.put("value", value);
 				json.put("services", new JSONArray(services));
 				json.put("attribute_spec", asid);
-				attributevalues.put(json);
 
 				persistent.call(Const.Api.ATTRIBUTEVALUEPRINCIPALS,
 						BasicCall.REST.POST, json.toString());
+
+				if (persistent.getHeader("Location") != null) {
+					List<Integer> id = getNumber(persistent.getHeader("Location")
+							.getValue());
+
+					if (id.size() == 1) {
+						json.put("id", id.get(0));
+					}
+
+					attributevalues.put(json);
+				}
 			}
 			return attributevalues;
 		}

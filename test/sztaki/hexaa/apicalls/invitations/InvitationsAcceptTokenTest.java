@@ -61,13 +61,6 @@ public class InvitationsAcceptTokenTest extends CleanTest {
 
 	@Test
 	public void testInvitationsAcceptToken() {
-		// Object response =
-		// JSONParser.parseJSON(persistent.call(Const.Api.INVITATIONS_ID,
-		// BasicCall.REST.GET));
-		//
-		// if (response instanceof JSONArray) {
-		// fail("Got JSONArray for unknown reason: " + response.toString());
-		// }
 
 		persistent.call(Const.Api.INVITATIONS_TOKEN_ACCEPT_TOKEN,
 				BasicCall.REST.GET);
@@ -91,5 +84,4 @@ public class InvitationsAcceptTokenTest extends CleanTest {
 			AssertErrorHandler(e);
 		}
 	}
-
 }

@@ -1166,7 +1166,8 @@ public class BasicCall {
 	 */
 	private CloseableHttpResponse execute(HttpMessage httpAction) {
 		CloseableHttpResponse response = null;
-		CloseableHttpClient httpClient = HttpClients.createDefault();
+		CloseableHttpClient httpClient = HttpClients.custom()
+				.disableRedirectHandling().build();
 
 		try {
 			response = httpClient.execute((HttpUriRequest) httpAction);
