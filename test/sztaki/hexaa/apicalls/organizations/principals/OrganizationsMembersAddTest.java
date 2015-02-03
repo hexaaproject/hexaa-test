@@ -53,8 +53,8 @@ public class OrganizationsMembersAddTest extends CleanTest {
 	 * principal given by an array.
 	 */
 	@Test
-	public void testOrganizationMemberAddByArray() {
-		Utility.Link.memberToOrganizationByArray(1, new int[] { 3 });
+	public void testOrganizationMemberSet() {
+		Utility.Link.memberToOrganizationSet(1, new int[] { 3 });
 
 		try {
 			assertEquals(Const.StatusLine.Created,

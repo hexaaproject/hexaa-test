@@ -1229,10 +1229,15 @@ public class Utility {
 		 * @param principalIds
 		 *            the ids of the principal to link as an array.
 		 */
-		public static void memberToOrganizationByArray(int orgId,
+		public static void memberToOrganizationSet(int orgId,
 				int[] principalIds) {
 			JSONObject json = new JSONObject();
 			json.put("principals", principalIds);
+
+			if (isAdmin == true) {
+				persistent.isAdmin = true;
+			}
+			
 			persistent.call(Const.Api.ORGANIZATIONS_ID_MEMBER,
 					BasicCall.REST.PUT, json.toString(), orgId, orgId);
 		}

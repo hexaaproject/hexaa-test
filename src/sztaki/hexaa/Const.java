@@ -279,7 +279,7 @@ public class Const {
 		 */
 		public static final String ORGANIZATIONS_ID_MEMBER_COUNT = ("/api/organizations/{id}/member/count.{_format}");
 		/**
-		 * PUT members to organization.
+		 * PUT(set) members of organization.
 		 */
 		public static final String ORGANIZATIONS_ID_MEMBER = ("/api/organizations/{id}/member.{_format}");
 		/**
