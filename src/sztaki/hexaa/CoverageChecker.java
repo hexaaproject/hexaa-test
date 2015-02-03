@@ -36,7 +36,7 @@ public class CoverageChecker {
 		remainingCalls = new ArrayList<>();
 
 		File f = new File("apicalllist.txt");
-		System.out.println(f.exists());
+//		System.out.println(f.exists());
 
 		if (!f.exists()) {
 			try {

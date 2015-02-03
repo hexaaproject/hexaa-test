@@ -8,8 +8,9 @@ import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
 import java.util.Properties;
+
 import org.json.JSONObject;
-import org.skyscreamer.jsonassert.JSONParser;
+
 import sztaki.hexaa.BasicCall.REST;
 
 /**
@@ -31,22 +32,15 @@ public class Authenticator {
 	 *            format.
 	 */
 	public void authenticate(String fedid) {
-		// Load the properties file if it has not been yet loaded and it exist.
 		if (!Const.PROPERTIES_LOADED) {
 			this.loadProperties();
 		}
 
-		// We check the current connection, if we don't get
 		System.out.print("** AUTHENTICATE **\t");
 		String response = new BasicCall().call(Const.Api.PRINCIPAL_SELF,
 				REST.GET);
-		System.out.print("** AUTHENTICATE **\t");
-		System.out.println(response);
 
-		// If the response is Forbidden, we start the authentication
 		if (!response.contains(fedid)) {
-			System.out.print("** AUTHENTICATE **\t");
-			System.out.println("Getting temporary API key.");
 
 			BasicCall postToken = new BasicCall();
 
@@ -56,32 +50,32 @@ public class Authenticator {
 			json.put("email", fedid);
 			json.put("display_name", fedid + "_name");
 
-			System.out.print("** AUTHENTICATE **\t");
-			System.out.println("Temporary API key acquired: "
-					+ json.getString("apikey"));
-
-			System.out.print("** AUTHENTICATE **\t");
-			response = postToken.call(Const.Api.TOKENS, BasicCall.REST.POST,
-					json.toString(), 0, 0);
-
 			JSONObject jsonResponse;
-			System.out.println(response);
-			if (response == null || response.isEmpty()
-					|| response.contains("503 Service Unavailable")) {
-				System.out.println(response);
+			try {
+				System.out.print("** AUTHENTICATE **\t");
+				jsonResponse = postToken.getResponseJSONObject(
+						Const.Api.TOKENS, BasicCall.REST.POST, json.toString());
+			} catch (ResponseTypeMismatchException ex) {
+				System.out
+						.println("Unable to authenticate, please make sure that the server is reachable, and config.properties is correct.");
 				return;
 			}
-			jsonResponse = (JSONObject) JSONParser.parseJSON(response);
 
 			System.out.print("** AUTHENTICATE **\t");
 			System.out.println(jsonResponse.toString());
 
 			Const.HEXAA_AUTH = jsonResponse.get("token").toString();
 
-			System.out.print("** AUTHENTICATE **\t");
-			System.out.println("Normal API key acquired.");
-
-			/* End of Forbidden */
+			JSONObject principalSelf;
+			try {
+				System.out.print("** AUTHENTICATE **\t");
+				principalSelf = postToken.getResponseJSONObject(
+						Const.Api.PRINCIPAL_SELF, REST.GET);
+			} catch (ResponseTypeMismatchException ex) {
+				System.out.println("Unable to find principal.");
+				return;
+			}
+			Const.HEXAA_ID=principalSelf.getInt("id");
 		}
 
 	}
@@ -124,7 +118,8 @@ public class Authenticator {
 	 * the default.
 	 */
 	public void loadProperties() {
-		System.out.println(System.getProperty("user.dir"));
+		System.out.println("*** Custom config.properties file : "
+				+ System.getProperty("user.dir"));
 		Properties prop = new Properties();
 		InputStream input = null;
 
@@ -138,23 +133,24 @@ public class Authenticator {
 			// load a properties file from class path, inside static method
 			prop.load(input);
 
-			System.out.println("*** Loading Properties ***");
+			System.out.print("*** Loading Properties ***");
 			// get the property value and print it out
 			Const.HEXAA_PORT = Integer.parseInt(prop.getProperty("port"));
-			System.out.println("*** " + Const.HEXAA_PORT);
+			System.out.print("\t* port : " + Const.HEXAA_PORT);
 
 			Const.SSH_PORT = Integer.parseInt(prop.getProperty("ssh"));
-			System.out.println("*** " + Const.SSH_PORT);
+			System.out.print("\t* ssh : " + Const.SSH_PORT);
 
 			Const.HEXAA_HOST = prop.getProperty("host");
-			System.out.println("*** " + Const.HEXAA_HOST);
+			System.out.print("\t* host : " + Const.HEXAA_HOST);
 
 			Const.HEXAA_FEDID = prop.getProperty("fedid");
-			System.out.println("*** " + Const.HEXAA_FEDID);
+			System.out.print("\t* fedid : " + Const.HEXAA_FEDID);
 
 			Const.MASTER_SECRET = prop.getProperty("master_secret");
-			System.out.println("*** " + Const.MASTER_SECRET);
+			System.out.print("\t* master_secret : " + Const.MASTER_SECRET);
 
+			System.out.println("\t*** Properties are loaded ***");
 			Const.PROPERTIES_LOADED = true;
 
 		} catch (IOException ex) {
@@ -163,6 +159,8 @@ public class Authenticator {
 				try {
 					input.close();
 				} catch (IOException e) {
+					System.out
+							.println("Problems occured with the loading of the config.properties file");
 				}
 			}
 		}

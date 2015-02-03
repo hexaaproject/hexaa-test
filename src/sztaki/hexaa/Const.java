@@ -39,6 +39,11 @@ public class Const {
 	 */
 	public static String HEXAA_FEDID = ("tesztAdmin@sztaki.hu");
 	/**
+	 * Integer, containing the numerical id of the current principal_self.
+	 * Updated in the Authenticator().authenticate().
+	 */
+	public static int HEXAA_ID = 0;
+	/**
 	 * The master_secret that match the servers master_secret for
 	 * authentication. Default exist, load from config.properties.
 	 */
