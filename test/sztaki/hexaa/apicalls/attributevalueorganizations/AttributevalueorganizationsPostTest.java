@@ -39,6 +39,10 @@ public class AttributevalueorganizationsPostTest extends CleanTest {
 	/**
 	 * JSONArray to store the created attributespecs.
 	 */
+	private static JSONArray attributevalueorganizations = new JSONArray();
+	/**
+	 * JSONArray to store the created attributespecs.
+	 */
 	private static JSONArray attributespecs = new JSONArray();
 	/**
 	 * JSONArray to store the created services.
@@ -75,6 +79,11 @@ public class AttributevalueorganizationsPostTest extends CleanTest {
 	public static void tearDownClass() {
 		System.out.println("TearDownClass: "
 				+ ServicesAttributespecsGetTest.class.getSimpleName());
+		for (int i = 0; i < attributevalueorganizations.length(); i++) {
+			Utility.Remove
+					.attributevalueorganization(attributevalueorganizations
+							.getJSONObject(i).getInt("id"));
+		}
 		for (int i = 0; i < attributespecs.length(); i++) {
 			Utility.Remove.attributespec(attributespecs.getJSONObject(i)
 					.getInt("id"));
@@ -96,24 +105,28 @@ public class AttributevalueorganizationsPostTest extends CleanTest {
 		json.put("attribute_spec_id", 1);
 		json.put("organization_id", 1);
 
-		Utility.Create.attributevalueorganization("testValueString", 1, 1);
-		///TODO át lehetne írni rendesen normal-ra, itt lustaság vezérelt
+		attributevalueorganizations = Utility.Create
+				.attributevalueorganization("testValueString", 1, 1);
+		// /TODO át lehetne írni rendesen normal-ra, itt lustaság vezérelt
 
 		try {
 			assertEquals(Const.StatusLine.Created,
 					Utility.persistent.getStatusLine());
 		} catch (AssertionError e) {
 			AssertErrorHandler(e);
+			return;
 		}
 
 		JSONArray jsonArrayResponse;
 		try {
 			jsonArrayResponse = persistent.getResponseJSONArray(
 					Const.Api.ORGANIZATIONS_ID_ATTRIBUTEVALUEORGANIZATION,
-					BasicCall.REST.GET, null, 1, 1);
+					BasicCall.REST.GET, null, attributevalueorganizations
+							.getJSONObject(0).getInt("id"), 1);
 		} catch (ResponseTypeMismatchException ex) {
-			Logger.getLogger(AttributevalueorganizationsPostTest.class.getName())
-					.log(Level.SEVERE, null, ex);
+			Logger.getLogger(
+					AttributevalueorganizationsPostTest.class.getName()).log(
+					Level.SEVERE, null, ex);
 			fail(ex.getFullMessage());
 			return;
 		}

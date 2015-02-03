@@ -1190,10 +1190,12 @@ public class BasicCall {
 				uri = new URIBuilder().setScheme(Const.HEXAA_SCHEME)
 						.setHost(Const.HEXAA_HOST).setPort(Const.HEXAA_PORT)
 						.setPath(path).addParameter("admin", "true").build();
+				this.isAdmin = false;
 			} else {
 				uri = new URIBuilder().setScheme(Const.HEXAA_SCHEME)
 						.setHost(Const.HEXAA_HOST).setPort(Const.HEXAA_PORT)
 						.setPath(path).build();
+				this.isAdmin = false;
 			}
 		} catch (URISyntaxException ex) {
 		}
