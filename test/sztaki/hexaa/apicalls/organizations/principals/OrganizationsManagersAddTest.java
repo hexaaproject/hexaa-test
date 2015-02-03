@@ -96,7 +96,7 @@ public class OrganizationsManagersAddTest extends CleanTest {
 	public void testOrganizationManagerSet() {
 		Utility.Link.managerToOrganizationSet(organizations.getJSONObject(0)
 				.getInt("id"),
-				new int[] { principals.getJSONObject(0).getInt("id") });
+				new int[] { Const.HEXAA_ID , principals.getJSONObject(1).getInt("id") });
 
 		try {
 			assertEquals(Const.StatusLine.BadRequest,
@@ -107,11 +107,11 @@ public class OrganizationsManagersAddTest extends CleanTest {
 
 		Utility.Link.memberToOrganization(organizations.getJSONObject(0)
 				.getInt("id"),
-				new int[] { principals.getJSONObject(0).getInt("id") });
+				new int[] { Const.HEXAA_ID , principals.getJSONObject(1).getInt("id") });
 
 		Utility.Link.managerToOrganizationSet(organizations.getJSONObject(0)
 				.getInt("id"),
-				new int[] { principals.getJSONObject(0).getInt("id") });
+				new int[] { Const.HEXAA_ID , principals.getJSONObject(1).getInt("id") });
 
 		try {
 			assertEquals(Const.StatusLine.Created,
