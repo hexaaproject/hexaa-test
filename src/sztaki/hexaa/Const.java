@@ -263,7 +263,7 @@ public class Const {
 		 */
 		public static final String ORGANIZATIONS_ID_MANAGER_COUNT = ("/api/organizations/{id}/manager/count.{_format}");
 		/**
-		 * PUT managers to organization.
+		 * PUT(set) managers of organization.
 		 */
 		public static final String ORGANIZATIONS_ID_MANAGER = ("/api/organizations/{id}/manager.{_format}");
 		/**
