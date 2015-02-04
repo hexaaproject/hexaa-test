@@ -89,7 +89,7 @@ public class ServicesAttributespecsGetTest extends NormalTest {
 		try {
 			jsonResponse = persistent.getResponseJSONArray(
 					Const.Api.SERVICES_ID_ATTRIBUTESPECS, BasicCall.REST.GET,
-					null, attributespecs.getJSONObject(0).getInt("id"), 1);
+					null, services.getJSONObject(0).getInt("id"), 1);
 		} catch (ResponseTypeMismatchException ex) {
 			Logger.getLogger(ServicesAttributespecsGetTest.class.getName())
 					.log(Level.SEVERE, null, ex);
@@ -110,7 +110,7 @@ public class ServicesAttributespecsGetTest extends NormalTest {
 		try {
 			jsonResponse = persistent.getResponseJSONArray(
 					Const.Api.SERVICES_ID_ATTRIBUTESPECS, BasicCall.REST.GET,
-					null, attributespecs.getJSONObject(1).getInt("id"), 1);
+					null, services.getJSONObject(1).getInt("id"), 1);
 		} catch (ResponseTypeMismatchException ex) {
 			Logger.getLogger(ServicesAttributespecsGetTest.class.getName())
 					.log(Level.SEVERE, null, ex);
