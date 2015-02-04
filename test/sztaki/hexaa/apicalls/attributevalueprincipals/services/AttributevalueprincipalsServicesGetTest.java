@@ -70,9 +70,11 @@ public class AttributevalueprincipalsServicesGetTest extends CleanTest {
 			fail("Utility.Create.service(new String[] {\"AttributevalueprincipalsServicesGetTest_service1\", \"AttributevalueprincipalsServicesGetTest_service2\" }); did not succeed");
 		}
 
-		entitlementpacks = Utility.Create.entitlementpacks(1,
+		entitlementpacks = Utility.Create.entitlementpacks(services
+				.getJSONObject(0).getInt("id"),
 				"AttributevalueprincipalsServicesGetTest_entitlementpack1");
-		entitlementpacks.put(Utility.Create.entitlementpacks(2,
+		entitlementpacks.put(Utility.Create.entitlementpacks(
+				services.getJSONObject(1).getInt("id"),
 				"AttributevalueprincipalsServicesGetTest_entitlementpack2")
 				.getJSONObject(0));
 		if (entitlementpacks.length() < 2) {
@@ -84,16 +86,28 @@ public class AttributevalueprincipalsServicesGetTest extends CleanTest {
 		if (organizations.length() < 1) {
 			fail("Utility.Create.organization(new String[] {\"AttributevalueprincipalsServicesGetTest_org1\" }); did not succeed");
 		}
-		Utility.Link.entitlementpackToOrg(1, new int[] { 1, 2 });
+
+		Utility.Link.entitlementpackToOrg(organizations.getJSONObject(0)
+				.getInt("id"), new int[] {
+				entitlementpacks.getJSONObject(0).getInt("id"),
+				entitlementpacks.getJSONObject(1).getInt("id") });
 
 		attributespecs = Utility.Create.attributespec(
 				new String[] { "AttributevalueprincipalsServicesGetTest_as1" },
-				"manager");
+				"user");
 		if (attributespecs.length() < 1) {
 			fail("Utility.Create.attributespec(new String[] {\"AttributevalueprincipalsServicesGetTest_as1\" }, \"manager\"); did not succeed");
 		}
-		Utility.Link.attributespecsToService(1, new int[] { 1, 2 }, true);
-		Utility.Link.attributespecsToService(2, new int[] { 1, 2 }, true);
+
+		Utility.Link.attributespecsToService(
+				services.getJSONObject(0).getInt("id"),
+				new int[] { attributespecs.getJSONObject(0).getInt("id") },
+				true);
+		Utility.Link.attributespecsToService(
+				services.getJSONObject(1).getInt("id"),
+				new int[] { attributespecs.getJSONObject(0).getInt("id") },
+				true);
+
 		attributevalueprincipal = Utility.Create.attributevalueprincipal(
 				"AttributevalueprincipalsServicesGetTest_org_value1", 1,
 				new int[] { 2 });
@@ -107,9 +121,10 @@ public class AttributevalueprincipalsServicesGetTest extends CleanTest {
 	 */
 	@AfterClass
 	public static void tearDownClass() {
-		System.out.println("TearDownClass: "
-				+ AttributevalueprincipalsServicesGetTest.class
-						.getSimpleName());
+		System.out
+				.println("TearDownClass: "
+						+ AttributevalueprincipalsServicesGetTest.class
+								.getSimpleName());
 		for (int i = 0; i < attributevalueprincipal.length(); i++) {
 			Utility.Remove.attributevalueprincipal(attributevalueprincipal
 					.getJSONObject(i).getInt("id"));
@@ -140,7 +155,8 @@ public class AttributevalueprincipalsServicesGetTest extends CleanTest {
 		try {
 			jsonResponse = persistent.getResponseJSONObject(
 					Const.Api.ATTRIBUTEVALUEPRINCIPALS_ID_SERVICES,
-					BasicCall.REST.GET, null, 1, 1);
+					BasicCall.REST.GET, null, attributevalueprincipal
+							.getJSONObject(0).getInt("id"), 1);
 		} catch (ResponseTypeMismatchException ex) {
 			fail(ex.getFullMessage());
 			return;
@@ -164,7 +180,9 @@ public class AttributevalueprincipalsServicesGetTest extends CleanTest {
 		try {
 			jsonResponse = persistent.getResponseJSONObject(
 					Const.Api.ATTRIBUTEVALUEPRINCIPALS_ID_SERVICES_SID,
-					BasicCall.REST.GET, null, 1, 2);
+					BasicCall.REST.GET, null, attributevalueprincipal
+							.getJSONObject(0).getInt("id"), services
+							.getJSONObject(1).getInt("id"));
 		} catch (ResponseTypeMismatchException ex) {
 			fail(ex.getFullMessage());
 			return;
@@ -173,7 +191,8 @@ public class AttributevalueprincipalsServicesGetTest extends CleanTest {
 		JSONObject service;
 		try {
 			service = persistent.getResponseJSONObject(Const.Api.SERVICES_ID,
-					BasicCall.REST.GET, null, 2, 2);
+					BasicCall.REST.GET, null, services
+					.getJSONObject(1).getInt("id"), 0);
 		} catch (ResponseTypeMismatchException ex) {
 			fail(ex.getFullMessage());
 			return;
