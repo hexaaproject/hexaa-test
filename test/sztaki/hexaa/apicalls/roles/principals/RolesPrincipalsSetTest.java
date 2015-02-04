@@ -1,19 +1,20 @@
 package sztaki.hexaa.apicalls.roles.principals;
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.fail;
+
 import java.util.logging.Level;
 import java.util.logging.Logger;
+
 import org.json.JSONArray;
-import org.json.JSONObject;
-import org.junit.Test;
-import static org.junit.Assert.*;
 import org.junit.BeforeClass;
-import org.skyscreamer.jsonassert.JSONAssert;
-import org.skyscreamer.jsonassert.JSONCompareMode;
+import org.junit.Test;
+
 import sztaki.hexaa.BasicCall;
+import sztaki.hexaa.CleanTest;
 import sztaki.hexaa.Const;
 import sztaki.hexaa.ResponseTypeMismatchException;
 import sztaki.hexaa.Utility;
-import sztaki.hexaa.CleanTest;
 
 /**
  *
@@ -75,18 +76,10 @@ public class RolesPrincipalsSetTest extends CleanTest {
 			return;
 		}
 
-		JSONArray jsonTemp = new JSONArray();
-		for (int i = 0; i < jsonResponse.length(); i++) {
-			jsonTemp.put((JSONObject) jsonResponse.getJSONObject(i).get(
-					"principal"));
-		}
-
-		System.out.println(jsonResponse);
-
 		try {
 			assertEquals(Const.StatusLine.OK, persistent.getStatusLine());
-			JSONAssert.assertEquals(principals, jsonTemp,
-					JSONCompareMode.LENIENT);
+			assertEquals(principals.getJSONObject(0).getInt("id"), jsonResponse
+					.getJSONObject(0).getInt("principal_id"));
 		} catch (AssertionError e) {
 			AssertErrorHandler(e);
 		}

@@ -1252,7 +1252,12 @@ public class Utility {
 		 */
 		public static void principalToRoleByArray(int roleId, int[] principalIds) {
 			JSONObject json = new JSONObject();
-			json.put("principals", principalIds);
+			JSONArray jsonArray = new JSONArray();
+			for (int i : principalIds) {
+				jsonArray.put(new JSONObject().put("principal", i));
+			}
+			json.put("principals", jsonArray);
+			
 			persistent.call(Const.Api.ROLES_ID_PRINCIPAL, BasicCall.REST.PUT,
 					json.toString(), roleId, roleId);
 		}
