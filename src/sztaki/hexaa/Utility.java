@@ -600,7 +600,7 @@ public class Utility {
 
 				persistent.call(Const.Api.ORGANIZATIONS, BasicCall.REST.POST,
 						json.toString(), 1, 1);
-
+				System.out.println(persistent.getHeader("Location"));
 				if (persistent.getHeader("Location") != null) {
 					List<Integer> id = getNumber(persistent.getHeader(
 							"Location").getValue());
@@ -698,7 +698,7 @@ public class Utility {
 				// LocalDate.now(ZoneId.of("UTC")).toString());
 				// POSTs the role
 				persistent.call(Const.Api.ORGANIZATIONS_ID_ROLES,
-						BasicCall.REST.POST, json.toString(), 1, 1);
+						BasicCall.REST.POST, json.toString(), orgId, 1);
 
 				if (persistent.getHeader("Location") != null) {
 					List<Integer> id = getNumber(persistent.getHeader(

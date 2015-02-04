@@ -4,19 +4,23 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.fail;
 
 import org.json.JSONArray;
+import org.json.JSONException;
+import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
 import sztaki.hexaa.BasicCall;
 import sztaki.hexaa.CleanTest;
 import sztaki.hexaa.Const;
+import sztaki.hexaa.NormalTest;
 import sztaki.hexaa.ResponseTypeMismatchException;
 import sztaki.hexaa.Utility;
+import sztaki.hexaa.apicalls.attributespecs.AttributespecsGetTest;
 
 /**
  * Tests the DELETE method on the /api/role/{id}/principals/{eid} call.
  */
-public class RolesPrincipalsRemoveTest extends CleanTest {
+public class RolesPrincipalsRemoveTest extends NormalTest {
 
 	/**
 	 * Print the class name on the output.
@@ -51,6 +55,7 @@ public class RolesPrincipalsRemoveTest extends CleanTest {
 		if (organizations.length() < 1) {
 			fail("Utility.Create.organization(\"RolesPrincipalsRemoveTest_org1\"); did not succeed");
 		}
+		System.out.println(organizations.toString());
 		roles = Utility.Create.role("RolesPrincipalsRemoveTest_role1",
 				organizations.getJSONObject(0).getInt("id"));
 		if (roles.length() < 1) {
@@ -67,6 +72,27 @@ public class RolesPrincipalsRemoveTest extends CleanTest {
 				Const.HEXAA_ID);
 		Utility.Link.principalToRole(roles.getJSONObject(0).getInt("id"),
 				principals.getJSONObject(0).getInt("id"));
+	}
+	
+	/**
+	 * Reverses the setUpClass and the creations during the test.
+	 */
+	@AfterClass
+	public static void tearDownClass() {
+		System.out.println("TearDownClass: "
+				+ RolesPrincipalsRemoveTest.class.getSimpleName());
+		for (int i = 0; i < principals.length(); i++) {
+			Utility.Remove.principal(principals.getJSONObject(i)
+					.getInt("id"));
+		}
+		for (int i = 0; i < roles.length(); i++) {
+			Utility.Remove.roles(roles.getJSONObject(i)
+					.getInt("id"));
+		}
+		for (int i = 0; i < organizations.length(); i++) {
+			Utility.Remove.organization(organizations.getJSONObject(i)
+					.getInt("id"));
+		}
 	}
 
 	/**
@@ -89,6 +115,18 @@ public class RolesPrincipalsRemoveTest extends CleanTest {
 			jsonResponse = persistent.getResponseJSONArray(
 					Const.Api.ROLES_ID_PRINCIPALS, BasicCall.REST.GET, null,
 					roles.getJSONObject(0).getInt("id"), 0);
+		} catch (ResponseTypeMismatchException ex) {
+			fail(ex.getFullMessage());
+			return;
+		}
+		System.out.println(jsonResponse.toString());
+		System.out.println(principals.toString());
+		System.out.println(Const.HEXAA_ID);
+		
+		try {
+			System.out.println(persistent.getResponseJSONObject(Const.Api.PRINCIPALS_ID_ID, BasicCall.REST.GET, null, jsonResponse
+						.getJSONObject(0).getInt("id"), 0));
+		} catch (JSONException e1) {
 		} catch (ResponseTypeMismatchException ex) {
 			fail(ex.getFullMessage());
 			return;
