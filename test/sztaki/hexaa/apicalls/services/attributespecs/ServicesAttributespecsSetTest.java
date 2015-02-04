@@ -36,9 +36,11 @@ public class ServicesAttributespecsSetTest extends CleanTest {
 	 */
 	@BeforeClass
 	public static void setUpClass() {
-		Utility.Create.service(new String[] { "testService1" });
-		attributespecs = Utility.Create.attributespec(
-				new String[] { "1", "2" }, "manager");
+		Utility.Create
+				.service(new String[] { "ServicesAttributespecsSetTest_service1" });
+		attributespecs = Utility.Create.attributespec(new String[] {
+				"ServicesAttributespecsSetTest_as1",
+				"ServicesAttributespecsSetTest_as2" }, "manager");
 	}
 
 	/**

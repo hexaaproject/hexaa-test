@@ -29,10 +29,6 @@ public class RolesPrincipalsRemoveTest extends NormalTest {
 	}
 
 	/**
-	 * JSONArray to store created principals.
-	 */
-	private static JSONArray principals = new JSONArray();
-	/**
 	 * JSONArray to store created organizations.
 	 */
 	private static JSONArray organizations = new JSONArray();
@@ -40,6 +36,10 @@ public class RolesPrincipalsRemoveTest extends NormalTest {
 	 * JSONArray to store created roles.
 	 */
 	private static JSONArray roles = new JSONArray();
+	/**
+	 * JSONArray to store created principals.
+	 */
+	private static JSONArray principals = new JSONArray();
 
 	/**
 	 * Creates one organization and one role for it than creates a principal and
@@ -52,12 +52,13 @@ public class RolesPrincipalsRemoveTest extends NormalTest {
 		if (organizations.length() < 1) {
 			fail("Utility.Create.organization(\"RolesPrincipalsRemoveTest_org1\"); did not succeed");
 		}
-		System.out.println(organizations.toString());
+
 		roles = Utility.Create.role("RolesPrincipalsRemoveTest_role1",
 				organizations.getJSONObject(0).getInt("id"));
 		if (roles.length() < 1) {
 			fail("Utility.Create.role(\"RolesPrincipalsRemoveTest_role1\"); did not succeed");
 		}
+		
 		principals = Utility.Create.principal("RolesPrincipalsRemoveTest_pri1");
 		if (principals.length() < 1) {
 			fail("Utility.Create.principal(\"RolesPrincipalsRemoveTest_pri1\"); did not succeed");
@@ -116,24 +117,12 @@ public class RolesPrincipalsRemoveTest extends NormalTest {
 			fail(ex.getFullMessage());
 			return;
 		}
-//		System.out.println(jsonResponse.toString());
-//		System.out.println(principals.toString());
-//		System.out.println(Const.HEXAA_ID);
-//		
-//		try {
-//			System.out.println(persistent.getResponseJSONObject(Const.Api.PRINCIPALS_ID_ID, BasicCall.REST.GET, null, jsonResponse
-//						.getJSONObject(0).getInt("id"), 0));
-//		} catch (JSONException e1) {
-//		} catch (ResponseTypeMismatchException ex) {
-//			fail(ex.getFullMessage());
-//			return;
-//		}
 
 		try {
 			assertEquals(Const.StatusLine.OK, persistent.getStatusLine());
 			assertEquals(1, jsonResponse.length());
 			assertEquals(principals.getJSONObject(0).getInt("id"), jsonResponse
-					.getJSONObject(0).getInt("id"));
+					.getJSONObject(0).getInt("principal_id"));
 		} catch (AssertionError e) {
 			AssertErrorHandler(e);
 		}
