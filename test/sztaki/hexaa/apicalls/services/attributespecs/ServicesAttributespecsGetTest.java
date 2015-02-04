@@ -98,6 +98,7 @@ public class ServicesAttributespecsGetTest extends NormalTest {
 		}
 		try {
 			assertEquals(Const.StatusLine.OK, persistent.getStatusLine());
+			assertEquals(2, jsonResponse.length());
 			assertEquals(attributespecs.getJSONObject(0).getInt("id"),
 					jsonResponse.getJSONObject(0).getInt("attribute_spec_id"));
 			assertEquals(attributespecs.getJSONObject(1).getInt("id"),
