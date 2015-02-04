@@ -3,23 +3,21 @@ package sztaki.hexaa.apicalls.roles.principals;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.fail;
 
-import java.util.logging.Level;
-import java.util.logging.Logger;
-
 import org.json.JSONArray;
+import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
 import sztaki.hexaa.BasicCall;
-import sztaki.hexaa.CleanTest;
 import sztaki.hexaa.Const;
+import sztaki.hexaa.NormalTest;
 import sztaki.hexaa.ResponseTypeMismatchException;
 import sztaki.hexaa.Utility;
 
 /**
  *
  */
-public class RolesPrincipalsSetTest extends CleanTest {
+public class RolesPrincipalsSetTest extends NormalTest {
 
 	/**
 	 * Print the class name on the output.
@@ -31,6 +29,18 @@ public class RolesPrincipalsSetTest extends CleanTest {
 	}
 
 	/**
+	 * JSONArray to store the created organizations.
+	 */
+	public static JSONArray organizations = new JSONArray();
+	/**
+	 * JSONArray to store the created roles.
+	 */
+	public static JSONArray roles = new JSONArray();
+	/**
+	 * JSONArray to store the created services.
+	 */
+	public static JSONArray services = new JSONArray();
+	/**
 	 * JSONArray to store the created principals.
 	 */
 	public static JSONArray principals = new JSONArray();
@@ -40,12 +50,61 @@ public class RolesPrincipalsSetTest extends CleanTest {
 	 */
 	@BeforeClass
 	public static void setUpClass() {
-		Utility.Create.organization(new String[] { "testOrg1" });
-		Utility.Create.role(new String[] { "testRole1", "testRole2" }, 1);
-		Utility.Create.service(new String[] { "testService1" });
-		principals = Utility.Create.principal(new String[] { "fedidTest1",
-				"fedidTest2" });
-		Utility.Link.memberToOrganization(1, new int[] { 2, 3 });
+		organizations = Utility.Create
+				.organization(new String[] { "RolesPrincipalsSetTest_org1" });
+		if (organizations.length() < 1) {
+			fail("Utility.Create.organization( \"RolesPrincipalsSetTest_org1\" ); did not succeed");
+		}
+
+		roles = Utility.Create.role(
+				new String[] { "RolesPrincipalsSetTest_role1",
+						"RolesPrincipalsSetTest_role2" }, organizations
+						.getJSONObject(0).getInt("id"));
+		if (roles.length() < 2) {
+			fail("Utility.Create.role( new String[] { \"RolesPrincipalsSetTest_role1\", \"RolesPrincipalsSetTest_role2\" }, organizations.getJSONObject(0).getInt(\"id\") ); did not succeed");
+		}
+
+		services = Utility.Create
+				.service(new String[] { "RolesPrincipalsSetTest_service1" });
+		if (services.length() < 1) {
+			fail("Utility.Create.service( new String[] { \"RolesPrincipalsSetTest_service1\" }); did not succeed");
+		}
+
+		principals = Utility.Create.principal(new String[] {
+				"RolesPrincipalsSetTest_pri1", "RolesPrincipalsSetTest_pri2" });
+		if (principals.length() < 2) {
+			fail("Utility.Create.principal( new String[] { \"RolesPrincipalsSetTest_pri1\", \"RolesPrincipalsSetTest_pri2\" }); did not succeed");
+		}
+
+		Utility.Link.memberToOrganization(organizations.getJSONObject(0)
+				.getInt("id"),
+				new int[] { principals.getJSONObject(0).getInt("id"),
+						principals.getJSONObject(1).getInt("id") });
+	}
+	
+	/**
+	 * Reverses the setUpClass and the creations during the test.
+	 */
+	@AfterClass
+	public static void tearDownClass() {
+		System.out.println("TearDownClass: "
+				+ RolesPrincipalsSetTest.class.getSimpleName());
+		for (int i = 0; i < principals.length(); i++) {
+			Utility.Remove.principal(principals.getJSONObject(i)
+					.getInt("id"));
+		}
+		for (int i = 0; i < services.length(); i++) {
+			Utility.Remove.service(services.getJSONObject(i)
+					.getInt("id"));
+		}
+		for (int i = 0; i < roles.length(); i++) {
+			Utility.Remove.roles(roles.getJSONObject(i)
+					.getInt("id"));
+		}
+		for (int i = 0; i < organizations.length(); i++) {
+			Utility.Remove.organization(organizations.getJSONObject(i)
+					.getInt("id"));
+		}
 	}
 
 	/**
@@ -53,7 +112,10 @@ public class RolesPrincipalsSetTest extends CleanTest {
 	 */
 	@Test
 	public void testRolesPrincipalsSet() {
-		Utility.Link.principalToRoleByArray(1, new int[] { 2, 3 });
+		Utility.Link.principalToRoleByArray(
+				roles.getJSONObject(0).getInt("id"), new int[] {
+						principals.getJSONObject(0).getInt("id"),
+						principals.getJSONObject(1).getInt("id") });
 
 		try {
 			assertEquals(Const.StatusLine.NoContent,
@@ -66,11 +128,9 @@ public class RolesPrincipalsSetTest extends CleanTest {
 
 		try {
 			jsonResponse = persistent.getResponseJSONArray(
-					Const.Api.ROLES_ID_PRINCIPALS, BasicCall.REST.GET, null, 1,
-					1);
+					Const.Api.ROLES_ID_PRINCIPALS, BasicCall.REST.GET, null,
+					roles.getJSONObject(0).getInt("id"), 0);
 		} catch (ResponseTypeMismatchException ex) {
-			Logger.getLogger(RolesPrincipalsSetTest.class.getName()).log(
-					Level.SEVERE, null, ex);
 			fail(ex.getFullMessage());
 			return;
 		}
