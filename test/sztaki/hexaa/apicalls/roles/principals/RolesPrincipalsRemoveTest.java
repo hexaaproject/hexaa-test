@@ -4,18 +4,15 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.fail;
 
 import org.json.JSONArray;
-import org.json.JSONException;
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
 import sztaki.hexaa.BasicCall;
-import sztaki.hexaa.CleanTest;
 import sztaki.hexaa.Const;
 import sztaki.hexaa.NormalTest;
 import sztaki.hexaa.ResponseTypeMismatchException;
 import sztaki.hexaa.Utility;
-import sztaki.hexaa.apicalls.attributespecs.AttributespecsGetTest;
 
 /**
  * Tests the DELETE method on the /api/role/{id}/principals/{eid} call.
@@ -119,18 +116,18 @@ public class RolesPrincipalsRemoveTest extends NormalTest {
 			fail(ex.getFullMessage());
 			return;
 		}
-		System.out.println(jsonResponse.toString());
-		System.out.println(principals.toString());
-		System.out.println(Const.HEXAA_ID);
-		
-		try {
-			System.out.println(persistent.getResponseJSONObject(Const.Api.PRINCIPALS_ID_ID, BasicCall.REST.GET, null, jsonResponse
-						.getJSONObject(0).getInt("id"), 0));
-		} catch (JSONException e1) {
-		} catch (ResponseTypeMismatchException ex) {
-			fail(ex.getFullMessage());
-			return;
-		}
+//		System.out.println(jsonResponse.toString());
+//		System.out.println(principals.toString());
+//		System.out.println(Const.HEXAA_ID);
+//		
+//		try {
+//			System.out.println(persistent.getResponseJSONObject(Const.Api.PRINCIPALS_ID_ID, BasicCall.REST.GET, null, jsonResponse
+//						.getJSONObject(0).getInt("id"), 0));
+//		} catch (JSONException e1) {
+//		} catch (ResponseTypeMismatchException ex) {
+//			fail(ex.getFullMessage());
+//			return;
+//		}
 
 		try {
 			assertEquals(Const.StatusLine.OK, persistent.getStatusLine());
