@@ -11,7 +11,6 @@ import org.junit.Test;
 import sztaki.hexaa.CleanTest;
 import sztaki.hexaa.Const;
 import sztaki.hexaa.Utility;
-import sztaki.hexaa.apicalls.attributespecs.AttributespecsGetTest;
 
 /**
  * Tests the PUT method on the /api/organizations/{id}/managers/{pid} and

@@ -16,7 +16,6 @@ import sztaki.hexaa.Const;
 import sztaki.hexaa.NormalTest;
 import sztaki.hexaa.ResponseTypeMismatchException;
 import sztaki.hexaa.Utility;
-import sztaki.hexaa.apicalls.attributespecs.AttributespecsGetTest;
 
 /**
  * Test the GET method on the /api/principal/attributespecs call for public
