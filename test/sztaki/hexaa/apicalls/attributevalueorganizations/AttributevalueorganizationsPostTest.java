@@ -1,24 +1,21 @@
 package sztaki.hexaa.apicalls.attributevalueorganizations;
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.fail;
+
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import org.json.JSONArray;
-import org.json.JSONObject;
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
-import static org.junit.Assert.*;
-
-import org.skyscreamer.jsonassert.JSONAssert;
-import org.skyscreamer.jsonassert.JSONCompareMode;
-
 import sztaki.hexaa.BasicCall;
-import sztaki.hexaa.Const;
-import sztaki.hexaa.Utility;
 import sztaki.hexaa.CleanTest;
+import sztaki.hexaa.Const;
 import sztaki.hexaa.ResponseTypeMismatchException;
+import sztaki.hexaa.Utility;
 import sztaki.hexaa.apicalls.services.attributespecs.ServicesAttributespecsGetTest;
 
 /**
@@ -48,6 +45,10 @@ public class AttributevalueorganizationsPostTest extends CleanTest {
 	 * JSONArray to store the created services.
 	 */
 	private static JSONArray services = new JSONArray();
+	/**
+	 * JSONArray to store the created organizations.
+	 */
+	private static JSONArray organizations = new JSONArray();
 
 	/**
 	 * Creates two services, two attributespecs and links them together.
@@ -66,6 +67,12 @@ public class AttributevalueorganizationsPostTest extends CleanTest {
 		if (attributespecs.length() < 2) {
 			fail("Utility.Create.attributespec(new String[] {\"AttributevalueorganizationsPostTest_as1\", \"AttributevalueorganizationsPostTest_as2\" }, \"user\"); did not succeed");
 		}
+		organizations = Utility.Create.organization(new String[] {
+				"AttributevalueorganizationsPostTest_org1",
+				"AttributevalueorganizationsPostTest_org2" });
+		if (organizations.length() < 1) {
+			fail("Utility.Create.organization(new String[] {\"AttributevalueorganizationsPostTest_org1\", \"AttributevalueorganizationsPostTest_org2\" }); did not succeed");
+		}
 		Utility.Link.attributespecsToService(
 				services.getJSONObject(0).getInt("id"), new int[] {
 						attributespecs.getJSONObject(0).getInt("id"),
@@ -79,6 +86,10 @@ public class AttributevalueorganizationsPostTest extends CleanTest {
 	public static void tearDownClass() {
 		System.out.println("TearDownClass: "
 				+ ServicesAttributespecsGetTest.class.getSimpleName());
+		for (int i = 0; i < organizations.length(); i++) {
+			Utility.Remove.organization(organizations.getJSONObject(i).getInt(
+					"id"));
+		}
 		for (int i = 0; i < attributevalueorganizations.length(); i++) {
 			Utility.Remove
 					.attributevalueorganization(attributevalueorganizations
@@ -99,14 +110,11 @@ public class AttributevalueorganizationsPostTest extends CleanTest {
 	 */
 	@Test
 	public void testAttributevalueorganizationsPost() {
-		JSONObject json = new JSONObject();
-		json.put("value", "testValueString");
-		json.put("service_ids", new JSONArray(new int[] {}));
-		json.put("attribute_spec_id", 1);
-		json.put("organization_id", 1);
-
 		attributevalueorganizations = Utility.Create
-				.attributevalueorganization("testValueString", 1, 1);
+				.attributevalueorganization(
+						"AttributevalueorganizationsPostTest_av_org1",
+						attributespecs.getJSONObject(0).getInt("id"),
+						organizations.getJSONObject(0).getInt("id"));
 		// /TODO át lehetne írni rendesen normal-ra, itt lustaság vezérelt
 
 		try {
@@ -131,11 +139,13 @@ public class AttributevalueorganizationsPostTest extends CleanTest {
 			return;
 		}
 
-		JSONObject jsonResponse = jsonArrayResponse.getJSONObject(0);
-		System.out.println(jsonResponse);
 		try {
-			JSONAssert
-					.assertEquals(json, jsonResponse, JSONCompareMode.LENIENT);
+			assertEquals(attributevalueorganizations.getJSONObject(0).get("organization"),
+					jsonArrayResponse.getJSONObject(0).get("organization_id"));
+			assertEquals(attributevalueorganizations.getJSONObject(0).get("attribute_spec"),
+					jsonArrayResponse.getJSONObject(0).get("attribute_spec_id"));
+			assertEquals(attributevalueorganizations.getJSONObject(0).get("id"),
+					jsonArrayResponse.getJSONObject(0).get("id"));
 			assertEquals(Const.StatusLine.OK, persistent.getStatusLine());
 		} catch (AssertionError e) {
 			AssertErrorHandler(e);
