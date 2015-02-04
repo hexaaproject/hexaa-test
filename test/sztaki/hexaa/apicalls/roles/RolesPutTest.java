@@ -2,12 +2,17 @@ package sztaki.hexaa.apicalls.roles;
 
 import java.util.logging.Level;
 import java.util.logging.Logger;
+
 import org.json.JSONArray;
+import org.json.JSONObject;
 import org.junit.BeforeClass;
 import org.junit.Test;
+
 import static org.junit.Assert.*;
+
 import org.skyscreamer.jsonassert.JSONAssert;
 import org.skyscreamer.jsonassert.JSONCompareMode;
+
 import sztaki.hexaa.BasicCall;
 import sztaki.hexaa.Const;
 import sztaki.hexaa.Utility;
@@ -50,10 +55,10 @@ public class RolesPutTest extends CleanTest {
 	@Test
 	public void testRolesPut() {
 		// Modify the first role
-		roles.getJSONObject(0).put("name", "modifiedByPut1");
+		JSONObject json = new JSONObject();
+		json.put("name", "modifiedByPut1");
 
-		persistent.call(Const.Api.ROLES_ID, BasicCall.REST.PUT, roles
-				.getJSONObject(0).toString());
+		persistent.call(Const.Api.ROLES_ID, BasicCall.REST.PUT, json.toString());
 
 		try {
 			assertEquals(Const.StatusLine.NoContent, persistent.getStatusLine());
@@ -73,7 +78,7 @@ public class RolesPutTest extends CleanTest {
 		}
 
 		try {
-			JSONAssert.assertEquals(roles, jsonResponse,
+			JSONAssert.assertNotEquals(roles, jsonResponse,
 					JSONCompareMode.LENIENT);
 		} catch (AssertionError e) {
 			AssertErrorHandler(e);

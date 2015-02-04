@@ -22,11 +22,6 @@ import sztaki.hexaa.Utility;
 public class RolesPrincipalsSetTest extends CleanTest {
 
 	/**
-	 * JSONArray to store the created principals.
-	 */
-	public static JSONArray principals = new JSONArray();
-
-	/**
 	 * Print the class name on the output.
 	 */
 	@BeforeClass
@@ -34,6 +29,11 @@ public class RolesPrincipalsSetTest extends CleanTest {
 		System.out.println("***\t "
 				+ RolesPrincipalsSetTest.class.getSimpleName() + " ***");
 	}
+
+	/**
+	 * JSONArray to store the created principals.
+	 */
+	public static JSONArray principals = new JSONArray();
 
 	/**
 	 * Creates an organization, two role, a service and a principal.
@@ -61,7 +61,6 @@ public class RolesPrincipalsSetTest extends CleanTest {
 		} catch (AssertionError e) {
 			AssertErrorHandler(e);
 		}
-		System.out.println(Utility.persistent.getResponse());
 
 		JSONArray jsonResponse;
 
