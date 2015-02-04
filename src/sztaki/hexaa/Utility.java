@@ -77,13 +77,12 @@ public class Utility {
 				json.put("attribute_spec", asid);
 				json.put("organization", orgId);
 
-				persistent.call(
-						Const.Api.ATTRIBUTEVALUEORGANIZATIONS,
+				persistent.call(Const.Api.ATTRIBUTEVALUEORGANIZATIONS,
 						BasicCall.REST.POST, json.toString());
 
 				if (persistent.getHeader("Location") != null) {
-					List<Integer> id = getNumber(persistent.getHeader("Location")
-							.getValue());
+					List<Integer> id = getNumber(persistent.getHeader(
+							"Location").getValue());
 
 					if (id.size() == 1) {
 						json.put("id", id.get(0));
@@ -190,8 +189,8 @@ public class Utility {
 						BasicCall.REST.POST, json.toString());
 
 				if (persistent.getHeader("Location") != null) {
-					List<Integer> id = getNumber(persistent.getHeader("Location")
-							.getValue());
+					List<Integer> id = getNumber(persistent.getHeader(
+							"Location").getValue());
 
 					if (id.size() == 1) {
 						json.put("id", id.get(0));
@@ -589,8 +588,8 @@ public class Utility {
 						json.toString(), 1, 1);
 
 				if (persistent.getHeader("Location") != null) {
-					List<Integer> id = getNumber(persistent.getHeader("Location")
-							.getValue());
+					List<Integer> id = getNumber(persistent.getHeader(
+							"Location").getValue());
 					if (id.size() == 1) {
 						json.put("id", id.get(0));
 					}
@@ -636,10 +635,10 @@ public class Utility {
 
 				persistent.call(Const.Api.PRINCIPALS, BasicCall.REST.POST,
 						json.toString());
-				
+
 				if (persistent.getHeader("Location") != null) {
-					List<Integer> id = getNumber(persistent.getHeader("Location")
-							.getValue());
+					List<Integer> id = getNumber(persistent.getHeader(
+							"Location").getValue());
 
 					if (id.size() == 1) {
 						json.put("id", id.get(0));
@@ -740,7 +739,7 @@ public class Utility {
 							.getValue();
 					// System.out.println(locHeader);
 					List<Integer> id = getNumber(locHeader);
-					System.out.println(locHeader);
+					System.out.println("\t\t" + locHeader);
 					if (id.size() == 1) {
 						json.put("id", id.get(0));
 					}
@@ -1067,8 +1066,8 @@ public class Utility {
 			json.put("is_public", isPublics);
 
 			if (isAdmin == true) {
-					persistent.isAdmin = true;
-				}
+				persistent.isAdmin = true;
+			}
 			persistent.call(Const.Api.SERVICES_ID_ATTRIBUTESPEC,
 					BasicCall.REST.PUT, json.toString(),
 					// null,
@@ -1244,15 +1243,14 @@ public class Utility {
 		 * @param principalIds
 		 *            the ids of the principal to link as an array.
 		 */
-		public static void memberToOrganizationSet(int orgId,
-				int[] principalIds) {
+		public static void memberToOrganizationSet(int orgId, int[] principalIds) {
 			JSONObject json = new JSONObject();
 			json.put("principals", principalIds);
 
 			if (isAdmin == true) {
 				persistent.isAdmin = true;
 			}
-			
+
 			persistent.call(Const.Api.ORGANIZATIONS_ID_MEMBER,
 					BasicCall.REST.PUT, json.toString(), orgId, orgId);
 		}
@@ -1512,8 +1510,8 @@ public class Utility {
 		 */
 		public static void attributespecFromService(int sID, int asID) {
 			if (isAdmin == true) {
-					persistent.isAdmin = true;
-				}
+				persistent.isAdmin = true;
+			}
 			persistent.call(Const.Api.SERVICES_ID_ATTRIBUTESPECS_ASID,
 					BasicCall.REST.DELETE, null, sID, asID);
 		}
