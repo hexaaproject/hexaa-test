@@ -699,10 +699,17 @@ public class Utility {
 				// POSTs the role
 				persistent.call(Const.Api.ORGANIZATIONS_ID_ROLES,
 						BasicCall.REST.POST, json.toString(), 1, 1);
-				// Just to match the servers format
-				// json.put("start_date",
-				// json.getString("start_date").concat("T00:00:00+0000"));
-				response.put(json);
+
+				if (persistent.getHeader("Location") != null) {
+					List<Integer> id = getNumber(persistent.getHeader(
+							"Location").getValue());
+
+					if (id.size() == 1) {
+						json.put("id", id.get(0));
+					}
+
+					response.put(json);
+				}
 			}
 
 			return response;

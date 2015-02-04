@@ -1,18 +1,17 @@
 package sztaki.hexaa.apicalls.roles.principals;
 
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.fail;
+
 import org.json.JSONArray;
 import org.junit.BeforeClass;
 import org.junit.Test;
-import static org.junit.Assert.*;
-import org.skyscreamer.jsonassert.JSONAssert;
-import org.skyscreamer.jsonassert.JSONCompareMode;
+
 import sztaki.hexaa.BasicCall;
-import sztaki.hexaa.Const;
-import sztaki.hexaa.Utility;
 import sztaki.hexaa.CleanTest;
+import sztaki.hexaa.Const;
 import sztaki.hexaa.ResponseTypeMismatchException;
+import sztaki.hexaa.Utility;
 
 /**
  * Tests the DELETE method on the /api/role/{id}/principals/{eid} call.
@@ -32,6 +31,14 @@ public class RolesPrincipalsRemoveTest extends CleanTest {
 	 * JSONArray to store created principals.
 	 */
 	private static JSONArray principals = new JSONArray();
+	/**
+	 * JSONArray to store created organizations.
+	 */
+	private static JSONArray organizations = new JSONArray();
+	/**
+	 * JSONArray to store created roles.
+	 */
+	private static JSONArray roles = new JSONArray();
 
 	/**
 	 * Creates one organization and one role for it than creates a principal and
@@ -39,21 +46,27 @@ public class RolesPrincipalsRemoveTest extends CleanTest {
 	 */
 	@BeforeClass
 	public static void setUpClass() {
-		Utility.Create.organization("testOrg");
-		Utility.Create.role("testRole", 1);
-		principals = Utility.Create.principal("testPrincipal");
-		try {
-			principals.put(persistent.getResponseJSONObject(
-					Const.Api.PRINCIPALS_ID_ID, BasicCall.REST.GET));
-		} catch (ResponseTypeMismatchException ex) {
-			Logger.getLogger(RolesPrincipalsRemoveTest.class.getName()).log(
-					Level.SEVERE, null, ex);
-			System.out
-					.println("principals = Utility.Create.principal(\"testPrincipal\") failed");
+		organizations = Utility.Create
+				.organization("RolesPrincipalsRemoveTest_org1");
+		if (organizations.length() < 1) {
+			fail("Utility.Create.organization(\"RolesPrincipalsRemoveTest_org1\"); did not succeed");
 		}
-		Utility.Link.memberToOrganization(1, 2);
-		Utility.Link.principalToRole(1, 1);
-		Utility.Link.principalToRole(1, 2);
+		roles = Utility.Create.role("RolesPrincipalsRemoveTest_role1",
+				organizations.getJSONObject(0).getInt("id"));
+		if (roles.length() < 1) {
+			fail("Utility.Create.role(\"RolesPrincipalsRemoveTest_role1\"); did not succeed");
+		}
+		principals = Utility.Create.principal("RolesPrincipalsRemoveTest_pri1");
+		if (principals.length() < 1) {
+			fail("Utility.Create.principal(\"RolesPrincipalsRemoveTest_pri1\"); did not succeed");
+		}
+
+		Utility.Link.memberToOrganization(organizations.getJSONObject(0)
+				.getInt("id"), principals.getJSONObject(0).getInt("id"));
+		Utility.Link.principalToRole(roles.getJSONObject(0).getInt("id"),
+				Const.HEXAA_ID);
+		Utility.Link.principalToRole(roles.getJSONObject(0).getInt("id"),
+				principals.getJSONObject(0).getInt("id"));
 	}
 
 	/**
@@ -61,9 +74,8 @@ public class RolesPrincipalsRemoveTest extends CleanTest {
 	 */
 	@Test
 	public void testRolesPrincipalRemove() {
-		principals.remove(1);
-
-		Utility.Remove.principalFromRole(1, 1);
+		Utility.Remove.principalFromRole(roles.getJSONObject(0).getInt("id"),
+				Const.HEXAA_ID);
 
 		try {
 			assertEquals(Const.StatusLine.NoContent,
@@ -75,23 +87,18 @@ public class RolesPrincipalsRemoveTest extends CleanTest {
 		JSONArray jsonResponse;
 		try {
 			jsonResponse = persistent.getResponseJSONArray(
-					Const.Api.ROLES_ID_PRINCIPALS, BasicCall.REST.GET);
+					Const.Api.ROLES_ID_PRINCIPALS, BasicCall.REST.GET, null,
+					roles.getJSONObject(0).getInt("id"), 0);
 		} catch (ResponseTypeMismatchException ex) {
-			Logger.getLogger(RolesPrincipalsRemoveTest.class.getName()).log(
-					Level.SEVERE, null, ex);
 			fail(ex.getFullMessage());
 			return;
 		}
 
-		if (jsonResponse.length() < 1) {
-			fail(jsonResponse.toString());
-		}
-
 		try {
 			assertEquals(Const.StatusLine.OK, persistent.getStatusLine());
-			JSONAssert.assertEquals(principals.getJSONObject(0), jsonResponse
-					.getJSONObject(0).getJSONObject("principal"),
-					JSONCompareMode.LENIENT);
+			assertEquals(1, jsonResponse.length());
+			assertEquals(principals.getJSONObject(0).getInt("id"), jsonResponse
+					.getJSONObject(0).getInt("id"));
 		} catch (AssertionError e) {
 			AssertErrorHandler(e);
 		}
