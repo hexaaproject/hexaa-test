@@ -378,6 +378,15 @@ public class Utility {
 			return entitlements(serviceId, new String[] { names });
 		}
 
+		public static JSONArray entitlementpacks(int serviceId, String[] names) {
+			return entitlementpacks(serviceId, names, true);
+		}
+
+		public static JSONArray entitlementpacksPrivate(int serviceId,
+				String[] names) {
+			return entitlementpacks(serviceId, names, false);
+		}
+
 		/**
 		 * Creates entitlementpacks for the names in the array with the service
 		 * specified by the serviceId. All entitlementpacks created is public.
@@ -388,7 +397,8 @@ public class Utility {
 		 *            array of strings with the names of the objects to create.
 		 * @return JSONArray with the created entitlementpacks.
 		 */
-		public static JSONArray entitlementpacks(int serviceId, String[] names) {
+		public static JSONArray entitlementpacks(int serviceId, String[] names,
+				boolean isPublic) {
 			// JSONArray to store the return value
 			JSONArray entitlementpacks = new JSONArray();
 
@@ -400,7 +410,11 @@ public class Utility {
 				json.put("description", "This is a test entitlement, for the #"
 						+ Integer.toString(serviceId) + " service, with name "
 						+ name);
-				json.put("type", "public");
+				if (isPublic) {
+					json.put("type", "public");
+				} else {
+					json.put("type", "private");
+				}
 
 				// POST it
 				persistent.call(Const.Api.SERVICES_ID_ENTITLEMENTPACKS,
@@ -932,6 +946,9 @@ public class Utility {
 			for (int pack : packIds) {
 				JSONObject json;
 				try {
+					if (isAdmin == true) {
+						persistent.isAdmin = true;
+					}
 					json = persistent.getResponseJSONObject(
 							Const.Api.ENTITLEMENTPACKS_ID_TOKEN,
 							BasicCall.REST.GET, null, pack, pack);
