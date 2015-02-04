@@ -1,10 +1,9 @@
 package sztaki.hexaa.apicalls.attributevalueprincipals.services;
 
-import org.json.JSONArray;
-import org.json.JSONObject;
-
 import static org.junit.Assert.fail;
 
+import org.json.JSONArray;
+import org.json.JSONObject;
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.Test;
@@ -12,11 +11,10 @@ import org.skyscreamer.jsonassert.JSONAssert;
 import org.skyscreamer.jsonassert.JSONCompareMode;
 
 import sztaki.hexaa.BasicCall;
+import sztaki.hexaa.CleanTest;
 import sztaki.hexaa.Const;
 import sztaki.hexaa.ResponseTypeMismatchException;
 import sztaki.hexaa.Utility;
-import sztaki.hexaa.CleanTest;
-import sztaki.hexaa.apicalls.attributevalueorganizations.services.AttributevalueorganizationsServicesGetTest;
 
 /// TODO minimális befektetéssel Normal-ra alakítható
 /**
@@ -110,7 +108,7 @@ public class AttributevalueprincipalsServicesGetTest extends CleanTest {
 	@AfterClass
 	public static void tearDownClass() {
 		System.out.println("TearDownClass: "
-				+ AttributevalueorganizationsServicesGetTest.class
+				+ AttributevalueprincipalsServicesGetTest.class
 						.getSimpleName());
 		for (int i = 0; i < attributevalueprincipal.length(); i++) {
 			Utility.Remove.attributevalueprincipal(attributevalueprincipal

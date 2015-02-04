@@ -89,7 +89,7 @@ public class PrincipalsAttributespecsPublicGetTest extends NormalTest {
 	@AfterClass
 	public static void tearDownClass() {
 		System.out.println("TearDownClass: "
-				+ AttributespecsGetTest.class.getSimpleName());
+				+ PrincipalsAttributespecsPublicGetTest.class.getSimpleName());
 		for (int i = 0; i < attributespecs.length(); i++) {
 			Utility.Remove.attributespec(attributespecs.getJSONObject(i)
 					.getInt("id"));

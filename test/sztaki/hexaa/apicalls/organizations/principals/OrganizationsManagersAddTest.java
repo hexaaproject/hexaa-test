@@ -61,7 +61,7 @@ public class OrganizationsManagersAddTest extends CleanTest {
 	@AfterClass
 	public static void tearDownClass() {
 		System.out.println("TearDownClass: "
-				+ AttributespecsGetTest.class.getSimpleName());
+				+ OrganizationsManagersAddTest.class.getSimpleName());
 		for (int i = 0; i < organizations.length(); i++) {
 			Utility.persistent.isAdmin = true;
 			Utility.Remove.organization(organizations.getJSONObject(i).getInt(

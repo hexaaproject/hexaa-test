@@ -16,7 +16,6 @@ import sztaki.hexaa.CleanTest;
 import sztaki.hexaa.Const;
 import sztaki.hexaa.ResponseTypeMismatchException;
 import sztaki.hexaa.Utility;
-import sztaki.hexaa.apicalls.services.attributespecs.ServicesAttributespecsGetTest;
 
 /**
  * Tests the POST method on the /api/attributevalueorganizations/{asid} call.
@@ -85,7 +84,7 @@ public class AttributevalueorganizationsPostTest extends CleanTest {
 	@AfterClass
 	public static void tearDownClass() {
 		System.out.println("TearDownClass: "
-				+ ServicesAttributespecsGetTest.class.getSimpleName());
+				+ AttributevalueorganizationsPostTest.class.getSimpleName());
 		for (int i = 0; i < organizations.length(); i++) {
 			Utility.Remove.organization(organizations.getJSONObject(i).getInt(
 					"id"));
