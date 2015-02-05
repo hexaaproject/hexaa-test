@@ -12,15 +12,15 @@ import org.skyscreamer.jsonassert.JSONAssert;
 import org.skyscreamer.jsonassert.JSONCompareMode;
 
 import sztaki.hexaa.BasicCall;
-import sztaki.hexaa.CleanTest;
 import sztaki.hexaa.Const;
+import sztaki.hexaa.NormalTest;
 import sztaki.hexaa.ResponseTypeMismatchException;
 import sztaki.hexaa.Utility;
 
 /**
  * Tests the PUT method on the /api/attributevalueorganizations/{id} call.
  */
-public class AttributevalueorganizationsPutTest extends CleanTest {
+public class AttributevalueorganizationsPutTest extends NormalTest {
 
 	/**
 	 * Print the class name on the output.
