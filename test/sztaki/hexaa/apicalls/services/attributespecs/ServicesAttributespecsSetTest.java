@@ -77,7 +77,7 @@ public class ServicesAttributespecsSetTest extends NormalTest {
 	 */
 	@Test
 	public void testServicesAttributespecsSet() {
-		Utility.Link.attributespecsToServiceByArray(services.getJSONObject(0)
+		Utility.Link.attributespecsToServiceSet(services.getJSONObject(0)
 				.getInt("id"), new int[] {
 				attributespecs.getJSONObject(0).getInt("id"),
 				attributespecs.getJSONObject(1).getInt("id") }, new boolean[] {

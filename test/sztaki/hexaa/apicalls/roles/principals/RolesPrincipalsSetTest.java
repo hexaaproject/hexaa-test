@@ -112,7 +112,7 @@ public class RolesPrincipalsSetTest extends NormalTest {
 	 */
 	@Test
 	public void testRolesPrincipalsSet() {
-		Utility.Link.principalToRoleByArray(
+		Utility.Link.principalToRoleSet(
 				roles.getJSONObject(0).getInt("id"), new int[] {
 						principals.getJSONObject(0).getInt("id"),
 						principals.getJSONObject(1).getInt("id") });

@@ -1083,7 +1083,7 @@ public class Utility {
 		 *            array of public(true) or private(false) booleans, same
 		 *            number of elements needed as in attributeIds.
 		 */
-		public static void attributespecsToServiceByArray(int serviceId,
+		public static void attributespecsToServiceSet(int serviceId,
 				int[] attributeIds, boolean[] isPublics) {
 			JSONObject json = new JSONObject();
 			JSONArray jsonArray = new JSONArray();
@@ -1261,7 +1261,7 @@ public class Utility {
 		 * @param principalIds
 		 *            the ids of the principal to link as an array.
 		 */
-		public static void principalToRoleByArray(int roleId, int[] principalIds) {
+		public static void principalToRoleSet(int roleId, int[] principalIds) {
 			JSONObject json = new JSONObject();
 			JSONArray jsonArray = new JSONArray();
 			for (int i : principalIds) {
