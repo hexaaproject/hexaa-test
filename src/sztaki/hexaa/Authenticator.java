@@ -31,7 +31,7 @@ public class Authenticator {
 	 *            the {@link Const.HEXAA_FEDID}, if not use a valid e-mail
 	 *            format.
 	 */
-	public void authenticate(String fedid) {
+	public int authenticate(String fedid) {
 		if (!Const.PROPERTIES_LOADED) {
 			this.loadProperties();
 		}
@@ -58,13 +58,18 @@ public class Authenticator {
 			} catch (ResponseTypeMismatchException ex) {
 				System.out
 						.println("Unable to authenticate, please make sure that the server is reachable, and config.properties is correct.");
-				return;
+				return 1;
 			}
 
 			System.out.print("** AUTHENTICATE **\t");
 			System.out.println(jsonResponse.toString());
 
-			Const.HEXAA_AUTH = jsonResponse.get("token").toString();
+			if (jsonResponse.has("token")) {
+				Const.HEXAA_AUTH = jsonResponse.get("token").toString();
+			} else {
+				System.out.println("Unable to authenticate. TempToken: " + json.get("apikey"));
+				return 1;
+			}
 
 			JSONObject principalSelf;
 			try {
@@ -73,11 +78,11 @@ public class Authenticator {
 						Const.Api.PRINCIPAL_SELF, REST.GET);
 			} catch (ResponseTypeMismatchException ex) {
 				System.out.println("Unable to find principal.");
-				return;
+				return 1;
 			}
-			Const.HEXAA_ID=principalSelf.getInt("id");
+			Const.HEXAA_ID = principalSelf.getInt("id");
 		}
-
+		return 0;
 	}
 
 	/**

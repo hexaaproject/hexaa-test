@@ -1,19 +1,20 @@
 package sztaki.hexaa.apicalls.other;
 
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.fail;
+
 import org.json.JSONObject;
 import org.junit.Test;
-import static org.junit.Assert.*;
+
 import sztaki.hexaa.BasicCall;
 import sztaki.hexaa.Const;
+import sztaki.hexaa.NormalTest;
 import sztaki.hexaa.ResponseTypeMismatchException;
-import sztaki.hexaa.CleanTest;
 
 /**
  * Tests the GET method on the /api/properties call.
  */
-public class PropertiesGetTest extends CleanTest {
+public class PropertiesGetTest extends NormalTest {
 
 	/**
 	 * GET the properties and checks that the basic informations are present.
@@ -25,14 +26,13 @@ public class PropertiesGetTest extends CleanTest {
 			jsonResponse = persistent.getResponseJSONObject(
 					Const.Api.PROPERTIES, BasicCall.REST.GET);
 		} catch (ResponseTypeMismatchException ex) {
-			Logger.getLogger(PropertiesGetTest.class.getName()).log(
-					Level.SEVERE, null, ex);
 			fail(ex.getFullMessage());
 			return;
 		}
 		System.out.println(jsonResponse.toString());
 
 		try {
+			assertEquals(Const.StatusLine.OK, persistent.getStatusLine());
 			assertEquals(true, jsonResponse.has("entitlement_base"));
 			assertEquals(true, jsonResponse.has("version"));
 		} catch (AssertionError e) {

@@ -3,24 +3,21 @@ package sztaki.hexaa.apicalls.attributevalueorganizations;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.fail;
 
-import java.util.logging.Level;
-import java.util.logging.Logger;
-
 import org.json.JSONArray;
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
 import sztaki.hexaa.BasicCall;
-import sztaki.hexaa.CleanTest;
 import sztaki.hexaa.Const;
+import sztaki.hexaa.NormalTest;
 import sztaki.hexaa.ResponseTypeMismatchException;
 import sztaki.hexaa.Utility;
 
 /**
  * Tests the POST method on the /api/attributevalueorganizations/{asid} call.
  */
-public class AttributevalueorganizationsPostTest extends CleanTest {
+public class AttributevalueorganizationsPostTest extends NormalTest {
 
 	/**
 	 * Print the class name on the output.
@@ -62,7 +59,7 @@ public class AttributevalueorganizationsPostTest extends CleanTest {
 		}
 		attributespecs = Utility.Create.attributespec(new String[] {
 				"AttributevalueorganizationsPostTest_as1",
-				"AttributevalueorganizationsPostTest_as2" }, "user");
+				"AttributevalueorganizationsPostTest_as2" }, "manager");
 		if (attributespecs.length() < 2) {
 			fail("Utility.Create.attributespec(new String[] {\"AttributevalueorganizationsPostTest_as1\", \"AttributevalueorganizationsPostTest_as2\" }, \"user\"); did not succeed");
 		}
@@ -75,7 +72,7 @@ public class AttributevalueorganizationsPostTest extends CleanTest {
 		Utility.Link.attributespecsToService(
 				services.getJSONObject(0).getInt("id"), new int[] {
 						attributespecs.getJSONObject(0).getInt("id"),
-						attributespecs.getJSONObject(1).getInt("id") }, true);
+						attributespecs.getJSONObject(1).getInt("id") }, false);
 	}
 
 	/**
@@ -114,8 +111,7 @@ public class AttributevalueorganizationsPostTest extends CleanTest {
 						"AttributevalueorganizationsPostTest_av_org1",
 						attributespecs.getJSONObject(0).getInt("id"),
 						organizations.getJSONObject(0).getInt("id"));
-		// /TODO át lehetne írni rendesen normal-ra, itt lustaság vezérelt
-
+		
 		try {
 			assertEquals(Const.StatusLine.Created,
 					Utility.persistent.getStatusLine());
@@ -128,12 +124,9 @@ public class AttributevalueorganizationsPostTest extends CleanTest {
 		try {
 			jsonArrayResponse = persistent.getResponseJSONArray(
 					Const.Api.ORGANIZATIONS_ID_ATTRIBUTEVALUEORGANIZATION,
-					BasicCall.REST.GET, null, attributevalueorganizations
+					BasicCall.REST.GET, null, organizations
 							.getJSONObject(0).getInt("id"), 1);
 		} catch (ResponseTypeMismatchException ex) {
-			Logger.getLogger(
-					AttributevalueorganizationsPostTest.class.getName()).log(
-					Level.SEVERE, null, ex);
 			fail(ex.getFullMessage());
 			return;
 		}

@@ -1,15 +1,13 @@
 package sztaki.hexaa.apicalls.services.attributespecs;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.fail;
-
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import static org.junit.Assert.*;
 
 import org.json.JSONArray;
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.Test;
+import org.skyscreamer.jsonassert.JSONAssert;
+import org.skyscreamer.jsonassert.JSONCompareMode;
 
 import sztaki.hexaa.BasicCall;
 import sztaki.hexaa.Const;
@@ -53,9 +51,9 @@ public class ServicesAttributespecsAddTest extends NormalTest {
 		}
 		attributespecs = Utility.Create.attributespec(new String[] {
 				"ServicesAttributespecsGetTest_as1",
-				"ServicesAttributespecsGetTest_as2" }, "user");
+				"ServicesAttributespecsGetTest_as2" }, "manager");
 		if (attributespecs.length() < 2) {
-			fail("Utility.Create.attributespec(new String[] {\"ServicesAttributespecsGetTest_as1\", \"ServicesAttributespecsGetTest_as2\" }, \"user\"); did not succeed");
+			fail("Utility.Create.attributespec(new String[] {\"ServicesAttributespecsGetTest_as1\", \"ServicesAttributespecsGetTest_as2\" }, \"manager\"); did not succeed");
 		}
 	}
 
@@ -83,13 +81,14 @@ public class ServicesAttributespecsAddTest extends NormalTest {
 		// PUT the first attributespec to the first service.
 		Utility.Link.attributespecsToService(
 				services.getJSONObject(0).getInt("id"), attributespecs
-						.getJSONObject(1).getInt("id"), true);
+						.getJSONObject(1).getInt("id"), false);
 
 		try {
 			assertEquals(Const.StatusLine.Created,
 					Utility.persistent.getStatusLine());
 		} catch (AssertionError e) {
 			AssertErrorHandler(e);
+			return;
 		}
 
 		JSONArray jsonResponseArray;
@@ -99,14 +98,14 @@ public class ServicesAttributespecsAddTest extends NormalTest {
 					Const.Api.SERVICES_ID_ATTRIBUTESPECS, BasicCall.REST.GET,
 					null, services.getJSONObject(0).getInt("id"), 1);
 		} catch (ResponseTypeMismatchException ex) {
-			Logger.getLogger(ServicesAttributespecsAddTest.class.getName())
-					.log(Level.SEVERE, null, ex);
 			fail(ex.getFullMessage());
 			return;
 		}
 
 		try {
 			assertEquals(Const.StatusLine.OK, persistent.getStatusLine());
+			JSONAssert.assertNotEquals(new JSONArray(), jsonResponseArray,
+					JSONCompareMode.LENIENT);
 			assertEquals(
 					attributespecs.getJSONObject(1).getInt("id"),
 					jsonResponseArray.getJSONObject(0).getInt(

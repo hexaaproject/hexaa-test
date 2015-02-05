@@ -6,6 +6,7 @@ import org.junit.BeforeClass;
 import org.junit.Rule;
 import org.junit.rules.ErrorCollector;
 import org.junit.runners.model.MultipleFailureException;
+import static org.junit.Assert.fail;
 
 /**
  * Parent class for all TestClasses for unified use of @BeforeClass, BasicCall,
@@ -37,7 +38,9 @@ public class NormalTest {
 	public static void cleanDB() {
 		System.out.println("BeforeClass @ NormalTest");
 		new Authenticator().loadProperties();
-		new Authenticator().authenticate(Const.HEXAA_FEDID);
+		if (new Authenticator().authenticate(Const.HEXAA_FEDID) == 1) {
+			fail("Unable to authenticate");
+		}
 	}
 
 	/**
