@@ -20,7 +20,12 @@ public class JavaHttpCoreTest {
 		new Authenticator().authenticate(Const.HEXAA_FEDID);
 		new JavaHttpCoreTest().properties();
 		new Authenticator().loadProperties();
-		 new DatabaseManipulator().dropDatabase();
+		try {
+		System.out.println(new BasicCall().getResponseJSONObject(Const.Api.PROPERTIES, BasicCall.REST.GET));
+		} catch(ResponseTypeMismatchException ex){
+			System.out.println("Properties unreachable.");
+		}
+		new DatabaseManipulator().dropDatabase();
 	}
 
 	private void properties() {

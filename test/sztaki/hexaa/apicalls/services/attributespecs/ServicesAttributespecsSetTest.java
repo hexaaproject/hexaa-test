@@ -18,11 +18,6 @@ import sztaki.hexaa.CleanTest;
 public class ServicesAttributespecsSetTest extends CleanTest {
 
 	/**
-	 * JSONArray to store the created attributespecs.
-	 */
-	public static JSONArray attributespecs = new JSONArray();
-
-	/**
 	 * Print the class name on the output.
 	 */
 	@BeforeClass
@@ -32,11 +27,20 @@ public class ServicesAttributespecsSetTest extends CleanTest {
 	}
 
 	/**
+	 * JSONArray to store the created attributespecs.
+	 */
+	public static JSONArray attributespecs = new JSONArray();
+	/**
+	 * JSONArray to store the created services.
+	 */
+	public static JSONArray services = new JSONArray();
+
+	/**
 	 * Creates an organization, two role, a service and a principal.
 	 */
 	@BeforeClass
 	public static void setUpClass() {
-		Utility.Create
+		services = Utility.Create
 				.service(new String[] { "ServicesAttributespecsSetTest_service1" });
 		attributespecs = Utility.Create.attributespec(new String[] {
 				"ServicesAttributespecsSetTest_as1",

@@ -1077,21 +1077,32 @@ public class Utility {
 		 * @param serviceId
 		 *            id of the service to link to.
 		 * @param attributeIds
-		 *            id of the attributes to link.
+		 *            id of the attributes to link, same number of elements
+		 *            needed as in isPublics.
 		 * @param isPublics
-		 *            array of public(true) or private(false) booleans. Have to
-		 *            be the same size as attributeIds.
+		 *            array of public(true) or private(false) booleans, same
+		 *            number of elements needed as in attributeIds.
 		 */
 		public static void attributespecsToServiceByArray(int serviceId,
 				int[] attributeIds, boolean[] isPublics) {
 			JSONObject json = new JSONObject();
-
-			json.put("attribute_specs", attributeIds);
-			json.put("is_public", isPublics);
-
-			if (isAdmin == true) {
-				persistent.isAdmin = true;
+			JSONArray jsonArray = new JSONArray();
+			for (int i = 0; i < attributeIds.length; i++) {
+				JSONObject jsonTemp = new JSONObject();
+				jsonTemp.put("attribute_spec", attributeIds[i]);
+				if (i<isPublics.length) {
+					jsonTemp.put("is_public", isPublics[i]);
+				} else {
+					jsonTemp.put("is_public", false);
+				}
+				jsonArray.put(jsonTemp);
 			}
+
+			json.put("attribute_specs", jsonArray);
+			//
+			// if (isAdmin == true) {
+			// persistent.isAdmin = true;
+			// }
 			persistent.call(Const.Api.SERVICES_ID_ATTRIBUTESPEC,
 					BasicCall.REST.PUT, json.toString(),
 					// null,
@@ -1257,7 +1268,7 @@ public class Utility {
 				jsonArray.put(new JSONObject().put("principal", i));
 			}
 			json.put("principals", jsonArray);
-			
+
 			persistent.call(Const.Api.ROLES_ID_PRINCIPAL, BasicCall.REST.PUT,
 					json.toString(), roleId, roleId);
 		}
