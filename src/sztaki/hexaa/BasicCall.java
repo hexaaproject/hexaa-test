@@ -6,6 +6,8 @@ import java.io.InputStream;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.nio.charset.StandardCharsets;
+import java.time.Instant;
+import java.time.format.DateTimeFormatter;
 
 import org.apache.http.Header;
 import org.apache.http.HttpMessage;
@@ -1072,6 +1074,10 @@ public class BasicCall {
 	 */
 	private String getContentString(CloseableHttpResponse response) {
 		String responseDataString;
+
+		Instant instant = Instant.now();
+		System.out.print("\t" + instant.toString() + "\t");
+
 		try {
 			statusLine = response.getStatusLine().toString();
 			headers = response.getAllHeaders();
