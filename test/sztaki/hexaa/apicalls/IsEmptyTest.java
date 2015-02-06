@@ -77,13 +77,28 @@ public abstract class IsEmptyTest extends CleanTest {
 			JSONObject jsonResponse;
 			try {
 				jsonResponse = persistent.getResponseJSONObject(constApi, rest);
-				try {
-					assertEquals(Const.StatusLine.OK,
-							persistent.getStatusLine());
-					assertEquals(Const.HEXAA_FEDID,
-							jsonResponse.getString("fedid"));
-				} catch (AssertionError e) {
-					AssertErrorHandler(e);
+				if (jsonResponse.has("item_number")) {
+					if (Integer.valueOf(jsonResponse.get("item_number")
+							.toString()) > 0) {
+						try {
+							assertEquals(Const.StatusLine.OK,
+									persistent.getStatusLine());
+							assertEquals(Const.HEXAA_FEDID, jsonResponse
+									.getJSONArray("items").getJSONObject(0)
+									.getString("fedid"));
+						} catch (AssertionError e) {
+							AssertErrorHandler(e);
+						}
+					}
+				} else {
+					try {
+						assertEquals(Const.StatusLine.OK,
+								persistent.getStatusLine());
+						assertEquals(Const.HEXAA_FEDID,
+								jsonResponse.getString("fedid"));
+					} catch (AssertionError e) {
+						AssertErrorHandler(e);
+					}
 				}
 				return;
 			} catch (ResponseTypeMismatchException ex) {
@@ -120,8 +135,7 @@ public abstract class IsEmptyTest extends CleanTest {
 			return;
 		}
 		try {
-			assertEquals(Const.StatusLine.OK,
-					persistent.getStatusLine());
+			assertEquals(Const.StatusLine.OK, persistent.getStatusLine());
 			assertEquals("0", jsonResponse.get("item_number"));
 			JSONAssert.assertEquals(new JSONArray(),
 					jsonResponse.getJSONArray("items"), false);
