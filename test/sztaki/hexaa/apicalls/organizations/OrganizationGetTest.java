@@ -1,23 +1,27 @@
 package sztaki.hexaa.apicalls.organizations;
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.fail;
+
 import org.json.JSONArray;
 import org.json.JSONObject;
+import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.Test;
-import static org.junit.Assert.*;
 import org.skyscreamer.jsonassert.JSONAssert;
 import org.skyscreamer.jsonassert.JSONCompareMode;
-import org.skyscreamer.jsonassert.JSONParser;
+
 import sztaki.hexaa.BasicCall;
 import sztaki.hexaa.Const;
+import sztaki.hexaa.NormalTest;
+import sztaki.hexaa.ResponseTypeMismatchException;
 import sztaki.hexaa.Utility;
-import sztaki.hexaa.CleanTest;
 
 /**
  * Tests the GET method on the /api/organizations and /api/organizations/{id}
  * call.
  */
-public class OrganizationGetTest extends CleanTest {
+public class OrganizationGetTest extends NormalTest {
 
 	/**
 	 * Print the class name on the output.
@@ -39,7 +43,23 @@ public class OrganizationGetTest extends CleanTest {
 	@BeforeClass
 	public static void setUpClass() {
 		organizations = Utility.Create.organization(new String[] {
-				"TestOrgName1", "TestOrgName2,", });
+				"OrganizationGetTest_org1", "OrganizationGetTest_org2,", });
+		if (organizations.length() < 2) {
+			fail("Utility.Create.organization(new String[] {\"OrganizationGetTest_org1\", \"OrganizationGetTest_org2\" }); did not succeed");
+		}
+	}
+
+	/**
+	 * Reverses the setUpClass and the creations during the test.
+	 */
+	@AfterClass
+	public static void tearDownClass() {
+		System.out.println("TearDownClass: "
+				+ OrganizationGetTest.class.getSimpleName());
+		for (int i = 0; i < organizations.length(); i++) {
+			Utility.Remove.organization(organizations.getJSONObject(i).getInt(
+					"id"));
+		}
 	}
 
 	/**
@@ -47,9 +67,15 @@ public class OrganizationGetTest extends CleanTest {
 	 */
 	@Test
 	public void testOrganizationGetArray() {
-		JSONArray jsonResponseArray = (JSONArray) JSONParser
-				.parseJSON(persistent.call(Const.Api.ORGANIZATIONS,
-						BasicCall.REST.GET));
+		JSONObject jsonItems;
+		try {
+			jsonItems = persistent.getResponseJSONObject(Const.Api.ORGANIZATIONS, BasicCall.REST.GET);
+		} catch (ResponseTypeMismatchException ex) {
+			fail(ex.getFullMessage());
+			return;
+		}
+		
+		JSONArray jsonResponseArray = jsonItems.getJSONArray("items");
 		try {
 			assertEquals(Const.StatusLine.OK, persistent.getStatusLine());
 			JSONAssert.assertEquals(organizations, jsonResponseArray,
@@ -65,9 +91,14 @@ public class OrganizationGetTest extends CleanTest {
 	@Test
 	public void testOrganizationGetById() {
 		for (int i = 0; i < organizations.length(); i++) {
-			JSONObject jsonResponse = (JSONObject) JSONParser
-					.parseJSON(persistent.call(Const.Api.ORGANIZATIONS_ID,
-							BasicCall.REST.GET, null, i + 1, 0));
+			JSONObject jsonResponse;
+			try {
+				jsonResponse = persistent.getResponseJSONObject(Const.Api.ORGANIZATIONS_ID,
+								BasicCall.REST.GET, null, organizations.getJSONObject(i).getInt("id"), 0);
+			} catch (ResponseTypeMismatchException ex) {
+				fail(ex.getFullMessage());
+				return;
+			}
 			try {
 				JSONAssert.assertEquals(organizations.getJSONObject(i),
 						jsonResponse, JSONCompareMode.LENIENT);
