@@ -1,23 +1,26 @@
 package sztaki.hexaa.apicalls.principals;
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.fail;
+
 import org.json.JSONArray;
 import org.json.JSONObject;
-import static org.junit.Assert.*;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import org.skyscreamer.jsonassert.JSONAssert;
 import org.skyscreamer.jsonassert.JSONCompareMode;
-import org.skyscreamer.jsonassert.JSONParser;
+
 import sztaki.hexaa.Authenticator;
 import sztaki.hexaa.BasicCall;
 import sztaki.hexaa.Const;
+import sztaki.hexaa.NormalTest;
+import sztaki.hexaa.ResponseTypeMismatchException;
 import sztaki.hexaa.Utility;
-import sztaki.hexaa.CleanTest;
 
 /**
  * Test the DELETE method on the /api/principal call.
  */
-public class PrincipalsDeleteSelfTest extends CleanTest {
+public class PrincipalsDeleteSelfTest extends NormalTest {
 
 	/**
 	 * Print the class name on the output.
@@ -29,11 +32,17 @@ public class PrincipalsDeleteSelfTest extends CleanTest {
 	}
 
 	/**
+	 * JSONArray to store the created principals.
+	 */
+	private static JSONArray principals = new JSONArray();
+
+	/**
 	 * Re-Authenticates as testPrincipal for the test.
 	 */
 	@BeforeClass
 	public static void setUpClass() {
-		new Authenticator().authenticate("testPrincipal@something.test");
+		principals = Utility.Create.principal("PrincipalsDeleteSelfTest_pri1");
+		new Authenticator().authenticate("PrincipalsDeleteSelfTest_pri1");
 	}
 
 	/**
@@ -42,9 +51,6 @@ public class PrincipalsDeleteSelfTest extends CleanTest {
 	 */
 	@Test
 	public void testPrincipalDeleteSelf() {
-		JSONObject testPrincipal = (JSONObject) JSONParser.parseJSON(persistent
-				.call(Const.Api.PRINCIPAL_SELF, BasicCall.REST.GET));
-
 		Utility.Remove.principalSelf();
 
 		try {
@@ -65,18 +71,20 @@ public class PrincipalsDeleteSelfTest extends CleanTest {
 
 		new Authenticator().authenticate(Const.HEXAA_FEDID);
 
-		Object response = JSONParser.parseJSON(persistent.call(
-				Const.Api.PRINCIPALS, BasicCall.REST.GET));
-
-		if (response instanceof JSONObject) {
-			fail("Not a JSONArray but JSONObject: "
-					+ ((JSONObject) response).toString());
+		JSONObject jsonItems;
+		try {
+			jsonItems = persistent.getResponseJSONObject(
+					Const.Api.PRINCIPALS, BasicCall.REST.GET);
+		} catch (ResponseTypeMismatchException ex){
+			fail(ex.getFullMessage());
+			return;
 		}
-		JSONArray jsonResponse = (JSONArray) response;
+
+		JSONArray jsonResponse = jsonItems.getJSONArray("items");
 
 		for (int i = 0; i < jsonResponse.length(); i++) {
 			try {
-				JSONAssert.assertNotEquals(testPrincipal,
+				JSONAssert.assertNotEquals(principals.getJSONObject(0),
 						jsonResponse.getJSONObject(i), JSONCompareMode.LENIENT);
 			} catch (AssertionError e) {
 				AssertErrorHandler(e);
