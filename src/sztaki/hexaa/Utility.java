@@ -354,11 +354,24 @@ public class Utility {
 				json.put("description", "This is a test entitlement, for the #"
 						+ Integer.toString(serviceId) + " service, with name "
 						+ name);
-				// Store it
-				entitlements.put(json);
+				
 				// POST it
 				persistent.call(Const.Api.SERVICES_ID_ENTITLEMENTS,
 						BasicCall.REST.POST, json.toString(), serviceId, 0);
+
+				if (persistent.getHeader("Location") != null) {
+					String locHeader = persistent.getHeader("Location")
+							.getValue();
+					// System.out.println(locHeader);
+					List<Integer> id = getNumber(locHeader);
+
+					if (id.size() == 1) {
+						json.put("id", id.get(0));
+					}
+
+					// Store it
+					entitlements.put(json);
+				}
 
 			}
 			return entitlements;

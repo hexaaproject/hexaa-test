@@ -1,23 +1,26 @@
 package sztaki.hexaa.apicalls.services.entitlements;
 
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.fail;
+
 import org.json.JSONArray;
-import static org.junit.Assert.*;
+import org.json.JSONObject;
+import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import org.skyscreamer.jsonassert.JSONAssert;
 import org.skyscreamer.jsonassert.JSONCompareMode;
+
 import sztaki.hexaa.BasicCall;
 import sztaki.hexaa.Const;
-import sztaki.hexaa.Utility;
-import sztaki.hexaa.CleanTest;
+import sztaki.hexaa.NormalTest;
 import sztaki.hexaa.ResponseTypeMismatchException;
+import sztaki.hexaa.Utility;
 
 /**
  * Test for the POST /app.php/api/services/{id}/entitlements call.
  */
-public class ServicesEntitlementsPostTest extends CleanTest {
+public class ServicesEntitlementsPostTest extends NormalTest {
 
 	/**
 	 * Print the class name on the output.
@@ -31,14 +34,39 @@ public class ServicesEntitlementsPostTest extends CleanTest {
 	/**
 	 * JSONArray to store entitlements.
 	 */
-	private static JSONArray entitlemenets = new JSONArray();
+	private static JSONArray entitlements = new JSONArray();
+	/**
+	 * JSONArray to store services.
+	 */
+	private static JSONArray services = new JSONArray();
 
 	/**
 	 * Creates two services.
 	 */
 	@BeforeClass
 	public static void setUpClass() {
-		Utility.Create.service(new String[] { "testService1", "testService2" });
+		services = Utility.Create.service(new String[] {
+				"ServicesEntitlementsPostTest_service1",
+				"ServicesEntitlementsPostTest_service2" });
+		if (services.length() < 2) {
+			fail("Utility.Create.service(new String[] {\"ServicesEntitlementsPostTest_service1\", \"ServicesEntitlementsPostTest_service2\" }); did not succeed");
+		}
+	}
+	
+	/**
+	 * Reverses the setUpClass and the creations during the test.
+	 */
+	@AfterClass
+	public static void tearDownClass() {
+		System.out.println("TearDownClass: "
+				+ ServicesEntitlementsPostTest.class.getSimpleName());
+		for (int i = 0; i < entitlements.length(); i++) {
+			Utility.Remove.entitlement(entitlements.getJSONObject(i)
+					.getInt("id"));
+		}
+		for (int i = 0; i < services.length(); i++) {
+			Utility.Remove.service(services.getJSONObject(i).getInt("id"));
+		}
 	}
 
 	/**
@@ -48,7 +76,8 @@ public class ServicesEntitlementsPostTest extends CleanTest {
 	@Test
 	public void testServiceEntitlementsPosts() {
 		// Creating the first entitlement object
-		entitlemenets = Utility.Create.entitlements(1, "testEntitlementName1");
+		entitlements = Utility.Create.entitlements(services.getJSONObject(0)
+				.getInt("id"), "ServicesEntitlementsPostTest_entitlement1");
 		// Checks the status line
 		try {
 			assertEquals(Const.StatusLine.Created,
@@ -58,8 +87,9 @@ public class ServicesEntitlementsPostTest extends CleanTest {
 		}
 
 		// Creating the second entitlement object
-		entitlemenets.put(Utility.Create
-				.entitlements(1, "testEntitlementName2").get(0));
+		entitlements.put(Utility.Create.entitlements(
+				services.getJSONObject(0).getInt("id"),
+				"ServicesEntitlementsPostTest_entitlement2").get(0));
 		// Checks the status line
 		try {
 			assertEquals(Const.StatusLine.Created,
@@ -68,24 +98,24 @@ public class ServicesEntitlementsPostTest extends CleanTest {
 			AssertErrorHandler(e);
 		}
 
-		// GETs the entitlements from the server
-		JSONArray jsonResponse;
+		JSONObject jsonItems;
+
 		try {
-			jsonResponse = persistent.getResponseJSONArray(
+			jsonItems = persistent.getResponseJSONObject(
 					Const.Api.SERVICES_ID_ENTITLEMENTS, BasicCall.REST.GET,
-					null, 1, 0);
+					null, services.getJSONObject(0).getInt("id"), 0);
 		} catch (ResponseTypeMismatchException ex) {
-			Logger.getLogger(ServicesEntitlementsPostTest.class.getName()).log(
-					Level.SEVERE, null, ex);
 			fail(ex.getFullMessage());
 			return;
 		}
 
+		JSONArray jsonResponse = jsonItems.getJSONArray("items");
+
 		try {
 			assertEquals(Const.StatusLine.OK, persistent.getStatusLine());
-			JSONAssert.assertEquals(entitlemenets.getJSONObject(0),
+			JSONAssert.assertEquals(entitlements.getJSONObject(0),
 					jsonResponse.getJSONObject(0), JSONCompareMode.LENIENT);
-			JSONAssert.assertEquals(entitlemenets.getJSONObject(1),
+			JSONAssert.assertEquals(entitlements.getJSONObject(1),
 					jsonResponse.getJSONObject(1), JSONCompareMode.LENIENT);
 		} catch (AssertionError e) {
 			AssertErrorHandler(e);
