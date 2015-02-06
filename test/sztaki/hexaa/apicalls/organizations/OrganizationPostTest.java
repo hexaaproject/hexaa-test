@@ -1,22 +1,20 @@
 package sztaki.hexaa.apicalls.organizations;
 
+import static org.junit.Assert.assertEquals;
+
 import org.json.JSONArray;
-import org.json.JSONObject;
-import static org.junit.Assert.*;
+import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.Test;
-import org.skyscreamer.jsonassert.JSONAssert;
-import org.skyscreamer.jsonassert.JSONCompareMode;
-import org.skyscreamer.jsonassert.JSONParser;
-import sztaki.hexaa.BasicCall;
+
 import sztaki.hexaa.Const;
+import sztaki.hexaa.NormalTest;
 import sztaki.hexaa.Utility;
-import sztaki.hexaa.CleanTest;
 
 /**
  * Tests the POST method on the /api/organizations call.
  */
-public class OrganizationPostTest extends CleanTest {
+public class OrganizationPostTest extends NormalTest {
 
 	/**
 	 * Print the class name on the output.
@@ -26,26 +24,35 @@ public class OrganizationPostTest extends CleanTest {
 		System.out.println("***\t "
 				+ OrganizationPostTest.class.getSimpleName() + " ***");
 	}
+	
+	/**
+	 * JSONArray to store the created organizations.
+	 */
+	private static JSONArray organizations = new JSONArray();
+
+	/**
+	 * Reverses the setUpClass and the creations during the test.
+	 */
+	@AfterClass
+	public static void tearDownClass() {
+		System.out.println("TearDownClass: "
+				+ OrganizationPostTest.class.getSimpleName());
+		for (int i = 0; i < organizations.length(); i++) {
+			Utility.Remove.organization(organizations.getJSONObject(i)
+					.getInt("id"));
+		}
+	}
 
 	/**
 	 * Test for creating a new organization and verify its existence.
 	 */
 	@Test
 	public void testOrganizationPost() {
-		// Creating the JSON object
-		JSONObject json = new JSONObject();
-		json.put("name", "testOrganizationName1");
-
-		Utility.Create.organization(json.getString("name"));
+		organizations = Utility.Create.organization("OrganizationPostTest_org1");
 		// Verifies the POST with a GET
 		try {
 			assertEquals(Const.StatusLine.Created,
 					Utility.persistent.getStatusLine());
-			JSONAssert.assertEquals(json, ((JSONArray) JSONParser
-					.parseJSON(persistent.call(Const.Api.ORGANIZATIONS,
-							BasicCall.REST.GET))).getJSONObject(0),
-					JSONCompareMode.LENIENT);
-			assertEquals(Const.StatusLine.OK, persistent.getStatusLine());
 		} catch (AssertionError e) {
 			AssertErrorHandler(e);
 		}
