@@ -11,7 +11,6 @@ import org.junit.Test;
 import sztaki.hexaa.Const;
 import sztaki.hexaa.NormalTest;
 import sztaki.hexaa.Utility;
-import sztaki.hexaa.apicalls.attributespecs.AttributespecsGetTest;
 
 /**
  * Tests the POST method on the /api/consents call.

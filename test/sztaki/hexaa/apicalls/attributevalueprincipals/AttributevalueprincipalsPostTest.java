@@ -3,9 +3,6 @@ package sztaki.hexaa.apicalls.attributevalueprincipals;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.fail;
 
-import java.util.logging.Level;
-import java.util.logging.Logger;
-
 import org.json.JSONArray;
 import org.json.JSONObject;
 import org.junit.AfterClass;
@@ -15,15 +12,15 @@ import org.skyscreamer.jsonassert.JSONAssert;
 import org.skyscreamer.jsonassert.JSONCompareMode;
 
 import sztaki.hexaa.BasicCall;
-import sztaki.hexaa.CleanTest;
 import sztaki.hexaa.Const;
+import sztaki.hexaa.NormalTest;
 import sztaki.hexaa.ResponseTypeMismatchException;
 import sztaki.hexaa.Utility;
 
 /**
  * Tests the POST method on the /api/attributevalueprincipals/{asid} call.
  */
-public class AttributevalueprincipalsPostTest extends CleanTest {
+public class AttributevalueprincipalsPostTest extends NormalTest {
 
 	/**
 	 * Print the class name on the output.
@@ -31,7 +28,8 @@ public class AttributevalueprincipalsPostTest extends CleanTest {
 	@BeforeClass
 	public static void classInformation() {
 		System.out.println("***\t "
-				+ AttributevalueprincipalsPostTest.class.getSimpleName() + " ***");
+				+ AttributevalueprincipalsPostTest.class.getSimpleName()
+				+ " ***");
 	}
 
 	/**
@@ -42,6 +40,10 @@ public class AttributevalueprincipalsPostTest extends CleanTest {
 	 * JSONArray to store the created services.
 	 */
 	private static JSONArray services = new JSONArray();
+	/**
+	 * JSONArray to store the created services.
+	 */
+	private static JSONArray attributevalueprincipals = new JSONArray();
 
 	/**
 	 * Creates two services, two attributespecs and links them together.
@@ -73,13 +75,17 @@ public class AttributevalueprincipalsPostTest extends CleanTest {
 	public static void tearDownClass() {
 		System.out.println("TearDownClass: "
 				+ AttributevalueprincipalsPostTest.class.getSimpleName());
-		
+
 		for (int i = 0; i < attributespecs.length(); i++) {
 			Utility.Remove.attributespec(attributespecs.getJSONObject(i)
 					.getInt("id"));
 		}
 		for (int i = 0; i < services.length(); i++) {
 			Utility.Remove.service(services.getJSONObject(i).getInt("id"));
+		}
+		for (int i = 0; i < attributevalueprincipals.length(); i++) {
+			Utility.Remove.attributevalueprincipal(attributevalueprincipals
+					.getJSONObject(i).getInt("id"));
 		}
 	}
 
@@ -89,13 +95,21 @@ public class AttributevalueprincipalsPostTest extends CleanTest {
 	 */
 	@Test
 	public void testAttributevalueprincipalsPost() {
-		JSONObject json = new JSONObject();
-		json.put("value", "testValueString1");
-		json.put("service_ids", new JSONArray(new int[] {}));
-		json.put("attribute_spec_id", 1);
 
-		Utility.Create.attributevalueprincipal("testValueString1", 1);
-		///TODO át lehetne írni rendesen normal-ra, itt lustaság vezérelt
+		int fapadosId = attributevalueprincipals.length();
+
+		attributevalueprincipals.put(Utility.Create.attributevalueprincipal(
+				"AttributevalueprincipalsPostTest_pri_value1",
+				attributespecs.getJSONObject(0).getInt("id")).getJSONObject(0));
+
+		attributevalueprincipals.getJSONObject(fapadosId).put(
+				"attribute_spec_id",
+				attributevalueprincipals.getJSONObject(fapadosId).remove(
+						"attribute_spec"));
+		attributevalueprincipals.getJSONObject(fapadosId).put(
+				"service_ids",
+				attributevalueprincipals.getJSONObject(fapadosId).remove(
+						"services"));
 
 		try {
 			assertEquals(Const.StatusLine.Created,
@@ -104,28 +118,32 @@ public class AttributevalueprincipalsPostTest extends CleanTest {
 			AssertErrorHandler(e);
 		}
 
-		JSONArray jsonArrayResponse;
+		JSONObject jsonItems;
 		try {
-			jsonArrayResponse = persistent.getResponseJSONArray(
+			jsonItems = persistent.getResponseJSONObject(
 					Const.Api.PRINCIPAL_ATTRIBUTEVALUEPRINCIPAL,
 					BasicCall.REST.GET);
 		} catch (ResponseTypeMismatchException ex) {
-			Logger.getLogger(AttributevalueprincipalsPostTest.class.getName()).log(
-					Level.SEVERE, null, ex);
 			fail(ex.getFullMessage());
 			return;
 		}
 
-		int in = 0;
-		for (int i = 0; i < jsonArrayResponse.length(); i++) {
-			if (jsonArrayResponse.getJSONObject(i).getInt("attribute_spec_id") == 1) {
-				in = i;
-			}
+		JSONArray jsonArrayResponse = jsonItems.getJSONArray("items");
+
+		int i = 0;
+		while (i < jsonArrayResponse.length()
+				&& jsonArrayResponse.getJSONObject(i).getInt(
+						"attribute_spec_id") != attributespecs.getJSONObject(0)
+						.getInt("id")) {
+			i++;
 		}
 
 		try {
-			JSONAssert.assertEquals(json, jsonArrayResponse.getJSONObject(in),
-					JSONCompareMode.LENIENT);
+			JSONAssert
+					.assertEquals(
+							attributevalueprincipals.getJSONObject(fapadosId),
+							jsonArrayResponse.getJSONObject(i),
+							JSONCompareMode.LENIENT);
 			assertEquals(Const.StatusLine.OK, persistent.getStatusLine());
 		} catch (AssertionError e) {
 			AssertErrorHandler(e);
@@ -138,13 +156,23 @@ public class AttributevalueprincipalsPostTest extends CleanTest {
 	 */
 	@Test
 	public void testAttributevalueprincipalsPostWithService() {
-		JSONObject json = new JSONObject();
-		json.put("value", "testValueString2");
-		json.put("service_ids", new JSONArray(new int[] { 1 }));
-		json.put("attribute_spec_id", 2);
 
-		Utility.Create.attributevalueprincipal("testValueString2", 2,
-				new int[] { 1 });
+		int fapadosId = attributevalueprincipals.length();
+
+		attributevalueprincipals.put(Utility.Create.attributevalueprincipal(
+				"AttributevalueprincipalsPostTest_pri_value2",
+				attributespecs.getJSONObject(1).getInt("id"),
+				new int[] { services.getJSONObject(0).getInt("id") })
+				.getJSONObject(0));
+
+		attributevalueprincipals.getJSONObject(fapadosId).put(
+				"attribute_spec_id",
+				attributevalueprincipals.getJSONObject(fapadosId).remove(
+						"attribute_spec"));
+		attributevalueprincipals.getJSONObject(fapadosId).put(
+				"service_ids",
+				attributevalueprincipals.getJSONObject(fapadosId).remove(
+						"services"));
 
 		try {
 			assertEquals(Const.StatusLine.Created,
@@ -153,28 +181,32 @@ public class AttributevalueprincipalsPostTest extends CleanTest {
 			AssertErrorHandler(e);
 		}
 
-		JSONArray jsonArrayResponse;
+		JSONObject jsonItems;
 		try {
-			jsonArrayResponse = persistent.getResponseJSONArray(
+			jsonItems = persistent.getResponseJSONObject(
 					Const.Api.PRINCIPAL_ATTRIBUTEVALUEPRINCIPAL,
 					BasicCall.REST.GET);
 		} catch (ResponseTypeMismatchException ex) {
-			Logger.getLogger(AttributevalueprincipalsPostTest.class.getName()).log(
-					Level.SEVERE, null, ex);
 			fail(ex.getFullMessage());
 			return;
 		}
 
-		int in = 0;
-		for (int i = 0; i < jsonArrayResponse.length(); i++) {
-			if (jsonArrayResponse.getJSONObject(i).getInt("attribute_spec_id") == 2) {
-				in = i;
-			}
+		JSONArray jsonArrayResponse = jsonItems.getJSONArray("items");
+
+		int i = 0;
+		while (i < jsonArrayResponse.length()
+				&& jsonArrayResponse.getJSONObject(i).getInt(
+						"attribute_spec_id") != attributespecs.getJSONObject(1)
+						.getInt("id")) {
+			i++;
 		}
 
 		try {
-			JSONAssert.assertEquals(json, jsonArrayResponse.getJSONObject(in),
-					JSONCompareMode.LENIENT);
+			JSONAssert
+					.assertEquals(
+							attributevalueprincipals.getJSONObject(fapadosId),
+							jsonArrayResponse.getJSONObject(i),
+							JSONCompareMode.LENIENT);
 			assertEquals(Const.StatusLine.OK, persistent.getStatusLine());
 		} catch (AssertionError e) {
 			AssertErrorHandler(e);
