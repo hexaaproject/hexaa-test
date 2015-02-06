@@ -3,9 +3,6 @@ package sztaki.hexaa.apicalls.services;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.fail;
 
-import java.util.logging.Level;
-import java.util.logging.Logger;
-
 import org.json.JSONArray;
 import org.json.JSONObject;
 import org.junit.AfterClass;
@@ -79,16 +76,15 @@ public class ServicesDeleteTest extends NormalTest {
 		}
 
 		// Getting server response: list of services
-		JSONArray jsonResponse;
+		JSONObject jsonItems;
 		try {
-			jsonResponse = persistent.getResponseJSONArray(Const.Api.SERVICES,
+			jsonItems = persistent.getResponseJSONObject(Const.Api.SERVICES,
 					BasicCall.REST.GET);
 		} catch (ResponseTypeMismatchException ex) {
-			Logger.getLogger(ServicesDeleteTest.class.getName()).log(
-					Level.SEVERE, null, ex);
 			fail(ex.getFullMessage());
 			return;
 		}
+		JSONArray jsonResponse = jsonItems.getJSONArray("items");
 
 		// Find the service that should exist by id, empty jsonobject if not
 		// exist

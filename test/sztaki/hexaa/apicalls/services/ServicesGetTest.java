@@ -68,16 +68,17 @@ public class ServicesGetTest extends NormalTest {
 	 */
 	@Test
 	public void testServicesGetArray() {
-		JSONArray jsonResponseArray;
+		JSONObject jsonItems;
 		try {
-			jsonResponseArray = persistent.getResponseJSONArray(
+			jsonItems = persistent.getResponseJSONObject(
 					Const.Api.SERVICES, BasicCall.REST.GET);
 		} catch (ResponseTypeMismatchException ex) {
-			Logger.getLogger(ServicesGetTest.class.getName()).log(Level.SEVERE,
-					null, ex);
 			fail(ex.getFullMessage());
 			return;
 		}
+		
+		JSONArray jsonResponseArray = jsonItems.getJSONArray("items");
+		
 		try {
 			JSONAssert.assertEquals(services, jsonResponseArray, false);
 			assertEquals(Const.StatusLine.OK, persistent.getStatusLine());
