@@ -15,8 +15,8 @@ import sztaki.hexaa.BasicTestSuite;
 		PrincipalsAttributevaluesGetTest.class, PrincipalsDeleteSelfTest.class,
 		PrincipalsDeleteTest.class, PrincipalsEntitlementsGetTest.class,
 		PrincipalsGetManagersOrganizationsTest.class,
-		PrincipalsManagerGetServicesTest.class,
-		PrincipalsMemeberGetOrganizationsTest.class, PrincipalsPostTest.class,
+		PrincipalsGetManagersServicesTest.class,
+		PrincipalsGetMemebersOrganizationsTest.class, PrincipalsPostTest.class,
 		PrincipalsRoleGetTest.class, })
 public class PrincipalsSuite extends BasicTestSuite {
 }
