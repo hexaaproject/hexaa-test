@@ -1,19 +1,22 @@
 package sztaki.hexaa.apicalls.principals;
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.fail;
+
 import org.json.JSONArray;
 import org.json.JSONObject;
-import static org.junit.Assert.*;
 import org.junit.BeforeClass;
 import org.junit.Test;
-import org.skyscreamer.jsonassert.JSONParser;
+
 import sztaki.hexaa.BasicCall;
 import sztaki.hexaa.Const;
-import sztaki.hexaa.CleanTest;
+import sztaki.hexaa.NormalTest;
+import sztaki.hexaa.ResponseTypeMismatchException;
 
 /**
  * Tests the GET method on the /api/principal/self and /api/principals calls.
  */
-public class PrincipalGetTest extends CleanTest {
+public class PrincipalGetTest extends NormalTest {
 
 	/**
 	 * Print the class name on the output.
@@ -25,21 +28,18 @@ public class PrincipalGetTest extends CleanTest {
 	}
 
 	/**
-	 * Creates all the necessary objects for the tests.
-	 */
-	@BeforeClass
-	public static void setUpClass() {
-	}
-
-	/**
 	 * GET info about the current principal.
 	 */
 	@Test
 	public void testPrincipalSelfGet() {
-		Object response = JSONParser.parseJSON(persistent.call(
-				Const.Api.PRINCIPAL_SELF, BasicCall.REST.GET));
-
-		JSONObject jsonResponse = (JSONObject) response;
+		JSONObject jsonResponse;
+		try {
+			jsonResponse = persistent.getResponseJSONObject(
+				Const.Api.PRINCIPAL_SELF, BasicCall.REST.GET);
+		} catch (ResponseTypeMismatchException ex) {
+			fail(ex.getFullMessage());
+			return;
+		}
 
 		try {
 			assertEquals(Const.StatusLine.OK, persistent.getStatusLine());
@@ -54,22 +54,28 @@ public class PrincipalGetTest extends CleanTest {
 	 */
 	@Test
 	public void testPrincipalsGet() {
-		Object response = JSONParser.parseJSON(persistent.call(
-				Const.Api.PRINCIPALS, BasicCall.REST.GET));
-
-		if (response instanceof JSONObject) {
-			fail("Not a JSONArray but a JSONObject: "
-					+ ((JSONObject) response).toString());
+		JSONObject jsonItems;
+		try {
+			jsonItems = persistent.getResponseJSONObject(Const.Api.PRINCIPALS,
+					BasicCall.REST.GET);
+		} catch (ResponseTypeMismatchException ex) {
+			fail(ex.getFullMessage());
+			return;
 		}
-		JSONArray jsonResponse = (JSONArray) response;
 
-		for (int i = 0; i < jsonResponse.length(); i++) {
-			try {
-				assertEquals(Const.HEXAA_FEDID, jsonResponse.getJSONObject(i)
-						.get("fedid"));
-			} catch (AssertionError e) {
-				AssertErrorHandler(e);
-			}
+		JSONArray jsonResponse = jsonItems.getJSONArray("items");
+		
+		int i = 0;
+		while (i < jsonResponse.length()
+				&& jsonResponse.getJSONObject(i).getInt("id") != Const.HEXAA_ID) {
+			i++;
+		}
+
+		try {
+			assertEquals(Const.HEXAA_FEDID,
+					jsonResponse.getJSONObject(i).get("fedid"));
+		} catch (AssertionError e) {
+			AssertErrorHandler(e);
 		}
 	}
 
@@ -78,11 +84,15 @@ public class PrincipalGetTest extends CleanTest {
 	 */
 	@Test
 	public void testPrincipalsGetByFedid() {
-		Object response = JSONParser.parseJSON(persistent.call(
-				Const.Api.PRINCIPALS_FEDID, BasicCall.REST.GET, null, 1, 1,
-				Const.HEXAA_FEDID));
-
-		JSONObject jsonResponse = (JSONObject) response;
+		JSONObject jsonResponse;
+		try {
+			jsonResponse = persistent.getResponseJSONObject(
+					Const.Api.PRINCIPALS_FEDID, BasicCall.REST.GET, null, 0, 0,
+					Const.HEXAA_FEDID);
+		} catch (ResponseTypeMismatchException ex) {
+			fail(ex.getFullMessage());
+			return;
+		}
 
 		try {
 			assertEquals(Const.StatusLine.OK, persistent.getStatusLine());
@@ -97,10 +107,15 @@ public class PrincipalGetTest extends CleanTest {
 	 */
 	@Test
 	public void testPrincipalsGetById() {
-		Object response = JSONParser.parseJSON(persistent.call(
-				Const.Api.PRINCIPALS_ID_ID, BasicCall.REST.GET, null, 1, 1));
-
-		JSONObject jsonResponse = (JSONObject) response;
+		JSONObject jsonResponse;
+		try {
+			jsonResponse = persistent.getResponseJSONObject(
+					Const.Api.PRINCIPALS_ID_ID, BasicCall.REST.GET, null,
+					Const.HEXAA_ID, 0);
+		} catch (ResponseTypeMismatchException ex) {
+			fail(ex.getFullMessage());
+			return;
+		}
 
 		try {
 			assertEquals(Const.StatusLine.OK, persistent.getStatusLine());
