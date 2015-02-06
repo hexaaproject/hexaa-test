@@ -1,5 +1,6 @@
 package sztaki.hexaa.apicalls.attributevalueprincipals.services;
 
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.fail;
 
 import org.json.JSONArray;
@@ -11,17 +12,16 @@ import org.skyscreamer.jsonassert.JSONAssert;
 import org.skyscreamer.jsonassert.JSONCompareMode;
 
 import sztaki.hexaa.BasicCall;
-import sztaki.hexaa.CleanTest;
 import sztaki.hexaa.Const;
+import sztaki.hexaa.NormalTest;
 import sztaki.hexaa.ResponseTypeMismatchException;
 import sztaki.hexaa.Utility;
 
-/// TODO minimális befektetéssel Normal-ra alakítható
 /**
  * Tests the GET method on the /api/attributevalueorganizations/{id}/services
  * and /api/attributevalueorganizations/{id}/services/{id} call.
  */
-public class AttributevalueprincipalsServicesGetTest extends CleanTest {
+public class AttributevalueprincipalsServicesGetTest extends NormalTest {
 
 	/**
 	 * Print the class name on the output.
@@ -37,22 +37,18 @@ public class AttributevalueprincipalsServicesGetTest extends CleanTest {
 	 * JSONArray to store the created attributevalues.
 	 */
 	public static JSONArray attributevalueprincipal = new JSONArray();
-
 	/**
 	 * JSONArray to store the created service.
 	 */
 	public static JSONArray services = new JSONArray();
-
 	/**
 	 * JSONArray to store the created organization.
 	 */
 	public static JSONArray organizations = new JSONArray();
-
 	/**
 	 * JSONArray to store the created entitlementpacks.
 	 */
 	public static JSONArray entitlementpacks = new JSONArray();
-
 	/**
 	 * JSONArray to store the created attributespecs.
 	 */
@@ -109,8 +105,8 @@ public class AttributevalueprincipalsServicesGetTest extends CleanTest {
 				true);
 
 		attributevalueprincipal = Utility.Create.attributevalueprincipal(
-				"AttributevalueprincipalsServicesGetTest_org_value1", 1,
-				new int[] { 2 });
+				"AttributevalueprincipalsServicesGetTest_org_value1", attributespecs.getJSONObject(0).getInt("id"),
+				new int[] { services.getJSONObject(1).getInt("id") });
 		if (attributevalueprincipal.length() < 1) {
 			fail("Utility.Create.attributevalueprincipal(new String[] {\"AttributevalueprincipalsServicesGetTest_org_value1\" }, \"manager\"); did not succeed");
 		}
@@ -151,21 +147,21 @@ public class AttributevalueprincipalsServicesGetTest extends CleanTest {
 	 */
 	@Test
 	public void testAttributevalueprincipalsServicesGet() {
-		JSONObject jsonResponse;
+		JSONObject jsonItems;
 		try {
-			jsonResponse = persistent.getResponseJSONObject(
+			jsonItems = persistent.getResponseJSONObject(
 					Const.Api.ATTRIBUTEVALUEPRINCIPALS_ID_SERVICES,
 					BasicCall.REST.GET, null, attributevalueprincipal
-							.getJSONObject(0).getInt("id"), 1);
+							.getJSONObject(0).getInt("id"), 0);
 		} catch (ResponseTypeMismatchException ex) {
 			fail(ex.getFullMessage());
 			return;
 		}
 
+		JSONArray jsonResponse = jsonItems.getJSONArray("items");
+
 		try {
-			JSONAssert.assertEquals((JSONArray) attributevalueprincipal
-					.getJSONObject(0).get("services"), (JSONArray) jsonResponse
-					.get("service_ids"), JSONCompareMode.LENIENT);
+			assertEquals( services.getJSONObject(1).getInt("id"), jsonResponse.getJSONObject(0).getInt("id"));
 		} catch (AssertionError e) {
 			AssertErrorHandler(e);
 		}

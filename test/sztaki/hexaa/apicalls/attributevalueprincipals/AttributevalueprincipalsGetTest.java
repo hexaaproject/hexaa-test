@@ -33,10 +33,6 @@ public class AttributevalueprincipalsGetTest extends NormalTest {
 	}
 
 	/**
-	 * JSONArray to store the created principals.
-	 */
-	public static JSONArray principals = new JSONArray();
-	/**
 	 * JSONArray to store the created attributespecs.
 	 */
 	public static JSONArray attributespecs = new JSONArray();
@@ -50,11 +46,6 @@ public class AttributevalueprincipalsGetTest extends NormalTest {
 	 */
 	@BeforeClass
 	public static void setUpClass() {
-		principals = Utility.Create
-				.principal("AttributevalueprincipalsGetTest_pri1");
-		if (principals.length() < 1) {
-			fail("Utility.Create.principal( \"AttributevalueprincipalsGetTest_pri1\" ); did not succeed");
-		}
 		attributespecs = Utility.Create.attributespec(
 				new String[] { "AttributevalueprincipalsGetTest_as1" }, "user");
 		if (attributespecs.length() < 1) {
@@ -82,9 +73,6 @@ public class AttributevalueprincipalsGetTest extends NormalTest {
 		for (int i = 0; i < attributespecs.length(); i++) {
 			Utility.Remove.attributespec(attributespecs.getJSONObject(i)
 					.getInt("id"));
-		}
-		for (int i = 0; i < principals.length(); i++) {
-			Utility.Remove.principal(principals.getJSONObject(i).getInt("id"));
 		}
 	}
 

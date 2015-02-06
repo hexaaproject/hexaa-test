@@ -15,7 +15,6 @@ import sztaki.hexaa.Const;
 import sztaki.hexaa.NormalTest;
 import sztaki.hexaa.ResponseTypeMismatchException;
 import sztaki.hexaa.Utility;
-import sztaki.hexaa.apicalls.attributespecs.AttributespecsGetTest;
 
 /**
  * Tests the PUT method on the
@@ -122,7 +121,7 @@ public class AttributevalueorganizationsServicesDeleteTest extends NormalTest {
 	@AfterClass
 	public static void tearDownClass() {
 		System.out.println("TearDownClass: "
-				+ AttributespecsGetTest.class.getSimpleName());
+				+ AttributevalueorganizationsServicesDeleteTest.class.getSimpleName());
 		for (int i = 0; i < attributevalueorganization.length(); i++) {
 			Utility.Remove
 					.attributevalueorganization(attributevalueorganization

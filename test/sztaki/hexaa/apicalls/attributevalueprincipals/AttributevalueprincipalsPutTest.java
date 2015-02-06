@@ -1,29 +1,26 @@
 package sztaki.hexaa.apicalls.attributevalueprincipals;
 
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.fail;
+
 import org.json.JSONArray;
 import org.json.JSONObject;
-import org.junit.Test;
-import static org.junit.Assert.*;
+import org.junit.AfterClass;
 import org.junit.BeforeClass;
+import org.junit.Test;
 import org.skyscreamer.jsonassert.JSONAssert;
 import org.skyscreamer.jsonassert.JSONCompareMode;
+
 import sztaki.hexaa.BasicCall;
 import sztaki.hexaa.Const;
-import sztaki.hexaa.Utility;
-import sztaki.hexaa.CleanTest;
+import sztaki.hexaa.NormalTest;
 import sztaki.hexaa.ResponseTypeMismatchException;
+import sztaki.hexaa.Utility;
 
 /**
  * Tests the PUT method on the /api/attributevalueprincipals/{id} call.
  */
-public class AttributevalueprincipalsPutTest extends CleanTest {
-
-	/**
-	 * JSONArray to store the created attributevalues.
-	 */
-	public static JSONArray attributevalues = new JSONArray();
+public class AttributevalueprincipalsPutTest extends NormalTest {
 
 	/**
 	 * Print the class name on the output.
@@ -36,15 +33,49 @@ public class AttributevalueprincipalsPutTest extends CleanTest {
 	}
 
 	/**
+	 * JSONArray to store the created attributespecs.
+	 */
+	private static JSONArray attributespecs = new JSONArray();
+	/**
+	 * JSONArray to store the created attributespecs.
+	 */
+	private static JSONArray attributevalueprincipals = new JSONArray();
+
+	/**
 	 * Creates one attributespecs.
 	 */
 	@BeforeClass
 	public static void setUpClass() {
-		Utility.Create.attributespec(new String[] { "testName1" }, "user");
-		attributevalues = Utility.Create
-				.attributevalueprincipal("PriValue1", 1);
+		attributespecs = Utility.Create.attributespec(
+				new String[] { "AttributevalueprincipalsPutTest_as1" },
+				"user");
+		if (attributespecs.length() < 1) {
+			fail("Utility.Create.attributespec(new String[] {\"AttributevalueprincipalsPutTest_as1\" }, \"user\"); did not succeed");
+		}
+		attributevalueprincipals = Utility.Create.attributevalueprincipal(
+				"AttributevalueprincipalsPutTest_pri_value1", attributespecs
+						.getJSONObject(0).getInt("id"));
+		if (attributevalueprincipals.length() < 1) {
+			fail("Utility.Create.attributevalueprincipal( \"AttributevalueprincipalsPutTest_pri_value1\", attributespecs.getJSONObject(0).getInt(\"id\")); did not succeed");
+		}
 	}
 
+	/**
+	 * Reverses the setUpClass and the creations during the test.
+	 */
+	@AfterClass
+	public static void tearDownClass() {
+		System.out.println("TearDownClass: "
+				+ AttributevalueprincipalsPutTest.class.getSimpleName());
+		for (int i = 0; i < attributevalueprincipals.length(); i++) {
+			Utility.Remove.attributevalueprincipal(attributevalueprincipals
+					.getJSONObject(i).getInt("id"));
+		}
+		for (int i = 0; i < attributespecs.length(); i++) {
+			Utility.Remove.attributespec(attributespecs.getJSONObject(i)
+					.getInt("id"));
+		}
+	}
 	/**
 	 * Puts the attributevalue than checks it.
 	 */
@@ -53,10 +84,11 @@ public class AttributevalueprincipalsPutTest extends CleanTest {
 		JSONObject jsonTemp = new JSONObject();
 		jsonTemp.put("services", new JSONArray());
 		jsonTemp.put("value", "PriValueChanged");
-		jsonTemp.put("attribute_spec", 1);
+		jsonTemp.put("attribute_spec", attributespecs.getJSONObject(0).getInt("id"));
 
 		persistent.call(Const.Api.ATTRIBUTEVALUEPRINCIPALS_ID,
-				BasicCall.REST.PUT, jsonTemp.toString());
+				BasicCall.REST.PUT, jsonTemp.toString(),
+				attributevalueprincipals.getJSONObject(0).getInt("id"), 0);
 
 		try {
 			assertEquals(Const.StatusLine.NoContent, persistent.getStatusLine());
@@ -67,10 +99,10 @@ public class AttributevalueprincipalsPutTest extends CleanTest {
 		JSONObject jsonResponse;
 		try {
 			jsonResponse = persistent.getResponseJSONObject(
-					Const.Api.ATTRIBUTEVALUEPRINCIPALS_ID, BasicCall.REST.GET);
+					Const.Api.ATTRIBUTEVALUEPRINCIPALS_ID, BasicCall.REST.GET,
+					null, attributevalueprincipals.getJSONObject(0)
+					.getInt("id"), 0);
 		} catch (ResponseTypeMismatchException ex) {
-			Logger.getLogger(AttributevalueprincipalsPutTest.class.getName())
-					.log(Level.SEVERE, null, ex);
 			fail(ex.getFullMessage());
 			return;
 		}
