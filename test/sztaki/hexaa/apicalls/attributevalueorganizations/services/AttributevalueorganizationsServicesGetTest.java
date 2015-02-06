@@ -1,5 +1,6 @@
 package sztaki.hexaa.apicalls.attributevalueorganizations.services;
 
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.fail;
 
 import org.json.JSONArray;
@@ -11,17 +12,16 @@ import org.skyscreamer.jsonassert.JSONAssert;
 import org.skyscreamer.jsonassert.JSONCompareMode;
 
 import sztaki.hexaa.BasicCall;
-import sztaki.hexaa.CleanTest;
 import sztaki.hexaa.Const;
+import sztaki.hexaa.NormalTest;
 import sztaki.hexaa.ResponseTypeMismatchException;
 import sztaki.hexaa.Utility;
 
-/// TODO minimális befektetéssel Normal-ra alakítható
 /**
  * Tests the GET method on the /api/attributevalueorganizations/{id}/services
  * and /api/attributevalueorganizations/{id}/services/{id} call.
  */
-public class AttributevalueorganizationsServicesGetTest extends CleanTest {
+public class AttributevalueorganizationsServicesGetTest extends NormalTest {
 
 	/**
 	 * Print the class name on the output.
@@ -70,9 +70,11 @@ public class AttributevalueorganizationsServicesGetTest extends CleanTest {
 			fail("Utility.Create.service(new String[] {\"AttributevalueorganizationsServicesGetTest_service1\", \"AttributevalueorganizationsServicesGetTest_service2\" }); did not succeed");
 		}
 
-		entitlementpacks = Utility.Create.entitlementpacks(1,
+		entitlementpacks = Utility.Create.entitlementpacks(services
+				.getJSONObject(0).getInt("id"),
 				"AttributevalueorganizationsServicesGetTest_entitlementpack1");
-		entitlementpacks.put(Utility.Create.entitlementpacks(2,
+		entitlementpacks.put(Utility.Create.entitlementpacks(
+				services.getJSONObject(1).getInt("id"),
 				"AttributevalueorganizationsServicesGetTest_entitlementpack2")
 				.getJSONObject(0));
 		if (entitlementpacks.length() < 2) {
@@ -84,7 +86,10 @@ public class AttributevalueorganizationsServicesGetTest extends CleanTest {
 		if (organizations.length() < 1) {
 			fail("Utility.Create.organization(new String[] {\"AttributevalueorganizationsServicesGetTest_org1\" }); did not succeed");
 		}
-		Utility.Link.entitlementpackToOrg(1, new int[] { 1, 2 });
+		Utility.Link.entitlementpackToOrg(organizations.getJSONObject(0)
+				.getInt("id"), new int[] {
+				entitlementpacks.getJSONObject(0).getInt("id"),
+				entitlementpacks.getJSONObject(1).getInt("id") });
 
 		attributespecs = Utility.Create
 				.attributespec(
@@ -93,13 +98,23 @@ public class AttributevalueorganizationsServicesGetTest extends CleanTest {
 		if (attributespecs.length() < 1) {
 			fail("Utility.Create.attributespec(new String[] {\"AttributevalueorganizationsServicesGetTest_as1\" }, \"manager\"); did not succeed");
 		}
-		Utility.Link.attributespecsToService(1, new int[] { 1, 2 }, true);
-		Utility.Link.attributespecsToService(2, new int[] { 1, 2 }, true);
+
+		Utility.Link.attributespecsToService(
+				services.getJSONObject(0).getInt("id"),
+				new int[] { attributespecs.getJSONObject(0).getInt("id") },
+				true);
+		Utility.Link.attributespecsToService(
+				services.getJSONObject(1).getInt("id"),
+				new int[] { attributespecs.getJSONObject(0).getInt("id") },
+				true);
+
 		attributevalueorganization = Utility.Create.attributevalueorganization(
-				"AttributevalueorganizationsServicesGetTest_org_value1", 1, 1,
-				new int[] { 2 });
+				"AttributevalueorganizationsServicesGetTest_org_value1",
+				attributespecs.getJSONObject(0).getInt("id"), organizations
+						.getJSONObject(0).getInt("id"), new int[] { services
+						.getJSONObject(1).getInt("id") });
 		if (attributevalueorganization.length() < 1) {
-			fail("Utility.Create.attributevalueorganization(new String[] {\"AttributevalueorganizationsServicesGetTest_org_value1\" }, \"manager\"); did not succeed");
+			fail("Utility.Create.attributevalueorganization( \"AttributevalueorganizationsServicesGetTest_org_value1\",attributespecs.getJSONObject(0).getInt(\"id\"), organizations.getJSONObject(0).getInt(\"id\"), new int[] { services.getJSONObject(1).getInt(\"id\") } ); did not succeed");
 		}
 	}
 
@@ -138,28 +153,22 @@ public class AttributevalueorganizationsServicesGetTest extends CleanTest {
 	 */
 	@Test
 	public void testAttributevalueorganizationsGetServices() {
-		JSONObject jsonResponse;
+		JSONObject jsonItems;
 		try {
-			jsonResponse = persistent.getResponseJSONObject(
+			jsonItems = persistent.getResponseJSONObject(
 					Const.Api.ATTRIBUTEVALUEORGANIZATIONS_ID_SERVICES,
-					BasicCall.REST.GET, null, 1, 1);
+					BasicCall.REST.GET, null, attributevalueorganization
+							.getJSONObject(0).getInt("id"), 0);
 		} catch (ResponseTypeMismatchException ex) {
 			fail(ex.getFullMessage());
 			return;
 		}
 
-		System.out.println(attributevalueorganization.getJSONObject(0).get(
-				"services"));
-		System.out.println(jsonResponse.get("service_ids"));
-
-		System.out.println(attributevalueorganization.getJSONObject(0)
-				.get("services").getClass());
-		System.out.println(jsonResponse.get("service_ids").getClass());
+		JSONArray jsonResponse = jsonItems.getJSONArray("items");
 
 		try {
-			JSONAssert.assertEquals((JSONArray) attributevalueorganization
-					.getJSONObject(0).get("services"), (JSONArray) jsonResponse
-					.get("service_ids"), JSONCompareMode.LENIENT);
+			assertEquals(services.getJSONObject(1).getInt("id"), jsonResponse
+					.getJSONObject(0).getInt("id"));
 		} catch (AssertionError e) {
 			AssertErrorHandler(e);
 		}
@@ -174,7 +183,9 @@ public class AttributevalueorganizationsServicesGetTest extends CleanTest {
 		try {
 			jsonResponse = persistent.getResponseJSONObject(
 					Const.Api.ATTRIBUTEVALUEORGANIZATIONS_ID_SERVICES_SID,
-					BasicCall.REST.GET, null, 1, 2);
+					BasicCall.REST.GET, null, attributevalueorganization
+							.getJSONObject(0).getInt("id"), services
+							.getJSONObject(1).getInt("id"));
 		} catch (ResponseTypeMismatchException ex) {
 			fail(ex.getFullMessage());
 			return;
@@ -183,7 +194,8 @@ public class AttributevalueorganizationsServicesGetTest extends CleanTest {
 		JSONObject service;
 		try {
 			service = persistent.getResponseJSONObject(Const.Api.SERVICES_ID,
-					BasicCall.REST.GET, null, 2, 2);
+					BasicCall.REST.GET, null,
+					services.getJSONObject(1).getInt("id"), 0);
 		} catch (ResponseTypeMismatchException ex) {
 			fail(ex.getFullMessage());
 			return;
