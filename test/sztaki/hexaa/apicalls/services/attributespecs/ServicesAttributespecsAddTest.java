@@ -3,6 +3,7 @@ package sztaki.hexaa.apicalls.services.attributespecs;
 import static org.junit.Assert.*;
 
 import org.json.JSONArray;
+import org.json.JSONObject;
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.Test;
@@ -91,10 +92,10 @@ public class ServicesAttributespecsAddTest extends NormalTest {
 			return;
 		}
 
-		JSONArray jsonResponseArray;
+		JSONObject jsonItems;
 		// Get the first services' as-s.
 		try {
-			jsonResponseArray = persistent.getResponseJSONArray(
+			jsonItems = persistent.getResponseJSONObject(
 					Const.Api.SERVICES_ID_ATTRIBUTESPECS, BasicCall.REST.GET,
 					null, services.getJSONObject(0).getInt("id"), 1);
 		} catch (ResponseTypeMismatchException ex) {
@@ -102,6 +103,8 @@ public class ServicesAttributespecsAddTest extends NormalTest {
 			return;
 		}
 
+		JSONArray jsonResponseArray = jsonItems.getJSONArray("items");
+		
 		try {
 			assertEquals(Const.StatusLine.OK, persistent.getStatusLine());
 			JSONAssert.assertNotEquals(new JSONArray(), jsonResponseArray,
