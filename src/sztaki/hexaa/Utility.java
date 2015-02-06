@@ -845,8 +845,17 @@ public class Utility {
 					enable_attribute_specs));
 			json.put("service_id", json.remove("service"));
 
-			consents.put(json);
+			if (persistent.getHeader("Location") != null) {
+				List<Integer> id = getNumber(persistent.getHeader(
+						"Location").getValue());
 
+				if (id.size() == 1) {
+					json.put("id", id.get(0));
+				}
+
+				consents.put(json);
+			}
+			
 			return consents;
 		}
 
@@ -1479,6 +1488,17 @@ public class Utility {
 		 *
 		 * @param avoIDs
 		 *            array of attributevalue ids.
+		 */
+		public static void consent(int consent_id) {
+			persistent.call(Const.Api.CONSENTS_ID, BasicCall.REST.DELETE,
+					null, consent_id, 0);
+		}
+		
+		/**
+		 * Removes invitation if exist.
+		 *
+		 * @param avoIDs
+		 *            array of invitation ids.
 		 */
 		public static void invitation(int invitation_id) {
 			persistent.call(Const.Api.INVITATIONS_ID, BasicCall.REST.DELETE,

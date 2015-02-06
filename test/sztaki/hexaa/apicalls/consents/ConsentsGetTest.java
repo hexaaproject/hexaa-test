@@ -1,29 +1,27 @@
 package sztaki.hexaa.apicalls.consents;
 
-import org.json.JSONArray;
-import org.json.JSONObject;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.fail;
+
+import org.json.JSONArray;
+import org.json.JSONObject;
+import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import org.skyscreamer.jsonassert.JSONAssert;
 import org.skyscreamer.jsonassert.JSONCompareMode;
+
 import sztaki.hexaa.BasicCall;
 import sztaki.hexaa.Const;
+import sztaki.hexaa.NormalTest;
 import sztaki.hexaa.ResponseTypeMismatchException;
 import sztaki.hexaa.Utility;
-import sztaki.hexaa.CleanTest;
 
 /**
  * Tests the GET method on the /api/consents, /api/consents/{id} and
  * /api/consents/{sid}/service calls.
  */
-public class ConsentsGetTest extends CleanTest {
-
-	/**
-	 * JSONArray to store the created services.
-	 */
-	private static JSONArray consents = new JSONArray();
+public class ConsentsGetTest extends NormalTest {
 
 	/**
 	 * Print the class name on the output.
@@ -35,20 +33,72 @@ public class ConsentsGetTest extends CleanTest {
 	}
 
 	/**
+	 * JSONArray to store the created services.
+	 */
+	private static JSONArray services = new JSONArray();
+	/**
+	 * JSONArray to store the created services.
+	 */
+	private static JSONArray attributespecs = new JSONArray();
+	/**
+	 * JSONArray to store the created services.
+	 */
+	private static JSONArray consents = new JSONArray();
+
+	/**
 	 * Creates the necessary objects on the server to begin the tests.
 	 */
 	@BeforeClass
 	public static void setUpClass() {
-		Utility.Create.service("testService1");
-		Utility.Create.attributespec("randomOID1", "user");
-		Utility.Link.attributespecsToService(1, 1, true);
-		consents = Utility.Create.consent(true, new int[] { 1 }, 1);
+		services = Utility.Create.service(new String[] {
+				"ConsentsGetTest_service1", "ConsentsGetTest_service2" });
+		if (services.length() < 2) {
+			fail("Utility.Create.service(new String[] {\"ConsentsGetTest_service1\", \"ConsentsGetTest_service1\" }); did not succeed");
+		}
 
-		Utility.Create.service("testService2");
-		Utility.Create.attributespec("randomOID2", "user");
-		Utility.Link.attributespecsToService(2, 2, true);
-		consents.put(Utility.Create.consent(true, new int[] { 2 }, 2)
-				.getJSONObject(0));
+		attributespecs = Utility.Create.attributespec(new String[] {
+				"ConsentsGetTest_as1", "ConsentsGetTest_as2" }, "user");
+		if (attributespecs.length() < 2) {
+			fail("Utility.Create.attributespec(new String[] {\"ConsentsGetTest_as1\", \"ConsentsGetTest_as2\" }, \"user\"); did not succeed");
+		}
+
+		Utility.Link.attributespecsToService(
+				services.getJSONObject(0).getInt("id"), attributespecs
+						.getJSONObject(0).getInt("id"), true);
+		Utility.Link.attributespecsToService(
+				services.getJSONObject(1).getInt("id"), attributespecs
+						.getJSONObject(1).getInt("id"), true);
+		consents = Utility.Create.consent(true, new int[] { attributespecs
+				.getJSONObject(0).getInt("id") }, services.getJSONObject(0)
+				.getInt("id"));
+		if (consents.length() < 1) {
+			fail("Utility.Create.consent(true, new int[] { attributespecs.getJSONObject(0).getInt(\"id\") }, services.getJSONObject(0).getInt(\"id\")); did not succeed");
+		}
+		consents.put(Utility.Create.consent(true,
+				new int[] { attributespecs.getJSONObject(1).getInt("id") },
+				services.getJSONObject(1).getInt("id")).getJSONObject(0));
+		if (consents.length() < 2) {
+			fail("Utility.Create.consent(true, new int[] { attributespecs.getJSONObject(1).getInt(\"id\") }, services.getJSONObject(1).getInt(\"id\")); did not succeed");
+		}
+	}
+
+	/**
+	 * Reverses the setUpClass and the creations during the test.
+	 */
+	@AfterClass
+	public static void tearDownClass() {
+		System.out.println("TearDownClass: "
+				+ ConsentsGetTest.class.getSimpleName());
+		for (int i = 0; i < consents.length(); i++) {
+			Utility.Remove.consent(consents.getJSONObject(i).getInt("id"));
+		}
+		for (int i = 0; i < attributespecs.length(); i++) {
+			Utility.Remove.attributespec(attributespecs.getJSONObject(i)
+					.getInt("id"));
+		}
+		for (int i = 0; i < services.length(); i++) {
+			Utility.Remove.service(services.getJSONObject(i).getInt("id"));
+		}
 	}
 
 	/**
@@ -56,14 +106,16 @@ public class ConsentsGetTest extends CleanTest {
 	 */
 	@Test
 	public void testConsentsGet() {
-		JSONArray jsonResponse;
+		JSONObject jsonItems;
 		try {
-			jsonResponse = persistent.getResponseJSONArray(Const.Api.CONSENTS,
+			jsonItems = persistent.getResponseJSONObject(Const.Api.CONSENTS,
 					BasicCall.REST.GET);
 		} catch (ResponseTypeMismatchException ex) {
 			fail(ex.getFullMessage());
 			return;
 		}
+
+		JSONArray jsonResponse = jsonItems.getJSONArray("items");
 
 		try {
 			assertEquals(Const.StatusLine.OK, persistent.getStatusLine());
@@ -82,7 +134,8 @@ public class ConsentsGetTest extends CleanTest {
 		JSONObject jsonResponse;
 		try {
 			jsonResponse = persistent.getResponseJSONObject(
-					Const.Api.CONSENTS_ID, BasicCall.REST.GET, null, 1, 1);
+					Const.Api.CONSENTS_ID, BasicCall.REST.GET, null, consents
+							.getJSONObject(0).getInt("id"), 0);
 		} catch (ResponseTypeMismatchException ex) {
 			fail(ex.getFullMessage());
 			return;
@@ -106,7 +159,7 @@ public class ConsentsGetTest extends CleanTest {
 		try {
 			jsonResponse = persistent.getResponseJSONObject(
 					Const.Api.CONSENTS_SID_SERVICE, BasicCall.REST.GET, null,
-					1, 1);
+					0, services.getJSONObject(0).getInt("id"));
 		} catch (ResponseTypeMismatchException ex) {
 			fail(ex.getFullMessage());
 			return;

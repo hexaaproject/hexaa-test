@@ -1,16 +1,22 @@
 package sztaki.hexaa.apicalls.consents;
 
-import org.junit.Test;
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.fail;
+
+import org.json.JSONArray;
+import org.junit.AfterClass;
 import org.junit.BeforeClass;
+import org.junit.Test;
+
 import sztaki.hexaa.Const;
+import sztaki.hexaa.NormalTest;
 import sztaki.hexaa.Utility;
-import sztaki.hexaa.CleanTest;
+import sztaki.hexaa.apicalls.attributespecs.AttributespecsGetTest;
 
 /**
  * Tests the POST method on the /api/consents call.
  */
-public class ConsentsPostTest extends CleanTest {
+public class ConsentsPostTest extends NormalTest {
 
 	/**
 	 * Print the class name on the output.
@@ -22,13 +28,56 @@ public class ConsentsPostTest extends CleanTest {
 	}
 
 	/**
+	 * JSONArray to store the created services.
+	 */
+	private static JSONArray services = new JSONArray();
+	/**
+	 * JSONArray to store the created services.
+	 */
+	private static JSONArray attributespecs = new JSONArray();
+	/**
+	 * JSONArray to store the created services.
+	 */
+	private static JSONArray consents = new JSONArray();
+
+	/**
 	 * Creates the necessary objects on the server to begin the tests.
 	 */
 	@BeforeClass
-	public static void setUpClass() {
-		Utility.Create.service("testService1");
-		Utility.Create.attributespec("randomOID", "user");
-		Utility.Link.attributespecsToService(1, 1, true);
+	public static void setUpClass() {services = Utility.Create.service(new String[] {
+			"ConsentsPostTest_service1" });
+	if (services.length() < 1) {
+		fail("Utility.Create.service(new String[] {\"ConsentsPostTest_service1\", \"ConsentsPostTest_service1\" }); did not succeed");
+	}
+
+	attributespecs = Utility.Create.attributespec(new String[] {
+			"ConsentsPostTest_as1" }, "user");
+	if (attributespecs.length() < 1) {
+		fail("Utility.Create.attributespec(new String[] {\"ConsentsPostTest_as1\", \"ConsentsPostTest_as2\" }, \"user\"); did not succeed");
+	}
+
+	Utility.Link.attributespecsToService(
+			services.getJSONObject(0).getInt("id"), attributespecs
+					.getJSONObject(0).getInt("id"), true);
+	}
+
+	/**
+	 * Reverses the setUpClass and the creations during the test.
+	 */
+	@AfterClass
+	public static void tearDownClass() {
+		System.out.println("TearDownClass: "
+				+ ConsentsPostTest.class.getSimpleName());
+		for (int i = 0; i < consents.length(); i++) {
+			Utility.Remove.consent(consents.getJSONObject(i).getInt("id"));
+		}
+		for (int i = 0; i < attributespecs.length(); i++) {
+			Utility.Remove.attributespec(attributespecs.getJSONObject(i)
+					.getInt("id"));
+		}
+		for (int i = 0; i < services.length(); i++) {
+			Utility.Remove.service(services.getJSONObject(i).getInt("id"));
+		}
 	}
 
 	/**
@@ -36,7 +85,9 @@ public class ConsentsPostTest extends CleanTest {
 	 */
 	@Test
 	public void testConsentsPost() {
-		Utility.Create.consent(true, new int[] { 1 }, 1);
+		consents = Utility.Create.consent(true, new int[] { attributespecs
+				.getJSONObject(0).getInt("id") }, services.getJSONObject(0)
+				.getInt("id"));
 
 		try {
 			assertEquals(Const.StatusLine.Created,
