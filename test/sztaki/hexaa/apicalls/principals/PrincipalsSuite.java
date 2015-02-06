@@ -14,7 +14,7 @@ import sztaki.hexaa.BasicTestSuite;
 		PrincipalsAttributespecsPublicGetTest.class,
 		PrincipalsAttributevaluesGetTest.class, PrincipalsDeleteSelfTest.class,
 		PrincipalsDeleteTest.class, PrincipalsEntitlementsGetTest.class,
-		PrincipalsManagerGetOrganizationsTest.class,
+		PrincipalsGetManagersOrganizationsTest.class,
 		PrincipalsManagerGetServicesTest.class,
 		PrincipalsMemeberGetOrganizationsTest.class, PrincipalsPostTest.class,
 		PrincipalsRoleGetTest.class, })

@@ -24,7 +24,7 @@ import sztaki.hexaa.BasicTestSuite;
 		sztaki.hexaa.apicalls.principals.PrincipalGetTest.class,
 		sztaki.hexaa.apicalls.principals.PrincipalsDeleteSelfTest.class,
 		sztaki.hexaa.apicalls.principals.PrincipalsDeleteTest.class,
-		sztaki.hexaa.apicalls.principals.PrincipalsManagerGetOrganizationsTest.class,
+		sztaki.hexaa.apicalls.principals.PrincipalsGetManagersOrganizationsTest.class,
 		sztaki.hexaa.apicalls.principals.PrincipalsManagerGetServicesTest.class,
 		sztaki.hexaa.apicalls.principals.PrincipalsMemeberGetOrganizationsTest.class,
 		sztaki.hexaa.apicalls.roles.RolesPostTest.class,
