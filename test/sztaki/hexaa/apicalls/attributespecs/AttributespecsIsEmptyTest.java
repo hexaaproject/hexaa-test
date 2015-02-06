@@ -26,7 +26,7 @@ public class AttributespecsIsEmptyTest extends IsEmptyTest {
 	 */
 	@Test
 	public void testAttributespecsIsEmptyGet() {
-		expectingEmpty(Const.Api.ATTRIBUTESPECS, BasicCall.REST.GET);
+		expectingZeroItems(Const.Api.ATTRIBUTESPECS, BasicCall.REST.GET);
 		expectingNotFound(Const.Api.ATTRIBUTESPECS_ID, BasicCall.REST.GET);
 	}
 

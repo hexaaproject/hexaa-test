@@ -120,7 +120,7 @@ public class Const {
 		/**
 		 * GET connected services to the attribute specification with the id.
 		 */
-		public static final String ATTRIBUTESPECS_ID_SERVICES = ("/api/attributespecs/{id}/service.{_format}");
+		public static final String ATTRIBUTESPECS_ID_SERVICES = ("/api/attributespecs/{id}/services.{_format}");
 
 		/* *** Consent *** */
 		/**

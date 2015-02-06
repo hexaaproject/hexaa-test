@@ -29,7 +29,7 @@ public class ServicesIsEmptyTest extends IsEmptyTest {
 	@Test
 	public void testServicesIsEmptyGet() {
 
-		expectingEmpty(Const.Api.SERVICES, BasicCall.REST.GET);
+		expectingZeroItems(Const.Api.SERVICES, BasicCall.REST.GET);
 
 		expectingNotFound(Const.Api.SERVICES_ID, BasicCall.REST.GET);
 

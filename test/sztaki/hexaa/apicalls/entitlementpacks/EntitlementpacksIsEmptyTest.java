@@ -26,7 +26,7 @@ public class EntitlementpacksIsEmptyTest extends IsEmptyTest {
 	 */
 	@Test
 	public void testEntitlementpacksIsEmptyGet() {
-		expectingEmpty(Const.Api.ENTITLEMENTPACKS_PUBLIC, BasicCall.REST.GET);
+		expectingZeroItems(Const.Api.ENTITLEMENTPACKS_PUBLIC, BasicCall.REST.GET);
 
 		expectingNotFound(Const.Api.ENTITLEMENTPACKS_ID, BasicCall.REST.GET);
 

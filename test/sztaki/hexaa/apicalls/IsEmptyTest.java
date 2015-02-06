@@ -2,11 +2,17 @@ package sztaki.hexaa.apicalls;
 
 import java.util.logging.Level;
 import java.util.logging.Logger;
+
 import sztaki.hexaa.CleanTest;
+
 import org.json.JSONArray;
 import org.json.JSONObject;
+
 import static org.junit.Assert.*;
+
+import org.skyscreamer.jsonassert.JSONAssert;
 import org.skyscreamer.jsonassert.JSONParser;
+
 import sztaki.hexaa.BasicCall.REST;
 import sztaki.hexaa.Const;
 import sztaki.hexaa.ResponseTypeMismatchException;
@@ -103,28 +109,24 @@ public abstract class IsEmptyTest extends CleanTest {
 						null, ex);
 			}
 		}
-		// if (object instanceof JSONArray) {
-		// JSONArray jsonResponse = (JSONArray) object;
-		// try {
-		// assertEquals(Const.StatusLine.OK, persistent.getStatusLine());
-		// assertEquals(
-		// Const.HEXAA_FEDID,
-		// jsonResponse.getJSONObject(0).getString("fedid"));
-		// } catch (AssertionError e) {
-		// AssertErrorHandler(e);
-		// }
-		// }
-		//
-		// if (object instanceof JSONObject) {
-		// JSONObject jsonResponse = (JSONObject) object;
-		// try {
-		// assertEquals(Const.StatusLine.OK, persistent.getStatusLine());
-		// assertEquals(
-		// Const.HEXAA_FEDID,
-		// jsonResponse.getString("fedid"));
-		// } catch (AssertionError e) {
-		// AssertErrorHandler(e);
-		// }
-		// }
+	}
+
+	public void expectingZeroItems(String constApi, REST rest) {
+		JSONObject jsonResponse;
+		try {
+			jsonResponse = persistent.getResponseJSONObject(constApi, rest);
+		} catch (ResponseTypeMismatchException ex) {
+			fail(ex.getFullMessage());
+			return;
+		}
+		try {
+			assertEquals(Const.StatusLine.OK,
+					persistent.getStatusLine());
+			assertEquals("0", jsonResponse.get("item_number"));
+			JSONAssert.assertEquals(new JSONArray(),
+					jsonResponse.getJSONArray("items"), false);
+		} catch (AssertionError e) {
+			AssertErrorHandler(e);
+		}
 	}
 }

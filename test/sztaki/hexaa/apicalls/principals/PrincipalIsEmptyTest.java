@@ -26,15 +26,15 @@ public class PrincipalIsEmptyTest extends IsEmptyTest {
 	 */
 	@Test
 	public void testPrincipalisEmpty() {
-		expectingEmpty(Const.Api.MANAGER_ORGANIZATIONS, BasicCall.REST.GET);
-		expectingEmpty(Const.Api.MANAGER_SERVICES, BasicCall.REST.GET);
-		expectingEmpty(Const.Api.MEMBER_ORGANIZATIONS, BasicCall.REST.GET);
+		expectingZeroItems(Const.Api.MANAGER_ORGANIZATIONS, BasicCall.REST.GET);
+		expectingZeroItems(Const.Api.MANAGER_SERVICES, BasicCall.REST.GET);
+		expectingZeroItems(Const.Api.MEMBER_ORGANIZATIONS, BasicCall.REST.GET);
 		expectingFedid(Const.Api.PRINCIPAL_SELF, BasicCall.REST.GET);
-		expectingEmpty(Const.Api.PRINCIPAL_ATTRIBUTESPECS, BasicCall.REST.GET);
-		expectingEmpty(Const.Api.PRINCIPAL_ATTRIBUTEVALUEPRINCIPAL,
+		expectingZeroItems(Const.Api.PRINCIPAL_ATTRIBUTESPECS, BasicCall.REST.GET);
+		expectingZeroItems(Const.Api.PRINCIPAL_ATTRIBUTEVALUEPRINCIPAL,
 				BasicCall.REST.GET);
-		expectingEmpty(Const.Api.PRINCIPAL_ENTITLEMENTS, BasicCall.REST.GET);
-		expectingEmpty(Const.Api.PRINCIPAL_ROLES, BasicCall.REST.GET);
+		expectingZeroItems(Const.Api.PRINCIPAL_ENTITLEMENTS, BasicCall.REST.GET);
+		expectingZeroItems(Const.Api.PRINCIPAL_ROLES, BasicCall.REST.GET);
 		expectingFedid(Const.Api.PRINCIPALS, BasicCall.REST.GET);
 		expectingNotFound(
 				Const.Api.PRINCIPALS_ASID_ATTRIBUTESPECS_ATTRIBUTEVALUEPRINCIPALS,

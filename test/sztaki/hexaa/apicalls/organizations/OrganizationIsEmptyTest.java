@@ -26,7 +26,7 @@ public class OrganizationIsEmptyTest extends IsEmptyTest {
 	 */
 	@Test
 	public void testOrganizationIsEmptyGet() {
-		expectingEmpty(Const.Api.ORGANIZATIONS, BasicCall.REST.GET);
+		expectingZeroItems(Const.Api.ORGANIZATIONS, BasicCall.REST.GET);
 		expectingNotFound(Const.Api.ORGANIZATIONS_ID, BasicCall.REST.GET);
 		expectingNotFound(Const.Api.ORGANIZATIONS_ID_ATTRIBUTESPECS,
 				BasicCall.REST.GET);
