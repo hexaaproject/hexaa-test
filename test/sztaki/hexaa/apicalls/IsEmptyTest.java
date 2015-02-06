@@ -136,7 +136,7 @@ public abstract class IsEmptyTest extends CleanTest {
 		}
 		try {
 			assertEquals(Const.StatusLine.OK, persistent.getStatusLine());
-			assertEquals("0", jsonResponse.get("item_number"));
+			assertEquals(0, jsonResponse.get("item_number"));
 			JSONAssert.assertEquals(new JSONArray(),
 					jsonResponse.getJSONArray("items"), false);
 		} catch (AssertionError e) {
