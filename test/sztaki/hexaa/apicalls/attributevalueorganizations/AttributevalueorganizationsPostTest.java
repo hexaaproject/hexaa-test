@@ -4,6 +4,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.fail;
 
 import org.json.JSONArray;
+import org.json.JSONObject;
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.Test;
@@ -120,9 +121,9 @@ public class AttributevalueorganizationsPostTest extends NormalTest {
 			return;
 		}
 
-		JSONArray jsonArrayResponse;
+		JSONObject jsonItems;
 		try {
-			jsonArrayResponse = persistent.getResponseJSONArray(
+			jsonItems = persistent.getResponseJSONObject(
 					Const.Api.ORGANIZATIONS_ID_ATTRIBUTEVALUEORGANIZATION,
 					BasicCall.REST.GET, null, organizations
 							.getJSONObject(0).getInt("id"), 1);
@@ -130,6 +131,8 @@ public class AttributevalueorganizationsPostTest extends NormalTest {
 			fail(ex.getFullMessage());
 			return;
 		}
+
+		JSONArray jsonArrayResponse = jsonItems.getJSONArray("items");
 
 		try {
 			assertEquals(attributevalueorganizations.getJSONObject(0).get("organization"),

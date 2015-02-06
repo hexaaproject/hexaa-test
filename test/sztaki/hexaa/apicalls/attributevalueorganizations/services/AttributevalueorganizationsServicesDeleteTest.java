@@ -1,30 +1,27 @@
 package sztaki.hexaa.apicalls.attributevalueorganizations.services;
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.fail;
+
 import org.json.JSONArray;
 import org.json.JSONObject;
-
-import static org.junit.Assert.*;
-
+import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import org.skyscreamer.jsonassert.JSONAssert;
 
 import sztaki.hexaa.BasicCall;
 import sztaki.hexaa.Const;
+import sztaki.hexaa.NormalTest;
 import sztaki.hexaa.ResponseTypeMismatchException;
 import sztaki.hexaa.Utility;
-import sztaki.hexaa.CleanTest;
+import sztaki.hexaa.apicalls.attributespecs.AttributespecsGetTest;
 
 /**
  * Tests the PUT method on the
  * /api/attributevalueorganizations/{id}/services/{id} call.
  */
-public class AttributevalueorganizationsServicesDeleteTest extends CleanTest {
-
-	/**
-	 * JSONArray to store the created attributevalues.
-	 */
-	public static JSONArray attributevalueorganization = new JSONArray();
+public class AttributevalueorganizationsServicesDeleteTest extends NormalTest {
 
 	/**
 	 * Print the class name on the output.
@@ -37,22 +34,115 @@ public class AttributevalueorganizationsServicesDeleteTest extends CleanTest {
 	}
 
 	/**
+	 * JSONArray to store the created attributevalues.
+	 */
+	public static JSONArray services = new JSONArray();
+	/**
+	 * JSONArray to store the created attributevalues.
+	 */
+	public static JSONArray entitlementpacks = new JSONArray();
+	/**
+	 * JSONArray to store the created attributevalues.
+	 */
+	public static JSONArray organizations = new JSONArray();
+	/**
+	 * JSONArray to store the created attributevalues.
+	 */
+	public static JSONArray attributespecs = new JSONArray();
+	/**
+	 * JSONArray to store the created attributevalues.
+	 */
+	public static JSONArray attributevalueorganization = new JSONArray();
+
+	/**
 	 * Creates one attributespecs.
 	 */
 	@BeforeClass
 	public static void setUpClass() {
-		Utility.Create.service(new String[] { "service1", "service2" });
-		Utility.Create.entitlementpacks(1, "entitlementpack1");
-		Utility.Create.entitlementpacks(2, "entitlementpack2");
+		services = Utility.Create.service(new String[] {
+				"AttributevalueorganizationsServicesDeleteTest_service1",
+				"AttributevalueorganizationsServicesDeleteTest_service2" });
+		if (services.length() < 2) {
+			fail("Utility.Create.service(new String[] {\"AttributevalueorganizationsServicesDeleteTest_service1\", \"AttributevalueorganizationsServicesDeleteTest_service2\" }); did not succeed");
+		}
 
-		Utility.Create.organization("Org1");
-		Utility.Link.entitlementpackToOrg(1, new int[] { 1, 2 });
+		entitlementpacks = Utility.Create.entitlementpacks(services
+				.getJSONObject(0).getInt("id"),
+				"AttributevalueorganizationsServicesDeleteTest_pack1");
+		if (entitlementpacks.length() < 1) {
+			fail("Utility.Create.entitlementpacks(services.getJSONObject(0).getInt(\"id\"), \"AttributevalueorganizationsServicesDeleteTest_pack1\"); did not succeed");
+		}
+		entitlementpacks.put(Utility.Create.entitlementpacks(
+				services.getJSONObject(1).getInt("id"),
+				"AttributevalueorganizationsServicesDeleteTest_pack2")
+				.getJSONObject(0));
+		if (entitlementpacks.length() < 2) {
+			fail("Utility.Create.entitlementpacks(services.getJSONObject(1).getInt(\"id\"), \"AttributevalueorganizationsServicesDeleteTest_pack2\"); did not succeed");
+		}
 
-		Utility.Create.attributespec(new String[] { "testName1" }, "manager");
-		Utility.Link.attributespecsToService(1, new int[] { 1, 2 }, true);
-		Utility.Link.attributespecsToService(2, new int[] { 1, 2 }, true);
+		organizations = Utility.Create
+				.organization("AttributevalueorganizationsServicesDeleteTest_org1");
+		if (organizations.length() < 1) {
+			fail("Utility.Create.organization( \"AttributevalueorganizationsServicesDeleteTest_org1\" ); did not succeed");
+		}
+		Utility.Link.entitlementpackToOrg(organizations.getJSONObject(0)
+				.getInt("id"), new int[] {
+				entitlementpacks.getJSONObject(0).getInt("id"),
+				entitlementpacks.getJSONObject(1).getInt("id") });
+
+		attributespecs = Utility.Create
+				.attributespec(
+						new String[] { "AttributevalueorganizationsServicesDeleteTest_as1" },
+						"manager");
+		if (attributespecs.length() < 1) {
+			fail("Utility.Create.attributespec(new String[] {\"AttributevalueorganizationsServicesDeleteTest_as1\" }, \"manager\"); did not succeed");
+		}
+
+		Utility.Link.attributespecsToService(
+				services.getJSONObject(0).getInt("id"), new int[] {
+						attributespecs.getJSONObject(0).getInt("id") }, true);
+		Utility.Link.attributespecsToService(
+				services.getJSONObject(1).getInt("id"), new int[] {
+						attributespecs.getJSONObject(0).getInt("id") }, true);
+
 		attributevalueorganization = Utility.Create.attributevalueorganization(
-				"OrgValue1", 1, 1, new int[] { 1, 2 });
+				"AttributevalueorganizationsServicesDeleteTest_org_value1",
+				attributespecs.getJSONObject(0).getInt("id"), organizations
+						.getJSONObject(0).getInt("id"), new int[] {
+						services.getJSONObject(0).getInt("id"),
+						services.getJSONObject(1).getInt("id") });
+		if (attributevalueorganization.length() < 1) {
+			fail("Utility.Create.attributevalueorganization( \"AttributevalueorganizationsServicesDeleteTest_org_value1\", attributespecs.getJSONObject(0).getInt(\"id\"), organizations.getJSONObject(0).getInt(\"id\"), new int[] { services.getJSONObject(0).getInt(\"id\"), services.getJSONObject(1).getInt(\"id\") }); did not succeed");
+		}
+	}
+
+	/**
+	 * Reverses the setUpClass and the creations during the test.
+	 */
+	@AfterClass
+	public static void tearDownClass() {
+		System.out.println("TearDownClass: "
+				+ AttributespecsGetTest.class.getSimpleName());
+		for (int i = 0; i < attributevalueorganization.length(); i++) {
+			Utility.Remove
+					.attributevalueorganization(attributevalueorganization
+							.getJSONObject(i).getInt("id"));
+		}
+		for (int i = 0; i < attributespecs.length(); i++) {
+			Utility.Remove.attributespec(attributespecs.getJSONObject(i)
+					.getInt("id"));
+		}
+		for (int i = 0; i < organizations.length(); i++) {
+			Utility.Remove.organization(organizations.getJSONObject(i).getInt(
+					"id"));
+		}
+		for (int i = 0; i < entitlementpacks.length(); i++) {
+			Utility.Remove.entitlementpack(entitlementpacks.getJSONObject(i)
+					.getInt("id"));
+		}
+		for (int i = 0; i < services.length(); i++) {
+			Utility.Remove.service(services.getJSONObject(i).getInt("id"));
+		}
 	}
 
 	/**
@@ -62,7 +152,9 @@ public class AttributevalueorganizationsServicesDeleteTest extends CleanTest {
 	 */
 	@Test
 	public void testAttributevalueorganizationsDeleteServices() {
-		Utility.Remove.serviceFromAttributevalueorganizations(1, 1);
+		Utility.Remove.serviceFromAttributevalueorganizations(
+				attributevalueorganization.getJSONObject(0).getInt("id"),
+				services.getJSONObject(0).getInt("id"));
 
 		try {
 			assertEquals(Const.StatusLine.NoContent,
@@ -76,15 +168,14 @@ public class AttributevalueorganizationsServicesDeleteTest extends CleanTest {
 					Const.Api.ATTRIBUTEVALUEORGANIZATIONS_ID_SERVICES_SID,
 					BasicCall.REST.GET, null, 1, 1);
 		} catch (ResponseTypeMismatchException ex) {
-			System.out.println(ex.getFullMessage());
 			fail(ex.getFullMessage());
 			return;
 		}
 		try {
 			for (int i = 0; i < attributevalueorganization.length(); i++) {
 				JSONAssert.assertNotEquals(
-						attributevalueorganization.getJSONObject(i), jsonResponse,
-						false);
+						attributevalueorganization.getJSONObject(i),
+						jsonResponse, false);
 			}
 		} catch (AssertionError e) {
 			AssertErrorHandler(e);
