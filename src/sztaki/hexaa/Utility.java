@@ -1619,7 +1619,7 @@ public class Utility {
 		 */
 		public static void principal(String fedid) {
 			persistent.call(Const.Api.PRINCIPALS_FEDID, BasicCall.REST.DELETE,
-					null, 0, 0, "testPrincipal");
+					null, 0, 0, fedid);
 		}
 
 		/**

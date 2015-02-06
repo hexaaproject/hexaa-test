@@ -1,17 +1,20 @@
 package sztaki.hexaa.apicalls.principals;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+
+import org.json.JSONArray;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
+
 import sztaki.hexaa.Const;
+import sztaki.hexaa.NormalTest;
 import sztaki.hexaa.Utility;
-import sztaki.hexaa.CleanTest;
 
 /**
  * Test the DELETE method on the /api/principals call.
  */
-public class PrincipalsDeleteTest extends CleanTest {
+public class PrincipalsDeleteTest extends NormalTest {
 
 	/**
 	 * Print the class name on the output.
@@ -23,16 +26,16 @@ public class PrincipalsDeleteTest extends CleanTest {
 	}
 
 	/**
-	 * Numbers the test principal, incremented after every delete.
+	 * JSONArray to store the created principals.
 	 */
-	private static int p = 2;
+	private static JSONArray principals = new JSONArray();
 
 	/**
 	 * Creates one principal before each method.
 	 */
 	@Before
-	public void setUpClass() {
-		Utility.Create.principal("testPrincipal");
+	public void setUpMethod() {
+		principals = Utility.Create.principal("PrincipalsDeleteTest_pri1");
 	}
 
 	/**
@@ -40,8 +43,7 @@ public class PrincipalsDeleteTest extends CleanTest {
 	 */
 	@Test
 	public void testPrincipalsDeleteByFedid() {
-		Utility.Remove.principal("testPrincipal");
-		p++;
+		Utility.Remove.principal(principals.getJSONObject(0).getString("fedid"));
 
 		try {
 			assertEquals(Const.StatusLine.NoContent,
@@ -56,8 +58,7 @@ public class PrincipalsDeleteTest extends CleanTest {
 	 */
 	@Test
 	public void testPrincipalsDeleteById() {
-		Utility.Remove.principal(p);
-		p++;
+		Utility.Remove.principal(principals.getJSONObject(0).getInt("id"));
 
 		try {
 			assertEquals(Const.StatusLine.NoContent,
