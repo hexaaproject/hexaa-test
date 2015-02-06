@@ -354,7 +354,7 @@ public class Utility {
 				json.put("description", "This is a test entitlement, for the #"
 						+ Integer.toString(serviceId) + " service, with name "
 						+ name);
-				
+
 				// POST it
 				persistent.call(Const.Api.SERVICES_ID_ENTITLEMENTS,
 						BasicCall.REST.POST, json.toString(), serviceId, 0);
@@ -539,6 +539,13 @@ public class Utility {
 
 			persistent.call(Const.Api.INVITATIONS, BasicCall.REST.POST,
 					json.toString());
+
+			if (persistent.getHeader("Location") != null) {
+
+				List<Integer> numbers = getNumber(persistent.getHeader(
+						"Location").getValue());
+				json.put("id", numbers.get(numbers.size() - 1));
+			}
 
 			return json;
 		}
@@ -1103,7 +1110,7 @@ public class Utility {
 			for (int i = 0; i < attributeIds.length; i++) {
 				JSONObject jsonTemp = new JSONObject();
 				jsonTemp.put("attribute_spec", attributeIds[i]);
-				if (i<isPublics.length) {
+				if (i < isPublics.length) {
 					jsonTemp.put("is_public", isPublics[i]);
 				} else {
 					jsonTemp.put("is_public", false);
@@ -1465,6 +1472,17 @@ public class Utility {
 		 */
 		public static void attributevalueprincipal(int avpID) {
 			attributevalueprincipal(new int[] { avpID });
+		}
+
+		/**
+		 * Removes attributevalue for organization if exist.
+		 *
+		 * @param avoIDs
+		 *            array of attributevalue ids.
+		 */
+		public static void invitation(int invitation_id) {
+			persistent.call(Const.Api.INVITATIONS_ID, BasicCall.REST.DELETE,
+					null, invitation_id, 0);
 		}
 
 		/**

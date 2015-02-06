@@ -1,16 +1,21 @@
 package sztaki.hexaa.apicalls.invitations;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.fail;
+
+import org.json.JSONArray;
+import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.Test;
+
 import sztaki.hexaa.Const;
+import sztaki.hexaa.NormalTest;
 import sztaki.hexaa.Utility;
-import sztaki.hexaa.CleanTest;
 
 /**
  * Test the POST method on the /api/invitations call.
  */
-public class InvitationsPostTest extends CleanTest {
+public class InvitationsPostTest extends NormalTest {
 
 	/**
 	 * Print the class name on the output.
@@ -22,20 +27,51 @@ public class InvitationsPostTest extends CleanTest {
 	}
 
 	/**
+	 * JSONArray to store the created organizations.
+	 */
+	private static JSONArray organizations = new JSONArray();
+	/**
+	 * JSONArray to store the created invitations.
+	 */
+	private static JSONArray invitations = new JSONArray();
+
+	/**
 	 * Creates an organizations.
 	 */
 	@BeforeClass
 	public static void setUpClass() {
-		Utility.Create.organization("TestOrgName1");
+		organizations = Utility.Create.organization("InvitationsPostTest_org1");
+		if (organizations.length() < 1) {
+			fail("Utility.Create.organization( \"InvitationsPostTest_org1\" ); did not succeed");
+		}
 	}
+
+	/**
+	 * Reverses the setUpClass and the creations during the test.
+	 */
+	@AfterClass
+	public static void tearDownClass() {
+		System.out.println("TearDownClass: "
+				+ InvitationsPostTest.class.getSimpleName());
+		for (int i = 0; i < organizations.length(); i++) {
+			Utility.Remove.organization(organizations.getJSONObject(i)
+					.getInt("id"));
+		}
+		for (int i = 0; i < invitations.length(); i++) {
+			Utility.Remove.invitation(invitations.getJSONObject(i)
+					.getInt("id"));
+		}
+	}
+
 
 	/**
 	 * POST one invitation.
 	 */
 	@Test
 	public void testInvitationsPost() {
-		Utility.Create.invitationToOrg(null, "http://hexaa.eduid.hu/hexaaui",
-				"This is a test invitation.", 0, 1);
+		invitations = new JSONArray();
+		invitations.put(Utility.Create.invitationToOrg(null, "http://hexaa.eduid.hu/hexaaui",
+				"This is a test invitation.", 0, organizations.getJSONObject(0).getInt("id")));
 
 		try {
 			assertEquals(Const.StatusLine.Created,
