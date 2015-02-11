@@ -4,19 +4,21 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.fail;
 
 import org.json.JSONArray;
+import org.json.JSONObject;
+import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
 import sztaki.hexaa.BasicCall;
-import sztaki.hexaa.CleanTest;
 import sztaki.hexaa.Const;
+import sztaki.hexaa.NormalTest;
 import sztaki.hexaa.ResponseTypeMismatchException;
 import sztaki.hexaa.Utility;
 
 /**
  * Tests the GET method on the /api/organizations/{id}/news call.
  */
-public class OrganizationsNewsTest extends CleanTest {
+public class OrganizationsNewsTest extends NormalTest {
 
 	/**
 	 * Print the class name on the output.
@@ -28,14 +30,62 @@ public class OrganizationsNewsTest extends CleanTest {
 	}
 
 	/**
+	 * JSONArray to store the created attributespecs.
+	 */
+	private static JSONArray organizations = new JSONArray();
+	/**
+	 * JSONArray to store the created attributespecs.
+	 */
+	private static JSONArray services = new JSONArray();
+	/**
+	 * JSONArray to store the created attributespecs.
+	 */
+	private static JSONArray entitlementpacks = new JSONArray();
+
+	/**
 	 * Creates the necessary objects.
 	 */
 	@BeforeClass
 	public static void setUpClass() {
-		Utility.Create.organization("testOrg");
-		Utility.Create.service("testService");
-		Utility.Create.entitlementpacks(1, "testPack");
-		Utility.Link.entitlementpackToOrg(1, 1);
+		organizations = Utility.Create
+				.organization("OrganizationsNewsTest_org1");
+		if (organizations.length() < 1) {
+			fail("Utility.Create.organization(\"OrganizationsNewsTest_org1\"); did not succeed");
+		}
+
+		services = Utility.Create.service("OrganizationsNewsTest_service1");
+		if (services.length() < 1) {
+			fail("Utility.Create.service(\"OrganizationsNewsTest_service1\"); did not succeed");
+		}
+
+		entitlementpacks = Utility.Create.entitlementpacks(services
+				.getJSONObject(0).getInt("id"), "OrganizationsNewsTest_ep1");
+		if (entitlementpacks.length() < 1) {
+			fail("Utility.Create.entitlementpack(services.getJSONObject(0).getInt(\"id\"), \"OrganizationsNewsTest_ep1\"); did not succeed");
+		}
+
+		Utility.Link.entitlementpackToOrg(organizations.getJSONObject(0)
+				.getInt("id"), entitlementpacks.getJSONObject(0).getInt("id"));
+	}
+
+	/**
+	 * Reverses the setUpClass and the creations during the test.
+	 */
+	@AfterClass
+	public static void tearDownClass() {
+		System.out.println("TearDownClass: "
+				+ OrganizationsNewsTest.class.getSimpleName());
+		for (int i = 0; i < entitlementpacks.length(); i++) {
+			Utility.Remove.entitlementpack(entitlementpacks.getJSONObject(i)
+					.getInt("id"));
+		}
+		for (int i = 0; i < services.length(); i++) {
+			Utility.Remove.service(services.getJSONObject(i).getInt("id"));
+		}
+		for (int i = 0; i < organizations.length(); i++) {
+			Utility.Remove.organization(organizations.getJSONObject(i).getInt(
+					"id"));
+		}
 	}
 
 	/**
@@ -43,18 +93,17 @@ public class OrganizationsNewsTest extends CleanTest {
 	 */
 	@Test
 	public void testOrganizationNews() {
-		JSONArray jsonResponse;
-
+		JSONObject jsonItems;
 		try {
-			jsonResponse = persistent.getResponseJSONArray(
+			jsonItems = persistent.getResponseJSONObject(
 					Const.Api.ORGANIZATIONS_ID_NEWS, BasicCall.REST.GET, null,
-					1, 1);
+					organizations.getJSONObject(0).getInt("id"), 0);
 		} catch (ResponseTypeMismatchException ex) {
 			fail(ex.getFullMessage());
 			return;
 		}
 
-		System.out.println(jsonResponse);
+		JSONArray jsonResponse = jsonItems.getJSONArray("items");
 
 		try {
 			assertEquals(3, jsonResponse.length());

@@ -75,10 +75,11 @@ public class OrganizationGetTest extends NormalTest {
 			return;
 		}
 		
-		JSONArray jsonResponseArray = jsonItems.getJSONArray("items");
+		JSONArray jsonResponse = jsonItems.getJSONArray("items");
+		
 		try {
 			assertEquals(Const.StatusLine.OK, persistent.getStatusLine());
-			JSONAssert.assertEquals(organizations, jsonResponseArray,
+			JSONAssert.assertEquals(organizations, jsonResponse,
 					JSONCompareMode.LENIENT);
 		} catch (AssertionError e) {
 			AssertErrorHandler(e);

@@ -13,7 +13,7 @@ import sztaki.hexaa.ResponseTypeMismatchException;
 import sztaki.hexaa.Utility;
 import sztaki.hexaa.CleanTest;
 
-// ToDo: még nem tudom mi az aminek meg kellene jelennie
+// TODO: még nem tudom mi az aminek meg kellene jelennie
 /**
  *
  */
