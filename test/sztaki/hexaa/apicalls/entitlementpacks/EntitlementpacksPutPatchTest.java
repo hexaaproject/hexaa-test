@@ -1,23 +1,25 @@
 package sztaki.hexaa.apicalls.entitlementpacks;
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.fail;
+
 import org.json.JSONArray;
 import org.json.JSONObject;
-import org.junit.Test;
-import static org.junit.Assert.*;
+import org.junit.AfterClass;
 import org.junit.BeforeClass;
-import org.skyscreamer.jsonassert.JSONAssert;
-import org.skyscreamer.jsonassert.JSONCompareMode;
+import org.junit.Test;
 import org.skyscreamer.jsonassert.JSONParser;
+
 import sztaki.hexaa.BasicCall;
 import sztaki.hexaa.Const;
+import sztaki.hexaa.NormalTest;
 import sztaki.hexaa.ResponseTypeMismatchException;
 import sztaki.hexaa.Utility;
-import sztaki.hexaa.CleanTest;
 
 /**
  * Tests the PUT methods on the /api/entitlementpacks/{id} uri.
  */
-public class EntitlementpacksPutPatchTest extends CleanTest {
+public class EntitlementpacksPutPatchTest extends NormalTest {
 
 	/**
 	 * Print the class name on the output.
@@ -29,6 +31,10 @@ public class EntitlementpacksPutPatchTest extends CleanTest {
 	}
 
 	/**
+	 * JSONArray to store the created services.
+	 */
+	private static JSONArray services = new JSONArray();
+	/**
 	 * JSONArray to store the created entitlementpacks.
 	 */
 	private static JSONArray entitlementpacks = new JSONArray();
@@ -38,9 +44,34 @@ public class EntitlementpacksPutPatchTest extends CleanTest {
 	 */
 	@BeforeClass
 	public static void setUpClass() {
-		Utility.Create.service(new String[] { "testService1" });
-		entitlementpacks = Utility.Create.entitlementpacks(1, new String[] {
-				"testEntitlementpacks1", "testEntitlementpacks2" });
+		services = Utility.Create
+				.service(new String[] { "EntitlementpacksPutPatchTest_service1" });
+		if (services.length() < 1) {
+			fail("Utility.Create.service(new String[] {\"EntitlementpacksPutPatchTest_service1\" }); did not succeed");
+		}
+		entitlementpacks = Utility.Create.entitlementpacks(services
+				.getJSONObject(0).getInt("id"), new String[] {
+				"EntitlementpacksPutPatchTest_ep1",
+				"EntitlementpacksPutPatchTest_ep2" });
+		if (entitlementpacks.length() < 2) {
+			fail("Utility.Create.entitlementpacks(services.getJSONObject(0).getInt(\"id\"), new String[] {\"EntitlementpacksPutPatchTest_ep1\", \"EntitlementpacksPutPatchTest_ep2\" }); did not succeed");
+		}
+	}
+
+	/**
+	 * Reverses the setUpClass and the creations during the test.
+	 */
+	@AfterClass
+	public static void tearDownClass() {
+		System.out.println("TearDownClass: "
+				+ EntitlementpacksPutPatchTest.class.getSimpleName());
+		for (int i = 0; i < entitlementpacks.length(); i++) {
+			Utility.Remove.entitlementpack(entitlementpacks.getJSONObject(i)
+					.getInt("id"));
+		}
+		for (int i = 0; i < services.length(); i++) {
+			Utility.Remove.service(services.getJSONObject(i).getInt("id"));
+		}
 	}
 
 	/**
@@ -49,15 +80,16 @@ public class EntitlementpacksPutPatchTest extends CleanTest {
 	 */
 	@Test
 	public void testEntitlementpacksPut() {
-		JSONObject json = entitlementpacks.getJSONObject(0);
+		JSONObject jsonTemp = new JSONObject();
 
-		json.remove("name");
-		json.put("name", "changedNameByPut");
-		json.remove("id");
+		jsonTemp.put("name", "EntitlementpacksPutPatchTest_ep1_changedbyput");
+		jsonTemp.put("description",
+				entitlementpacks.getJSONObject(0).get("description"));
+		jsonTemp.put("type", entitlementpacks.getJSONObject(0).get("type"));
 
 		persistent.call(Const.Api.ENTITLEMENTPACKS_ID, BasicCall.REST.PUT,
-				json.toString(), 1, 0);
-		System.out.println(persistent.getResponse());
+				jsonTemp.toString(),
+				entitlementpacks.getJSONObject(0).getInt("id"), 0);
 
 		try {
 			assertEquals(Const.StatusLine.NoContent, persistent.getStatusLine());
@@ -68,9 +100,8 @@ public class EntitlementpacksPutPatchTest extends CleanTest {
 		JSONObject jsonResponse;
 		try {
 			jsonResponse = persistent.getResponseJSONObject(
-					Const.Api.ENTITLEMENTPACKS_ID, BasicCall.REST.GET, null, 1,
-					0);
-
+					Const.Api.ENTITLEMENTPACKS_ID, BasicCall.REST.GET, null,
+					entitlementpacks.getJSONObject(0).getInt("id"), 0);
 		} catch (ResponseTypeMismatchException ex) {
 			fail(ex.getFullMessage());
 			return;
@@ -78,9 +109,7 @@ public class EntitlementpacksPutPatchTest extends CleanTest {
 
 		try {
 			assertEquals(Const.StatusLine.OK, persistent.getStatusLine());
-			JSONAssert
-					.assertEquals(json, jsonResponse, JSONCompareMode.LENIENT);
-			assertEquals("changedNameByPut", jsonResponse.getString("name"));
+			assertEquals(jsonTemp.get("name"), jsonResponse.get("name"));
 		} catch (AssertionError e) {
 			AssertErrorHandler(e);
 		}
@@ -92,16 +121,13 @@ public class EntitlementpacksPutPatchTest extends CleanTest {
 	 */
 	@Test
 	public void testEntitlementpacksPatch() {
-		JSONObject json = entitlementpacks.getJSONObject(0);
 
-		json.remove("name");
-		json.put("name", "changedNameByPut");
-
-		JSONObject temp = new JSONObject();
-		temp.put("name", "changedNameByPut");
+		JSONObject jsonTemp = new JSONObject();
+		jsonTemp.put("name", "EntitlementpacksPutPatchTest_ep1_changedbypatch");
 
 		persistent.call(Const.Api.ENTITLEMENTPACKS_ID, BasicCall.REST.PATCH,
-				temp.toString(), 1, 0);
+				jsonTemp.toString(),
+				entitlementpacks.getJSONObject(0).getInt("id"), 0);
 
 		try {
 			assertEquals(Const.StatusLine.NoContent, persistent.getStatusLine());
@@ -111,12 +137,10 @@ public class EntitlementpacksPutPatchTest extends CleanTest {
 
 		JSONObject jsonResponse = (JSONObject) JSONParser.parseJSON(persistent
 				.call(Const.Api.ENTITLEMENTPACKS_ID, BasicCall.REST.GET, null,
-						1, 0));
+						entitlementpacks.getJSONObject(0).getInt("id"), 0));
 		try {
 			assertEquals(Const.StatusLine.OK, persistent.getStatusLine());
-			JSONAssert
-					.assertEquals(json, jsonResponse, JSONCompareMode.LENIENT);
-			assertEquals("changedNameByPut", jsonResponse.getString("name"));
+			assertEquals(jsonTemp.get("name"), jsonResponse.get("name"));
 		} catch (AssertionError e) {
 			AssertErrorHandler(e);
 		}
