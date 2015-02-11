@@ -34,29 +34,25 @@ public class AttributevalueorganizationsServicesGetTest extends NormalTest {
 	}
 
 	/**
-	 * JSONArray to store the created attributevalues.
-	 */
-	public static JSONArray attributevalueorganization = new JSONArray();
-
-	/**
 	 * JSONArray to store the created service.
 	 */
 	public static JSONArray services = new JSONArray();
-
-	/**
-	 * JSONArray to store the created organization.
-	 */
-	public static JSONArray organizations = new JSONArray();
-
 	/**
 	 * JSONArray to store the created entitlementpacks.
 	 */
 	public static JSONArray entitlementpacks = new JSONArray();
-
+	/**
+	 * JSONArray to store the created organization.
+	 */
+	public static JSONArray organizations = new JSONArray();
 	/**
 	 * JSONArray to store the created attributespecs.
 	 */
 	public static JSONArray attributespecs = new JSONArray();
+	/**
+	 * JSONArray to store the created attributevalues.
+	 */
+	public static JSONArray attributevalueorganization = new JSONArray();
 
 	/**
 	 * Creates one attributespecs.
