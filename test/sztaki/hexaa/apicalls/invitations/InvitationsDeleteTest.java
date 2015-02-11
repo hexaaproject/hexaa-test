@@ -46,7 +46,6 @@ public class InvitationsDeleteTest extends NormalTest {
 		if (organizations.length() < 1) {
 			fail("Utility.Create.organization( \"InvitationsDeleteTest_org1\" ); did not succeed");
 		}
-		invitations = new JSONArray();
 		invitations.put(Utility.Create.invitationToOrg(null,
 				"http://hexaa.eduid.hu/hexaaui",
 				"This is a test invitation to organization.", 0, organizations
