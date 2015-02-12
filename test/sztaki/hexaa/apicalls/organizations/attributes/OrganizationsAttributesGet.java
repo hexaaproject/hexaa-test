@@ -106,9 +106,23 @@ public class OrganizationsAttributesGet extends NormalTest {
 						.attributevalueorganization(
 								"AttributevalueorganizationsServicesGetTest_org_value1",
 								attributespecs.getJSONObject(1).getInt("id"),
-								organizations.getJSONObject(0).getInt("id")).getJSONObject(0));
+								organizations.getJSONObject(0).getInt("id"))
+						.getJSONObject(0));
 		if (attributevalueorganization.length() < 2) {
 			fail("Utility.Create.attributevalueorganization( \"AttributevalueorganizationsServicesGetTest_org_value1\",attributespecs.getJSONObject(0).getInt(\"id\"), organizations.getJSONObject(0).getInt(\"id\"), new int[] { services.getJSONObject(1).getInt(\"id\") } ); did not succeed");
+		}
+		
+		for (int i = 0; i < attributevalueorganization.length();i++) {
+			attributevalueorganization.getJSONObject(i).put(
+					"organization_id",
+					attributevalueorganization.getJSONObject(i).remove(
+							"organization"));
+			attributevalueorganization.getJSONObject(i).put(
+					"attribute_spec_id",
+					attributevalueorganization.getJSONObject(i).remove(
+							"attribute_spec"));
+			attributevalueorganization.getJSONObject(i).put("service_ids",
+					attributevalueorganization.getJSONObject(i).remove("services"));
 		}
 	}
 
@@ -191,25 +205,9 @@ public class OrganizationsAttributesGet extends NormalTest {
 
 		JSONArray jsonResponse = jsonItems.getJSONArray("items");
 
-		JSONArray jsonExpected = new JSONArray();
-
-		jsonExpected.put(attributevalueorganization.getJSONObject(0));
-
-		JSONObject expectedObject = new JSONObject();
-		expectedObject.put("organization_id", jsonExpected.getJSONObject(0)
-				.get("organization"));
-		expectedObject.put("attribute_spec_id", jsonExpected.getJSONObject(0)
-				.get("attribute_spec"));
-		expectedObject.put("service_ids",
-				jsonExpected.getJSONObject(0).get("services"));
-		expectedObject.put("value", jsonExpected.getJSONObject(0).get("value"));
-
-		jsonExpected.remove(0);
-		jsonExpected.put(0, expectedObject);
-
 		try {
 			assertEquals(Const.StatusLine.OK, persistent.getStatusLine());
-			JSONAssert.assertEquals(jsonExpected, jsonResponse,
+			JSONAssert.assertEquals(attributevalueorganization.getJSONObject(0), jsonResponse.getJSONObject(0),
 					JSONCompareMode.LENIENT);
 		} catch (AssertionError e) {
 			AssertErrorHandler(e);
@@ -234,28 +232,9 @@ public class OrganizationsAttributesGet extends NormalTest {
 
 		JSONArray jsonResponse = jsonItems.getJSONArray("items");
 
-		JSONArray jsonExpected = new JSONArray();
-		for (int i = 0; i < attributevalueorganization.length(); i++) {
-
-			jsonExpected.put(attributevalueorganization.getJSONObject(i));
-
-			JSONObject expectedObject = new JSONObject();
-			expectedObject.put("organization_id", jsonExpected.getJSONObject(i)
-					.getInt("organization"));
-			expectedObject.put("attribute_spec_id",
-					jsonExpected.getJSONObject(i).getInt("attribute_spec"));
-			expectedObject.put("service_ids", jsonExpected.getJSONObject(i)
-					.get("services"));
-			expectedObject.put("value", jsonExpected.getJSONObject(i)
-					.getString("value"));
-
-			jsonExpected.remove(i);
-			jsonExpected.put(i, expectedObject);
-		}
-
 		try {
 			assertEquals(Const.StatusLine.OK, persistent.getStatusLine());
-			JSONAssert.assertEquals(jsonExpected, jsonResponse,
+			JSONAssert.assertEquals(attributevalueorganization, jsonResponse,
 					JSONCompareMode.LENIENT);
 		} catch (AssertionError e) {
 			AssertErrorHandler(e);

@@ -15,15 +15,15 @@ import org.skyscreamer.jsonassert.JSONAssert;
 import org.skyscreamer.jsonassert.JSONCompareMode;
 
 import sztaki.hexaa.BasicCall;
-import sztaki.hexaa.CleanTest;
 import sztaki.hexaa.Const;
+import sztaki.hexaa.NormalTest;
 import sztaki.hexaa.ResponseTypeMismatchException;
 import sztaki.hexaa.Utility;
 
 /**
  * Tests the PUT method on the /api/services/{id} call.
  */
-public class ServicesPutTest extends CleanTest {
+public class ServicesPutTest extends NormalTest {
 
 	/**
 	 * Print the class name on the output.
