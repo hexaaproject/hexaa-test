@@ -1,17 +1,22 @@
 package sztaki.hexaa.apicalls.organizations.principals;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.fail;
+
+import org.json.JSONArray;
+import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.Test;
+
 import sztaki.hexaa.Const;
+import sztaki.hexaa.NormalTest;
 import sztaki.hexaa.Utility;
-import sztaki.hexaa.CleanTest;
 
 /**
  * Tests the PUT method on the /api/organizations/{id}/members/{pid} and
  * /api/organizations/{id}/member calls.
  */
-public class OrganizationsMembersAddTest extends CleanTest {
+public class OrganizationsMembersAddTest extends NormalTest {
 
 	/**
 	 * Print the class name on the output.
@@ -23,13 +28,47 @@ public class OrganizationsMembersAddTest extends CleanTest {
 	}
 
 	/**
+	 * JSONArray to store the created attributespecs.
+	 */
+	private static JSONArray organizations = new JSONArray();
+	/**
+	 * JSONArray to store the created attributespecs.
+	 */
+	private static JSONArray principals = new JSONArray();
+
+	/**
 	 * Creates one organization and one principal.
 	 */
 	@BeforeClass
 	public static void setUpClass() {
-		Utility.Create.organization("testOrg");
-		Utility.Create.principal(new String[] { "testPrincipal1",
-				"testPrincipal2" });
+		organizations = Utility.Create
+				.organization("OrganizationsMembersAddTest_org1");
+		if (organizations.length() < 1) {
+			fail("Utility.Create.organization(\"OrganizationsMembersAddTest_org1\"); did not succeed");
+		}
+		principals = Utility.Create.principal(new String[] {
+				"OrganizationsMembersAddTest_pri1",
+				"OrganizationsMembersAddTest_pri2" });
+		if (principals.length() < 2) {
+			fail("Utility.Create.principal(new String[] {\"OrganizationsMembersAddTest_pri1\", \"OrganizationsMembersAddTest_pri2\" }); did not succeed");
+		}
+	}
+
+	/**
+	 * Reverses the setUpClass and the creations during the test.
+	 */
+	@AfterClass
+	public static void tearDownClass() {
+		System.out.println("TearDownClass: "
+				+ OrganizationsMembersAddTest.class.getSimpleName());
+		for (int i = 0; i < organizations.length(); i++) {
+			Utility.persistent.isAdmin = true;
+			Utility.Remove.organization(organizations.getJSONObject(i).getInt(
+					"id"));
+		}
+		for (int i = 0; i < principals.length(); i++) {
+			Utility.Remove.principal(principals.getJSONObject(i).getInt("id"));
+		}
 	}
 
 	/**
@@ -38,7 +77,7 @@ public class OrganizationsMembersAddTest extends CleanTest {
 	 */
 	@Test
 	public void testOrganizationMemberAdd() {
-		Utility.Link.memberToOrganization(1, 2);
+		Utility.Link.memberToOrganization(organizations.getJSONObject(0).getInt("id"), principals.getJSONObject(0).getInt("id"));
 
 		try {
 			assertEquals(Const.StatusLine.Created,
@@ -54,7 +93,7 @@ public class OrganizationsMembersAddTest extends CleanTest {
 	 */
 	@Test
 	public void testOrganizationMemberSet() {
-		Utility.Link.memberToOrganizationSet(1, new int[] { 3 });
+		Utility.Link.memberToOrganizationSet(organizations.getJSONObject(0).getInt("id"), new int[] { principals.getJSONObject(1).getInt("id") });
 
 		try {
 			assertEquals(Const.StatusLine.Created,

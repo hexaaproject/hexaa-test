@@ -8,15 +8,15 @@ import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
-import sztaki.hexaa.CleanTest;
 import sztaki.hexaa.Const;
+import sztaki.hexaa.NormalTest;
 import sztaki.hexaa.Utility;
 
 /**
  * Tests the PUT method on the /api/organizations/{id}/managers/{pid} and
  * /api/organizations/{id}/manager calls.
  */
-public class OrganizationsManagersAddTest extends CleanTest {
+public class OrganizationsManagersAddTest extends NormalTest {
 
 	/**
 	 * Print the class name on the output.
