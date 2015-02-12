@@ -1,22 +1,27 @@
 package sztaki.hexaa.apicalls.principals;
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.fail;
+
 import org.json.JSONArray;
 import org.json.JSONObject;
+import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.Test;
-import static org.junit.Assert.*;
 import org.skyscreamer.jsonassert.JSONAssert;
 import org.skyscreamer.jsonassert.JSONCompareMode;
-import org.skyscreamer.jsonassert.JSONParser;
+
 import sztaki.hexaa.BasicCall;
 import sztaki.hexaa.Const;
+import sztaki.hexaa.NormalTest;
+import sztaki.hexaa.ResponseTypeMismatchException;
 import sztaki.hexaa.Utility;
-import sztaki.hexaa.CleanTest;
+import sztaki.hexaa.apicalls.attributespecs.AttributespecsGetTest;
 
 /**
  * Test the GET method on /api/principal/roles call.
  */
-public class PrincipalsRoleGetTest extends CleanTest {
+public class PrincipalsRoleGetTest extends NormalTest {
 
 	/**
 	 * Print the class name on the output.
@@ -28,6 +33,10 @@ public class PrincipalsRoleGetTest extends CleanTest {
 	}
 
 	/**
+	 * JSONArray to store the created organizations.
+	 */
+	private static JSONArray organizations = new JSONArray();
+	/**
 	 * JSONArray to store the created roles.
 	 */
 	private static JSONArray roles = new JSONArray();
@@ -38,12 +47,41 @@ public class PrincipalsRoleGetTest extends CleanTest {
 	 */
 	@BeforeClass
 	public static void setUpClass() {
-		Utility.Create.organization(new String[] { "testOrgForPrincGet" });
-		roles = Utility.Create.role(new String[] { "role1" }, 1);
+		organizations = Utility.Create
+				.organization(new String[] { "PrincipalsRoleGetTest_org1" });
+		if (organizations.length() < 1) {
+			fail("Utility.Create.organization(new String[] {\"PrincipalsRoleGetTest_org1\" }); did not succeed");
+		}
 
-		Utility.Link.memberToOrganization(1, 1);
+		roles = Utility.Create.role(
+				new String[] { "PrincipalsRoleGetTest_role1" }, organizations
+						.getJSONObject(0).getInt("id"));
+		if (roles.length() < 1) {
+			fail("Utility.Create.role(new String[] {\"PrincipalsRoleGetTest_role1\" }, organizations.getJSONObject(0).getInt(\"id\")); did not succeed");
+		}
 
-		Utility.Link.principalToRole(1, new int[] { 1 });
+		Utility.Link.memberToOrganization(organizations.getJSONObject(0)
+				.getInt("id"), Const.HEXAA_ID);
+
+		Utility.Link.principalToRole(roles.getJSONObject(0).getInt("id"),
+				new int[] { Const.HEXAA_ID });
+	}
+	
+	/**
+	 * Reverses the setUpClass and the creations during the test.
+	 */
+	@AfterClass
+	public static void tearDownClass() {
+		System.out.println("TearDownClass: "
+				+ AttributespecsGetTest.class.getSimpleName());
+		for (int i = 0; i < roles.length(); i++) {
+			Utility.Remove.roles(roles.getJSONObject(i)
+					.getInt("id"));
+		}
+		for (int i = 0; i < organizations.length(); i++) {
+			Utility.Remove.organization(organizations.getJSONObject(i)
+					.getInt("id"));
+		}
 	}
 
 	/**
@@ -51,14 +89,16 @@ public class PrincipalsRoleGetTest extends CleanTest {
 	 */
 	@Test
 	public void testPrincipalsRolesGet() {
-		Object response = JSONParser.parseJSON(persistent.call(
-				Const.Api.PRINCIPAL_ROLES, BasicCall.REST.GET));
-
-		if (response instanceof JSONObject) {
-			fail("Not a JSONArray but JSONObject: "
-					+ ((JSONObject) response).toString());
+		JSONObject jsonItems;
+		try {
+			jsonItems = persistent.getResponseJSONObject(
+					Const.Api.PRINCIPAL_ROLES, BasicCall.REST.GET);
+		} catch (ResponseTypeMismatchException ex) {
+			fail(ex.getFullMessage());
+			return;
 		}
-		JSONArray jsonResponse = (JSONArray) response;
+
+		JSONArray jsonResponse = jsonItems.getJSONArray("items");
 
 		try {
 			assertEquals(Const.StatusLine.OK, persistent.getStatusLine());

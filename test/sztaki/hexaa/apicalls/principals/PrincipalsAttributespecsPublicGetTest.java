@@ -4,6 +4,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.fail;
 
 import org.json.JSONArray;
+import org.json.JSONObject;
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.Test;
@@ -34,10 +35,6 @@ public class PrincipalsAttributespecsPublicGetTest extends NormalTest {
 	}
 
 	/**
-	 * JSONArray to store the created attributespecs.
-	 */
-	private static JSONArray attributespecs = new JSONArray();
-	/**
 	 * JSONArray to store the created organizations.
 	 */
 	private static JSONArray organizations = new JSONArray();
@@ -45,6 +42,10 @@ public class PrincipalsAttributespecsPublicGetTest extends NormalTest {
 	 * JSONArray to store the created services.
 	 */
 	private static JSONArray services = new JSONArray();
+	/**
+	 * JSONArray to store the created attributespecs.
+	 */
+	private static JSONArray attributespecs = new JSONArray();
 
 	/**
 	 * Creates one organization, two services and two attributespecs and links
@@ -58,27 +59,20 @@ public class PrincipalsAttributespecsPublicGetTest extends NormalTest {
 		if (organizations.length() < 1) {
 			fail("Utility.Create.organization(new String[] {\"PrincipalsAttributespecsPublicGetTest_org1\" }); did not succeed");
 		}
-		Utility.Link.memberToOrganization(organizations.getJSONObject(0)
-				.getInt("id"), 1);
-
+		
 		services = Utility.Create.service(new String[] {
-				"PrincipalsAttributespecsPublicGetTest_service1",
-				"PrincipalsAttributespecsPublicGetTest_service2" });
-		if (services.length() < 2) {
-			fail("Utility.Create.services(new String[] {\"PrincipalsAttributespecsPublicGetTest_service1\", \"PrincipalsAttributespecsPublicGetTest_service2\" }, \"user\"); did not succeed");
+				"PrincipalsAttributespecsPublicGetTest_service1" });
+		if (services.length() < 1) {
+			fail("Utility.Create.services(new String[] {\"PrincipalsAttributespecsPublicGetTest_service1\" }, \"user\"); did not succeed");
 		}
 
 		attributespecs = Utility.Create.attributespec(new String[] {
-				"PrincipalsAttributespecsPublicGetTest_as1",
-				"PrincipalsAttributespecsPublicGetTest_as2" }, "user");
-		if (attributespecs.length() < 2) {
-			fail("Utility.Create.attributespec(new String[] {\"PrincipalsAttributespecsPublicGetTest_as1\", \"PrincipalsAttributespecsPublicGetTest_as2\" }, \"user\"); did not succeed");
+				"PrincipalsAttributespecsPublicGetTest_as1" }, "user");
+		if (attributespecs.length() < 1) {
+			fail("Utility.Create.attributespec(new String[] {\"PrincipalsAttributespecsPublicGetTest_as1\" }, \"user\"); did not succeed");
 		}
 		Utility.Link.attributespecsPublicToService(services.getJSONObject(0)
 				.getInt("id"), new int[] { attributespecs.getJSONObject(0)
-				.getInt("id") });
-		Utility.Link.attributespecsPrivateToService(services.getJSONObject(1)
-				.getInt("id"), new int[] { attributespecs.getJSONObject(1)
 				.getInt("id") });
 	}
 
@@ -94,8 +88,7 @@ public class PrincipalsAttributespecsPublicGetTest extends NormalTest {
 					.getInt("id"));
 		}
 		for (int i = 0; i < services.length(); i++) {
-			Utility.Remove
-					.service(services.getJSONObject(i).getInt("id"));
+			Utility.Remove.service(services.getJSONObject(i).getInt("id"));
 		}
 		for (int i = 0; i < organizations.length(); i++) {
 			Utility.Remove.organization(organizations.getJSONObject(i).getInt(
@@ -109,22 +102,20 @@ public class PrincipalsAttributespecsPublicGetTest extends NormalTest {
 	 */
 	@Test
 	public void testPrincipalsAttributespecsPublicGet() {
-		JSONArray jsonResponse;
+		JSONObject jsonItems;
 		try {
-			jsonResponse = persistent.getResponseJSONArray(
+			jsonItems = persistent.getResponseJSONObject(
 					Const.Api.PRINCIPAL_ATTRIBUTESPECS, BasicCall.REST.GET);
 		} catch (ResponseTypeMismatchException ex) {
 			fail(ex.getFullMessage());
 			return;
 		}
 
-		JSONArray publicAttributespecs = new JSONArray();
-
-		publicAttributespecs.put(attributespecs.getJSONObject(0));
+		JSONArray jsonResponse = jsonItems.getJSONArray("items");
 
 		try {
 			assertEquals(Const.StatusLine.OK, persistent.getStatusLine());
-			JSONAssert.assertEquals(publicAttributespecs, jsonResponse,
+			JSONAssert.assertEquals(attributespecs, jsonResponse,
 					JSONCompareMode.LENIENT);
 		} catch (AssertionError e) {
 			AssertErrorHandler(e);

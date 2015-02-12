@@ -1,19 +1,22 @@
 package sztaki.hexaa.apicalls.principals;
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.fail;
+
 import org.json.JSONObject;
-import static org.junit.Assert.*;
 import org.junit.BeforeClass;
 import org.junit.Test;
-import org.skyscreamer.jsonassert.JSONParser;
+
 import sztaki.hexaa.Authenticator;
 import sztaki.hexaa.BasicCall;
 import sztaki.hexaa.Const;
-import sztaki.hexaa.CleanTest;
+import sztaki.hexaa.NormalTest;
+import sztaki.hexaa.ResponseTypeMismatchException;
 
 /**
  * Test the GET method on the /api/principal/isadmin call.
  */
-public class PrincipalGetAdminTest extends CleanTest {
+public class PrincipalGetAdminTest extends NormalTest {
 
 	/**
 	 * Print the class name on the output.
@@ -29,8 +32,14 @@ public class PrincipalGetAdminTest extends CleanTest {
 	 */
 	@Test
 	public void testPrincipalGetIsAdmin() {
-		JSONObject jsonResponse = (JSONObject) JSONParser.parseJSON(persistent
-				.call(Const.Api.PRINCIPAL_ISADMIN, BasicCall.REST.GET));
+		JSONObject jsonResponse;
+		try {
+			jsonResponse = persistent.getResponseJSONObject(
+					Const.Api.PRINCIPAL_ISADMIN, BasicCall.REST.GET);
+		} catch (ResponseTypeMismatchException ex) {
+			fail(ex.getFullMessage());
+			return;
+		}
 
 		try {
 			assertEquals(Const.StatusLine.OK, persistent.getStatusLine());
@@ -48,8 +57,14 @@ public class PrincipalGetAdminTest extends CleanTest {
 	public void testPrincipalGetNotAdmin() {
 		new Authenticator().authenticate("admin@is.not");
 
-		JSONObject jsonResponse = (JSONObject) JSONParser.parseJSON(persistent
-				.call(Const.Api.PRINCIPAL_ISADMIN, BasicCall.REST.GET));
+		JSONObject jsonResponse;
+		try {
+			jsonResponse = persistent.getResponseJSONObject(
+					Const.Api.PRINCIPAL_ISADMIN, BasicCall.REST.GET);
+		} catch (ResponseTypeMismatchException ex) {
+			fail(ex.getFullMessage());
+			return;
+		}
 
 		try {
 			assertEquals(Const.StatusLine.OK, persistent.getStatusLine());

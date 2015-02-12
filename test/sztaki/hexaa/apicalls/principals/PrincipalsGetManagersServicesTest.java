@@ -48,7 +48,7 @@ public class PrincipalsGetManagersServicesTest extends NormalTest {
 			fail("Utility.Create.service( \"PrincipalsGetManagersServicesTest_service1\" ); did not succeed");
 		}
 	}
-	
+
 	/**
 	 * Reverses the setUpClass and the creations during the test.
 	 */
@@ -57,8 +57,7 @@ public class PrincipalsGetManagersServicesTest extends NormalTest {
 		System.out.println("TearDownClass: "
 				+ PrincipalsGetManagersServicesTest.class.getSimpleName());
 		for (int i = 0; i < services.length(); i++) {
-			Utility.Remove.service(services.getJSONObject(i)
-					.getInt("id"));
+			Utility.Remove.service(services.getJSONObject(i).getInt("id"));
 		}
 	}
 
@@ -69,8 +68,8 @@ public class PrincipalsGetManagersServicesTest extends NormalTest {
 	public void testPrincipalGetManagerService() {
 		JSONObject jsonItems;
 		try {
-			jsonItems =persistent
-					.getResponseJSONObject(Const.Api.MANAGER_SERVICES, BasicCall.REST.GET);
+			jsonItems = persistent.getResponseJSONObject(
+					Const.Api.MANAGER_SERVICES, BasicCall.REST.GET);
 		} catch (ResponseTypeMismatchException ex) {
 			fail(ex.getFullMessage());
 			return;

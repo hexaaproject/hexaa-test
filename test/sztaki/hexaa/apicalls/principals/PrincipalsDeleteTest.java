@@ -35,7 +35,7 @@ public class PrincipalsDeleteTest extends NormalTest {
 	 */
 	@Before
 	public void setUpMethod() {
-		principals = Utility.Create.principal("PrincipalsDeleteTest_pri1");
+		principals = Utility.Create.principal("PrincipalsDeleteTest_pri_respawn");
 	}
 
 	/**

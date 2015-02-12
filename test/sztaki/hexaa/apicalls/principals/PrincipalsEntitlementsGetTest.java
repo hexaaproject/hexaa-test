@@ -1,22 +1,26 @@
 package sztaki.hexaa.apicalls.principals;
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.fail;
+
 import org.json.JSONArray;
 import org.json.JSONObject;
+import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.Test;
-import static org.junit.Assert.*;
 import org.skyscreamer.jsonassert.JSONAssert;
 import org.skyscreamer.jsonassert.JSONCompareMode;
-import org.skyscreamer.jsonassert.JSONParser;
+
 import sztaki.hexaa.BasicCall;
 import sztaki.hexaa.Const;
+import sztaki.hexaa.NormalTest;
+import sztaki.hexaa.ResponseTypeMismatchException;
 import sztaki.hexaa.Utility;
-import sztaki.hexaa.CleanTest;
 
 /**
  * Test the GET method on the /api/principal/entitlements call.
  */
-public class PrincipalsEntitlementsGetTest extends CleanTest {
+public class PrincipalsEntitlementsGetTest extends NormalTest {
 
 	/**
 	 * Print the class name on the output.
@@ -28,33 +32,106 @@ public class PrincipalsEntitlementsGetTest extends CleanTest {
 	}
 
 	/**
+	 * JSONArray to store the created organizations.
+	 */
+	private static JSONArray organizations = new JSONArray();
+	/**
+	 * JSONArray to store the created services.
+	 */
+	private static JSONArray services = new JSONArray();
+	/**
+	 * JSONArray to store the created roles.
+	 */
+	private static JSONArray roles = new JSONArray();
+	/**
 	 * JSONArray to store the created entitlements.
 	 */
 	private static JSONArray entitlements = new JSONArray();
+	/**
+	 * JSONArray to store the created entitlementpacks.
+	 */
+	private static JSONArray entitlementpacks = new JSONArray();
 
 	/**
-	 * Creates one organization, one role, services, entitlements and packs and
-	 * links them properly.
+	 * Creates one organization, two services, one role, one entitlement and one
+	 * entitlementpack, and links them together.
 	 */
 	@BeforeClass
 	public static void setUpClass() {
-		Utility.Create.organization(new String[] { "testOrgForPrincGet" });
-		Utility.Link.memberToOrganization(1, 1);
+		organizations = Utility.Create
+				.organization(new String[] { "PrincipalsEntitlementsGetTest_org1" });
+		if (organizations.length() < 1) {
+			fail("Utility.Create.organization(new String[] {\"PrincipalsEntitlementsGetTest_org1\" }); did not succeed");
+		}
+		// Utility.Link.memberToOrganization(1, 1);
 
-		Utility.Create.role(new String[] { "role1" }, 1);
+		services = Utility.Create
+				.service(new String[] { "PrincipalsEntitlementsGetTest_service1" });
+		if (services.length() < 1) {
+			fail("Utility.Create.services(new String[] {\"PrincipalsEntitlementsGetTest_service1\" }, \"user\"); did not succeed");
+		}
 
-		Utility.Create.service(new String[] { "testServForPrincGet1",
-				"testServForPrincGet2" });
+		roles = Utility.Create
+				.role(new String[] { "PrincipalsEntitlementsGetTest_role1" },
+						organizations.getJSONObject(0).getInt("id"));
+		if (roles.length() < 1) {
+			fail("Utility.Create.roles(new String[] {\"PrincipalsEntitlementsGetTest_role1\" }, organizations.getJSONObject(0).getInt(\"id\")); did not succeed");
+		}
 
-		entitlements = Utility.Create.entitlements(2,
-				new String[] { "entitlementServ2" });
-		Utility.Create.entitlementpacks(2, new String[] { "entPackServ2" });
+		entitlements = Utility.Create
+				.entitlements(
+						services.getJSONObject(0).getInt("id"),
+						new String[] { "PrincipalsEntitlementsGetTest_entitlements1" });
+		if (entitlements.length() < 1) {
+			fail("Utility.Create.entitlements(services.getJSONObject(0).getInt(\"id\"), new String[] {\"PrincipalsEntitlementsGetTest_entitlements1\" }); did not succeed");
+		}
 
-		Utility.Link.entitlementToPack(1, 1);
-		Utility.Link.entitlementpackToOrg(1, new int[] { 1 });
-		Utility.Link.entitlementsToRole(1, new int[] { 1 });
+		entitlementpacks = Utility.Create.entitlementpacks(services
+				.getJSONObject(0).getInt("id"),
+				new String[] { "PrincipalsEntitlementsGetTest_ep1" });
+		if (entitlementpacks.length() < 1) {
+			fail("Utility.Create.entitlementpacks(services.getJSONObject(0).getInt(\"id\"), new String[] {\"PrincipalsEntitlementsGetTest_ep1\" }); did not succeed");
+		}
 
-		Utility.Link.principalToRole(1, new int[] { 1 });
+		Utility.Link.entitlementToPack(
+				entitlements.getJSONObject(0).getInt("id"), entitlementpacks
+						.getJSONObject(0).getInt("id"));
+		Utility.Link.entitlementpackToOrg(organizations.getJSONObject(0)
+				.getInt("id"), new int[] { entitlementpacks.getJSONObject(0)
+				.getInt("id") });
+		Utility.Link.entitlementsToRole(roles.getJSONObject(0).getInt("id"),
+				new int[] { entitlements.getJSONObject(0).getInt("id") });
+
+		Utility.Link.principalToRole(roles.getJSONObject(0).getInt("id"),
+				new int[] { Const.HEXAA_ID });
+
+	}
+
+	/**
+	 * Reverses the setUpClass and the creations during the test.
+	 */
+	@AfterClass
+	public static void tearDownClass() {
+		System.out.println("TearDownClass: "
+				+ PrincipalsEntitlementsGetTest.class.getSimpleName());
+		for (int i = 0; i < entitlementpacks.length(); i++) {
+			Utility.Remove.entitlementpack(entitlementpacks.getJSONObject(i)
+					.getInt("id"));
+		}
+		for (int i = 0; i < entitlements.length(); i++) {
+			Utility.Remove.entitlement(entitlements.getJSONObject(i).getInt(
+					"id"));
+		}
+		for (int i = 0; i < roles.length(); i++) {
+			Utility.Remove.roles(roles.getJSONObject(i).getInt("id"));
+		}
+		for (int i = 0; i < services.length(); i++) {
+			Utility.Remove.service(services.getJSONObject(i).getInt("id"));
+		}
+		for (int i = 0; i < organizations.length(); i++) {
+			Utility.Remove.organization(organizations.getJSONObject(i).getInt(
+					"id"));
+		}
 	}
 
 	/**
@@ -62,14 +139,16 @@ public class PrincipalsEntitlementsGetTest extends CleanTest {
 	 */
 	@Test
 	public void testPrincipalGetEntitlements() {
-		Object response = JSONParser.parseJSON(persistent.call(
-				Const.Api.PRINCIPAL_ENTITLEMENTS, BasicCall.REST.GET));
-
-		if (response instanceof JSONObject) {
-			fail("Not a JSONArray but JSONObject: "
-					+ ((JSONObject) response).toString());
+		JSONObject jsonItems;
+		try {
+			jsonItems = persistent.getResponseJSONObject(
+					Const.Api.PRINCIPAL_ENTITLEMENTS, BasicCall.REST.GET);
+		} catch (ResponseTypeMismatchException ex) {
+			fail(ex.getFullMessage());
+			return;
 		}
-		JSONArray jsonResponse = (JSONArray) response;
+
+		JSONArray jsonResponse = jsonItems.getJSONArray("items");
 
 		try {
 			assertEquals(Const.StatusLine.OK, persistent.getStatusLine());

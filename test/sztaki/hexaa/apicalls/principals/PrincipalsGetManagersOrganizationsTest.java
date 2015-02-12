@@ -48,7 +48,7 @@ public class PrincipalsGetManagersOrganizationsTest extends NormalTest {
 			fail("Utility.Create.organization( \"PrincipalsManagerGetOrganizationsTest_org1\" ); did not succeed");
 		}
 	}
-	
+
 	/**
 	 * Reverses the setUpClass and the creations during the test.
 	 */
@@ -57,8 +57,8 @@ public class PrincipalsGetManagersOrganizationsTest extends NormalTest {
 		System.out.println("TearDownClass: "
 				+ PrincipalsGetManagersOrganizationsTest.class.getSimpleName());
 		for (int i = 0; i < organizations.length(); i++) {
-			Utility.Remove.organization(organizations.getJSONObject(i)
-					.getInt("id"));
+			Utility.Remove.organization(organizations.getJSONObject(i).getInt(
+					"id"));
 		}
 	}
 
@@ -69,8 +69,8 @@ public class PrincipalsGetManagersOrganizationsTest extends NormalTest {
 	public void testPrincipalGetManagersOrganizations() {
 		JSONObject jsonItems;
 		try {
-			jsonItems =persistent
-					.getResponseJSONObject(Const.Api.MANAGER_ORGANIZATIONS, BasicCall.REST.GET);
+			jsonItems = persistent.getResponseJSONObject(
+					Const.Api.MANAGER_ORGANIZATIONS, BasicCall.REST.GET);
 		} catch (ResponseTypeMismatchException ex) {
 			fail(ex.getFullMessage());
 			return;

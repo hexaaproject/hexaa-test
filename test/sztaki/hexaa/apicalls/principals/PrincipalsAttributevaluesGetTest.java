@@ -1,22 +1,26 @@
 package sztaki.hexaa.apicalls.principals;
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.fail;
+
 import org.json.JSONArray;
 import org.json.JSONObject;
+import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.Test;
-import static org.junit.Assert.*;
 import org.skyscreamer.jsonassert.JSONAssert;
 import org.skyscreamer.jsonassert.JSONCompareMode;
-import org.skyscreamer.jsonassert.JSONParser;
+
 import sztaki.hexaa.BasicCall;
 import sztaki.hexaa.Const;
+import sztaki.hexaa.NormalTest;
+import sztaki.hexaa.ResponseTypeMismatchException;
 import sztaki.hexaa.Utility;
-import sztaki.hexaa.CleanTest;
 
 /**
  * Test the GET method on the /api/principal/attributevalueprincipal call.
  */
-public class PrincipalsAttributevaluesGetTest extends CleanTest {
+public class PrincipalsAttributevaluesGetTest extends NormalTest {
 
 	/**
 	 * Print the class name on the output.
@@ -29,6 +33,14 @@ public class PrincipalsAttributevaluesGetTest extends CleanTest {
 	}
 
 	/**
+	 * JSONArray to store the created services.
+	 */
+	private static JSONArray services = new JSONArray();
+	/**
+	 * JSONArray to store the created attributespecs.
+	 */
+	private static JSONArray attributespecs = new JSONArray();
+	/**
 	 * JSONArray to store the created attributevalues.
 	 */
 	private static JSONArray attributevalue = new JSONArray();
@@ -38,35 +50,51 @@ public class PrincipalsAttributevaluesGetTest extends CleanTest {
 	 */
 	@BeforeClass
 	public static void setUpClass() {
+		services = Utility.Create
+				.service(new String[] { "PrincipalsAttributevaluesGetTest_service1" });
+		if (services.length() < 1) {
+			fail("Utility.Create.services(new String[] {\"PrincipalsAttributevaluesGetTest_service1\" }, \"user\"); did not succeed");
+		}
 
-		Utility.Create.service(new String[] { "testServForPrincGet1" });
-
-		/**
-         */
-		Utility.Create.organization("testOrg");
-		Utility.Create.role("testRole", 1);
-
-		Utility.Create.entitlementpacks(1, new String[] { "testPack" });
-		Utility.Create.entitlements(1, new String[] { "testEntitlement" });
-
-		Utility.Link.entitlementToPack(1, 1);
-		Utility.Link.entitlementpackToOrg(1, 1);
-		Utility.Link.entitlementsToRole(1, new int[] { 1 });
-		Utility.Link.principalToRole(1, 1);
-		/**
-         */
-		Utility.Create.attributespec(new String[] { "testAttrSpec1" }, "user");
-		Utility.Link.attributespecsPublicToService(1, new int[] { 1 });
+		attributespecs = Utility.Create
+				.attributespec(
+						new String[] { "PrincipalsAttributevaluesGetTest_as1" },
+						"user");
+		if (attributespecs.length() < 1) {
+			fail("Utility.Create.attributespec(new String[] {\"PrincipalsAttributevaluesGetTest_as1\" }, \"user\"); did not succeed");
+		}
+		Utility.Link.attributespecsPublicToService(services.getJSONObject(0)
+				.getInt("id"), new int[] { attributespecs.getJSONObject(0)
+				.getInt("id") });
 
 		attributevalue = Utility.Create.attributevalueprincipal(
-				new String[] { "testValue1" }, 1);
-		JSONObject jsonTemp = new JSONObject();
-		jsonTemp.put("attribute_spec_id", attributevalue.getJSONObject(0)
-				.getInt("attribute_spec"));
-		jsonTemp.put("service_ids",
-				attributevalue.getJSONObject(0).get("services"));
-		jsonTemp.put("value", attributevalue.getJSONObject(0).get("value"));
-		attributevalue.put(0, jsonTemp);
+				new String[] { "PrincipalsAttributevaluesGetTest_av1" },
+				attributespecs.getJSONObject(0).getInt("id"));
+
+		attributevalue.getJSONObject(0).put("attribute_spec_id",
+				attributevalue.getJSONObject(0).remove("attribute_spec"));
+		attributevalue.getJSONObject(0).put("service_ids",
+				attributevalue.getJSONObject(0).remove	("services"));
+	}
+
+	/**
+	 * Reverses the setUpClass and the creations during the test.
+	 */
+	@AfterClass
+	public static void tearDownClass() {
+		System.out.println("TearDownClass: "
+				+ PrincipalsAttributevaluesGetTest.class.getSimpleName());
+		for (int i = 0; i < attributevalue.length(); i++) {
+			Utility.Remove.attributevalueprincipal(attributevalue
+					.getJSONObject(i).getInt("id"));
+		}
+		for (int i = 0; i < attributespecs.length(); i++) {
+			Utility.Remove.attributespec(attributespecs.getJSONObject(i)
+					.getInt("id"));
+		}
+		for (int i = 0; i < services.length(); i++) {
+			Utility.Remove.service(services.getJSONObject(i).getInt("id"));
+		}
 	}
 
 	/**
@@ -74,15 +102,17 @@ public class PrincipalsAttributevaluesGetTest extends CleanTest {
 	 */
 	@Test
 	public void testPrincipalGetAttributevalues() {
-		Object response = JSONParser.parseJSON(persistent
-				.call(Const.Api.PRINCIPAL_ATTRIBUTEVALUEPRINCIPAL,
-						BasicCall.REST.GET));
-
-		if (response instanceof JSONObject) {
-			fail("Not a JSONArray but JSONObject: "
-					+ ((JSONObject) response).toString());
+		JSONObject jsonItems;
+		try {
+			jsonItems = persistent.getResponseJSONObject(
+					Const.Api.PRINCIPAL_ATTRIBUTEVALUEPRINCIPAL,
+					BasicCall.REST.GET);
+		} catch (ResponseTypeMismatchException ex) {
+			fail(ex.getFullMessage());
+			return;
 		}
-		JSONArray jsonResponse = (JSONArray) response;
+
+		JSONArray jsonResponse = jsonItems.getJSONArray("items");
 
 		try {
 			assertEquals(Const.StatusLine.OK, persistent.getStatusLine());
@@ -98,16 +128,19 @@ public class PrincipalsAttributevaluesGetTest extends CleanTest {
 	 */
 	@Test
 	public void testPrincipalsGetAttributevalueBySpec() {
-		Object response = JSONParser
-				.parseJSON(persistent
-						.call(Const.Api.PRINCIPALS_ASID_ATTRIBUTESPECS_ATTRIBUTEVALUEPRINCIPALS,
-								BasicCall.REST.GET, null, 1, 1));
-
-		if (response instanceof JSONObject) {
-			fail("Not a JSONArray but JSONObject: "
-					+ ((JSONObject) response).toString());
+		JSONObject jsonItems;
+		try {
+			jsonItems = persistent
+					.getResponseJSONObject(
+							Const.Api.PRINCIPALS_ASID_ATTRIBUTESPECS_ATTRIBUTEVALUEPRINCIPALS,
+							BasicCall.REST.GET, null, 0, attributespecs
+									.getJSONObject(0).getInt("id"));
+		} catch (ResponseTypeMismatchException ex) {
+			fail(ex.getFullMessage());
+			return;
 		}
-		JSONArray jsonResponse = (JSONArray) response;
+
+		JSONArray jsonResponse = jsonItems.getJSONArray("items");
 
 		try {
 			JSONAssert.assertEquals(attributevalue, jsonResponse,
