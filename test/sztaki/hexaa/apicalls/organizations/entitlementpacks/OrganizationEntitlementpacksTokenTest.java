@@ -1,23 +1,25 @@
 package sztaki.hexaa.apicalls.organizations.entitlementpacks;
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.fail;
+
 import org.json.JSONArray;
-import org.junit.Test;
-
-import static org.junit.Assert.*;
-
+import org.json.JSONObject;
+import org.junit.AfterClass;
 import org.junit.BeforeClass;
-import org.skyscreamer.jsonassert.JSONParser;
+import org.junit.Test;
 
 import sztaki.hexaa.BasicCall;
 import sztaki.hexaa.Const;
+import sztaki.hexaa.NormalTest;
+import sztaki.hexaa.ResponseTypeMismatchException;
 import sztaki.hexaa.Utility;
-import sztaki.hexaa.CleanTest;
 
 /**
  * Tests the PUT method on the
  * /api/organizations/{id}/entitlementpacks/{token}/token call.
  */
-public class OrganizationEntitlementpacksTokenTest extends CleanTest {
+public class OrganizationEntitlementpacksTokenTest extends NormalTest {
 
 	/**
 	 * Print the class name on the output.
@@ -33,12 +35,10 @@ public class OrganizationEntitlementpacksTokenTest extends CleanTest {
 	 * JSONArray to store the created services.
 	 */
 	private static JSONArray services = new JSONArray();
-
 	/**
 	 * JSONArray to store the created organizations.
 	 */
 	private static JSONArray organizations = new JSONArray();
-
 	/**
 	 * JSONArray to store the created entitlementpacks.
 	 */
@@ -61,10 +61,31 @@ public class OrganizationEntitlementpacksTokenTest extends CleanTest {
 			fail("Utility.Create.organization(new String[] {\"OrganizationEntitlementpacksTokenTest_org1\" }); did not succeed");
 		}
 
-		entitlementpacks = Utility.Create.entitlementpacksPrivate(1,
+		entitlementpacks = Utility.Create.entitlementpacksPrivate(services
+				.getJSONObject(0).getInt("id"),
 				new String[] { "OrganizationEntitlementpacksTokenTest_ep1" });
 		if (entitlementpacks.length() < 1) {
 			fail("Utility.Create.entitlementpacks(new String[] {\"OrganizationEntitlementpacksTokenTest_ep1\" }); did not succeed");
+		}
+	}
+
+	/**
+	 * Reverses the setUpClass and the creations during the test.
+	 */
+	@AfterClass
+	public static void tearDownClass() {
+		System.out.println("TearDownClass: "
+				+ OrganizationEntitlementpacksTokenTest.class.getSimpleName());
+		for (int i = 0; i < entitlementpacks.length(); i++) {
+			Utility.Remove.entitlementpack(entitlementpacks.getJSONObject(i)
+					.getInt("id"));
+		}
+		for (int i = 0; i < organizations.length(); i++) {
+			Utility.Remove.organization(organizations.getJSONObject(i).getInt(
+					"id"));
+		}
+		for (int i = 0; i < services.length(); i++) {
+			Utility.Remove.service(services.getJSONObject(i).getInt("id"));
 		}
 	}
 
@@ -73,21 +94,29 @@ public class OrganizationEntitlementpacksTokenTest extends CleanTest {
 	 */
 	@Test
 	public void testOrganizationEntitlementpacksToken() {
-		Utility.Link.entitlementpackToOrgByToken(1, 1);
+		Utility.Link.entitlementpackToOrgByToken(organizations.getJSONObject(0)
+				.getInt("id"), entitlementpacks.getJSONObject(0).getInt("id"));
+
+		JSONObject jsonItems;
+		try {
+			jsonItems = persistent.getResponseJSONObject(
+					Const.Api.ORGANIZATIONS_ID_ENTITLEMENTPACKS,
+					BasicCall.REST.GET, null, organizations.getJSONObject(0)
+							.getInt("id"), 0);
+		} catch (ResponseTypeMismatchException ex) {
+			fail(ex.getFullMessage());
+			return;
+		}
+
+		JSONArray jsonResponse = jsonItems.getJSONArray("items");
 
 		try {
 			assertEquals(Const.StatusLine.Created,
 					Utility.persistent.getStatusLine());
-			JSONArray jsonResponseArray = (JSONArray) JSONParser
-					.parseJSON(persistent.call(
-							Const.Api.ORGANIZATIONS_ID_ENTITLEMENTPACKS,
-							BasicCall.REST.GET));
-			assertEquals(
-					1,
-					jsonResponseArray.getJSONObject(0).getInt(
-							"entitlement_pack_id"));
-			assertEquals("accepted", jsonResponseArray.getJSONObject(0)
-					.getString("status"));
+			assertEquals(entitlementpacks.getJSONObject(0).getInt("id"),
+					jsonResponse.getJSONObject(0).getInt("entitlement_pack_id"));
+			assertEquals("accepted",
+					jsonResponse.getJSONObject(0).getString("status"));
 		} catch (AssertionError e) {
 			AssertErrorHandler(e);
 		}

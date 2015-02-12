@@ -3,10 +3,9 @@ package sztaki.hexaa;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+
 import org.json.JSONArray;
 import org.json.JSONObject;
 
@@ -619,7 +618,7 @@ public class Utility {
 				json.put("name", name);
 
 				persistent.call(Const.Api.ORGANIZATIONS, BasicCall.REST.POST,
-						json.toString(), 1, 1);
+						json.toString(), 0, 0);
 				System.out.println(persistent.getHeader("Location"));
 				if (persistent.getHeader("Location") != null) {
 					List<Integer> id = getNumber(persistent.getHeader(
@@ -987,10 +986,8 @@ public class Utility {
 					}
 					json = persistent.getResponseJSONObject(
 							Const.Api.ENTITLEMENTPACKS_ID_TOKEN,
-							BasicCall.REST.GET, null, pack, pack);
+							BasicCall.REST.GET, null, pack, 0);
 				} catch (ResponseTypeMismatchException ex) {
-					Logger.getLogger(Utility.class.getName()).log(Level.SEVERE,
-							null, ex);
 					System.out.println("The call: getResponseJSONObject"
 							+ "(Const.Api.ENTITLEMENTPACKS_ID_TOKEN,"
 							+ " BasicCall.REST.GET, on the id of " + pack
@@ -1002,7 +999,7 @@ public class Utility {
 
 				persistent.call(
 						Const.Api.ORGANIZATIONS_ID_ENTITLEMENTPACKS_TOKEN,
-						BasicCall.REST.PUT);
+						BasicCall.REST.PUT, null, orgId, 0);
 			}
 		}
 
