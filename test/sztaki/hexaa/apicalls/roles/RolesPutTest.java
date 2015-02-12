@@ -94,15 +94,17 @@ public class RolesPutTest extends NormalTest {
 			AssertErrorHandler(e);
 		}
 
-		JSONArray jsonResponse;
+		JSONObject jsonItems;
 		try {
-			jsonResponse = persistent.getResponseJSONArray(
+			jsonItems = persistent.getResponseJSONObject(
 					Const.Api.ORGANIZATIONS_ID_ROLES, BasicCall.REST.GET, null,
 					organizations.getJSONObject(0).getInt("id"), 0);
 		} catch (ResponseTypeMismatchException ex) {
 			fail(ex.getFullMessage());
 			return;
 		}
+
+		JSONArray jsonResponse = jsonItems.getJSONArray("items");
 
 		try {
 			JSONAssert.assertNotEquals(roles, jsonResponse,

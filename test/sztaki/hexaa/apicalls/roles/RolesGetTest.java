@@ -1,25 +1,27 @@
 package sztaki.hexaa.apicalls.roles;
 
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.fail;
+
 import org.json.JSONArray;
 import org.json.JSONObject;
+import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.Test;
-import static org.junit.Assert.*;
 import org.skyscreamer.jsonassert.JSONAssert;
 import org.skyscreamer.jsonassert.JSONCompareMode;
+
 import sztaki.hexaa.BasicCall;
 import sztaki.hexaa.Const;
-import sztaki.hexaa.Utility;
-import sztaki.hexaa.CleanTest;
+import sztaki.hexaa.NormalTest;
 import sztaki.hexaa.ResponseTypeMismatchException;
+import sztaki.hexaa.Utility;
 
 /**
  * Tests the GET method on the /api/organizations/{id}/role and /api/roles/{id}
  * calls.
  */
-public class RolesGetTest extends CleanTest {
+public class RolesGetTest extends NormalTest {
 
 	/**
 	 * Print the class name on the output.
@@ -31,17 +33,47 @@ public class RolesGetTest extends CleanTest {
 	}
 
 	/**
+	 * JSONArray to store the created organizations.
+	 */
+	public static JSONArray organizations = new JSONArray();
+	/**
 	 * JSONArray to store the created roles.
 	 */
 	public static JSONArray roles = new JSONArray();
 
 	/**
-	 * Creates one organization and one role for it.
+	 * Creates one organization and two role.
 	 */
 	@BeforeClass
 	public static void setUpClass() {
-		Utility.Create.organization(new String[] { "testOrgForRole1" });
-		roles = Utility.Create.role(new String[] { "testRole1" }, 1);
+		organizations = Utility.Create
+				.organization(new String[] { "RolesGetTest_org1" });
+		if (organizations.length() < 1) {
+			fail("Utility.Create.organization(new String[] { \"RolesGetTest_org1\" }); did not succeed");
+		}
+
+		roles = Utility.Create.role(new String[] { "RolesGetTest_role1",
+				"RolesGetTest_role2" },
+				organizations.getJSONObject(0).getInt("id"));
+		if (roles.length() < 2) {
+			fail("Utility.Create.role(new String[] { \"RolesGetTest_role1\", \"RolesGetTest_role2\" }, organizations.getJSONObject(0).getInt(\"id\")); did not succeed");
+		}
+	}
+
+	/**
+	 * Reverses the setUpClass and the creations during the test.
+	 */
+	@AfterClass
+	public static void tearDownClass() {
+		System.out.println("TearDownClass: "
+				+ RolesGetTest.class.getSimpleName());
+		for (int i = 0; i < roles.length(); i++) {
+			Utility.Remove.roles(roles.getJSONObject(i).getInt("id"));
+		}
+		for (int i = 0; i < organizations.length(); i++) {
+			Utility.Remove.organization(organizations.getJSONObject(i).getInt(
+					"id"));
+		}
 	}
 
 	/**
@@ -49,16 +81,17 @@ public class RolesGetTest extends CleanTest {
 	 */
 	@Test
 	public void testRolesGet() {
-		JSONArray jsonResponse;
+		JSONObject jsonItems;
 		try {
-			jsonResponse = persistent.getResponseJSONArray(
-					Const.Api.ORGANIZATIONS_ID_ROLES, BasicCall.REST.GET);
+			jsonItems = persistent.getResponseJSONObject(
+					Const.Api.ORGANIZATIONS_ID_ROLES, BasicCall.REST.GET, null,
+					organizations.getJSONObject(0).getInt("id"), 0);
 		} catch (ResponseTypeMismatchException ex) {
-			Logger.getLogger(RolesGetTest.class.getName()).log(Level.SEVERE,
-					null, ex);
 			fail(ex.getFullMessage());
 			return;
 		}
+
+		JSONArray jsonResponse = jsonItems.getJSONArray("items");
 
 		try {
 			assertEquals(Const.StatusLine.OK, persistent.getStatusLine());
@@ -71,10 +104,9 @@ public class RolesGetTest extends CleanTest {
 		JSONObject jsonObjectResponse;
 		try {
 			jsonObjectResponse = persistent.getResponseJSONObject(
-					Const.Api.ROLES_ID, BasicCall.REST.GET);
+					Const.Api.ROLES_ID, BasicCall.REST.GET, null, roles
+							.getJSONObject(0).getInt("id"), 0);
 		} catch (ResponseTypeMismatchException ex) {
-			Logger.getLogger(RolesGetTest.class.getName()).log(Level.SEVERE,
-					null, ex);
 			fail(ex.getFullMessage());
 			return;
 		}
