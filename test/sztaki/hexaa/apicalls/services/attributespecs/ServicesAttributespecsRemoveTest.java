@@ -3,10 +3,8 @@ package sztaki.hexaa.apicalls.services.attributespecs;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.fail;
 
-import java.util.logging.Level;
-import java.util.logging.Logger;
-
 import org.json.JSONArray;
+import org.json.JSONObject;
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.Test;
@@ -96,18 +94,18 @@ public class ServicesAttributespecsRemoveTest extends NormalTest {
 			AssertErrorHandler(e);
 		}
 
-		JSONArray jsonResponse;
-		// Get the service with the 2nd as.
+		JSONObject jsonItems;
 		try {
-			jsonResponse = persistent.getResponseJSONArray(
+			jsonItems = persistent.getResponseJSONObject(
 					Const.Api.SERVICES_ID_ATTRIBUTESPECS, BasicCall.REST.GET,
-					null, services.getJSONObject(0).getInt("id"), 1);
+					null, services.getJSONObject(0).getInt("id"), 0);
 		} catch (ResponseTypeMismatchException ex) {
-			Logger.getLogger(ServicesAttributespecsRemoveTest.class.getName())
-					.log(Level.SEVERE, null, ex);
 			fail(ex.getFullMessage());
 			return;
 		}
+		
+		JSONArray jsonResponse = jsonItems.getJSONArray("items");
+		
 		try {
 			assertEquals(Const.StatusLine.OK, persistent.getStatusLine());
 			assertEquals(attributespecs.getJSONObject(1).getInt("id"),
@@ -116,17 +114,17 @@ public class ServicesAttributespecsRemoveTest extends NormalTest {
 			AssertErrorHandler(e);
 		}
 
-		// Get the service with no as.
 		try {
-			jsonResponse = persistent.getResponseJSONArray(
+			jsonItems = persistent.getResponseJSONObject(
 					Const.Api.SERVICES_ID_ATTRIBUTESPECS, BasicCall.REST.GET,
-					null, services.getJSONObject(1).getInt("id"), 1);
+					null, services.getJSONObject(1).getInt("id"), 0);
 		} catch (ResponseTypeMismatchException ex) {
-			Logger.getLogger(ServicesAttributespecsRemoveTest.class.getName())
-					.log(Level.SEVERE, null, ex);
 			fail(ex.getFullMessage());
 			return;
 		}
+		
+		jsonResponse = jsonItems.getJSONArray("items");
+		
 		try {
 			assertEquals(Const.StatusLine.OK, persistent.getStatusLine());
 			assertEquals(0, jsonResponse.length());

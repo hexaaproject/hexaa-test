@@ -3,10 +3,8 @@ package sztaki.hexaa.apicalls.services.attributespecs;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.fail;
 
-import java.util.logging.Level;
-import java.util.logging.Logger;
-
 import org.json.JSONArray;
+import org.json.JSONObject;
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.Test;
@@ -85,17 +83,18 @@ public class ServicesAttributespecsGetTest extends NormalTest {
 	 */
 	@Test
 	public void testServicesAttributespecsGet() {
-		JSONArray jsonResponse;
+		JSONObject jsonItems;
 		try {
-			jsonResponse = persistent.getResponseJSONArray(
+			jsonItems = persistent.getResponseJSONObject(
 					Const.Api.SERVICES_ID_ATTRIBUTESPECS, BasicCall.REST.GET,
-					null, services.getJSONObject(0).getInt("id"), 1);
+					null, services.getJSONObject(0).getInt("id"), 0);
 		} catch (ResponseTypeMismatchException ex) {
-			Logger.getLogger(ServicesAttributespecsGetTest.class.getName())
-					.log(Level.SEVERE, null, ex);
 			fail(ex.getFullMessage());
 			return;
 		}
+		
+		JSONArray jsonResponse = jsonItems.getJSONArray("items");
+		
 		try {
 			assertEquals(Const.StatusLine.OK, persistent.getStatusLine());
 			assertEquals(2, jsonResponse.length());
@@ -108,15 +107,16 @@ public class ServicesAttributespecsGetTest extends NormalTest {
 		}
 
 		try {
-			jsonResponse = persistent.getResponseJSONArray(
+			jsonItems = persistent.getResponseJSONObject(
 					Const.Api.SERVICES_ID_ATTRIBUTESPECS, BasicCall.REST.GET,
-					null, services.getJSONObject(1).getInt("id"), 1);
+					null, services.getJSONObject(1).getInt("id"), 0);
 		} catch (ResponseTypeMismatchException ex) {
-			Logger.getLogger(ServicesAttributespecsGetTest.class.getName())
-					.log(Level.SEVERE, null, ex);
 			fail(ex.getFullMessage());
 			return;
 		}
+		
+		jsonResponse = jsonItems.getJSONArray("items");
+		
 		try {
 			assertEquals(Const.StatusLine.OK, persistent.getStatusLine());
 			assertEquals(0, jsonResponse.length());

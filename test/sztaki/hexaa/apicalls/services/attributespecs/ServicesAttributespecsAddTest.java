@@ -93,7 +93,6 @@ public class ServicesAttributespecsAddTest extends NormalTest {
 		}
 
 		JSONObject jsonItems;
-		// Get the first services' as-s.
 		try {
 			jsonItems = persistent.getResponseJSONObject(
 					Const.Api.SERVICES_ID_ATTRIBUTESPECS, BasicCall.REST.GET,
@@ -103,15 +102,15 @@ public class ServicesAttributespecsAddTest extends NormalTest {
 			return;
 		}
 
-		JSONArray jsonResponseArray = jsonItems.getJSONArray("items");
+		JSONArray jsonResponse = jsonItems.getJSONArray("items");
 		
 		try {
 			assertEquals(Const.StatusLine.OK, persistent.getStatusLine());
-			JSONAssert.assertNotEquals(new JSONArray(), jsonResponseArray,
+			JSONAssert.assertNotEquals(new JSONArray(), jsonResponse,
 					JSONCompareMode.LENIENT);
 			assertEquals(
 					attributespecs.getJSONObject(1).getInt("id"),
-					jsonResponseArray.getJSONObject(0).getInt(
+					jsonResponse.getJSONObject(0).getInt(
 							"attribute_spec_id"));
 		} catch (AssertionError e) {
 			AssertErrorHandler(e);
