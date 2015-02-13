@@ -1,23 +1,27 @@
 package sztaki.hexaa.apicalls.services.managers;
 
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import org.json.JSONArray;
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.fail;
+
+import org.json.JSONArray;
+import org.json.JSONObject;
+import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import org.skyscreamer.jsonassert.JSONAssert;
 import org.skyscreamer.jsonassert.JSONCompareMode;
+
 import sztaki.hexaa.BasicCall;
 import sztaki.hexaa.Const;
-import sztaki.hexaa.Utility;
-import sztaki.hexaa.CleanTest;
+import sztaki.hexaa.NormalTest;
 import sztaki.hexaa.ResponseTypeMismatchException;
+import sztaki.hexaa.Utility;
 
 /**
- * Tests the GET method on the /api/services/{id}/managers call.
+ * Tests the GET method on the /api/services/{id}/managers and
+ * /api/services/{id}/manager/count calls.
  */
-public class ServicesManagersGetTest extends CleanTest {
+public class ServicesManagersGetTest extends NormalTest {
 
 	/**
 	 * Print the class name on the output.
@@ -29,27 +33,72 @@ public class ServicesManagersGetTest extends CleanTest {
 	}
 
 	/**
+	 * JSONArray to store services.
+	 */
+	public static JSONArray services = new JSONArray();
+	/**
 	 * JSONArray to store managers.
 	 */
 	public static JSONArray managers = new JSONArray();
 
 	/**
-	 * Creates two services and two managers and link the two managers to the
-	 * first service.
+	 * Creates two services and two principal.
 	 */
 	@BeforeClass
 	public static void setUpClass() {
-		Utility.Create.service(new String[] { "testService1", "testService2" });
-		managers = Utility.Create.principal(new String[] { "principalTest1",
-				"principalTest2" });
-		try {
-			managers.put(persistent.getResponseJSONObject(
-					Const.Api.PRINCIPAL_SELF, BasicCall.REST.GET));
-		} catch (ResponseTypeMismatchException ex) {
-			Logger.getLogger(ServicesManagersGetTest.class.getName()).log(
-					Level.SEVERE, null, ex);
+		services = Utility.Create
+				.service(new String[] { "ServicesManagersGetTest_service1" });
+		if (services.length() < 1) {
+			fail("Utility.Create.service(new String[] { \"ServicesManagersGetTest_service1\" }); did not succeed");
 		}
-		Utility.Link.managersToService(1, new int[] { 2, 3 });
+
+		managers = Utility.Create
+				.principal(new String[] { "ServicesManagersGetTest_pri1",
+						"ServicesManagersGetTest_pri2" });
+		if (managers.length() < 2) {
+			fail("Utility.Create.principal(new String[] { \"ServicesManagersGetTest_pri1\", \"ServicesManagersGetTest_pri2\" }); did not succeed");
+		}
+
+		Utility.Link.managersToService(services.getJSONObject(0).getInt("id"),
+				managers.getJSONObject(0).getInt("id"));
+	}
+
+	/**
+	 * Reverses the setUpClass and the creations during the test.
+	 */
+	@AfterClass
+	public static void tearDownClass() {
+		System.out.println("TearDownClass: "
+				+ ServicesManagersGetTest.class.getSimpleName());
+		for (int i = 0; i < managers.length(); i++) {
+			Utility.Remove.principal(managers.getJSONObject(i).getInt("id"));
+		}
+		for (int i = 0; i < services.length(); i++) {
+			Utility.persistent.isAdmin = true;
+			Utility.Remove.service(services.getJSONObject(i).getInt("id"));
+		}
+	}
+
+	/**
+	 * Get the manager count.
+	 */
+	@Test
+	public void testServicesManagersCount() {
+		JSONObject jsonResponse;
+		try {
+			jsonResponse = persistent.getResponseJSONObject(
+					Const.Api.SERVICES_ID_MANAGER_COUNT, BasicCall.REST.GET,
+					null, services.getJSONObject(0).getInt("id"), 0);
+		} catch (ResponseTypeMismatchException ex) {
+			fail(ex.getFullMessage());
+			return;
+		}
+
+		try {
+			assertEquals(2, jsonResponse.get("count"));
+		} catch (AssertionError e) {
+			AssertErrorHandler(e);
+		}
 	}
 
 	/**
@@ -57,39 +106,24 @@ public class ServicesManagersGetTest extends CleanTest {
 	 */
 	@Test
 	public void testServicesManagersGet() {
-		JSONArray jsonResponse;
+		JSONObject jsonItems;
 		try {
-			jsonResponse = persistent.getResponseJSONArray(
+			jsonItems = persistent.getResponseJSONObject(
 					Const.Api.SERVICES_ID_MANAGERS, BasicCall.REST.GET, null,
-					1, 1);
+					services.getJSONObject(0).getInt("id"), 0);
 		} catch (ResponseTypeMismatchException ex) {
-			Logger.getLogger(ServicesManagersGetTest.class.getName()).log(
-					Level.SEVERE, null, ex);
 			fail(ex.getFullMessage());
 			return;
-		}
-		try {
-			JSONAssert.assertEquals(managers, jsonResponse,
-					JSONCompareMode.LENIENT);
-		} catch (AssertionError e) {
-			AssertErrorHandler(e);
 		}
 
+		JSONArray jsonResponse = jsonItems.getJSONArray("items");
+
 		try {
-			jsonResponse = persistent.getResponseJSONArray(
-					Const.Api.SERVICES_ID_MANAGERS, BasicCall.REST.GET, null,
-					2, 2);
-		} catch (ResponseTypeMismatchException ex) {
-			Logger.getLogger(ServicesManagersGetTest.class.getName()).log(
-					Level.SEVERE, null, ex);
-			fail(ex.getFullMessage());
-			return;
-		}
-		try {
-			JSONAssert.assertEquals(managers.getJSONObject(2),
-					jsonResponse.getJSONObject(0), JSONCompareMode.LENIENT);
+			JSONAssert.assertEquals(managers.getJSONObject(0),
+					jsonResponse.getJSONObject(1), JSONCompareMode.LENIENT);
 		} catch (AssertionError e) {
 			AssertErrorHandler(e);
 		}
 	}
+
 }

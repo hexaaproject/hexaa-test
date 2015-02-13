@@ -1,21 +1,24 @@
 package sztaki.hexaa.apicalls.services.organizations;
 
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.fail;
+
 import org.json.JSONArray;
+import org.json.JSONObject;
+import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.Test;
-import static org.junit.Assert.*;
+
 import sztaki.hexaa.BasicCall;
 import sztaki.hexaa.Const;
-import sztaki.hexaa.Utility;
-import sztaki.hexaa.CleanTest;
+import sztaki.hexaa.NormalTest;
 import sztaki.hexaa.ResponseTypeMismatchException;
+import sztaki.hexaa.Utility;
 
 /**
  * Tests the GET method on the /api/services/{id}/organization call.
  */
-public class ServicesOrganizationsGetTest extends CleanTest {
+public class ServicesOrganizationsGetTest extends NormalTest {
 
 	/**
 	 * Print the class name on the output.
@@ -27,9 +30,17 @@ public class ServicesOrganizationsGetTest extends CleanTest {
 	}
 
 	/**
-	 * JSONArray to store managers.
+	 * JSONArray to store services.
+	 */
+	public static JSONArray services = new JSONArray();
+	/**
+	 * JSONArray to store organizations.
 	 */
 	public static JSONArray organizations = new JSONArray();
+	/**
+	 * JSONArray to store entitlementpacks.
+	 */
+	public static JSONArray entitlementpacks = new JSONArray();
 
 	/**
 	 * Creates two services an organization an entitlementpack and links the
@@ -37,11 +48,49 @@ public class ServicesOrganizationsGetTest extends CleanTest {
 	 */
 	@BeforeClass
 	public static void setUpClass() {
-		Utility.Create.service(new String[] { "testService1", "testService2" });
+		services = Utility.Create.service(new String[] {
+				"ServicesOrganizationsGetTest_service1",
+				"ServicesOrganizationsGetTest_service2" });
+		if (services.length() < 2) {
+			fail("Utility.Create.service(new String[] { \"ServicesOrganizationsGetTest_service1\", \"ServicesOrganizationsGetTest_service2\" }); did not succeed");
+		}
+
 		organizations = Utility.Create
-				.organization(new String[] { "testOrgSrv1" });
-		Utility.Create.entitlementpacks(1, new String[] { "testPack1" });
-		Utility.Link.entitlementpackToOrg(1, new int[] { 1 });
+				.organization(new String[] { "ServicesOrganizationsGetTest_org1" });
+		if (services.length() < 2) {
+			fail("Utility.Create.organization(new String[] { \"ServicesOrganizationsGetTest_org1\" }); did not succeed");
+		}
+
+		entitlementpacks = Utility.Create.entitlementpacks(services
+				.getJSONObject(0).getInt("id"),
+				new String[] { "ServicesOrganizationsGetTest_ep1" });
+		if (services.length() < 2) {
+			fail("Utility.Create.entitlementpacks(services.getJSONObject(0).getInt(\"id\"), new String[] { \"ServicesOrganizationsGetTest_ep1\" }); did not succeed");
+		}
+
+		Utility.Link.entitlementpackToOrg(organizations.getJSONObject(0)
+				.getInt("id"), new int[] { entitlementpacks.getJSONObject(0)
+				.getInt("id") });
+	}
+
+	/**
+	 * Reverses the setUpClass and the creations during the test.
+	 */
+	@AfterClass
+	public static void tearDownClass() {
+		System.out.println("TearDownClass: "
+				+ ServicesOrganizationsGetTest.class.getSimpleName());
+		for (int i = 0; i < entitlementpacks.length(); i++) {
+			Utility.Remove.entitlementpack(entitlementpacks.getJSONObject(i)
+					.getInt("id"));
+		}
+		for (int i = 0; i < organizations.length(); i++) {
+			Utility.Remove.organization(organizations.getJSONObject(i).getInt(
+					"id"));
+		}
+		for (int i = 0; i < services.length(); i++) {
+			Utility.Remove.service(services.getJSONObject(i).getInt("id"));
+		}
 	}
 
 	/**
@@ -49,23 +98,22 @@ public class ServicesOrganizationsGetTest extends CleanTest {
 	 */
 	@Test
 	public void testServicesOrganizationsGet() {
-		JSONArray jsonArrayResponse;
+		JSONObject jsonItems;
 		try {
-			jsonArrayResponse = persistent.getResponseJSONArray(
-					Const.Api.SERVICES_ID_ORGANIZATIONS, BasicCall.REST.GET);
+			jsonItems = persistent.getResponseJSONObject(
+					Const.Api.SERVICES_ID_ORGANIZATIONS, BasicCall.REST.GET,
+					null, services.getJSONObject(0).getInt("id"), 0);
 		} catch (ResponseTypeMismatchException ex) {
-			Logger.getLogger(ServicesOrganizationsGetTest.class.getName()).log(
-					Level.SEVERE, null, ex);
 			fail(ex.getFullMessage());
 			return;
 		}
 
+		JSONArray jsonResponse = jsonItems.getJSONArray("items");
+
 		try {
-			assertEquals(1, jsonArrayResponse.length());
-			assertEquals(
-					1,
-					jsonArrayResponse.getJSONObject(
-							jsonArrayResponse.length() - 1).getInt("id"));
+			assertEquals(1, jsonResponse.length());
+			assertEquals(organizations.getJSONObject(0).getInt("id"),
+					jsonResponse.getJSONObject(0).getInt("id"));
 		} catch (AssertionError e) {
 			AssertErrorHandler(e);
 		}

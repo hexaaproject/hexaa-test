@@ -38,8 +38,7 @@ import sztaki.hexaa.BasicTestSuite;
 		sztaki.hexaa.apicalls.services.attributespecs.ServicesAttributespecsSetTest.class,
 		sztaki.hexaa.apicalls.services.organizations.ServicesOrganizationsGetTest.class,
 		sztaki.hexaa.apicalls.services.managers.ServicesManagersRemoveTest.class,
-		sztaki.hexaa.apicalls.services.managers.ServicesManagersGetTest.class,
-		sztaki.hexaa.apicalls.services.managers.ServicesManagersCountTest.class, })
+		sztaki.hexaa.apicalls.services.managers.ServicesManagersGetTest.class, })
 public class Level4TestSuite extends BasicTestSuite {
 
 }

@@ -1,23 +1,26 @@
 package sztaki.hexaa.apicalls.services.managers;
 
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.fail;
+
 import org.json.JSONArray;
+import org.json.JSONObject;
+import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.Test;
-import static org.junit.Assert.*;
 import org.skyscreamer.jsonassert.JSONAssert;
 import org.skyscreamer.jsonassert.JSONCompareMode;
+
 import sztaki.hexaa.BasicCall;
 import sztaki.hexaa.Const;
+import sztaki.hexaa.NormalTest;
 import sztaki.hexaa.ResponseTypeMismatchException;
 import sztaki.hexaa.Utility;
-import sztaki.hexaa.CleanTest;
 
 /**
  * Tests the PUT method on the /api/services/{id}/managers/{pid} call.
  */
-public class ServicesManagersAddTest extends CleanTest {
+public class ServicesManagersAddTest extends NormalTest {
 
 	/**
 	 * Print the class name on the output.
@@ -29,6 +32,10 @@ public class ServicesManagersAddTest extends CleanTest {
 	}
 
 	/**
+	 * JSONArray to store services.
+	 */
+	public static JSONArray services = new JSONArray();
+	/**
 	 * JSONArray to store managers.
 	 */
 	public static JSONArray managers = new JSONArray();
@@ -38,15 +45,33 @@ public class ServicesManagersAddTest extends CleanTest {
 	 */
 	@BeforeClass
 	public static void setUpClass() {
-		Utility.Create.service(new String[] { "testService1", "testService2" });
-		managers = Utility.Create.principal(new String[] { "principalTest1",
-				"principalTest2" });
-		try {
-			managers.put(persistent.getResponseJSONObject(
-					Const.Api.PRINCIPAL_SELF, BasicCall.REST.GET));
-		} catch (ResponseTypeMismatchException ex) {
-			Logger.getLogger(ServicesManagersAddTest.class.getName()).log(
-					Level.SEVERE, null, ex);
+		services = Utility.Create
+				.service(new String[] { "ServicesManagersAddTest_service1" });
+		if (services.length() < 1) {
+			fail("Utility.Create.service(new String[] { \"ServicesManagersAddTest_service1\" }); did not succeed");
+		}
+
+		managers = Utility.Create
+				.principal(new String[] { "ServicesManagersAddTest_pri1",
+						"ServicesManagersAddTest_pri2" });
+		if (managers.length() < 2) {
+			fail("Utility.Create.principal(new String[] { \"ServicesManagersAddTest_pri1\", \"ServicesManagersAddTest_pri2\" }); did not succeed");
+		}
+	}
+
+	/**
+	 * Reverses the setUpClass and the creations during the test.
+	 */
+	@AfterClass
+	public static void tearDownClass() {
+		System.out.println("TearDownClass: "
+				+ ServicesManagersAddTest.class.getSimpleName());
+		for (int i = 0; i < managers.length(); i++) {
+			Utility.Remove.principal(managers.getJSONObject(i).getInt("id"));
+		}
+		for (int i = 0; i < services.length(); i++) {
+			Utility.persistent.isAdmin = true;
+			Utility.Remove.service(services.getJSONObject(i).getInt("id"));
 		}
 	}
 
@@ -55,8 +80,8 @@ public class ServicesManagersAddTest extends CleanTest {
 	 */
 	@Test
 	public void testServicesManagersAdd() {
-		// PUT the first manager.
-		Utility.Link.managersToService(1, 2);
+		Utility.Link.managersToService(services.getJSONObject(0).getInt("id"),
+				managers.getJSONObject(0).getInt("id"));
 
 		try {
 			assertEquals(Const.StatusLine.Created,
@@ -66,7 +91,8 @@ public class ServicesManagersAddTest extends CleanTest {
 		}
 
 		// PUT the second manager
-		Utility.Link.managersToService(1, 3);
+		Utility.Link.managersToService(services.getJSONObject(0).getInt("id"),
+				managers.getJSONObject(0).getInt("id"));
 
 		try {
 			assertEquals(Const.StatusLine.Created,
@@ -76,19 +102,21 @@ public class ServicesManagersAddTest extends CleanTest {
 		}
 
 		// GET the managers of the service
-		JSONArray jsonResponseArray;
+		JSONObject jsonItems;
 		try {
-			jsonResponseArray = persistent.getResponseJSONArray(
-					Const.Api.SERVICES_ID_MANAGERS, BasicCall.REST.GET);
+			jsonItems = persistent.getResponseJSONObject(
+					Const.Api.SERVICES_ID_MANAGERS, BasicCall.REST.GET, null,
+					services.getJSONObject(0).getInt("id"), 0);
 		} catch (ResponseTypeMismatchException ex) {
-			Logger.getLogger(ServicesManagersAddTest.class.getName()).log(
-					Level.SEVERE, null, ex);
 			fail(ex.getFullMessage());
 			return;
 		}
 
+		JSONArray jsonResponse = jsonItems.getJSONArray("items");
+
 		try {
-			JSONAssert.assertEquals(managers, jsonResponseArray,
+			assertEquals(Const.StatusLine.OK, persistent.getStatusLine());
+			JSONAssert.assertEquals(managers.getJSONObject(0), jsonResponse.getJSONObject(1),
 					JSONCompareMode.LENIENT);
 		} catch (AssertionError e) {
 			AssertErrorHandler(e);

@@ -1,23 +1,24 @@
 package sztaki.hexaa.apicalls.services.managers;
 
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.fail;
+
 import org.json.JSONArray;
+import org.json.JSONObject;
+import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.Test;
-import static org.junit.Assert.*;
-import org.skyscreamer.jsonassert.JSONAssert;
-import org.skyscreamer.jsonassert.JSONCompareMode;
+
 import sztaki.hexaa.BasicCall;
 import sztaki.hexaa.Const;
+import sztaki.hexaa.NormalTest;
 import sztaki.hexaa.ResponseTypeMismatchException;
 import sztaki.hexaa.Utility;
-import sztaki.hexaa.CleanTest;
 
 /**
  * Tests the DELETE method on the /api/services/{id}/managers call.
  */
-public class ServicesManagersRemoveTest extends CleanTest {
+public class ServicesManagersRemoveTest extends NormalTest {
 
 	/**
 	 * Print the class name on the output.
@@ -29,27 +30,50 @@ public class ServicesManagersRemoveTest extends CleanTest {
 	}
 
 	/**
+	 * JSONArray to store services.
+	 */
+	public static JSONArray services = new JSONArray();
+	/**
 	 * JSONArray to store managers.
 	 */
 	public static JSONArray managers = new JSONArray();
 
 	/**
-	 * Creates two services and two managers and link the two managers to the
-	 * first service.
+	 * Creates two services and two principal.
 	 */
 	@BeforeClass
 	public static void setUpClass() {
-		Utility.Create.service(new String[] { "testService1", "testService2" });
-		managers = Utility.Create.principal(new String[] { "principalTest1",
-				"principalTest2" });
-		try {
-			managers.put(persistent.getResponseJSONObject(
-					Const.Api.PRINCIPAL_SELF, BasicCall.REST.GET));
-		} catch (ResponseTypeMismatchException ex) {
-			Logger.getLogger(ServicesManagersRemoveTest.class.getName()).log(
-					Level.SEVERE, null, ex);
+		services = Utility.Create
+				.service(new String[] { "ServicesManagersRemoveTest_service1" });
+		if (services.length() < 1) {
+			fail("Utility.Create.service(new String[] { \"ServicesManagersRemoveTest_service1\" }); did not succeed");
 		}
-		Utility.Link.managersToService(1, new int[] { 2, 3 });
+
+		managers = Utility.Create
+				.principal(new String[] { "ServicesManagersRemoveTest_pri1",
+						"ServicesManagersRemoveTest_pri2" });
+		if (managers.length() < 2) {
+			fail("Utility.Create.principal(new String[] { \"ServicesManagersRemoveTest_pri1\", \"ServicesManagersRemoveTest_pri2\" }); did not succeed");
+		}
+
+		Utility.Link.managersToService(services.getJSONObject(0).getInt("id"),
+				managers.getJSONObject(0).getInt("id"));
+	}
+
+	/**
+	 * Reverses the setUpClass and the creations during the test.
+	 */
+	@AfterClass
+	public static void tearDownClass() {
+		System.out.println("TearDownClass: "
+				+ ServicesManagersRemoveTest.class.getSimpleName());
+		for (int i = 0; i < managers.length(); i++) {
+			Utility.Remove.principal(managers.getJSONObject(i).getInt("id"));
+		}
+		for (int i = 0; i < services.length(); i++) {
+			Utility.persistent.isAdmin = true;
+			Utility.Remove.service(services.getJSONObject(i).getInt("id"));
+		}
 	}
 
 	/**
@@ -59,8 +83,7 @@ public class ServicesManagersRemoveTest extends CleanTest {
 	@Test
 	public void testServicesManagersRemove() {
 		// DELETE call
-		Utility.Remove.managerFromService(1, 2);
-		managers.remove(0);
+		Utility.Remove.managerFromService(services.getJSONObject(0).getInt("id"), managers.getJSONObject(0).getInt("id"));
 
 		try {
 			assertEquals(Const.StatusLine.NoContent,
@@ -68,21 +91,21 @@ public class ServicesManagersRemoveTest extends CleanTest {
 		} catch (AssertionError e) {
 			AssertErrorHandler(e);
 		}
-		JSONArray jsonResponse;
+
+		JSONObject jsonItems;
 		try {
-			jsonResponse = persistent.getResponseJSONArray(
+			jsonItems = persistent.getResponseJSONObject(
 					Const.Api.SERVICES_ID_MANAGERS, BasicCall.REST.GET, null,
-					1, 1);
+					services.getJSONObject(0).getInt("id"), 0);
 		} catch (ResponseTypeMismatchException ex) {
-			Logger.getLogger(ServicesManagersRemoveTest.class.getName()).log(
-					Level.SEVERE, null, ex);
 			fail(ex.getFullMessage());
 			return;
 		}
 
+		JSONArray jsonResponse = jsonItems.getJSONArray("items");
+
 		try {
-			JSONAssert.assertEquals(managers, jsonResponse,
-					JSONCompareMode.LENIENT);
+			assertEquals(Const.HEXAA_ID, jsonResponse.getJSONObject(0).getInt("id"));
 		} catch (AssertionError e) {
 			AssertErrorHandler(e);
 		}
