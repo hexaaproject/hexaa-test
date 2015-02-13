@@ -38,7 +38,6 @@ public class CoverageChecker {
 		alreadyCalled = new ArrayList<String>();
 
 		File notcalled = new File("apicalllist.txt");
-		File called = new File("apicalledlist.txt");
 
 		if (!notcalled.exists()) {
 			try {
@@ -53,9 +52,7 @@ public class CoverageChecker {
 			}
 		}
 
-		if (called.exists()) {
-			called.delete();
-		}
+		File called = new File("apicalledlist.txt");
 		if (!called.exists()) {
 			try {
 				notcalled.createNewFile();

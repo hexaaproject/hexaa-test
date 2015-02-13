@@ -849,7 +849,7 @@ public class BasicCall {
 //			CoverageChecker.checkout(restCall + " " + path.substring(8)
 //					+ ".{_format} ");
 //		} else {
-			CoverageChecker.checkout(restCall + " " + path);
+			CoverageChecker.checkout(restCall + " " + path + " ");
 //		}
 
 		// Resets the local variables in case the class is used in a static
