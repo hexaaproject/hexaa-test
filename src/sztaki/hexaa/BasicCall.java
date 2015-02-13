@@ -844,13 +844,13 @@ public class BasicCall {
 	 */
 	protected String callSwitch(REST restCall) {
 		// Checks the path to make sure it's correct, and registers it in
-		// CoverageChecker
-		if (path.startsWith("/app.php")) {
-			CoverageChecker.checkout(restCall + " " + path.substring(8)
-					+ ".{_format} ");
-		} else {
+//		// CoverageChecker
+//		if (path.startsWith("/app.php")) {
+//			CoverageChecker.checkout(restCall + " " + path.substring(8)
+//					+ ".{_format} ");
+//		} else {
 			CoverageChecker.checkout(restCall + " " + path);
-		}
+//		}
 
 		// Resets the local variables in case the class is used in a static
 		// instance
