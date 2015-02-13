@@ -10,8 +10,6 @@ import java.nio.file.FileSystems;
 import java.nio.file.Files;
 import java.util.ArrayList;
 import java.util.Scanner;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
  * Manages the apicalllist.txt file, so after test suites run only the not yet
@@ -23,45 +21,59 @@ public class CoverageChecker {
 	 * Self reference for singleton usage.
 	 */
 	private static CoverageChecker coverageChecker = null;
-
 	/**
 	 * Storing the strings for faster processing.
 	 */
 	private static ArrayList<String> remainingCalls = null;
+	/**
+	 * Storing the strings for faster processing.
+	 */
+	private static ArrayList<String> alreadyCalled = null;
 
 	/**
 	 * Default constructor, can not be called from the outside.
 	 */
 	protected CoverageChecker() {
 		remainingCalls = new ArrayList<>();
+		alreadyCalled = new ArrayList<String>();
 
-		File f = new File("apicalllist.txt");
-//		System.out.println(f.exists());
+		File notcalled = new File("apicalllist.txt");
+		File called = new File("apicalledlist.txt");
 
-		if (!f.exists()) {
+		if (!notcalled.exists()) {
 			try {
-				f.createNewFile();
-				OutputStream out = new FileOutputStream(f);
+				notcalled.createNewFile();
+				OutputStream out = new FileOutputStream(notcalled);
 				Files.copy(
 						FileSystems.getDefault()
 								.getPath("apicalllist_dist.txt"), out);
 			} catch (IOException ex) {
-				Logger.getLogger(CoverageChecker.class.getName()).log(
-						Level.SEVERE, null, ex);
+				// TODO IOException
+				return;
+			}
+		}
+
+		if (called.exists()) {
+			called.delete();
+		}
+		if (!called.exists()) {
+			try {
+				notcalled.createNewFile();
+			} catch (IOException ex) {
+				// TODO IOException
 				return;
 			}
 		}
 
 		Scanner s;
 		try {
-			s = new Scanner(f);
+			s = new Scanner(notcalled);
 			while (s.hasNextLine()) {
 				remainingCalls.add(s.nextLine());
 			}
 			s.close();
 		} catch (FileNotFoundException ex) {
-			Logger.getLogger(CoverageChecker.class.getName()).log(Level.SEVERE,
-					null, ex);
+			// TODO FileNotFoundException
 		}
 	}
 
@@ -101,7 +113,6 @@ public class CoverageChecker {
 		Init();
 
 		boolean rewriteNeeded = remainingCalls.remove(s);
-		// System.out.println(s + " " + rewriteNeeded);
 
 		if (rewriteNeeded == true) {
 			File f = new File("apicalllist.txt");
@@ -113,10 +124,24 @@ public class CoverageChecker {
 				}
 				fw.close();
 			} catch (IOException ex) {
-				Logger.getLogger(CoverageChecker.class.getName()).log(
-						Level.SEVERE, null, ex);
+				// TODO IOException
 			}
 		}
+		
+		if (!alreadyCalled.contains(s)) {
+			alreadyCalled.add(s);
+
+			File f = new File("apicalledlist.txt");
+			FileWriter fw = null;
+			try {
+				fw = new FileWriter(f, true);
+				fw.write(s + "\n");
+				fw.close();
+			} catch (IOException ex) {
+				// TODO IOException
+			}
+		}
+		
 	}
 
 	/**
