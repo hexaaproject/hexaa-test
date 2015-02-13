@@ -122,7 +122,7 @@ public class OrganizationEntitlementpacksLinkRequestTest extends NormalTest {
 
 		try {
 			assertEquals(entitlementpacks.getJSONObject(0).getInt("id"),
-					jsonResponse.getJSONObject(0).get("organization_id"));
+					jsonResponse.getJSONObject(0).get("entitlement_pack_id"));
 			assertEquals("pending", jsonResponse.getJSONObject(0).get("status"));
 		} catch (AssertionError e) {
 			AssertErrorHandler(e);

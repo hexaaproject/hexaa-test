@@ -196,7 +196,7 @@ public class OrganizationsAttributesGet extends NormalTest {
 							BasicCall.REST.GET,
 							null,
 							organizations.getJSONObject(0).getInt("id"),
-							attributevalueorganization.getJSONObject(0).getInt(
+							attributespecs.getJSONObject(0).getInt(
 									"id"));
 		} catch (ResponseTypeMismatchException ex) {
 			fail(ex.getFullMessage());
