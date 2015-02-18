@@ -64,9 +64,10 @@ public class ServicesGetTest extends NormalTest {
 	 * services.
 	 */
 	@Test
-	public void testServicesGetArray() {
+	public void testServicesGetArrayWithItems() {
 		JSONObject jsonItems;
 		try {
+			persistent.setOffset(0);
 			jsonItems = persistent.getResponseJSONObject(
 					Const.Api.SERVICES, BasicCall.REST.GET);
 		} catch (ResponseTypeMismatchException ex) {
@@ -81,6 +82,33 @@ public class ServicesGetTest extends NormalTest {
 			assertEquals(Const.StatusLine.OK, persistent.getStatusLine());
 		} catch (AssertionError e) {
 			AssertErrorHandler(e);
+			System.out.println(services.toString());
+			System.out.println(jsonResponse.toString());
+		}
+	}
+
+	/**
+	 * Tests the /api/services GET which responds with an Array of available
+	 * services.
+	 */
+	@Test
+	public void testServicesGetArray() {
+		JSONArray jsonResponse;
+		try {
+			jsonResponse = persistent.getResponseJSONArray(
+					Const.Api.SERVICES, BasicCall.REST.GET);
+		} catch (ResponseTypeMismatchException ex) {
+			fail(ex.getFullMessage());
+			return;
+		}
+		
+		try {
+			JSONAssert.assertEquals(services, jsonResponse, false);
+			assertEquals(Const.StatusLine.OK, persistent.getStatusLine());
+		} catch (AssertionError e) {
+			AssertErrorHandler(e);
+			System.out.println(services.toString());
+			System.out.println(jsonResponse.toString());
 		}
 	}
 

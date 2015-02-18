@@ -92,9 +92,10 @@ public class OrganizationsNewsTest extends NormalTest {
 	 * Test the method.
 	 */
 	@Test
-	public void testOrganizationNews() {
+	public void testOrganizationNewsWithItems() {
 		JSONObject jsonItems;
 		try {
+			persistent.setOffset(0);
 			jsonItems = persistent.getResponseJSONObject(
 					Const.Api.ORGANIZATIONS_ID_NEWS, BasicCall.REST.GET, null,
 					organizations.getJSONObject(0).getInt("id"), 0);
@@ -104,6 +105,28 @@ public class OrganizationsNewsTest extends NormalTest {
 		}
 
 		JSONArray jsonResponse = this.getItems(jsonItems);
+
+		try {
+			assertEquals(3, jsonResponse.length());
+		} catch (AssertionError e) {
+			AssertErrorHandler(e);
+		}
+	}
+
+	/**
+	 * Test the method.
+	 */
+	@Test
+	public void testOrganizationNews() {
+		JSONArray jsonResponse;
+		try {
+			jsonResponse = persistent.getResponseJSONArray(
+					Const.Api.ORGANIZATIONS_ID_NEWS, BasicCall.REST.GET, null,
+					organizations.getJSONObject(0).getInt("id"), 0);
+		} catch (ResponseTypeMismatchException ex) {
+			fail(ex.getFullMessage());
+			return;
+		}
 
 		try {
 			assertEquals(3, jsonResponse.length());

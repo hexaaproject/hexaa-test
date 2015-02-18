@@ -100,6 +100,7 @@ public class ServicesEntitlementpacksRequestTest extends NormalTest {
 	public void testServicesEntitlementpacksRequest() {
 		JSONObject jsonItems;
 		try {
+			persistent.setOffset(0);
 			jsonItems = persistent.getResponseJSONObject(
 					Const.Api.SERVICES_ID_ENTITLEMENTPACKS_REQUESTS,
 					BasicCall.REST.GET, null,

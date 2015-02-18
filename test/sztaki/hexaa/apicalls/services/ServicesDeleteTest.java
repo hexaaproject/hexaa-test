@@ -78,6 +78,7 @@ public class ServicesDeleteTest extends NormalTest {
 		// Getting server response: list of services
 		JSONObject jsonItems;
 		try {
+			persistent.setOffset(0);
 			jsonItems = persistent.getResponseJSONObject(Const.Api.SERVICES,
 					BasicCall.REST.GET);
 		} catch (ResponseTypeMismatchException ex) {

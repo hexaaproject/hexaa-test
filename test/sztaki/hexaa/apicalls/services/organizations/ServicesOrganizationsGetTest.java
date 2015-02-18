@@ -97,9 +97,10 @@ public class ServicesOrganizationsGetTest extends NormalTest {
 	 * GET the organization linked to the service.
 	 */
 	@Test
-	public void testServicesOrganizationsGet() {
+	public void testServicesOrganizationsGetWithItems() {
 		JSONObject jsonItems;
 		try {
+			persistent.setOffset(0);
 			jsonItems = persistent.getResponseJSONObject(
 					Const.Api.SERVICES_ID_ORGANIZATIONS, BasicCall.REST.GET,
 					null, services.getJSONObject(0).getInt("id"), 0);
@@ -109,6 +110,31 @@ public class ServicesOrganizationsGetTest extends NormalTest {
 		}
 
 		JSONArray jsonResponse = this.getItems(jsonItems);
+
+		try {
+			assertEquals(1, jsonResponse.length());
+			assertEquals(organizations.getJSONObject(0).getInt("id"),
+					jsonResponse.getJSONObject(0).getInt("id"));
+		} catch (AssertionError e) {
+			AssertErrorHandler(e);
+		}
+	}
+
+	/**
+	 * GET the organization linked to the service.
+	 */
+	@Test
+	public void testServicesOrganizationsGet() {
+		JSONArray jsonResponse;
+		try {
+			jsonResponse = persistent.getResponseJSONArray(
+					Const.Api.SERVICES_ID_ORGANIZATIONS, BasicCall.REST.GET,
+					null, services.getJSONObject(0).getInt("id"), 0);
+		} catch (ResponseTypeMismatchException ex) {
+			fail(ex.getFullMessage());
+			return;
+		}
+
 
 		try {
 			assertEquals(1, jsonResponse.length());

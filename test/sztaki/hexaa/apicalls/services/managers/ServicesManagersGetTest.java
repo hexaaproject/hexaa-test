@@ -105,9 +105,10 @@ public class ServicesManagersGetTest extends NormalTest {
 	 * GET managers on both services.
 	 */
 	@Test
-	public void testServicesManagersGet() {
+	public void testServicesManagersGetWithItems() {
 		JSONObject jsonItems;
 		try {
+			persistent.setOffset(0);
 			jsonItems = persistent.getResponseJSONObject(
 					Const.Api.SERVICES_ID_MANAGERS, BasicCall.REST.GET, null,
 					services.getJSONObject(0).getInt("id"), 0);
@@ -117,6 +118,29 @@ public class ServicesManagersGetTest extends NormalTest {
 		}
 
 		JSONArray jsonResponse = this.getItems(jsonItems);
+
+		try {
+			JSONAssert.assertEquals(managers.getJSONObject(0),
+					jsonResponse.getJSONObject(1), JSONCompareMode.LENIENT);
+		} catch (AssertionError e) {
+			AssertErrorHandler(e);
+		}
+	}
+
+	/**
+	 * GET managers on both services.
+	 */
+	@Test
+	public void testServicesManagersGet() {
+		JSONArray jsonResponse;
+		try {
+			jsonResponse = persistent.getResponseJSONArray(
+					Const.Api.SERVICES_ID_MANAGERS, BasicCall.REST.GET, null,
+					services.getJSONObject(0).getInt("id"), 0);
+		} catch (ResponseTypeMismatchException ex) {
+			fail(ex.getFullMessage());
+			return;
+		}
 
 		try {
 			JSONAssert.assertEquals(managers.getJSONObject(0),

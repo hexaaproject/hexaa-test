@@ -90,9 +90,10 @@ public class ServicesEntitlementpacksGetTest extends NormalTest {
 	 * entitlements.
 	 */
 	@Test
-	public void testServicesEntitlementsGet() {
+	public void testServicesEntitlementsGetWithItems() {
 		JSONObject jsonItems;
 		try {
+			persistent.setOffset(0);
 			jsonItems = persistent.getResponseJSONObject(
 					Const.Api.SERVICES_ID_ENTITLEMENTPACKS, BasicCall.REST.GET,
 					null, services.getJSONObject(0).getInt("id"), 0);
@@ -115,6 +116,7 @@ public class ServicesEntitlementpacksGetTest extends NormalTest {
 		}
 
 		try {
+			persistent.setOffset(0);
 			jsonItems = persistent.getResponseJSONObject(
 					Const.Api.SERVICES_ID_ENTITLEMENTPACKS, BasicCall.REST.GET,
 					null, services.getJSONObject(1).getInt("id"), 0);
@@ -127,6 +129,34 @@ public class ServicesEntitlementpacksGetTest extends NormalTest {
 
 		jsonTemp = new JSONArray();
 		jsonTemp.put(entitlementpacks.getJSONObject(2));
+
+		try {
+			assertEquals(Const.StatusLine.OK, persistent.getStatusLine());
+			JSONAssert.assertEquals(jsonTemp, jsonResponse, false);
+		} catch (AssertionError e) {
+			AssertErrorHandler(e);
+		}
+	}
+
+	/**
+	 * Calls GET /api/services/{id}/entitlements on the 2 services to get the 3
+	 * entitlements.
+	 */
+	@Test
+	public void testServicesEntitlementsGet() {
+		JSONArray jsonResponse;
+		try {
+			jsonResponse = persistent.getResponseJSONArray(
+					Const.Api.SERVICES_ID_ENTITLEMENTPACKS, BasicCall.REST.GET,
+					null, services.getJSONObject(0).getInt("id"), 0);
+		} catch (ResponseTypeMismatchException ex) {
+			fail(ex.getFullMessage());
+			return;
+		}
+
+		JSONArray jsonTemp = new JSONArray();
+		jsonTemp.put(entitlementpacks.getJSONObject(0));
+		jsonTemp.put(entitlementpacks.getJSONObject(1));
 
 		try {
 			assertEquals(Const.StatusLine.OK, persistent.getStatusLine());

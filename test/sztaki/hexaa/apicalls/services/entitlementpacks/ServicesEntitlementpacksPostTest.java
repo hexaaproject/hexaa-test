@@ -103,6 +103,7 @@ public class ServicesEntitlementpacksPostTest extends NormalTest {
 		JSONObject jsonItems;
 
 		try {
+			persistent.setOffset(0);
 			jsonItems = persistent.getResponseJSONObject(
 					Const.Api.SERVICES_ID_ENTITLEMENTPACKS, BasicCall.REST.GET,
 					null, services.getJSONObject(0).getInt("id"), 0);

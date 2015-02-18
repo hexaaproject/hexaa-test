@@ -64,7 +64,6 @@ public class PrincipalGetTest extends NormalTest {
 			return;
 		}
 
-//		JSONArray jsonResponse = this.getItems(jsonItems);
 		JSONArray jsonResponse = this.getItems(jsonItems);
 		
 		int i = 0;

@@ -99,10 +99,10 @@ public class AttributespecsGetTest extends NormalTest {
 	 * GET the attributespecs array with call /app.php/api/attributespecs.
 	 */
 	@Test
-	public void testAttributespecsGetArray() {
-		// GET the array.
+	public void testAttributespecsGetArrayWithItems() {
 		JSONObject jsonItems;
 		try {
+			persistent.setOffset(0);
 			jsonItems = persistent.getResponseJSONObject(
 					Const.Api.ATTRIBUTESPECS, BasicCall.REST.GET);
 		} catch (ResponseTypeMismatchException ex) {
@@ -111,6 +111,7 @@ public class AttributespecsGetTest extends NormalTest {
 			fail(ex.getFullMessage());
 			return;
 		}
+		
 		JSONArray jsonResponse = this.getItems(jsonItems);
 
 		try {

@@ -96,6 +96,7 @@ public class ServicesManagersAddByArrayTest extends NormalTest {
 
 		JSONObject jsonItems;
 		try {
+			persistent.setOffset(0);
 			jsonItems = persistent.getResponseJSONObject(
 					Const.Api.SERVICES_ID_MANAGERS, BasicCall.REST.GET, null,
 					services.getJSONObject(0).getInt("id"), 0);

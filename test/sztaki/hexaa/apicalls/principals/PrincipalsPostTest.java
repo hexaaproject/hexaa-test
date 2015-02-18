@@ -24,12 +24,12 @@ public class PrincipalsPostTest extends NormalTest {
 		System.out.println("***\t " + PrincipalsPostTest.class.getSimpleName()
 				+ " ***");
 	}
-	
+
 	/**
 	 * JSONArray to store the created principals.
 	 */
 	private static JSONArray principals = new JSONArray();
-	
+
 	/**
 	 * Reverses the setUpClass and the creations during the test.
 	 */
@@ -38,8 +38,7 @@ public class PrincipalsPostTest extends NormalTest {
 		System.out.println("TearDownClass: "
 				+ PrincipalsPostTest.class.getSimpleName());
 		for (int i = 0; i < principals.length(); i++) {
-			Utility.Remove.principal(principals.getJSONObject(i)
-					.getInt("id"));
+			Utility.Remove.principal(principals.getJSONObject(i).getInt("id"));
 		}
 	}
 
@@ -48,6 +47,7 @@ public class PrincipalsPostTest extends NormalTest {
 	 */
 	@Test
 	public void testPrincipalsPost() {
+		Utility.persistent.isAdmin = true;
 		principals = Utility.Create.principal("PrincipalsPostTest_pri1");
 
 		try {
