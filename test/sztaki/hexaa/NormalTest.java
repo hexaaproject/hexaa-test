@@ -35,7 +35,7 @@ public class NormalTest {
 	 * classes.
 	 */
 	@BeforeClass
-	public static void cleanDB() {
+	public static void normalTestBasicSetUpClass() {
 		System.out.println("BeforeClass @ NormalTest");
 		new Authenticator().loadProperties();
 		if (new Authenticator().authenticate(Const.HEXAA_FEDID) == 1) {

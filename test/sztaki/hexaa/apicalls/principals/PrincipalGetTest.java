@@ -56,6 +56,7 @@ public class PrincipalGetTest extends NormalTest {
 	public void testPrincipalsGet() {
 		JSONObject jsonItems;
 		try {
+			persistent.isAdmin = true;
 			jsonItems = persistent.getResponseJSONObject(Const.Api.PRINCIPALS,
 					BasicCall.REST.GET);
 		} catch (ResponseTypeMismatchException ex) {

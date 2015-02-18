@@ -9,6 +9,7 @@ import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
 import java.util.Properties;
 
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import sztaki.hexaa.BasicCall.REST;
@@ -67,7 +68,8 @@ public class Authenticator {
 			if (jsonResponse.has("token")) {
 				Const.HEXAA_AUTH = jsonResponse.get("token").toString();
 			} else {
-				System.out.println("Unable to authenticate. TempToken: " + json.get("apikey"));
+				System.out.println("Unable to authenticate. TempToken: "
+						+ json.get("apikey"));
 				return 1;
 			}
 
@@ -76,11 +78,11 @@ public class Authenticator {
 				System.out.print("** AUTHENTICATE **\t");
 				principalSelf = postToken.getResponseJSONObject(
 						Const.Api.PRINCIPAL_SELF, REST.GET);
-			} catch (ResponseTypeMismatchException ex) {
-				System.out.println("Unable to find principal.");
+				Const.HEXAA_ID = principalSelf.getInt("id");
+			} catch (ResponseTypeMismatchException|JSONException ex) {
+				System.out.println("Unable to find principal: " + ex.getMessage());
 				return 1;
 			}
-			Const.HEXAA_ID = principalSelf.getInt("id");
 		}
 		return 0;
 	}
