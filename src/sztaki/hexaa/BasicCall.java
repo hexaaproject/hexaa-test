@@ -1247,6 +1247,10 @@ public class BasicCall {
 						.setPath(path)
 						.addParameter("limit", Integer.toString(this.limit))
 						.build();
+			} else {
+				uri = new URIBuilder().setScheme(Const.HEXAA_SCHEME)
+						.setHost(Const.HEXAA_HOST).setPort(Const.HEXAA_PORT)
+						.setPath(path).build();
 			}
 		} catch (URISyntaxException ex) {
 			System.out.println("Error in uri build: " + ex.getMessage());
