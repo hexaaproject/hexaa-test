@@ -1,19 +1,18 @@
 package sztaki.hexaa.apicalls;
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.fail;
+
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import sztaki.hexaa.CleanTest;
-
 import org.json.JSONArray;
 import org.json.JSONObject;
-
-import static org.junit.Assert.*;
-
 import org.skyscreamer.jsonassert.JSONAssert;
 import org.skyscreamer.jsonassert.JSONParser;
 
 import sztaki.hexaa.BasicCall.REST;
+import sztaki.hexaa.CleanTest;
 import sztaki.hexaa.Const;
 import sztaki.hexaa.ResponseTypeMismatchException;
 
@@ -76,6 +75,8 @@ public abstract class IsEmptyTest extends CleanTest {
 		if (JSONParser.parseJSON(persistent.call(constApi, rest)) instanceof JSONObject) {
 			JSONObject jsonResponse;
 			try {
+				persistent.isAdmin = true;
+				persistent.setOffset(0);
 				jsonResponse = persistent.getResponseJSONObject(constApi, rest);
 				if (jsonResponse.has("item_number")) {
 					if (Integer.valueOf(jsonResponse.get("item_number")
@@ -129,6 +130,7 @@ public abstract class IsEmptyTest extends CleanTest {
 	public void expectingZeroItems(String constApi, REST rest) {
 		JSONObject jsonResponse;
 		try {
+			persistent.setOffset(0);
 			jsonResponse = persistent.getResponseJSONObject(constApi, rest);
 		} catch (ResponseTypeMismatchException ex) {
 			fail(ex.getFullMessage());
