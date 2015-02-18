@@ -37,6 +37,22 @@ public class BasicCall {
 
 	public boolean isAdmin = false;
 
+	private boolean isOffset = false;
+	private int offset = 0;
+
+	public void setOffset(int i) {
+		offset = i;
+		isOffset = true;
+	}
+
+	private boolean isLimit = false;
+	private int limit = 0;
+
+	public void setLimit(int i) {
+		limit = i;
+		isLimit = true;
+	}
+
 	/**
 	 * The normal response of the call, can not be null, but can be an empty
 	 * string.
@@ -661,12 +677,9 @@ public class BasicCall {
 		this.setString(null);
 		this.setId(1);
 		this.setSId(1);
-		// System.out.println(path);
-		// System.out.println(this.path);
 
 		Object tempResponse = callSwitch(restCall);
 
-		// System.out.println(this.path);
 		Object serverResponse;
 		try {
 			serverResponse = JSONParser.parseJSON((String) tempResponse);
@@ -844,13 +857,13 @@ public class BasicCall {
 	 */
 	protected String callSwitch(REST restCall) {
 		// Checks the path to make sure it's correct, and registers it in
-//		// CoverageChecker
-//		if (path.startsWith("/app.php")) {
-//			CoverageChecker.checkout(restCall + " " + path.substring(8)
-//					+ ".{_format} ");
-//		} else {
-			CoverageChecker.checkout(restCall + " " + path + " ");
-//		}
+		// // CoverageChecker
+		// if (path.startsWith("/app.php")) {
+		// CoverageChecker.checkout(restCall + " " + path.substring(8)
+		// + ".{_format} ");
+		// } else {
+		CoverageChecker.checkout(restCall + " " + path + " ");
+		// }
 
 		// Resets the local variables in case the class is used in a static
 		// instance
@@ -1192,18 +1205,55 @@ public class BasicCall {
 	private URI buildHexaaURI(String path) {
 		URI uri = null;
 		try {
-			if (isAdmin) {
+			if (isAdmin && isOffset && isLimit) {
+				uri = new URIBuilder().setScheme(Const.HEXAA_SCHEME)
+						.setHost(Const.HEXAA_HOST).setPort(Const.HEXAA_PORT)
+						.setPath(path).addParameter("admin", "true")
+						.addParameter("offset", Integer.toString(this.offset))
+						.addParameter("limit", Integer.toString(this.limit))
+						.build();
+			} else if (isAdmin && isOffset) {
+				uri = new URIBuilder().setScheme(Const.HEXAA_SCHEME)
+						.setHost(Const.HEXAA_HOST).setPort(Const.HEXAA_PORT)
+						.setPath(path).addParameter("admin", "true")
+						.addParameter("offset", Integer.toString(this.offset))
+						.build();
+			} else if (isAdmin && isLimit) {
+				uri = new URIBuilder().setScheme(Const.HEXAA_SCHEME)
+						.setHost(Const.HEXAA_HOST).setPort(Const.HEXAA_PORT)
+						.setPath(path).addParameter("admin", "true")
+						.addParameter("limit", Integer.toString(this.limit))
+						.build();
+			} else if (isOffset && isLimit) {
+				uri = new URIBuilder().setScheme(Const.HEXAA_SCHEME)
+						.setHost(Const.HEXAA_HOST).setPort(Const.HEXAA_PORT)
+						.setPath(path)
+						.addParameter("offset", Integer.toString(this.offset))
+						.addParameter("limit", Integer.toString(this.limit))
+						.build();
+			} else if (isAdmin) {
 				uri = new URIBuilder().setScheme(Const.HEXAA_SCHEME)
 						.setHost(Const.HEXAA_HOST).setPort(Const.HEXAA_PORT)
 						.setPath(path).addParameter("admin", "true").build();
-				this.isAdmin = false;
-			} else {
+			} else if (isOffset) {
 				uri = new URIBuilder().setScheme(Const.HEXAA_SCHEME)
 						.setHost(Const.HEXAA_HOST).setPort(Const.HEXAA_PORT)
-						.setPath(path).build();
-				this.isAdmin = false;
+						.setPath(path)
+						.addParameter("offset", Integer.toString(this.offset))
+						.build();
+			} else if (isLimit) {
+				uri = new URIBuilder().setScheme(Const.HEXAA_SCHEME)
+						.setHost(Const.HEXAA_HOST).setPort(Const.HEXAA_PORT)
+						.setPath(path)
+						.addParameter("limit", Integer.toString(this.limit))
+						.build();
 			}
 		} catch (URISyntaxException ex) {
+			System.out.println("Error in uri build: " + ex.getMessage());
+		} finally {
+			this.isAdmin = false;
+			this.isOffset = false;
+			this.isLimit = false;
 		}
 		return uri;
 	}
