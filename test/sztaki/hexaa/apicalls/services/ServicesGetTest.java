@@ -107,8 +107,6 @@ public class ServicesGetTest extends NormalTest {
 			assertEquals(Const.StatusLine.OK, persistent.getStatusLine());
 		} catch (AssertionError e) {
 			AssertErrorHandler(e);
-			System.out.println(services.toString());
-			System.out.println(jsonResponse.toString());
 		}
 	}
 

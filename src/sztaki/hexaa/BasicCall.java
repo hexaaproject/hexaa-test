@@ -1118,6 +1118,7 @@ public class BasicCall {
 		Object parsedResponse;
 		try {
 			parsedResponse = JSONParser.parseJSON(responseDataString);
+			parsedResponse = changeIDStringToInt(parsedResponse);
 			if (parsedResponse instanceof JSONObject) {
 				parsedResponse = removeUpdate((JSONObject) parsedResponse);
 			}
@@ -1193,6 +1194,35 @@ public class BasicCall {
 		}
 
 		return response;
+	}
+
+	// TODO rekurzív metódus a string id int-é alakítására
+	private Object changeIDStringToInt(Object object) {
+		if (object instanceof JSONArray) {
+			JSONArray json = (JSONArray) object;
+			JSONArray temp = new JSONArray();
+			for (int i = 0; i < json.length(); i++) {
+				temp.put(changeIDStringToInt(json.get(i)));	
+			}
+			return temp;
+		}
+		if (object instanceof JSONObject) {
+			JSONObject json = (JSONObject) object;
+			JSONObject temp = new JSONObject();
+			for (String s : JSONObject.getNames(json)) {
+				if (json.get(s) instanceof JSONObject) {
+					temp.put(s, changeIDStringToInt(json.getJSONObject(s)));
+				} else if (json.get(s) instanceof JSONArray) {
+					temp.put(s, changeIDStringToInt(json.getJSONArray(s)));
+				} else if (s.equals("id") && json.get(s) instanceof String) {
+					temp.put(s, Integer.parseInt(json.getString(s)));
+				} else {
+					temp.put(s, json.get(s));
+				}
+			}
+			return temp;
+		}
+		return object;
 	}
 
 	/**
