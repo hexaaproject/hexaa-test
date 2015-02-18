@@ -158,7 +158,7 @@ public class AttributevalueprincipalsServicesGetTest extends NormalTest {
 			return;
 		}
 
-		JSONArray jsonResponse = jsonItems.getJSONArray("items");
+		JSONArray jsonResponse = this.getItems(jsonItems);
 
 		try {
 			assertEquals( services.getJSONObject(1).getInt("id"), jsonResponse.getJSONObject(0).getInt("id"));

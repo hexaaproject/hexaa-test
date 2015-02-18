@@ -107,7 +107,7 @@ public class RolesPrincipalsGetTest extends NormalTest {
 			return;
 		}
 
-		JSONArray jsonResponse = jsonItems.getJSONArray("items");
+		JSONArray jsonResponse = this.getItems(jsonItems);
 
 		if (jsonResponse.length() < 1) {
 			fail(jsonResponse.toString());

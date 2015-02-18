@@ -80,7 +80,7 @@ public class PrincipalsDeleteSelfTest extends NormalTest {
 			return;
 		}
 
-		JSONArray jsonResponse = jsonItems.getJSONArray("items");
+		JSONArray jsonResponse = this.getItems(jsonItems);
 
 		for (int i = 0; i < jsonResponse.length(); i++) {
 			try {

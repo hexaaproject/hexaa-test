@@ -108,7 +108,7 @@ public class OrganizationEntitlementpacksTokenTest extends NormalTest {
 			return;
 		}
 
-		JSONArray jsonResponse = jsonItems.getJSONArray("items");
+		JSONArray jsonResponse = this.getItems(jsonItems);
 
 		try {
 			assertEquals(Const.StatusLine.Created,

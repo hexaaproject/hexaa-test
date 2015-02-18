@@ -2,10 +2,13 @@ package sztaki.hexaa;
 
 import java.util.ArrayList;
 
+import org.json.JSONArray;
+import org.json.JSONObject;
 import org.junit.BeforeClass;
 import org.junit.Rule;
 import org.junit.rules.ErrorCollector;
 import org.junit.runners.model.MultipleFailureException;
+
 import static org.junit.Assert.fail;
 
 /**
@@ -41,6 +44,20 @@ public class NormalTest {
 		if (new Authenticator().authenticate(Const.HEXAA_FEDID) == 1) {
 			fail("Unable to authenticate");
 		}
+	}
+
+	public JSONArray getItems(JSONObject jsonItems) {
+		if (jsonItems.has("code")) {
+			fail("Got error json instead of items: " + jsonItems.toString());
+			return new JSONArray();
+		}
+
+		if (jsonItems.has("items")) {
+			return jsonItems.getJSONArray("items");
+		}
+
+		return new JSONArray();
+
 	}
 
 	/**

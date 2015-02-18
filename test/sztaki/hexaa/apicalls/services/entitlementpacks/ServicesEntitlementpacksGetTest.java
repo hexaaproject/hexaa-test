@@ -101,7 +101,7 @@ public class ServicesEntitlementpacksGetTest extends NormalTest {
 			return;
 		}
 
-		JSONArray jsonResponse = jsonItems.getJSONArray("items");
+		JSONArray jsonResponse = this.getItems(jsonItems);
 
 		JSONArray jsonTemp = new JSONArray();
 		jsonTemp.put(entitlementpacks.getJSONObject(0));

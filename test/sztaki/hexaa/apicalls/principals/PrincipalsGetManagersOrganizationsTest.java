@@ -75,7 +75,7 @@ public class PrincipalsGetManagersOrganizationsTest extends NormalTest {
 			fail(ex.getFullMessage());
 			return;
 		}
-		JSONArray jsonResponse = jsonItems.getJSONArray("items");
+		JSONArray jsonResponse = this.getItems(jsonItems);
 
 		try {
 			assertEquals(Const.StatusLine.OK, persistent.getStatusLine());

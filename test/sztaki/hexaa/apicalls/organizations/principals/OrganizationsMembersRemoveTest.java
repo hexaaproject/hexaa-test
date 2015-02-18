@@ -115,7 +115,7 @@ public class OrganizationsMembersRemoveTest extends NormalTest {
 			return;
 		}
 		
-		JSONArray jsonResponse = jsonItems.getJSONArray("items");
+		JSONArray jsonResponse = this.getItems(jsonItems);
 		
 		try {
 			JSONAssert.assertEquals(admin, jsonResponse.getJSONObject(0),

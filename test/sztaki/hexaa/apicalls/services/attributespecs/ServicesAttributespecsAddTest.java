@@ -102,7 +102,7 @@ public class ServicesAttributespecsAddTest extends NormalTest {
 			return;
 		}
 
-		JSONArray jsonResponse = jsonItems.getJSONArray("items");
+		JSONArray jsonResponse = this.getItems(jsonItems);
 		
 		try {
 			assertEquals(Const.StatusLine.OK, persistent.getStatusLine());

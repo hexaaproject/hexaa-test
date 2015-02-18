@@ -102,7 +102,7 @@ public class ServicesManagersRemoveTest extends NormalTest {
 			return;
 		}
 
-		JSONArray jsonResponse = jsonItems.getJSONArray("items");
+		JSONArray jsonResponse = this.getItems(jsonItems);
 
 		try {
 			assertEquals(Const.HEXAA_ID, jsonResponse.getJSONObject(0).getInt("id"));

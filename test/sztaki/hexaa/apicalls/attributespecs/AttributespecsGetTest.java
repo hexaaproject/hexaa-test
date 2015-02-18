@@ -111,7 +111,7 @@ public class AttributespecsGetTest extends NormalTest {
 			fail(ex.getFullMessage());
 			return;
 		}
-		JSONArray jsonResponse = jsonItems.getJSONArray("items");
+		JSONArray jsonResponse = this.getItems(jsonItems);
 
 		try {
 			JSONAssert.assertEquals(attributespecs, jsonResponse,

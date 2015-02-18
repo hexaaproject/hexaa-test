@@ -102,7 +102,7 @@ public class ServicesNewsTest extends NormalTest {
 			return;
 		}
 
-		JSONArray jsonResponse = jsonItems.getJSONArray("items");
+		JSONArray jsonResponse = this.getItems(jsonItems);
 
 		try {
 			assertEquals(3, jsonResponse.length());

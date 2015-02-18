@@ -100,7 +100,7 @@ public class RolesDeleteTest extends NormalTest {
 			return;
 		}
 
-		JSONArray jsonResponse = jsonItems.getJSONArray("items");
+		JSONArray jsonResponse = this.getItems(jsonItems);
 
 		try {
 			JSONAssert.assertEquals(roles.getJSONObject(1),

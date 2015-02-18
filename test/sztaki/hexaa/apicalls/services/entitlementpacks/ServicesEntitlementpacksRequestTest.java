@@ -109,7 +109,7 @@ public class ServicesEntitlementpacksRequestTest extends NormalTest {
 			return;
 		}
 
-		JSONArray jsonResponse = jsonItems.getJSONArray("items");
+		JSONArray jsonResponse = this.getItems(jsonItems);
 
 		try {
 			assertEquals(organizations.getJSONObject(0).getInt("id"),

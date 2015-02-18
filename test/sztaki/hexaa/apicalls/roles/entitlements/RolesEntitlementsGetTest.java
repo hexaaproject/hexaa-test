@@ -143,7 +143,7 @@ public class RolesEntitlementsGetTest extends NormalTest {
 			return;
 		}
 
-		JSONArray jsonResponse = jsonItems.getJSONArray("items");
+		JSONArray jsonResponse = this.getItems(jsonItems);
 
 		try {
 			JSONAssert.assertEquals(entitlements.getJSONObject(0),

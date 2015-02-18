@@ -84,7 +84,7 @@ public class ServicesDeleteTest extends NormalTest {
 			fail(ex.getFullMessage());
 			return;
 		}
-		JSONArray jsonResponse = jsonItems.getJSONArray("items");
+		JSONArray jsonResponse = this.getItems(jsonItems);
 
 		// Find the service that should exist by id, empty jsonobject if not
 		// exist

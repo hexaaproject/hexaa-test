@@ -118,7 +118,7 @@ public class OrganizationEntitlementpacksLinkRequestTest extends NormalTest {
 			return;
 		}
 
-		JSONArray jsonResponse = jsonItems.getJSONArray("items");
+		JSONArray jsonResponse = this.getItems(jsonItems);
 
 		try {
 			assertEquals(entitlementpacks.getJSONObject(0).getInt("id"),

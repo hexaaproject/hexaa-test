@@ -153,7 +153,7 @@ public class RolesEntitlementsRemoveTest extends NormalTest {
 			return;
 		}
 
-		JSONArray jsonResponse = jsonItems.getJSONArray("items");
+		JSONArray jsonResponse = this.getItems(jsonItems);
 
 		try {
 			assertEquals(0, jsonResponse.length());

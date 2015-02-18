@@ -81,7 +81,7 @@ public class PrincipalInvitationGetTest extends NormalTest {
 			return;
 		}
 		
-		JSONArray jsonResponse = jsonItems.getJSONArray("items");
+		JSONArray jsonResponse = this.getItems(jsonItems);
 
 		try {
 			assertEquals(invitations.getJSONObject(0).getInt("id"), jsonResponse.getJSONObject(0).get("id"));

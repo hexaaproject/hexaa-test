@@ -95,7 +95,7 @@ public class OrganizationInvitationGetTest extends NormalTest {
 			return;
 		}
 		
-		JSONArray jsonResponse = jsonItems.getJSONArray("items");
+		JSONArray jsonResponse = this.getItems(jsonItems);
 		
 		try {
 			JSONAssert.assertEquals(invitations, jsonResponse,

@@ -104,7 +104,7 @@ public class RolesPutTest extends NormalTest {
 			return;
 		}
 
-		JSONArray jsonResponse = jsonItems.getJSONArray("items");
+		JSONArray jsonResponse = this.getItems(jsonItems);
 
 		try {
 			JSONAssert.assertNotEquals(roles, jsonResponse,

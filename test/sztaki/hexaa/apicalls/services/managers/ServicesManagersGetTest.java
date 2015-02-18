@@ -116,7 +116,7 @@ public class ServicesManagersGetTest extends NormalTest {
 			return;
 		}
 
-		JSONArray jsonResponse = jsonItems.getJSONArray("items");
+		JSONArray jsonResponse = this.getItems(jsonItems);
 
 		try {
 			JSONAssert.assertEquals(managers.getJSONObject(0),

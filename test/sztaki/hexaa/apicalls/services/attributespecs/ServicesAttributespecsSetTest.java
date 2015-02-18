@@ -101,7 +101,7 @@ public class ServicesAttributespecsSetTest extends NormalTest {
 			return;
 		}
 
-		JSONArray jsonResponse = jsonItems.getJSONArray("items");
+		JSONArray jsonResponse = this.getItems(jsonItems);
 
 		try {
 			for (int i = 0; i < jsonResponse.length()

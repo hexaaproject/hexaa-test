@@ -104,7 +104,7 @@ public class ServicesManagersAddByArrayTest extends NormalTest {
 			return;
 		}
 
-		JSONArray jsonResponse = jsonItems.getJSONArray("items");
+		JSONArray jsonResponse = this.getItems(jsonItems);
 
 		try {
 			JSONAssert.assertEquals(managers, jsonResponse,

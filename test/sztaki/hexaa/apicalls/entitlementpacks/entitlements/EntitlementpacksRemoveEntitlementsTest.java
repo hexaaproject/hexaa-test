@@ -139,7 +139,7 @@ public class EntitlementpacksRemoveEntitlementsTest extends NormalTest {
 			return;
 		}
 		
-		JSONArray jsonResponse = jsonItems.getJSONArray("items");
+		JSONArray jsonResponse = this.getItems(jsonItems);
 		
 		try {
 			JSONAssert.assertEquals(jsonTemp, jsonResponse,
