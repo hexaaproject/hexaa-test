@@ -17,14 +17,16 @@ public class JavaHttpCoreTest {
 	 * @param args
 	 */
 	public static void main(String[] args) {
-		new Authenticator().authenticate(Const.HEXAA_FEDID);
-		new JavaHttpCoreTest().properties();
+//		new Authenticator().authenticate(Const.HEXAA_FEDID);
+//		new JavaHttpCoreTest().properties();
 		new Authenticator().loadProperties();
-		try {
-		System.out.println(new BasicCall().getResponseJSONObject(Const.Api.PROPERTIES, BasicCall.REST.GET));
-		} catch(ResponseTypeMismatchException ex){
-			System.out.println("Properties unreachable.");
-		}
+//		try {
+//		System.out.println(new BasicCall().getResponseJSONObject(Const.Api.PROPERTIES, BasicCall.REST.GET));
+//		} catch(ResponseTypeMismatchException ex){
+//			System.out.println("Properties unreachable.");
+//		}
+		System.out.println(new Authenticator().getAPIKey());
+		System.out.println(new String("355f0db4244b2304d1cc8c20944415aa226beab36c8dfa36fb408c7d4cd0eaca").length());
 		new DatabaseManipulator().dropDatabase();
 	}
 

@@ -82,9 +82,10 @@ public class ServicesAttributespecsGetTest extends NormalTest {
 	 * id.
 	 */
 	@Test
-	public void testServicesAttributespecsGet() {
+	public void testServicesAttributespecsGetWithItems() {
 		JSONObject jsonItems;
 		try {
+			persistent.setOffset(0);
 			jsonItems = persistent.getResponseJSONObject(
 					Const.Api.SERVICES_ID_ATTRIBUTESPECS, BasicCall.REST.GET,
 					null, services.getJSONObject(0).getInt("id"), 0);
@@ -107,6 +108,7 @@ public class ServicesAttributespecsGetTest extends NormalTest {
 		}
 
 		try {
+			persistent.setOffset(0);
 			jsonItems = persistent.getResponseJSONObject(
 					Const.Api.SERVICES_ID_ATTRIBUTESPECS, BasicCall.REST.GET,
 					null, services.getJSONObject(1).getInt("id"), 0);
@@ -116,6 +118,50 @@ public class ServicesAttributespecsGetTest extends NormalTest {
 		}
 		
 		jsonResponse = jsonItems.getJSONArray("items");
+		
+		try {
+			assertEquals(Const.StatusLine.OK, persistent.getStatusLine());
+			assertEquals(0, jsonResponse.length());
+		} catch (AssertionError e) {
+			AssertErrorHandler(e);
+		}
+	}
+
+	/**
+	 * GET the 2 services attributespecs and checks if they are with the correct
+	 * id.
+	 */
+	@Test
+	public void testServicesAttributespecsGet() {
+		JSONArray jsonResponse;
+		try {
+			jsonResponse = persistent.getResponseJSONArray(
+					Const.Api.SERVICES_ID_ATTRIBUTESPECS, BasicCall.REST.GET,
+					null, services.getJSONObject(0).getInt("id"), 0);
+		} catch (ResponseTypeMismatchException ex) {
+			fail(ex.getFullMessage());
+			return;
+		}
+		
+		try {
+			assertEquals(Const.StatusLine.OK, persistent.getStatusLine());
+			assertEquals(2, jsonResponse.length());
+			assertEquals(attributespecs.getJSONObject(0).getInt("id"),
+					jsonResponse.getJSONObject(0).getInt("attribute_spec_id"));
+			assertEquals(attributespecs.getJSONObject(1).getInt("id"),
+					jsonResponse.getJSONObject(1).getInt("attribute_spec_id"));
+		} catch (AssertionError e) {
+			AssertErrorHandler(e);
+		}
+
+		try {
+			jsonResponse = persistent.getResponseJSONArray(
+					Const.Api.SERVICES_ID_ATTRIBUTESPECS, BasicCall.REST.GET,
+					null, services.getJSONObject(1).getInt("id"), 0);
+		} catch (ResponseTypeMismatchException ex) {
+			fail(ex.getFullMessage());
+			return;
+		}
 		
 		try {
 			assertEquals(Const.StatusLine.OK, persistent.getStatusLine());
