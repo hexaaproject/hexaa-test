@@ -99,6 +99,7 @@ public class OrganizationEntitlementpacksTokenTest extends NormalTest {
 
 		JSONObject jsonItems;
 		try {
+			persistent.setOffset(0);
 			jsonItems = persistent.getResponseJSONObject(
 					Const.Api.ORGANIZATIONS_ID_ENTITLEMENTPACKS,
 					BasicCall.REST.GET, null, organizations.getJSONObject(0)

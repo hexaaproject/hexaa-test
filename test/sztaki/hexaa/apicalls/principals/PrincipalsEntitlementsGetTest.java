@@ -102,6 +102,7 @@ public class PrincipalsEntitlementsGetTest extends NormalTest {
 		Utility.Link.entitlementsToRole(roles.getJSONObject(0).getInt("id"),
 				new int[] { entitlements.getJSONObject(0).getInt("id") });
 
+		Utility.persistent.isAdmin = true;
 		Utility.Link.principalToRole(roles.getJSONObject(0).getInt("id"),
 				new int[] { Const.HEXAA_ID });
 
@@ -138,9 +139,10 @@ public class PrincipalsEntitlementsGetTest extends NormalTest {
 	 * GET all entitlements of user.
 	 */
 	@Test
-	public void testPrincipalGetEntitlements() {
+	public void testPrincipalGetEntitlementsWithItems() {
 		JSONObject jsonItems;
 		try {
+			persistent.setOffset(0);
 			jsonItems = persistent.getResponseJSONObject(
 					Const.Api.PRINCIPAL_ENTITLEMENTS, BasicCall.REST.GET);
 		} catch (ResponseTypeMismatchException ex) {
@@ -149,6 +151,29 @@ public class PrincipalsEntitlementsGetTest extends NormalTest {
 		}
 
 		JSONArray jsonResponse = this.getItems(jsonItems);
+
+		try {
+			assertEquals(Const.StatusLine.OK, persistent.getStatusLine());
+			JSONAssert.assertEquals(entitlements, jsonResponse,
+					JSONCompareMode.LENIENT);
+		} catch (AssertionError e) {
+			AssertErrorHandler(e);
+		}
+	}
+
+	/**
+	 * GET all entitlements of user.
+	 */
+	@Test
+	public void testPrincipalGetEntitlements() {
+		JSONArray jsonResponse;
+		try {
+			jsonResponse = persistent.getResponseJSONArray(
+					Const.Api.PRINCIPAL_ENTITLEMENTS, BasicCall.REST.GET);
+		} catch (ResponseTypeMismatchException ex) {
+			fail(ex.getFullMessage());
+			return;
+		}
 
 		try {
 			assertEquals(Const.StatusLine.OK, persistent.getStatusLine());

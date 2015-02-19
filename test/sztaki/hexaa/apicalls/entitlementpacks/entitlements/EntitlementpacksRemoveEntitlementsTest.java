@@ -132,6 +132,7 @@ public class EntitlementpacksRemoveEntitlementsTest extends NormalTest {
 		
 		JSONObject jsonItems;
 		try {
+			persistent.setOffset(0);
 			jsonItems = persistent.getResponseJSONObject(Const.Api.ENTITLEMENTPACKS_ID_ENTITLEMENTS,
 					BasicCall.REST.GET, null, entitlementpacks.getJSONObject(0).getInt("id"), 0);
 		} catch (ResponseTypeMismatchException ex) {
@@ -150,6 +151,7 @@ public class EntitlementpacksRemoveEntitlementsTest extends NormalTest {
 		}
 		
 		try {
+			persistent.setOffset(0);
 			jsonItems = persistent.getResponseJSONObject(Const.Api.ENTITLEMENTPACKS_ID_ENTITLEMENTS,
 					BasicCall.REST.GET, null, entitlementpacks.getJSONObject(1).getInt("id"), 0);
 		} catch (ResponseTypeMismatchException ex) {

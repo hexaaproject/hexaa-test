@@ -160,9 +160,10 @@ public class OrganizationsAttributesGet extends NormalTest {
 	 * GET the available attributespecs.
 	 */
 	@Test
-	public void testOrganizationsAttributespecsGet() {
+	public void testOrganizationsAttributespecsGetWithItems() {
 		JSONObject jsonItems;
 		try {
+			persistent.setOffset(0);
 			jsonItems = persistent.getResponseJSONObject(
 					Const.Api.ORGANIZATIONS_ID_ATTRIBUTESPECS,
 					BasicCall.REST.GET, null, organizations.getJSONObject(0)
@@ -184,12 +185,38 @@ public class OrganizationsAttributesGet extends NormalTest {
 	}
 
 	/**
+	 * GET the available attributespecs.
+	 */
+	@Test
+	public void testOrganizationsAttributespecsGet() {
+		JSONArray jsonResponse;
+		try {
+			jsonResponse = persistent.getResponseJSONArray(
+					Const.Api.ORGANIZATIONS_ID_ATTRIBUTESPECS,
+					BasicCall.REST.GET, null, organizations.getJSONObject(0)
+							.getInt("id"), 0);
+		} catch (ResponseTypeMismatchException ex) {
+			fail(ex.getFullMessage());
+			return;
+		}
+
+		try {
+			assertEquals(Const.StatusLine.OK, persistent.getStatusLine());
+			JSONAssert.assertEquals(attributespecs, jsonResponse,
+					JSONCompareMode.LENIENT);
+		} catch (AssertionError e) {
+			AssertErrorHandler(e);
+		}
+	}
+
+	/**
 	 * GET a specific attributespecs values.
 	 */
 	@Test
-	public void testOrganizationsAttributevaluesBySpecsGet() {
+	public void testOrganizationsAttributevaluesBySpecsGetWithItems() {
 		JSONObject jsonItems;
 		try {
+			persistent.setOffset(0);
 			jsonItems = persistent
 					.getResponseJSONObject(
 							Const.Api.ORGANIZATIONS_ID_ATTRIBUTESPECS_ASID_ATTRIBUTEVALUEORGANIZATIONS,
@@ -215,12 +242,41 @@ public class OrganizationsAttributesGet extends NormalTest {
 	}
 
 	/**
+	 * GET a specific attributespecs values.
+	 */
+	@Test
+	public void testOrganizationsAttributevaluesBySpecsGet() {
+		JSONArray jsonResponse;
+		try {
+			jsonResponse = persistent.getResponseJSONArray(
+							Const.Api.ORGANIZATIONS_ID_ATTRIBUTESPECS_ASID_ATTRIBUTEVALUEORGANIZATIONS,
+							BasicCall.REST.GET,
+							null,
+							organizations.getJSONObject(0).getInt("id"),
+							attributespecs.getJSONObject(0).getInt(
+									"id"));
+		} catch (ResponseTypeMismatchException ex) {
+			fail(ex.getFullMessage());
+			return;
+		}
+
+		try {
+			assertEquals(Const.StatusLine.OK, persistent.getStatusLine());
+			JSONAssert.assertEquals(attributevalueorganization.getJSONObject(0), jsonResponse.getJSONObject(0),
+					JSONCompareMode.LENIENT);
+		} catch (AssertionError e) {
+			AssertErrorHandler(e);
+		}
+	}
+
+	/**
 	 * GET all the attributevalues.
 	 */
 	@Test
-	public void testOrganizationsAllAttributevalues() {
+	public void testOrganizationsAllAttributevaluesWithItems() {
 		JSONObject jsonItems;
 		try {
+			persistent.setOffset(0);
 			jsonItems = persistent.getResponseJSONObject(
 					Const.Api.ORGANIZATIONS_ID_ATTRIBUTEVALUEORGANIZATION,
 					BasicCall.REST.GET, null, organizations.getJSONObject(0)
@@ -231,6 +287,31 @@ public class OrganizationsAttributesGet extends NormalTest {
 		}
 
 		JSONArray jsonResponse = this.getItems(jsonItems);
+
+		try {
+			assertEquals(Const.StatusLine.OK, persistent.getStatusLine());
+			JSONAssert.assertEquals(attributevalueorganization, jsonResponse,
+					JSONCompareMode.LENIENT);
+		} catch (AssertionError e) {
+			AssertErrorHandler(e);
+		}
+	}
+
+	/**
+	 * GET all the attributevalues.
+	 */
+	@Test
+	public void testOrganizationsAllAttributevalues() {
+		JSONArray jsonResponse;
+		try {
+			jsonResponse = persistent.getResponseJSONArray(
+					Const.Api.ORGANIZATIONS_ID_ATTRIBUTEVALUEORGANIZATION,
+					BasicCall.REST.GET, null, organizations.getJSONObject(0)
+							.getInt("id"), 0);
+		} catch (ResponseTypeMismatchException ex) {
+			fail(ex.getFullMessage());
+			return;
+		}
 
 		try {
 			assertEquals(Const.StatusLine.OK, persistent.getStatusLine());

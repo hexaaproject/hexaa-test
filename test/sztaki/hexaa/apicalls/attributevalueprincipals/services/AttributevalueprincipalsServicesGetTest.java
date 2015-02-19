@@ -146,9 +146,10 @@ public class AttributevalueprincipalsServicesGetTest extends NormalTest {
 	 * GET all services for the attributevalue.
 	 */
 	@Test
-	public void testAttributevalueprincipalsServicesGet() {
+	public void testAttributevalueprincipalsServicesGetWithItems() {
 		JSONObject jsonItems;
 		try {
+			persistent.setOffset(0);
 			jsonItems = persistent.getResponseJSONObject(
 					Const.Api.ATTRIBUTEVALUEPRINCIPALS_ID_SERVICES,
 					BasicCall.REST.GET, null, attributevalueprincipal
@@ -159,6 +160,29 @@ public class AttributevalueprincipalsServicesGetTest extends NormalTest {
 		}
 
 		JSONArray jsonResponse = this.getItems(jsonItems);
+
+		try {
+			assertEquals( services.getJSONObject(1).getInt("id"), jsonResponse.getJSONObject(0).getInt("id"));
+		} catch (AssertionError e) {
+			AssertErrorHandler(e);
+		}
+	}
+
+	/**
+	 * GET all services for the attributevalue.
+	 */
+	@Test
+	public void testAttributevalueprincipalsServicesGet() {
+		JSONArray jsonResponse;
+		try {
+			jsonResponse = persistent.getResponseJSONArray(
+					Const.Api.ATTRIBUTEVALUEPRINCIPALS_ID_SERVICES,
+					BasicCall.REST.GET, null, attributevalueprincipal
+							.getJSONObject(0).getInt("id"), 0);
+		} catch (ResponseTypeMismatchException ex) {
+			fail(ex.getFullMessage());
+			return;
+		}
 
 		try {
 			assertEquals( services.getJSONObject(1).getInt("id"), jsonResponse.getJSONObject(0).getInt("id"));

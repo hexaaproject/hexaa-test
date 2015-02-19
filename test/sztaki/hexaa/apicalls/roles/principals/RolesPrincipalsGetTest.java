@@ -96,9 +96,10 @@ public class RolesPrincipalsGetTest extends NormalTest {
 	 * GET the role and checks the inner JSONObject for the principal.
 	 */
 	@Test
-	public void testRolesPrincipalGet() {
+	public void testRolesPrincipalGetWithItems() {
 		JSONObject jsonItems;
 		try {
+			persistent.setOffset(0);
 			jsonItems = persistent.getResponseJSONObject(
 					Const.Api.ROLES_ID_PRINCIPALS, BasicCall.REST.GET, null,
 					roles.getJSONObject(0).getInt("id"), 0);
@@ -108,6 +109,35 @@ public class RolesPrincipalsGetTest extends NormalTest {
 		}
 
 		JSONArray jsonResponse = this.getItems(jsonItems);
+
+		if (jsonResponse.length() < 1) {
+			fail(jsonResponse.toString());
+		}
+
+		try {
+			assertEquals(1, jsonResponse.length());
+			assertEquals(Const.StatusLine.OK, persistent.getStatusLine());
+			assertEquals(principals.getJSONObject(0).getInt("id"), jsonResponse
+					.getJSONObject(0).getInt("principal_id"));
+		} catch (AssertionError e) {
+			AssertErrorHandler(e);
+		}
+	}
+
+	/**
+	 * GET the role and checks the inner JSONObject for the principal.
+	 */
+	@Test
+	public void testRolesPrincipalGet() {
+		JSONArray jsonResponse;
+		try {
+			jsonResponse = persistent.getResponseJSONArray(
+					Const.Api.ROLES_ID_PRINCIPALS, BasicCall.REST.GET, null,
+					roles.getJSONObject(0).getInt("id"), 0);
+		} catch (ResponseTypeMismatchException ex) {
+			fail(ex.getFullMessage());
+			return;
+		}
 
 		if (jsonResponse.length() < 1) {
 			fail(jsonResponse.toString());

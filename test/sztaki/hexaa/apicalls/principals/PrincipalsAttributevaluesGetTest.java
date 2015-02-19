@@ -101,9 +101,10 @@ public class PrincipalsAttributevaluesGetTest extends NormalTest {
 	 * GET all attributevalues.
 	 */
 	@Test
-	public void testPrincipalGetAttributevalues() {
+	public void testPrincipalGetAttributevaluesWithItems() {
 		JSONObject jsonItems;
 		try {
+			persistent.setOffset(0);
 			jsonItems = persistent.getResponseJSONObject(
 					Const.Api.PRINCIPAL_ATTRIBUTEVALUEPRINCIPAL,
 					BasicCall.REST.GET);
@@ -124,14 +125,38 @@ public class PrincipalsAttributevaluesGetTest extends NormalTest {
 	}
 
 	/**
+	 * GET all attributevalues.
+	 */
+	@Test
+	public void testPrincipalGetAttributevalues() {
+		JSONArray jsonResponse;
+		try {
+			jsonResponse = persistent.getResponseJSONArray(
+					Const.Api.PRINCIPAL_ATTRIBUTEVALUEPRINCIPAL,
+					BasicCall.REST.GET);
+		} catch (ResponseTypeMismatchException ex) {
+			fail(ex.getFullMessage());
+			return;
+		}
+
+		try {
+			assertEquals(Const.StatusLine.OK, persistent.getStatusLine());
+			JSONAssert.assertEquals(attributevalue, jsonResponse,
+					JSONCompareMode.LENIENT);
+		} catch (AssertionError e) {
+			AssertErrorHandler(e);
+		}
+	}
+
+	/**
 	 * GET all attributevalue specified by the attributespec id.
 	 */
 	@Test
-	public void testPrincipalsGetAttributevalueBySpec() {
+	public void testPrincipalsGetAttributevalueBySpecWithItems() {
 		JSONObject jsonItems;
 		try {
-			jsonItems = persistent
-					.getResponseJSONObject(
+			persistent.setOffset(0);
+			jsonItems = persistent.getResponseJSONObject(
 							Const.Api.PRINCIPALS_ASID_ATTRIBUTESPECS_ATTRIBUTEVALUEPRINCIPALS,
 							BasicCall.REST.GET, null, 0, attributespecs
 									.getJSONObject(0).getInt("id"));
@@ -141,6 +166,30 @@ public class PrincipalsAttributevaluesGetTest extends NormalTest {
 		}
 
 		JSONArray jsonResponse = this.getItems(jsonItems);
+
+		try {
+			JSONAssert.assertEquals(attributevalue, jsonResponse,
+					JSONCompareMode.LENIENT);
+		} catch (AssertionError e) {
+			AssertErrorHandler(e);
+		}
+	}
+
+	/**
+	 * GET all attributevalue specified by the attributespec id.
+	 */
+	@Test
+	public void testPrincipalsGetAttributevalueBySpec() {
+		JSONArray jsonResponse;
+		try {
+			jsonResponse = persistent.getResponseJSONArray(
+							Const.Api.PRINCIPALS_ASID_ATTRIBUTESPECS_ATTRIBUTEVALUEPRINCIPALS,
+							BasicCall.REST.GET, null, 0, attributespecs
+									.getJSONObject(0).getInt("id"));
+		} catch (ResponseTypeMismatchException ex) {
+			fail(ex.getFullMessage());
+			return;
+		}
 
 		try {
 			JSONAssert.assertEquals(attributevalue, jsonResponse,

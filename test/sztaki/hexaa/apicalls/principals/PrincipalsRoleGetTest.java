@@ -88,9 +88,10 @@ public class PrincipalsRoleGetTest extends NormalTest {
 	 * GET all the roles of the current principal.
 	 */
 	@Test
-	public void testPrincipalsRolesGet() {
+	public void testPrincipalsRolesGetWithItems() {
 		JSONObject jsonItems;
 		try {
+			persistent.setOffset(0);
 			jsonItems = persistent.getResponseJSONObject(
 					Const.Api.PRINCIPAL_ROLES, BasicCall.REST.GET);
 		} catch (ResponseTypeMismatchException ex) {
@@ -99,6 +100,29 @@ public class PrincipalsRoleGetTest extends NormalTest {
 		}
 
 		JSONArray jsonResponse = this.getItems(jsonItems);
+
+		try {
+			assertEquals(Const.StatusLine.OK, persistent.getStatusLine());
+			JSONAssert.assertEquals(roles, jsonResponse,
+					JSONCompareMode.LENIENT);
+		} catch (AssertionError e) {
+			AssertErrorHandler(e);
+		}
+	}
+
+	/**
+	 * GET all the roles of the current principal.
+	 */
+	@Test
+	public void testPrincipalsRolesGet() {
+		JSONArray jsonResponse;
+		try {
+			jsonResponse = persistent.getResponseJSONArray(
+					Const.Api.PRINCIPAL_ROLES, BasicCall.REST.GET);
+		} catch (ResponseTypeMismatchException ex) {
+			fail(ex.getFullMessage());
+			return;
+		}
 
 		try {
 			assertEquals(Const.StatusLine.OK, persistent.getStatusLine());

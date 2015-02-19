@@ -105,9 +105,10 @@ public class ConsentsGetTest extends NormalTest {
 	 * Gets all the consents and asserts them with the locally stored ones.
 	 */
 	@Test
-	public void testConsentsGet() {
+	public void testConsentsGetWithItems() {
 		JSONObject jsonItems;
 		try {
+			persistent.setOffset(0);
 			jsonItems = persistent.getResponseJSONObject(Const.Api.CONSENTS,
 					BasicCall.REST.GET);
 		} catch (ResponseTypeMismatchException ex) {
@@ -116,6 +117,29 @@ public class ConsentsGetTest extends NormalTest {
 		}
 
 		JSONArray jsonResponse = this.getItems(jsonItems);
+
+		try {
+			assertEquals(Const.StatusLine.OK, persistent.getStatusLine());
+			JSONAssert.assertEquals(consents, jsonResponse,
+					JSONCompareMode.LENIENT);
+		} catch (AssertionError e) {
+			AssertErrorHandler(e);
+		}
+	}
+
+	/**
+	 * Gets all the consents and asserts them with the locally stored ones.
+	 */
+	@Test
+	public void testConsentsGet() {
+		JSONArray jsonResponse;
+		try {
+			jsonResponse = persistent.getResponseJSONArray(Const.Api.CONSENTS,
+					BasicCall.REST.GET);
+		} catch (ResponseTypeMismatchException ex) {
+			fail(ex.getFullMessage());
+			return;
+		}
 
 		try {
 			assertEquals(Const.StatusLine.OK, persistent.getStatusLine());

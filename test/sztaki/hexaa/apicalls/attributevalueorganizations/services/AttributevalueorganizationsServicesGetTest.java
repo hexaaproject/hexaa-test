@@ -148,9 +148,10 @@ public class AttributevalueorganizationsServicesGetTest extends NormalTest {
 	 * GET all services for the attributevalue.
 	 */
 	@Test
-	public void testAttributevalueorganizationsGetServices() {
+	public void testAttributevalueorganizationsGetServicesWithItems() {
 		JSONObject jsonItems;
 		try {
+			persistent.setOffset(0);
 			jsonItems = persistent.getResponseJSONObject(
 					Const.Api.ATTRIBUTEVALUEORGANIZATIONS_ID_SERVICES,
 					BasicCall.REST.GET, null, attributevalueorganization
@@ -161,6 +162,30 @@ public class AttributevalueorganizationsServicesGetTest extends NormalTest {
 		}
 
 		JSONArray jsonResponse = this.getItems(jsonItems);
+
+		try {
+			assertEquals(services.getJSONObject(1).getInt("id"), jsonResponse
+					.getJSONObject(0).getInt("id"));
+		} catch (AssertionError e) {
+			AssertErrorHandler(e);
+		}
+	}
+
+	/**
+	 * GET all services for the attributevalue.
+	 */
+	@Test
+	public void testAttributevalueorganizationsGetServices() {
+		JSONArray jsonResponse;
+		try {
+			jsonResponse = persistent.getResponseJSONArray(
+					Const.Api.ATTRIBUTEVALUEORGANIZATIONS_ID_SERVICES,
+					BasicCall.REST.GET, null, attributevalueorganization
+							.getJSONObject(0).getInt("id"), 0);
+		} catch (ResponseTypeMismatchException ex) {
+			fail(ex.getFullMessage());
+			return;
+		}
 
 		try {
 			assertEquals(services.getJSONObject(1).getInt("id"), jsonResponse

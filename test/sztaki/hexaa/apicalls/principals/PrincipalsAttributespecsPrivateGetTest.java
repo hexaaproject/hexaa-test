@@ -158,9 +158,10 @@ public class PrincipalsAttributespecsPrivateGetTest extends NormalTest {
 	 * GET all available attributespecs.
 	 */
 	@Test
-	public void testPrincipalGetPrivateAttributespecs() {
+	public void testPrincipalGetPrivateAttributespecsWithItems() {
 		JSONObject jsonItems;
 		try {
+			persistent.setOffset(0);
 			jsonItems = persistent.getResponseJSONObject(
 					Const.Api.PRINCIPAL_ATTRIBUTESPECS, BasicCall.REST.GET);
 		} catch (ResponseTypeMismatchException ex) {
@@ -169,6 +170,29 @@ public class PrincipalsAttributespecsPrivateGetTest extends NormalTest {
 		}
 
 		JSONArray jsonResponse = this.getItems(jsonItems);
+
+		try {
+			assertEquals(Const.StatusLine.OK, persistent.getStatusLine());
+			JSONAssert.assertEquals(attributespecs, jsonResponse,
+					JSONCompareMode.LENIENT);
+		} catch (AssertionError e) {
+			AssertErrorHandler(e);
+		}
+	}
+
+	/**
+	 * GET all available attributespecs.
+	 */
+	@Test
+	public void testPrincipalGetPrivateAttributespecs() {
+		JSONArray jsonResponse;
+		try {
+			jsonResponse = persistent.getResponseJSONArray(
+					Const.Api.PRINCIPAL_ATTRIBUTESPECS, BasicCall.REST.GET);
+		} catch (ResponseTypeMismatchException ex) {
+			fail(ex.getFullMessage());
+			return;
+		}
 
 		try {
 			assertEquals(Const.StatusLine.OK, persistent.getStatusLine());
