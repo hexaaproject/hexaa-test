@@ -12,15 +12,15 @@ import org.skyscreamer.jsonassert.JSONAssert;
 import org.skyscreamer.jsonassert.JSONParser;
 
 import sztaki.hexaa.BasicCall.REST;
-import sztaki.hexaa.CleanTest;
 import sztaki.hexaa.Const;
+import sztaki.hexaa.NormalTest;
 import sztaki.hexaa.ResponseTypeMismatchException;
 
 /**
  * Utility class to be inherited by the IsEmpty test classes. Implements
  * CleanTest and provides two methods for easier testing.
  */
-public abstract class IsEmptyTest extends CleanTest {
+public abstract class IsEmptyTest extends NormalTest {
 
 	/**
 	 * Calls the rest method on the constApi uri and expects an empty JSON

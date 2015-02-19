@@ -1,5 +1,6 @@
 package sztaki.hexaa;
 
+import org.junit.BeforeClass;
 import org.junit.runner.RunWith;
 import org.junit.runners.Suite;
 
@@ -19,4 +20,17 @@ import org.junit.runners.Suite;
 		sztaki.hexaa.apicalls.roles.RolesIsEmptyTest.class,
 		sztaki.hexaa.apicalls.services.ServicesIsEmptyTest.class, })
 public class AllIsEmptyTests extends BasicTestSuite {
+	/**
+	 * Connects to the server via Runtime.exec and executes a server side script
+	 * that drops the database, recreates it and reinitializes it. This method
+	 * runs before every child class, this way there is no interference between
+	 * classes.
+	 */
+	@BeforeClass
+	public static void cleanTestBasicSetUpClass() {
+		System.out.println("BeforeClass @ CleanTest");
+		new Authenticator().loadProperties();
+		new DatabaseManipulator().dropDatabase();
+		new Authenticator().authenticate(Const.HEXAA_FEDID);
+	}
 }
