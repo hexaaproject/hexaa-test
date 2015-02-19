@@ -153,6 +153,15 @@ public class BasicCall {
 	private String format = new String(".json");
 
 	/* *** Setter/getter methods *** */
+	protected void setMaster(String path, REST restCall, String json, int id,
+			int sId, String fedid) {
+		this.setPath(path);
+		this.setString(json);
+		this.setId(id);
+		this.setSId(sId);
+		this.setFedid(fedid);
+	}
+
 	/**
 	 * Sets the path.
 	 *
@@ -415,12 +424,6 @@ public class BasicCall {
 	 */
 	public String call(String path, REST restCall) {
 		return call(path, restCall, "", 0, 0, "fedid");
-		// this.setPath(path);
-		// this.setString(null);
-		// this.setId(1);
-		// this.setSId(1);
-		//
-		// return callSwitch(restCall);
 	}
 
 	/**
@@ -442,12 +445,6 @@ public class BasicCall {
 	 */
 	public String call(String path, REST restCall, String json) {
 		return call(path, restCall, json, 0, 0, "fedid");
-		// this.setPath(path);
-		// this.setString(json);
-		// this.setId(1);
-		// this.setSId(1);
-		//
-		// return callSwitch(restCall);
 	}
 
 	/**
@@ -466,12 +463,6 @@ public class BasicCall {
 	 */
 	public String call(String path, REST restCall, int id) {
 		return call(path, restCall, "", id, 0, "fedid");
-		// this.setPath(path);
-		// this.setString(json);
-		// this.setId(id);
-		// this.setSId(sId);
-		//
-		// return callSwitch(restCall);
 	}
 
 	/**
@@ -492,12 +483,6 @@ public class BasicCall {
 	 */
 	public String call(String path, REST restCall, int id, int sId) {
 		return call(path, restCall, "", id, sId, "fedid");
-		// this.setPath(path);
-		// this.setString(json);
-		// this.setId(id);
-		// this.setSId(sId);
-		//
-		// return callSwitch(restCall);
 	}
 
 	/**
@@ -521,12 +506,6 @@ public class BasicCall {
 	 */
 	public String call(String path, REST restCall, String json, int id, int sId) {
 		return call(path, restCall, json, id, sId, "fedid");
-		// this.setPath(path);
-		// this.setString(json);
-		// this.setId(id);
-		// this.setSId(sId);
-		//
-		// return callSwitch(restCall);
 	}
 
 	/**
@@ -553,13 +532,9 @@ public class BasicCall {
 	 */
 	public String call(String path, REST restCall, String json, int id,
 			int sId, String fedid) {
-		this.setPath(path);
-		this.setString(json);
-		this.setId(id);
-		this.setSId(sId);
-		this.setFedid(fedid);
+		this.setMaster(path, restCall, json, id, sId, fedid);
 
-		return callSwitch(restCall);
+		return this.callSwitch(restCall);
 	}
 
 	/* *** Calls to get JSONObjects and JSONArrays already parsed *** */
@@ -580,13 +555,8 @@ public class BasicCall {
 	 */
 	public JSONObject getResponseJSONObject(String path, REST restCall)
 			throws ResponseTypeMismatchException {
-		// this.setPath(path);
-		// this.setString(null);
-		// this.setId(1);
-		// this.setSId(1);
-		//
-		// Object tempResponse = callSwitch(restCall);
-		Object tempResponse = this.call(path, restCall);
+		Object tempResponse = this.getResponseJSONObject(path, restCall, "", 0,
+				0, "fedid");
 
 		Object serverResponse;
 		try {
@@ -628,13 +598,8 @@ public class BasicCall {
 	 */
 	public JSONObject getResponseJSONObject(String path, REST restCall,
 			String json) throws ResponseTypeMismatchException {
-		// this.setPath(path);
-		// this.setString(json);
-		// this.setId(1);
-		// this.setSId(1);
-		//
-		// Object tempResponse = callSwitch(restCall);
-		Object tempResponse = call(path, restCall, json);
+		Object tempResponse = this.getResponseJSONObject(path, restCall, json,
+				0, 0, "fedid");
 
 		Object serverResponse;
 		try {
@@ -678,13 +643,8 @@ public class BasicCall {
 	 */
 	public JSONObject getResponseJSONObject(String path, REST restCall, int id)
 			throws ResponseTypeMismatchException {
-		// this.setPath(path);
-		// this.setString(json);
-		// this.setId(id);
-		// this.setSId(sId);
-		//
-		// Object tempResponse = callSwitch(restCall);
-		Object tempResponse = this.call(path, restCall, id);
+		Object tempResponse = this.getResponseJSONObject(path, restCall, "",
+				id, 0, "fedid");
 
 		Object serverResponse;
 		try {
@@ -728,13 +688,8 @@ public class BasicCall {
 	 */
 	public JSONObject getResponseJSONObject(String path, REST restCall, int id,
 			int sId) throws ResponseTypeMismatchException {
-		// this.setPath(path);
-		// this.setString(json);
-		// this.setId(id);
-		// this.setSId(sId);
-		//
-		// Object tempResponse = callSwitch(restCall);
-		Object tempResponse = this.call(path, restCall, id, sId);
+		Object tempResponse = this.getResponseJSONObject(path, restCall, "",
+				id, sId, "fedid");
 
 		Object serverResponse;
 		try {
@@ -778,13 +733,8 @@ public class BasicCall {
 	 */
 	public JSONObject getResponseJSONObject(String path, REST restCall,
 			String json, int id, int sId) throws ResponseTypeMismatchException {
-		// this.setPath(path);
-		// this.setString(json);
-		// this.setId(id);
-		// this.setSId(sId);
-		//
-		// Object tempResponse = callSwitch(restCall);
-		Object tempResponse = this.call(path, restCall, json, id, sId);
+		Object tempResponse = this.getResponseJSONObject(path, restCall, json,
+				id, sId, "fedid");
 
 		Object serverResponse;
 		try {
@@ -832,14 +782,9 @@ public class BasicCall {
 	public JSONObject getResponseJSONObject(String path, REST restCall,
 			String json, int id, int sId, String fedid)
 			throws ResponseTypeMismatchException {
-		// this.setPath(path);
-		// this.setString(json);
-		// this.setId(id);
-		// this.setSId(sId);
-		// this.setFedid(fedid);
-		//
-		// Object tempResponse = callSwitch(restCall);
-		Object tempResponse = this.call(path, restCall, json, id, sId, fedid);
+		this.setMaster(path, restCall, json, id, sId, fedid);
+
+		Object tempResponse = this.callSwitch(restCall);
 
 		Object serverResponse;
 		try {
@@ -878,13 +823,8 @@ public class BasicCall {
 	 */
 	public JSONArray getResponseJSONArray(String path, REST restCall)
 			throws ResponseTypeMismatchException {
-		// this.setPath(path);
-		// this.setString(null);
-		// this.setId(1);
-		// this.setSId(1);
-		//
-		// Object tempResponse = callSwitch(restCall);
-		Object tempResponse = this.call(path, restCall);
+		Object tempResponse = this.getResponseJSONArray(path, restCall, "", 0,
+				0, "fedid");
 
 		Object serverResponse;
 		try {
@@ -926,13 +866,8 @@ public class BasicCall {
 	 */
 	public JSONArray getResponseJSONArray(String path, REST restCall,
 			String json) throws ResponseTypeMismatchException {
-		// this.setPath(path);
-		// this.setString(json);
-		// this.setId(1);
-		// this.setSId(1);
-		//
-		// Object tempResponse = callSwitch(restCall);
-		Object tempResponse = call(path, restCall, json);
+		Object tempResponse = this.getResponseJSONArray(path, restCall, json,
+				0, 0, "fedid");
 
 		Object serverResponse;
 		try {
@@ -976,13 +911,8 @@ public class BasicCall {
 	 */
 	public JSONArray getResponseJSONArray(String path, REST restCall, int id)
 			throws ResponseTypeMismatchException {
-		// this.setPath(path);
-		// this.setString(json);
-		// this.setId(id);
-		// this.setSId(sId);
-		//
-		// Object tempResponse = callSwitch(restCall);
-		Object tempResponse = this.call(path, restCall, id);
+		Object tempResponse = this.getResponseJSONArray(path, restCall, "", id,
+				0, "fedid");
 
 		Object serverResponse;
 		try {
@@ -1026,13 +956,8 @@ public class BasicCall {
 	 */
 	public JSONArray getResponseJSONArray(String path, REST restCall, int id,
 			int sId) throws ResponseTypeMismatchException {
-		// this.setPath(path);
-		// this.setString(json);
-		// this.setId(id);
-		// this.setSId(sId);
-		//
-		// Object tempResponse = callSwitch(restCall);
-		Object tempResponse = this.call(path, restCall, id, sId);
+		Object tempResponse = this.getResponseJSONArray(path, restCall, "", id,
+				sId, "fedid");
 
 		Object serverResponse;
 		try {
@@ -1076,13 +1001,8 @@ public class BasicCall {
 	 */
 	public JSONArray getResponseJSONArray(String path, REST restCall,
 			String json, int id, int sId) throws ResponseTypeMismatchException {
-		// this.setPath(path);
-		// this.setString(json);
-		// this.setId(id);
-		// this.setSId(sId);
-		//
-		// Object tempResponse = callSwitch(restCall);
-		Object tempResponse = this.call(path, restCall, json, id, sId);
+		Object tempResponse = this.getResponseJSONArray(path, restCall, json,
+				id, sId, "fedid");
 
 		Object serverResponse;
 		try {
@@ -1130,14 +1050,9 @@ public class BasicCall {
 	public JSONArray getResponseJSONArray(String path, REST restCall,
 			String json, int id, int sId, String fedid)
 			throws ResponseTypeMismatchException {
-		// this.setPath(path);
-		// this.setString(json);
-		// this.setId(id);
-		// this.setSId(sId);
-		// this.setFedid(fedid);
-		//
-		// Object tempResponse = callSwitch(restCall);
-		Object tempResponse = this.call(path, restCall, json, id, sId, fedid);
+		this.setMaster(path, restCall, json, id, sId, fedid);
+
+		Object tempResponse = this.callSwitch(restCall);
 
 		Object serverResponse;
 		try {
@@ -1424,12 +1339,6 @@ public class BasicCall {
 		try {
 			parsedResponse = JSONParser.parseJSON(responseDataString);
 			parsedResponse = recursiveJSONManipulator(parsedResponse);
-//			if (parsedResponse instanceof JSONObject) {
-//				parsedResponse = removeUpdate((JSONObject) parsedResponse);
-//			}
-//			if (parsedResponse instanceof JSONArray) {
-//				parsedResponse = removeUpdate((JSONArray) parsedResponse);
-//			}
 		} catch (JSONException e) {
 			System.out.println("  *  " + statusLine + "  *   "
 					+ responseDataString);
@@ -1443,34 +1352,13 @@ public class BasicCall {
 		return responseDataString;
 	}
 
-	@Deprecated
 	/**
-	 * Removes the update key from the JSONObjects stored in the given
-	 * JSONArray. This is needed because the update value is changing whenever
-	 * someone reach for the object (even with GET) and that would create
-	 * unnecessary inconsistency in the tests.
-	 *
-	 * @param array
-	 *            JSONArray with JSONObjects to remove all update keys.
-	 * @return JSONArray with no update_at parameters
+	 * Reads a custom InputStream into a String. Using scanners.
+	 * 
+	 * @param content
+	 *            InputStream to read.
+	 * @return String representation of the stream.
 	 */
-	private JSONArray removeUpdate(JSONArray array) {
-		for (int i = 0; i < array.length(); i++) {
-			if (array.get(i) instanceof JSONObject) {
-				array.getJSONObject(i).remove("updated_at");
-			} else if (array.get(i) instanceof JSONArray) {
-				removeUpdate((JSONArray) array.get(i));
-			}
-		}
-		return array;
-	}
-
-	@Deprecated
-	private JSONObject removeUpdate(JSONObject object) {
-		object.remove("updated_at");
-		return object;
-	}
-
 	private String readContent(InputStream content) {
 		java.util.Scanner s = new java.util.Scanner(content);
 		java.util.Scanner scanner = s.useDelimiter("\\A");
@@ -1478,6 +1366,63 @@ public class BasicCall {
 		s.close();
 
 		return data;
+	}
+
+	/**
+	 * A recursive method that iterates through any json object and executes the
+	 * proper functions. Does not change the input object, returns a new one.
+	 * Function: If any "id" key has a respected value of String it changes the
+	 * value to int. Function: removes the updated_at keys as these are
+	 * irrelevant for the test cases and causing problems.
+	 * 
+	 * @param object
+	 *            a json object or array, remains unchanged, return non json
+	 *            objects without any changes.
+	 * @return a new json object containing mostly the same information as the
+	 *         original, only changes done by the functions.
+	 */
+	private Object recursiveJSONManipulator(Object object) {
+		if (object instanceof JSONArray) {
+			JSONArray json = (JSONArray) object;
+			JSONArray temp = new JSONArray();
+			for (int i = 0; i < json.length(); i++) {
+				// Recursion
+				temp.put(recursiveJSONManipulator(json.get(i)));
+			}
+			return temp;
+		}
+		if (object instanceof JSONObject) {
+			JSONObject json = (JSONObject) object;
+			JSONObject temp = new JSONObject();
+			if (JSONObject.getNames(json) == null) {
+				return object;
+			}
+			for (String s : JSONObject.getNames(json)) {
+				if (json.get(s) instanceof JSONObject) {
+					// Recursion
+					temp.put(s, recursiveJSONManipulator(json.getJSONObject(s)));
+				} else if (json.get(s) instanceof JSONArray) {
+					// Recursion
+					temp.put(s, recursiveJSONManipulator(json.getJSONArray(s)));
+				} else if (s.equals("id") && json.get(s) instanceof String) {
+					// Function: If any "id" key has a respected value of String
+					// it changes the value to int
+					temp.put(s, Integer.parseInt(json.getString(s)));
+				} else if (s.equals("updated_at")) {
+					// Function: removes the updated_at keys as these are
+					// irrelevant for the test cases and causing problems
+
+					// if you want to change an object/array in a jsonobject add
+					// it here in an else if, please document all changes in the
+					// method description as well.
+				} else {
+					// Everything else remains unchanged
+					temp.put(s, json.get(s));
+				}
+			}
+			return temp;
+		}
+		return object;
 	}
 
 	/**
@@ -1501,40 +1446,6 @@ public class BasicCall {
 		}
 
 		return response;
-	}
-
-	// TODO rekurzív metódus a string id int-é alakítására
-	private Object recursiveJSONManipulator(Object object) {
-		if (object instanceof JSONArray) {
-			JSONArray json = (JSONArray) object;
-			JSONArray temp = new JSONArray();
-			for (int i = 0; i < json.length(); i++) {
-				temp.put(recursiveJSONManipulator(json.get(i)));
-			}
-			return temp;
-		}
-		if (object instanceof JSONObject) {
-			JSONObject json = (JSONObject) object;
-			JSONObject temp = new JSONObject();
-			if (JSONObject.getNames(json) == null) {
-				return object;
-			}
-			for (String s : JSONObject.getNames(json)) {
-				// if you want to change an object/array in a jsonobject add it here in an else if
-				if (json.get(s) instanceof JSONObject) {
-					temp.put(s, recursiveJSONManipulator(json.getJSONObject(s)));
-				} else if (json.get(s) instanceof JSONArray) {
-					temp.put(s, recursiveJSONManipulator(json.getJSONArray(s)));
-				} else if (s.equals("id") && json.get(s) instanceof String) {
-					temp.put(s, Integer.parseInt(json.getString(s)));
-				} else if (s.equals("updated_at")) {
-				} else {
-					temp.put(s, json.get(s));
-				}
-			}
-			return temp;
-		}
-		return object;
 	}
 
 	/**
@@ -1623,6 +1534,13 @@ public class BasicCall {
 		return httpAction;
 	}
 
+	/**
+	 * Creates a BasicHttpEntity from the json payload, with utf-8 encoding.
+	 * 
+	 * @param json
+	 *            payload for the HttpMessages.
+	 * @return BasicHttpEntity from the json input string.
+	 */
 	private BasicHttpEntity createEntity(String json) {
 		if (json == null) {
 			json = new String();
