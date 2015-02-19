@@ -1,4 +1,4 @@
-package sztaki.hexaa.apicalls;
+package sztaki.hexaa;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.fail;
@@ -13,7 +13,6 @@ import org.skyscreamer.jsonassert.JSONParser;
 
 import sztaki.hexaa.BasicCall.REST;
 import sztaki.hexaa.Const;
-import sztaki.hexaa.NormalTest;
 import sztaki.hexaa.ResponseTypeMismatchException;
 
 /**

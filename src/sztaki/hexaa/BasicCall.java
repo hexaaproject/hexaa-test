@@ -414,7 +414,7 @@ public class BasicCall {
 	 *         Line/Code see {@link getStatusLine()}.
 	 */
 	public String call(String path, REST restCall) {
-		return call(path, restCall, "", 0, 0, "");
+		return call(path, restCall, "", 0, 0, "fedid");
 		// this.setPath(path);
 		// this.setString(null);
 		// this.setId(1);
@@ -441,7 +441,7 @@ public class BasicCall {
 	 *         Line/Code see {@link getStatusLine()}.
 	 */
 	public String call(String path, REST restCall, String json) {
-		return call(path, restCall, json, 0, 0, "");
+		return call(path, restCall, json, 0, 0, "fedid");
 		// this.setPath(path);
 		// this.setString(json);
 		// this.setId(1);
@@ -465,7 +465,7 @@ public class BasicCall {
 	 *         Line/Code see {@link getStatusLine()}.
 	 */
 	public String call(String path, REST restCall, int id) {
-		return call(path, restCall, "", id, 0, "");
+		return call(path, restCall, "", id, 0, "fedid");
 		// this.setPath(path);
 		// this.setString(json);
 		// this.setId(id);
@@ -491,7 +491,7 @@ public class BasicCall {
 	 *         Line/Code see {@link getStatusLine()}.
 	 */
 	public String call(String path, REST restCall, int id, int sId) {
-		return call(path, restCall, "", id, sId, "");
+		return call(path, restCall, "", id, sId, "fedid");
 		// this.setPath(path);
 		// this.setString(json);
 		// this.setId(id);
@@ -520,7 +520,7 @@ public class BasicCall {
 	 *         Line/Code see {@link getStatusLine()}.
 	 */
 	public String call(String path, REST restCall, String json, int id, int sId) {
-		return call(path, restCall, json, id, sId, "");
+		return call(path, restCall, json, id, sId, "fedid");
 		// this.setPath(path);
 		// this.setString(json);
 		// this.setId(id);

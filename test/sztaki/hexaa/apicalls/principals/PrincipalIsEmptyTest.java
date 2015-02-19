@@ -2,9 +2,10 @@ package sztaki.hexaa.apicalls.principals;
 
 import org.junit.BeforeClass;
 import org.junit.Test;
+
 import sztaki.hexaa.BasicCall;
 import sztaki.hexaa.Const;
-import sztaki.hexaa.apicalls.IsEmptyTest;
+import sztaki.hexaa.IsEmptyTest;
 
 /**
  * Tests the GET method on the principal related calls and expecting not found
