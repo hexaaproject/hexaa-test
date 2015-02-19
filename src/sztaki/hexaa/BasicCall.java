@@ -1423,13 +1423,13 @@ public class BasicCall {
 		Object parsedResponse;
 		try {
 			parsedResponse = JSONParser.parseJSON(responseDataString);
-			parsedResponse = changeIDStringToInt(parsedResponse);
-			if (parsedResponse instanceof JSONObject) {
-				parsedResponse = removeUpdate((JSONObject) parsedResponse);
-			}
-			if (parsedResponse instanceof JSONArray) {
-				parsedResponse = removeUpdate((JSONArray) parsedResponse);
-			}
+			parsedResponse = recursiveJSONManipulator(parsedResponse);
+//			if (parsedResponse instanceof JSONObject) {
+//				parsedResponse = removeUpdate((JSONObject) parsedResponse);
+//			}
+//			if (parsedResponse instanceof JSONArray) {
+//				parsedResponse = removeUpdate((JSONArray) parsedResponse);
+//			}
 		} catch (JSONException e) {
 			System.out.println("  *  " + statusLine + "  *   "
 					+ responseDataString);
@@ -1443,6 +1443,7 @@ public class BasicCall {
 		return responseDataString;
 	}
 
+	@Deprecated
 	/**
 	 * Removes the update key from the JSONObjects stored in the given
 	 * JSONArray. This is needed because the update value is changing whenever
@@ -1464,6 +1465,7 @@ public class BasicCall {
 		return array;
 	}
 
+	@Deprecated
 	private JSONObject removeUpdate(JSONObject object) {
 		object.remove("updated_at");
 		return object;
@@ -1502,12 +1504,12 @@ public class BasicCall {
 	}
 
 	// TODO rekurzív metódus a string id int-é alakítására
-	private Object changeIDStringToInt(Object object) {
+	private Object recursiveJSONManipulator(Object object) {
 		if (object instanceof JSONArray) {
 			JSONArray json = (JSONArray) object;
 			JSONArray temp = new JSONArray();
 			for (int i = 0; i < json.length(); i++) {
-				temp.put(changeIDStringToInt(json.get(i)));
+				temp.put(recursiveJSONManipulator(json.get(i)));
 			}
 			return temp;
 		}
@@ -1518,12 +1520,14 @@ public class BasicCall {
 				return object;
 			}
 			for (String s : JSONObject.getNames(json)) {
+				// if you want to change an object/array in a jsonobject add it here in an else if
 				if (json.get(s) instanceof JSONObject) {
-					temp.put(s, changeIDStringToInt(json.getJSONObject(s)));
+					temp.put(s, recursiveJSONManipulator(json.getJSONObject(s)));
 				} else if (json.get(s) instanceof JSONArray) {
-					temp.put(s, changeIDStringToInt(json.getJSONArray(s)));
+					temp.put(s, recursiveJSONManipulator(json.getJSONArray(s)));
 				} else if (s.equals("id") && json.get(s) instanceof String) {
 					temp.put(s, Integer.parseInt(json.getString(s)));
+				} else if (s.equals("updated_at")) {
 				} else {
 					temp.put(s, json.get(s));
 				}

@@ -2,7 +2,7 @@ package sztaki.hexaa;
 
 import org.junit.runner.RunWith;
 import org.junit.runners.Suite;
-
+// TODO more attributespecs - is_multivalue false test needed!
 /**
  * Runs the level differentiated tests in order.
  */
