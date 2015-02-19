@@ -1345,6 +1345,13 @@ public class BasicCall {
 			return responseDataString;
 		}
 
+		if (parsedResponse instanceof JSONArray) {
+			responseDataString = ((JSONArray)parsedResponse).toString();
+		}
+		if (parsedResponse instanceof JSONObject) {
+			responseDataString = ((JSONObject)parsedResponse).toString();
+		}
+		
 		responseDataString = parsedResponse.toString();
 
 		System.out
