@@ -1209,6 +1209,9 @@ public class BasicCall {
 		if (object instanceof JSONObject) {
 			JSONObject json = (JSONObject) object;
 			JSONObject temp = new JSONObject();
+			if (JSONObject.getNames(json) == null) {
+				return object;
+			}
 			for (String s : JSONObject.getNames(json)) {
 				if (json.get(s) instanceof JSONObject) {
 					temp.put(s, changeIDStringToInt(json.getJSONObject(s)));

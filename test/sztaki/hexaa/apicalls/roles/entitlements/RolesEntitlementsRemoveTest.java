@@ -145,6 +145,7 @@ public class RolesEntitlementsRemoveTest extends NormalTest {
 
 		JSONObject jsonItems;
 		try {
+			persistent.setOffset(0);
 			jsonItems = persistent.getResponseJSONObject(
 					Const.Api.ROLES_ID_ENTITLEMENTS, BasicCall.REST.GET, null,
 					roles.getJSONObject(0).getInt("id"), 0);

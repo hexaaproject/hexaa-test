@@ -132,9 +132,10 @@ public class RolesEntitlementsGetTest extends NormalTest {
 	 * GET the entitlements of the role.
 	 */
 	@Test
-	public void testRolesEntitlementsGet() {
+	public void testRolesEntitlementsGetWithItems() {
 		JSONObject jsonItems;
 		try {
+			persistent.setOffset(0);
 			jsonItems = persistent.getResponseJSONObject(
 					Const.Api.ROLES_ID_ENTITLEMENTS, BasicCall.REST.GET, null,
 					roles.getJSONObject(0).getInt("id"), 0);
@@ -144,6 +145,31 @@ public class RolesEntitlementsGetTest extends NormalTest {
 		}
 
 		JSONArray jsonResponse = this.getItems(jsonItems);
+
+		try {
+			JSONAssert.assertEquals(entitlements.getJSONObject(0),
+					jsonResponse.getJSONObject(0), JSONCompareMode.LENIENT);
+			JSONAssert.assertEquals(entitlements, jsonResponse,
+					JSONCompareMode.LENIENT);
+		} catch (AssertionError e) {
+			AssertErrorHandler(e);
+		}
+	}
+
+	/**
+	 * GET the entitlements of the role.
+	 */
+	@Test
+	public void testRolesEntitlementsGet() {
+		JSONArray jsonResponse;
+		try {
+			jsonResponse = persistent.getResponseJSONArray(
+					Const.Api.ROLES_ID_ENTITLEMENTS, BasicCall.REST.GET, null,
+					roles.getJSONObject(0).getInt("id"), 0);
+		} catch (ResponseTypeMismatchException ex) {
+			fail(ex.getFullMessage());
+			return;
+		}
 
 		try {
 			JSONAssert.assertEquals(entitlements.getJSONObject(0),

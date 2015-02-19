@@ -18,14 +18,14 @@ import sztaki.hexaa.Utility;
 /**
  * Tests the GET method on the /api/services/{id}/news call.
  */
-public class ServicesNewsTest extends NormalTest {
+public class GetServicesNewsTest extends NormalTest {
 
 	/**
 	 * Print the class name on the output.
 	 */
 	@BeforeClass
 	public static void classInformation() {
-		System.out.println("***\t " + ServicesNewsTest.class.getSimpleName()
+		System.out.println("***\t " + GetServicesNewsTest.class.getSimpleName()
 				+ " ***");
 	}
 
@@ -73,7 +73,7 @@ public class ServicesNewsTest extends NormalTest {
 	@AfterClass
 	public static void tearDownClass() {
 		System.out.println("TearDownClass: "
-				+ ServicesNewsTest.class.getSimpleName());
+				+ GetServicesNewsTest.class.getSimpleName());
 		for (int i = 0; i < entitlementpacks.length(); i++) {
 			Utility.Remove.entitlementpack(entitlementpacks.getJSONObject(i)
 					.getInt("id"));
@@ -91,9 +91,10 @@ public class ServicesNewsTest extends NormalTest {
 	 * Test the method.
 	 */
 	@Test
-	public void testServicesNews() {
+	public void testGetServicesNewsWithItems() {
 		JSONObject jsonItems;
 		try {
+			persistent.setOffset(0);
 			jsonItems = persistent.getResponseJSONObject(
 					Const.Api.SERVICES_ID_NEWS, BasicCall.REST.GET, null,
 					services.getJSONObject(0).getInt("id"), 0);
@@ -103,6 +104,28 @@ public class ServicesNewsTest extends NormalTest {
 		}
 
 		JSONArray jsonResponse = this.getItems(jsonItems);
+
+		try {
+			assertEquals(3, jsonResponse.length());
+		} catch (AssertionError e) {
+			AssertErrorHandler(e);
+		}
+	}
+
+	/**
+	 * Test the method.
+	 */
+	@Test
+	public void testGetServicesNews() {
+		JSONArray jsonResponse;
+		try {
+			jsonResponse = persistent.getResponseJSONArray(
+					Const.Api.SERVICES_ID_NEWS, BasicCall.REST.GET, null,
+					services.getJSONObject(0).getInt("id"), 0);
+		} catch (ResponseTypeMismatchException ex) {
+			fail(ex.getFullMessage());
+			return;
+		}
 
 		try {
 			assertEquals(3, jsonResponse.length());

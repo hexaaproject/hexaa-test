@@ -121,9 +121,10 @@ public class OrganizationEntitlementpacksGetTest extends NormalTest {
 	 * GETs the entitlementpack.
 	 */
 	@Test
-	public void testOrganizationEntitlementpacksGetPacks() {
+	public void testOrganizationEntitlementpacksGetPacksWithItems() {
 		JSONObject jsonItems;
 		try {
+			persistent.setOffset(0);
 			jsonItems = persistent.getResponseJSONObject(
 					Const.Api.ORGANIZATIONS_ID_ENTITLEMENTPACKS,
 					BasicCall.REST.GET, null, organizations.getJSONObject(0)
@@ -143,14 +144,40 @@ public class OrganizationEntitlementpacksGetTest extends NormalTest {
 			AssertErrorHandler(e);
 		}
 	}
+	
+	/**
+	 * GETs the entitlementpack.
+	 */
+	@Test
+	public void testOrganizationEntitlementpacksGetPacks() {
+		JSONArray jsonResponse;
+		try {
+			jsonResponse = persistent.getResponseJSONArray(
+					Const.Api.ORGANIZATIONS_ID_ENTITLEMENTPACKS,
+					BasicCall.REST.GET, null, organizations.getJSONObject(0)
+							.getInt("id"), 0);
+		} catch (ResponseTypeMismatchException ex) {
+			fail(ex.getFullMessage());
+			return;
+		}
+
+		try {
+			assertEquals(Const.StatusLine.OK, persistent.getStatusLine());
+			assertEquals(entitlementpacks.getJSONObject(0).getInt("id"),
+					jsonResponse.getJSONObject(0).getInt("entitlement_pack_id"));
+		} catch (AssertionError e) {
+			AssertErrorHandler(e);
+		}
+	}
 
 	/**
 	 * GETs the entitlements.
 	 */
 	@Test
-	public void testOrganizationEntitlementpacksGetEntitlements() {
+	public void testOrganizationEntitlementpacksGetEntitlementsWithItems() {
 		JSONObject jsonItems;
 		try {
+			persistent.setOffset(0);
 			jsonItems = persistent.getResponseJSONObject(
 					Const.Api.ORGANIZATIONS_ID_ENTITLEMENTS,
 					BasicCall.REST.GET, null, organizations.getJSONObject(0)
@@ -161,6 +188,30 @@ public class OrganizationEntitlementpacksGetTest extends NormalTest {
 		}
 
 		JSONArray jsonResponse = this.getItems(jsonItems);
+		
+		try {
+			JSONAssert.assertEquals(entitlements, jsonResponse,
+					JSONCompareMode.LENIENT);
+		} catch (AssertionError e) {
+			AssertErrorHandler(e);
+		}
+	}
+
+	/**
+	 * GETs the entitlements.
+	 */
+	@Test
+	public void testOrganizationEntitlementpacksGetEntitlements() {
+		JSONArray jsonResponse;
+		try {
+			jsonResponse = persistent.getResponseJSONArray(
+					Const.Api.ORGANIZATIONS_ID_ENTITLEMENTS,
+					BasicCall.REST.GET, null, organizations.getJSONObject(0)
+							.getInt("id"), 0);
+		} catch (ResponseTypeMismatchException ex) {
+			fail(ex.getFullMessage());
+			return;
+		}
 		
 		try {
 			JSONAssert.assertEquals(entitlements, jsonResponse,

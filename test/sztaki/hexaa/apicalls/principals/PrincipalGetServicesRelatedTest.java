@@ -18,7 +18,7 @@ import sztaki.hexaa.Utility;
 /**
  * Tests the GET method on the /api/principal/services/related call.
  */
-public class PrincipalServicesRelatedTest extends NormalTest {
+public class PrincipalGetServicesRelatedTest extends NormalTest {
 
 	/**
 	 * Print the class name on the output.
@@ -26,7 +26,7 @@ public class PrincipalServicesRelatedTest extends NormalTest {
 	@BeforeClass
 	public static void classInformation() {
 		System.out.println("***\t "
-				+ PrincipalServicesRelatedTest.class.getSimpleName() + " ***");
+				+ PrincipalGetServicesRelatedTest.class.getSimpleName() + " ***");
 	}
 
 	/**
@@ -111,7 +111,7 @@ public class PrincipalServicesRelatedTest extends NormalTest {
 	@AfterClass
 	public static void tearDownClass() {
 		System.out.println("TearDownClass: "
-				+ PrincipalServicesRelatedTest.class.getSimpleName());
+				+ PrincipalGetServicesRelatedTest.class.getSimpleName());
 		for (int i = 0; i < entitlementpacks.length(); i++) {
 			Utility.Remove.entitlementpack(entitlementpacks.getJSONObject(i)
 					.getInt("id"));
@@ -136,9 +136,10 @@ public class PrincipalServicesRelatedTest extends NormalTest {
 	 * Checks the returned id-s.
 	 */
 	@Test
-	public void testPrincipalServicesRelated() {
+	public void testPrincipalGetServicesRelatedWithItems() {
 		JSONObject jsonItems;
 		try {
+			persistent.setOffset(0);
 			jsonItems = persistent.getResponseJSONObject(
 					Const.Api.PRINCIPAL_SERVICES_RELATED, BasicCall.REST.GET);
 		} catch (ResponseTypeMismatchException ex) {
@@ -147,6 +148,32 @@ public class PrincipalServicesRelatedTest extends NormalTest {
 		}
 
 		JSONArray jsonResponse = this.getItems(jsonItems);
+
+		try {
+			assertEquals(Const.StatusLine.OK, persistent.getStatusLine());
+			assertEquals(services.length(), jsonResponse.length());
+			for (int i = 0; i < services.length(); i++) {
+				assertEquals(services.getJSONObject(i).get("id"), jsonResponse
+						.getJSONObject(i).get("id"));
+			}
+		} catch (AssertionError e) {
+			AssertErrorHandler(e);
+		}
+	}
+
+	/**
+	 * Checks the returned id-s.
+	 */
+	@Test
+	public void testPrincipalGetServicesRelated() {
+		JSONArray jsonResponse;
+		try {
+			jsonResponse = persistent.getResponseJSONArray(
+					Const.Api.PRINCIPAL_SERVICES_RELATED, BasicCall.REST.GET);
+		} catch (ResponseTypeMismatchException ex) {
+			fail(ex.getFullMessage());
+			return;
+		}
 
 		try {
 			assertEquals(Const.StatusLine.OK, persistent.getStatusLine());

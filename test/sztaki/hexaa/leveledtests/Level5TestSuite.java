@@ -28,11 +28,11 @@ import sztaki.hexaa.BasicTestSuite;
 		sztaki.hexaa.apicalls.roles.entitlements.RolesEntitlementsRemoveTest.class,
 		sztaki.hexaa.apicalls.roles.entitlements.RolesEntitlementsSetTest.class,
 		sztaki.hexaa.apicalls.roles.principals.RolesPrincipalsSetTest.class,
-		sztaki.hexaa.apicalls.principals.PrincipalServicesRelatedTest.class,
+		sztaki.hexaa.apicalls.principals.PrincipalGetServicesRelatedTest.class,
 		sztaki.hexaa.apicalls.services.entitlementpacks.ServicesEntitlementpacksRequestTest.class,
 
 		sztaki.hexaa.apicalls.news.OrganizationsNewsTest.class,
-		sztaki.hexaa.apicalls.news.ServicesNewsTest.class, })
+		sztaki.hexaa.apicalls.news.GetServicesNewsTest.class, })
 public class Level5TestSuite extends BasicTestSuite {
 
 }

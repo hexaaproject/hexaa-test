@@ -123,7 +123,7 @@ public class AttributevalueprincipalsServicesDeleteTest extends NormalTest {
 				+ AttributevalueprincipalsServicesDeleteTest.class
 						.getSimpleName());
 		for (int i = 0; i < attributevalueprincipal.length(); i++) {
-			Utility.Remove.attributevalueorganization(attributevalueprincipal
+			Utility.Remove.attributevalueprincipal(attributevalueprincipal
 					.getJSONObject(i).getInt("id"));
 		}
 		for (int i = 0; i < attributespecs.length(); i++) {
