@@ -123,6 +123,7 @@ public class AttributevalueorganizationsPostTest extends NormalTest {
 
 		JSONObject jsonItems;
 		try {
+			persistent.setOffset(0);
 			jsonItems = persistent.getResponseJSONObject(
 					Const.Api.ORGANIZATIONS_ID_ATTRIBUTEVALUEORGANIZATION,
 					BasicCall.REST.GET, null, organizations

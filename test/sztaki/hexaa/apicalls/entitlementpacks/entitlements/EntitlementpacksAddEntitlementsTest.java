@@ -150,6 +150,7 @@ public class EntitlementpacksAddEntitlementsTest extends NormalTest {
 
 		JSONObject jsonItems;
 		try {
+			persistent.setOffset(0);
 			jsonItems = persistent.getResponseJSONObject(
 					Const.Api.ENTITLEMENTPACKS_ID_ENTITLEMENTS, BasicCall.REST.GET,
 					null, packId, 0);

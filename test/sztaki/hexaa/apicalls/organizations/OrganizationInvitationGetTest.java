@@ -84,9 +84,10 @@ public class OrganizationInvitationGetTest extends NormalTest {
 	 * stored one.
 	 */
 	@Test
-	public void testOrganizationInvitationGet() {
+	public void testOrganizationInvitationGetWithItems() {
 		JSONObject jsonItems;
 		try {
+			persistent.setOffset(0);
 			jsonItems = persistent.getResponseJSONObject(
 					Const.Api.ORGANIZATIONS_ID_INVITATIONS, BasicCall.REST.GET,
 					null, organizations.getJSONObject(0).getInt("id"), 0);
@@ -96,6 +97,30 @@ public class OrganizationInvitationGetTest extends NormalTest {
 		}
 		
 		JSONArray jsonResponse = this.getItems(jsonItems);
+		
+		try {
+			JSONAssert.assertEquals(invitations, jsonResponse,
+					JSONCompareMode.LENIENT);
+		} catch (AssertionError e) {
+			AssertErrorHandler(e);
+		}
+	}
+	
+	/**
+	 * Gets all the invitations of the organization and checks it with the
+	 * stored one.
+	 */
+	@Test
+	public void testOrganizationInvitationGet() {
+		JSONArray jsonResponse;
+		try {
+			jsonResponse = persistent.getResponseJSONArray(
+					Const.Api.ORGANIZATIONS_ID_INVITATIONS, BasicCall.REST.GET,
+					null, organizations.getJSONObject(0).getInt("id"), 0);
+		} catch (ResponseTypeMismatchException ex) {
+			fail(ex.getFullMessage());
+			return;
+		}
 		
 		try {
 			JSONAssert.assertEquals(invitations, jsonResponse,

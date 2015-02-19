@@ -89,9 +89,10 @@ public class OrganizationsMembersGetTest extends NormalTest {
 	 * Tests the GET method.
 	 */
 	@Test
-	public void testOrganizationMembersGet() {
+	public void testOrganizationMembersGetWithItems() {
 		JSONObject jsonItems;
 		try {
+			persistent.setOffset(0);
 			jsonItems = persistent.getResponseJSONObject(
 					Const.Api.ORGANIZATIONS_ID_MEMBERS, BasicCall.REST.GET, null,
 					organizations.getJSONObject(0).getInt("id"), 0);
@@ -101,6 +102,30 @@ public class OrganizationsMembersGetTest extends NormalTest {
 		}
 
 		JSONArray jsonResponse = this.getItems(jsonItems);
+
+		try {
+			assertEquals(Const.StatusLine.OK, persistent.getStatusLine());
+			JSONAssert.assertEquals(principals, jsonResponse,
+					JSONCompareMode.LENIENT);
+		} catch (AssertionError e) {
+			AssertErrorHandler(e);
+		}
+	}
+
+	/**
+	 * Tests the GET method.
+	 */
+	@Test
+	public void testOrganizationMembersGet() {
+		JSONArray jsonResponse;
+		try {
+			jsonResponse = persistent.getResponseJSONArray(
+					Const.Api.ORGANIZATIONS_ID_MEMBERS, BasicCall.REST.GET, null,
+					organizations.getJSONObject(0).getInt("id"), 0);
+		} catch (ResponseTypeMismatchException ex) {
+			fail(ex.getFullMessage());
+			return;
+		}
 
 		try {
 			assertEquals(Const.StatusLine.OK, persistent.getStatusLine());

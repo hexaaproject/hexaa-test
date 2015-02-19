@@ -70,10 +70,10 @@ public class PrincipalInvitationGetTest extends NormalTest {
 	 * GET the invitation.
 	 */
 	@Test
-	public void testPrincipalInvitationGet() {
+	public void testPrincipalInvitationGetWithItems() {
 		JSONObject jsonItems;
-
 		try {
+			persistent.setOffset(0);
 			jsonItems = persistent.getResponseJSONObject(
 					Const.Api.PRINCIPAL_INVITATIONS, BasicCall.REST.GET);
 		} catch (ResponseTypeMismatchException ex) {
@@ -82,6 +82,27 @@ public class PrincipalInvitationGetTest extends NormalTest {
 		}
 		
 		JSONArray jsonResponse = this.getItems(jsonItems);
+
+		try {
+			assertEquals(invitations.getJSONObject(0).getInt("id"), jsonResponse.getJSONObject(0).get("id"));
+		} catch (AssertionError e) {
+			AssertErrorHandler(e);
+		}
+	}
+
+	/**
+	 * GET the invitation.
+	 */
+	@Test
+	public void testPrincipalInvitationGet() {
+		JSONArray jsonResponse;
+		try {
+			jsonResponse = persistent.getResponseJSONArray(
+					Const.Api.PRINCIPAL_INVITATIONS, BasicCall.REST.GET);
+		} catch (ResponseTypeMismatchException ex) {
+			fail(ex.getFullMessage());
+			return;
+		}
 
 		try {
 			assertEquals(invitations.getJSONObject(0).getInt("id"), jsonResponse.getJSONObject(0).get("id"));

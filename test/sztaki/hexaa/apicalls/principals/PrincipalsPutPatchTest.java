@@ -113,6 +113,7 @@ public class PrincipalsPutPatchTest extends NormalTest {
 		principals.getJSONObject(0).put("fedid",
 				"PrincipalsPutPatchTest_pri1_modified");
 
+		persistent.isAdmin = true;
 		persistent.call(Const.Api.PRINCIPALS_ID, BasicCall.REST.PATCH,
 				jsonTemp.toString(), principals.getJSONObject(0).getInt("id"),
 				2);

@@ -81,9 +81,10 @@ public class AttributespecsServicesGetTest extends NormalTest {
 	 * GET the service linked to the attributespec.
 	 */
 	@Test
-	public void testAttributespecsServicesGet() {
+	public void testAttributespecsServicesGetWithItems() {
 		JSONObject jsonItems;
 		try {
+			persistent.setOffset(0);
 			jsonItems = persistent.getResponseJSONObject(
 					Const.Api.ATTRIBUTESPECS_ID_SERVICES, BasicCall.REST.GET,
 					null, attributespecs.getJSONObject(0).getInt("id"), 0);
@@ -93,6 +94,30 @@ public class AttributespecsServicesGetTest extends NormalTest {
 		}
 
 		JSONArray jsonResponse = this.getItems(jsonItems);
+
+		try {
+			assertEquals(Const.StatusLine.OK, persistent.getStatusLine());
+			assertEquals(services.getJSONObject(0).getInt("id"), jsonResponse
+					.getJSONObject(0).getInt("service_id"));
+		} catch (AssertionError e) {
+			AssertErrorHandler(e);
+		}
+	}
+
+	/**
+	 * GET the service linked to the attributespec.
+	 */
+	@Test
+	public void testAttributespecsServicesGet() {
+		JSONArray jsonResponse;
+		try {
+			jsonResponse = persistent.getResponseJSONArray(
+					Const.Api.ATTRIBUTESPECS_ID_SERVICES, BasicCall.REST.GET,
+					null, attributespecs.getJSONObject(0).getInt("id"), 0);
+		} catch (ResponseTypeMismatchException ex) {
+			fail(ex.getFullMessage());
+			return;
+		}
 
 		try {
 			assertEquals(Const.StatusLine.OK, persistent.getStatusLine());

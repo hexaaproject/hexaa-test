@@ -77,9 +77,10 @@ public class OrganizationsRolesGetTest extends NormalTest {
 	 * GET the role of the organization.
 	 */
 	@Test
-	public void testOrganizationsRolesGet() {
+	public void testOrganizationsRolesGetWithItems() {
 		JSONObject jsonItems;
 		try {
+			persistent.setOffset(0);
 			jsonItems = persistent.getResponseJSONObject(
 					Const.Api.ORGANIZATIONS_ID_ROLES, BasicCall.REST.GET, null,
 					organizations.getJSONObject(0).getInt("id"), 0);
@@ -89,6 +90,30 @@ public class OrganizationsRolesGetTest extends NormalTest {
 		}
 
 		JSONArray jsonResponse = this.getItems(jsonItems);
+
+		try {
+			assertEquals(Const.StatusLine.OK, persistent.getStatusLine());
+			JSONAssert.assertEquals(roles, jsonResponse,
+					JSONCompareMode.LENIENT);
+		} catch (AssertionError e) {
+			AssertErrorHandler(e);
+		}
+	}
+
+	/**
+	 * GET the role of the organization.
+	 */
+	@Test
+	public void testOrganizationsRolesGet() {
+		JSONArray jsonResponse;
+		try {
+			jsonResponse = persistent.getResponseJSONArray(
+					Const.Api.ORGANIZATIONS_ID_ROLES, BasicCall.REST.GET, null,
+					organizations.getJSONObject(0).getInt("id"), 0);
+		} catch (ResponseTypeMismatchException ex) {
+			fail(ex.getFullMessage());
+			return;
+		}
 
 		try {
 			assertEquals(Const.StatusLine.OK, persistent.getStatusLine());

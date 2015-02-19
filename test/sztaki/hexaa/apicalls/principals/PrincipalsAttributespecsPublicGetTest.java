@@ -101,9 +101,10 @@ public class PrincipalsAttributespecsPublicGetTest extends NormalTest {
 	 * member of any role).
 	 */
 	@Test
-	public void testPrincipalsAttributespecsPublicGet() {
+	public void testPrincipalsAttributespecsPublicGetWithItems() {
 		JSONObject jsonItems;
 		try {
+			persistent.setOffset(0);
 			jsonItems = persistent.getResponseJSONObject(
 					Const.Api.PRINCIPAL_ATTRIBUTESPECS, BasicCall.REST.GET);
 		} catch (ResponseTypeMismatchException ex) {
@@ -112,6 +113,30 @@ public class PrincipalsAttributespecsPublicGetTest extends NormalTest {
 		}
 
 		JSONArray jsonResponse = this.getItems(jsonItems);
+
+		try {
+			assertEquals(Const.StatusLine.OK, persistent.getStatusLine());
+			JSONAssert.assertEquals(attributespecs, jsonResponse,
+					JSONCompareMode.LENIENT);
+		} catch (AssertionError e) {
+			AssertErrorHandler(e);
+		}
+	}
+
+	/**
+	 * GET the available (public) attributespecs (as the principal is not a
+	 * member of any role).
+	 */
+	@Test
+	public void testPrincipalsAttributespecsPublicGet() {
+		JSONArray jsonResponse;
+		try {
+			jsonResponse = persistent.getResponseJSONArray(
+					Const.Api.PRINCIPAL_ATTRIBUTESPECS, BasicCall.REST.GET);
+		} catch (ResponseTypeMismatchException ex) {
+			fail(ex.getFullMessage());
+			return;
+		}
 
 		try {
 			assertEquals(Const.StatusLine.OK, persistent.getStatusLine());

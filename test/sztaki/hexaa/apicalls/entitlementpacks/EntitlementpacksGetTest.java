@@ -98,9 +98,10 @@ public class EntitlementpacksGetTest extends NormalTest {
 	 * Tests the GET method on /api/entitlementpacks/public call.
 	 */
 	@Test
-	public void testEntitlementpacksPublicGet() {
+	public void testEntitlementpacksPublicGetWithItems() {
 		JSONObject jsonItems;
 		try {
+			persistent.setOffset(0);
 			jsonItems = persistent.getResponseJSONObject(
 					Const.Api.ENTITLEMENTPACKS_PUBLIC, BasicCall.REST.GET,
 					null, entitlementpacks.getJSONObject(0).getInt("id"), 0);
@@ -109,13 +110,39 @@ public class EntitlementpacksGetTest extends NormalTest {
 			return;
 		}
 
-		JSONArray jsonResponseArray = jsonItems.getJSONArray("items");
+		JSONArray jsonResponse = jsonItems.getJSONArray("items");
 
 		try {
 			assertEquals(Const.StatusLine.OK, persistent.getStatusLine());
 			JSONAssert
 					.assertEquals(entitlementpacks.getJSONObject(0),
-							jsonResponseArray.getJSONObject(0),
+							jsonResponse.getJSONObject(0),
+							JSONCompareMode.LENIENT);
+		} catch (AssertionError e) {
+			AssertErrorHandler(e);
+		}
+	}
+
+	/**
+	 * Tests the GET method on /api/entitlementpacks/public call.
+	 */
+	@Test
+	public void testEntitlementpacksPublicGet() {
+		JSONArray jsonResponse;
+		try {
+			jsonResponse = persistent.getResponseJSONArray(
+					Const.Api.ENTITLEMENTPACKS_PUBLIC, BasicCall.REST.GET,
+					null, entitlementpacks.getJSONObject(0).getInt("id"), 0);
+		} catch (ResponseTypeMismatchException ex) {
+			fail(ex.getFullMessage());
+			return;
+		}
+
+		try {
+			assertEquals(Const.StatusLine.OK, persistent.getStatusLine());
+			JSONAssert
+					.assertEquals(entitlementpacks.getJSONObject(0),
+							jsonResponse.getJSONObject(0),
 							JSONCompareMode.LENIENT);
 		} catch (AssertionError e) {
 			AssertErrorHandler(e);

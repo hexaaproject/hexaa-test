@@ -120,6 +120,7 @@ public class AttributevalueprincipalsPostTest extends NormalTest {
 
 		JSONObject jsonItems;
 		try {
+			persistent.setOffset(0);
 			jsonItems = persistent.getResponseJSONObject(
 					Const.Api.PRINCIPAL_ATTRIBUTEVALUEPRINCIPAL,
 					BasicCall.REST.GET);
@@ -183,6 +184,7 @@ public class AttributevalueprincipalsPostTest extends NormalTest {
 
 		JSONObject jsonItems;
 		try {
+			persistent.setOffset(0);
 			jsonItems = persistent.getResponseJSONObject(
 					Const.Api.PRINCIPAL_ATTRIBUTEVALUEPRINCIPAL,
 					BasicCall.REST.GET);
