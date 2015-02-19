@@ -66,16 +66,41 @@ public class PrincipalsGetMemebersOrganizationsTest extends NormalTest {
 	 * GET the list of organizations where the user is a member.
 	 */
 	@Test
-	public void testPrincipalGetMemberOrg() {
+	public void testPrincipalGetMemberOrgWithItems() {
 		JSONObject jsonItems;
 		try {
+			persistent.setOffset(0);
 			jsonItems = persistent.getResponseJSONObject(
 					Const.Api.MEMBER_ORGANIZATIONS, BasicCall.REST.GET);
 		} catch (ResponseTypeMismatchException ex) {
 			fail(ex.getFullMessage());
 			return;
 		}
+		
 		JSONArray jsonResponse = this.getItems(jsonItems);
+
+		try {
+			assertEquals(Const.StatusLine.OK, persistent.getStatusLine());
+			JSONAssert.assertEquals(organizations, jsonResponse,
+					JSONCompareMode.LENIENT);
+		} catch (AssertionError e) {
+			AssertErrorHandler(e);
+		}
+	}
+
+	/**
+	 * GET the list of organizations where the user is a member.
+	 */
+	@Test
+	public void testPrincipalGetMemberOrg() {
+		JSONArray jsonResponse;
+		try {
+			jsonResponse = persistent.getResponseJSONArray(
+					Const.Api.MEMBER_ORGANIZATIONS, BasicCall.REST.GET);
+		} catch (ResponseTypeMismatchException ex) {
+			fail(ex.getFullMessage());
+			return;
+		}
 
 		try {
 			assertEquals(Const.StatusLine.OK, persistent.getStatusLine());

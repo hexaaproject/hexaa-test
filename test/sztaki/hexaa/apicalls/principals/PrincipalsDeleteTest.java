@@ -35,7 +35,8 @@ public class PrincipalsDeleteTest extends NormalTest {
 	 */
 	@Before
 	public void setUpMethod() {
-		principals = Utility.Create.principal("PrincipalsDeleteTest_pri_respawn");
+		principals = Utility.Create
+				.principal("PrincipalsDeleteTest_pri_respawn");
 	}
 
 	/**
@@ -43,7 +44,9 @@ public class PrincipalsDeleteTest extends NormalTest {
 	 */
 	@Test
 	public void testPrincipalsDeleteByFedid() {
-		Utility.Remove.principal(principals.getJSONObject(0).getString("fedid"));
+		Utility.persistent.isAdmin = true;
+		Utility.Remove
+				.principal(principals.getJSONObject(0).getString("fedid"));
 
 		try {
 			assertEquals(Const.StatusLine.NoContent,
@@ -58,6 +61,7 @@ public class PrincipalsDeleteTest extends NormalTest {
 	 */
 	@Test
 	public void testPrincipalsDeleteById() {
+		Utility.persistent.isAdmin = true;
 		Utility.Remove.principal(principals.getJSONObject(0).getInt("id"));
 
 		try {

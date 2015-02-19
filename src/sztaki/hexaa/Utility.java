@@ -665,6 +665,8 @@ public class Utility {
 				json.put("fedid", fedid);
 				json.put("email", fedid + "@email.something");
 				json.put("display_name", fedid + "_name");
+				
+				persistent.isAdmin = true;
 
 				persistent.call(Const.Api.PRINCIPALS, BasicCall.REST.POST,
 						json.toString());

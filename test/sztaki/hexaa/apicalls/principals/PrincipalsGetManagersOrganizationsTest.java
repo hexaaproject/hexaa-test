@@ -66,16 +66,41 @@ public class PrincipalsGetManagersOrganizationsTest extends NormalTest {
 	 * GET the list of organizations where the user is at least a manager.
 	 */
 	@Test
-	public void testPrincipalGetManagersOrganizations() {
+	public void testPrincipalGetManagersOrganizationsWithItems() {
 		JSONObject jsonItems;
 		try {
+			persistent.setOffset(0);
 			jsonItems = persistent.getResponseJSONObject(
 					Const.Api.MANAGER_ORGANIZATIONS, BasicCall.REST.GET);
 		} catch (ResponseTypeMismatchException ex) {
 			fail(ex.getFullMessage());
 			return;
 		}
+
 		JSONArray jsonResponse = this.getItems(jsonItems);
+
+		try {
+			assertEquals(Const.StatusLine.OK, persistent.getStatusLine());
+			JSONAssert.assertEquals(organizations, jsonResponse,
+					JSONCompareMode.LENIENT);
+		} catch (AssertionError e) {
+			AssertErrorHandler(e);
+		}
+	}
+
+	/**
+	 * GET the list of organizations where the user is at least a manager.
+	 */
+	@Test
+	public void testPrincipalGetManagersOrganizations() {
+		JSONArray jsonResponse;
+		try {
+			jsonResponse = persistent.getResponseJSONArray(
+					Const.Api.MANAGER_ORGANIZATIONS, BasicCall.REST.GET);
+		} catch (ResponseTypeMismatchException ex) {
+			fail(ex.getFullMessage());
+			return;
+		}
 
 		try {
 			assertEquals(Const.StatusLine.OK, persistent.getStatusLine());
