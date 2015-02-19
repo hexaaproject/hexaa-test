@@ -70,7 +70,7 @@ public class ServicesManagersAddTest extends NormalTest {
 			Utility.Remove.principal(managers.getJSONObject(i).getInt("id"));
 		}
 		for (int i = 0; i < services.length(); i++) {
-			Utility.persistent.isAdmin = true;
+			Utility.persistent.setAdmin();
 			Utility.Remove.service(services.getJSONObject(i).getInt("id"));
 		}
 	}

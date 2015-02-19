@@ -290,7 +290,7 @@ public class Utility {
 				json.put("maintainer", maintainer);
 
 				if (isAdmin == true) {
-					persistent.isAdmin = true;
+					persistent.setAdmin();
 				}
 				persistent.call(Const.Api.ATTRIBUTESPECS, BasicCall.REST.POST,
 						json.toString());
@@ -666,7 +666,7 @@ public class Utility {
 				json.put("email", fedid + "@email.something");
 				json.put("display_name", fedid + "_name");
 				
-				persistent.isAdmin = true;
+				persistent.setAdmin();
 
 				persistent.call(Const.Api.PRINCIPALS, BasicCall.REST.POST,
 						json.toString());
@@ -984,7 +984,7 @@ public class Utility {
 				JSONObject json;
 				try {
 					if (isAdmin == true) {
-						persistent.isAdmin = true;
+						persistent.setAdmin();
 					}
 					json = persistent.getResponseJSONObject(
 							Const.Api.ENTITLEMENTPACKS_ID_TOKEN,
@@ -1129,7 +1129,7 @@ public class Utility {
 			json.put("attribute_specs", jsonArray);
 			//
 			// if (isAdmin == true) {
-			// persistent.isAdmin = true;
+			// persistent.asAdmin();
 			// }
 			persistent.call(Const.Api.SERVICES_ID_ATTRIBUTESPEC,
 					BasicCall.REST.PUT, json.toString(),
@@ -1158,7 +1158,7 @@ public class Utility {
 
 			for (int asid : attributeIds) {
 				if (isAdmin == true) {
-					persistent.isAdmin = true;
+					persistent.setAdmin();
 				}
 				persistent.call(Const.Api.SERVICES_ID_ATTRIBUTESPECS_ASID,
 						BasicCall.REST.PUT, json.toString(), serviceId, asid);
@@ -1316,7 +1316,7 @@ public class Utility {
 			json.put("principals", principalIds);
 
 			if (isAdmin == true) {
-				persistent.isAdmin = true;
+				persistent.setAdmin();
 			}
 
 			persistent.call(Const.Api.ORGANIZATIONS_ID_MEMBER,
@@ -1572,7 +1572,7 @@ public class Utility {
 		public static void attributespec(int[] asIDs) {
 			for (int asID : asIDs) {
 				if (isAdmin == true) {
-					persistent.isAdmin = true;
+					persistent.setAdmin();
 				}
 				persistent.call(Const.Api.ATTRIBUTESPECS_ID,
 						BasicCall.REST.DELETE, null, asID, 0);
@@ -1600,7 +1600,7 @@ public class Utility {
 		 */
 		public static void attributespecFromService(int sID, int asID) {
 			if (isAdmin == true) {
-				persistent.isAdmin = true;
+				persistent.setAdmin();
 			}
 			persistent.call(Const.Api.SERVICES_ID_ATTRIBUTESPECS_ASID,
 					BasicCall.REST.DELETE, null, sID, asID);

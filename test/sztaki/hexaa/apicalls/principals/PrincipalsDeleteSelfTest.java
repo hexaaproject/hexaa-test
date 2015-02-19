@@ -41,7 +41,7 @@ public class PrincipalsDeleteSelfTest extends NormalTest {
 	 */
 	@BeforeClass
 	public static void setUpClass() {
-		Utility.persistent.isAdmin = true;
+		Utility.persistent.setAdmin();
 		principals = Utility.Create.principal("PrincipalsDeleteSelfTest_pri1");
 		new Authenticator().authenticate("PrincipalsDeleteSelfTest_pri1");
 	}
@@ -74,7 +74,7 @@ public class PrincipalsDeleteSelfTest extends NormalTest {
 
 		JSONObject jsonItems;
 		try {
-			persistent.isAdmin = true;
+			persistent.setAdmin();
 			persistent.setOffset(0);
 			jsonItems = persistent.getResponseJSONObject(Const.Api.PRINCIPALS,
 					BasicCall.REST.GET);

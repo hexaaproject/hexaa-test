@@ -75,7 +75,7 @@ public class AttributespecsPutTest extends NormalTest {
 		jsonTemp.put("is_multivalue", true);
 		jsonTemp.put("maintainer", "user");
 
-		persistent.isAdmin = true;
+		persistent.setAdmin();
 		persistent.call(Const.Api.ATTRIBUTESPECS_ID, BasicCall.REST.PUT,
 				jsonTemp.toString(), attributespecs.getJSONObject(0).getInt("id"), 0);
 
@@ -89,7 +89,7 @@ public class AttributespecsPutTest extends NormalTest {
 		JSONObject jsonResponse;
 
 		try {
-			persistent.isAdmin = true;
+			persistent.setAdmin();
 			jsonResponse = persistent
 					.getResponseJSONObject(Const.Api.ATTRIBUTESPECS_ID,
 							BasicCall.REST.GET, null, attributespecs.getJSONObject(0).getInt("id"), 0);

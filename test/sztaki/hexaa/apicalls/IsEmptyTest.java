@@ -75,7 +75,7 @@ public abstract class IsEmptyTest extends NormalTest {
 		if (JSONParser.parseJSON(persistent.call(constApi, rest)) instanceof JSONObject) {
 			JSONObject jsonResponse;
 			try {
-				persistent.isAdmin = true;
+				persistent.setAdmin();
 				persistent.setOffset(0);
 				jsonResponse = persistent.getResponseJSONObject(constApi, rest);
 				if (jsonResponse.has("item_number")) {

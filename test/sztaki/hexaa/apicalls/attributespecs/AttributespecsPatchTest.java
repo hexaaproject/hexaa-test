@@ -72,7 +72,7 @@ public class AttributespecsPatchTest extends NormalTest {
 		json.put("uri", "oidByPut");
 		attributespecs.getJSONObject(0).put("uri", "oidByPut");
 
-		persistent.isAdmin = true;
+		persistent.setAdmin();
 		persistent.call(Const.Api.ATTRIBUTESPECS_ID, BasicCall.REST.PATCH,
 				json.toString(), attributespecs.getJSONObject(0).getInt("id"),
 				0);
@@ -86,7 +86,7 @@ public class AttributespecsPatchTest extends NormalTest {
 		// Verify
 		JSONObject jsonResponse;
 		try {
-			persistent.isAdmin = true;
+			persistent.setAdmin();
 			jsonResponse = persistent.getResponseJSONObject(
 					Const.Api.ATTRIBUTESPECS_ID, BasicCall.REST.GET, null,
 					attributespecs.getJSONObject(0).getInt("id"), 0);

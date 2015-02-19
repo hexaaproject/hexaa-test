@@ -102,7 +102,7 @@ public class PrincipalsEntitlementsGetTest extends NormalTest {
 		Utility.Link.entitlementsToRole(roles.getJSONObject(0).getInt("id"),
 				new int[] { entitlements.getJSONObject(0).getInt("id") });
 
-		Utility.persistent.isAdmin = true;
+		Utility.persistent.setAdmin();
 		Utility.Link.principalToRole(roles.getJSONObject(0).getInt("id"),
 				new int[] { Const.HEXAA_ID });
 

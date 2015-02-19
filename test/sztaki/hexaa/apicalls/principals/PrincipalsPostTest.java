@@ -47,7 +47,7 @@ public class PrincipalsPostTest extends NormalTest {
 	 */
 	@Test
 	public void testPrincipalsPost() {
-		Utility.persistent.isAdmin = true;
+		Utility.persistent.setAdmin();
 		principals = Utility.Create.principal("PrincipalsPostTest_pri1");
 
 		try {

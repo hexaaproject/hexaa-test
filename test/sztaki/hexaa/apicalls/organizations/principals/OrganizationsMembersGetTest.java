@@ -76,7 +76,7 @@ public class OrganizationsMembersGetTest extends NormalTest {
 		System.out.println("TearDownClass: "
 				+ OrganizationsMembersGetTest.class.getSimpleName());
 		for (int i = 0; i < organizations.length(); i++) {
-			Utility.persistent.isAdmin = true;
+			Utility.persistent.setAdmin();
 			Utility.Remove.organization(organizations.getJSONObject(i).getInt(
 					"id"));
 		}

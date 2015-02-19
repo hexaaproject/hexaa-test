@@ -44,7 +44,7 @@ public class PrincipalsDeleteTest extends NormalTest {
 	 */
 	@Test
 	public void testPrincipalsDeleteByFedid() {
-		Utility.persistent.isAdmin = true;
+		Utility.persistent.setAdmin();
 		Utility.Remove
 				.principal(principals.getJSONObject(0).getString("fedid"));
 
@@ -61,7 +61,7 @@ public class PrincipalsDeleteTest extends NormalTest {
 	 */
 	@Test
 	public void testPrincipalsDeleteById() {
-		Utility.persistent.isAdmin = true;
+		Utility.persistent.setAdmin();
 		Utility.Remove.principal(principals.getJSONObject(0).getInt("id"));
 
 		try {

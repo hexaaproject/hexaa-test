@@ -35,22 +35,59 @@ import org.skyscreamer.jsonassert.JSONParser;
  */
 public class BasicCall {
 
-	public boolean isAdmin = false;
+	/**
+	 * Enables/disables the admin property for the next call. Disabled by
+	 * default.
+	 */
+	private boolean isAdmin = false;
 
-	private boolean isOffset = false;
-	private int offset = 0;
-
-	public void setOffset(int i) {
-		offset = i;
-		isOffset = true;
+	/**
+	 * Enables the admin property for the next call.
+	 */
+	public void setAdmin() {
+		this.isAdmin = true;
 	}
 
+	/**
+	 * Enables/disables the offset property for the next call. Disabled by
+	 * default.
+	 */
+	private boolean isOffset = false;
+	/**
+	 * Value of the offset property. 0 by default.
+	 */
+	private int offset = 0;
+
+	/**
+	 * Sets the provided value as the offset value for the next call.
+	 * 
+	 * @param offset
+	 *            the first item sent in the response.
+	 */
+	public void setOffset(int offset) {
+		this.offset = offset;
+		this.isOffset = true;
+	}
+
+	/**
+	 * Enables/disables the limit property for the next call. Disabled by
+	 * default.
+	 */
 	private boolean isLimit = false;
+	/**
+	 * Value of the limit property. 0 by default.
+	 */
 	private int limit = 0;
 
-	public void setLimit(int i) {
-		limit = i;
-		isLimit = true;
+	/**
+	 * Sets the provided value as the limit value for the next call.
+	 * 
+	 * @param limit
+	 *            the number of items sent in the response.
+	 */
+	public void setLimit(int limit) {
+		this.limit = limit;
+		this.isLimit = true;
 	}
 
 	/**
@@ -302,6 +339,13 @@ public class BasicCall {
 		}
 	}
 
+	/**
+	 * Sets the parameter as the response string and returns it unchanged.
+	 * 
+	 * @param r
+	 *            string to be set as the this.response string.
+	 * @return string: this.response.
+	 */
 	protected String setResponse(String r) {
 		this.response = r;
 		return response;
@@ -370,12 +414,13 @@ public class BasicCall {
 	 *         Line/Code see {@link getStatusLine()}.
 	 */
 	public String call(String path, REST restCall) {
-		this.setPath(path);
-		this.setString(null);
-		this.setId(1);
-		this.setSId(1);
-
-		return callSwitch(restCall);
+		return call(path, restCall, "", 0, 0, "");
+		// this.setPath(path);
+		// this.setString(null);
+		// this.setId(1);
+		// this.setSId(1);
+		//
+		// return callSwitch(restCall);
 	}
 
 	/**
@@ -396,12 +441,63 @@ public class BasicCall {
 	 *         Line/Code see {@link getStatusLine()}.
 	 */
 	public String call(String path, REST restCall, String json) {
-		this.setPath(path);
-		this.setString(json);
-		this.setId(1);
-		this.setSId(1);
+		return call(path, restCall, json, 0, 0, "");
+		// this.setPath(path);
+		// this.setString(json);
+		// this.setId(1);
+		// this.setSId(1);
+		//
+		// return callSwitch(restCall);
+	}
 
-		return callSwitch(restCall);
+	/**
+	 * The normal call type, use this for get calls with 1 required id. Does not
+	 * have a fedid, if fedid is required use {@link call(String path, REST
+	 * restCall, String json, int id, int sId, String fedid)}.
+	 *
+	 * @param path
+	 *            String, the relative path from the host.
+	 * @param restCall
+	 *            REST, the type of the call (GET,POST,PUT,DELETE).
+	 * @param id
+	 *            int, the basic {id} in the urls.
+	 * @return String, the content of the response for the call, for the Status
+	 *         Line/Code see {@link getStatusLine()}.
+	 */
+	public String call(String path, REST restCall, int id) {
+		return call(path, restCall, "", id, 0, "");
+		// this.setPath(path);
+		// this.setString(json);
+		// this.setId(id);
+		// this.setSId(sId);
+		//
+		// return callSwitch(restCall);
+	}
+
+	/**
+	 * The normal call type, use this for get calls with 2 required id. Does not
+	 * have a fedid, if fedid is required use {@link call(String path, REST
+	 * restCall, String json, int id, int sId, String fedid)}.
+	 *
+	 * @param path
+	 *            String, the relative path from the host.
+	 * @param restCall
+	 *            REST, the type of the call (GET,POST,PUT,DELETE).
+	 * @param id
+	 *            int, the basic {id} in the urls.
+	 * @param sId
+	 *            int, all the ids in the url other than {id} and {fedid}.
+	 * @return String, the content of the response for the call, for the Status
+	 *         Line/Code see {@link getStatusLine()}.
+	 */
+	public String call(String path, REST restCall, int id, int sId) {
+		return call(path, restCall, "", id, sId, "");
+		// this.setPath(path);
+		// this.setString(json);
+		// this.setId(id);
+		// this.setSId(sId);
+		//
+		// return callSwitch(restCall);
 	}
 
 	/**
@@ -424,12 +520,13 @@ public class BasicCall {
 	 *         Line/Code see {@link getStatusLine()}.
 	 */
 	public String call(String path, REST restCall, String json, int id, int sId) {
-		this.setPath(path);
-		this.setString(json);
-		this.setId(id);
-		this.setSId(sId);
-
-		return callSwitch(restCall);
+		return call(path, restCall, json, id, sId, "");
+		// this.setPath(path);
+		// this.setString(json);
+		// this.setId(id);
+		// this.setSId(sId);
+		//
+		// return callSwitch(restCall);
 	}
 
 	/**
@@ -1202,7 +1299,7 @@ public class BasicCall {
 			JSONArray json = (JSONArray) object;
 			JSONArray temp = new JSONArray();
 			for (int i = 0; i < json.length(); i++) {
-				temp.put(changeIDStringToInt(json.get(i)));	
+				temp.put(changeIDStringToInt(json.get(i)));
 			}
 			return temp;
 		}
