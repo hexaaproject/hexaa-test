@@ -71,12 +71,12 @@ public abstract class IsEmptyTest extends NormalTest {
 	 *            a REST call to be called.
 	 */
 	public void expectingFedid(String constApi, REST rest) {
-		if (JSONParser.parseJSON(persistent.call(constApi, rest)) instanceof JSONObject) {
+		if (JSONParser.parseJSON(persistent.call(constApi, rest, Const.HEXAA_ID)) instanceof JSONObject) {
 			JSONObject jsonResponse;
 			try {
 				persistent.setAdmin();
 				persistent.setOffset(0);
-				jsonResponse = persistent.getResponseJSONObject(constApi, rest);
+				jsonResponse = persistent.getResponseJSONObject(constApi, rest, Const.HEXAA_ID);
 				if (jsonResponse.has("item_number")) {
 					if (Integer.valueOf(jsonResponse.get("item_number")
 							.toString()) > 0) {
@@ -109,7 +109,7 @@ public abstract class IsEmptyTest extends NormalTest {
 			JSONArray jsonArrayResponse;
 			try {
 				jsonArrayResponse = persistent.getResponseJSONArray(constApi,
-						rest);
+						rest, Const.HEXAA_ID);
 				try {
 					assertEquals(Const.StatusLine.OK,
 							persistent.getStatusLine());
