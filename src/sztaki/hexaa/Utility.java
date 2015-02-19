@@ -258,12 +258,16 @@ public class Utility {
 					services);
 		}
 
+		public static JSONArray attributespec(String[] url, String maintainer) {
+			return attributespec( url , maintainer, true);
+		}
+		
 		/**
 		 * Creates as many attributespecs as many oid is specified in the oids
 		 * String array. Returns them as a JSONArray. Can create attributespecs
 		 * with unique oids only.
 		 *
-		 * @param uri
+		 * @param url
 		 *            a String array representation of the names to create
 		 *            attributespecs with.
 		 * @param maintainer
@@ -272,7 +276,7 @@ public class Utility {
 		 *            it is used by an organization.
 		 * @return JSONArray with all the created attributespecs in it.
 		 */
-		public static JSONArray attributespec(String[] uri, String maintainer) {
+		public static JSONArray attributespec(String[] url, String maintainer, boolean is_multivalue) {
 			JSONArray attributespecs = new JSONArray();
 
 			// for (int i = 0; i < oids.length; i++) {
@@ -281,12 +285,12 @@ public class Utility {
 			// }
 			// }
 
-			for (String oid : uri) {
+			for (String oid : url) {
 				JSONObject json = new JSONObject();
 				json.put("uri", oid);
 				json.put("name", "testFriendlyName" + oid);
 				json.put("syntax", "string");
-				json.put("is_multivalue", true);
+				json.put("is_multivalue", is_multivalue);
 				json.put("maintainer", maintainer);
 
 				if (isAdmin == true) {
@@ -315,7 +319,7 @@ public class Utility {
 		 * Alternative call for {@link attributespec(String[] oids)} for single
 		 * attributespec creation.
 		 *
-		 * @param oid
+		 * @param url
 		 *            the names to create attributespec with. If it is less than
 		 *            3 character "oid" will be concatenated to the beginning of
 		 *            the string.
@@ -325,8 +329,8 @@ public class Utility {
 		 *            it is used by an organization.
 		 * @return JSONArray with the created attributespec in it.
 		 */
-		public static JSONArray attributespec(String oid, String user) {
-			return attributespec(new String[] { oid }, user);
+		public static JSONArray attributespec(String url, String user) {
+			return attributespec(new String[] { url }, user, true);
 		}
 
 		/**

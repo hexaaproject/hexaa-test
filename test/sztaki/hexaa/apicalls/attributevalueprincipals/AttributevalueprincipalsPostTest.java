@@ -57,8 +57,10 @@ public class AttributevalueprincipalsPostTest extends NormalTest {
 			fail("Utility.Create.service(new String[] {\"AttributevalueprincipalsPostTest_service1\", \"AttributevalueprincipalsPostTest_service2\" }); did not succeed");
 		}
 		attributespecs = Utility.Create.attributespec(new String[] {
-				"AttributevalueprincipalsPostTest_as1",
-				"AttributevalueprincipalsPostTest_as2" }, "user");
+				"AttributevalueprincipalsPostTest_as1" }, "user");
+		attributespecs.put(Utility.Create.attributespec(
+				new String[] { "AttributevalueprincipalsPostTest_as2" },
+				"user", false).getJSONObject(0));
 		if (attributespecs.length() < 2) {
 			fail("Utility.Create.attributespec(new String[] {\"AttributevalueprincipalsPostTest_as1\", \"AttributevalueprincipalsPostTest_as2\" }, \"user\"); did not succeed");
 		}
