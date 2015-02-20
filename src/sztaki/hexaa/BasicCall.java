@@ -272,34 +272,36 @@ public class BasicCall {
 	 * The normal response of the call, can not be null, but can be an empty
 	 * string.
 	 */
-	protected String response = "";
+	protected Object response = null;
 
 	/**
-	 * Returns the string representation of the call's response. Matches the
-	 * return value of the respective call() method.
+	 * Returns the Object representation of the call's response. Can be String,
+	 * JSONObject or JSONArray.
 	 *
-	 * @return string representation of the call's response
+	 * @return Object representation of the call's response.
 	 */
-	public String getResponse() {
-		return response;
+	public Object getResponse() {
+		return this.response;
 	}
 
 	/**
 	 * Sets the parameter as the response string and returns it unchanged.
 	 * 
-	 * @param r
-	 *            string to be set as the this.response string.
-	 * @return string: this.response.
+	 * @param newResponse
+	 *            Object's String.valueOf set as the this.response string.
+	 * @return Object, returns the newResponse parameter unchanged.
 	 */
-	protected Object setResponse(Object r) {
-		if (r instanceof String) {
-			this.response = (String) r;
-		} else if (r instanceof JSONObject) {
-			this.response = r.toString();
-		} else if (r instanceof JSONArray) {
-			this.response = r.toString();
+	protected Object setResponse(String responseDataString) {
+		Object parsedResponse;
+		try {
+			parsedResponse = JSONParser.parseJSON(responseDataString);
+			parsedResponse = recursiveJSONManipulator(parsedResponse);
+		} catch (JSONException e) {
+			this.response = responseDataString;
+			return responseDataString;
 		}
-		return r;
+		this.response = parsedResponse;
+		return parsedResponse;
 	}
 
 	/**
@@ -458,23 +460,20 @@ public class BasicCall {
 		this.setMaster(path, json, id, sId, fedid);
 
 		Object serverResponse = this.callSwitch(restCall);
-		
-		if (serverResponse instanceof JSONObject || serverResponse instanceof JSONArray) {
-			return serverResponse.toString();
-		} else if (serverResponse == null) {
-			return "";
-		} else {
-			return (String) serverResponse;
-		}
+
+		return String.valueOf(serverResponse);
 	}
 
 	/* *** HTTP handlers *** */
 	/**
-	 * Calls the appropriate http handler. Used by all call types.
+	 * Calls the appropriate http handler. Also interacts with the
+	 * CoverageChecker, resets the statusLine and headers before the call is
+	 * made, updates the response as well.
 	 *
 	 * @param restCall
-	 *            REST, decides between the 4 normal REST call.
-	 * @return String, returns the response's content in string format.
+	 *            REST, decides between the 5 normal REST call.
+	 * @return Object, can be JSONObject, JSONArray or String, can not be null,
+	 *         can be empty string.
 	 */
 	protected Object callSwitch(REST restCall) {
 		CoverageChecker.checkout(restCall + " " + path + " ");
@@ -507,12 +506,16 @@ public class BasicCall {
 	}
 
 	/**
-	 * Returns the GET request's response's JSON content in string format, if
-	 * there is no content empty string will be returned.
+	 * Returns the GET request's response. The response is already parsed, it's
+	 * either a JSONObject, a JSONArray or a String if some error occured.
+	 * 
+	 * @param uri
+	 *            URI object, full uri created with uri builder.
 	 *
-	 * @return String, JSON content in string format, maybe empty, never null.
+	 * @return Object, can be JSONObject, JSONArray or String, can not be null,
+	 *         can be empty string.
 	 */
-	private Object get(URI uri) {
+	private String get(URI uri) {
 
 		System.out.print("GET \t");
 		System.out.print(uri);
@@ -533,13 +536,16 @@ public class BasicCall {
 	}
 
 	/**
-	 * Uses the supplied JSON for the POST request and returns the response's
-	 * JSON content in string format, if there is no content empty string will
-	 * be returned.
+	 * Returns the POST request's response. The response is already parsed, it's
+	 * either a JSONObject, a JSONArray or a String if some error occured.
+	 * 
+	 * @param uri
+	 *            URI object, full uri created with uri builder.
 	 *
-	 * @return String, JSON content in string format, maybe empty, never null.
+	 * @return Object, can be JSONObject, JSONArray or String, can not be null,
+	 *         can be empty string.
 	 */
-	private Object post(URI uri) {
+	private String post(URI uri) {
 
 		System.out.print("POST \t");
 		System.out.print(uri);
@@ -562,13 +568,16 @@ public class BasicCall {
 	}
 
 	/**
-	 * Uses the supplied JSON for the PUT request and returns the response's
-	 * JSON content in string format, if there is no content empty string will
-	 * be returned.
+	 * Returns the PUT request's response. The response is already parsed, it's
+	 * either a JSONObject, a JSONArray or a String if some error occured.
+	 * 
+	 * @param uri
+	 *            URI object, full uri created with uri builder.
 	 *
-	 * @return String, JSON content in string format, maybe empty, never null.
+	 * @return Object, can be JSONObject, JSONArray or String, can not be null,
+	 *         can be empty string.
 	 */
-	private Object put(URI uri) {
+	private String put(URI uri) {
 
 		System.out.print("PUT \t");
 		System.out.print(uri);
@@ -591,12 +600,16 @@ public class BasicCall {
 	}
 
 	/**
-	 * Returns the DELETE request's response's JSON content in string format, if
-	 * there is no content empty string will be returned.
+	 * Returns the DELETE request's response. The response is already parsed,
+	 * it's either a JSONObject, a JSONArray or a String if some error occured.
+	 * 
+	 * @param uri
+	 *            URI object, full uri created with uri builder.
 	 *
-	 * @return String, JSON content in string format, maybe empty, never null.
+	 * @return Object, can be JSONObject, JSONArray or String, can not be null,
+	 *         can be empty string.
 	 */
-	private Object delete(URI uri) {
+	private String delete(URI uri) {
 
 		System.out.print("DELETE \t");
 		System.out.print(uri);
@@ -616,13 +629,16 @@ public class BasicCall {
 	}
 
 	/**
-	 * Uses the supplied JSON for the PATCH request and returns the response's
-	 * JSON content in string format, if there is no content empty string will
-	 * be returned.
+	 * Returns the PATCH request's response. The response is already parsed,
+	 * it's either a JSONObject, a JSONArray or a String if some error occured.
+	 * 
+	 * @param uri
+	 *            URI object, full uri created with uri builder.
 	 *
-	 * @return String, JSON content in string format, maybe empty, never null.
+	 * @return Object, can be JSONObject, JSONArray or String, can not be null,
+	 *         can be empty string.
 	 */
-	private Object patch(URI uri) {
+	private String patch(URI uri) {
 
 		System.out.print("PATCH \t");
 		System.out.print(uri);
@@ -698,7 +714,7 @@ public class BasicCall {
 	 *         if response (or the entity or the content) is null than the
 	 *         returned String is empty (but not null)
 	 */
-	private Object getContentString(CloseableHttpResponse response) {
+	private String getContentString(CloseableHttpResponse response) {
 		String responseDataString;
 
 		Instant instant = Instant.now();
@@ -729,28 +745,9 @@ public class BasicCall {
 			return responseDataString;
 		}
 
-		Object parsedResponse;
-		try {
-			parsedResponse = JSONParser.parseJSON(responseDataString);
-			parsedResponse = recursiveJSONManipulator(parsedResponse);
-		} catch (JSONException e) {
-			System.out.println("  *  " + statusLine + "  *   "
-					+ responseDataString);
-			return responseDataString;
-		}
-
-		// if (parsedResponse instanceof JSONArray) {
-		// responseDataString = ((JSONArray) parsedResponse).toString();
-		// }
-		// if (parsedResponse instanceof JSONObject) {
-		// responseDataString = ((JSONObject) parsedResponse).toString();
-		// }
-		//
-		// responseDataString = parsedResponse.toString();
-
 		System.out.println("  *  " + statusLine + "  *   "
-				+ parsedResponse.toString());
-		return parsedResponse;
+				+ responseDataString.toString());
+		return responseDataString;
 	}
 
 	/**
@@ -777,7 +774,7 @@ public class BasicCall {
 	 * irrelevant for the test cases and causing problems.
 	 * 
 	 * @param object
-	 *            a json object or array, remains unchanged, return non json
+	 *            a json object or array, remains unchanged, returns non json
 	 *            objects without any changes.
 	 * @return a new json object containing mostly the same information as the
 	 *         original, only changes done by the functions.
