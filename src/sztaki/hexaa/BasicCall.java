@@ -325,16 +325,15 @@ public class BasicCall {
 
 	/* *** Normal calls, returns the response json as a String *** */
 	/**
-	 * Most basic call type, only use it for simple GET methods, as it does not
-	 * get the required json/id/sid/fedid for most of the more complex calls
-	 * like any POST/PUT methods or GET/DELETE methods with required ids. These
-	 * situations see {@link call(String path, REST restCall, String json, int
-	 * id, int sId)}.
+	 * Most basic call type, only use it for simple GET methods. Does not have a
+	 * fedid, json, id or sId, uses the default values: fedid - "fedid", json -
+	 * empty json, id - 0, sId - 0; with the method {@link call(String path,
+	 * REST restCall, String json, int id, int sId, String fedid)}.
 	 *
 	 * @param path
 	 *            String, the relative path from the host.
 	 * @param restCall
-	 *            REST, the type of the call (GET,POST,PUT,DELETE).
+	 *            REST, the type of the call (GET,POST,PUT,PATCH,DELETE).
 	 * @return String, the content of the response for the call, for the Status
 	 *         Line/Code see {@link getStatusLine()}.
 	 */
@@ -343,16 +342,15 @@ public class BasicCall {
 	}
 
 	/**
-	 * The normal call type for creation. Does not have ids or fedid, ids are 1
-	 * for default, fedid is simply "fedid", if they are needed use {@link
-	 * call(String path, REST restCall, String json, int id, int sId)} or
+	 * The normal call type for creation. Does not have a fedid, id or sId, uses
+	 * the default values: fedid - "fedid", id - 0, sId - 0; with the method
 	 * {@link call(String path, REST restCall, String json, int id, int sId,
 	 * String fedid)}.
 	 *
 	 * @param path
 	 *            String, the relative path from the host.
 	 * @param restCall
-	 *            REST, the type of the call (GET,POST,PUT,DELETE).
+	 *            REST, the type of the call (GET,POST,PUT,PATCH,DELETE).
 	 * @param json
 	 *            String, the json message for the http request's body in string
 	 *            format.
@@ -365,13 +363,14 @@ public class BasicCall {
 
 	/**
 	 * The normal call type, use this for get calls with 1 required id. Does not
-	 * have a fedid, if fedid is required use {@link call(String path, REST
+	 * have a fedid, json or sId, uses the default values: fedid - "fedid", json
+	 * - empty json, sId - 0; with the method {@link call(String path, REST
 	 * restCall, String json, int id, int sId, String fedid)}.
 	 *
 	 * @param path
 	 *            String, the relative path from the host.
 	 * @param restCall
-	 *            REST, the type of the call (GET,POST,PUT,DELETE).
+	 *            REST, the type of the call (GET,POST,PUT,PATCH,DELETE).
 	 * @param id
 	 *            int, the basic {id} in the urls.
 	 * @return String, the content of the response for the call, for the Status
@@ -383,13 +382,14 @@ public class BasicCall {
 
 	/**
 	 * The normal call type, use this for get calls with 2 required id. Does not
-	 * have a fedid, if fedid is required use {@link call(String path, REST
+	 * have a fedid or json payload, uses the default values: fedid - "fedid",
+	 * json - empty json; with the method {@link call(String path, REST
 	 * restCall, String json, int id, int sId, String fedid)}.
 	 *
 	 * @param path
 	 *            String, the relative path from the host.
 	 * @param restCall
-	 *            REST, the type of the call (GET,POST,PUT,DELETE).
+	 *            REST, the type of the call (GET,POST,PUT,PATCH,DELETE).
 	 * @param id
 	 *            int, the basic {id} in the urls.
 	 * @param sId
@@ -402,14 +402,15 @@ public class BasicCall {
 	}
 
 	/**
-	 * The normal call type, use this for most calls. Does not have a fedid, if
-	 * fedid is required use {@link call(String path, REST restCall, String
-	 * json, int id, int sId, String fedid)}.
+	 * The normal call type, use this for most calls. Does not have a fedid,
+	 * uses the default values: fedid - "fedid"; with the method {@link
+	 * call(String path, REST restCall, String json, int id, int sId, String
+	 * fedid)}.
 	 *
 	 * @param path
 	 *            String, the relative path from the host.
 	 * @param restCall
-	 *            REST, the type of the call (GET,POST,PUT,DELETE).
+	 *            REST, the type of the call (GET,POST,PUT,PATCH,DELETE).
 	 * @param json
 	 *            String, the json message for the http request's body in string
 	 *            format.
@@ -432,7 +433,7 @@ public class BasicCall {
 	 * @param path
 	 *            String, the relative path from the host.
 	 * @param restCall
-	 *            REST, the type of the call (GET,POST,PUT,DELETE).
+	 *            REST, the type of the call (GET,POST,PUT,PATCH,DELETE).
 	 * @param json
 	 *            String, the json message for the http request's body in string
 	 *            format.
@@ -839,54 +840,20 @@ public class BasicCall {
 	 */
 	private URI buildHexaaURI(String path) {
 		URI uri = null;
+		URIBuilder builder = new URIBuilder().setScheme(Const.HEXAA_SCHEME)
+				.setHost(Const.HEXAA_HOST).setPort(Const.HEXAA_PORT)
+				.setPath(path);
+		if (isAdmin) {
+			builder.setPath(path).addParameter("admin", "true");
+		}
+		if (isOffset) {
+			builder.addParameter("offset", Integer.toString(this.offset));
+		}
+		if (isLimit) {
+			builder.addParameter("limit", Integer.toString(this.limit));
+		}
 		try {
-			if (isAdmin && isOffset && isLimit) {
-				uri = new URIBuilder().setScheme(Const.HEXAA_SCHEME)
-						.setHost(Const.HEXAA_HOST).setPort(Const.HEXAA_PORT)
-						.setPath(path).addParameter("admin", "true")
-						.addParameter("offset", Integer.toString(this.offset))
-						.addParameter("limit", Integer.toString(this.limit))
-						.build();
-			} else if (isAdmin && isOffset) {
-				uri = new URIBuilder().setScheme(Const.HEXAA_SCHEME)
-						.setHost(Const.HEXAA_HOST).setPort(Const.HEXAA_PORT)
-						.setPath(path).addParameter("admin", "true")
-						.addParameter("offset", Integer.toString(this.offset))
-						.build();
-			} else if (isAdmin && isLimit) {
-				uri = new URIBuilder().setScheme(Const.HEXAA_SCHEME)
-						.setHost(Const.HEXAA_HOST).setPort(Const.HEXAA_PORT)
-						.setPath(path).addParameter("admin", "true")
-						.addParameter("limit", Integer.toString(this.limit))
-						.build();
-			} else if (isOffset && isLimit) {
-				uri = new URIBuilder().setScheme(Const.HEXAA_SCHEME)
-						.setHost(Const.HEXAA_HOST).setPort(Const.HEXAA_PORT)
-						.setPath(path)
-						.addParameter("offset", Integer.toString(this.offset))
-						.addParameter("limit", Integer.toString(this.limit))
-						.build();
-			} else if (isAdmin) {
-				uri = new URIBuilder().setScheme(Const.HEXAA_SCHEME)
-						.setHost(Const.HEXAA_HOST).setPort(Const.HEXAA_PORT)
-						.setPath(path).addParameter("admin", "true").build();
-			} else if (isOffset) {
-				uri = new URIBuilder().setScheme(Const.HEXAA_SCHEME)
-						.setHost(Const.HEXAA_HOST).setPort(Const.HEXAA_PORT)
-						.setPath(path)
-						.addParameter("offset", Integer.toString(this.offset))
-						.build();
-			} else if (isLimit) {
-				uri = new URIBuilder().setScheme(Const.HEXAA_SCHEME)
-						.setHost(Const.HEXAA_HOST).setPort(Const.HEXAA_PORT)
-						.setPath(path)
-						.addParameter("limit", Integer.toString(this.limit))
-						.build();
-			} else {
-				uri = new URIBuilder().setScheme(Const.HEXAA_SCHEME)
-						.setHost(Const.HEXAA_HOST).setPort(Const.HEXAA_PORT)
-						.setPath(path).build();
-			}
+			uri = builder.build();
 		} catch (URISyntaxException ex) {
 			System.out.println("Error in uri build: " + ex.getMessage());
 		} finally {
