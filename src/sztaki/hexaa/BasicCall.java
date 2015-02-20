@@ -555,27 +555,27 @@ public class BasicCall {
 	 */
 	public JSONObject getResponseJSONObject(String path, REST restCall)
 			throws ResponseTypeMismatchException {
-		Object tempResponse = this.getResponseJSONObject(path, restCall, "", 0,
-				0, "fedid");
+//		Object tempResponse;
+		return this.getResponseJSONObject(path, restCall, "", 0, 0, "fedid");
 
-		Object serverResponse;
-		try {
-			serverResponse = JSONParser.parseJSON((String) tempResponse);
-		} catch (JSONException e) {
-			throw new ResponseTypeMismatchException("Non json string",
-					"String", tempResponse.toString());
-		}
-
-		if (serverResponse instanceof JSONObject) {
-			return (JSONObject) serverResponse;
-		} else if (serverResponse instanceof JSONArray) {
-			throw new ResponseTypeMismatchException(
-					"JSONArray instead of JSONObject", "JSONArray",
-					serverResponse);
-		} else {
-			throw new ResponseTypeMismatchException(
-					"Non json instead of JSONObject", "String", serverResponse);
-		}
+//		Object serverResponse;
+//		try {
+//			serverResponse = JSONParser.parseJSON((String) tempResponse);
+//		} catch (JSONException e) {
+//			throw new ResponseTypeMismatchException("Non json string",
+//					"String", tempResponse.toString());
+//		}
+//
+//		if (serverResponse instanceof JSONObject) {
+//			return (JSONObject) serverResponse;
+//		} else if (serverResponse instanceof JSONArray) {
+//			throw new ResponseTypeMismatchException(
+//					"JSONArray instead of JSONObject", "JSONArray",
+//					serverResponse);
+//		} else {
+//			throw new ResponseTypeMismatchException(
+//					"Non json instead of JSONObject", "String", serverResponse);
+//		}
 	}
 
 	/**
@@ -598,27 +598,28 @@ public class BasicCall {
 	 */
 	public JSONObject getResponseJSONObject(String path, REST restCall,
 			String json) throws ResponseTypeMismatchException {
-		Object tempResponse = this.getResponseJSONObject(path, restCall, json,
+//		Object tempResponse;
+		return this.getResponseJSONObject(path, restCall, json,
 				0, 0, "fedid");
 
-		Object serverResponse;
-		try {
-			serverResponse = JSONParser.parseJSON((String) tempResponse);
-		} catch (JSONException e) {
-			throw new ResponseTypeMismatchException("Non json string",
-					"String", tempResponse.toString());
-		}
-
-		if (serverResponse instanceof JSONObject) {
-			return (JSONObject) serverResponse;
-		} else if (serverResponse instanceof JSONArray) {
-			throw new ResponseTypeMismatchException(
-					"JSONArray instead of JSONObject", "JSONArray",
-					serverResponse);
-		} else {
-			throw new ResponseTypeMismatchException(
-					"Non json instead of JSONObject", "String", serverResponse);
-		}
+//		Object serverResponse;
+//		try {
+//			serverResponse = JSONParser.parseJSON((String) tempResponse);
+//		} catch (JSONException e) {
+//			throw new ResponseTypeMismatchException("Non json string",
+//					"String", tempResponse.toString());
+//		}
+//
+//		if (serverResponse instanceof JSONObject) {
+//			return (JSONObject) serverResponse;
+//		} else if (serverResponse instanceof JSONArray) {
+//			throw new ResponseTypeMismatchException(
+//					"JSONArray instead of JSONObject", "JSONArray",
+//					serverResponse);
+//		} else {
+//			throw new ResponseTypeMismatchException(
+//					"Non json instead of JSONObject", "String", serverResponse);
+//		}
 	}
 
 	/**
@@ -643,27 +644,28 @@ public class BasicCall {
 	 */
 	public JSONObject getResponseJSONObject(String path, REST restCall, int id)
 			throws ResponseTypeMismatchException {
-		Object tempResponse = this.getResponseJSONObject(path, restCall, "",
+//		Object tempResponse;
+		return this.getResponseJSONObject(path, restCall, "",
 				id, 0, "fedid");
 
-		Object serverResponse;
-		try {
-			serverResponse = JSONParser.parseJSON((String) tempResponse);
-		} catch (JSONException e) {
-			throw new ResponseTypeMismatchException("Non json string",
-					"String", tempResponse.toString());
-		}
-
-		if (serverResponse instanceof JSONObject) {
-			return (JSONObject) serverResponse;
-		} else if (serverResponse instanceof JSONArray) {
-			throw new ResponseTypeMismatchException(
-					"JSONArray instead of JSONObject", "JSONArray",
-					serverResponse);
-		} else {
-			throw new ResponseTypeMismatchException(
-					"Non json instead of JSONObject", "String", serverResponse);
-		}
+//		Object serverResponse;
+//		try {
+//			serverResponse = JSONParser.parseJSON((String) tempResponse);
+//		} catch (JSONException e) {
+//			throw new ResponseTypeMismatchException("Non json string",
+//					"String", tempResponse.toString());
+//		}
+//
+//		if (serverResponse instanceof JSONObject) {
+//			return (JSONObject) serverResponse;
+//		} else if (serverResponse instanceof JSONArray) {
+//			throw new ResponseTypeMismatchException(
+//					"JSONArray instead of JSONObject", "JSONArray",
+//					serverResponse);
+//		} else {
+//			throw new ResponseTypeMismatchException(
+//					"Non json instead of JSONObject", "String", serverResponse);
+//		}
 	}
 
 	/**
@@ -688,27 +690,28 @@ public class BasicCall {
 	 */
 	public JSONObject getResponseJSONObject(String path, REST restCall, int id,
 			int sId) throws ResponseTypeMismatchException {
-		Object tempResponse = this.getResponseJSONObject(path, restCall, "",
+//		Object tempResponse;
+		return this.getResponseJSONObject(path, restCall, "",
 				id, sId, "fedid");
 
-		Object serverResponse;
-		try {
-			serverResponse = JSONParser.parseJSON((String) tempResponse);
-		} catch (JSONException e) {
-			throw new ResponseTypeMismatchException("Non json string",
-					"String", tempResponse.toString());
-		}
-
-		if (serverResponse instanceof JSONObject) {
-			return (JSONObject) serverResponse;
-		} else if (serverResponse instanceof JSONArray) {
-			throw new ResponseTypeMismatchException(
-					"JSONArray instead of JSONObject", "JSONArray",
-					serverResponse);
-		} else {
-			throw new ResponseTypeMismatchException(
-					"Non json instead of JSONObject", "String", serverResponse);
-		}
+//		Object serverResponse;
+//		try {
+//			serverResponse = JSONParser.parseJSON((String) tempResponse);
+//		} catch (JSONException e) {
+//			throw new ResponseTypeMismatchException("Non json string",
+//					"String", tempResponse.toString());
+//		}
+//
+//		if (serverResponse instanceof JSONObject) {
+//			return (JSONObject) serverResponse;
+//		} else if (serverResponse instanceof JSONArray) {
+//			throw new ResponseTypeMismatchException(
+//					"JSONArray instead of JSONObject", "JSONArray",
+//					serverResponse);
+//		} else {
+//			throw new ResponseTypeMismatchException(
+//					"Non json instead of JSONObject", "String", serverResponse);
+//		}
 	}
 
 	/**
@@ -733,27 +736,28 @@ public class BasicCall {
 	 */
 	public JSONObject getResponseJSONObject(String path, REST restCall,
 			String json, int id, int sId) throws ResponseTypeMismatchException {
-		Object tempResponse = this.getResponseJSONObject(path, restCall, json,
-				id, sId, "fedid");
+		// Object tempResponse;
+		return this.getResponseJSONObject(path, restCall, json, id, sId,
+				"fedid");
 
-		Object serverResponse;
-		try {
-			serverResponse = JSONParser.parseJSON((String) tempResponse);
-		} catch (JSONException e) {
-			throw new ResponseTypeMismatchException("Non json string",
-					"String", tempResponse.toString());
-		}
-
-		if (serverResponse instanceof JSONObject) {
-			return (JSONObject) serverResponse;
-		} else if (serverResponse instanceof JSONArray) {
-			throw new ResponseTypeMismatchException(
-					"JSONArray instead of JSONObject", "JSONArray",
-					serverResponse);
-		} else {
-			throw new ResponseTypeMismatchException(
-					"Non json instead of JSONObject", "String", serverResponse);
-		}
+		// Object serverResponse;
+		// try {
+		// serverResponse = JSONParser.parseJSON((String) tempResponse);
+		// } catch (JSONException e) {
+		// throw new ResponseTypeMismatchException("Non json string",
+		// "String", tempResponse.toString());
+		// }
+		//
+		// if (serverResponse instanceof JSONObject) {
+		// return (JSONObject) serverResponse;
+		// } else if (serverResponse instanceof JSONArray) {
+		// throw new ResponseTypeMismatchException(
+		// "JSONArray instead of JSONObject", "JSONArray",
+		// serverResponse);
+		// } else {
+		// throw new ResponseTypeMismatchException(
+		// "Non json instead of JSONObject", "String", serverResponse);
+		// }
 	}
 
 	/**
@@ -823,27 +827,28 @@ public class BasicCall {
 	 */
 	public JSONArray getResponseJSONArray(String path, REST restCall)
 			throws ResponseTypeMismatchException {
-		Object tempResponse = this.getResponseJSONArray(path, restCall, "", 0,
+//		Object tempResponse;
+		return this.getResponseJSONArray(path, restCall, "", 0,
 				0, "fedid");
 
-		Object serverResponse;
-		try {
-			serverResponse = JSONParser.parseJSON((String) tempResponse);
-		} catch (JSONException e) {
-			throw new ResponseTypeMismatchException("Non json string",
-					"String", tempResponse.toString());
-		}
-
-		if (serverResponse instanceof JSONArray) {
-			return (JSONArray) serverResponse;
-		} else if (serverResponse instanceof JSONObject) {
-			throw new ResponseTypeMismatchException(
-					"JSONObject instead of JSONArray", "JSONObject",
-					serverResponse);
-		} else {
-			throw new ResponseTypeMismatchException(
-					"Non json instead of JSONArray", "String", serverResponse);
-		}
+//		Object serverResponse;
+//		try {
+//			serverResponse = JSONParser.parseJSON((String) tempResponse);
+//		} catch (JSONException e) {
+//			throw new ResponseTypeMismatchException("Non json string",
+//					"String", tempResponse.toString());
+//		}
+//
+//		if (serverResponse instanceof JSONArray) {
+//			return (JSONArray) serverResponse;
+//		} else if (serverResponse instanceof JSONObject) {
+//			throw new ResponseTypeMismatchException(
+//					"JSONObject instead of JSONArray", "JSONObject",
+//					serverResponse);
+//		} else {
+//			throw new ResponseTypeMismatchException(
+//					"Non json instead of JSONArray", "String", serverResponse);
+//		}
 	}
 
 	/**
@@ -866,27 +871,28 @@ public class BasicCall {
 	 */
 	public JSONArray getResponseJSONArray(String path, REST restCall,
 			String json) throws ResponseTypeMismatchException {
-		Object tempResponse = this.getResponseJSONArray(path, restCall, json,
+//		Object tempResponse;
+		return this.getResponseJSONArray(path, restCall, json,
 				0, 0, "fedid");
 
-		Object serverResponse;
-		try {
-			serverResponse = JSONParser.parseJSON((String) tempResponse);
-		} catch (JSONException e) {
-			throw new ResponseTypeMismatchException("Non json string",
-					"String", tempResponse.toString());
-		}
-
-		if (serverResponse instanceof JSONArray) {
-			return (JSONArray) serverResponse;
-		} else if (serverResponse instanceof JSONObject) {
-			throw new ResponseTypeMismatchException(
-					"JSONObject instead of JSONArray", "JSONObject",
-					serverResponse);
-		} else {
-			throw new ResponseTypeMismatchException(
-					"Non json instead of JSONArray", "String", serverResponse);
-		}
+//		Object serverResponse;
+//		try {
+//			serverResponse = JSONParser.parseJSON((String) tempResponse);
+//		} catch (JSONException e) {
+//			throw new ResponseTypeMismatchException("Non json string",
+//					"String", tempResponse.toString());
+//		}
+//
+//		if (serverResponse instanceof JSONArray) {
+//			return (JSONArray) serverResponse;
+//		} else if (serverResponse instanceof JSONObject) {
+//			throw new ResponseTypeMismatchException(
+//					"JSONObject instead of JSONArray", "JSONObject",
+//					serverResponse);
+//		} else {
+//			throw new ResponseTypeMismatchException(
+//					"Non json instead of JSONArray", "String", serverResponse);
+//		}
 	}
 
 	/**
@@ -911,27 +917,28 @@ public class BasicCall {
 	 */
 	public JSONArray getResponseJSONArray(String path, REST restCall, int id)
 			throws ResponseTypeMismatchException {
-		Object tempResponse = this.getResponseJSONArray(path, restCall, "", id,
+//		Object tempResponse;
+		return this.getResponseJSONArray(path, restCall, "", id,
 				0, "fedid");
 
-		Object serverResponse;
-		try {
-			serverResponse = JSONParser.parseJSON((String) tempResponse);
-		} catch (JSONException e) {
-			throw new ResponseTypeMismatchException("Non json string",
-					"String", tempResponse.toString());
-		}
-
-		if (serverResponse instanceof JSONArray) {
-			return (JSONArray) serverResponse;
-		} else if (serverResponse instanceof JSONObject) {
-			throw new ResponseTypeMismatchException(
-					"JSONObject instead of JSONArray", "JSONObject",
-					serverResponse);
-		} else {
-			throw new ResponseTypeMismatchException(
-					"Non json instead of JSONArray", "String", serverResponse);
-		}
+//		Object serverResponse;
+//		try {
+//			serverResponse = JSONParser.parseJSON((String) tempResponse);
+//		} catch (JSONException e) {
+//			throw new ResponseTypeMismatchException("Non json string",
+//					"String", tempResponse.toString());
+//		}
+//
+//		if (serverResponse instanceof JSONArray) {
+//			return (JSONArray) serverResponse;
+//		} else if (serverResponse instanceof JSONObject) {
+//			throw new ResponseTypeMismatchException(
+//					"JSONObject instead of JSONArray", "JSONObject",
+//					serverResponse);
+//		} else {
+//			throw new ResponseTypeMismatchException(
+//					"Non json instead of JSONArray", "String", serverResponse);
+//		}
 	}
 
 	/**
@@ -956,27 +963,28 @@ public class BasicCall {
 	 */
 	public JSONArray getResponseJSONArray(String path, REST restCall, int id,
 			int sId) throws ResponseTypeMismatchException {
-		Object tempResponse = this.getResponseJSONArray(path, restCall, "", id,
+//		Object tempResponse;
+		return this.getResponseJSONArray(path, restCall, "", id,
 				sId, "fedid");
 
-		Object serverResponse;
-		try {
-			serverResponse = JSONParser.parseJSON((String) tempResponse);
-		} catch (JSONException e) {
-			throw new ResponseTypeMismatchException("Non json string",
-					"String", tempResponse.toString());
-		}
-
-		if (serverResponse instanceof JSONArray) {
-			return (JSONArray) serverResponse;
-		} else if (serverResponse instanceof JSONObject) {
-			throw new ResponseTypeMismatchException(
-					"JSONObject instead of JSONArray", "JSONObject",
-					serverResponse);
-		} else {
-			throw new ResponseTypeMismatchException(
-					"Non json instead of JSONArray", "String", serverResponse);
-		}
+//		Object serverResponse;
+//		try {
+//			serverResponse = JSONParser.parseJSON((String) tempResponse);
+//		} catch (JSONException e) {
+//			throw new ResponseTypeMismatchException("Non json string",
+//					"String", tempResponse.toString());
+//		}
+//
+//		if (serverResponse instanceof JSONArray) {
+//			return (JSONArray) serverResponse;
+//		} else if (serverResponse instanceof JSONObject) {
+//			throw new ResponseTypeMismatchException(
+//					"JSONObject instead of JSONArray", "JSONObject",
+//					serverResponse);
+//		} else {
+//			throw new ResponseTypeMismatchException(
+//					"Non json instead of JSONArray", "String", serverResponse);
+//		}
 	}
 
 	/**
@@ -1001,27 +1009,28 @@ public class BasicCall {
 	 */
 	public JSONArray getResponseJSONArray(String path, REST restCall,
 			String json, int id, int sId) throws ResponseTypeMismatchException {
-		Object tempResponse = this.getResponseJSONArray(path, restCall, json,
+//		Object tempResponse;
+		return this.getResponseJSONArray(path, restCall, json,
 				id, sId, "fedid");
 
-		Object serverResponse;
-		try {
-			serverResponse = JSONParser.parseJSON((String) tempResponse);
-		} catch (JSONException e) {
-			throw new ResponseTypeMismatchException("Non json string",
-					"String", tempResponse.toString());
-		}
-
-		if (serverResponse instanceof JSONArray) {
-			return (JSONArray) serverResponse;
-		} else if (serverResponse instanceof JSONObject) {
-			throw new ResponseTypeMismatchException(
-					"JSONObject instead of JSONArray", "JSONObject",
-					serverResponse);
-		} else {
-			throw new ResponseTypeMismatchException(
-					"Non json instead of JSONArray", "String", serverResponse);
-		}
+//		Object serverResponse;
+//		try {
+//			serverResponse = JSONParser.parseJSON((String) tempResponse);
+//		} catch (JSONException e) {
+//			throw new ResponseTypeMismatchException("Non json string",
+//					"String", tempResponse.toString());
+//		}
+//
+//		if (serverResponse instanceof JSONArray) {
+//			return (JSONArray) serverResponse;
+//		} else if (serverResponse instanceof JSONObject) {
+//			throw new ResponseTypeMismatchException(
+//					"JSONObject instead of JSONArray", "JSONObject",
+//					serverResponse);
+//		} else {
+//			throw new ResponseTypeMismatchException(
+//					"Non json instead of JSONArray", "String", serverResponse);
+//		}
 	}
 
 	/**
@@ -1346,12 +1355,12 @@ public class BasicCall {
 		}
 
 		if (parsedResponse instanceof JSONArray) {
-			responseDataString = ((JSONArray)parsedResponse).toString();
+			responseDataString = ((JSONArray) parsedResponse).toString();
 		}
 		if (parsedResponse instanceof JSONObject) {
-			responseDataString = ((JSONObject)parsedResponse).toString();
+			responseDataString = ((JSONObject) parsedResponse).toString();
 		}
-		
+
 		responseDataString = parsedResponse.toString();
 
 		System.out
