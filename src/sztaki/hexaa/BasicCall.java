@@ -291,9 +291,15 @@ public class BasicCall {
 	 *            string to be set as the this.response string.
 	 * @return string: this.response.
 	 */
-	protected String setResponse(String r) {
-		this.response = r;
-		return response;
+	protected Object setResponse(Object r) {
+		if (r instanceof String) {
+			this.response = (String) r;
+		} else if (r instanceof JSONObject) {
+			this.response = r.toString();
+		} else if (r instanceof JSONArray) {
+			this.response = r.toString();
+		}
+		return r;
 	}
 
 	/**
@@ -451,7 +457,15 @@ public class BasicCall {
 			int sId, String fedid) {
 		this.setMaster(path, json, id, sId, fedid);
 
-		return this.callSwitch(restCall);
+		Object serverResponse = this.callSwitch(restCall);
+		
+		if (serverResponse instanceof JSONObject || serverResponse instanceof JSONArray) {
+			return serverResponse.toString();
+		} else if (serverResponse == null) {
+			return "";
+		} else {
+			return (String) serverResponse;
+		}
 	}
 
 	/* *** HTTP handlers *** */
@@ -462,7 +476,7 @@ public class BasicCall {
 	 *            REST, decides between the 4 normal REST call.
 	 * @return String, returns the response's content in string format.
 	 */
-	protected String callSwitch(REST restCall) {
+	protected Object callSwitch(REST restCall) {
 		CoverageChecker.checkout(restCall + " " + path + " ");
 
 		// Resets the local variables in case the class is used in a static
@@ -498,7 +512,7 @@ public class BasicCall {
 	 *
 	 * @return String, JSON content in string format, maybe empty, never null.
 	 */
-	private String get(URI uri) {
+	private Object get(URI uri) {
 
 		System.out.print("GET \t");
 		System.out.print(uri);
@@ -525,7 +539,7 @@ public class BasicCall {
 	 *
 	 * @return String, JSON content in string format, maybe empty, never null.
 	 */
-	private String post(URI uri) {
+	private Object post(URI uri) {
 
 		System.out.print("POST \t");
 		System.out.print(uri);
@@ -554,7 +568,7 @@ public class BasicCall {
 	 *
 	 * @return String, JSON content in string format, maybe empty, never null.
 	 */
-	private String put(URI uri) {
+	private Object put(URI uri) {
 
 		System.out.print("PUT \t");
 		System.out.print(uri);
@@ -582,7 +596,7 @@ public class BasicCall {
 	 *
 	 * @return String, JSON content in string format, maybe empty, never null.
 	 */
-	private String delete(URI uri) {
+	private Object delete(URI uri) {
 
 		System.out.print("DELETE \t");
 		System.out.print(uri);
@@ -608,7 +622,7 @@ public class BasicCall {
 	 *
 	 * @return String, JSON content in string format, maybe empty, never null.
 	 */
-	private String patch(URI uri) {
+	private Object patch(URI uri) {
 
 		System.out.print("PATCH \t");
 		System.out.print(uri);
@@ -684,7 +698,7 @@ public class BasicCall {
 	 *         if response (or the entity or the content) is null than the
 	 *         returned String is empty (but not null)
 	 */
-	private String getContentString(CloseableHttpResponse response) {
+	private Object getContentString(CloseableHttpResponse response) {
 		String responseDataString;
 
 		Instant instant = Instant.now();
@@ -725,18 +739,18 @@ public class BasicCall {
 			return responseDataString;
 		}
 
-		if (parsedResponse instanceof JSONArray) {
-			responseDataString = ((JSONArray) parsedResponse).toString();
-		}
-		if (parsedResponse instanceof JSONObject) {
-			responseDataString = ((JSONObject) parsedResponse).toString();
-		}
+		// if (parsedResponse instanceof JSONArray) {
+		// responseDataString = ((JSONArray) parsedResponse).toString();
+		// }
+		// if (parsedResponse instanceof JSONObject) {
+		// responseDataString = ((JSONObject) parsedResponse).toString();
+		// }
+		//
+		// responseDataString = parsedResponse.toString();
 
-		responseDataString = parsedResponse.toString();
-
-		System.out
-				.println("  *  " + statusLine + "  *   " + responseDataString);
-		return responseDataString;
+		System.out.println("  *  " + statusLine + "  *   "
+				+ parsedResponse.toString());
+		return parsedResponse;
 	}
 
 	/**

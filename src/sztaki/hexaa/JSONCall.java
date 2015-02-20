@@ -1,21 +1,12 @@
 package sztaki.hexaa;
 
 import org.json.JSONArray;
-import org.json.JSONException;
 import org.json.JSONObject;
-import org.skyscreamer.jsonassert.JSONParser;
 
 public class JSONCall extends BasicCall {
 	/* *** Methods for JSONObject handling *** */
-	private JSONObject parsingToJSONObject(Object response)
+	private JSONObject parsingToJSONObject(Object serverResponse)
 			throws ResponseTypeMismatchException {
-		Object serverResponse;
-		try {
-			serverResponse = JSONParser.parseJSON((String) response);
-		} catch (JSONException e) {
-			throw new ResponseTypeMismatchException("Non json string",
-					"String", response.toString());
-		}
 
 		if (serverResponse instanceof JSONObject) {
 			return (JSONObject) serverResponse;
@@ -25,10 +16,11 @@ public class JSONCall extends BasicCall {
 					serverResponse);
 		} else {
 			throw new ResponseTypeMismatchException(
-					"Non json instead of JSONObject", "String", serverResponse);
+					"Non-json string instead of JSONObject", "String",
+					serverResponse);
 		}
 	}
-	
+
 	/**
 	 * Returns the string representation of the call's response. Matches the
 	 * return value of the respective call() method.
@@ -188,21 +180,12 @@ public class JSONCall extends BasicCall {
 			throws ResponseTypeMismatchException {
 		this.setMaster(path, json, id, sId, fedid);
 
-		Object tempResponse = this.callSwitch(restCall);
-
-		return parsingToJSONObject((String) tempResponse);
+		return parsingToJSONObject(this.callSwitch(restCall));
 	}
 
 	/* *** Methods for JSONArray handling *** */
-	private JSONArray parsingToJSONArray(Object response)
+	private JSONArray parsingToJSONArray(Object serverResponse)
 			throws ResponseTypeMismatchException {
-		Object serverResponse;
-		try {
-			serverResponse = JSONParser.parseJSON((String) response);
-		} catch (JSONException e) {
-			throw new ResponseTypeMismatchException("Non json string",
-					"String", response.toString());
-		}
 
 		if (serverResponse instanceof JSONArray) {
 			return (JSONArray) serverResponse;
@@ -212,7 +195,8 @@ public class JSONCall extends BasicCall {
 					serverResponse);
 		} else {
 			throw new ResponseTypeMismatchException(
-					"Non json instead of JSONArray", "String", serverResponse);
+					"Non-json string instead of JSONArray", "String",
+					serverResponse);
 		}
 	}
 
@@ -375,9 +359,7 @@ public class JSONCall extends BasicCall {
 			throws ResponseTypeMismatchException {
 		this.setMaster(path, json, id, sId, fedid);
 
-		Object tempResponse = this.callSwitch(restCall);
-		
-		return this.parsingToJSONArray((String) tempResponse);
+		return this.parsingToJSONArray(this.callSwitch(restCall));
 	}
 
 }
