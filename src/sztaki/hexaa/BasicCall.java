@@ -35,6 +35,7 @@ import org.skyscreamer.jsonassert.JSONParser;
  */
 public class BasicCall {
 
+	/* *** Setter/getter methods and variables *** */
 	/**
 	 * Enables/disables the admin property for the next call. Disabled by
 	 * default.
@@ -97,7 +98,6 @@ public class BasicCall {
 	 */
 	private String format = ".json";
 
-	/* *** Setter/getter methods *** */
 	/**
 	 * Usable by call methods to set all the required parameters in one go.
 	 * 

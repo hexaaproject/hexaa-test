@@ -241,15 +241,15 @@ public class JSONCall extends BasicCall {
 					"String", response.toString());
 		}
 
-		if (serverResponse instanceof JSONObject) {
+		if (serverResponse instanceof JSONArray) {
 			return (JSONArray) serverResponse;
-		} else if (serverResponse instanceof JSONArray) {
+		} else if (serverResponse instanceof JSONObject) {
 			throw new ResponseTypeMismatchException(
-					"JSONArray instead of JSONObject", "JSONArray",
+					"JSONObject instead of JSONArray", "JSONObject",
 					serverResponse);
 		} else {
 			throw new ResponseTypeMismatchException(
-					"Non json instead of JSONObject", "String", serverResponse);
+					"Non json instead of JSONArray", "String", serverResponse);
 		}
 	}
 
