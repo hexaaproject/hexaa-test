@@ -1,5 +1,6 @@
 package sztaki.hexaa;
 
+// TODO: csinálj egységesebb üzenet generálást ami egyszerűbben kezelhető, pl ResponseTypeMismatchException(message,type,response) helyett ResponseTypeMismatchException(expected_type,actual_object).
 /**
  * Exception to throw if the server response is in a different than expected
  * type.

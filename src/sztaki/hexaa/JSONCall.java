@@ -5,7 +5,18 @@ import org.json.JSONObject;
 
 public class JSONCall extends BasicCall {
 	/* *** Methods for JSONObject handling *** */
-	private JSONObject parsingToJSONObject(Object serverResponse)
+	/**
+	 * Check the provided Object to be a JSONObject. Always returns a
+	 * JSONObject, if the serverResponse parameter is not a JSONObject than a
+	 * ResponseTypeMismatchException is thrown with appropriate message.
+	 * 
+	 * @param serverResponse
+	 *            Object expected to be a JSONObject.
+	 * @return JSONObject representing the serverResponse if it is a JSONObject.
+	 * @throws ResponseTypeMismatchException
+	 *             thrown if the serverResponse is not a JSONObject.
+	 */
+	private JSONObject checkJSONObject(Object serverResponse)
 			throws ResponseTypeMismatchException {
 
 		if (serverResponse instanceof JSONObject) {
@@ -17,7 +28,7 @@ public class JSONCall extends BasicCall {
 		} else {
 			throw new ResponseTypeMismatchException(
 					"Non-json string instead of JSONObject", "String",
-					serverResponse);
+					String.valueOf(serverResponse));
 		}
 	}
 
@@ -30,7 +41,7 @@ public class JSONCall extends BasicCall {
 	 */
 	public JSONObject getResponseJSONObject()
 			throws ResponseTypeMismatchException {
-		return parsingToJSONObject(this.response);
+		return checkJSONObject(this.response);
 	}
 
 	/**
@@ -180,11 +191,22 @@ public class JSONCall extends BasicCall {
 			throws ResponseTypeMismatchException {
 		this.setMaster(path, json, id, sId, fedid);
 
-		return parsingToJSONObject(this.callSwitch(restCall));
+		return checkJSONObject(this.callSwitch(restCall));
 	}
 
 	/* *** Methods for JSONArray handling *** */
-	private JSONArray parsingToJSONArray(Object serverResponse)
+	/**
+	 * Check the provided Object to be a JSONArray. Always returns a JSONArray,
+	 * if the serverResponse parameter is not a JSONArray than a
+	 * ResponseTypeMismatchException is thrown with appropriate message.
+	 * 
+	 * @param serverResponse
+	 *            Object expected to be a JSONArray.
+	 * @return JSONArray representing the serverResponse if it is a JSONArray.
+	 * @throws ResponseTypeMismatchException
+	 *             thrown if the serverResponse is not a JSONArray.
+	 */
+	private JSONArray checkJSONArray(Object serverResponse)
 			throws ResponseTypeMismatchException {
 
 		if (serverResponse instanceof JSONArray) {
@@ -196,7 +218,7 @@ public class JSONCall extends BasicCall {
 		} else {
 			throw new ResponseTypeMismatchException(
 					"Non-json string instead of JSONArray", "String",
-					serverResponse);
+					String.valueOf(serverResponse));
 		}
 	}
 
@@ -209,7 +231,7 @@ public class JSONCall extends BasicCall {
 	 */
 	public JSONArray getResponseJSONArray()
 			throws ResponseTypeMismatchException {
-		return this.parsingToJSONArray(this.response);
+		return this.checkJSONArray(this.response);
 	}
 
 	/**
@@ -359,7 +381,7 @@ public class JSONCall extends BasicCall {
 			throws ResponseTypeMismatchException {
 		this.setMaster(path, json, id, sId, fedid);
 
-		return this.parsingToJSONArray(this.callSwitch(restCall));
+		return this.checkJSONArray(this.callSwitch(restCall));
 	}
 
 }

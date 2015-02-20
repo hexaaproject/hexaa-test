@@ -269,27 +269,18 @@ public class BasicCall {
 	}
 
 	/**
-	 * The normal response of the call, can not be null, but can be an empty
-	 * string.
+	 * The servers last response. It can be string, jsonobject or jsonarray. Can
+	 * be null only before any call happened.
 	 */
 	protected Object response = null;
 
 	/**
-	 * Returns the Object representation of the call's response. Can be String,
-	 * JSONObject or JSONArray.
-	 *
-	 * @return Object representation of the call's response.
-	 */
-	public Object getResponse() {
-		return this.response;
-	}
-
-	/**
-	 * Sets the parameter as the response string and returns it unchanged.
+	 * Parses the parameter string to jsonobject, jsonarray or string, and
+	 * stores it as the response Object, returns this object as well.
 	 * 
-	 * @param newResponse
-	 *            Object's String.valueOf set as the this.response string.
-	 * @return Object, returns the newResponse parameter unchanged.
+	 * @param responseDataString
+	 *            String to parse and store it as the response Object.
+	 * @return Object, returns the parsed object.
 	 */
 	protected Object setResponse(String responseDataString) {
 		Object parsedResponse;
@@ -332,6 +323,16 @@ public class BasicCall {
 	}
 
 	/* *** Normal calls, returns the response json as a String *** */
+	/**
+	 * Returns the last calls server response in the form of a String. Always a
+	 * string, can be "null" string.
+	 * 
+	 * @return the String representation of the BasicCall.response.
+	 */
+	public String call() {
+		return String.valueOf(this.response);
+	}
+
 	/**
 	 * Most basic call type, only use it for simple GET methods. Does not have a
 	 * fedid, json, id or sId, uses the default values: fedid - "fedid", json -
@@ -920,4 +921,5 @@ public class BasicCall {
 
 		return entity;
 	}
+
 }
