@@ -19,7 +19,7 @@ public class Utility {
 	/**
 	 * BasicCall to be used inside the method, static.
 	 */
-	static public BasicCall persistent = new BasicCall();
+	static public JSONCall persistent = new JSONCall();
 
 	/**
 	 * 

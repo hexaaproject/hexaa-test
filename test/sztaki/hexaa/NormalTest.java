@@ -22,7 +22,7 @@ public class NormalTest {
 	 * new objects and storing references. Can call the getStatusLine() on it,
 	 * to get the last calls status line for additional information.
 	 */
-	static protected BasicCall persistent = new BasicCall();
+	static protected JSONCall persistent = new JSONCall();
 
 	/**
 	 * This Rule allows the TestErrorCollector to bypass the AssertationErrors

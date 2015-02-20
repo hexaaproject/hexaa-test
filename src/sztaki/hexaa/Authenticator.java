@@ -43,7 +43,7 @@ public class Authenticator {
 
 		if (!response.contains(fedid)) {
 
-			BasicCall postToken = new BasicCall();
+			JSONCall postToken = new JSONCall();
 
 			JSONObject json = new JSONObject();
 			json.put("fedid", fedid);
