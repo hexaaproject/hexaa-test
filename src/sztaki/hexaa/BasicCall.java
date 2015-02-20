@@ -832,7 +832,10 @@ public class BasicCall {
 	}
 
 	/**
-	 * Builds the proper uri for the call.
+	 * Builds the proper uri for the call. Uses the {@link Const.HEXAA_SCHEME},
+	 * {@link Const.HEXAA_HOST} and {@link Const.HEXAA_PORT} constants and the
+	 * local path variable. This method also adds the required parameters if
+	 * they are enabled (admin, limit, offset).
 	 * 
 	 * @param path
 	 *            path of the required uri
@@ -840,9 +843,11 @@ public class BasicCall {
 	 */
 	private URI buildHexaaURI(String path) {
 		URI uri = null;
+		// Creates the basic uri.
 		URIBuilder builder = new URIBuilder().setScheme(Const.HEXAA_SCHEME)
 				.setHost(Const.HEXAA_HOST).setPort(Const.HEXAA_PORT)
 				.setPath(path);
+		// Adds specific parameters.
 		if (isAdmin) {
 			builder.setPath(path).addParameter("admin", "true");
 		}
@@ -852,6 +857,8 @@ public class BasicCall {
 		if (isLimit) {
 			builder.addParameter("limit", Integer.toString(this.limit));
 		}
+		// Add additional parameters here and document it in the method
+		// description as well.
 		try {
 			uri = builder.build();
 		} catch (URISyntaxException ex) {
