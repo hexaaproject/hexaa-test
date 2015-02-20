@@ -40,6 +40,7 @@ public class BasicCall {
 	 * default.
 	 */
 	private boolean isAdmin = false;
+
 	/**
 	 * Enables the admin property for the next call.
 	 */
@@ -56,6 +57,7 @@ public class BasicCall {
 	 * Value of the offset property. 0 by default.
 	 */
 	private int offset = 0;
+
 	/**
 	 * Sets the provided value as the offset value for the next call.
 	 * 
@@ -76,6 +78,7 @@ public class BasicCall {
 	 * Value of the limit property. 0 by default.
 	 */
 	private int limit = 0;
+
 	/**
 	 * Sets the provided value as the limit value for the next call.
 	 * 
@@ -88,76 +91,44 @@ public class BasicCall {
 	}
 
 	/**
-	 * The normal response of the call, can not be null, but can be an empty
-	 * string.
+	 * The format that will concated to the end of the call url. By default it
+	 * is ".json". Currently not modifiable exists for the sake of compatibility
+	 * for later changes.
 	 */
-	protected String response = "";
-	/**
-	 * The StatusLine of the last call, never null, maybe empty before any call
-	 * was made.
-	 */
-	private String statusLine = "";
+	private String format = ".json";
 
+	/* *** Setter/getter methods *** */
 	/**
-	 * The headers of the last call, null before any call was made and maybe
-	 * null if the call request fails.
+	 * Usable by call methods to set all the required parameters in one go.
+	 * 
+	 * @param path
+	 *            The relative path of the URI.
+	 * @param json
+	 *            The JSON part of the message that will be inserted as an
+	 *            entity to the http requests body.
+	 * @param id
+	 *            The requested ID, always inserted into the {id} part of the
+	 *            url.
+	 * @param sId
+	 *            The possible special ID, inserted in one of the possible
+	 *            formats: {sid}, {asid}, {pid}, {eid}, {epid}.
+	 * @param fedid
+	 *            The fedid to insert into certain url-s.
 	 */
-	private Header[] headers = null;
+	protected void setMaster(String path, String json, int id, int sId,
+			String fedid) {
+		this.setPath(path);
+		this.setJson(json);
+		this.setId(id);
+		this.setSId(sId);
+		this.setFedid(fedid);
+	}
 
 	/**
 	 * The relative path of the URI. Should be in /app.php/api/example format.
 	 * Advised to use the {@link Const.Api} for the servers constants values.
 	 */
-	private String path;
-
-	/**
-	 * The fedid to insert into certain url-s.
-	 */
-	private String fedid;
-
-	/**
-	 * The token required by a few calls in the url.
-	 */
-	private String token;
-
-	/**
-	 * The email required by a few calls in the url.
-	 */
-	@SuppressWarnings("unused")
-	private String email;
-
-	/**
-	 * The requested ID, always inserted into the {id} part of the url.
-	 */
-	private int id;
-
-	/**
-	 * The possible special ID, inserted in one of the possible formats: {sid},
-	 * {asid}, {pid}, {eid}, {epid}.
-	 */
-	private int sId;
-
-	/**
-	 * The JSON part of the message that will be inserted as an entity to the
-	 * http requests body.
-	 */
-	private String json = new String();
-
-	/**
-	 * The format that will concated to the end of the call url. By default it
-	 * is ".json".
-	 */
-	private String format = new String(".json");
-
-	/* *** Setter/getter methods *** */
-	protected void setMaster(String path, REST restCall, String json, int id,
-			int sId, String fedid) {
-		this.setPath(path);
-		this.setString(json);
-		this.setId(id);
-		this.setSId(sId);
-		this.setFedid(fedid);
-	}
+	private String path = null;
 
 	/**
 	 * Sets the path.
@@ -169,6 +140,11 @@ public class BasicCall {
 	}
 
 	/**
+	 * The requested ID, always inserted into the {id} part of the url.
+	 */
+	private int id = 0;
+
+	/**
 	 * Sets the id.
 	 *
 	 * @param id
@@ -176,6 +152,12 @@ public class BasicCall {
 	protected void setId(int id) {
 		this.id = id;
 	}
+
+	/**
+	 * The possible special ID, inserted in one of the possible formats: {sid},
+	 * {asid}, {pid}, {eid}, {epid}.
+	 */
+	private int sId = 0;
 
 	/**
 	 * Sets the special id.
@@ -187,16 +169,27 @@ public class BasicCall {
 	}
 
 	/**
+	 * The JSON part of the message that will be inserted as an entity to the
+	 * http requests body.
+	 */
+	private String json = "";
+
+	/**
 	 * Sets the JSON string.
 	 *
 	 * @param json
 	 */
-	protected void setString(String json) {
+	protected void setJson(String json) {
 		if (json == null) {
 			json = new String();
 		}
 		this.json = json;
 	}
+
+	/**
+	 * The fedid to insert into certain url-s.
+	 */
+	private String fedid = "fedid";
 
 	/**
 	 * Sets the fedid.
@@ -208,6 +201,11 @@ public class BasicCall {
 	}
 
 	/**
+	 * The token required by a few calls in the url.
+	 */
+	private String token = "token";
+
+	/**
 	 * Sets the token.
 	 *
 	 * @param token
@@ -215,6 +213,12 @@ public class BasicCall {
 	public void setToken(String token) {
 		this.token = token;
 	}
+
+	/**
+	 * The email required by a few calls in the url.
+	 */
+	@SuppressWarnings("unused")
+	private String email = "email";
 
 	/**
 	 * Sets the token.
@@ -226,6 +230,12 @@ public class BasicCall {
 	}
 
 	/**
+	 * The StatusLine of the last call, never null, maybe empty before any call
+	 * was made.
+	 */
+	private String statusLine = "";
+
+	/**
 	 * Returns the status line associated with the last call. Persist until a
 	 * new call is placed and gives an empty String before any call.
 	 *
@@ -235,6 +245,12 @@ public class BasicCall {
 	public String getStatusLine() {
 		return statusLine;
 	}
+
+	/**
+	 * The headers of the last call, null before any call was made and maybe
+	 * null if the call request fails.
+	 */
+	private Header[] headers = null;
 
 	/**
 	 * Returns the header with the specified name if exists, null if not.
@@ -252,32 +268,11 @@ public class BasicCall {
 		return null;
 	}
 
-	@Deprecated
 	/**
-	 * Prints all possible data for debug purposes.
+	 * The normal response of the call, can not be null, but can be an empty
+	 * string.
 	 */
-	public void printData() {
-		System.out.println("\t" + statusLine);
-		System.out.println("\t" + path);
-		System.out.println("\t" + Integer.toString(id));
-		System.out.println("\t" + Integer.toString(sId));
-		System.out.println("\t" + json);
-	}
-
-	@Deprecated
-	/**
-	 * Set the format to the specified value. Can only be ".json" or ""(empty
-	 * string) at the moment.
-	 *
-	 * @param f
-	 *            string, format type of the calls, can be ".json" or ""(empty
-	 *            string).
-	 */
-	public void setFormat(String f) {
-		if (f.equals(".json") || f.equals("")) {
-			this.format = f;
-		}
-	}
+	protected String response = "";
 
 	/**
 	 * Returns the string representation of the call's response. Matches the
@@ -299,26 +294,6 @@ public class BasicCall {
 	protected String setResponse(String r) {
 		this.response = r;
 		return response;
-	}
-
-	/* *** Constructor *** */
-	/**
-	 * Constructor
-	 */
-	public BasicCall() {
-		this.id = 0;
-
-		this.sId = 0;
-
-		this.path = null;
-
-		this.json = "";
-
-		this.fedid = "fedid";
-
-		this.token = "token";
-
-		this.email = "email";
 	}
 
 	/**
@@ -473,7 +448,7 @@ public class BasicCall {
 	 */
 	public String call(String path, REST restCall, String json, int id,
 			int sId, String fedid) {
-		this.setMaster(path, restCall, json, id, sId, fedid);
+		this.setMaster(path, json, id, sId, fedid);
 
 		return this.callSwitch(restCall);
 	}
@@ -836,11 +811,7 @@ public class BasicCall {
 		return object;
 	}
 
-	/**
-	 * Imported methods from the depecrated classes of the sztaki.hexaa.core
-	 * package.
-	 */
-
+	/* *** HTTP Utility methods *** */
 	/**
 	 * Executes the PUT action on the path given in the constructor.
 	 *
