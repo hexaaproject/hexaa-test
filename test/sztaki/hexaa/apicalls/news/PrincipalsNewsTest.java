@@ -14,6 +14,7 @@ import sztaki.hexaa.Utility;
 import sztaki.hexaa.CleanTest;
 
 // TODO: még nem tudom mi az aminek meg kellene jelennie
+// TODO: csak a /api/principals/news van tesztelve, a /api/principal/news nincsen!
 /**
  *
  */
