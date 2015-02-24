@@ -420,6 +420,16 @@ public class Const {
 		 */
 		public static final String ROLES_ID_PRINCIPALS_PID = ("/api/roles/{id}/principals/{pid}.{_format}");
 
+		/* *** Securitydomain *** */
+		/**
+		 * GET, POST(create) security domains.
+		 */
+		public static final String SECURITYDOMAINS = ("/api/securitydomains.{_format}");
+		/**
+		 * GET, PUT(edit), PATCH(edit), DELETE security domains.
+		 */
+		public static final String SECURITYDOMAINS_ID = ("/api/securitydomains/{id}.{_format}");
+		
 		/* *** Services *** */
 		/**
 		 * GET services where user is a manager. POST(create) new service.
