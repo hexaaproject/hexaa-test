@@ -25,7 +25,7 @@ public class JavaHttpCoreTest {
 //		} catch(ResponseTypeMismatchException ex){
 //			System.out.println("Properties unreachable.");
 //		}
-		System.out.println(new Authenticator().getAPIKey());
+		System.out.println(new Authenticator().getAPIKey(Const.MASTER_SECRET));
 		System.out.println(new String("355f0db4244b2304d1cc8c20944415aa226beab36c8dfa36fb408c7d4cd0eaca").length());
 		new DatabaseManipulator().dropDatabase();
 	}
