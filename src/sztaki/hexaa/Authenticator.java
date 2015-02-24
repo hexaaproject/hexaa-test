@@ -22,17 +22,30 @@ import sztaki.hexaa.BasicCall.REST;
 public class Authenticator {
 
 	/**
+	 * Alternative call for {@link authenticate(String fedid, String secret)}
+	 * for non differentiated master_secret authentications and legacy purposes.
+	 * Always uses the {@link Const.MASTER_SECRET}.
+	 * 
+	 * @param fedid
+	 *            the fedid to authenticate with, normally the fedid is the
+	 *            {@link Const.HEXAA_FEDID}, if not use a valid e-mail format.
+	 * @return
+	 */
+	public int authenticate(String fedid) {
+		return this.authenticate(fedid, Const.MASTER_SECRET);
+	}
+
+	/**
 	 * Checks if the session is authenticated or not, and authenticates if
 	 * necessary. Gets a short time limited API key and uses the /api/token GET
 	 * method to get the usual 1 hour limited API key. The given fedid has to be
 	 * in a valid e-mail format (some@thing.example).
 	 *
 	 * @param fedid
-	 *            the fedid we want to authenticate with, normally the fedid is
-	 *            the {@link Const.HEXAA_FEDID}, if not use a valid e-mail
-	 *            format.
+	 *            the fedid to authenticate with, normally the fedid is the
+	 *            {@link Const.HEXAA_FEDID}, if not use a valid e-mail format.
 	 */
-	public int authenticate(String fedid) {
+	public int authenticate(String fedid, String secret) {
 		if (!Const.PROPERTIES_LOADED) {
 			this.loadProperties();
 		}
@@ -47,7 +60,7 @@ public class Authenticator {
 
 			JSONObject json = new JSONObject();
 			json.put("fedid", fedid);
-			json.put("apikey", this.getAPIKey());
+			json.put("apikey", this.getAPIKey(secret));
 			json.put("email", fedid);
 			json.put("display_name", fedid + "_name");
 
@@ -79,8 +92,9 @@ public class Authenticator {
 				principalSelf = postToken.getResponseJSONObject(
 						Const.Api.PRINCIPAL_SELF, REST.GET);
 				Const.HEXAA_ID = principalSelf.getInt("id");
-			} catch (ResponseTypeMismatchException|JSONException ex) {
-				System.out.println("Unable to find principal: " + ex.getMessage());
+			} catch (ResponseTypeMismatchException | JSONException ex) {
+				System.out.println("Unable to find principal: "
+						+ ex.getMessage());
 				return 1;
 			}
 		}
@@ -92,7 +106,7 @@ public class Authenticator {
 	 *
 	 * @return String temporal API key for limited time of authentication.
 	 */
-	public String getAPIKey() {
+	public String getAPIKey(String secret) {
 		String timestamp = null;
 		String sha256hex;
 
@@ -107,11 +121,11 @@ public class Authenticator {
 		} catch (DateTimeException exc) {
 			throw exc;
 		}
-		String temp = Const.MASTER_SECRET;
 
-		temp = temp.concat(timestamp);
+		secret = secret.concat(timestamp);
 
-		sha256hex = org.apache.commons.codec.digest.DigestUtils.sha256Hex(temp);
+		sha256hex = org.apache.commons.codec.digest.DigestUtils
+				.sha256Hex(secret);
 		if (sha256hex == null) {
 			System.exit(0);
 		}

@@ -43,7 +43,7 @@ public class AttributesPostTest extends CleanTest {
 
 		json.put("fedid", Const.HEXAA_FEDID);
 		json.put("entityid", "https://example.com/ssp");
-		json.put("apikey", new Authenticator().getAPIKey());
+		json.put("apikey", new Authenticator().getAPIKey(Const.MASTER_SECRET));
 
 		BasicCall call = new BasicCall();
 		String response;
