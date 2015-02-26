@@ -27,20 +27,6 @@ public class SecuritydomainPostTest extends NormalTest {
 	 */
 	private static JSONArray domains = new JSONArray();
 	
-
-	/**
-	 * Creates two securitydomains.
-	 */
-	@BeforeClass
-	public static void setUpClass() {
-//		attributespecs = Utility.Create.attributespec(new String[] {
-//				"AttributespecsGetTest_as1", "AttributespecsGetTest_as2" },
-//				"user");
-//		if (attributespecs.length() < 2) {
-//			fail("Utility.Create.attributespec(new String[] {\"AttributespecsGetTest_as1\", \"AttributespecsGetTest_as2\" }, \"user\"); did not succeed");
-//		}
-	}
-	
 	/**
 	 * Reverses the setUpClass and the creations during the test.
 	 */
