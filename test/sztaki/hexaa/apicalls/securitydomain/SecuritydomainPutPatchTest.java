@@ -15,7 +15,7 @@ import sztaki.hexaa.NormalTest;
 import sztaki.hexaa.ResponseTypeMismatchException;
 import sztaki.hexaa.Utility;
 
-public class SecuritydomainsPutPatchTest extends NormalTest {
+public class SecuritydomainPutPatchTest extends NormalTest {
 
 	/**
 	 * Print the class name on the output.
@@ -23,7 +23,7 @@ public class SecuritydomainsPutPatchTest extends NormalTest {
 	@BeforeClass
 	public static void classInformation() {
 		System.out.println("***\t "
-				+ SecuritydomainsPutPatchTest.class.getSimpleName() + " ***");
+				+ SecuritydomainPutPatchTest.class.getSimpleName() + " ***");
 	}
 
 	/**
@@ -51,7 +51,7 @@ public class SecuritydomainsPutPatchTest extends NormalTest {
 	@AfterClass
 	public static void tearDownClass() {
 		System.out.println("TearDownClass: "
-				+ SecuritydomainsPutPatchTest.class.getSimpleName());
+				+ SecuritydomainPutPatchTest.class.getSimpleName());
 		for (int i = 0; i < domains.length(); i++) {
 			Utility.Remove
 					.securitydomain(domains.getJSONObject(i).getInt("id"));
@@ -136,5 +136,4 @@ public class SecuritydomainsPutPatchTest extends NormalTest {
 			AssertErrorHandler(e);
 		}
 	}
-
 }

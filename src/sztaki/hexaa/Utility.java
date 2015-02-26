@@ -2042,12 +2042,18 @@ public class Utility {
 					BasicCall.REST.DELETE, null, avid, sid);
 		}
 
+		/**
+		 * Removes existing security domain with the given id.
+		 * 
+		 * @param id
+		 *            id of the security domain to remove.
+		 */
 		public static void securitydomain(int id) {
 			persistent.setAdmin();
-			persistent.call(Const.Api.SECURITYDOMAINS_ID, BasicCall.REST.DELETE,
-					id);
+			persistent.call(Const.Api.SECURITYDOMAINS_ID,
+					BasicCall.REST.DELETE, id);
 		}
-		
+
 	}
 
 	/**
