@@ -116,11 +116,11 @@ public class SecuritydomainGetTest extends NormalTest {
 			return;
 		}
 
-
 		try {
 			assertEquals(Const.StatusLine.Created,
 					Utility.persistent.getStatusLine());
-			JSONAssert.assertEquals(domains.getJSONObject(0), jsonResponse, false);
+			JSONAssert.assertEquals(domains.getJSONObject(0), jsonResponse,
+					false);
 		} catch (AssertionError e) {
 			AssertErrorHandler(e);
 		}
