@@ -38,11 +38,11 @@ public class SecuritydomainGetTest extends NormalTest {
 	@BeforeClass
 	public static void setUpClass() {
 		domains = Utility.Create
-				.securitydomain("SecuritydomainPostTest_sd1",
+				.securitydomain("SecuritydomainGetTest_sd1",
 						"alternativeTestMasterKey",
 						"This is a security domain to test the capability of posting one.");
 		if (domains.length() < 1) {
-			fail("Utility.Create.securitydomain(\"SecuritydomainPostTest_sd1\", \"alternativeTestMasterKey\", \"This is a security domain to test the capability of posting one.\"); did not succeed");
+			fail("Utility.Create.securitydomain(\"SecuritydomainGetTest_sd1\", \"alternativeTestMasterKey\", \"This is a security domain to test the capability of posting one.\"); did not succeed");
 		}
 	}
 
