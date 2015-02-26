@@ -33,7 +33,8 @@ import sztaki.hexaa.BasicTestSuite;
 		sztaki.hexaa.apicalls.services.ServicesPutTest.class,
 		sztaki.hexaa.apicalls.services.attributespecs.ServicesAttributespecsAddTest.class,
 		sztaki.hexaa.apicalls.services.entitlementpacks.ServicesEntitlementpacksPostTest.class,
-		sztaki.hexaa.apicalls.services.entitlements.ServicesEntitlementsPostTest.class, })
+		sztaki.hexaa.apicalls.services.entitlements.ServicesEntitlementsPostTest.class,
+		sztaki.hexaa.apicalls.securitydomain.SecuritydomainGetTest.class, })
 public class Level2TestSuite extends BasicTestSuite {
 
 }
