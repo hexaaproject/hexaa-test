@@ -16,7 +16,8 @@ import sztaki.hexaa.BasicTestSuite;
 		sztaki.hexaa.apicalls.attributespecs.AttributespecsPostTest.class,
 		sztaki.hexaa.apicalls.organizations.OrganizationPostTest.class,
 		sztaki.hexaa.apicalls.principals.PrincipalsPostTest.class,
-		sztaki.hexaa.apicalls.services.ServicesPostTest.class, })
+		sztaki.hexaa.apicalls.services.ServicesPostTest.class,
+		sztaki.hexaa.apicalls.securitydomain.SecuritydomainPostTest.class, })
 public class Level1TestSuite extends BasicTestSuite {
 
 }

@@ -1,16 +1,15 @@
 package sztaki.hexaa.apicalls.securitydomain;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
 
 import org.json.JSONArray;
-import org.json.JSONObject;
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
-import sztaki.hexaa.BasicCall;
 import sztaki.hexaa.Const;
 import sztaki.hexaa.NormalTest;
+import sztaki.hexaa.Utility;
 
 public class SecuritydomainPostTest extends NormalTest {
 	
@@ -47,27 +46,20 @@ public class SecuritydomainPostTest extends NormalTest {
 	 */
 	@AfterClass
 	public static void tearDownClass() {
-//		System.out.println("TearDownClass: "
-//				+ SecuritydomainPostTest.class.getSimpleName());
-//		for (int i = 0; i < attributespecs.length(); i++) {
-//			Utility.Remove.attributespec(attributespecs.getJSONObject(i)
-//					.getInt("id"));
-//		}
+		System.out.println("TearDownClass: "
+				+ SecuritydomainPostTest.class.getSimpleName());
+		for (int i = 0; i < domains.length(); i++) {
+			Utility.Remove.securitydomain(domains.getJSONObject(i)
+					.getInt("id"));
+		}
 	}
 	
 	@Test
-	public void testSecuritydomainPost() {
-		JSONObject json = new JSONObject();
-		json.put("name", "SecuritydomainPostTest_sd1");
-		json.put("scoped_key", "alternativeTestMasterKey");
-		
-		persistent.setAdmin();
-		persistent.call(Const.Api.SECURITYDOMAINS,BasicCall.REST.POST, json.toString());
-		
-		System.out.println(persistent.call());
+	public void testSecuritydomainPost() {		
+		domains = Utility.Create.securitydomain("SecuritydomainPostTest_sd1", "alternativeTestMasterKey", "This is a security domain to test the capability of posting one.");
 		
 		try {
-			assertEquals(Const.StatusLine.Created,persistent.getStatusLine());
+			assertEquals(Const.StatusLine.Created,Utility.persistent.getStatusLine());
 		} catch (AssertionError e) {
 			AssertErrorHandler(e);
 		}

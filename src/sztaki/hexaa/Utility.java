@@ -259,9 +259,9 @@ public class Utility {
 		}
 
 		public static JSONArray attributespec(String[] url, String maintainer) {
-			return attributespec( url , maintainer, true);
+			return attributespec(url, maintainer, true);
 		}
-		
+
 		/**
 		 * Creates as many attributespecs as many oid is specified in the oids
 		 * String array. Returns them as a JSONArray. Can create attributespecs
@@ -276,7 +276,8 @@ public class Utility {
 		 *            it is used by an organization.
 		 * @return JSONArray with all the created attributespecs in it.
 		 */
-		public static JSONArray attributespec(String[] url, String maintainer, boolean is_multivalue) {
+		public static JSONArray attributespec(String[] url, String maintainer,
+				boolean is_multivalue) {
 			JSONArray attributespecs = new JSONArray();
 
 			// for (int i = 0; i < oids.length; i++) {
@@ -669,7 +670,7 @@ public class Utility {
 				json.put("fedid", fedid);
 				json.put("email", fedid + "@email.something");
 				json.put("display_name", fedid + "_name");
-				
+
 				persistent.setAdmin();
 
 				persistent.call(Const.Api.PRINCIPALS, BasicCall.REST.POST,
@@ -822,12 +823,19 @@ public class Utility {
 		}
 
 		/**
-		 *
+		 * Creates one consent for the specified principal and service with the
+		 * array of attribute specs and entitlement enabled.
+		 * 
 		 * @param enable_entitlements
+		 *            boolean to enable entitlements.
 		 * @param enable_attribute_specs
+		 *            array of int with the id of the attribute specs to enable.
 		 * @param principal
+		 *            int the id of the principal, can be 0 it will be called
+		 *            with the current principal.
 		 * @param service
-		 * @return
+		 *            int the id of the service.
+		 * @return JSONArray with the created consents.
 		 */
 		public static JSONArray consent(boolean enable_entitlements,
 				int[] enable_attribute_specs, int principal, int service) {
@@ -851,8 +859,8 @@ public class Utility {
 			json.put("service_id", json.remove("service"));
 
 			if (persistent.getHeader("Location") != null) {
-				List<Integer> id = getNumber(persistent.getHeader(
-						"Location").getValue());
+				List<Integer> id = getNumber(persistent.getHeader("Location")
+						.getValue());
 
 				if (id.size() == 1) {
 					json.put("id", id.get(0));
@@ -860,14 +868,67 @@ public class Utility {
 
 				consents.put(json);
 			}
-			
+
 			return consents;
 		}
 
+		/**
+		 * Alternative call for {@link (boolean enable_entitlements, int[]
+		 * enable_attribute_specs, int principal, int service)} for the current
+		 * principal.
+		 * 
+		 * @param enable_entitlements
+		 *            boolean to enable entitlements.
+		 * @param enable_attribute_specs
+		 *            array of int with the id of the attribute specs to enable.
+		 * @param service
+		 *            int the id of the service.
+		 * @return JSONArray with the created consents.
+		 */
 		public static JSONArray consent(boolean enable_entitlements,
 				int[] enable_attribute_specs, int service) {
 			return consent(enable_entitlements, enable_attribute_specs, 0,
 					service);
+		}
+
+		/**
+		 * Creates one security domain with the given parameters.
+		 * 
+		 * @param name
+		 *            required, must be unique.
+		 * @param scoped_key
+		 *            required, need to be set in the app/config/parameters.yml.
+		 * @param description
+		 *            optional, description of this security domain.
+		 * @return
+		 */
+		public static JSONArray securitydomain(String name, String scoped_key,
+				String description) {
+			JSONArray response = new JSONArray();
+
+			JSONObject json = new JSONObject();
+			json.put("name", "SecuritydomainPostTest_sd1");
+			json.put("scoped_key", "alternativeTestMasterKey");
+			if (description != null) {
+				json.put("description", description);
+			}
+
+			persistent.setAdmin();
+			persistent.call(Const.Api.SECURITYDOMAINS, BasicCall.REST.POST,
+					json.toString());
+
+			if (persistent.getHeader("Location") != null) {
+				List<Integer> id = getNumber(persistent.getHeader("Location")
+						.getValue());
+
+				if (id.size() == 1) {
+					json.put("id", id.get(0));
+				}
+
+				response.put(json);
+			}
+
+			return response;
 		}
 
 	}
@@ -1493,10 +1554,10 @@ public class Utility {
 		 *            array of attributevalue ids.
 		 */
 		public static void consent(int consent_id) {
-			persistent.call(Const.Api.CONSENTS_ID, BasicCall.REST.DELETE,
-					null, consent_id, 0);
+			persistent.call(Const.Api.CONSENTS_ID, BasicCall.REST.DELETE, null,
+					consent_id, 0);
 		}
-		
+
 		/**
 		 * Removes invitation if exist.
 		 *
@@ -1980,6 +2041,13 @@ public class Utility {
 			persistent.call(Const.Api.ATTRIBUTEVALUEPRINCIPALS_ID_SERVICES_SID,
 					BasicCall.REST.DELETE, null, avid, sid);
 		}
+
+		public static void securitydomain(int id) {
+			persistent.setAdmin();
+			persistent.call(Const.Api.SECURITYDOMAINS_ID, BasicCall.REST.DELETE,
+					id);
+		}
+		
 	}
 
 	/**
