@@ -12,38 +12,36 @@ import sztaki.hexaa.Const;
  */
 public class MethodNotAllowedTest extends CleanTest {
 
+	/* *** REST(GET,POST,PUT,DELETE) boundles for the *** */
+	/* easier use, not complete, feel free to add to it *** */
+	BasicCall.REST[] restGetPostDeletePatch = { BasicCall.REST.GET,
+			BasicCall.REST.POST, BasicCall.REST.DELETE, BasicCall.REST.PATCH, };
+	BasicCall.REST[] restGetPutDeletePatch = { BasicCall.REST.GET,
+			BasicCall.REST.PUT, BasicCall.REST.DELETE, BasicCall.REST.PATCH, };
+	BasicCall.REST[] restGetPostPutPatch = { BasicCall.REST.GET,
+			BasicCall.REST.POST, BasicCall.REST.PUT, BasicCall.REST.PATCH, };
+	BasicCall.REST[] restGetPostPatch = { BasicCall.REST.GET,
+			BasicCall.REST.POST, BasicCall.REST.PATCH, };
+	BasicCall.REST[] restPostPatch = { BasicCall.REST.POST,
+			BasicCall.REST.PATCH, };
+	BasicCall.REST[] restPost = { BasicCall.REST.POST, };
+	BasicCall.REST[] restPostPutDeletePatch = { BasicCall.REST.POST,
+			BasicCall.REST.PUT, BasicCall.REST.DELETE, BasicCall.REST.PATCH, };
+	BasicCall.REST[] restPostPutPatch = { BasicCall.REST.POST,
+			BasicCall.REST.PUT, BasicCall.REST.PATCH, };
+	BasicCall.REST[] restPutDeletePatch = { BasicCall.REST.PUT,
+			BasicCall.REST.DELETE, BasicCall.REST.PATCH, };
+	BasicCall.REST[] restDelete = { BasicCall.REST.DELETE, };
+	BasicCall.REST[] restPostDelete = { BasicCall.REST.POST,
+			BasicCall.REST.DELETE, };
+
 	/**
 	 * Bunch of tests to verify that the Method Not Allowed exception drop works
 	 * fine, and not allowed methods do nut return any information that they
 	 * should not.
 	 */
 	@Test
-	public void testMethodNotAllowed() {
-		/* *** REST(GET,POST,PUT,DELETE) boundles for the *** */
-		/* easier use, not complete, feel free to add to it *** */
-		BasicCall.REST[] restGetPostDeletePatch = { BasicCall.REST.GET,
-				BasicCall.REST.POST, BasicCall.REST.DELETE,
-				BasicCall.REST.PATCH, };
-		BasicCall.REST[] restGetPutDeletePatch = { BasicCall.REST.GET,
-				BasicCall.REST.PUT, BasicCall.REST.DELETE,
-				BasicCall.REST.PATCH, };
-		BasicCall.REST[] restGetPostPutPatch = { BasicCall.REST.GET,
-				BasicCall.REST.POST, BasicCall.REST.PUT, BasicCall.REST.PATCH, };
-		BasicCall.REST[] restGetPostPatch = { BasicCall.REST.GET,
-				BasicCall.REST.POST, BasicCall.REST.PATCH, };
-		BasicCall.REST[] restPostPatch = { BasicCall.REST.POST,
-				BasicCall.REST.PATCH, };
-		BasicCall.REST[] restPost = { BasicCall.REST.POST, };
-		BasicCall.REST[] restPostPutDeletePatch = { BasicCall.REST.POST,
-				BasicCall.REST.PUT, BasicCall.REST.DELETE,
-				BasicCall.REST.PATCH, };
-		BasicCall.REST[] restPostPutPatch = { BasicCall.REST.POST,
-				BasicCall.REST.PUT, BasicCall.REST.PATCH, };
-		BasicCall.REST[] restPutDeletePatch = { BasicCall.REST.PUT,
-				BasicCall.REST.DELETE, BasicCall.REST.PATCH, };
-		BasicCall.REST[] restDelete = { BasicCall.REST.DELETE, };
-		BasicCall.REST[] restPostDelete = { BasicCall.REST.POST,
-				BasicCall.REST.DELETE, };
+	public void testMethodNotAllowedAttributevalueorganization() {
 
 		/* *** Attributevalueorganization *** */
 		this.expectingNotAllowed(
@@ -57,7 +55,10 @@ public class MethodNotAllowedTest extends CleanTest {
 		this.expectingNotAllowed(
 				new String[] { Const.Api.ATTRIBUTEVALUEORGANIZATIONS, },
 				restGetPutDeletePatch);
+	}
 
+	@Test
+	public void testMethodNotAllowedAttributevalueprincipal() {
 		/* *** Attributevalueprincipal *** */
 		this.expectingNotAllowed(
 				new String[] { Const.Api.ATTRIBUTEVALUEPRINCIPALS, },
@@ -70,7 +71,10 @@ public class MethodNotAllowedTest extends CleanTest {
 		this.expectingNotAllowed(
 				new String[] { Const.Api.ATTRIBUTEVALUEPRINCIPALS_ID_SERVICES_SID, },
 				restPostPatch);
+	}
 
+	@Test
+	public void testMethodNotAllowedAttributespec() {
 		/* *** Attributespec *** */
 		this.expectingNotAllowed(new String[] { Const.Api.ATTRIBUTESPECS, },
 				restPutDeletePatch);
@@ -81,7 +85,10 @@ public class MethodNotAllowedTest extends CleanTest {
 		this.expectingNotAllowed(
 				new String[] { Const.Api.ATTRIBUTESPECS_ID_SERVICES, },
 				restPostPutDeletePatch);
+	}
 
+	@Test
+	public void testMethodNotAllowedConsents() {
 		/* *** Consents *** */
 		this.expectingNotAllowed(new String[] { Const.Api.CONSENTS, },
 				restPutDeletePatch);
@@ -92,13 +99,19 @@ public class MethodNotAllowedTest extends CleanTest {
 		this.expectingNotAllowed(
 				new String[] { Const.Api.CONSENTS_SID_SERVICE, },
 				restPostPutDeletePatch);
+	}
 
+	@Test
+	public void testMethodNotAllowedEntitlement() {
 		/* *** Entitlement *** */
 		// SERVICES_ID_ENTITLEMENTS is called with the other services related
 		// calls.
 		this.expectingNotAllowed(new String[] { Const.Api.ENTITLEMENTS_ID, },
 				restPost);
+	}
 
+	@Test
+	public void testMethodNotAllowedEntitlementpack() {
 		/* *** Entitlementpack *** */
 		// SERVICES_ID_ENTITLEMENTPACKS is tested with the other Services
 		// related calls.
@@ -126,7 +139,10 @@ public class MethodNotAllowedTest extends CleanTest {
 		this.expectingNotAllowed(
 				new String[] { Const.Api.ENTITLEMENTPACKS_ID_TOKEN, },
 				restPostPutDeletePatch);
+	}
 
+	@Test
+	public void testMethodNotAllowedInvitation() {
 		/* *** Invitation *** */
 		this.expectingNotAllowed(new String[] { Const.Api.INVITATIONS, },
 				restGetPutDeletePatch);
@@ -140,13 +156,19 @@ public class MethodNotAllowedTest extends CleanTest {
 				Const.Api.INVITATIONS_TOKEN_ACCEPTS_EMAIL_EMAIL,
 				Const.Api.INVITATIONS_TOKEN_REJECTS_EMAIL_EMAIL, },
 				restPostPutDeletePatch);
+	}
 
+	@Test
+	public void testMethodNotAllowedNews() {
 		/* *** News *** */
 		this.expectingNotAllowed(new String[] {
 				Const.Api.ORGANIZATIONS_ID_NEWS, Const.Api.PRINCIPAL_NEWS,
 				Const.Api.PRINCIPALS_PID_NEWS, Const.Api.SERVICES_ID_NEWS, },
 				restPostPutDeletePatch);
+	}
 
+	@Test
+	public void testMethodNotAllowedOrganization() {
 		/* *** Organization *** */
 		this.expectingNotAllowed(new String[] { Const.Api.ORGANIZATIONS,
 				Const.Api.ORGANIZATIONS_ID_ATTRIBUTEVALUEORGANIZATION,
@@ -175,14 +197,20 @@ public class MethodNotAllowedTest extends CleanTest {
 				Const.Api.ORGANIZATIONS_ID_ENTITLEMENTPACKS_EPID_ACCEPT,
 				Const.Api.ORGANIZATIONS_ID_ENTITLEMENTPACKS_TOKEN, },
 				restGetPostDeletePatch);
+	}
 
+	@Test
+	public void testMethodNotAllowedOther() {
 		/* *** Other *** */
 		this.expectingNotAllowed(new String[] { Const.Api.ATTRIBUTES,
 				Const.Api.TOKENS, }, restGetPutDeletePatch);
 
 		this.expectingNotAllowed(new String[] { Const.Api.ENTITYIDS,
 				Const.Api.PROPERTIES, }, restPostPutDeletePatch);
+	}
 
+	@Test
+	public void testMethodNotAllowedPrinciapl() {
 		/* *** Princiapl *** */
 		this.expectingNotAllowed(
 				new String[] {
@@ -207,7 +235,10 @@ public class MethodNotAllowedTest extends CleanTest {
 
 		this.expectingNotAllowed(new String[] { Const.Api.PRINCIPAL, },
 				restGetPostPutPatch);
+	}
 
+	@Test
+	public void testMethodNotAllowedRoles() {
 		/* *** Roles *** */
 		this.expectingNotAllowed(new String[] { Const.Api.ROLES_ID, }, restPost);
 
@@ -219,7 +250,19 @@ public class MethodNotAllowedTest extends CleanTest {
 		this.expectingNotAllowed(new String[] {
 				Const.Api.ROLES_ID_ENTITLEMENTS_EID,
 				Const.Api.ROLES_ID_PRINCIPALS_PID, }, restGetPostPatch);
+	}
 
+	@Test
+	public void testMethodNotAllowedSecuritydomain() {
+		/* *** Securitydomain *** */
+		this.expectingNotAllowed(new String[] { Const.Api.SECURITYDOMAINS },
+				restPutDeletePatch);
+		this.expectingNotAllowed(new String[] { Const.Api.SECURITYDOMAINS_ID },
+				restPost);
+	}
+
+	@Test
+	public void testMethodNotAllowedServices() {
 		/* *** Services *** */
 		this.expectingNotAllowed(new String[] { Const.Api.SERVICES,
 				Const.Api.SERVICES_ID_ENTITLEMENTPACKS,
