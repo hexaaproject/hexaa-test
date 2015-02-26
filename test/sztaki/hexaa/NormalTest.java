@@ -69,6 +69,9 @@ public class NormalTest {
 	 */
 	public void AssertErrorHandler(Throwable e) {
 		System.out.println(persistent.getStatusLine());
+		if (persistent.getStatusLine().equals(Const.StatusLine.BadRequest)) {
+			fail(persistent.call());
+		}
 		System.out.println(e.getLocalizedMessage());
 		collector.addError(e);
 	}
