@@ -11,8 +11,6 @@ import sztaki.hexaa.BasicTestSuite;
  */
 @RunWith(Suite.class)
 @Suite.SuiteClasses({ sztaki.hexaa.apicalls.other.PropertiesGetTest.class,
-		sztaki.hexaa.AllIsEmptyTests.class,
-		sztaki.hexaa.apicalls.MethodNotAllowedTest.class,
 		sztaki.hexaa.apicalls.attributespecs.AttributespecsPostTest.class,
 		sztaki.hexaa.apicalls.organizations.OrganizationPostTest.class,
 		sztaki.hexaa.apicalls.principals.PrincipalsPostTest.class,

@@ -3,17 +3,12 @@ package sztaki.hexaa;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.fail;
 
-import java.util.logging.Level;
-import java.util.logging.Logger;
-
 import org.json.JSONArray;
 import org.json.JSONObject;
 import org.skyscreamer.jsonassert.JSONAssert;
 import org.skyscreamer.jsonassert.JSONParser;
 
 import sztaki.hexaa.BasicCall.REST;
-import sztaki.hexaa.Const;
-import sztaki.hexaa.ResponseTypeMismatchException;
 
 /**
  * Utility class to be inherited by the IsEmpty test classes. Implements
@@ -31,9 +26,11 @@ public abstract class IsEmptyTest extends NormalTest {
 	 *            a REST call to be called.
 	 */
 	public void expectingEmpty(String constApi, REST rest) {
-		String stringResponse = persistent.call(constApi, rest);
+		BasicCall expectingEmptyCall = new BasicCall();
+		String stringResponse = expectingEmptyCall.call(constApi, rest);
 		try {
-			assertEquals(Const.StatusLine.OK, persistent.getStatusLine());
+			assertEquals(Const.StatusLine.OK,
+					expectingEmptyCall.getStatusLine());
 			assertEquals("[]", stringResponse);
 		} catch (AssertionError e) {
 			AssertErrorHandler(e);
@@ -50,9 +47,11 @@ public abstract class IsEmptyTest extends NormalTest {
 	 *            a REST call to be called.
 	 */
 	public void expectingNotFound(String constApi, REST rest) {
-		String stringResponse = persistent.call(constApi, rest);
+		BasicCall expectingNotFoundCall = new BasicCall();
+		String stringResponse = expectingNotFoundCall.call(constApi, rest);
 		try {
-			assertEquals(Const.StatusLine.NotFound, persistent.getStatusLine());
+			assertEquals(Const.StatusLine.NotFound,
+					expectingNotFoundCall.getStatusLine());
 			assertEquals(
 					"{\"code\":404,\"message\":\"Not Found\",\"errors\":null}",
 					stringResponse);
@@ -71,18 +70,21 @@ public abstract class IsEmptyTest extends NormalTest {
 	 *            a REST call to be called.
 	 */
 	public void expectingFedid(String constApi, REST rest) {
-		if (JSONParser.parseJSON(persistent.call(constApi, rest, Const.HEXAA_ID)) instanceof JSONObject) {
+		JSONCall expectingFedidCall = new JSONCall();
+		if (JSONParser.parseJSON(expectingFedidCall
+				.call(constApi, rest, Const.HEXAA_ID)) instanceof JSONObject) {
 			JSONObject jsonResponse;
 			try {
-				persistent.setAdmin();
-				persistent.setOffset(0);
-				jsonResponse = persistent.getResponseJSONObject(constApi, rest, Const.HEXAA_ID);
+				expectingFedidCall.setAdmin();
+				expectingFedidCall.setOffset(0);
+				jsonResponse = expectingFedidCall.getResponseJSONObject(constApi, rest,
+						Const.HEXAA_ID);
 				if (jsonResponse.has("item_number")) {
 					if (Integer.valueOf(jsonResponse.get("item_number")
 							.toString()) > 0) {
 						try {
 							assertEquals(Const.StatusLine.OK,
-									persistent.getStatusLine());
+									expectingFedidCall.getStatusLine());
 							assertEquals(Const.HEXAA_FEDID, jsonResponse
 									.getJSONArray("items").getJSONObject(0)
 									.getString("fedid"));
@@ -93,7 +95,7 @@ public abstract class IsEmptyTest extends NormalTest {
 				} else {
 					try {
 						assertEquals(Const.StatusLine.OK,
-								persistent.getStatusLine());
+								expectingFedidCall.getStatusLine());
 						assertEquals(Const.HEXAA_FEDID,
 								jsonResponse.getString("fedid"));
 					} catch (AssertionError e) {
@@ -102,17 +104,17 @@ public abstract class IsEmptyTest extends NormalTest {
 				}
 				return;
 			} catch (ResponseTypeMismatchException ex) {
-				Logger.getLogger(IsEmptyTest.class.getName()).log(Level.SEVERE,
-						null, ex);
+				fail(ex.getFullMessage());
+				return;
 			}
 		} else {
 			JSONArray jsonArrayResponse;
 			try {
-				jsonArrayResponse = persistent.getResponseJSONArray(constApi,
+				jsonArrayResponse = expectingFedidCall.getResponseJSONArray(constApi,
 						rest, Const.HEXAA_ID);
 				try {
 					assertEquals(Const.StatusLine.OK,
-							persistent.getStatusLine());
+							expectingFedidCall.getStatusLine());
 					assertEquals(Const.HEXAA_FEDID, jsonArrayResponse
 							.getJSONObject(0).getString("fedid"));
 				} catch (AssertionError e) {
@@ -120,23 +122,24 @@ public abstract class IsEmptyTest extends NormalTest {
 				}
 				return;
 			} catch (ResponseTypeMismatchException ex) {
-				Logger.getLogger(IsEmptyTest.class.getName()).log(Level.SEVERE,
-						null, ex);
+				fail(ex.getFullMessage());
+				return;
 			}
 		}
 	}
 
 	public void expectingZeroItems(String constApi, REST rest) {
+		JSONCall expectingZeroItemsCall = new JSONCall();
 		JSONObject jsonResponse;
 		try {
-			persistent.setOffset(0);
-			jsonResponse = persistent.getResponseJSONObject(constApi, rest);
+			expectingZeroItemsCall.setOffset(0);
+			jsonResponse = expectingZeroItemsCall.getResponseJSONObject(constApi, rest);
 		} catch (ResponseTypeMismatchException ex) {
 			fail(ex.getFullMessage());
 			return;
 		}
 		try {
-			assertEquals(Const.StatusLine.OK, persistent.getStatusLine());
+			assertEquals(Const.StatusLine.OK, expectingZeroItemsCall.getStatusLine());
 			assertEquals(0, jsonResponse.get("item_number"));
 			JSONAssert.assertEquals(new JSONArray(),
 					jsonResponse.getJSONArray("items"), false);

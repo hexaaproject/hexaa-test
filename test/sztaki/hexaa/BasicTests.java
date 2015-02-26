@@ -13,7 +13,7 @@ import org.junit.runners.Suite;
 @RunWith(Suite.class)
 @Suite.SuiteClasses({
 		sztaki.hexaa.AllIsEmptyTests.class,
-		sztaki.hexaa.apicalls.MethodNotAllowedTest.class,
+		sztaki.hexaa.MethodNotAllowedTest.class,
 		sztaki.hexaa.apicalls.attributespecs.AttributespecsSuite.class,
 		sztaki.hexaa.apicalls.attributevalueorganizations.AttributevalueorganizationsSuite.class,
 		sztaki.hexaa.apicalls.attributevalueprincipals.AttributevalueprincipalsSuite.class,

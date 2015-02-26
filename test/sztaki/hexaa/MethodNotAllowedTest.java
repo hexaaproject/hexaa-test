@@ -1,8 +1,9 @@
-package sztaki.hexaa.apicalls;
+package sztaki.hexaa;
 
-import sztaki.hexaa.CleanTest;
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+
 import org.junit.Test;
+
 import sztaki.hexaa.BasicCall;
 import sztaki.hexaa.Const;
 
@@ -10,7 +11,7 @@ import sztaki.hexaa.Const;
  * Tests all the possible uri-s for the not existing methods to check that there
  * are no vulnerability in the system from methods that should not exist.
  */
-public class MethodNotAllowedTest extends CleanTest {
+public class MethodNotAllowedTest extends NormalTest {
 
 	/* *** REST(GET,POST,PUT,DELETE) boundles for the *** */
 	/* easier use, not complete, feel free to add to it *** */
@@ -298,10 +299,11 @@ public class MethodNotAllowedTest extends CleanTest {
 	public void expectingNotAllowed(String[] uris, BasicCall.REST[] calls) {
 		for (String uri : uris) {
 			for (BasicCall.REST method : calls) {
-				persistent.call(uri, method);
+				BasicCall notAllwedCall = new BasicCall();
+				notAllwedCall.call(uri, method);
 				try {
 					assertEquals(Const.StatusLine.MethodNotAllowed,
-							persistent.getStatusLine());
+							notAllwedCall.getStatusLine());
 				} catch (AssertionError e) {
 					AssertErrorHandler(e);
 				}
