@@ -14,6 +14,7 @@ import sztaki.hexaa.BasicTestSuite;
 		sztaki.hexaa.MethodNotAllowedTest.class,
 		sztaki.hexaa.AllIsEmptyTests.class,
 		sztaki.hexaa.apicalls.other.PropertiesGetTest.class,
+		sztaki.hexaa.apicalls.other.ScopedkeysGetTest.class,
 		sztaki.hexaa.apicalls.attributespecs.AttributespecsPostTest.class,
 		sztaki.hexaa.apicalls.organizations.OrganizationPostTest.class,
 		sztaki.hexaa.apicalls.principals.PrincipalsPostTest.class,

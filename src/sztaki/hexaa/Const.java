@@ -318,6 +318,10 @@ public class Const {
 		 * GET(list) service entityIDs.
 		 */
 		public static final String ENTITYIDS = ("/api/entityids.{_format}");
+		/**
+		 * GET(list) all scoped key names.
+		 */
+		public static final String SCOPEDKEYS = ("/api/scopedkeys.{_format}");
 
 		/* *** Principals *** */
 		/**
