@@ -36,8 +36,7 @@ public class AttributespecsIsEmptyTest extends IsEmptyTest {
 	 */
 	@Test
 	public void testAttributespecsIsEmptyPut() {
-		persistent.setAdmin();
-		expectingNotFound(Const.Api.ATTRIBUTESPECS_ID, BasicCall.REST.PUT);
+		expectingNotFound(Const.Api.ATTRIBUTESPECS_ID, BasicCall.REST.PUT, true);
 	}
 
 	/**
@@ -45,8 +44,8 @@ public class AttributespecsIsEmptyTest extends IsEmptyTest {
 	 */
 	@Test
 	public void testAttributespecsIsEmptyDelete() {
-		persistent.setAdmin();
-		expectingNotFound(Const.Api.ATTRIBUTESPECS_ID, BasicCall.REST.DELETE);
+		expectingNotFound(Const.Api.ATTRIBUTESPECS_ID, BasicCall.REST.DELETE,
+				true);
 	}
 
 	/**
@@ -54,7 +53,7 @@ public class AttributespecsIsEmptyTest extends IsEmptyTest {
 	 */
 	@Test
 	public void testAttributespecsIsEmptyPatch() {
-		persistent.setAdmin();
-		expectingNotFound(Const.Api.ATTRIBUTESPECS_ID, BasicCall.REST.PATCH);
+		expectingNotFound(Const.Api.ATTRIBUTESPECS_ID, BasicCall.REST.PATCH,
+				true);
 	}
 }

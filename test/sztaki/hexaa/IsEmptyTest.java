@@ -47,7 +47,25 @@ public abstract class IsEmptyTest extends NormalTest {
 	 *            a REST call to be called.
 	 */
 	public void expectingNotFound(String constApi, REST rest) {
+		expectingNotFound(constApi,rest,false);
+	}
+
+	/**
+	 * Calls the rest method on the constApi uri and expects an error code
+	 * response and 404 Not Found.
+	 *
+	 * @param constApi
+	 *            an URI on the host.
+	 * @param rest
+	 *            a REST call to be called.
+	 */
+	public void expectingNotFound(String constApi, REST rest, boolean isAdmin) {
 		BasicCall expectingNotFoundCall = new BasicCall();
+		
+		if (isAdmin) {
+			expectingNotFoundCall.setAdmin();
+		}
+		
 		String stringResponse = expectingNotFoundCall.call(constApi, rest);
 		try {
 			assertEquals(Const.StatusLine.NotFound,
