@@ -22,13 +22,11 @@ public class JSONCall extends BasicCall {
 		if (serverResponse instanceof JSONObject) {
 			return (JSONObject) serverResponse;
 		} else if (serverResponse instanceof JSONArray) {
-			throw new ResponseTypeMismatchException(
-					"JSONArray instead of JSONObject", "JSONArray",
+			throw new ResponseTypeMismatchException(JSONObject.class,
 					serverResponse);
 		} else {
-			throw new ResponseTypeMismatchException(
-					"Non-json string instead of JSONObject", "String",
-					String.valueOf(serverResponse));
+			throw new ResponseTypeMismatchException(JSONObject.class,
+					serverResponse);
 		}
 	}
 
@@ -132,8 +130,7 @@ public class JSONCall extends BasicCall {
 	 */
 	public JSONObject getResponseJSONObject(String path, REST restCall,
 			String json, int id) throws ResponseTypeMismatchException {
-		return this.getResponseJSONObject(path, restCall, json, id, 0,
-				"fedid");
+		return this.getResponseJSONObject(path, restCall, json, id, 0, "fedid");
 	}
 
 	/**
@@ -236,13 +233,11 @@ public class JSONCall extends BasicCall {
 		if (serverResponse instanceof JSONArray) {
 			return (JSONArray) serverResponse;
 		} else if (serverResponse instanceof JSONObject) {
-			throw new ResponseTypeMismatchException(
-					"JSONObject instead of JSONArray", "JSONObject",
+			throw new ResponseTypeMismatchException(JSONArray.class,
 					serverResponse);
 		} else {
-			throw new ResponseTypeMismatchException(
-					"Non-json string instead of JSONArray", "String",
-					String.valueOf(serverResponse));
+			throw new ResponseTypeMismatchException(JSONArray.class,
+					serverResponse);
 		}
 	}
 

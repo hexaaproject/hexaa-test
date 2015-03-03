@@ -1,5 +1,6 @@
 package sztaki.hexaa;
 
+
 // TODO: csinálj egységesebb üzenet generálást ami egyszerűbben kezelhető, pl ResponseTypeMismatchException(message,type,response) helyett ResponseTypeMismatchException(expected_type,actual_object).
 /**
  * Exception to throw if the server response is in a different than expected
@@ -44,6 +45,7 @@ public class ResponseTypeMismatchException extends Exception {
 		super(message, throwable);
 	}
 
+	@Deprecated
 	/**
 	 * Constructor to throw the original response and its type with the
 	 * exception.
@@ -60,6 +62,20 @@ public class ResponseTypeMismatchException extends Exception {
 		super(message);
 		this.type = type;
 		this.response = response;
+	}
+
+	/**
+	 * Constructor to create a new exception with auto-generated message.
+	 * 
+	 * @param expected
+	 *            class, the class of the expected object.
+	 * @param actual
+	 *            object, the actual server response that caused the exception.
+	 */
+	public ResponseTypeMismatchException(Class<?> expected, Object actual) {
+		super(actual.getClass() + " instead of " + expected.toString());
+		this.response = actual;
+		this.type = actual.getClass().toString();
 	}
 
 	/**
