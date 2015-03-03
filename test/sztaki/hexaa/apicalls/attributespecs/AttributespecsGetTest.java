@@ -20,7 +20,6 @@ import sztaki.hexaa.NormalTest;
 import sztaki.hexaa.ResponseTypeMismatchException;
 import sztaki.hexaa.Utility;
 
-//// TODO: UNECCESSARY CleanTest
 /**
  * Tests the GET method on the /api/attributespecs and /api/attributespecs/{id}
  * calls.
