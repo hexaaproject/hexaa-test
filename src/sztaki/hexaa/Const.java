@@ -322,6 +322,10 @@ public class Const {
 		 * GET(list) all scoped key names.
 		 */
 		public static final String SCOPEDKEYS = ("/api/scopedkeys.{_format}");
+		/**
+		 * GET(list) all tags.
+		 */
+		public static final String TAGS = ("/api/tags.{_format}");
 
 		/* *** Principals *** */
 		/**
@@ -433,7 +437,7 @@ public class Const {
 		 * GET, PUT(edit), PATCH(edit), DELETE security domains.
 		 */
 		public static final String SECURITYDOMAINS_ID = ("/api/securitydomains/{id}.{_format}");
-		
+
 		/* *** Services *** */
 		/**
 		 * GET services where user is a manager. POST(create) new service.
