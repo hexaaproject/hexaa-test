@@ -606,6 +606,135 @@ public class Utility {
 		}
 
 		/**
+		 * Creates one organization. Names should be unique. Use the simplified
+		 * methods if possible.
+		 * 
+		 * @param name
+		 *            String, required, unique, name of the organization.
+		 * @param url
+		 *            String, can be null, omitted if null, url for
+		 *            organization.
+		 * @param default_role
+		 *            int, can be 0, omitted if 0, the id of the default role.
+		 * @param isolate_members
+		 *            boolean, omitted if false, if true members can't see the
+		 *            member list.
+		 * @param isolate_role_members
+		 *            boolean, omitted if false, if true members can't see other
+		 *            members role.
+		 * @param description
+		 *            String, can be null, omitted if null, description of the
+		 *            organization.
+		 * @param tags
+		 *            List of Strings, tags of the organization.
+		 * @return JSONObject, representing the created organization.
+		 */
+		public static JSONObject organization(String name, String url,
+				int default_role, boolean isolate_members,
+				boolean isolate_role_members, String description, String[] tags) {
+
+			JSONObject json = new JSONObject();
+
+			json.put("name", name);
+			if (url != null) {
+				json.put("url", url);
+			}
+			if (default_role != 0) {
+				json.put("default_role", default_role);
+			}
+			if (isolate_members != false) {
+				json.put("isolate_members", isolate_members);
+			}
+			if (isolate_role_members != false) {
+				json.put("isolate_role_members", isolate_role_members);
+			}
+			if (description != null) {
+				json.put("description", description);
+			}
+			if (tags != null) {
+				json.put("tags", tags);
+			}
+
+			persistent.call(Const.Api.ORGANIZATIONS, BasicCall.REST.POST,
+					json.toString(), 0, 0);
+
+			System.out.println("\t" + persistent.getHeader("Location"));
+
+			if (persistent.getHeader("Location") != null) {
+				List<Integer> id = getNumber(persistent.getHeader("Location")
+						.getValue());
+
+				if (id.size() == 1) {
+					json.put("id", id.get(0));
+				}
+
+			}
+
+			return json;
+		}
+
+		/**
+		 * Creates one organization. Names should be unique. Use the simplified
+		 * methods if possible.
+		 * 
+		 * @param name
+		 *            String, required, name of the organization.
+		 * @param isolate_members
+		 *            boolean, omitted if false, if true members can't see the
+		 *            member list.
+		 * @return JSONObject, representing the created organization.
+		 */
+		public static JSONArray organizationMemberIsolation(String name,
+				boolean isolate_members) {
+			JSONArray response = new JSONArray();
+
+			response.put(organization(name, null, 0, isolate_members, false,
+					null, null));
+
+			return response;
+		}
+
+		/**
+		 * Creates one organization. Names should be unique. Use the simplified
+		 * methods if possible.
+		 * 
+		 * @param name
+		 *            String, required, name of the organization.
+		 * @param isolate_members
+		 *            boolean, omitted if false, if true members can't see the
+		 *            member list.
+		 * @return JSONObject, representing the created organization.
+		 */
+		public static JSONArray organizationRoleIsolation(String name,
+				boolean isolate_role_members) {
+			JSONArray response = new JSONArray();
+
+			response.put(organization(name, null, 0, false,
+					isolate_role_members, null, null));
+
+			return response;
+		}
+
+		/**
+		 * Creates one organization. Names should be unique. Use the simplified
+		 * methods if possible.
+		 * 
+		 * @param name
+		 *            String, required, name of the organization.
+		 * @param isolate_members
+		 *            boolean, omitted if false, if true members can't see the
+		 *            member list.
+		 * @return JSONObject, representing the created organization.
+		 */
+		public static JSONArray organization(String name, String[] tags) {
+			JSONArray response = new JSONArray();
+
+			response.put(organization(name, null, 0, false, false, null, tags));
+
+			return response;
+		}
+
+		/**
 		 * Creates as many organization as many name is specified in the names
 		 * String array. Returns them as a JSONArray. Can create organization
 		 * with unique names only.
@@ -616,27 +745,14 @@ public class Utility {
 		 * @return JSONArray with all the created organization in it.
 		 */
 		public static JSONArray organization(String[] names) {
-			JSONArray organizations = new JSONArray();
+			JSONArray response = new JSONArray();
 
 			for (String name : names) {
-				JSONObject json = new JSONObject();
-				json.put("name", name);
-
-				persistent.call(Const.Api.ORGANIZATIONS, BasicCall.REST.POST,
-						json.toString(), 0, 0);
-				System.out.println(persistent.getHeader("Location"));
-				if (persistent.getHeader("Location") != null) {
-					List<Integer> id = getNumber(persistent.getHeader(
-							"Location").getValue());
-					if (id.size() == 1) {
-						json.put("id", id.get(0));
-					}
-
-					organizations.put(json);
-				}
-
+				response.put(organization(name, null, 0, false, false, null,
+						null));
 			}
-			return organizations;
+
+			return response;
 		}
 
 		/**
