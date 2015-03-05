@@ -1,6 +1,5 @@
 package sztaki.hexaa;
 
-
 // TODO: csinálj egységesebb üzenet generálást ami egyszerűbben kezelhető, pl ResponseTypeMismatchException(message,type,response) helyett ResponseTypeMismatchException(expected_type,actual_object).
 /**
  * Exception to throw if the server response is in a different than expected
@@ -13,6 +12,7 @@ public class ResponseTypeMismatchException extends Exception {
 	 */
 	private static final long serialVersionUID = 8950204955399194961L;
 
+	@Deprecated
 	/**
 	 * The type of the response.
 	 */
@@ -75,7 +75,7 @@ public class ResponseTypeMismatchException extends Exception {
 	public ResponseTypeMismatchException(Class<?> expected, Object actual) {
 		super(actual.getClass() + " instead of " + expected.toString());
 		this.response = actual;
-		this.type = actual.getClass().toString();
+//		this.type = actual.getClass().toString();
 	}
 
 	/**
@@ -96,6 +96,7 @@ public class ResponseTypeMismatchException extends Exception {
 		return response;
 	}
 
+	@Deprecated
 	public boolean hasType() {
 		if (type == null) {
 			return false;
@@ -113,15 +114,22 @@ public class ResponseTypeMismatchException extends Exception {
 	}
 
 	public String getFullMessage() {
-		if (this.hasType() && this.hasResponse()) {
-			return this.getMessage() + "; type: " + this.getType()
+//		if (this.hasType() && this.hasResponse()) {
+//			return this.getMessage() + "; type: "
+//					+ this.response.getClass().toString()
+//					+ "; server response: " + this.getResponse();
+//		} else if (this.hasType()) {
+//			return this.getMessage() + "; type: "
+//					+ this.response.getClass().toString()
+//					+ "; no server response.";
+//		} else if (this.hasResponse()) {
+//			return this.getMessage() + "\t" + this.getResponse();
+//		} else
+		if (this.hasResponse()) {
+			return this.getMessage() + "; type: "
+					+ this.response.getClass().toString()
 					+ "; server response: " + this.getResponse();
-		} else if (this.hasType()) {
-			return this.getMessage() + "; type: " + this.getType()
-					+ "; no server response.";
-		} else if (this.hasResponse()) {
-			return this.getMessage() + "\t" + this.getResponse();
 		} else
-			return this.getMessage();
+			return this.getMessage() + "; no server response.";
 	}
 }

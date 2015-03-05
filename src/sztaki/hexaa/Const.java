@@ -48,6 +48,11 @@ public class Const {
 	 * authentication. Default exist, load from config.properties.
 	 */
 	public static String MASTER_SECRET = ("7lrfjlpu5br2vpv1jcaogdz481b28xf7lz85wqmv");
+	/**
+	 * The master_secret that match the servers master_secret for
+	 * authentication. Default exist, load from config.properties.
+	 */
+	public static String ALTERNATIVE_SECRET = ("evf76cehsive5ixfaqwjdifbirezblzmg2kjmirc");
 
 	/**
 	 * The .properties file to load some of the Strings found in the Const. By

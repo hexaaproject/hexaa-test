@@ -907,8 +907,8 @@ public class Utility {
 			JSONArray response = new JSONArray();
 
 			JSONObject json = new JSONObject();
-			json.put("name", "SecuritydomainPostTest_sd1");
-			json.put("scoped_key", "alternativeTestMasterKey");
+			json.put("name", name);
+			json.put("scoped_key", scoped_key);
 			if (description != null) {
 				json.put("description", description);
 			}
@@ -1744,6 +1744,7 @@ public class Utility {
 		 *            the id of the principal to remove.
 		 */
 		public static void principal(int id) {
+			persistent.setAdmin();
 			persistent.call(Const.Api.PRINCIPALS_ID_ID, BasicCall.REST.DELETE,
 					null, id, id);
 		}
