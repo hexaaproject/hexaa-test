@@ -533,6 +533,10 @@ public class Const {
 		 */
 		public static String BadRequest = "HTTP/1.1 400 Bad Request";
 		/**
+		 * HTTP/1.1 401 Unauthorized.
+		 */
+		public static String Unauthorized = "HTTP/1.1 401 Unauthorized";
+		/**
 		 * HTTP/1.1 403 Forbidden.
 		 */
 		public static String Forbidden = "HTTP/1.1 403 Forbidden";
@@ -545,9 +549,9 @@ public class Const {
 		 */
 		public static String MethodNotAllowed = "HTTP/1.1 405 Method Not Allowed";
 		/**
-		 * HTTP/1.1 401 Unauthorized.
+		 * HTTP/1.1 409 Conflict.
 		 */
-		public static String Unauthorized = "HTTP/1.1 401 Unauthorized";
+		public static String Conflict = "HTTP/1.1 409 Conflict";
 	}
 
 	/**

@@ -1,4 +1,4 @@
-package sztaki.hexaa.apicalls.organizations;
+package sztaki.hexaa.apicalls.organizations.roles;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.fail;
@@ -16,8 +16,9 @@ import sztaki.hexaa.Const;
 import sztaki.hexaa.NormalTest;
 import sztaki.hexaa.ResponseTypeMismatchException;
 import sztaki.hexaa.Utility;
+import sztaki.hexaa.apicalls.organizations.OrganizationIsolationTest;
 
-public class OrganizationIsolationTest extends NormalTest {
+public class OrganizationRoleIsolationTest extends NormalTest {
 
 	/**
 	 * Print the class name on the output.
@@ -25,7 +26,7 @@ public class OrganizationIsolationTest extends NormalTest {
 	@BeforeClass
 	public static void classInformation() {
 		System.out.println("***\t "
-				+ OrganizationIsolationTest.class.getSimpleName() + " ***");
+				+ OrganizationRoleIsolationTest.class.getSimpleName() + " ***");
 	}
 
 	/**
@@ -36,35 +37,59 @@ public class OrganizationIsolationTest extends NormalTest {
 	 * JSONArray to store the created principals.
 	 */
 	private static JSONArray principals = new JSONArray();
+	/**
+	 * JSONArray to store the created roles.
+	 */
+	private static JSONArray roles = new JSONArray();
 
 	/**
 	 * Creates 2 organizations.
 	 */
 	@BeforeClass
 	public static void setUpClass() {
-		organizations = Utility.Create.organizationMemberIsolation(
-				"OrganizationIsolationTest_org1", true);
+		organizations = Utility.Create.organizationRoleIsolation(
+				"OrganizationRoleIsolationTest_org1", true);
 		if (organizations.length() < 1) {
-			fail("Utility.Create.organizationMemberIsolation( \"OrganizationIsolationTest_org1\", true); did not succeed");
+			fail("Utility.Create.organizationRoleIsolation( \"OrganizationRoleIsolationTest_org1\", true); did not succeed");
 		}
 		organizations.put(Utility.Create.organization(
 				"OrganizationIsolationTest_org2").getJSONObject(0));
 		if (organizations.length() < 2) {
-			fail("Utility.Create.organization( \"OrganizationIsolationTest_org2\"); did not succeed");
+			fail("Utility.Create.organization( \"OrganizationRoleIsolationTest_org2\"); did not succeed");
+		}
+		
+		roles = Utility.Create.role("OrganizationRoleIsolationTest_role1",
+				organizations.getJSONObject(0).getInt("id"));
+		if (roles.length() < 1) {
+			fail("Utility.Create.role(\"OrganizationRoleIsolationTest_role1\", organizations.getJSONObject(0).getInt(\"id\")); did not succeed");
+		}
+		roles.put(Utility.Create.role("OrganizationRoleIsolationTest_role2",
+				organizations.getJSONObject(1).getInt("id")).getJSONObject(0));
+		if (roles.length() < 2) {
+			fail("Utility.Create.role(\"OrganizationRoleIsolationTest_role2\", organizations.getJSONObject(1).getInt(\"id\")); did not succeed");
 		}
 		
 		principals = Utility.Create
-				.principal(new String[] { "OrganizationIsolationTest_pri1" });
+				.principal(new String[] { "OrganizationRoleIsolationTest_pri1" });
 		if (principals.length() < 1) {
-			fail("Utility.Create.principal(new String[] {\"OrganizationIsolationTest_pri1\" }); did not succeed");
+			fail("Utility.Create.principal(new String[] {\"OrganizationRoleIsolationTest_pri1\" }); did not succeed");
 		}
-		
+
 		Utility.Link.memberToOrganization(organizations.getJSONObject(0)
 				.getInt("id"), principals.getJSONObject(0).getInt("id"));
+		Utility.Link.principalToRole(
+				roles.getJSONObject(0).getInt("id"),
+				new int[] { Const.HEXAA_ID,
+						principals.getJSONObject(0).getInt("id") });
+
 		Utility.Link.memberToOrganization(organizations.getJSONObject(1)
 				.getInt("id"), principals.getJSONObject(0).getInt("id"));
+		Utility.Link.principalToRole(
+				roles.getJSONObject(1).getInt("id"),
+				new int[] { Const.HEXAA_ID,
+						principals.getJSONObject(0).getInt("id") });
 
-		new Authenticator().authenticate("OrganizationIsolationTest_pri1");
+		new Authenticator().authenticate("OrganizationRoleIsolationTest_pri1");
 	}
 
 	/**
@@ -75,6 +100,9 @@ public class OrganizationIsolationTest extends NormalTest {
 		System.out.println("TearDownClass: "
 				+ OrganizationIsolationTest.class.getSimpleName());
 		new Authenticator().authenticate(Const.HEXAA_FEDID);
+		for (int i = 0; i < roles.length(); i++) {
+			Utility.Remove.roles(roles.getJSONObject(i).getInt("id"));
+		}
 		for (int i = 0; i < organizations.length(); i++) {
 			Utility.Remove.organization(organizations.getJSONObject(i).getInt(
 					"id"));
@@ -93,8 +121,8 @@ public class OrganizationIsolationTest extends NormalTest {
 		try {
 			persistent.setOffset(0);
 			jsonResponse = persistent.getResponseJSONObject(
-					Const.Api.ORGANIZATIONS_ID_MEMBERS, BasicCall.REST.GET,
-					organizations.getJSONObject(0).getInt("id"));
+					Const.Api.ROLES_ID_PRINCIPALS, BasicCall.REST.GET,
+					roles.getJSONObject(0).getInt("id"));
 		} catch (ResponseTypeMismatchException ex) {
 			fail(ex.getFullMessage());
 			return;
@@ -108,28 +136,28 @@ public class OrganizationIsolationTest extends NormalTest {
 		try {
 			persistent.setOffset(0);
 			jsonResponse = persistent.getResponseJSONObject(
-					Const.Api.ORGANIZATIONS_ID, BasicCall.REST.GET,
-					organizations.getJSONObject(0).getInt("id"));
+					Const.Api.ROLES_ID, BasicCall.REST.GET,
+					roles.getJSONObject(0).getInt("id"));
 		} catch (ResponseTypeMismatchException ex) {
 			fail(ex.getFullMessage());
 			return;
 		}
 		try {
 			assertEquals(Const.StatusLine.OK, persistent.getStatusLine());
-			JSONAssert.assertEquals(organizations.getJSONObject(0),
+			JSONAssert.assertEquals(roles.getJSONObject(0),
 					jsonResponse, false);
 		} catch (AssertionError e) {
 			AssertErrorHandler(e);
 		}
 	}
 
-	public void controlTestOrganizationIsolation() {
+	public void controlTestOrganizationRoleIsolation() {
 		JSONObject jsonResponse;
 		try {
 			persistent.setOffset(0);
 			jsonResponse = persistent.getResponseJSONObject(
-					Const.Api.ORGANIZATIONS_ID_MEMBERS, BasicCall.REST.GET,
-					organizations.getJSONObject(1).getInt("id"));
+					Const.Api.ROLES_ID_PRINCIPALS, BasicCall.REST.GET,
+					roles.getJSONObject(1).getInt("id"));
 		} catch (ResponseTypeMismatchException ex) {
 			fail(ex.getFullMessage());
 			return;
@@ -144,15 +172,15 @@ public class OrganizationIsolationTest extends NormalTest {
 		try {
 			persistent.setOffset(0);
 			jsonResponse = persistent.getResponseJSONObject(
-					Const.Api.ORGANIZATIONS_ID, BasicCall.REST.GET,
-					organizations.getJSONObject(0).getInt("id"));
+					Const.Api.ROLES_ID, BasicCall.REST.GET,
+					roles.getJSONObject(1).getInt("id"));
 		} catch (ResponseTypeMismatchException ex) {
 			fail(ex.getFullMessage());
 			return;
 		}
 		try {
 			assertEquals(Const.StatusLine.OK, persistent.getStatusLine());
-			JSONAssert.assertEquals(organizations.getJSONObject(0),
+			JSONAssert.assertEquals(roles.getJSONObject(1),
 					jsonResponse, false);
 		} catch (AssertionError e) {
 			AssertErrorHandler(e);
