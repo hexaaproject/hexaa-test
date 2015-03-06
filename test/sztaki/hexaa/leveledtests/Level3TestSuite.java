@@ -53,7 +53,8 @@ import sztaki.hexaa.BasicTestSuite;
 		sztaki.hexaa.apicalls.securitydomain.SecuritydomainPutPatchTest.class,
 		sztaki.hexaa.apicalls.securitydomain.SecuritydomainDeleteTest.class,
 		sztaki.hexaa.apicalls.securitydomain.SecuritydomainOrganizationsPutTest.class,
-		sztaki.hexaa.apicalls.securitydomain.SecuritydomainServicesPutTest.class, })
+		sztaki.hexaa.apicalls.securitydomain.SecuritydomainServicesPutTest.class,
+		sztaki.hexaa.apicalls.other.TagsGetTest.class, })
 public class Level3TestSuite extends BasicTestSuite {
 
 }
