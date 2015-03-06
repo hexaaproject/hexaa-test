@@ -22,7 +22,7 @@ public class Utility {
 	static public JSONCall persistent = new JSONCall();
 
 	/**
-	 * 
+	 *  
 	 */
 	static private boolean isAdmin = true;
 
@@ -716,8 +716,10 @@ public class Utility {
 		}
 
 		/**
-		 * Creates one organization. Names should be unique. Use the simplified
-		 * methods if possible.
+		 * Creates one organization. Names should be unique. Alternative method
+		 * for {@link organization(String name, String url, int default_role,
+		 * boolean isolate_members, boolean isolate_role_members, String
+		 * description, String[] tags)}.
 		 * 
 		 * @param name
 		 *            String, required, name of the organization.
@@ -872,6 +874,102 @@ public class Utility {
 		}
 
 		/**
+		 * Creates one service. Use one of the more simplified calls if
+		 * possible. Some of the parameters can be null, see the individual
+		 * parameters for more information.
+		 * 
+		 * @param name
+		 *            String, required, unique, the name of the service.
+		 * @param entityid
+		 *            String, required, the entity of the external service.
+		 * @param url
+		 *            String, can be null, omitted if null.
+		 * @param description
+		 *            String, can be null, omitted if null.
+		 * @param org_name
+		 *            String, can be null, omitted if null.
+		 * @param org_short_name
+		 *            String, can be null, omitted if null.
+		 * @param org_url
+		 *            String, can be null, omitted if null.
+		 * @param org_description
+		 *            String, can be null, omitted if null.
+		 * @param priv_url
+		 *            String, can be null, omitted if null.
+		 * @param priv_description
+		 *            String, can be null, omitted if null.
+		 * @param tags
+		 *            array of Strings, set the tags of the service, for more
+		 *            information on tags check the hexaa documentation.
+		 * @return JSONObject, the created service.
+		 */
+		public static JSONObject service(String name, String entityid,
+				String url, String description, String org_name,
+				String org_short_name, String org_url, String org_description,
+				String priv_url, String priv_description, String[] tags) {
+			JSONObject json = new JSONObject();
+
+			json.put("name", name);
+			json.put("entityid", entityid);
+			if (url != null) {
+				json.put("url", url);
+			}
+			if (description != null) {
+				json.put("description", description);
+			}
+			if (org_name != null) {
+				json.put("org_name", org_name);
+			}
+			if (org_short_name != null) {
+				json.put("org_short_name", org_short_name);
+			}
+			if (org_url != null) {
+				json.put("org_url", org_url);
+			}
+			if (org_description != null) {
+				json.put("org_description", org_description);
+			}
+			if (priv_url != null) {
+				json.put("priv_url", priv_url);
+			}
+			if (priv_description != null) {
+				json.put("priv_description", priv_description);
+			}
+			if (tags != null) {
+				json.put("tags", tags);
+			}
+
+			persistent.call(Const.Api.SERVICES, BasicCall.REST.POST,
+					json.toString());
+
+			if (persistent.getHeader("Location") != null) {
+				String locHeader = persistent.getHeader("Location").getValue();
+
+				List<Integer> id = getNumber(locHeader);
+
+				System.out.println("\t\t" + locHeader);
+
+				if (id.size() == 1) {
+					json.put("id", id.get(0));
+				}
+
+				BasicCall enableService = new BasicCall();
+				enableService.setToken(new DatabaseManipulator()
+						.getServiceEnableToken());
+
+				enableService.call(Const.Api.SERVICES_TOKEN_ENABLE,
+						BasicCall.REST.PUT);
+
+				if (!enableService.getStatusLine().contains(
+						Const.StatusLine.Created)) {
+					System.out.println(enableService.getStatusLine());
+				}
+			}
+
+			return json;
+		}
+
+		/**
 		 * Creates services for all the names in the array, if there are enough
 		 * entityids in the system. Usage: do not use it on a database where are
 		 * existing services, as it will cause 400 Bad Requests and will fail
@@ -882,48 +980,38 @@ public class Utility {
 		 * @return A JSONArray populated by the data of the created services.
 		 */
 		public static JSONArray service(String[] names) {
-			JSONArray services = new JSONArray();
+			JSONArray response = new JSONArray();
 
 			for (String name : names) {
-				// Creates the json object to be POSTed on the server
-				JSONObject json = new JSONObject();
-				json.put("name", name);
-				json.put("entityid", "https://example.com/ssp");
-				json.put("url", "test." + name + ".test");
-				json.put("description", "This is a test service for the "
+				response.put(service(name, "https://example.com/ssp", "test."
+						+ name + ".test", "This is a test service for the "
 						+ "https://example.com/ssp"
-						+ "service provider entity.");
-				// POSTs the json object
-				persistent.call(Const.Api.SERVICES, BasicCall.REST.POST,
-						json.toString(), 0, 0);
-
-				if (persistent.getHeader("Location") != null) {
-					String locHeader = persistent.getHeader("Location")
-							.getValue();
-					// System.out.println(locHeader);
-					List<Integer> id = getNumber(locHeader);
-					System.out.println("\t\t" + locHeader);
-					if (id.size() == 1) {
-						json.put("id", id.get(0));
-					}
-
-					services.put(json);
-
-					BasicCall enableService = new BasicCall();
-					enableService.setToken(new DatabaseManipulator()
-							.getServiceEnableToken());
-					enableService.call(Const.Api.SERVICES_TOKEN_ENABLE,
-							BasicCall.REST.PUT);
-					if (enableService.getStatusLine().contains(
-							Const.StatusLine.Created)) {
-						// System.out.println("Service enabled!");
-					} else {
-						System.out.println(enableService.getStatusLine());
-					}
-				}
+						+ "service provider entity.", null, null, null, null,
+						null, null, null));
 			}
 
-			return services;
+			return response;
+		}
+
+		/**
+		 * Creates services for all the names in the array, if there are enough
+		 * entityids in the system. Usage: do not use it on a database where are
+		 * existing services, as it will cause 400 Bad Requests and will fail
+		 * the test class.
+		 *
+		 * @param names
+		 *            array of strings with the names of the services to create.
+		 * @return A JSONArray populated by the data of the created services.
+		 */
+		public static JSONArray service(String name, String[] tags) {
+			JSONArray response = new JSONArray();
+
+			response.put(service(name, "https://example.com/ssp", "test."
+					+ name + ".test", "This is a test service for the "
+					+ "https://example.com/ssp" + "service provider entity.",
+					null, null, null, null, null, null, tags));
+
+			return response;
 		}
 
 		/**
