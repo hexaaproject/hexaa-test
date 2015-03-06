@@ -51,7 +51,9 @@ import sztaki.hexaa.BasicTestSuite;
 		sztaki.hexaa.apicalls.services.managers.ServicesManagersAddByArrayTest.class,
 		sztaki.hexaa.apicalls.services.entitlementpacks.ServicesEntitlementpacksGetTest.class,
 		sztaki.hexaa.apicalls.securitydomain.SecuritydomainPutPatchTest.class,
-		sztaki.hexaa.apicalls.securitydomain.SecuritydomainDeleteTest.class, })
+		sztaki.hexaa.apicalls.securitydomain.SecuritydomainDeleteTest.class,
+		sztaki.hexaa.apicalls.securitydomain.SecuritydomainOrganizationsPutTest.class,
+		sztaki.hexaa.apicalls.securitydomain.SecuritydomainServicesPutTest.class, })
 public class Level3TestSuite extends BasicTestSuite {
 
 }

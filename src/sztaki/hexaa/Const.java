@@ -442,6 +442,14 @@ public class Const {
 		 * GET, PUT(edit), PATCH(edit), DELETE security domains.
 		 */
 		public static final String SECURITYDOMAINS_ID = ("/api/securitydomains/{id}.{_format}");
+		/**
+		 * PUT(set) organizations of a security domain.
+		 */
+		public static final String SECURITYDOMAINS_ID_ORGANIZATIONS = ("/api/securitydomains/{id}/organizations.{_format}");
+		/**
+		 * PUT(set) services of a security domain.
+		 */
+		public static final String SECURITYDOMAINS_ID_SERVICES = ("/api/securitydomains/{id}/services.{_format}");
 
 		/* *** Services *** */
 		/**
