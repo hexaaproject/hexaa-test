@@ -42,7 +42,7 @@ public class SecuritydomainPostTest extends NormalTest {
 	
 	@Test
 	public void testSecuritydomainPost() {		
-		domains = Utility.Create.securitydomain("SecuritydomainPostTest_sd1", "alternativeTestMasterKey", "This is a security domain to test the capability of posting one.");
+		domains = Utility.Create.securitydomain("SecuritydomainPostTest_sd1", "otherMasterKey", "This is a security domain to test the capability of posting one.");
 		
 		try {
 			assertEquals(Const.StatusLine.Created,Utility.persistent.getStatusLine());

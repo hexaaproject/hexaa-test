@@ -36,10 +36,10 @@ public class TagsGetTest extends NormalTest {
 	@BeforeClass
 	public static void setUpClass() {
 		domains = Utility.Create
-				.securitydomain("TagsGetTest_sd1", "alternativeTestMasterKey",
+				.securitydomain("TagsGetTest_sd1", "otherMasterKey",
 						"This is a security domain to test the capability of posting one.");
 		if (domains.length() < 1) {
-			fail("Utility.Create.securitydomain(\"TagsGetTest_sd1\", \"alternativeTestMasterKey\", \"This is a security domain to test the capability of posting one.\"); did not succeed");
+			fail("Utility.Create.securitydomain(\"TagsGetTest_sd1\", \"otherMasterKey\", \"This is a security domain to test the capability of posting one.\"); did not succeed");
 		}
 	}
 

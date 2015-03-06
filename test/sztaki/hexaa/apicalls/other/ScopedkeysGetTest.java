@@ -37,7 +37,7 @@ public class ScopedkeysGetTest extends NormalTest {
 
 		try {
 			assertEquals("defaultMasterKey", jsonResponse.getString(0));
-			assertEquals("alternativeTestMasterKey", jsonResponse.getString(1));
+			assertEquals("otherMasterKey", jsonResponse.getString(1));
 		} catch (AssertionError e) {
 			AssertErrorHandler(e);
 		}
@@ -59,7 +59,7 @@ public class ScopedkeysGetTest extends NormalTest {
 		try {
 			assertEquals("defaultMasterKey", jsonResponse.getJSONArray("items")
 					.getString(0));
-			assertEquals("alternativeTestMasterKey",
+			assertEquals("otherMasterKey",
 					jsonResponse.getJSONArray("items").getString(1));
 		} catch (AssertionError e) {
 			AssertErrorHandler(e);

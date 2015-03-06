@@ -35,10 +35,10 @@ public class SecuritydomainDeleteTest extends NormalTest {
 	public static void setUpClass() {
 		domains = Utility.Create
 				.securitydomain("SecuritydomainDeleteTest_sd1",
-						"alternativeTestMasterKey",
+						"otherMasterKey",
 						"This is a security domain to test the capability of posting one.");
 		if (domains.length() < 1) {
-			fail("Utility.Create.securitydomain(\"SecuritydomainsPutPatchTest_sd1\", \"alternativeTestMasterKey\", \"This is a security domain to test the capability of posting one.\"); did not succeed");
+			fail("Utility.Create.securitydomain(\"SecuritydomainsPutPatchTest_sd1\", \"otherMasterKey\", \"This is a security domain to test the capability of posting one.\"); did not succeed");
 		}
 	}
 
