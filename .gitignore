@@ -7,6 +7,7 @@ build.xml
 build (copy).xml
 config.properties~
 config.properties
+config_alternative.properties
 build.xml~
 /target/
 alternate_build.xml

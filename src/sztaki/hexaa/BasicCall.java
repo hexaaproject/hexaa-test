@@ -6,7 +6,11 @@ import java.io.InputStream;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.nio.charset.StandardCharsets;
+import java.time.DateTimeException;
 import java.time.Instant;
+import java.time.LocalDateTime;
+import java.time.ZoneId;
+import java.time.format.DateTimeFormatter;
 
 import org.apache.http.Header;
 import org.apache.http.HttpMessage;
@@ -125,8 +129,9 @@ public class BasicCall {
 	}
 
 	/**
-	 * The relative path of the URI. Should be in /app.php/api/example format.
-	 * Advised to use the {@link Const.Api} for the servers constants values.
+	 * The relative path of the URI. Should be in /app.php/api/example or
+	 * /api/example.{_format} format. Advised to use the {@link Const.Api} for
+	 * the servers constants values.
 	 */
 	private String path = null;
 
@@ -294,6 +299,17 @@ public class BasicCall {
 		this.response = parsedResponse;
 		return parsedResponse;
 	}
+
+	/**
+	 * The api key required by the server to authenticate. The
+	 * BasicCall.authenticate() method updates it.
+	 */
+	private static String HEXAA_AUTH = "";
+	/**
+	 * Integer, containing the numerical id of the current principal_self. The
+	 * BasicCall.authenticate() method updates it.
+	 */
+	public static int HEXAA_ID = 0;
 
 	/**
 	 * Enumeration to easily differentiate between the 4 types of calls. Values:
@@ -686,9 +702,8 @@ public class BasicCall {
 	/* *** Utility methods *** */
 	/**
 	 * In the constans values of paths (found in {@link Const.Api}) the uris
-	 * only contains {id}/{sid}/etc tags, not the actual ids (as these are only
-	 * constans values), so the actual ids are replaced in the original string
-	 * here, and concats .json at the end as well.
+	 * only contains {id}/{sid}/etc tags the actual ids are replaced in the
+	 * original string here, and concats .json at the end as well.
 	 *
 	 * @return
 	 */
@@ -723,6 +738,9 @@ public class BasicCall {
 
 		if (path.contains(".{_format}")) {
 			path = path.replace(".{_format}", this.format);
+		}
+		if (!path.endsWith(this.format)) {
+			path = path.concat(this.format);
 		}
 
 		return path;
@@ -848,7 +866,7 @@ public class BasicCall {
 
 	/* *** HTTP Utility methods *** */
 	/**
-	 * Executes the PUT action on the path given in the constructor.
+	 * Executes the provided action.
 	 *
 	 * @return returns a CloseableHttpResponse
 	 */
@@ -860,6 +878,7 @@ public class BasicCall {
 		try {
 			response = httpClient.execute((HttpUriRequest) httpAction);
 		} catch (IOException ex) {
+			System.err.println("Unable to execute HTTP action: " + ex.getMessage());
 		}
 
 		return response;
@@ -883,7 +902,7 @@ public class BasicCall {
 				.setPath(path);
 		// Adds specific parameters.
 		if (isAdmin) {
-			builder.setPath(path).addParameter("admin", "true");
+			builder.addParameter("admin", "true");
 		}
 		if (isOffset) {
 			builder.addParameter("offset", Integer.toString(this.offset));
@@ -916,7 +935,7 @@ public class BasicCall {
 	private HttpMessage createAction(HttpMessage httpAction, URI uri) {
 		if (uri != null) {
 			Header hexaa_auth = new BasicHeader(Const.HEXAA_HEADER,
-					Const.HEXAA_AUTH);
+					BasicCall.HEXAA_AUTH);
 			httpAction.addHeader(hexaa_auth);
 			httpAction.setHeader("Content-type", "application/json");
 			httpAction.setHeader("Accept", "application/json");
@@ -942,6 +961,116 @@ public class BasicCall {
 		entity.setContentLength(json.length());
 
 		return entity;
+	}
+
+	/* *** Authentication methods *** */
+	/**
+	 * Alternative call for {@link authenticate(String fedid, String secret)}
+	 * for non differentiated master_secret authentications and legacy purposes.
+	 * Always uses the {@link Const.MASTER_SECRET}.
+	 * 
+	 * @param fedid
+	 *            the fedid to authenticate with, normally the fedid is the
+	 *            {@link Const.HEXAA_FEDID}, if not use a valid e-mail format.
+	 * @return
+	 */
+	public int authenticate(String fedid) {
+		return this.authenticate(fedid, Const.MASTER_SECRET);
+	}
+
+	/**
+	 * Checks if the session is authenticated or not, and authenticates if
+	 * necessary. Gets a short time limited API key and uses the /api/token GET
+	 * method to get the usual 1 hour limited API key. The given fedid has to be
+	 * in a valid e-mail format (some@thing.example).
+	 *
+	 * @param fedid
+	 *            the fedid to authenticate with, normally the fedid is the
+	 *            {@link Const.HEXAA_FEDID}, if not use a valid e-mail format.
+	 */
+	public int authenticate(String fedid, String secret) {
+
+		System.out.print("** AUTHENTICATE **\t");
+		String response = this.call(Const.Api.PRINCIPAL_SELF,
+				REST.GET);
+
+		if (!response.contains(fedid)) {
+
+			JSONCall postToken = new JSONCall();
+
+			JSONObject json = new JSONObject();
+			json.put("fedid", fedid);
+			json.put("apikey", this.getAPIKey(secret));
+			json.put("email", fedid);
+			json.put("display_name", fedid + "_name");
+
+			JSONObject jsonResponse;
+			try {
+				System.out.print("** AUTHENTICATE **\t");
+				jsonResponse = postToken.getResponseJSONObject(
+						Const.Api.TOKENS, BasicCall.REST.POST, json.toString());
+			} catch (ResponseTypeMismatchException ex) {
+				System.err
+						.println("Unable to authenticate, please make sure that the server is reachable, and config.properties is correct.");
+				return 1;
+			}
+
+			System.out.print("** AUTHENTICATE **\t");
+			System.out.println(jsonResponse.toString());
+
+			if (jsonResponse.has("token")) {
+				BasicCall.HEXAA_AUTH = jsonResponse.get("token").toString();
+			} else {
+				System.err.println("Unable to authenticate. TempToken: "
+						+ json.get("apikey"));
+				return 1;
+			}
+
+			JSONObject principalSelf;
+			try {
+				System.out.print("** AUTHENTICATE **\t");
+				principalSelf = postToken.getResponseJSONObject(
+						Const.Api.PRINCIPAL_SELF, REST.GET);
+				BasicCall.HEXAA_ID = principalSelf.getInt("id");
+			} catch (ResponseTypeMismatchException | JSONException ex) {
+				System.err.println("Unable to find principal: "
+						+ ex.getMessage());
+				return 1;
+			}
+		}
+		return 0;
+	}
+
+	/**
+	 * Provides the necessary data and hashing for the temporal API key.
+	 *
+	 * @return String temporal API key for limited time of authentication.
+	 */
+	public String getAPIKey(String secret) {
+		String timestamp = null;
+		String sha256hex;
+
+		// Set a ZoneId so we can get zone specific time, in this case "UTC"
+		ZoneId id = ZoneId.of("UTC");
+		LocalDateTime date = LocalDateTime.now(id);
+		try {
+			// Format the date to the required pattern
+			DateTimeFormatter format = DateTimeFormatter
+					.ofPattern("yyyy-MM-dd HH:mm");
+			timestamp = date.format(format);
+		} catch (DateTimeException exc) {
+			throw exc;
+		}
+
+		secret = secret.concat(timestamp);
+
+		sha256hex = org.apache.commons.codec.digest.DigestUtils
+				.sha256Hex(secret);
+		if (sha256hex == null) {
+			System.exit(0);
+		}
+
+		return sha256hex;
 	}
 
 }
