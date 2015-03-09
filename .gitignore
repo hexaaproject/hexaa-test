@@ -5,9 +5,12 @@
 /build/
 build.xml
 build (copy).xml
-config.properties~
 config.properties
+config.properties~
 config_alternative.properties
+config_alternative.properties~
+config (copy).properties
+config (copy).properties~
 build.xml~
 /target/
 alternate_build.xml
