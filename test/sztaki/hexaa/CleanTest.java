@@ -18,6 +18,6 @@ public class CleanTest extends NormalTest{
 		System.out.println("BeforeClass @ CleanTest");
 		new Authenticator().loadProperties();
 		new DatabaseManipulator().dropDatabase();
-		new Authenticator().authenticate(Const.HEXAA_FEDID);
+		persistent.authenticate(Const.HEXAA_FEDID);
 	}
 }

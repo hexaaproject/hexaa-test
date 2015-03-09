@@ -1,14 +1,17 @@
 package sztaki.hexaa.apicalls.other;
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.fail;
+
 import org.json.JSONObject;
-import org.junit.Test;
-import static org.junit.Assert.*;
 import org.junit.BeforeClass;
+import org.junit.Test;
+
 import sztaki.hexaa.Authenticator;
 import sztaki.hexaa.BasicCall;
+import sztaki.hexaa.CleanTest;
 import sztaki.hexaa.Const;
 import sztaki.hexaa.Utility;
-import sztaki.hexaa.CleanTest;
 
 /**
  * Tests the POST method on the /api/attributes call, that returns all the

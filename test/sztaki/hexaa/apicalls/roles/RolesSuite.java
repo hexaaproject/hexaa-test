@@ -2,9 +2,14 @@ package sztaki.hexaa.apicalls.roles;
 
 import org.junit.runner.RunWith;
 import org.junit.runners.Suite;
+
 import sztaki.hexaa.BasicTestSuite;
-import sztaki.hexaa.apicalls.roles.entitlements.*;
-import sztaki.hexaa.apicalls.roles.principals.*;
+import sztaki.hexaa.apicalls.roles.entitlements.RolesEntitlementsAddTest;
+import sztaki.hexaa.apicalls.roles.entitlements.RolesEntitlementsGetTest;
+import sztaki.hexaa.apicalls.roles.entitlements.RolesEntitlementsRemoveTest;
+import sztaki.hexaa.apicalls.roles.principals.RolesPrincipalsAddTest;
+import sztaki.hexaa.apicalls.roles.principals.RolesPrincipalsGetTest;
+import sztaki.hexaa.apicalls.roles.principals.RolesPrincipalsRemoveTest;
 
 /**
  * TestSuite for the Roles related test cases, runs them all and does the

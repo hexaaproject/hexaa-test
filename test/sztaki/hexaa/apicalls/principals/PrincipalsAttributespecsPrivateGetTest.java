@@ -119,7 +119,7 @@ public class PrincipalsAttributespecsPrivateGetTest extends NormalTest {
 				new int[] { entitlements.getJSONObject(0).getInt("id") });
 
 		Utility.Link.principalToRole(roles.getJSONObject(0).getInt("id"),
-				new int[] { Const.HEXAA_ID });
+				new int[] { BasicCall.HEXAA_ID });
 
 	}
 

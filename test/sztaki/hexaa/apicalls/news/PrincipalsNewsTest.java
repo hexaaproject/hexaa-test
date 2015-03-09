@@ -1,17 +1,19 @@
 package sztaki.hexaa.apicalls.news;
 
+import static org.junit.Assert.fail;
+
 import java.util.logging.Level;
 import java.util.logging.Logger;
+
 import org.json.JSONArray;
-import org.junit.Test;
-import static org.junit.Assert.*;
 import org.junit.BeforeClass;
-import sztaki.hexaa.Authenticator;
+import org.junit.Test;
+
 import sztaki.hexaa.BasicCall;
+import sztaki.hexaa.CleanTest;
 import sztaki.hexaa.Const;
 import sztaki.hexaa.ResponseTypeMismatchException;
 import sztaki.hexaa.Utility;
-import sztaki.hexaa.CleanTest;
 
 // TODO: még nem tudom mi az aminek meg kellene jelennie
 // TODO: csak a /api/principals/news van tesztelve, a /api/principal/news nincsen!
@@ -99,7 +101,7 @@ public class PrincipalsNewsTest extends CleanTest {
 
 		System.out.println(jsonResponse_id);
 
-		new Authenticator().authenticate("testForNewsP");
+		persistent.authenticate("testForNewsP");
 		Utility.Create.service("testService2");
 
 		// JSONArray jsonResponse_noid;
@@ -116,7 +118,7 @@ public class PrincipalsNewsTest extends CleanTest {
 
 		System.out.println(jsonResponse_noid);
 
-		new Authenticator().authenticate(Const.HEXAA_FEDID);
+		persistent.authenticate(Const.HEXAA_FEDID);
 
 		// try {
 		// assertEquals(3, jsonResponse_id.length());

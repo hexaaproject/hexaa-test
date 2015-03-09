@@ -1,6 +1,7 @@
 package sztaki.hexaa.apicalls.other;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.fail;
 
 import org.json.JSONArray;
 import org.json.JSONObject;

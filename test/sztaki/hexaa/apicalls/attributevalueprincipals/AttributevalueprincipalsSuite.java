@@ -2,6 +2,7 @@ package sztaki.hexaa.apicalls.attributevalueprincipals;
 
 import org.junit.runner.RunWith;
 import org.junit.runners.Suite;
+
 import sztaki.hexaa.BasicTestSuite;
 
 /**

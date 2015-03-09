@@ -4,9 +4,6 @@ import static org.junit.Assert.assertEquals;
 
 import org.junit.Test;
 
-import sztaki.hexaa.BasicCall;
-import sztaki.hexaa.Const;
-
 /**
  * Tests all the possible uri-s for the not existing methods to check that there
  * are no vulnerability in the system from methods that should not exist.

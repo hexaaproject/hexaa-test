@@ -1,5 +1,7 @@
 package sztaki.hexaa;
 
+import static org.junit.Assert.fail;
+
 import java.util.ArrayList;
 
 import org.json.JSONArray;
@@ -8,8 +10,6 @@ import org.junit.BeforeClass;
 import org.junit.Rule;
 import org.junit.rules.ErrorCollector;
 import org.junit.runners.model.MultipleFailureException;
-
-import static org.junit.Assert.fail;
 
 /**
  * Parent class for all TestClasses for unified use of @BeforeClass, BasicCall,
@@ -41,7 +41,7 @@ public class NormalTest {
 	public static void normalTestBasicSetUpClass() {
 		System.out.println("BeforeClass @ NormalTest");
 		new Authenticator().loadProperties();
-		if (new Authenticator().authenticate(Const.HEXAA_FEDID) == 1) {
+		if (persistent.authenticate(Const.HEXAA_FEDID) == 1) {
 			fail("Unable to authenticate");
 		}
 	}

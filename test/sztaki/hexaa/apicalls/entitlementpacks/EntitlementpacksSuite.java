@@ -2,8 +2,11 @@ package sztaki.hexaa.apicalls.entitlementpacks;
 
 import org.junit.runner.RunWith;
 import org.junit.runners.Suite;
+
 import sztaki.hexaa.BasicTestSuite;
-import sztaki.hexaa.apicalls.entitlementpacks.entitlements.*;
+import sztaki.hexaa.apicalls.entitlementpacks.entitlements.EntitlementpacksAddEntitlementsTest;
+import sztaki.hexaa.apicalls.entitlementpacks.entitlements.EntitlementpacksGetEntitlementsTest;
+import sztaki.hexaa.apicalls.entitlementpacks.entitlements.EntitlementpacksRemoveEntitlementsTest;
 
 /**
  * TestSuite for the Entitlementpacks related test cases, runs them all and does

@@ -1,21 +1,17 @@
 package sztaki.hexaa;
 
+import static org.junit.Assert.fail;
+
 import java.io.IOException;
 import java.net.InetAddress;
 import java.net.UnknownHostException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+
 import org.junit.AfterClass;
-import static org.junit.Assert.fail;
 import org.junit.Assume;
 import org.junit.BeforeClass;
 import org.junit.internal.AssumptionViolatedException;
 import org.junit.runner.RunWith;
 import org.junit.runners.Suite;
-import sztaki.hexaa.Authenticator;
-import sztaki.hexaa.Const;
-import sztaki.hexaa.CoverageChecker;
-import sztaki.hexaa.DatabaseManipulator;
 
 /**
  * Abstract class for the TestSuites to inherit from, it implements the
@@ -46,11 +42,11 @@ public abstract class BasicTestSuite {
 				address = InetAddress.getByName(Const.HEXAA_HOST);
 				Assume.assumeTrue(address.isReachable(5000));
 			} catch (UnknownHostException ex) {
-				Logger.getLogger(CleanTest.class.getName()).log(Level.SEVERE,
-						null, ex);
+//				Logger.getLogger(CleanTest.class.getName()).log(Level.SEVERE,
+//						null, ex);
 			} catch (IOException ex) {
-				Logger.getLogger(CleanTest.class.getName()).log(Level.SEVERE,
-						null, ex);
+//				Logger.getLogger(CleanTest.class.getName()).log(Level.SEVERE,
+//						null, ex);
 			} catch (AssumptionViolatedException e) {
 				CLEANUP_NEEDED = false;
 				System.out

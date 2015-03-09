@@ -11,7 +11,6 @@ import org.junit.Test;
 import org.skyscreamer.jsonassert.JSONAssert;
 import org.skyscreamer.jsonassert.JSONCompareMode;
 
-import sztaki.hexaa.Authenticator;
 import sztaki.hexaa.BasicCall;
 import sztaki.hexaa.Const;
 import sztaki.hexaa.NormalTest;
@@ -53,7 +52,7 @@ public class PrincipalsAttributespecsPublicGetTest extends NormalTest {
 	 */
 	@BeforeClass
 	public static void setUpClass() {
-		new Authenticator().authenticate(Const.HEXAA_FEDID);
+		persistent.authenticate(Const.HEXAA_FEDID);
 		organizations = Utility.Create
 				.organization(new String[] { "PrincipalsAttributespecsPublicGetTest_org1" });
 		if (organizations.length() < 1) {

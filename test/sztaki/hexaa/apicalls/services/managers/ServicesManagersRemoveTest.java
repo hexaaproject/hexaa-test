@@ -106,7 +106,7 @@ public class ServicesManagersRemoveTest extends NormalTest {
 		JSONArray jsonResponse = this.getItems(jsonItems);
 
 		try {
-			assertEquals(Const.HEXAA_ID, jsonResponse.getJSONObject(0).getInt("id"));
+			assertEquals(BasicCall.HEXAA_ID, jsonResponse.getJSONObject(0).getInt("id"));
 		} catch (AssertionError e) {
 			AssertErrorHandler(e);
 		}

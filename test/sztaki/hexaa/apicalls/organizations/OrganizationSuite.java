@@ -2,10 +2,16 @@ package sztaki.hexaa.apicalls.organizations;
 
 import org.junit.runner.RunWith;
 import org.junit.runners.Suite;
+
 import sztaki.hexaa.BasicTestSuite;
 import sztaki.hexaa.apicalls.organizations.attributes.OrganizationsAttributesGet;
 import sztaki.hexaa.apicalls.organizations.entitlementpacks.OrganizationEntitlementpacksSuite;
-import sztaki.hexaa.apicalls.organizations.principals.*;
+import sztaki.hexaa.apicalls.organizations.principals.OrganizationsManagersAddTest;
+import sztaki.hexaa.apicalls.organizations.principals.OrganizationsManagersGetTest;
+import sztaki.hexaa.apicalls.organizations.principals.OrganizationsManagersRemoveTest;
+import sztaki.hexaa.apicalls.organizations.principals.OrganizationsMembersAddTest;
+import sztaki.hexaa.apicalls.organizations.principals.OrganizationsMembersGetTest;
+import sztaki.hexaa.apicalls.organizations.principals.OrganizationsMembersRemoveTest;
 import sztaki.hexaa.apicalls.organizations.roles.OrganizationsRolesGetTest;
 
 /**

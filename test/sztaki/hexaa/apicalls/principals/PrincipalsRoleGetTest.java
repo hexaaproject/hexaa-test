@@ -61,10 +61,10 @@ public class PrincipalsRoleGetTest extends NormalTest {
 		}
 
 		Utility.Link.memberToOrganization(organizations.getJSONObject(0)
-				.getInt("id"), Const.HEXAA_ID);
+				.getInt("id"), BasicCall.HEXAA_ID);
 
 		Utility.Link.principalToRole(roles.getJSONObject(0).getInt("id"),
-				new int[] { Const.HEXAA_ID });
+				new int[] { BasicCall.HEXAA_ID });
 	}
 	
 	/**

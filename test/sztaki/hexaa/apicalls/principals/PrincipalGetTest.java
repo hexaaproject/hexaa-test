@@ -69,7 +69,7 @@ public class PrincipalGetTest extends NormalTest {
 		
 		int i = 0;
 		while (i < jsonResponse.length()
-				&& jsonResponse.getJSONObject(i).getInt("id") != Const.HEXAA_ID) {
+				&& jsonResponse.getJSONObject(i).getInt("id") != BasicCall.HEXAA_ID) {
 			i++;
 		}
 
@@ -113,7 +113,7 @@ public class PrincipalGetTest extends NormalTest {
 		try {
 			jsonResponse = persistent.getResponseJSONObject(
 					Const.Api.PRINCIPALS_ID_ID, BasicCall.REST.GET, null,
-					Const.HEXAA_ID, 0);
+					BasicCall.HEXAA_ID, 0);
 		} catch (ResponseTypeMismatchException ex) {
 			fail(ex.getFullMessage());
 			return;

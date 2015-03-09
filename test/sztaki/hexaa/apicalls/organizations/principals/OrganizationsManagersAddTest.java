@@ -8,6 +8,7 @@ import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
+import sztaki.hexaa.BasicCall;
 import sztaki.hexaa.Const;
 import sztaki.hexaa.NormalTest;
 import sztaki.hexaa.Utility;
@@ -95,7 +96,7 @@ public class OrganizationsManagersAddTest extends NormalTest {
 	public void testOrganizationManagerSet() {
 		Utility.Link.managerToOrganizationSet(organizations.getJSONObject(0)
 				.getInt("id"),
-				new int[] { Const.HEXAA_ID , principals.getJSONObject(1).getInt("id") });
+				new int[] { BasicCall.HEXAA_ID , principals.getJSONObject(1).getInt("id") });
 
 		try {
 			assertEquals(Const.StatusLine.BadRequest,
@@ -106,11 +107,11 @@ public class OrganizationsManagersAddTest extends NormalTest {
 
 		Utility.Link.memberToOrganization(organizations.getJSONObject(0)
 				.getInt("id"),
-				new int[] { Const.HEXAA_ID , principals.getJSONObject(1).getInt("id") });
+				new int[] { BasicCall.HEXAA_ID , principals.getJSONObject(1).getInt("id") });
 
 		Utility.Link.managerToOrganizationSet(organizations.getJSONObject(0)
 				.getInt("id"),
-				new int[] { Const.HEXAA_ID , principals.getJSONObject(1).getInt("id") });
+				new int[] { BasicCall.HEXAA_ID , principals.getJSONObject(1).getInt("id") });
 
 		try {
 			assertEquals(Const.StatusLine.Created,

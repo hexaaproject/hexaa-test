@@ -10,7 +10,6 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 import org.skyscreamer.jsonassert.JSONAssert;
 
-import sztaki.hexaa.Authenticator;
 import sztaki.hexaa.BasicCall;
 import sztaki.hexaa.Const;
 import sztaki.hexaa.NormalTest;
@@ -64,7 +63,7 @@ public class OrganizationIsolationTest extends NormalTest {
 		Utility.Link.memberToOrganization(organizations.getJSONObject(1)
 				.getInt("id"), principals.getJSONObject(0).getInt("id"));
 
-		new Authenticator().authenticate("OrganizationIsolationTest_pri1");
+		persistent.authenticate("OrganizationIsolationTest_pri1");
 	}
 
 	/**
@@ -74,7 +73,7 @@ public class OrganizationIsolationTest extends NormalTest {
 	public static void tearDownClass() {
 		System.out.println("TearDownClass: "
 				+ OrganizationIsolationTest.class.getSimpleName());
-		new Authenticator().authenticate(Const.HEXAA_FEDID);
+		persistent.authenticate(Const.HEXAA_FEDID);
 		for (int i = 0; i < organizations.length(); i++) {
 			Utility.Remove.organization(organizations.getJSONObject(i).getInt(
 					"id"));

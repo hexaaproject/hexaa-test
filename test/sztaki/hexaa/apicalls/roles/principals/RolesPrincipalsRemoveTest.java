@@ -68,7 +68,7 @@ public class RolesPrincipalsRemoveTest extends NormalTest {
 		Utility.Link.memberToOrganization(organizations.getJSONObject(0)
 				.getInt("id"), principals.getJSONObject(0).getInt("id"));
 		Utility.Link.principalToRole(roles.getJSONObject(0).getInt("id"),
-				Const.HEXAA_ID);
+				BasicCall.HEXAA_ID);
 		Utility.Link.principalToRole(roles.getJSONObject(0).getInt("id"),
 				principals.getJSONObject(0).getInt("id"));
 	}
@@ -100,7 +100,7 @@ public class RolesPrincipalsRemoveTest extends NormalTest {
 	@Test
 	public void testRolesPrincipalRemove() {
 		Utility.Remove.principalFromRole(roles.getJSONObject(0).getInt("id"),
-				Const.HEXAA_ID);
+				BasicCall.HEXAA_ID);
 
 		try {
 			assertEquals(Const.StatusLine.NoContent,

@@ -91,7 +91,7 @@ public class Authenticator {
 				System.out.print("** AUTHENTICATE **\t");
 				principalSelf = postToken.getResponseJSONObject(
 						Const.Api.PRINCIPAL_SELF, REST.GET);
-				Const.HEXAA_ID = principalSelf.getInt("id");
+				BasicCall.HEXAA_ID = principalSelf.getInt("id");
 			} catch (ResponseTypeMismatchException | JSONException ex) {
 				System.out.println("Unable to find principal: "
 						+ ex.getMessage());

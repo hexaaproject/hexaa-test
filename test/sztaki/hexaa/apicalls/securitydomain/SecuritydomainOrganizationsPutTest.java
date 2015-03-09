@@ -1,6 +1,7 @@
 package sztaki.hexaa.apicalls.securitydomain;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.fail;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -8,7 +9,6 @@ import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
-import sztaki.hexaa.Authenticator;
 import sztaki.hexaa.BasicCall;
 import sztaki.hexaa.Const;
 import sztaki.hexaa.NormalTest;
@@ -65,15 +65,13 @@ public class SecuritydomainOrganizationsPutTest extends NormalTest {
 			fail("Utility.Create.securitydomain(\"SecuritydomainOrganizationsPutTest_sd1\", \"otherMasterKey\", \"This is a security domain to test the capability of posting one.\"); did not succeed");
 		}
 
-		new Authenticator().authenticate(
-				"SecuritydomainOrganizationsPutTest_fedid2",
+		persistent.authenticate("SecuritydomainOrganizationsPutTest_fedid2",
 				Const.ALTERNATIVE_SECRET);
 
 		organizations.put(Utility.Create.organization(
 				"SecuritydomainOrganizationsPutTest_org2").getJSONObject(0));
 
-		new Authenticator().authenticate(
-				"SecuritydomainOrganizationsPutTest_fedid1",
+		persistent.authenticate("SecuritydomainOrganizationsPutTest_fedid1",
 				Const.ALTERNATIVE_SECRET);
 	}
 
@@ -84,8 +82,7 @@ public class SecuritydomainOrganizationsPutTest extends NormalTest {
 	public static void tearDownClass() {
 		System.out.println("TearDownClass: "
 				+ SecuritydomainOrganizationsPutTest.class.getSimpleName());
-		new Authenticator()
-				.authenticate(Const.HEXAA_FEDID, Const.MASTER_SECRET);
+		persistent.authenticate(Const.HEXAA_FEDID, Const.MASTER_SECRET);
 		for (int i = 0; i < domains.length(); i++) {
 			Utility.Remove
 					.securitydomain(domains.getJSONObject(i).getInt("id"));
@@ -128,8 +125,7 @@ public class SecuritydomainOrganizationsPutTest extends NormalTest {
 			AssertErrorHandler(e);
 		}
 
-		new Authenticator()
-				.authenticate(Const.HEXAA_FEDID, Const.MASTER_SECRET);
+		persistent.authenticate(Const.HEXAA_FEDID, Const.MASTER_SECRET);
 
 		JSONObject json = new JSONObject();
 		json.put("organizations", new int[] { organizations.getJSONObject(0)
@@ -139,8 +135,7 @@ public class SecuritydomainOrganizationsPutTest extends NormalTest {
 				BasicCall.REST.PUT, json.toString(), domains.getJSONObject(0)
 						.getInt("id"));
 
-		new Authenticator().authenticate(
-				"SecuritydomainOrganizationsPutTest_fedid1",
+		persistent.authenticate("SecuritydomainOrganizationsPutTest_fedid1",
 				Const.ALTERNATIVE_SECRET);
 
 		persistent

@@ -31,6 +31,5 @@ public class AllIsEmptyTests extends BasicTestSuite {
 		System.out.println("BeforeClass @ CleanTest");
 		new Authenticator().loadProperties();
 		new DatabaseManipulator().dropDatabase();
-		new Authenticator().authenticate(Const.HEXAA_FEDID);
 	}
 }

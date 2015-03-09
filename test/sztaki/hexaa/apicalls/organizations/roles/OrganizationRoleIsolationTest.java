@@ -10,7 +10,6 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 import org.skyscreamer.jsonassert.JSONAssert;
 
-import sztaki.hexaa.Authenticator;
 import sztaki.hexaa.BasicCall;
 import sztaki.hexaa.Const;
 import sztaki.hexaa.NormalTest;
@@ -79,17 +78,17 @@ public class OrganizationRoleIsolationTest extends NormalTest {
 				.getInt("id"), principals.getJSONObject(0).getInt("id"));
 		Utility.Link.principalToRole(
 				roles.getJSONObject(0).getInt("id"),
-				new int[] { Const.HEXAA_ID,
+				new int[] { BasicCall.HEXAA_ID,
 						principals.getJSONObject(0).getInt("id") });
 
 		Utility.Link.memberToOrganization(organizations.getJSONObject(1)
 				.getInt("id"), principals.getJSONObject(0).getInt("id"));
 		Utility.Link.principalToRole(
 				roles.getJSONObject(1).getInt("id"),
-				new int[] { Const.HEXAA_ID,
+				new int[] { BasicCall.HEXAA_ID,
 						principals.getJSONObject(0).getInt("id") });
 
-		new Authenticator().authenticate("OrganizationRoleIsolationTest_pri1");
+		persistent.authenticate("OrganizationRoleIsolationTest_pri1");
 	}
 
 	/**
@@ -99,7 +98,7 @@ public class OrganizationRoleIsolationTest extends NormalTest {
 	public static void tearDownClass() {
 		System.out.println("TearDownClass: "
 				+ OrganizationIsolationTest.class.getSimpleName());
-		new Authenticator().authenticate(Const.HEXAA_FEDID);
+		persistent.authenticate(Const.HEXAA_FEDID);
 		for (int i = 0; i < roles.length(); i++) {
 			Utility.Remove.roles(roles.getJSONObject(i).getInt("id"));
 		}

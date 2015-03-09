@@ -9,7 +9,6 @@ import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
-import sztaki.hexaa.Authenticator;
 import sztaki.hexaa.BasicCall;
 import sztaki.hexaa.Const;
 import sztaki.hexaa.NormalTest;
@@ -77,7 +76,7 @@ public class InvitationsAcceptTokenTest extends NormalTest {
 		if (principals.length() < 1) {
 			fail("Utility.Create.principal(\"InvitationsAcceptTokenTest_pri1\"); did not succeed");
 		}
-		new Authenticator().authenticate("InvitationsAcceptTokenTest_pri1");
+		persistent.authenticate("InvitationsAcceptTokenTest_pri1");
 
 		persistent.setToken(jsonResponse.getString("token"));
 	}
@@ -89,7 +88,7 @@ public class InvitationsAcceptTokenTest extends NormalTest {
 	public static void tearDownClass() {
 		System.out.println("TearDownClass: "
 				+ InvitationsAcceptTokenTest.class.getSimpleName());
-		new Authenticator().authenticate(Const.HEXAA_FEDID);
+		persistent.authenticate(Const.HEXAA_FEDID);
 		for (int i = 0; i < principals.length(); i++) {
 			Utility.Remove.principal(principals.getJSONObject(i).getInt("id"));
 		}

@@ -2,6 +2,7 @@ package sztaki.hexaa.apicalls.attributevalueorganizations;
 
 import org.junit.runner.RunWith;
 import org.junit.runners.Suite;
+
 import sztaki.hexaa.BasicTestSuite;
 import sztaki.hexaa.apicalls.attributevalueorganizations.services.AttributevalueorganizationsServicesGetTest;
 

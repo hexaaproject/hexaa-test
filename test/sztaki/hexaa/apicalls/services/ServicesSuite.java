@@ -2,11 +2,18 @@ package sztaki.hexaa.apicalls.services;
 
 import org.junit.runner.RunWith;
 import org.junit.runners.Suite;
+
 import sztaki.hexaa.BasicTestSuite;
-import sztaki.hexaa.apicalls.services.attributespecs.*;
-import sztaki.hexaa.apicalls.services.entitlementpacks.*;
-import sztaki.hexaa.apicalls.services.entitlements.*;
-import sztaki.hexaa.apicalls.services.managers.*;
+import sztaki.hexaa.apicalls.services.attributespecs.ServicesAttributespecsAddTest;
+import sztaki.hexaa.apicalls.services.attributespecs.ServicesAttributespecsGetTest;
+import sztaki.hexaa.apicalls.services.attributespecs.ServicesAttributespecsRemoveTest;
+import sztaki.hexaa.apicalls.services.entitlementpacks.ServicesEntitlementpacksGetTest;
+import sztaki.hexaa.apicalls.services.entitlementpacks.ServicesEntitlementpacksPostTest;
+import sztaki.hexaa.apicalls.services.entitlements.ServicesEntitlementsGetTest;
+import sztaki.hexaa.apicalls.services.entitlements.ServicesEntitlementsPostTest;
+import sztaki.hexaa.apicalls.services.managers.ServicesManagersAddTest;
+import sztaki.hexaa.apicalls.services.managers.ServicesManagersGetTest;
+import sztaki.hexaa.apicalls.services.managers.ServicesManagersRemoveTest;
 import sztaki.hexaa.apicalls.services.organizations.ServicesOrganizationsGetTest;
 
 /**

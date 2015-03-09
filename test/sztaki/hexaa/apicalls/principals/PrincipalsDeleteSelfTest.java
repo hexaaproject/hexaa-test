@@ -10,7 +10,6 @@ import org.junit.Test;
 import org.skyscreamer.jsonassert.JSONAssert;
 import org.skyscreamer.jsonassert.JSONCompareMode;
 
-import sztaki.hexaa.Authenticator;
 import sztaki.hexaa.BasicCall;
 import sztaki.hexaa.Const;
 import sztaki.hexaa.NormalTest;
@@ -43,7 +42,7 @@ public class PrincipalsDeleteSelfTest extends NormalTest {
 	public static void setUpClass() {
 		Utility.persistent.setAdmin();
 		principals = Utility.Create.principal("PrincipalsDeleteSelfTest_pri1");
-		new Authenticator().authenticate("PrincipalsDeleteSelfTest_pri1");
+		persistent.authenticate("PrincipalsDeleteSelfTest_pri1");
 	}
 
 	/**
@@ -70,7 +69,7 @@ public class PrincipalsDeleteSelfTest extends NormalTest {
 			AssertErrorHandler(e);
 		}
 
-		new Authenticator().authenticate(Const.HEXAA_FEDID);
+		persistent.authenticate(Const.HEXAA_FEDID);
 
 		JSONObject jsonItems;
 		try {

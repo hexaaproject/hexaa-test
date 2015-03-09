@@ -7,7 +7,6 @@ import org.json.JSONObject;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
-import sztaki.hexaa.Authenticator;
 import sztaki.hexaa.BasicCall;
 import sztaki.hexaa.Const;
 import sztaki.hexaa.NormalTest;
@@ -55,7 +54,7 @@ public class PrincipalGetAdminTest extends NormalTest {
 	 */
 	@Test
 	public void testPrincipalGetNotAdmin() {
-		new Authenticator().authenticate("admin@is.not");
+		persistent.authenticate("admin@is.not");
 
 		JSONObject jsonResponse;
 		try {
@@ -73,6 +72,6 @@ public class PrincipalGetAdminTest extends NormalTest {
 			AssertErrorHandler(e);
 		}
 
-		new Authenticator().authenticate(Const.HEXAA_FEDID);
+		persistent.authenticate(Const.HEXAA_FEDID);
 	}
 }
