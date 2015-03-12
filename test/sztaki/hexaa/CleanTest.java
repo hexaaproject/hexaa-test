@@ -16,8 +16,7 @@ public class CleanTest extends NormalTest{
 	@BeforeClass
 	public static void cleanTestBasicSetUpClass() {
 		System.out.println("BeforeClass @ CleanTest");
-		new Authenticator().loadProperties();
 		new DatabaseManipulator().dropDatabase();
-		persistent.authenticate(Const.HEXAA_FEDID);
+		persistent.authenticate(new DataProp().getString("HEXAA_FEDID"));
 	}
 }

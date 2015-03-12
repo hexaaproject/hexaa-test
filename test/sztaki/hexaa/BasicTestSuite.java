@@ -34,12 +34,11 @@ public abstract class BasicTestSuite {
 	@BeforeClass
 	public static void checkReachable() {
 		CoverageChecker.Init();
-		new Authenticator().loadProperties();
 		new DatabaseManipulator().dropCache();
-		if (!Const.HEXAA_HOST.equals("localhost")) {
+		if (!new DataProp().getString("HEXAA_HOST").equals("localhost")) {
 			try {
 				InetAddress address;
-				address = InetAddress.getByName(Const.HEXAA_HOST);
+				address = InetAddress.getByName(new DataProp().getString("HEXAA_HOST"));
 				Assume.assumeTrue(address.isReachable(5000));
 			} catch (UnknownHostException ex) {
 //				Logger.getLogger(CleanTest.class.getName()).log(Level.SEVERE,
@@ -67,7 +66,6 @@ public abstract class BasicTestSuite {
 	@AfterClass
 	public static void cleanUp() {
 		if (CLEANUP_NEEDED) {
-			new Authenticator().loadProperties();
 			new DatabaseManipulator().dropDatabase();
 			CoverageChecker.printout();
 		}

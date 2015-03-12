@@ -40,8 +40,7 @@ public class NormalTest {
 	@BeforeClass
 	public static void normalTestBasicSetUpClass() {
 		System.out.println("BeforeClass @ NormalTest");
-		new Authenticator().loadProperties();
-		if (persistent.authenticate(Const.HEXAA_FEDID) == 1) {
+		if (persistent.authenticate(new DataProp().getString("HEXAA_FEDID")) == 1) {
 			fail("Unable to authenticate");
 		}
 	}

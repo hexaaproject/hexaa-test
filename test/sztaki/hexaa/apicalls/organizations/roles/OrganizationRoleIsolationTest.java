@@ -12,6 +12,7 @@ import org.skyscreamer.jsonassert.JSONAssert;
 
 import sztaki.hexaa.BasicCall;
 import sztaki.hexaa.Const;
+import sztaki.hexaa.DataProp;
 import sztaki.hexaa.NormalTest;
 import sztaki.hexaa.ResponseTypeMismatchException;
 import sztaki.hexaa.Utility;
@@ -98,7 +99,7 @@ public class OrganizationRoleIsolationTest extends NormalTest {
 	public static void tearDownClass() {
 		System.out.println("TearDownClass: "
 				+ OrganizationIsolationTest.class.getSimpleName());
-		persistent.authenticate(Const.HEXAA_FEDID);
+		persistent.authenticate(new DataProp().getString("HEXAA_FEDID"));
 		for (int i = 0; i < roles.length(); i++) {
 			Utility.Remove.roles(roles.getJSONObject(i).getInt("id"));
 		}

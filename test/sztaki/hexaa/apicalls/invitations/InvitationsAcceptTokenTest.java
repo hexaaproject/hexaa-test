@@ -11,6 +11,7 @@ import org.junit.Test;
 
 import sztaki.hexaa.BasicCall;
 import sztaki.hexaa.Const;
+import sztaki.hexaa.DataProp;
 import sztaki.hexaa.NormalTest;
 import sztaki.hexaa.ResponseTypeMismatchException;
 import sztaki.hexaa.Utility;
@@ -88,7 +89,7 @@ public class InvitationsAcceptTokenTest extends NormalTest {
 	public static void tearDownClass() {
 		System.out.println("TearDownClass: "
 				+ InvitationsAcceptTokenTest.class.getSimpleName());
-		persistent.authenticate(Const.HEXAA_FEDID);
+		persistent.authenticate(new DataProp().getString("HEXAA_FEDID"));
 		for (int i = 0; i < principals.length(); i++) {
 			Utility.Remove.principal(principals.getJSONObject(i).getInt("id"));
 		}

@@ -12,6 +12,7 @@ import org.skyscreamer.jsonassert.JSONCompareMode;
 
 import sztaki.hexaa.BasicCall;
 import sztaki.hexaa.Const;
+import sztaki.hexaa.DataProp;
 import sztaki.hexaa.NormalTest;
 import sztaki.hexaa.ResponseTypeMismatchException;
 import sztaki.hexaa.Utility;
@@ -69,7 +70,7 @@ public class PrincipalsDeleteSelfTest extends NormalTest {
 			AssertErrorHandler(e);
 		}
 
-		persistent.authenticate(Const.HEXAA_FEDID);
+		persistent.authenticate(new DataProp().getString("HEXAA_FEDID"));
 
 		JSONObject jsonItems;
 		try {

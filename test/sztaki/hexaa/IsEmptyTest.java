@@ -103,7 +103,7 @@ public abstract class IsEmptyTest extends NormalTest {
 						try {
 							assertEquals(Const.StatusLine.OK,
 									expectingFedidCall.getStatusLine());
-							assertEquals(Const.HEXAA_FEDID, jsonResponse
+							assertEquals(new DataProp().getString("HEXAA_FEDID"), jsonResponse
 									.getJSONArray("items").getJSONObject(0)
 									.getString("fedid"));
 						} catch (AssertionError e) {
@@ -114,7 +114,7 @@ public abstract class IsEmptyTest extends NormalTest {
 					try {
 						assertEquals(Const.StatusLine.OK,
 								expectingFedidCall.getStatusLine());
-						assertEquals(Const.HEXAA_FEDID,
+						assertEquals(new DataProp().getString("HEXAA_FEDID"),
 								jsonResponse.getString("fedid"));
 					} catch (AssertionError e) {
 						AssertErrorHandler(e);
@@ -133,7 +133,7 @@ public abstract class IsEmptyTest extends NormalTest {
 				try {
 					assertEquals(Const.StatusLine.OK,
 							expectingFedidCall.getStatusLine());
-					assertEquals(Const.HEXAA_FEDID, jsonArrayResponse
+					assertEquals(new DataProp().getString("HEXAA_FEDID"), jsonArrayResponse
 							.getJSONObject(0).getString("fedid"));
 				} catch (AssertionError e) {
 					AssertErrorHandler(e);

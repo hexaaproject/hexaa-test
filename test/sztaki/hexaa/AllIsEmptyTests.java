@@ -29,7 +29,6 @@ public class AllIsEmptyTests extends BasicTestSuite {
 	@BeforeClass
 	public static void cleanTestBasicSetUpClass() {
 		System.out.println("BeforeClass @ CleanTest");
-		new Authenticator().loadProperties();
 		new DatabaseManipulator().dropDatabase();
 	}
 }

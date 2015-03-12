@@ -9,6 +9,7 @@ import org.junit.Test;
 
 import sztaki.hexaa.BasicCall;
 import sztaki.hexaa.Const;
+import sztaki.hexaa.DataProp;
 import sztaki.hexaa.NormalTest;
 import sztaki.hexaa.ResponseTypeMismatchException;
 
@@ -72,6 +73,6 @@ public class PrincipalGetAdminTest extends NormalTest {
 			AssertErrorHandler(e);
 		}
 
-		persistent.authenticate(Const.HEXAA_FEDID);
+		persistent.authenticate(new DataProp().getString("HEXAA_FEDID"));
 	}
 }

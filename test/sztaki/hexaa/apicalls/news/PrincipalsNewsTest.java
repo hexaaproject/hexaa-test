@@ -12,6 +12,7 @@ import org.junit.Test;
 import sztaki.hexaa.BasicCall;
 import sztaki.hexaa.CleanTest;
 import sztaki.hexaa.Const;
+import sztaki.hexaa.DataProp;
 import sztaki.hexaa.ResponseTypeMismatchException;
 import sztaki.hexaa.Utility;
 
@@ -118,7 +119,7 @@ public class PrincipalsNewsTest extends CleanTest {
 
 		System.out.println(jsonResponse_noid);
 
-		persistent.authenticate(Const.HEXAA_FEDID);
+		persistent.authenticate(new DataProp().getString("HEXAA_FEDID"));
 
 		// try {
 		// assertEquals(3, jsonResponse_id.length());

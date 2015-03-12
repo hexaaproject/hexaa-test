@@ -7,10 +7,10 @@ import org.json.JSONObject;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
-import sztaki.hexaa.Authenticator;
 import sztaki.hexaa.BasicCall;
 import sztaki.hexaa.CleanTest;
 import sztaki.hexaa.Const;
+import sztaki.hexaa.DataProp;
 import sztaki.hexaa.Utility;
 
 /**
@@ -44,9 +44,9 @@ public class AttributesPostTest extends CleanTest {
 	public void testAttributesPost() {
 		JSONObject json = new JSONObject();
 
-		json.put("fedid", Const.HEXAA_FEDID);
+		json.put("fedid", new DataProp().getString("HEXAA_FEDID"));
 		json.put("entityid", "https://example.com/ssp");
-		json.put("apikey", new Authenticator().getAPIKey(Const.MASTER_SECRET));
+		json.put("apikey", persistent.getAPIKey(new DataProp().getString("MASTER_SECRET")));
 
 		BasicCall call = new BasicCall();
 		String response;

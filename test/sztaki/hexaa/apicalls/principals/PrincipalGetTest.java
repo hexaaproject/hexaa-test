@@ -10,6 +10,7 @@ import org.junit.Test;
 
 import sztaki.hexaa.BasicCall;
 import sztaki.hexaa.Const;
+import sztaki.hexaa.DataProp;
 import sztaki.hexaa.NormalTest;
 import sztaki.hexaa.ResponseTypeMismatchException;
 
@@ -43,7 +44,7 @@ public class PrincipalGetTest extends NormalTest {
 
 		try {
 			assertEquals(Const.StatusLine.OK, persistent.getStatusLine());
-			assertEquals(Const.HEXAA_FEDID, jsonResponse.getString("fedid"));
+			assertEquals(new DataProp().getString("HEXAA_FEDID"), jsonResponse.getString("fedid"));
 		} catch (AssertionError e) {
 			AssertErrorHandler(e);
 		}
@@ -74,7 +75,7 @@ public class PrincipalGetTest extends NormalTest {
 		}
 
 		try {
-			assertEquals(Const.HEXAA_FEDID,
+			assertEquals(new DataProp().getString("HEXAA_FEDID"),
 					jsonResponse.getJSONObject(i).get("fedid"));
 		} catch (AssertionError e) {
 			AssertErrorHandler(e);
@@ -90,7 +91,7 @@ public class PrincipalGetTest extends NormalTest {
 		try {
 			jsonResponse = persistent.getResponseJSONObject(
 					Const.Api.PRINCIPALS_FEDID, BasicCall.REST.GET, null, 0, 0,
-					Const.HEXAA_FEDID);
+					new DataProp().getString("HEXAA_FEDID"));
 		} catch (ResponseTypeMismatchException ex) {
 			fail(ex.getFullMessage());
 			return;
@@ -98,7 +99,7 @@ public class PrincipalGetTest extends NormalTest {
 
 		try {
 			assertEquals(Const.StatusLine.OK, persistent.getStatusLine());
-			assertEquals(Const.HEXAA_FEDID, jsonResponse.getString("fedid"));
+			assertEquals(new DataProp().getString("HEXAA_FEDID"), jsonResponse.getString("fedid"));
 		} catch (AssertionError e) {
 			AssertErrorHandler(e);
 		}
@@ -121,7 +122,7 @@ public class PrincipalGetTest extends NormalTest {
 
 		try {
 			assertEquals(Const.StatusLine.OK, persistent.getStatusLine());
-			assertEquals(Const.HEXAA_FEDID, jsonResponse.getString("fedid"));
+			assertEquals(new DataProp().getString("HEXAA_FEDID"), jsonResponse.getString("fedid"));
 		} catch (AssertionError e) {
 			AssertErrorHandler(e);
 		}

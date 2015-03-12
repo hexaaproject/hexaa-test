@@ -11,6 +11,7 @@ import org.junit.Test;
 
 import sztaki.hexaa.BasicCall;
 import sztaki.hexaa.Const;
+import sztaki.hexaa.DataProp;
 import sztaki.hexaa.NormalTest;
 import sztaki.hexaa.Utility;
 
@@ -66,14 +67,14 @@ public class SecuritydomainServicesPutTest extends NormalTest {
 
 		persistent.authenticate(
 				"SecuritydomainServicesPutTest_fedid2",
-				Const.ALTERNATIVE_SECRET);
+				new DataProp().getString("ALTERNATIVE_SECRET"));
 
 		services.put(Utility.Create.service(
 				"SecuritydomainOrganizationsPutTest_service2").getJSONObject(0));
 
 		persistent.authenticate(
 				"SecuritydomainServicesPutTest_fedid1",
-				Const.ALTERNATIVE_SECRET);
+				new DataProp().getString("ALTERNATIVE_SECRET"));
 	}
 
 	/**
@@ -83,7 +84,7 @@ public class SecuritydomainServicesPutTest extends NormalTest {
 	public static void tearDownClass() {
 		System.out.println("TearDownClass: "
 				+ SecuritydomainServicesPutTest.class.getSimpleName());
-		persistent.authenticate(Const.HEXAA_FEDID, Const.MASTER_SECRET);
+		persistent.authenticate(new DataProp().getString("HEXAA_FEDID"), new DataProp().getString("MASTER_SECRET"));
 		for (int i = 0; i < domains.length(); i++) {
 			Utility.Remove
 					.securitydomain(domains.getJSONObject(i).getInt("id"));
@@ -117,7 +118,7 @@ public class SecuritydomainServicesPutTest extends NormalTest {
 			AssertErrorHandler(e);
 		}
 
-		persistent.authenticate(Const.HEXAA_FEDID, Const.MASTER_SECRET);
+		persistent.authenticate(new DataProp().getString("HEXAA_FEDID"), new DataProp().getString("MASTER_SECRET"));
 
 		JSONObject json = new JSONObject();
 		json.put("services", new int[] { services.getJSONObject(0)
@@ -129,7 +130,7 @@ public class SecuritydomainServicesPutTest extends NormalTest {
 
 		persistent.authenticate(
 				"SecuritydomainServicesPutTest_fedid1",
-				Const.ALTERNATIVE_SECRET);
+				new DataProp().getString("ALTERNATIVE_SECRET"));
 
 		persistent.call(Const.Api.SERVICES_ID, BasicCall.REST.GET, services
 				.getJSONObject(0).getInt("id"));
