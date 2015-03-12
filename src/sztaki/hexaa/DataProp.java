@@ -14,11 +14,6 @@ import java.util.Properties;
 public class DataProp implements DataLoader {
 
 	/**
-	 * Static instance of a Properties to avoid multiple load or inconsistency.
-	 */
-	private static Properties instance = new Properties();
-
-	/**
 	 * Returns a string value for the given key. Takes care of the data load.
 	 * 
 	 * @param key
@@ -56,6 +51,25 @@ public class DataProp implements DataLoader {
 		}
 	}
 
+	// public String getStatusLine(String key) {
+	// // TODO Auto-generated method stub
+	// System.err.println("StatusLine request not yet implemented");
+	// return null;
+	// }
+
+//	public String getAPI(String key) {
+//		// TODO Auto-generated method stub
+//		System.err.println("API request not yet implemented");
+//		return null;
+//	}
+
+	
+	/* *** Property specific data storage *** */
+	/**
+	 * Static instance of a Properties to avoid multiple load or inconsistency.
+	 */
+	private static Properties instance = new Properties();
+	
 	/**
 	 * Loads the properties file with the given name for this properties.
 	 * 
@@ -90,6 +104,7 @@ public class DataProp implements DataLoader {
 	private void load() {
 		if (this.isEmpty()) {
 			loadFromFile("config.properties");
+			//			loadFromFile("statusline.properties");
 		}		
 	}
 
@@ -101,5 +116,6 @@ public class DataProp implements DataLoader {
 	private boolean isEmpty() {
 		return instance.isEmpty();
 	}
+
 
 }

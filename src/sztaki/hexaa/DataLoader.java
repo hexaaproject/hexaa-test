@@ -22,4 +22,24 @@ public interface DataLoader {
 	 */
 	public Integer getInt(String key);
 
+	/**
+	 * Searches for the complete status line pair of the given status code, may
+	 * return null if the string can't be found.
+	 * 
+	 * @param key
+	 *            String, representing a key with an expected value pair.
+	 * @return Integer, the value associated with the given key.
+	 */
+	// public String getStatusLine(String key);
+
+	/**
+	 * Searches for the complete status line pair of the given status code, may
+	 * return null if the string can't be found.
+	 * 
+	 * @param key
+	 *            String, representing a key with an expected value pair.
+	 * @return Integer, the value associated with the given key.
+	 */
+	// public String getAPI(String key);
+
 }
