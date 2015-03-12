@@ -7,71 +7,6 @@ package sztaki.hexaa;
 public class Const {
 
 	/**
-	 * Flag to load the properties if false.
-	 */
-	public static boolean PROPERTIES_LOADED = false;
-	/**
-	 * The servers port number. Default 80, load from config.properties.
-	 */
-	public static int HEXAA_PORT = 80;
-	/**
-	 * The header required by the server application to authenticate.
-	 */
-	public static final String HEXAA_HEADER = ("X-HEXAA-AUTH");
-	/**
-	 * The api key required by the server to authenticate. The
-	 * Authenticator.authenticate() method updates it if necessary.
-	 */
-	public static String HEXAA_AUTH = ("fb97b1edd685f39d3df497b9e207d9cf6c6dca55dc46cb89933c9f95f172d3b2");
-	/**
-	 * The IP address or name of the server. Default localhost, load from
-	 * config.properties.
-	 */
-	// public static final String HEXAA_HOST = ("192.168.203.203");
-	public static String HEXAA_HOST = ("localhost");
-	/**
-	 * The scheme required by the server.
-	 */
-	public static final String HEXAA_SCHEME = ("http");
-	/**
-	 * The fedid of the superadmin that we use for the tests. Default
-	 * tesztAdmin@sztaki.hu, load from config.properties.
-	 */
-	public static String HEXAA_FEDID = ("tesztAdmin@sztaki.hu");
-	/**
-	 * Integer, containing the numerical id of the current principal_self.
-	 * Updated in the Authenticator().authenticate().
-	 */
-	public static int HEXAA_ID = 0;
-	/**
-	 * The master_secret that match the servers master_secret for
-	 * authentication. Default exist, load from config.properties.
-	 */
-	public static String MASTER_SECRET = ("7lrfjlpu5br2vpv1jcaogdz481b28xf7lz85wqmv");
-	/**
-	 * The master_secret that match the servers master_secret for
-	 * authentication. Default exist, load from config.properties.
-	 */
-	public static String ALTERNATIVE_SECRET = ("evf76cehsive5ixfaqwjdifbirezblzmg2kjmirc");
-
-	/**
-	 * The .properties file to load some of the Strings found in the Const. By
-	 * default its config.properties.
-	 */
-	public static final String PROPERTIES = ("config.properties");
-
-	/**
-	 * The prefix for the uri's that should be used.
-	 */
-	public static final String URI_PREFIX = ("urn:geant:server.org:hexaa:");
-
-	/**
-	 * The port number the ssh should use. Default 22, load from
-	 * config.properties.
-	 */
-	public static int SSH_PORT = 22;
-
-	/**
 	 * Contains the existing URL-s of the server.
 	 */
 	public static class Api {
@@ -560,15 +495,5 @@ public class Const {
 		 * HTTP/1.1 409 Conflict.
 		 */
 		public static String Conflict = "HTTP/1.1 409 Conflict";
-	}
-
-	/**
-	 * Setter for {@link HEXAA_AUTH}.
-	 *
-	 * @param string
-	 *            string representation of the required hash code.
-	 */
-	public void setAuth(String string) {
-		HEXAA_AUTH = string;
 	}
 }

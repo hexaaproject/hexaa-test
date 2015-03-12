@@ -878,17 +878,16 @@ public class BasicCall {
 		try {
 			response = httpClient.execute((HttpUriRequest) httpAction);
 		} catch (IOException ex) {
-			System.err.println("Unable to execute HTTP action: " + ex.getMessage());
+			System.err.println("Unable to execute HTTP action: "
+					+ ex.getMessage());
 		}
 
 		return response;
 	}
 
 	/**
-	 * Builds the proper uri for the call. Uses the {@link Const.HEXAA_SCHEME},
-	 * {@link Const.HEXAA_HOST} and {@link Const.HEXAA_PORT} constants and the
-	 * local path variable. This method also adds the required parameters if
-	 * they are enabled (admin, limit, offset).
+	 * Builds the proper uri for the call. This method also adds the required
+	 * parameters if they are enabled (admin, limit, offset).
 	 * 
 	 * @param path
 	 *            path of the required uri
@@ -897,9 +896,10 @@ public class BasicCall {
 	private URI buildHexaaURI(String path) {
 		URI uri = null;
 		// Creates the basic uri.
-		URIBuilder builder = new URIBuilder().setScheme(Const.HEXAA_SCHEME)
-				.setHost(Const.HEXAA_HOST).setPort(Const.HEXAA_PORT)
-				.setPath(path);
+		URIBuilder builder = new URIBuilder()
+				.setScheme(new DataProp().getString("HEXAA_SCHEME"))
+				.setHost(new DataProp().getString("HEXAA_HOST"))
+				.setPort(new DataProp().getInt("HEXAA_PORT")).setPath(path);
 		// Adds specific parameters.
 		if (isAdmin) {
 			builder.addParameter("admin", "true");
@@ -934,7 +934,8 @@ public class BasicCall {
 	 */
 	private HttpMessage createAction(HttpMessage httpAction, URI uri) {
 		if (uri != null) {
-			Header hexaa_auth = new BasicHeader(Const.HEXAA_HEADER,
+			Header hexaa_auth = new BasicHeader(
+					new DataProp().getString("HEXAA_HEADER"),
 					BasicCall.HEXAA_AUTH);
 			httpAction.addHeader(hexaa_auth);
 			httpAction.setHeader("Content-type", "application/json");
@@ -967,15 +968,15 @@ public class BasicCall {
 	/**
 	 * Alternative call for {@link authenticate(String fedid, String secret)}
 	 * for non differentiated master_secret authentications and legacy purposes.
-	 * Always uses the {@link Const.MASTER_SECRET}.
+	 * Always uses the {@link new DataProp().getString("MASTER_SECRET")}.
 	 * 
 	 * @param fedid
 	 *            the fedid to authenticate with, normally the fedid is the
-	 *            {@link Const.HEXAA_FEDID}, if not use a valid e-mail format.
+	 *            {@link new DataProp().getString("HEXAA_FEDID")}, if not use a valid e-mail format.
 	 * @return
 	 */
 	public int authenticate(String fedid) {
-		return this.authenticate(fedid, Const.MASTER_SECRET);
+		return this.authenticate(fedid, new DataProp().getString("MASTER_SECRET"));
 	}
 
 	/**
@@ -986,13 +987,12 @@ public class BasicCall {
 	 *
 	 * @param fedid
 	 *            the fedid to authenticate with, normally the fedid is the
-	 *            {@link Const.HEXAA_FEDID}, if not use a valid e-mail format.
+	 *            {@link new DataProp().getString("HEXAA_FEDID")}, if not use a valid e-mail format.
 	 */
 	public int authenticate(String fedid, String secret) {
 
 		System.out.print("** AUTHENTICATE **\t");
-		String response = this.call(Const.Api.PRINCIPAL_SELF,
-				REST.GET);
+		String response = this.call(Const.Api.PRINCIPAL_SELF, REST.GET);
 
 		if (!response.contains(fedid)) {
 

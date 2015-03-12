@@ -24,15 +24,19 @@ public final class DatabaseManipulator {
 
 			Process proc;
 
-			if (Const.HEXAA_HOST.equals("localhost")) {
+			if (new DataProp().getString("HEXAA_HOST").equals("localhost")) {
 				// Call for server side script if it runs on the server
 				proc = rt
 						.exec(new String[] { "/var/lib/jenkins/databasedrop.sh" });
 			} else {
 				// Call for server side script remotely
 				proc = rt
-						.exec(new String[] { "ssh", "root@" + Const.HEXAA_HOST,
-								"-p", Integer.toString(Const.SSH_PORT),
+						.exec(new String[] {
+								"ssh",
+								"root@"
+										+ new DataProp()
+												.getString("HEXAA_HOST"), "-p",
+								new DataProp().getString("SSH_PORT"),
 								"~/databasedrop.sh" });
 			}
 
@@ -69,15 +73,15 @@ public final class DatabaseManipulator {
 
 			Process proc;
 
-			if (Const.HEXAA_HOST.equals("localhost")) {
+			if (new DataProp().getString("HEXAA_HOST").equals("localhost")) {
 				// Call for server side script if it runs on the server
 				proc = rt
 						.exec(new String[] { "/var/lib/jenkins/cachedrop.sh" });
 			} else {
 				// Call for server side script remotely
 				proc = rt.exec(new String[] { "ssh",
-						"root@" + Const.HEXAA_HOST, "-p",
-						Integer.toString(Const.SSH_PORT), "~/cachedrop.sh" });
+						"root@" + new DataProp().getString("HEXAA_HOST"), "-p",
+						new DataProp().getString("SSH_PORT"), "~/cachedrop.sh" });
 			}
 
 			// any error message?
@@ -116,7 +120,7 @@ public final class DatabaseManipulator {
 
 			Process proc;
 
-			if (Const.HEXAA_HOST.equals("localhost")) {
+			if (new DataProp().getString("HEXAA_HOST").equals("localhost")) {
 				// Call for server side script if it runs on the server
 				proc = rt
 						.exec(new String[] { "/var/lib/jenkins/getservicekey.sh" });
@@ -125,9 +129,11 @@ public final class DatabaseManipulator {
 				proc = rt
 						.exec(new String[] {
 								"ssh",
-								"root@" + Const.HEXAA_HOST,
+								"root@"
+										+ new DataProp()
+												.getString("HEXAA_HOST"),
 								"-p",
-								Integer.toString(Const.SSH_PORT),
+								new DataProp().getString("SSH_PORT"),
 								"mysql --user=root --password=pass hexaa -e \"SELECT enable_token FROM service;\"" });
 			}
 

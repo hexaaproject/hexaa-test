@@ -11,37 +11,48 @@ import java.util.Properties;
  * the underlying data-structure with other types of storage without any kind of
  * change in the program.
  */
-public class MyProperties extends Properties {
+public class DataProp implements DataLoader {
 
 	/**
-	 * UID for serialization purposes.
+	 * Static instance of a Properties to avoid multiple load or inconsistency.
 	 */
-	private static final long serialVersionUID = 373432405421744070L;
+	private static Properties instance = new Properties();
 
 	/**
-	 * Returns a string value for the given key.
+	 * Returns a string value for the given key. Takes care of the data load.
 	 * 
 	 * @param key
 	 *            String, key for the property.
 	 * @return String, can be null if the key is not found.
 	 */
 	public String getString(String key) {
-		return this.getProperty(key);
+		synchronized (DataProp.class) {
+			if (this.isEmpty()) {
+				this.load();
+			}
+		}
+
+		return instance.getProperty(key);
 	}
 
 	/**
-	 * Returns an int value for the given key.
+	 * Returns an int value for the given key. Takes care of the data load.
 	 * 
 	 * @param key
 	 *            String, key for the property.
 	 * @return int, can be 0 if the key is not found.
 	 */
-	public int getInt(String key) {
-		String temp = this.getProperty(key);
+	public Integer getInt(String key) {
+		synchronized (DataProp.class) {
+			if (this.isEmpty()) {
+				this.load();
+			}
+		}
+		String temp = instance.getProperty(key);
 		if (temp != null) {
 			return Integer.valueOf(temp);
 		} else {
-			return 0;
+			return null;
 		}
 	}
 
@@ -55,13 +66,13 @@ public class MyProperties extends Properties {
 		InputStream filestream = null;
 		try {
 			filestream = new FileInputStream(filename);
-			this.load(filestream);
+			instance.load(filestream);
 		} catch (FileNotFoundException e) {
 			System.err.println("The file " + filename
 					+ " is not a valid .properties file");
 			e.printStackTrace();
 		} catch (IOException e) {
-			System.err.println("Could not close the file: " + filename);
+			System.err.println("Could not read the file: " + filename);
 			e.printStackTrace();
 		} finally {
 			try {
@@ -72,27 +83,23 @@ public class MyProperties extends Properties {
 			}
 		}
 	}
-
+	
 	/**
-	 * Loads the config.properties file as the default properties.
+	 * Loads all necessary .properties file.
 	 */
-	public MyProperties() {
-		super();
-
-		loadFromFile("config.properties");
+	private void load() {
+		if (this.isEmpty()) {
+			loadFromFile("config.properties");
+		}		
 	}
 
 	/**
-	 * Loads a custom properties file as the default properties.
+	 * Returns true if the data is not loaded.
 	 * 
-	 * @param filename
-	 *            the name (and path if not in the project directory) of the
-	 *            file.
+	 * @return
 	 */
-	public MyProperties(String filename) {
-		super();
-
-		loadFromFile(filename);
+	private boolean isEmpty() {
+		return instance.isEmpty();
 	}
 
 }

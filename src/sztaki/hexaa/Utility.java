@@ -352,7 +352,7 @@ public class Utility {
 
 				// Creating the entitlement object
 				JSONObject json = new JSONObject();
-				json.put("uri", Const.URI_PREFIX + Integer.toString(serviceId)
+				json.put("uri", new DataProp().getString("URI_PREFIX") + Integer.toString(serviceId)
 						+ ":" + "testUri" + name);
 				json.put("name", name);
 				json.put("description", "This is a test entitlement, for the #"
@@ -2270,7 +2270,7 @@ public class Utility {
 	 * @return list containing the numbers in the given string.
 	 */
 	public static List<Integer> getNumber(String string) {
-		string = string.replace(Const.HEXAA_HOST, "");
+		string = string.replace(new DataProp().getString("HEXAA_HOST"), "");
 
 		List<Integer> answer = new ArrayList<>();
 
