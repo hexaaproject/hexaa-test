@@ -5,22 +5,7 @@
 /build/
 build.xml
 build (copy).xml
-config.properties
-config.properties~
-config_alternative.properties
-config_alternative.properties~
-config (copy).properties
-config (copy).properties~
 build.xml~
 /target/
 alternate_build.xml
-apicalllist.txt
-apicalllist.txt~
-apicalllist_dist.txt~
-apicalllist_dist_2.txt~
-apicalledlist.txt
-apicalledlist.txt~
-api.properties
-api.properties~
-statusline.properties
-statusline.properties~
+/config
