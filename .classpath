@@ -1,38 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <classpath>
-	<classpathentry kind="src" path="src"/>
-	<classpathentry kind="src" path="test"/>
-	<classpathentry kind="lib" path="lib/commons-codec-1.9.jar">
-		<attributes>
-			<attribute name="javadoc_location" value="http://commons.apache.org/proper/commons-codec/archives/1.9/apidocs/"/>
-		</attributes>
-	</classpathentry>
-	<classpathentry kind="lib" path="lib/commons-logging-1.1.3.jar">
-		<attributes>
-			<attribute name="javadoc_location" value="http://commons.apache.org/proper/commons-logging/apidocs/"/>
-		</attributes>
-	</classpathentry>
-	<classpathentry kind="lib" path="lib/httpclient-4.3.4.jar">
-		<attributes>
-			<attribute name="javadoc_location" value="https://hc.apache.org/httpcomponents-client-ga/httpclient/apidocs/"/>
-		</attributes>
-	</classpathentry>
-	<classpathentry kind="lib" path="lib/httpcore-4.3.2.jar">
-		<attributes>
-			<attribute name="javadoc_location" value="https://hc.apache.org/httpcomponents-core-ga/httpcore/apidocs/"/>
-		</attributes>
-	</classpathentry>
-	<classpathentry kind="lib" path="lib/json.jar">
-		<attributes>
-			<attribute name="javadoc_location" value="http://www.json.org/javadoc/"/>
-		</attributes>
-	</classpathentry>
-	<classpathentry kind="lib" path="lib/jsonassert-1.2.3.jar"/>
-	<classpathentry kind="lib" path="lib/junit-4.10.jar">
-		<attributes>
-			<attribute name="javadoc_location" value="http://junit.sourceforge.net/javadoc/"/>
-		</attributes>
-	</classpathentry>
-	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
-	<classpathentry kind="output" path="bin"/>
+  <classpathentry kind="src" path="src/test/java" output="target/test-classes" including="**/*.java"/>
+  <classpathentry kind="src" path="src/main/java" including="**/*.java"/>
+  <classpathentry kind="output" path="target/classes"/>
+  <classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
+  <classpathentry kind="var" path="M2_REPO/junit/junit/4.10/junit-4.10.jar" sourcepath="M2_REPO/junit/junit/4.10/junit-4.10-sources.jar"/>
+  <classpathentry kind="var" path="M2_REPO/org/hamcrest/hamcrest-core/1.1/hamcrest-core-1.1.jar"/>
+  <classpathentry kind="var" path="M2_REPO/commons-codec/commons-codec/1.9/commons-codec-1.9.jar"/>
+  <classpathentry kind="var" path="M2_REPO/commons-logging/commons-logging/1.1.1/commons-logging-1.1.1.jar"/>
+  <classpathentry kind="var" path="M2_REPO/org/apache/httpcomponents/httpcore/4.4/httpcore-4.4.jar"/>
+  <classpathentry kind="var" path="M2_REPO/org/apache/httpcomponents/httpclient/4.4/httpclient-4.4.jar"/>
+  <classpathentry kind="var" path="M2_REPO/org/json/json/20141113/json-20141113.jar"/>
+  <classpathentry kind="var" path="M2_REPO/org/skyscreamer/jsonassert/1.2.3/jsonassert-1.2.3.jar"/>
 </classpath>

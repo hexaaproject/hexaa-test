@@ -103,7 +103,7 @@ public class DataProp implements DataLoader {
 	 */
 	private void load() {
 		if (this.isEmpty()) {
-			loadFromFile("config.properties");
+			loadFromFile("config/config.properties");
 			//			loadFromFile("statusline.properties");
 		}		
 	}
