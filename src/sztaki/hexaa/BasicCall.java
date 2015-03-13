@@ -252,7 +252,7 @@ public class BasicCall {
 	}
 
 	/**
-	 * The headers of the last call, null before any call was made and maybe
+	 * The headers of the last call, null before any call were made and can be
 	 * null if the call request fails.
 	 */
 	private Header[] headers = null;
@@ -275,13 +275,15 @@ public class BasicCall {
 
 	/**
 	 * The servers last response. It can be string, jsonobject or jsonarray. Can
-	 * be null only before any call happened.
+	 * be null only before any call happened. Can be empty string.
 	 */
 	protected Object response = null;
 
 	/**
 	 * Parses the parameter string to jsonobject, jsonarray or string, and
-	 * stores it as the response Object, returns this object as well.
+	 * stores it as the response Object, returns this object as well. Calls the
+	 * {@link recursiveJSONManipulator(Object object)} to execute the proper
+	 * functions on the response data.
 	 * 
 	 * @param responseDataString
 	 *            String to parse and store it as the response Object.
@@ -559,8 +561,6 @@ public class BasicCall {
 		System.out.print("GET \t");
 		System.out.print(uri);
 
-		// Getting the response from the server, this is
-		// wrapped in the javahttputility.core package
 		HttpGet httpAction = new HttpGet(uri);
 		httpAction = (HttpGet) createAction(httpAction, uri);
 
@@ -589,8 +589,6 @@ public class BasicCall {
 		System.out.print("POST \t");
 		System.out.print(uri);
 
-		// Getting the response from the server, this is
-		// wrapped in the javahttputility.core package
 		HttpPost httpAction = new HttpPost(uri);
 		httpAction = (HttpPost) createAction(httpAction, uri);
 		if (json != null) {
@@ -621,8 +619,6 @@ public class BasicCall {
 		System.out.print("PUT \t");
 		System.out.print(uri);
 
-		// Getting the response from the server, this is
-		// wrapped in the javahttputility.core package
 		HttpPut httpAction = new HttpPut(uri);
 		httpAction = (HttpPut) createAction(httpAction, uri);
 		if (json != null) {
@@ -653,8 +649,6 @@ public class BasicCall {
 		System.out.print("DELETE \t");
 		System.out.print(uri);
 
-		// Getting the response from the server, this is
-		// wrapped in the javahttputility.core package
 		HttpDelete httpAction = new HttpDelete(uri);
 		httpAction = (HttpDelete) createAction(httpAction, uri);
 
@@ -682,8 +676,6 @@ public class BasicCall {
 		System.out.print("PATCH \t");
 		System.out.print(uri);
 
-		// Getting the response from the server, this is
-		// wrapped in the javahttputility.core package
 		HttpPatch httpAction = new HttpPatch(uri);
 		httpAction = (HttpPatch) createAction(httpAction, uri);
 		if (json != null) {
@@ -972,11 +964,13 @@ public class BasicCall {
 	 * 
 	 * @param fedid
 	 *            the fedid to authenticate with, normally the fedid is the
-	 *            {@link new DataProp().getString("HEXAA_FEDID")}, if not use a valid e-mail format.
+	 *            {@link new DataProp().getString("HEXAA_FEDID")}, if not use a
+	 *            valid e-mail format.
 	 * @return
 	 */
 	public int authenticate(String fedid) {
-		return this.authenticate(fedid, new DataProp().getString("MASTER_SECRET"));
+		return this.authenticate(fedid,
+				new DataProp().getString("MASTER_SECRET"));
 	}
 
 	/**
@@ -987,7 +981,8 @@ public class BasicCall {
 	 *
 	 * @param fedid
 	 *            the fedid to authenticate with, normally the fedid is the
-	 *            {@link new DataProp().getString("HEXAA_FEDID")}, if not use a valid e-mail format.
+	 *            {@link new DataProp().getString("HEXAA_FEDID")}, if not use a
+	 *            valid e-mail format.
 	 */
 	public int authenticate(String fedid, String secret) {
 
