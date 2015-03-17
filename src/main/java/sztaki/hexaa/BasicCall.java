@@ -517,7 +517,9 @@ public class BasicCall {
 	 *         can be empty string.
 	 */
 	protected Object callSwitch(REST restCall) {
-		CoverageChecker.checkout(restCall + " " + path + " ");
+		if (new DataProp().getString("coverage_checker").equals("true")) {
+			CoverageChecker.checkout(restCall + " " + path + " ");
+		}
 
 		// Resets the local variables in case the class is used in a static
 		// instance

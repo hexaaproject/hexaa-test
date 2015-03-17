@@ -115,7 +115,7 @@ public class CoverageChecker {
 		boolean rewriteNeeded = remainingCalls.remove(s);
 
 		if (rewriteNeeded == true) {
-			File f = new File("apicalllist.txt");
+			File f = new File("target/not_called_list.txt");
 			FileWriter fw = null;
 			try {
 				fw = new FileWriter(f, false);
@@ -131,7 +131,7 @@ public class CoverageChecker {
 		if (!alreadyCalled.contains(s)) {
 			alreadyCalled.add(s);
 
-			File f = new File("apicalledlist.txt");
+			File f = new File("target/called_list.txt");
 			FileWriter fw = null;
 			try {
 				fw = new FileWriter(f, true);
