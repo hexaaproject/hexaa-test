@@ -37,7 +37,10 @@ public class CoverageChecker {
 		remainingCalls = new ArrayList<>();
 		alreadyCalled = new ArrayList<String>();
 
-		File notcalled = new File("apicalllist.txt");
+		File target = new File("target");
+		target.mkdir();
+		
+		File notcalled = new File("target/not_called_list.txt");
 
 		if (!notcalled.exists()) {
 			try {
@@ -45,14 +48,14 @@ public class CoverageChecker {
 				OutputStream out = new FileOutputStream(notcalled);
 				Files.copy(
 						FileSystems.getDefault()
-								.getPath("apicalllist_dist.txt"), out);
+								.getPath("config/call_list_dist.txt"), out);
 			} catch (IOException ex) {
 				// TODO IOException
 				return;
 			}
 		}
 
-		File called = new File("apicalledlist.txt");
+		File called = new File("target/called_list.txt");
 		if (!called.exists()) {
 			try {
 				notcalled.createNewFile();
