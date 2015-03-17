@@ -1,12 +1,4 @@
 /bin/
-/bin*/
-/nbproject/
-/dist/
-/build/
-build.xml
-build (copy).xml
-build.xml~
 /target/
-alternate_build.xml
 /config/config.properties
 
