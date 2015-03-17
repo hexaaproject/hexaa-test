@@ -8,4 +8,5 @@ build (copy).xml
 build.xml~
 /target/
 alternate_build.xml
-/config
+/config/config.properties
+
