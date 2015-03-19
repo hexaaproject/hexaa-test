@@ -65,9 +65,9 @@ public abstract class BasicTestSuite {
 	 */
 	@AfterClass
 	public static void cleanUp() {
-		if (CLEANUP_NEEDED) {
-			new DatabaseManipulator().dropDatabase();
+//		if (CLEANUP_NEEDED) {
+//			new DatabaseManipulator().dropDatabase();
 			CoverageChecker.printout();
-		}
+//		}
 	}
 }
