@@ -6,12 +6,14 @@ import org.junit.runners.Suite;
 import sztaki.hexaa.BasicTestSuite;
 
 /**
- * The zero level of the differentiated tests. These tests only searching for
- * server disfunctionality of security issues with non existing url's. Failed
- * test in this suite may caused by bad server configuration.
+ * The first level of the differentiated tests. These tests only rely on basic
+ * server functionality and the existence and availability of entityids. Failed
+ * test in this suite may cause tests in the later suites to fail.
  */
 @RunWith(Suite.class)
-@Suite.SuiteClasses({ sztaki.hexaa.AllIsEmptyMethodNotAllowedParallelTest.class, })
+@Suite.SuiteClasses({
+		sztaki.hexaa.apicalls.MethodNotAllowedTest.class,
+		sztaki.hexaa.AllIsEmptyTests.class, })
 public class Level0TestSuite extends BasicTestSuite {
 
 }

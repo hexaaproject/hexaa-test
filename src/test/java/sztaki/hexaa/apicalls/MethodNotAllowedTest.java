@@ -1,8 +1,12 @@
-package sztaki.hexaa;
+package sztaki.hexaa.apicalls;
 
 import static org.junit.Assert.assertEquals;
 
 import org.junit.Test;
+
+import sztaki.hexaa.BasicCall;
+import sztaki.hexaa.Const;
+import sztaki.hexaa.NormalTest;
 
 /**
  * Tests all the possible uri-s for the not existing methods to check that there

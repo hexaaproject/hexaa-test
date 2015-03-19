@@ -16,7 +16,7 @@ public class AllIsEmptyMethodNotAllowedParallelTest extends CleanTest {
 			sztaki.hexaa.apicalls.principals.PrincipalIsEmptyTest.class,
 			sztaki.hexaa.apicalls.roles.RolesIsEmptyTest.class,
 			sztaki.hexaa.apicalls.services.ServicesIsEmptyTest.class,
-			sztaki.hexaa.MethodNotAllowedTest.class, };
+			sztaki.hexaa.apicalls.MethodNotAllowedTest.class, };
 
 	@Test
 	public void ParallelTests() {	// Good luck using the std output for any kind of debugging, haha
