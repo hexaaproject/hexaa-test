@@ -55,10 +55,10 @@ public class TagsGetTest extends NormalTest {
 			fail("Utility.Create.securitydomain(\"TagsGetTest_sd1\", \"otherMasterKey\", \"This is a security domain to test the capability of posting one.\"); did not succeed");
 		}
 
-		services = Utility.Create.service("TagsGetTest_service1",
-				new String[] { "randomTag" });
+		services = Utility.Create.service("TagsGetTest_service1", new String[] {
+				"randomTag1", "randomTag2" });
 		if (services.length() < 1) {
-			fail("Utility.Create.service(\"TagsGetTest_service1\", new String[] {\"randomTag\"}); did not succeed");
+			fail("Utility.Create.service(\"TagsGetTest_service1\", new String[] {\"randomTag1\", \"randomTag2\"}); did not succeed");
 		}
 
 		entitlementpacks = Utility.Create.entitlementpacksPrivate(services
@@ -69,9 +69,9 @@ public class TagsGetTest extends NormalTest {
 		}
 
 		organizations = Utility.Create.organization("TagsGetTest_org1",
-				new String[] { "randomTag" });
+				new String[] { "randomTag1", "randomTag2" });
 		if (organizations.length() < 1) {
-			fail("Utility.Create.organization(\"TagsGetTest_org1\", new String[] {\"randomTag\"}); did not succeed");
+			fail("Utility.Create.organization(\"TagsGetTest_org1\", new String[] {\"randomTag1\", \"randomTag2\"}); did not succeed");
 		}
 	}
 
@@ -83,16 +83,15 @@ public class TagsGetTest extends NormalTest {
 		System.out.println("TearDownClass: "
 				+ TagsGetTest.class.getSimpleName());
 		for (int i = 0; i < organizations.length(); i++) {
-			Utility.Remove
-					.organization(organizations.getJSONObject(i).getInt("id"));
+			Utility.Remove.organization(organizations.getJSONObject(i).getInt(
+					"id"));
 		}
 		for (int i = 0; i < entitlementpacks.length(); i++) {
-			Utility.Remove
-					.entitlementpack(entitlementpacks.getJSONObject(i).getInt("id"));
+			Utility.Remove.entitlementpack(entitlementpacks.getJSONObject(i)
+					.getInt("id"));
 		}
 		for (int i = 0; i < services.length(); i++) {
-			Utility.Remove
-					.service(services.getJSONObject(i).getInt("id"));
+			Utility.Remove.service(services.getJSONObject(i).getInt("id"));
 		}
 		for (int i = 0; i < domains.length(); i++) {
 			Utility.Remove
@@ -113,14 +112,15 @@ public class TagsGetTest extends NormalTest {
 		}
 
 		try {
-			assertEquals("randomTag",jsonResponse.getJSONObject(0).getString("name"));
-		} catch (AssertionError e){
+			assertEquals("randomTag1",
+					jsonResponse.getJSONObject(0).getString("name"));
+		} catch (AssertionError e) {
 			AssertErrorHandler(e);
 		}
 
 		try {
-			jsonResponse = persistent.getResponseJSONArray(Const.Api.ENTITLEMENTPACKS_PUBLIC,
-					BasicCall.REST.GET);
+			jsonResponse = persistent.getResponseJSONArray(
+					Const.Api.ENTITLEMENTPACKS_PUBLIC, BasicCall.REST.GET);
 		} catch (ResponseTypeMismatchException ex) {
 			fail(ex.getFullMessage());
 			return;
@@ -128,12 +128,9 @@ public class TagsGetTest extends NormalTest {
 
 		try {
 			JSONAssert.assertEquals(entitlementpacks, jsonResponse, false);
-		} catch (AssertionError e){
+		} catch (AssertionError e) {
 			AssertErrorHandler(e);
 		}
-		
-		
-		
 
 	}
 }
