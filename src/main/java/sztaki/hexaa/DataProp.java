@@ -109,9 +109,9 @@ public class DataProp implements DataLoader {
 	}
 
 	/**
-	 * Returns true if the data is not loaded.
+	 * Returns if the database instance is empty.
 	 * 
-	 * @return
+	 * @return boolean
 	 */
 	private boolean isEmpty() {
 		return instance.isEmpty();

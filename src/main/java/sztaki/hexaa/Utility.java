@@ -202,9 +202,9 @@ public class Utility {
 		}
 
 		/**
-		 * Alternative call for {@link attributevalueprincipal(String[] values,
-		 * int asid, int[] services)} for single attributevalueorganization
-		 * creation.
+		 * Alternative call for
+		 * {@link #attributevalueprincipal(String[] values, int asid, int[] services)}
+		 * for single attributevalueorganization creation.
 		 *
 		 * @param value
 		 *            the value to create attributevalueprincipals with.
@@ -220,9 +220,9 @@ public class Utility {
 		}
 
 		/**
-		 * Alternative call for {@link attributevalueprincipal(String[] values,
-		 * int asid, int[] services)} for single attributevalueorganization
-		 * creation.
+		 * Alternative call for
+		 * {@link #attributevalueprincipal(String[] values, int asid, int[] services)}
+		 * for single attributevalueorganization creation.
 		 *
 		 * @param values
 		 *            the values to create attributevalueprincipals with.
@@ -238,9 +238,9 @@ public class Utility {
 		}
 
 		/**
-		 * Alternative call for {@link attributevalueprincipal(String[] values,
-		 * int asid, int[] services)} for single attributevalueorganization
-		 * creation.
+		 * Alternative call for
+		 * {@link #attributevalueprincipal(String[] values, int asid, int[] services)}
+		 * for single attributevalueorganization creation.
 		 *
 		 * @param value
 		 *            the value to create attributevalueprincipals with.
@@ -258,14 +258,9 @@ public class Utility {
 					services);
 		}
 
-		public static JSONArray attributespec(String[] url, String maintainer) {
-			return attributespec(url, maintainer, true);
-		}
-
 		/**
-		 * Creates as many attributespecs as many oid is specified in the oids
-		 * String array. Returns them as a JSONArray. Can create attributespecs
-		 * with unique oids only.
+		 * Creates attributespecs with all the specified url. The urls should be
+		 * unique.
 		 *
 		 * @param url
 		 *            a String array representation of the names to create
@@ -274,17 +269,13 @@ public class Utility {
 		 *            String should be user or manager according to the usage:
 		 *            use the user if it is used by a principal, use manager if
 		 *            it is used by an organization.
-		 * @return JSONArray with all the created attributespecs in it.
+		 * @param is_multivalue
+		 *            boolean, sets the multivalue parameter.
+		 * @return JSONArray containing all the created attributespecs.
 		 */
 		public static JSONArray attributespec(String[] url, String maintainer,
 				boolean is_multivalue) {
 			JSONArray attributespecs = new JSONArray();
-
-			// for (int i = 0; i < oids.length; i++) {
-			// if (oids[i].length() <= 3) {
-			// oids[i] = "oid".concat(oids[i]);
-			// }
-			// }
 
 			for (String oid : url) {
 				JSONObject json = new JSONObject();
@@ -317,21 +308,39 @@ public class Utility {
 		}
 
 		/**
-		 * Alternative call for {@link attributespec(String[] oids)} for single
-		 * attributespec creation.
+		 * Alternative call for
+		 * {@link #attributespec(String[], String, boolean)} for single
+		 * attributespec creation. The is_multivalue parameter is true by
+		 * default. Legacy uses.
 		 *
 		 * @param url
-		 *            the names to create attributespec with. If it is less than
-		 *            3 character "oid" will be concatenated to the beginning of
-		 *            the string.
-		 * @param user
+		 *            the name to create attributespec with.
+		 * @param maintainer
 		 *            String should be user or manager according to the usage:
 		 *            use the user if it is used by a principal, use manager if
 		 *            it is used by an organization.
 		 * @return JSONArray with the created attributespec in it.
 		 */
-		public static JSONArray attributespec(String url, String user) {
-			return attributespec(new String[] { url }, user, true);
+		public static JSONArray attributespec(String[] url, String maintainer) {
+			return attributespec(url, maintainer, true);
+		}
+
+		/**
+		 * Alternative call for
+		 * {@link #attributespec(String[], String, boolean)} for single
+		 * attributespec creation. The is_multivalue parameter is true by
+		 * default. Legacy uses.
+		 *
+		 * @param url
+		 *            the name to create attributespec with.
+		 * @param maintainer
+		 *            String should be user or manager according to the usage:
+		 *            use the user if it is used by a principal, use manager if
+		 *            it is used by an organization.
+		 * @return JSONArray with the created attributespec in it.
+		 */
+		public static JSONArray attributespec(String url, String maintainer) {
+			return attributespec(new String[] { url }, maintainer, true);
 		}
 
 		/**
@@ -352,8 +361,8 @@ public class Utility {
 
 				// Creating the entitlement object
 				JSONObject json = new JSONObject();
-				json.put("uri", new DataProp().getString("URI_PREFIX") + Integer.toString(serviceId)
-						+ ":" + "testUri" + name);
+				json.put("uri", new DataProp().getString("URI_PREFIX")
+						+ Integer.toString(serviceId) + ":" + "testUri" + name);
 				json.put("name", name);
 				json.put("description", "This is a test entitlement, for the #"
 						+ Integer.toString(serviceId) + " service, with name "
@@ -382,8 +391,9 @@ public class Utility {
 		}
 
 		/**
-		 * Alternative call for {@link entitlements(int serviceId, String[]
-		 * names)} for single entitlement.
+		 * Alternative call for
+		 * {@link #entitlements(int serviceId, String[] names)} for single
+		 * entitlement.
 		 *
 		 * @param serviceId
 		 *            the id for the service.
@@ -412,6 +422,8 @@ public class Utility {
 		 *            the id for the service.
 		 * @param names
 		 *            array of strings with the names of the objects to create.
+		 * @param isPublic
+		 *            boolean, sets the type parameter to public if true.
 		 * @return JSONArray with the created entitlementpacks.
 		 */
 		public static JSONArray entitlementpacks(int serviceId, String[] names,
@@ -451,8 +463,9 @@ public class Utility {
 		}
 
 		/**
-		 * Alternative call for {@link entitlementpacks(int serviceId, String[]
-		 * names)} for single entitlementpack.
+		 * Alternative call for
+		 * {@link #entitlementpacks(int serviceId, String[] names)} for single
+		 * entitlementpack.
 		 *
 		 * @param serviceId
 		 *            the id for the service.
@@ -700,7 +713,7 @@ public class Utility {
 		 * 
 		 * @param name
 		 *            String, required, name of the organization.
-		 * @param isolate_members
+		 * @param isolate_role_members
 		 *            boolean, omitted if false, if true members can't see the
 		 *            member list.
 		 * @return JSONObject, representing the created organization.
@@ -717,15 +730,14 @@ public class Utility {
 
 		/**
 		 * Creates one organization. Names should be unique. Alternative method
-		 * for {@link organization(String name, String url, int default_role,
-		 * boolean isolate_members, boolean isolate_role_members, String
-		 * description, String[] tags)}.
+		 * for
+		 * {@link #organization(String name, String url, int default_role, boolean isolate_members, boolean isolate_role_members, String description, String[] tags)}
+		 * .
 		 * 
 		 * @param name
 		 *            String, required, name of the organization.
-		 * @param isolate_members
-		 *            boolean, omitted if false, if true members can't see the
-		 *            member list.
+		 * @param tags
+		 *            String array, tags to use the organization with.
 		 * @return JSONObject, representing the created organization.
 		 */
 		public static JSONArray organization(String name, String[] tags) {
@@ -999,8 +1011,10 @@ public class Utility {
 		 * existing services, as it will cause 400 Bad Requests and will fail
 		 * the test class.
 		 *
-		 * @param names
-		 *            array of strings with the names of the services to create.
+		 * @param name
+		 *            String, the name of the service to create.
+		 * @param tags
+		 *            String array, tags to use with the service.
 		 * @return A JSONArray populated by the data of the created services.
 		 */
 		public static JSONArray service(String name, String[] tags) {
@@ -1077,9 +1091,9 @@ public class Utility {
 		}
 
 		/**
-		 * Alternative call for {@link (boolean enable_entitlements, int[]
-		 * enable_attribute_specs, int principal, int service)} for the current
-		 * principal.
+		 * Alternative call for
+		 * {@link #consent(boolean enable_entitlements, int[] enable_attribute_specs, int principal, int service)}
+		 * for the current principal.
 		 * 
 		 * @param enable_entitlements
 		 *            boolean to enable entitlements.
@@ -1104,7 +1118,7 @@ public class Utility {
 		 *            required, need to be set in the app/config/parameters.yml.
 		 * @param description
 		 *            optional, description of this security domain.
-		 * @return
+		 * @return JSONArray containing the created securitydomain.
 		 */
 		public static JSONArray securitydomain(String name, String scoped_key,
 				String description) {
@@ -1308,8 +1322,9 @@ public class Utility {
 		}
 
 		/**
-		 * Alternative for the {@link entitlementpackToOrgByToken(int orgID,
-		 * String[] tokens)} for single entitlementpack.
+		 * Alternative for the
+		 * {@link #entitlementpackToOrgByToken(int orgID, String[] tokens)} for
+		 * single entitlementpack.
 		 *
 		 * @param orgID
 		 *            the id of the organization to link.
@@ -1338,8 +1353,8 @@ public class Utility {
 		}
 
 		/**
-		 * Alternative call for {@link entitlementsToRole(int roleId, int[]
-		 * entitlementIds)}.
+		 * Alternative call for
+		 * {@link #entitlementsToRole(int roleId, int[] entitlementIds)}.
 		 *
 		 * @param roleId
 		 *            the id of the role to link to.
@@ -1435,8 +1450,9 @@ public class Utility {
 		}
 
 		/**
-		 * Alternative for the {@link attributespecsToService(int serviceId,
-		 * int[] attributeIds)} for single attribute.
+		 * Alternative for the
+		 * {@link #attributespecsToService(int serviceId, int[] attributeIds, boolean isPublic)}
+		 * for single attribute.
 		 *
 		 * @param serviceId
 		 *            the id of the service to link to.
@@ -1499,8 +1515,8 @@ public class Utility {
 		}
 
 		/**
-		 * Alternative call for {@link managersToService(int serviceId, int[]
-		 * principalIds)}.
+		 * Alternative call for
+		 * {@link #managersToService(int serviceId, int[] principalIds)}.
 		 *
 		 * @param serviceID
 		 *            id of the service.
@@ -1537,8 +1553,9 @@ public class Utility {
 		}
 
 		/**
-		 * Alternative for the {@link principalToRole(int roleId, int[]
-		 * principalIds)} for single principal.
+		 * Alternative for the
+		 * {@link #principalToRole(int roleId, int[] principalIds)} for single
+		 * principal.
 		 *
 		 * @param roleId
 		 *            the id of the role to link.
@@ -1609,8 +1626,9 @@ public class Utility {
 		}
 
 		/**
-		 * Alternative for the {@link memberToOrganization(int orgId, int[]
-		 * principalIds)} for single principal.
+		 * Alternative for the
+		 * {@link #memberToOrganization(int orgId, int[] principalIds)} for
+		 * single principal.
 		 *
 		 * @param orgId
 		 *            the id of the organization to link.
@@ -1656,8 +1674,9 @@ public class Utility {
 		}
 
 		/**
-		 * Alternative for the {@link managerToOrganization(int orgId, int[]
-		 * principalIds)} for single principal.
+		 * Alternative for the
+		 * {@link #managerToOrganization(int orgId, int[] principalIds)} for
+		 * single principal.
 		 *
 		 * @param orgId
 		 *            the id of the organization to link.
@@ -1717,7 +1736,7 @@ public class Utility {
 		}
 
 		/**
-		 * Alternative for the {@link attributevalueorganization(int[] orgIDs)}
+		 * Alternative for the {@link #attributevalueorganization(int[] orgIDs)}
 		 * for single attributevalues.
 		 *
 		 * @param avoID
@@ -1741,8 +1760,8 @@ public class Utility {
 		}
 
 		/**
-		 * Alternative for the {@link attributevalueprincipal(int[] avpIDs)} for
-		 * single attributevalues.
+		 * Alternative for the {@link #attributevalueprincipal(int[] avpIDs)}
+		 * for single attributevalues.
 		 *
 		 * @param avpID
 		 *            attributevalue id.
@@ -1752,10 +1771,10 @@ public class Utility {
 		}
 
 		/**
-		 * Removes attributevalue for organization if exist.
+		 * Removes consent if exist.
 		 *
-		 * @param avoIDs
-		 *            array of attributevalue ids.
+		 * @param consent_id
+		 *            int, id of consent to remove.
 		 */
 		public static void consent(int consent_id) {
 			persistent.call(Const.Api.CONSENTS_ID, BasicCall.REST.DELETE, null,
@@ -1765,8 +1784,8 @@ public class Utility {
 		/**
 		 * Removes invitation if exist.
 		 *
-		 * @param avoIDs
-		 *            array of invitation ids.
+		 * @param invitation_id
+		 *            int, id of invitation to remove.
 		 */
 		public static void invitation(int invitation_id) {
 			persistent.call(Const.Api.INVITATIONS_ID, BasicCall.REST.DELETE,
@@ -1790,8 +1809,9 @@ public class Utility {
 		}
 
 		/**
-		 * Alternative for the {@link principalFromRole(int roleId, int[]
-		 * principalIds)} for single principal.
+		 * Alternative for the
+		 * {@link #principalFromRole(int roleId, int[] principalIds)} for single
+		 * principal.
 		 *
 		 * @param roleId
 		 *            the id of the role to link.
@@ -1820,8 +1840,9 @@ public class Utility {
 		}
 
 		/**
-		 * Alternative for the {@link entitlementpackFromOrg(int orgId, int[]
-		 * packIds)} for single principal.
+		 * Alternative for the
+		 * {@link #entitlementpackFromOrg(int orgId, int[] packIds)} for single
+		 * principal.
 		 *
 		 * @param orgId
 		 *            the id of the organization to link.
@@ -1849,7 +1870,7 @@ public class Utility {
 		}
 
 		/**
-		 * Alternative for the {@link attributespec(int[] asIDs)} for single
+		 * Alternative for the {@link #attributespec(int[] asIDs)} for single
 		 * attributespec.
 		 *
 		 * @param asID
@@ -1889,7 +1910,7 @@ public class Utility {
 		}
 
 		/**
-		 * Alternative for the {@link attributespec(int[] asIDs)} for single
+		 * Alternative for the {@link #attributespec(int[] asIDs)} for single
 		 * organization.
 		 *
 		 * @param orgID
@@ -1913,7 +1934,7 @@ public class Utility {
 		}
 
 		/**
-		 * Alternative for the {@link attributespec(int[] asIDs)} for single
+		 * Alternative for the {@link #attributespec(int[] asIDs)} for single
 		 * service.
 		 *
 		 * @param serviceID
@@ -2003,7 +2024,7 @@ public class Utility {
 		}
 
 		/**
-		 * Alternative call for {@link members(int[] orgIDs, int[] pIDs)}.
+		 * Alternative call for {@link #members(int[] orgIDs, int[] pIDs)}.
 		 *
 		 * @param orgID
 		 *            the id of the organization to remove from.
@@ -2015,7 +2036,7 @@ public class Utility {
 		}
 
 		/**
-		 * Alternative call for {@link members(int[] orgIDs, int[] pIDs)}.
+		 * Alternative call for {@link #members(int[] orgIDs, int[] pIDs)}.
 		 *
 		 * @param orgIDs
 		 *            the id of the organization to remove from.
@@ -2027,7 +2048,7 @@ public class Utility {
 		}
 
 		/**
-		 * Alternative call for {@link members(int[] orgIDs, int[] pIDs)}.
+		 * Alternative call for {@link #members(int[] orgIDs, int[] pIDs)}.
 		 *
 		 * @param orgID
 		 *            the id of the organization to remove from.
@@ -2056,7 +2077,7 @@ public class Utility {
 		}
 
 		/**
-		 * Alternative call for {@link managers(int[] orgIDs, int[] pIDs)}.
+		 * Alternative call for {@link #managers(int[] orgIDs, int[] pIDs)}.
 		 *
 		 * @param orgID
 		 *            the id of the organization to remove from.
@@ -2068,7 +2089,7 @@ public class Utility {
 		}
 
 		/**
-		 * Alternative call for {@link managers(int[] orgIDs, int[] pIDs)}.
+		 * Alternative call for {@link #managers(int[] orgIDs, int[] pIDs)}.
 		 *
 		 * @param orgIDs
 		 *            the id of the organization to remove from.
@@ -2080,7 +2101,7 @@ public class Utility {
 		}
 
 		/**
-		 * Alternative call for {@link managers(int[] orgIDs, int[] pIDs)}.
+		 * Alternative call for {@link #managers(int[] orgIDs, int[] pIDs)}.
 		 *
 		 * @param orgID
 		 *            the id of the organization to remove from.
@@ -2109,7 +2130,7 @@ public class Utility {
 		}
 
 		/**
-		 * Alternative call for {@link roles(int[] roleIDs)}.
+		 * Alternative call for {@link #roles(int[] roleIDs)}.
 		 *
 		 * @param roleID
 		 *            the id of the role to delete.
@@ -2150,8 +2171,8 @@ public class Utility {
 		}
 
 		/**
-		 * Alternative call for {@link entitlementFromPack(int[] packIDs, int[]
-		 * eIDs)}.
+		 * Alternative call for
+		 * {@link #entitlementFromPack(int[] packIDs, int[] eIDs)}.
 		 *
 		 * @param packID
 		 *            id of the entitlementpack.
@@ -2179,8 +2200,8 @@ public class Utility {
 		}
 
 		/**
-		 * Alternative call for {@link managerFromService(int serviceID, int[]
-		 * pIDs)}
+		 * Alternative call for
+		 * {@link #managerFromService(int serviceID, int[] pIDs)}
 		 *
 		 * @param serviceID
 		 *            id of the service.
@@ -2207,8 +2228,8 @@ public class Utility {
 		}
 
 		/**
-		 * Alternative call for {@link entitlementFromRole(int roleID, int[]
-		 * entitlementIDs)}.
+		 * Alternative call for
+		 * {@link #entitlementFromRole(int roleID, int[] entitlementIDs)}.
 		 *
 		 * @param roleID
 		 *            the id of the role.

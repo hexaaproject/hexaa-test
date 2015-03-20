@@ -98,6 +98,7 @@ public class NormalTest {
 		 * Overriden from ErrorCollector.
 		 *
 		 * @throws Throwable
+		 *             throws the collected errors.
 		 */
 		@Override
 		public void verify() throws Throwable {
@@ -108,6 +109,7 @@ public class NormalTest {
 		 * Overriden from ErrorCollector.
 		 *
 		 * @param e
+		 *            Throwable, collects and stores the caught errors.
 		 */
 		@Override
 		public void addError(Throwable e) {

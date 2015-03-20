@@ -30,14 +30,10 @@ public final class DatabaseManipulator {
 						.exec(new String[] { "/var/lib/jenkins/databasedrop.sh" });
 			} else {
 				// Call for server side script remotely
-				proc = rt
-						.exec(new String[] {
-								"ssh",
-								"root@"
-										+ new DataProp()
-												.getString("HEXAA_HOST"), "-p",
-								new DataProp().getString("SSH_PORT"),
-								"~/databasedrop.sh" });
+				proc = rt.exec(new String[] { "ssh",
+						"root@" + new DataProp().getString("HEXAA_HOST"), "-p",
+						new DataProp().getString("SSH_PORT"),
+						"~/databasedrop.sh" });
 			}
 
 			// any error message?
@@ -79,9 +75,14 @@ public final class DatabaseManipulator {
 						.exec(new String[] { "/var/lib/jenkins/cachedrop.sh" });
 			} else {
 				// Call for server side script remotely
-				proc = rt.exec(new String[] { "ssh",
-						"root@" + new DataProp().getString("HEXAA_HOST"), "-p",
-						new DataProp().getString("SSH_PORT"), "~/cachedrop.sh" });
+				proc = rt
+						.exec(new String[] {
+								"ssh",
+								"root@"
+										+ new DataProp()
+												.getString("HEXAA_HOST"), "-p",
+								new DataProp().getString("SSH_PORT"),
+								"~/cachedrop.sh" });
 			}
 
 			// any error message?
@@ -109,8 +110,9 @@ public final class DatabaseManipulator {
 	// mysql --user=root --password=pass hexaa -e
 	// "SELECT enable_token FROM service;"
 	/**
-	 * Clears the cache and log directories on the server via a server side
-	 * script.
+	 * Gets the service enable token directly from the mysql database.
+	 * 
+	 * @return String, the one time use token to enable the service.
 	 */
 	public String getServiceEnableToken() {
 		String output = new String();

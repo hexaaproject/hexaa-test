@@ -47,7 +47,7 @@ public abstract class IsEmptyTest extends NormalTest {
 	 *            a REST call to be called.
 	 */
 	public void expectingNotFound(String constApi, REST rest) {
-		expectingNotFound(constApi,rest,false);
+		expectingNotFound(constApi, rest, false);
 	}
 
 	/**
@@ -58,14 +58,17 @@ public abstract class IsEmptyTest extends NormalTest {
 	 *            an URI on the host.
 	 * @param rest
 	 *            a REST call to be called.
+	 * @param isAdmin
+	 *            boolean, true if the call should be used as admin for the
+	 *            proper result
 	 */
 	public void expectingNotFound(String constApi, REST rest, boolean isAdmin) {
 		BasicCall expectingNotFoundCall = new BasicCall();
-		
+
 		if (isAdmin) {
 			expectingNotFoundCall.setAdmin();
 		}
-		
+
 		String stringResponse = expectingNotFoundCall.call(constApi, rest);
 		try {
 			assertEquals(Const.StatusLine.NotFound,
@@ -89,23 +92,25 @@ public abstract class IsEmptyTest extends NormalTest {
 	 */
 	public void expectingFedid(String constApi, REST rest) {
 		JSONCall expectingFedidCall = new JSONCall();
-		if (JSONParser.parseJSON(expectingFedidCall
-				.call(constApi, rest, BasicCall.HEXAA_ID)) instanceof JSONObject) {
+		if (JSONParser.parseJSON(expectingFedidCall.call(constApi, rest,
+				BasicCall.HEXAA_ID)) instanceof JSONObject) {
 			JSONObject jsonResponse;
 			try {
 				expectingFedidCall.setAdmin();
 				expectingFedidCall.setOffset(0);
-				jsonResponse = expectingFedidCall.getResponseJSONObject(constApi, rest,
-						BasicCall.HEXAA_ID);
+				jsonResponse = expectingFedidCall.getResponseJSONObject(
+						constApi, rest, BasicCall.HEXAA_ID);
 				if (jsonResponse.has("item_number")) {
 					if (Integer.valueOf(jsonResponse.get("item_number")
 							.toString()) > 0) {
 						try {
 							assertEquals(Const.StatusLine.OK,
 									expectingFedidCall.getStatusLine());
-							assertEquals(new DataProp().getString("HEXAA_FEDID"), jsonResponse
-									.getJSONArray("items").getJSONObject(0)
-									.getString("fedid"));
+							assertEquals(
+									new DataProp().getString("HEXAA_FEDID"),
+									jsonResponse.getJSONArray("items")
+											.getJSONObject(0)
+											.getString("fedid"));
 						} catch (AssertionError e) {
 							AssertErrorHandler(e);
 						}
@@ -128,13 +133,15 @@ public abstract class IsEmptyTest extends NormalTest {
 		} else {
 			JSONArray jsonArrayResponse;
 			try {
-				jsonArrayResponse = expectingFedidCall.getResponseJSONArray(constApi,
-						rest, BasicCall.HEXAA_ID);
+				jsonArrayResponse = expectingFedidCall.getResponseJSONArray(
+						constApi, rest, BasicCall.HEXAA_ID);
 				try {
 					assertEquals(Const.StatusLine.OK,
 							expectingFedidCall.getStatusLine());
-					assertEquals(new DataProp().getString("HEXAA_FEDID"), jsonArrayResponse
-							.getJSONObject(0).getString("fedid"));
+					assertEquals(
+							new DataProp().getString("HEXAA_FEDID"),
+							jsonArrayResponse.getJSONObject(0).getString(
+									"fedid"));
 				} catch (AssertionError e) {
 					AssertErrorHandler(e);
 				}
@@ -151,13 +158,15 @@ public abstract class IsEmptyTest extends NormalTest {
 		JSONObject jsonResponse;
 		try {
 			expectingZeroItemsCall.setOffset(0);
-			jsonResponse = expectingZeroItemsCall.getResponseJSONObject(constApi, rest);
+			jsonResponse = expectingZeroItemsCall.getResponseJSONObject(
+					constApi, rest);
 		} catch (ResponseTypeMismatchException ex) {
 			fail(ex.getFullMessage());
 			return;
 		}
 		try {
-			assertEquals(Const.StatusLine.OK, expectingZeroItemsCall.getStatusLine());
+			assertEquals(Const.StatusLine.OK,
+					expectingZeroItemsCall.getStatusLine());
 			assertEquals(0, jsonResponse.get("item_number"));
 			JSONAssert.assertEquals(new JSONArray(),
 					jsonResponse.getJSONArray("items"), false);

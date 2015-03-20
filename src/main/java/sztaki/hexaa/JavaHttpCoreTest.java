@@ -8,7 +8,7 @@ public class JavaHttpCoreTest {
 	/**
 	 * Main program starting point.
 	 *
-	 * @param args
+	 * @param args arguments not used.
 	 */
 	public static void main(String[] args) {
 

@@ -32,10 +32,8 @@ import org.json.JSONObject;
 import org.skyscreamer.jsonassert.JSONParser;
 
 /**
- * Support class that implements the 4 RESTful API calls. Can easily be expanded
- * if needed. The call methods with no String path parameters are Deprecated and
- * should NOT be used anymore, use the call methods WITH String path parameters.
- * Calling the child classes are not supported anymore.
+ * Support class that implements the 5 API calls, and provides further
+ * functionality for them.
  */
 public class BasicCall {
 
@@ -130,8 +128,7 @@ public class BasicCall {
 
 	/**
 	 * The relative path of the URI. Should be in /app.php/api/example or
-	 * /api/example.{_format} format. Advised to use the {@link Const.Api} for
-	 * the servers constants values.
+	 * /api/example.{_format} format.
 	 */
 	private String path = null;
 
@@ -139,6 +136,7 @@ public class BasicCall {
 	 * Sets the path.
 	 *
 	 * @param path
+	 *            String, the path to set.
 	 */
 	protected void setPath(String path) {
 		this.path = path;
@@ -153,6 +151,7 @@ public class BasicCall {
 	 * Sets the id.
 	 *
 	 * @param id
+	 *            int, the id to set, used to replace the {id} parts of the uri.
 	 */
 	protected void setId(int id) {
 		this.id = id;
@@ -168,6 +167,8 @@ public class BasicCall {
 	 * Sets the special id.
 	 *
 	 * @param sId
+	 *            int, the special id to set, used to replace the {sid}, {asid},
+	 *            {pid}, {eid} or {epid} parts of the uri.
 	 */
 	protected void setSId(int sId) {
 		this.sId = sId;
@@ -183,6 +184,8 @@ public class BasicCall {
 	 * Sets the JSON string.
 	 *
 	 * @param json
+	 *            String, the string representation of the json data as the
+	 *            payload of the html request.
 	 */
 	protected void setJson(String json) {
 		if (json == null) {
@@ -200,6 +203,7 @@ public class BasicCall {
 	 * Sets the fedid.
 	 *
 	 * @param fedid
+	 *            String, the fedid to replace the {fedid} part of the uri.
 	 */
 	protected void setFedid(String fedid) {
 		this.fedid = fedid;
@@ -214,6 +218,7 @@ public class BasicCall {
 	 * Sets the token.
 	 *
 	 * @param token
+	 *            String, the token to replace the {token} part of the uri.
 	 */
 	public void setToken(String token) {
 		this.token = token;
@@ -229,6 +234,7 @@ public class BasicCall {
 	 * Sets the token.
 	 *
 	 * @param email
+	 *            String, the email to replace the {email} part of the uri.
 	 */
 	public void setEmail(String email) {
 		this.email = email;
@@ -282,7 +288,7 @@ public class BasicCall {
 	/**
 	 * Parses the parameter string to jsonobject, jsonarray or string, and
 	 * stores it as the response Object, returns this object as well. Calls the
-	 * {@link recursiveJSONManipulator(Object object)} to execute the proper
+	 * {@link #recursiveJSONManipulator(Object object)} to execute the proper
 	 * functions on the response data.
 	 * 
 	 * @param responseDataString
@@ -354,15 +360,16 @@ public class BasicCall {
 	/**
 	 * Most basic call type, only use it for simple GET methods. Does not have a
 	 * fedid, json, id or sId, uses the default values: fedid - "fedid", json -
-	 * empty json, id - 0, sId - 0; with the method {@link call(String path,
-	 * REST restCall, String json, int id, int sId, String fedid)}.
+	 * empty json, id - 0, sId - 0; with the method
+	 * {@link #call(String path, REST restCall, String json, int id, int sId, String fedid)}
+	 * .
 	 *
 	 * @param path
 	 *            String, the relative path from the host.
 	 * @param restCall
 	 *            REST, the type of the call (GET,POST,PUT,PATCH,DELETE).
 	 * @return String, the content of the response for the call, for the Status
-	 *         Line/Code see {@link getStatusLine()}.
+	 *         Line/Code see {@link #getStatusLine()}.
 	 */
 	public String call(String path, REST restCall) {
 		return call(path, restCall, "", 0, 0, "fedid");
@@ -371,8 +378,8 @@ public class BasicCall {
 	/**
 	 * The normal call type for creation. Does not have a fedid, id or sId, uses
 	 * the default values: fedid - "fedid", id - 0, sId - 0; with the method
-	 * {@link call(String path, REST restCall, String json, int id, int sId,
-	 * String fedid)}.
+	 * {@link #call(String path, REST restCall, String json, int id, int sId, String fedid)}
+	 * .
 	 *
 	 * @param path
 	 *            String, the relative path from the host.
@@ -382,7 +389,7 @@ public class BasicCall {
 	 *            String, the json message for the http request's body in string
 	 *            format.
 	 * @return String, the content of the response for the call, for the Status
-	 *         Line/Code see {@link getStatusLine()}.
+	 *         Line/Code see {@link #getStatusLine()}.
 	 */
 	public String call(String path, REST restCall, String json) {
 		return call(path, restCall, json, 0, 0, "fedid");
@@ -391,8 +398,9 @@ public class BasicCall {
 	/**
 	 * The normal call type, use this for get calls with 1 required id. Does not
 	 * have a fedid, json or sId, uses the default values: fedid - "fedid", json
-	 * - empty json, sId - 0; with the method {@link call(String path, REST
-	 * restCall, String json, int id, int sId, String fedid)}.
+	 * - empty json, sId - 0; with the method
+	 * {@link #call(String path, REST restCall, String json, int id, int sId, String fedid)}
+	 * .
 	 *
 	 * @param path
 	 *            String, the relative path from the host.
@@ -401,7 +409,7 @@ public class BasicCall {
 	 * @param id
 	 *            int, the basic {id} in the urls.
 	 * @return String, the content of the response for the call, for the Status
-	 *         Line/Code see {@link getStatusLine()}.
+	 *         Line/Code see {@link #getStatusLine()}.
 	 */
 	public String call(String path, REST restCall, int id) {
 		return call(path, restCall, "", id, 0, "fedid");
@@ -409,9 +417,9 @@ public class BasicCall {
 
 	/**
 	 * The normal call type, use this for most calls. Does not have a fedid,
-	 * uses the default values: fedid - "fedid"; with the method {@link
-	 * call(String path, REST restCall, String json, int id, int sId, String
-	 * fedid)}.
+	 * uses the default values: fedid - "fedid"; with the method
+	 * {@link #call(String path, REST restCall, String json, int id, int sId, String fedid)}
+	 * .
 	 *
 	 * @param path
 	 *            String, the relative path from the host.
@@ -423,7 +431,7 @@ public class BasicCall {
 	 * @param id
 	 *            int, the basic {id} in the urls.
 	 * @return String, the content of the response for the call, for the Status
-	 *         Line/Code see {@link getStatusLine()}.
+	 *         Line/Code see {@link #getStatusLine()}.
 	 */
 	public String call(String path, REST restCall, String json, int id) {
 		return call(path, restCall, json, id, 0, "fedid");
@@ -432,8 +440,9 @@ public class BasicCall {
 	/**
 	 * The normal call type, use this for get calls with 2 required id. Does not
 	 * have a fedid or json payload, uses the default values: fedid - "fedid",
-	 * json - empty json; with the method {@link call(String path, REST
-	 * restCall, String json, int id, int sId, String fedid)}.
+	 * json - empty json; with the method
+	 * {@link #call(String path, REST restCall, String json, int id, int sId, String fedid)}
+	 * .
 	 *
 	 * @param path
 	 *            String, the relative path from the host.
@@ -444,7 +453,7 @@ public class BasicCall {
 	 * @param sId
 	 *            int, all the ids in the url other than {id} and {fedid}.
 	 * @return String, the content of the response for the call, for the Status
-	 *         Line/Code see {@link getStatusLine()}.
+	 *         Line/Code see {@link #getStatusLine()}.
 	 */
 	public String call(String path, REST restCall, int id, int sId) {
 		return call(path, restCall, "", id, sId, "fedid");
@@ -452,9 +461,9 @@ public class BasicCall {
 
 	/**
 	 * The normal call type, use this for most calls. Does not have a fedid,
-	 * uses the default values: fedid - "fedid"; with the method {@link
-	 * call(String path, REST restCall, String json, int id, int sId, String
-	 * fedid)}.
+	 * uses the default values: fedid - "fedid"; with the method
+	 * {@link #call(String path, REST restCall, String json, int id, int sId, String fedid)}
+	 * .
 	 *
 	 * @param path
 	 *            String, the relative path from the host.
@@ -468,7 +477,7 @@ public class BasicCall {
 	 * @param sId
 	 *            int, all the ids in the url other than {id} and {fedid}.
 	 * @return String, the content of the response for the call, for the Status
-	 *         Line/Code see {@link getStatusLine()}.
+	 *         Line/Code see {@link #getStatusLine()}.
 	 */
 	public String call(String path, REST restCall, String json, int id, int sId) {
 		return call(path, restCall, json, id, sId, "fedid");
@@ -476,8 +485,8 @@ public class BasicCall {
 
 	/**
 	 * Call with fedid provided. Use this only if fedid is necessary, otherwise
-	 * see {@link call(String path, REST restCall, String json, int id, int
-	 * sId)} and {@link String call(String path, REST restCall)}.
+	 * see {@link #call(String path, REST restCall, String json, int id, int sId)}
+	 * and {@link #call(String path, REST restCall)}.
 	 *
 	 * @param path
 	 *            String, the relative path from the host.
@@ -494,7 +503,7 @@ public class BasicCall {
 	 *            String, a special id used only in
 	 *            /api/principals/{fedid}/fedid
 	 * @return String, the content of the response for the call, for the Status
-	 *         Line/Code see {@link getStatusLine()}.
+	 *         Line/Code see {@link #getStatusLine()}.
 	 */
 	public String call(String path, REST restCall, String json, int id,
 			int sId, String fedid) {
@@ -695,11 +704,13 @@ public class BasicCall {
 
 	/* *** Utility methods *** */
 	/**
-	 * In the constans values of paths (found in {@link Const.Api}) the uris
-	 * only contains {id}/{sid}/etc tags the actual ids are replaced in the
-	 * original string here, and concats .json at the end as well.
+	 * Replaces the dummy data in the uri strings.
+	 * 
+	 * @param path
+	 *            String, the uri with dummy data. If there is no dummy data in
+	 *            the uri ({id},{token},etc) it is returned unchanged.
 	 *
-	 * @return
+	 * @return String, uri with proper data.
 	 */
 	private String fixPath(String path) {
 		if (path.startsWith("/api")) {
@@ -861,8 +872,12 @@ public class BasicCall {
 	/* *** HTTP Utility methods *** */
 	/**
 	 * Executes the provided action.
+	 * 
+	 * @param httpAction
+	 *            HttpMessage , a message that will be executed on a
+	 *            CloseableHttpClient.
 	 *
-	 * @return returns a CloseableHttpResponse
+	 * @return CloseableHttpResponse, the response of the executed httpAction.
 	 */
 	private CloseableHttpResponse execute(HttpMessage httpAction) {
 		CloseableHttpResponse response = null;
@@ -925,6 +940,8 @@ public class BasicCall {
 	 *            a HttpMessage, will be returned with set headers.
 	 * @param uri
 	 *            the uri of the HttpMessage to be built with.
+	 * 
+	 * @return HttpMessage, builds the httpAction properly.
 	 */
 	private HttpMessage createAction(HttpMessage httpAction, URI uri) {
 		if (uri != null) {
@@ -960,15 +977,17 @@ public class BasicCall {
 
 	/* *** Authentication methods *** */
 	/**
-	 * Alternative call for {@link authenticate(String fedid, String secret)}
+	 * Alternative call for {@link #authenticate(String fedid, String secret)}
 	 * for non differentiated master_secret authentications and legacy purposes.
-	 * Always uses the {@link new DataProp().getString("MASTER_SECRET")}.
+	 * Always uses the default mastersecret that can be reached with
+	 * DataProp().getString("MASTER_SECRET").
 	 * 
 	 * @param fedid
-	 *            the fedid to authenticate with, normally the fedid is the
-	 *            {@link new DataProp().getString("HEXAA_FEDID")}, if not use a
-	 *            valid e-mail format.
-	 * @return
+	 *            the fedid to authenticate with, the default hexaa_test admin
+	 *            fedid can be reached by DataProp().getString("HEXAA_FEDID"),
+	 *            if not use a valid e-mail format.
+	 * 
+	 * @return int, returns 1 in case of error, 0 otherwise.
 	 */
 	public int authenticate(String fedid) {
 		return this.authenticate(fedid,
@@ -982,9 +1001,14 @@ public class BasicCall {
 	 * in a valid e-mail format (some@thing.example).
 	 *
 	 * @param fedid
-	 *            the fedid to authenticate with, normally the fedid is the
-	 *            {@link new DataProp().getString("HEXAA_FEDID")}, if not use a
-	 *            valid e-mail format.
+	 *            the fedid to authenticate with, the default hexaa_test admin
+	 *            fedid can be reached by DataProp().getString("HEXAA_FEDID"),
+	 *            if not use a valid e-mail format.
+	 * 
+	 * @param secret
+	 *            String, the master secret to authenticate with.
+	 * 
+	 * @return int, returns 1 in case of error, 0 otherwise.
 	 */
 	public int authenticate(String fedid, String secret) {
 
@@ -1040,8 +1064,11 @@ public class BasicCall {
 
 	/**
 	 * Provides the necessary data and hashing for the temporal API key.
+	 * 
+	 * @param secret
+	 *            String, the master secret to authenticate with.
 	 *
-	 * @return String temporal API key for limited time of authentication.
+	 * @return String, temporal API key for limited time of authentication.
 	 */
 	public String getAPIKey(String secret) {
 		String timestamp = null;
