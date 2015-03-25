@@ -4,8 +4,6 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
  * Used to change the database through server side scripts, uses ssh connection
@@ -18,22 +16,25 @@ public final class DatabaseManipulator {
 	 * server side script.
 	 */
 	public void dropDatabase() {
+		DataLoader data = new DataProp();
+
 		try {
 
 			Runtime rt = Runtime.getRuntime();
 
 			Process proc;
 
-			if (new DataProp().getString("HEXAA_HOST").equals("localhost")) {
+			if (new DataProp().getString("ssh_host").equals("localhost")) {
 				// Call for server side script if it runs on the server
 				proc = rt
-						.exec(new String[] { "/var/lib/jenkins/databasedrop.sh" });
+						.exec(new String[] { data.getString("sh_dir") + "databasedrop.sh" });
 			} else {
 				// Call for server side script remotely
-				proc = rt.exec(new String[] { "ssh",
-						"root@" + new DataProp().getString("HEXAA_HOST"), "-p",
-						new DataProp().getString("SSH_PORT"),
-						"~/databasedrop.sh" });
+				proc = rt.exec(new String[] {
+						"ssh",
+						data.getString("ssh_user") + "@"
+								+ data.getString("ssh_host"), "-p",
+						data.getString("ssh_port"), "~/databasedrop.sh" });
 			}
 
 			// any error message?
@@ -53,8 +54,8 @@ public final class DatabaseManipulator {
 			System.out.println("ExitValue: " + exitVal);
 
 		} catch (IOException | InterruptedException ex) {
-			Logger.getLogger(DatabaseManipulator.class.getName()).log(
-					Level.SEVERE, null, ex);
+			System.err
+					.println("The ssh connection failed before or during removing the mysql database. The database integrity my be damaged.");
 		}
 	}
 
@@ -63,26 +64,25 @@ public final class DatabaseManipulator {
 	 * script.
 	 */
 	public void dropCache() {
+		DataLoader data = new DataProp();
+
 		try {
 
 			Runtime rt = Runtime.getRuntime();
 
 			Process proc;
 
-			if (new DataProp().getString("HEXAA_HOST").equals("localhost")) {
+			if (new DataProp().getString("ssh_host").equals("localhost")) {
 				// Call for server side script if it runs on the server
 				proc = rt
-						.exec(new String[] { "/var/lib/jenkins/cachedrop.sh" });
+						.exec(new String[] { data.getString("sh_dir") + "cachedrop.sh" });
 			} else {
 				// Call for server side script remotely
-				proc = rt
-						.exec(new String[] {
-								"ssh",
-								"root@"
-										+ new DataProp()
-												.getString("HEXAA_HOST"), "-p",
-								new DataProp().getString("SSH_PORT"),
-								"~/cachedrop.sh" });
+				proc = rt.exec(new String[] {
+						"ssh",
+						data.getString("ssh_user") + "@"
+								+ data.getString("ssh_host"), "-p",
+						data.getString("ssh_port"), "~/cachedrop.sh" });
 			}
 
 			// any error message?
@@ -102,8 +102,8 @@ public final class DatabaseManipulator {
 			System.out.println("ExitValue: " + exitVal);
 
 		} catch (IOException | InterruptedException ex) {
-			Logger.getLogger(DatabaseManipulator.class.getName()).log(
-					Level.SEVERE, null, ex);
+			System.err
+					.println("The ssh connection failed before or during removing the cache.");
 		}
 	}
 
@@ -115,27 +115,28 @@ public final class DatabaseManipulator {
 	 * @return String, the one time use token to enable the service.
 	 */
 	public String getServiceEnableToken() {
+		DataLoader data = new DataProp();
 		String output = new String();
+
 		try {
 
 			Runtime rt = Runtime.getRuntime();
 
 			Process proc;
 
-			if (new DataProp().getString("HEXAA_HOST").equals("localhost")) {
+			if (new DataProp().getString("ssh_host").equals("localhost")) {
 				// Call for server side script if it runs on the server
 				proc = rt
-						.exec(new String[] { "/var/lib/jenkins/getservicekey.sh" });
+						.exec(new String[] { "mysql --user=root --password=pass hexaa -e \"SELECT enable_token FROM service;\"" });
 			} else {
 				// Call for server side script remotely
 				proc = rt
 						.exec(new String[] {
 								"ssh",
-								"root@"
-										+ new DataProp()
-												.getString("HEXAA_HOST"),
+								data.getString("ssh_user") + "@"
+										+ data.getString("ssh_host"),
 								"-p",
-								new DataProp().getString("SSH_PORT"),
+								data.getString("ssh_port"),
 								"mysql --user=root --password=pass hexaa -e \"SELECT enable_token FROM service;\"" });
 			}
 
@@ -166,8 +167,8 @@ public final class DatabaseManipulator {
 			// System.out.println("ExitValue: " + exitVal);
 
 		} catch (IOException | InterruptedException ex) {
-			Logger.getLogger(DatabaseManipulator.class.getName()).log(
-					Level.SEVERE, null, ex);
+			System.err
+					.println("The ssh connection failed before or during getting the service enable token.");
 		}
 		return output;
 	}
