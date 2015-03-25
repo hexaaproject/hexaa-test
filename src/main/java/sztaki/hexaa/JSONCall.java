@@ -257,12 +257,6 @@ public class JSONCall extends BasicCall {
 	/**
 	 * Most basic call type, use it with care. For more possibility see
 	 * {@link JSONCall#getResponseJSONArray(String, REST, String, int, int, String)}.
-	 * {@link Utility#attributevalueorganization(String[], int, int)}
-	 * 
-	 * @see sztaki.hexaa.JSONCall#getResponseJSONArray(String, REST, String,
-	 *      int, int, String)
-	 *      
-	 * @see Exception#Exception()
 	 *
 	 * @param path
 	 *            String, the relative path from the host.
