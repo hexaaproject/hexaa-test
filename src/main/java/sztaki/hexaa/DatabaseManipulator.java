@@ -153,12 +153,8 @@ public final class DatabaseManipulator {
 			try {
 				proc = rt
 						.exec(new String[] {
-								"/bin/bash",
-								"mysql --user="
-										+ data.getString("mysql_user")
-										+ " --password="
-										+ data.getString("mysql_pass")
-										+ " hexaa -e \"SELECT enable_token FROM service;\"" });
+								data.getString("sh_dir")
+								+ "getservicekey.sh" });
 			} catch (IOException ex) {
 				System.err
 						.println("The local execution failed before or during getting the service enable token.");
@@ -175,11 +171,8 @@ public final class DatabaseManipulator {
 										+ data.getString("ssh_host"),
 								"-p",
 								data.getString("ssh_port"),
-								"mysql --user="
-										+ data.getString("mysql_user")
-										+ " --password="
-										+ data.getString("mysql_pass")
-										+ " hexaa -e \"SELECT enable_token FROM service;\"" });
+								data.getString("sh_dir")
+								+ "getservicekey.sh" });
 			} catch (IOException ex) {
 				System.err
 						.println("The ssh connection failed before or during getting the service enable token.");
