@@ -186,6 +186,7 @@ public final class DatabaseManipulator {
 			BufferedReader br = new BufferedReader(isr);
 			String line;
 			while ((line = br.readLine()) != null) {
+				System.out.println(line);
 				if (line.contains("-")) {
 					output = line;
 				}
