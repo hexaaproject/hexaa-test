@@ -89,7 +89,7 @@ public final class DatabaseManipulator {
 						+ "cachedrop.sh" });
 			} catch (IOException ex) {
 				System.err
-						.println("The ssh connection failed before or during removing the cache.");
+						.println("The local execution failed before or during removing the cache.");
 				return;
 			}
 		} else {
@@ -153,7 +153,7 @@ public final class DatabaseManipulator {
 						.exec(new String[] { "mysql --user=root --password=pass hexaa -e \"SELECT enable_token FROM service;\"" });
 			} catch (IOException ex) {
 				System.err
-						.println("The ssh connection failed before or during getting the service enable token.");
+						.println("The local execution failed before or during getting the service enable token.");
 				return "";
 			}
 		} else {
