@@ -97,6 +97,28 @@
         </dependencies>
       </plugin>
 
+      <plugin>
+        <artifactId>maven-clean-plugin</artifactId>
+        <version>2.6.1</version>
+        <configuration>
+          <filesets>
+            <fileset>
+              <directory>target/surefire-reports</directory>
+              <includes>
+                <include>TEST-*.xml</include>
+                <include>**.txt</include>
+              </includes>
+<!--              <excludes>
+                <exclude>**/important.log</exclude>
+                <exclude>**/another-important.log</exclude>
+              </excludes>-->
+              <followSymlinks>false</followSymlinks>
+            </fileset>
+          </filesets>
+        </configuration>
+      </plugin>
+
+
     </plugins>
   </build>
 </project>
