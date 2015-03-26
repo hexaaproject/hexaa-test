@@ -91,6 +91,7 @@ public final class DatabaseManipulator {
 			} catch (IOException ex) {
 				System.err
 						.println("The local execution failed before or during removing the cache.");
+				System.err.println(ex.getStackTrace());
 				return;
 			}
 		} else {
@@ -157,6 +158,7 @@ public final class DatabaseManipulator {
 			} catch (IOException ex) {
 				System.err
 						.println("The local execution failed before or during getting the service enable token.");
+				System.err.println(ex.getStackTrace());
 				return "";
 			}
 		} else {
