@@ -149,8 +149,10 @@ public final class DatabaseManipulator {
 		if (new DataProp().getString("ssh_host").equals("localhost")) {
 			// Call for server side script if it runs on the server
 			try {
-				proc = rt
-						.exec(new String[] { "mysql --user=root --password=pass hexaa -e \"SELECT enable_token FROM service;\"" });
+				proc = rt.exec(new String[] { "mysql --user="
+						+ data.getString("mysql_user") + " --password="
+						+ data.getString("mysql_pass")
+						+ " hexaa -e \"SELECT enable_token FROM service;\"" });
 			} catch (IOException ex) {
 				System.err
 						.println("The local execution failed before or during getting the service enable token.");
@@ -166,7 +168,11 @@ public final class DatabaseManipulator {
 										+ data.getString("ssh_host"),
 								"-p",
 								data.getString("ssh_port"),
-								"mysql --user=root --password=pass hexaa -e \"SELECT enable_token FROM service;\"" });
+								"mysql --user="
+										+ data.getString("mysql_user")
+										+ " --password="
+										+ data.getString("mysql_pass")
+										+ " hexaa -e \"SELECT enable_token FROM service;\"" });
 			} catch (IOException ex) {
 				System.err
 						.println("The ssh connection failed before or during getting the service enable token.");
